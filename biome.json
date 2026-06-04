@@ -1,0 +1,58 @@
+{
+   "$schema": "https://biomejs.dev/schemas/2.4.0/schema.json",
+   "vcs": {
+      "enabled": false,
+      "clientKind": "git",
+      "useIgnoreFile": false
+   },
+   "files": {
+      "ignoreUnknown": false,
+      "includes": ["packages/**/*.ts", "packages/**/*.tsx", "packages/**/*.css"]
+   },
+   "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 3,
+      "lineWidth": 120
+   },
+   "assist": { "actions": { "source": { "organizeImports": "on" } } },
+   "linter": {
+      "enabled": true,
+      "rules": {
+         "recommended": true,
+         "a11y": "off",
+         "performance": {
+            "noDelete": "warn"
+         },
+         "suspicious": {
+            "noExplicitAny": "warn",
+            "noArrayIndexKey": "warn"
+         },
+         "style": {
+            "useSelfClosingElements": "off",
+            "noNonNullAssertion": "warn",
+            "useExponentiationOperator": "warn",
+            "noParameterAssign": "warn",
+            "useAsConstAssertion": "error",
+            "useDefaultParameterLast": "error",
+            "useEnumInitializers": "error",
+            "useSingleVarDeclarator": "error",
+            "noUnusedTemplateLiteral": "error",
+            "useNumberNamespace": "error",
+            "noInferrableTypes": "error",
+            "noUselessElse": "error"
+         },
+         "complexity": {
+            "noForEach": "off"
+         },
+         "correctness": {
+            "useHookAtTopLevel": "warn"
+         }
+      }
+   },
+   "javascript": {
+      "formatter": {
+         "quoteStyle": "double"
+      }
+   }
+}

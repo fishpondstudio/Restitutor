@@ -1,0 +1,37 @@
+name: Steam Build (Beta)
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  run-script:
+    runs-on: [self-hosted]
+    if: contains(github.event.head_commit.message, '[build]') || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+      - run: |
+          git checkout .
+          git pull --rebase
+          git submodule update --recursive --remote --init
+          pnpm install
+        working-directory: /home/insraq/Restitutor
+      - run: |
+          npm run publish
+        working-directory: /home/insraq/Restitutor/packages/electron
+        env:
+          STEAMWORKS_PATH: /home/insraq/steamworks/tools/ContentBuilder/
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - run: |
+          git add packages/client/src/version.json
+          git commit -m "[skip ci] New Build" || echo "There's nothing to commit"
+          git push
+        working-directory: /home/insraq/Restitutor/

@@ -1,0 +1,11 @@
+.production-node {
+   color: var(--mantine-color-dark-1);
+   border: 2px solid var(--mantine-color-dark-2);
+   border-radius: 5px;
+   width: var(--production-node-width);
+   height: var(--production-node-height);
+}
+
+.production-node-handle {
+   visibility: hidden;
+}

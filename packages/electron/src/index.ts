@@ -1,0 +1,113 @@
+import path from "node:path";
+import { type Client, init, shutdown } from "@fishpondstudio/steamworks.js";
+import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
+import { ensureDirSync, existsSync, renameSync } from "fs-extra";
+import { IPCService } from "./IPCService";
+
+export type SteamClient = Omit<Client, "init" | "runCallbacks">;
+const ProductName = "Restitutor";
+
+app.commandLine.appendSwitch("enable-logging", "file");
+
+ensureDirSync(getLocalGameSavePath());
+ensureDirSync(getGameSavePath());
+
+const logPath = path.join(getLocalGameSavePath(), `${ProductName}.log`);
+if (existsSync(logPath)) {
+   renameSync(logPath, path.join(getLocalGameSavePath(), `${ProductName}-prev.log`));
+}
+
+app.commandLine.appendSwitch("log-file", logPath);
+app.commandLine.appendSwitch("enable-experimental-web-platform-features");
+
+export function getGameSavePath(): string {
+   return path.join(app.getPath("appData"), `${ProductName}Saves`);
+}
+
+export function getLocalGameSavePath(): string {
+   return path.join(app.getPath("appData"), `${ProductName}Local`);
+}
+
+export const MIN_WIDTH = 1136;
+export const MIN_HEIGHT = 640;
+
+const createWindow = async () => {
+   try {
+      const steam = init();
+
+      // if (app.isPackaged && steam.apps.currentBetaName() !== "beta") {
+      //    dialog.showErrorBox(
+      //       "Switch To Beta Branch",
+      //       "Play testing requires switching to the beta branch on Steam first",
+      //    );
+      //    quit();
+      // }
+
+      const mainWindow = new BrowserWindow({
+         webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            devTools: !app.isPackaged,
+            backgroundThrottling: false,
+         },
+         minHeight: MIN_HEIGHT,
+         minWidth: MIN_WIDTH,
+         show: false,
+         backgroundColor: "#000000",
+      });
+
+      if (app.isPackaged) {
+         mainWindow.loadFile(path.join(__dirname, "..", "dist", "index.html"));
+         mainWindow.webContents.openDevTools();
+      } else {
+         mainWindow.loadURL("http://localhost:5173/");
+         mainWindow.webContents.openDevTools();
+      }
+
+      mainWindow.removeMenu();
+      mainWindow.maximize();
+      mainWindow.show();
+
+      if (steam.utils.isSteamRunningOnSteamDeck()) {
+         mainWindow.setFullScreen(true);
+      }
+
+      mainWindow.on("close", (e) => {
+         e.preventDefault();
+         dialog
+            .showMessageBox({
+               type: "info",
+               title: `Save and Exit ${ProductName}`,
+               message: `Are you sure to save the game and exit ${ProductName}?`,
+               buttons: ["Yes", "No"],
+            })
+            .then((result) => {
+               if (result.response === 0) {
+                  mainWindow.webContents.send("close");
+               }
+            });
+      });
+
+      const service = new IPCService(steam);
+
+      ipcMain.handle("__RPCCall", (e, method: keyof IPCService, args) => {
+         // @ts-expect-error
+         return service[method].apply(service, args);
+      });
+   } catch (error) {
+      dialog.showErrorBox("Failed to Start Game", String(error));
+      quit();
+   }
+};
+
+Menu.setApplicationMenu(null);
+
+app.on("ready", createWindow);
+
+app.on("window-all-closed", () => {
+   quit();
+});
+
+function quit() {
+   shutdown();
+   app.quit();
+}

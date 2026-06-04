@@ -1,0 +1,207 @@
+.box {
+   border: 1px solid var(--mantine-color-dark-3);
+   border-radius: var(--mantine-radius-default);
+
+   &.blue {
+      border: 1px solid var(--mantine-color-blue-4);
+   }
+   &.green {
+      border: 1px solid var(--mantine-color-green-4);
+   }
+   &.red {
+      border: 1px solid var(--mantine-color-red-4);
+   }
+   &.primary {
+      border: 1px solid var(--mantine-primary-color-4);
+   }
+   &.yellow {
+      border: 1px solid var(--mantine-color-yellow-4);
+   }
+   > .h1:first-child,
+   > .h2:first-child {
+      border-top: none;
+   }
+}
+
+.panel {
+   background-image:
+      url("../assets/images/Background9.png"),
+      linear-gradient(to bottom, var(--mantine-color-violet-5), var(--mantine-color-violet-9));
+   background-origin: border-box;
+   background-clip: padding-box, border-box;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+   border: double 2px transparent;
+   border-radius: var(--mantine-radius-default);
+   overflow: hidden;
+
+   .header {
+      background-image: url("../assets/images/H1Dark.svg");
+      background-color: var(--mantine-primary-color-filled-hover);
+      color: var(--mantine-color-gray-0);
+      text-shadow: 1px 1px 0 var(--mantine-color-dark-5);
+      border-bottom: 1px solid var(--mantine-color-violet-5);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 6px 10px;
+      font-size: 19px;
+   }
+
+   .h1,
+   .h2 {
+      background-image: url("../assets/images/H1Dark.svg");
+      background-color: rgba(255, 255, 255, 0.03);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+      padding: 5px 10px;
+      color: var(--mantine-color-gray-0);
+      text-shadow: 1px 1px 0 var(--mantine-color-dark-5);
+      font-family: "TitleFont", serif;
+      font-size: 17px;
+   }
+
+   .h2 {
+      font-size: 15px;
+   }
+
+   .h3 {
+      padding: 5px 10px;
+      font-size: 15px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.05));
+      color: var(--mantine-color-gray-0);
+      text-shadow: 1px 1px 0 var(--mantine-color-dark-5);
+      font-family: "TitleFont", serif;
+   }
+}
+
+:root {
+   --resource-panel-height: 70px;
+}
+
+.resource-panel {
+   position: absolute;
+   top: 10px;
+   left: 10px;
+   font-size: var(--mantine-font-size-sm);
+   color: var(--mantine-color-gray-0);
+   text-shadow: 1px 1px 0 var(--mantine-color-gray-9);
+   line-height: 1;
+   height: var(--resource-panel-height);
+   img {
+      display: block;
+   }
+}
+
+.left-panel {
+   position: absolute;
+   top: calc(10px + var(--resource-panel-height) + 10px);
+   left: 10px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   flex-wrap: wrap;
+   height: calc(100vh - var(--resource-panel-height) - 20px - 65px);
+   gap: 10px;
+   .item {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: var(--hand-cursor);
+      background-image: url("../assets/images/Paper1.png");
+      background-color: var(--mantine-color-dark-7);
+      box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.25);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-radius: var(--mantine-radius-default);
+      overflow: hidden;
+      img {
+         width: 30px;
+         height: 30px;
+      }
+      &.red {
+         background-color: var(--mantine-color-red-filled-hover);
+         &:hover {
+            background-color: var(--mantine-color-red-filled);
+         }
+      }
+      &.green {
+         background-color: var(--mantine-color-green-filled-hover);
+         &:hover {
+            background-color: var(--mantine-color-green-filled);
+         }
+      }
+      &.blue {
+         background-color: var(--mantine-color-blue-filled-hover);
+         &:hover {
+            background-color: var(--mantine-color-blue-filled);
+         }
+      }
+      &.primary {
+         background-color: var(--mantine-primary-color-filled-hover);
+         &:hover {
+            background-color: var(--mantine-primary-color-filled);
+         }
+      }
+      &.yellow {
+         background-color: var(--mantine-color-yellow-filled-hover);
+         &:hover {
+            background-color: var(--mantine-color-yellow-filled);
+         }
+      }
+   }
+}
+
+.top-right-panel {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   height: 35px;
+   img {
+      opacity: 0.75;
+      &:hover {
+         opacity: 1;
+         cursor: var(--hand-cursor);
+      }
+      transition: opacity 0.2s ease-in-out;
+   }
+}
+
+.pause-panel {
+   position: absolute;
+   top: 6px;
+   left: 50%;
+   transform: translateX(-50%);
+   height: 62px;
+   width: 142px;
+   background-image: url("../assets/images/PaperScroll.png");
+   background-size: 100% 100%;
+   padding: 5px 0 0 0;
+   color: var(--mantine-primary-color-7);
+   font-family: "TitleFont", serif;
+   font-size: 22px;
+   line-height: 1;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   gap: 5px;
+   cursor: var(--hand-cursor);
+}
+
+.bottom-panel {
+   position: absolute;
+   bottom: 10px;
+   left: 50%;
+   transform: translateX(-50%);
+}
+
+.tutorial-panel {
+   width: 400px;
+   position: absolute;
+   bottom: 10px;
+   left: 10px;
+}

@@ -1,0 +1,68 @@
+0.7 Plan:
+- Tutorial for Senate
+- Tutorial for Spouse
+- Senate Action: Boost Social Class Loyalty
+- Senate Action: Boost Prestige
+- Map icons
+- Break truce
+
+0.7 Done:
+- Chronicle
+- Christianity rework
+- Restoration in Internal Affairs
+
+DONE
+- Event Log
+- Production/Trade AI
+- Autonomy QoL (Apply to All)
+- More TimedActions that cost goods.
+- Social Class revamp
+- Senate election is too frequent?
+- Trade & War
+- Tick Trade
+- Trade Capacity
+- War plunder
+- Appoint General Todo
+- Upgrade General Skill Todo
+- Local Autonomy
+- Social Class influence bug?
+- Multiple war
+- AI War
+- Grant a casus belli when defender has to cede land
+- Social Class Dissent penalty rework (currently too much?)
+- Diplomatic Relations
+- Reduce Sabotage cost/duration
+- Social Class dissent "TODO"
+- View ongoing wars in Diplomacy Page
+- Ongoing war icons for different roles
+- Election AI
+- Great Power Actions
+- Social Class
+- Army Unit Tech Tree
+- Infantry/Ranged/Cavalry level (Tech)
+- General
+- Production Chains
+- Army upgrades
+- Implement Fortify Borders
+- Refactor `CostButton` so that the condition takes an `IConditionBreakdown`
+- Merge the function of `ConditionActionButton` to `CostButton`
+- Overextension
+- Tech Tree
+- Building
+- Events
+- AI
+- Legacy Point
+- Bankruptcy
+- Truce
+- Governor Rotation / Marriage
+- Denounce
+- Select mission todo
+- Province specific missions
+- Modal Layers
+- Overextension Todo
+- Mission Progress
+- "New Alliance System"
+- Rework Military
+- Research Tech Todo
+- Diplomatic Annexation
+- Different Casus Belli effects

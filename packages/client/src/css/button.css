@@ -1,0 +1,77 @@
+.btn {
+   font-family: "TitleFont", serif;
+   border: 1px solid var(--mantine-color-dark-5);
+   box-shadow:
+      inset 0 -2px 0 0 var(--mantine-color-dark-4),
+      inset 0 0 1px 1px var(--mantine-color-dark-3),
+      0 1px 2px 1px rgba(0, 0, 0, 0.3);
+   background-color: var(--mantine-color-dark-5);
+   background-image: url("../assets/images/ButtonDark.svg");
+   color: var(--mantine-color-gray-0);
+   text-shadow: 1px 1px 0 var(--mantine-color-gray-9);
+   border-radius: var(--mantine-radius-default);
+   cursor: var(--hand-cursor);
+   &:enabled:hover {
+      background-color: var(--mantine-color-dark-4);
+   }
+   &:enabled:active {
+      background-color: var(--mantine-color-dark-5);
+   }
+   position: relative;
+   .fixed-right {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+   }
+}
+
+.btn.primary {
+   border: 1px solid var(--mantine-primary-color-7);
+   box-shadow:
+      inset 0 -2px 0 0 var(--mantine-primary-color-6),
+      inset 0 0 1px 1px var(--mantine-primary-color-4),
+      0 1px 2px 1px rgba(0, 0, 0, 0.3);
+   background-color: var(--mantine-primary-color-7);
+   background-image: url("../assets/images/ButtonDark.svg");
+   color: var(--mantine-color-gray-0);
+   text-shadow: 1px 1px 0 var(--mantine-color-gray-9);
+   &:enabled:hover {
+      background-color: var(--mantine-primary-color-6);
+   }
+   &:enabled:active {
+      background-color: var(--mantine-primary-color-7);
+   }
+}
+
+.btn.red {
+   color: var(--mantine-color-red-text);
+}
+
+.btn.green {
+   color: var(--mantine-color-green-text);
+}
+
+.btn:disabled {
+   opacity: 0.5;
+   cursor: not-allowed;
+   filter: grayscale(1);
+}
+
+.btn:active {
+   transform: translateY(1px);
+}
+
+.btn:disabled:active {
+   transform: none;
+}
+
+.btn.filled {
+   background: var(--mantine-color-dark-9);
+   color: var(--mantine-color-dark-0);
+   border: 1px solid var(--mantine-color-dark-7);
+}
+
+.btn.filled:disabled {
+   background: var(--mantine-color-dark-9);
+}

@@ -1,0 +1,48 @@
+.react-flow__controls-button {
+   border-radius: 5px;
+   background-color: var(--mantine-color-dark-0);
+}
+
+.family-node {
+   border: 1px solid var(--mantine-color-dark-3);
+   color: var(--mantine-color-dark-1);
+   border-radius: 5px;
+   width: var(--family-node-width);
+   height: var(--family-node-height);
+   display: flex;
+   flex-direction: column;
+}
+
+.family-node-handle {
+   visibility: hidden;
+}
+
+.react-flow__renderer {
+   background-image:
+      url("../assets/images/Background9.png"),
+      linear-gradient(to bottom, var(--mantine-color-violet-5), var(--mantine-color-violet-9));
+}
+
+.react-flow.dark {
+   --xy-edge-stroke-default: var(--mantine-color-dark-3);
+}
+
+.react-flow__controls {
+   gap: 5px;
+}
+
+.react-flow__controls button {
+   border: 1px solid var(--mantine-color-dark-5);
+   box-shadow:
+      inset 0 -2px 0 0 var(--mantine-color-dark-4),
+      inset 0 0 1px 1px var(--mantine-color-dark-3),
+      0 1px 2px 1px rgba(0, 0, 0, 0.3);
+   background-color: var(--mantine-color-dark-5);
+   &:hover {
+      background-color: var(--mantine-color-dark-4);
+   }
+   &:active {
+      background-color: var(--mantine-color-dark-5);
+      transform: translateY(1px);
+   }
+}

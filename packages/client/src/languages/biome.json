@@ -1,0 +1,13 @@
+{
+   "root": false,
+   "$schema": "../../../../node_modules/@biomejs/biome/configuration_schema.json",
+   "assist": { "actions": { "source": { "organizeImports": "off" } } },
+   "linter": {
+      "enabled": false
+   },
+   "formatter": {
+      "lineWidth": 320,
+      "indentStyle": "space",
+      "indentWidth": 3
+   }
+}

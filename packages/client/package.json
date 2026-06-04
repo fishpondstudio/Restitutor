@@ -1,0 +1,48 @@
+{
+   "name": "client",
+   "private": true,
+   "version": "0.0.0",
+   "type": "module",
+   "scripts": {
+      "dev": "vite --debug hmr",
+      "build": "vite build",
+      "preview": "vite preview"
+   },
+   "dependencies": {
+      "@dagrejs/dagre": "^2.0.4",
+      "@dnd-kit/abstract": "^0.3.2",
+      "@dnd-kit/react": "^0.3.2",
+      "@floating-ui/core": "^1.7.1",
+      "@floating-ui/react": "^0.27.8",
+      "@mantine/core": "^9.1.0",
+      "@mantine/hooks": "^9.1.0",
+      "@mantine/notifications": "^9.1.0",
+      "@pixi/devtools": "^2.0.1",
+      "@pixi/graphics-smooth": "^1.1.1",
+      "@pixi/sound": "^5.2.3",
+      "@project/electron": "workspace:*",
+      "@project/shared": "workspace:*",
+      "@sentry/browser": "^9.27.0",
+      "@tanstack/react-virtual": "^3.13.10",
+      "@xyflow/react": "^12.10.1",
+      "html-react-parser": "^6.1.1",
+      "lz-string": "^1.5.0",
+      "open-simplex-noise": "^2.5.0",
+      "pixi-filters": "^5.3.0",
+      "pixi.js": "^7.4.3",
+      "react": "^19.2.5",
+      "react-dom": "^19.2.5",
+      "react-virtuoso": "^4.18.7"
+   },
+   "devDependencies": {
+      "@assetpack/core": "^1.7.0",
+      "@types/node": "^22.10.2",
+      "@types/react": "^19.2.0",
+      "@types/react-dom": "^19.2.0",
+      "@vitejs/plugin-react": "^6.0.0",
+      "postcss": "^8.4.49",
+      "postcss-preset-mantine": "^1.17.0",
+      "postcss-simple-vars": "^7.0.1",
+      "vite": "^8.0.10"
+   }
+}

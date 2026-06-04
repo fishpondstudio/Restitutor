@@ -1,0 +1,3866 @@
+{
+   "$type": "Map",
+   "value": [
+      [
+         8585300,
+         {
+            "terrain": "Plain",
+            "province": "Baetica",
+            "name": "Baelo"
+         }
+      ],
+      [
+         8585299,
+         {
+            "terrain": "Plain",
+            "province": "Baetica",
+            "name": "Suel"
+         }
+      ],
+      [
+         8650835,
+         {
+            "terrain": "Plain",
+            "province": "Baetica",
+            "name": "Malaca"
+         }
+      ],
+      [
+         8716371,
+         {
+            "terrain": "Hill",
+            "province": "Baetica",
+            "name": "Abdera"
+         }
+      ],
+      [
+         8519763,
+         {
+            "terrain": "Plain",
+            "province": "Baetica",
+            "name": "Gades",
+            "isCapital": true
+         }
+      ],
+      [
+         8519762,
+         {
+            "terrain": "Plain",
+            "province": "Baetica",
+            "name": "Hispalis"
+         }
+      ],
+      [
+         8585298,
+         {
+            "terrain": "Plain",
+            "province": "Baetica",
+            "name": "Astigi"
+         }
+      ],
+      [
+         8650834,
+         {
+            "terrain": "Plain",
+            "province": "Baetica",
+            "name": "Vergilia"
+         }
+      ],
+      [
+         8585297,
+         {
+            "terrain": "Plain",
+            "province": "Baetica",
+            "name": "Arva"
+         }
+      ],
+      [
+         8454223,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Avobriga"
+         }
+      ],
+      [
+         8519759,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Salmantica",
+            "isCapital": true
+         }
+      ],
+      [
+         8585296,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Capera"
+         }
+      ],
+      [
+         8519760,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Sentice"
+         }
+      ],
+      [
+         8454224,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Conimbriga"
+         }
+      ],
+      [
+         8388689,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Olisipo"
+         }
+      ],
+      [
+         8454225,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Ebora"
+         }
+      ],
+      [
+         8519761,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Emerita Augusta"
+         }
+      ],
+      [
+         8454226,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Pax Iulia"
+         }
+      ],
+      [
+         8388691,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Mirobriga"
+         }
+      ],
+      [
+         8454227,
+         {
+            "terrain": "Plain",
+            "province": "Lusitania",
+            "name": "Ossonoba"
+         }
+      ],
+      [
+         8454222,
+         {
+            "terrain": "Forest",
+            "province": "Tarraconensis",
+            "name": "Bracara Augusta"
+         }
+      ],
+      [
+         8519758,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Aquae Flaviae"
+         }
+      ],
+      [
+         8585294,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Ocelum Duri"
+         }
+      ],
+      [
+         8585295,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Consabrum"
+         }
+      ],
+      [
+         8650832,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Laminium"
+         }
+      ],
+      [
+         8388685,
+         {
+            "terrain": "Forest",
+            "province": "Tarraconensis",
+            "name": "Vicus Spacorum"
+         }
+      ],
+      [
+         8454220,
+         {
+            "terrain": "Forest",
+            "province": "Tarraconensis",
+            "name": "Lucus Augusti"
+         }
+      ],
+      [
+         8454221,
+         {
+            "terrain": "Hill",
+            "province": "Tarraconensis",
+            "name": "Forum Limicorum"
+         }
+      ],
+      [
+         8519756,
+         {
+            "terrain": "Hill",
+            "province": "Tarraconensis",
+            "name": "Flavionavia"
+         }
+      ],
+      [
+         8519757,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Brigaecium"
+         }
+      ],
+      [
+         8585292,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Gigia"
+         }
+      ],
+      [
+         8585293,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Palantia"
+         }
+      ],
+      [
+         8650830,
+         {
+            "terrain": "Hill",
+            "province": "Tarraconensis",
+            "name": "Mantua"
+         }
+      ],
+      [
+         8650831,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Toletum",
+            "isCapital": false
+         }
+      ],
+      [
+         8716368,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Libisosa"
+         }
+      ],
+      [
+         8650833,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Begastrum"
+         }
+      ],
+      [
+         8716370,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Asso"
+         }
+      ],
+      [
+         8781906,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Carthago Nova"
+         }
+      ],
+      [
+         8781905,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Ilici"
+         }
+      ],
+      [
+         8716369,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Ilorci"
+         }
+      ],
+      [
+         8781904,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Saetabis"
+         }
+      ],
+      [
+         8847440,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Lucentum"
+         }
+      ],
+      [
+         8978513,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Palma"
+         }
+      ],
+      [
+         8847439,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Valentia"
+         }
+      ],
+      [
+         8781903,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Edeta"
+         }
+      ],
+      [
+         8716367,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Valeria"
+         }
+      ],
+      [
+         8847438,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Celsa"
+         }
+      ],
+      [
+         8912974,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Dertosa"
+         }
+      ],
+      [
+         8978510,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Tarraco"
+         }
+      ],
+      [
+         8978509,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Barcino"
+         }
+      ],
+      [
+         8912973,
+         {
+            "terrain": "Hill",
+            "province": "Tarraconensis",
+            "name": "Ilerda"
+         }
+      ],
+      [
+         8847437,
+         {
+            "terrain": "Mountain",
+            "province": "Tarraconensis",
+            "name": "Osca"
+         }
+      ],
+      [
+         8781901,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Caesaraugusta",
+            "isCapital": true
+         }
+      ],
+      [
+         8781902,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Bilbilis"
+         }
+      ],
+      [
+         8716366,
+         {
+            "terrain": "Hill",
+            "province": "Tarraconensis",
+            "name": "Segovia"
+         }
+      ],
+      [
+         8716365,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Calagurris Iulia"
+         }
+      ],
+      [
+         8650829,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Clunia Sulpicia"
+         }
+      ],
+      [
+         8650828,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Iuliobriga"
+         }
+      ],
+      [
+         8716364,
+         {
+            "terrain": "Plain",
+            "province": "Tarraconensis",
+            "name": "Flaviobriga"
+         }
+      ],
+      [
+         8781900,
+         {
+            "terrain": "Forest",
+            "province": "Tarraconensis",
+            "name": "Lapurdum"
+         }
+      ],
+      [
+         8847436,
+         {
+            "terrain": "Hill",
+            "province": "Tarraconensis",
+            "name": "Tarba"
+         }
+      ],
+      [
+         8912972,
+         {
+            "terrain": "Hill",
+            "province": "Narbonensis",
+            "name": "Tolosa"
+         }
+      ],
+      [
+         8912971,
+         {
+            "terrain": "Plain",
+            "province": "Narbonensis",
+            "name": "Baeterrae"
+         }
+      ],
+      [
+         8978508,
+         {
+            "terrain": "Plain",
+            "province": "Narbonensis",
+            "name": "Narbo Martius",
+            "isCapital": true
+         }
+      ],
+      [
+         8978507,
+         {
+            "terrain": "Plain",
+            "province": "Narbonensis",
+            "name": "Agatha"
+         }
+      ],
+      [
+         9044043,
+         {
+            "terrain": "Plain",
+            "province": "Narbonensis",
+            "name": "Arelate"
+         }
+      ],
+      [
+         9044042,
+         {
+            "terrain": "Hill",
+            "province": "Narbonensis",
+            "name": "Nemausus"
+         }
+      ],
+      [
+         9109578,
+         {
+            "terrain": "Plain",
+            "province": "Narbonensis",
+            "name": "Aquae Sextiae"
+         }
+      ],
+      [
+         9175114,
+         {
+            "terrain": "Hill",
+            "province": "Narbonensis",
+            "name": "Reiorum"
+         }
+      ],
+      [
+         9109579,
+         {
+            "terrain": "Plain",
+            "province": "Narbonensis",
+            "name": "Massilia"
+         }
+      ],
+      [
+         9175115,
+         {
+            "terrain": "Hill",
+            "province": "Narbonensis",
+            "name": "Antipolis"
+         }
+      ],
+      [
+         9109577,
+         {
+            "terrain": "Mountain",
+            "province": "Narbonensis",
+            "name": "Darantasia"
+         }
+      ],
+      [
+         9175112,
+         {
+            "terrain": "Mountain",
+            "province": "Narbonensis",
+            "name": "Augusta Praetoria"
+         }
+      ],
+      [
+         9175113,
+         {
+            "terrain": "Hill",
+            "province": "Italia",
+            "name": "Taurinorum"
+         }
+      ],
+      [
+         8781895,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Becciacum"
+         }
+      ],
+      [
+         8847431,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Caesarodunum"
+         }
+      ],
+      [
+         8912967,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Avaricum"
+         }
+      ],
+      [
+         8978503,
+         {
+            "terrain": "Forest",
+            "province": "Lugdunensis",
+            "name": "Augustodunum"
+         }
+      ],
+      [
+         8978502,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Autessiodurum"
+         }
+      ],
+      [
+         9044040,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Ludna"
+         }
+      ],
+      [
+         8978504,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Argentomagus"
+         }
+      ],
+      [
+         9044041,
+         {
+            "terrain": "Forest",
+            "province": "Lugdunensis",
+            "name": "Lugdunum"
+         }
+      ],
+      [
+         8978505,
+         {
+            "terrain": "Forest",
+            "province": "Aquitania",
+            "name": "Segusiavorum"
+         }
+      ],
+      [
+         8978506,
+         {
+            "terrain": "Forest",
+            "province": "Aquitania",
+            "name": "Umbennum"
+         }
+      ],
+      [
+         8912970,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Ruessium"
+         }
+      ],
+      [
+         8847435,
+         {
+            "terrain": "Forest",
+            "province": "Aquitania",
+            "name": "Segodunum"
+         }
+      ],
+      [
+         8781899,
+         {
+            "terrain": "Forest",
+            "province": "Aquitania",
+            "name": "Terebellicae"
+         }
+      ],
+      [
+         8847434,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Burdigala",
+            "isCapital": true
+         }
+      ],
+      [
+         8781897,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Iculisma"
+         }
+      ],
+      [
+         8847433,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Augustoritum"
+         }
+      ],
+      [
+         8912969,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Augustonemetum"
+         }
+      ],
+      [
+         8912968,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Limonum"
+         }
+      ],
+      [
+         8847432,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Novioritum"
+         }
+      ],
+      [
+         9240648,
+         {
+            "terrain": "Hill",
+            "province": "Italia",
+            "name": "Vercellae"
+         }
+      ],
+      [
+         9306184,
+         {
+            "terrain": "Hill",
+            "province": "Italia",
+            "name": "Novaria"
+         }
+      ],
+      [
+         9371720,
+         {
+            "terrain": "Hill",
+            "province": "Italia",
+            "name": "Mediolanum"
+         }
+      ],
+      [
+         9437256,
+         {
+            "terrain": "Hill",
+            "province": "Italia",
+            "name": "Brixia"
+         }
+      ],
+      [
+         9502792,
+         {
+            "terrain": "Hill",
+            "province": "Italia",
+            "name": "Altinum"
+         }
+      ],
+      [
+         9568328,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Aquileia"
+         }
+      ],
+      [
+         9437257,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Patavium"
+         }
+      ],
+      [
+         9306185,
+         {
+            "terrain": "Forest",
+            "province": "Italia",
+            "name": "Placentia"
+         }
+      ],
+      [
+         9371721,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Verona"
+         }
+      ],
+      [
+         9240649,
+         {
+            "terrain": "Forest",
+            "province": "Italia",
+            "name": "Dertona"
+         }
+      ],
+      [
+         9240650,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Cemenelum"
+         }
+      ],
+      [
+         9306186,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Albingaunum"
+         }
+      ],
+      [
+         9371722,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Genua"
+         }
+      ],
+      [
+         9437258,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Luna"
+         }
+      ],
+      [
+         9502794,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Ravenna"
+         }
+      ],
+      [
+         9502795,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Ancona"
+         }
+      ],
+      [
+         9437259,
+         {
+            "terrain": "Forest",
+            "province": "Italia",
+            "name": "Pisae"
+         }
+      ],
+      [
+         9437260,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Populonia"
+         }
+      ],
+      [
+         9502796,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Cosae"
+         }
+      ],
+      [
+         9568332,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Asculum"
+         }
+      ],
+      [
+         9502797,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Roma",
+            "isCapital": true
+         }
+      ],
+      [
+         9568333,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Aternum"
+         }
+      ],
+      [
+         9568334,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Neapolis"
+         }
+      ],
+      [
+         9633870,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Pompeii"
+         }
+      ],
+      [
+         9699406,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Canusium"
+         }
+      ],
+      [
+         9633871,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Paestum"
+         }
+      ],
+      [
+         9699407,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Metapontum"
+         }
+      ],
+      [
+         9764943,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Brundisium"
+         }
+      ],
+      [
+         9699408,
+         {
+            "terrain": "Forest",
+            "province": "Italia",
+            "name": "Sybaris"
+         }
+      ],
+      [
+         9699409,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Regium"
+         }
+      ],
+      [
+         9699410,
+         {
+            "terrain": "Plain",
+            "province": "Sicilia",
+            "name": "Zancle"
+         }
+      ],
+      [
+         9633874,
+         {
+            "terrain": "Plain",
+            "province": "Sicilia",
+            "name": "Tyndaris"
+         }
+      ],
+      [
+         9568338,
+         {
+            "terrain": "Plain",
+            "province": "Sicilia",
+            "name": "Panormus"
+         }
+      ],
+      [
+         9568339,
+         {
+            "terrain": "Plain",
+            "province": "Sicilia",
+            "name": "Phintias"
+         }
+      ],
+      [
+         9633875,
+         {
+            "terrain": "Plain",
+            "isCapital": true,
+            "province": "Sicilia",
+            "name": "Syracusae"
+         }
+      ],
+      [
+         9306189,
+         {
+            "terrain": "Plain",
+            "isCapital": true,
+            "province": "Corsica",
+            "name": "Aleria"
+         }
+      ],
+      [
+         9306191,
+         {
+            "terrain": "Plain",
+            "province": "Sardinia",
+            "name": "Torres"
+         }
+      ],
+      [
+         9371728,
+         {
+            "isCapital": true,
+            "terrain": "Plain",
+            "province": "Sardinia",
+            "name": "Caralis"
+         }
+      ],
+      [
+         9568329,
+         {
+            "terrain": "Plain",
+            "province": "Italia",
+            "name": "Tergeste"
+         }
+      ],
+      [
+         9633865,
+         {
+            "terrain": "Plain",
+            "province": "Dalmatia",
+            "name": "Tarsatica"
+         }
+      ],
+      [
+         9699402,
+         {
+            "terrain": "Plain",
+            "province": "Dalmatia",
+            "name": "Ortopla"
+         }
+      ],
+      [
+         9699403,
+         {
+            "terrain": "Hill",
+            "province": "Dalmatia",
+            "name": "Aenona"
+         }
+      ],
+      [
+         9764938,
+         {
+            "terrain": "Plain",
+            "province": "Dalmatia",
+            "name": "Splonum"
+         }
+      ],
+      [
+         9830474,
+         {
+            "terrain": "Plain",
+            "province": "Dalmatia",
+            "name": "Baloia"
+         }
+      ],
+      [
+         9764939,
+         {
+            "terrain": "Hill",
+            "province": "Dalmatia",
+            "name": "Salona",
+            "isCapital": true
+         }
+      ],
+      [
+         9830475,
+         {
+            "terrain": "Plain",
+            "province": "Dalmatia",
+            "name": "Delminium"
+         }
+      ],
+      [
+         9830476,
+         {
+            "terrain": "Hill",
+            "province": "Dalmatia",
+            "name": "Narona"
+         }
+      ],
+      [
+         9896012,
+         {
+            "terrain": "Forest",
+            "province": "Dalmatia",
+            "name": "Epidaurum"
+         }
+      ],
+      [
+         9699401,
+         {
+            "terrain": "Forest",
+            "province": "Dalmatia",
+            "name": "Metulum"
+         }
+      ],
+      [
+         9240647,
+         {
+            "terrain": "Hill",
+            "province": "Raetia",
+            "name": "Arae Flaviae"
+         }
+      ],
+      [
+         9306183,
+         {
+            "terrain": "Hill",
+            "province": "Raetia",
+            "name": "Cambodunum"
+         }
+      ],
+      [
+         9371719,
+         {
+            "terrain": "Mountain",
+            "province": "Raetia",
+            "name": "Curia"
+         }
+      ],
+      [
+         9306182,
+         {
+            "terrain": "Plain",
+            "province": "Raetia",
+            "name": "Ad Lunam"
+         }
+      ],
+      [
+         9371718,
+         {
+            "terrain": "Plain",
+            "province": "Raetia",
+            "name": "Summuntorium"
+         }
+      ],
+      [
+         9437254,
+         {
+            "terrain": "Plain",
+            "province": "Raetia",
+            "name": "Augusta Vindelicum",
+            "isCapital": true
+         }
+      ],
+      [
+         9371717,
+         {
+            "terrain": "Forest",
+            "province": "Raetia",
+            "name": "Mediana"
+         }
+      ],
+      [
+         9437253,
+         {
+            "terrain": "Plain",
+            "province": "Raetia",
+            "name": "Regina"
+         }
+      ],
+      [
+         9502789,
+         {
+            "terrain": "Forest",
+            "province": "Raetia",
+            "name": "Sorviodurum"
+         }
+      ],
+      [
+         9502790,
+         {
+            "terrain": "Plain",
+            "province": "Noricum",
+            "name": "Iuvavum"
+         }
+      ],
+      [
+         9568326,
+         {
+            "terrain": "Plain",
+            "province": "Noricum",
+            "name": "Ovilava"
+         }
+      ],
+      [
+         9633862,
+         {
+            "terrain": "Hill",
+            "province": "Noricum",
+            "name": "Lauriacum",
+            "isCapital": true
+         }
+      ],
+      [
+         9699398,
+         {
+            "terrain": "Forest",
+            "province": "Noricum",
+            "name": "Vindobona"
+         }
+      ],
+      [
+         9568327,
+         {
+            "terrain": "Hill",
+            "province": "Noricum",
+            "name": "Virunum"
+         }
+      ],
+      [
+         9502791,
+         {
+            "terrain": "Hill",
+            "province": "Noricum",
+            "name": "Tiburnia"
+         }
+      ],
+      [
+         9437255,
+         {
+            "terrain": "Hill",
+            "province": "Noricum",
+            "name": "Aguntum"
+         }
+      ],
+      [
+         9633863,
+         {
+            "terrain": "Forest",
+            "province": "Noricum",
+            "name": "Flavia Solva"
+         }
+      ],
+      [
+         9633864,
+         {
+            "terrain": "Plain",
+            "province": "Pannonia",
+            "name": "Poetovio"
+         }
+      ],
+      [
+         9699400,
+         {
+            "terrain": "Plain",
+            "province": "Pannonia",
+            "name": "Cibalae"
+         }
+      ],
+      [
+         9699399,
+         {
+            "terrain": "Plain",
+            "province": "Pannonia",
+            "name": "Mursa"
+         }
+      ],
+      [
+         9764934,
+         {
+            "terrain": "Forest",
+            "province": "Pannonia",
+            "name": "Gerulata"
+         }
+      ],
+      [
+         9764935,
+         {
+            "terrain": "Plain",
+            "province": "Pannonia",
+            "name": "Arrabona"
+         }
+      ],
+      [
+         9830471,
+         {
+            "terrain": "Forest",
+            "province": "Pannonia",
+            "name": "Aquincum",
+            "isCapital": true
+         }
+      ],
+      [
+         9764936,
+         {
+            "terrain": "Plain",
+            "province": "Pannonia",
+            "name": "Sirmium"
+         }
+      ],
+      [
+         9830472,
+         {
+            "terrain": "Plain",
+            "province": "Pannonia",
+            "name": "Bassiana"
+         }
+      ],
+      [
+         9764937,
+         {
+            "terrain": "Plain",
+            "province": "Pannonia",
+            "name": "Singidunum"
+         }
+      ],
+      [
+         9830473,
+         {
+            "terrain": "Plain",
+            "province": "Pannonia",
+            "name": "Margum"
+         }
+      ],
+      [
+         9896009,
+         {
+            "terrain": "Plain",
+            "province": "Pannonia",
+            "name": "Viminacium"
+         }
+      ],
+      [
+         9896014,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Dyrrhachium",
+            "isCapital": false
+         }
+      ],
+      [
+         9961550,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Lychnidos"
+         }
+      ],
+      [
+         10027086,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Herakleia"
+         }
+      ],
+      [
+         9961549,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Scupi"
+         }
+      ],
+      [
+         10027085,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Stobi"
+         }
+      ],
+      [
+         10092622,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Aigeai"
+         }
+      ],
+      [
+         10158158,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Amphipolis"
+         }
+      ],
+      [
+         10223694,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Philippi"
+         }
+      ],
+      [
+         10092623,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Torone"
+         }
+      ],
+      [
+         10027087,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Thessalonica",
+            "isCapital": true
+         }
+      ],
+      [
+         9961551,
+         {
+            "terrain": "Plain",
+            "province": "Macedonia",
+            "name": "Edessa"
+         }
+      ],
+      [
+         9896015,
+         {
+            "terrain": "Plain",
+            "province": "Epirus",
+            "name": "Byllis"
+         }
+      ],
+      [
+         9961552,
+         {
+            "terrain": "Plain",
+            "province": "Epirus",
+            "name": "Phoinike",
+            "isCapital": true
+         }
+      ],
+      [
+         9961553,
+         {
+            "terrain": "Plain",
+            "province": "Epirus",
+            "name": "Corcyra"
+         }
+      ],
+      [
+         10027088,
+         {
+            "terrain": "Plain",
+            "province": "Achaia",
+            "name": "Gonnoi"
+         }
+      ],
+      [
+         10027089,
+         {
+            "terrain": "Plain",
+            "province": "Achaia",
+            "name": "Demetrias"
+         }
+      ],
+      [
+         10092626,
+         {
+            "terrain": "Plain",
+            "province": "Achaia",
+            "name": "Athens",
+            "isCapital": true
+         }
+      ],
+      [
+         10027090,
+         {
+            "terrain": "Plain",
+            "province": "Achaia",
+            "name": "Stratos"
+         }
+      ],
+      [
+         10027091,
+         {
+            "terrain": "Plain",
+            "province": "Achaia",
+            "name": "Corinthus"
+         }
+      ],
+      [
+         10092629,
+         {
+            "terrain": "Plain",
+            "province": "Achaia",
+            "name": "Gortyna"
+         }
+      ],
+      [
+         10158165,
+         {
+            "terrain": "Plain",
+            "province": "Achaia",
+            "name": "Cnosos"
+         }
+      ],
+      [
+         9896013,
+         {
+            "terrain": "Forest",
+            "province": "Dalmatia",
+            "name": "Lissus"
+         }
+      ],
+      [
+         9961548,
+         {
+            "terrain": "Hill",
+            "province": "Moesia",
+            "name": "Ulpiana"
+         }
+      ],
+      [
+         10027084,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Iustiniana Prima"
+         }
+      ],
+      [
+         10092620,
+         {
+            "terrain": "Forest",
+            "province": "Moesia",
+            "name": "Serdica"
+         }
+      ],
+      [
+         10158156,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Kabyle"
+         }
+      ],
+      [
+         10223692,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Marcianopolis"
+         }
+      ],
+      [
+         10289228,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Odessus"
+         }
+      ],
+      [
+         10158155,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Abritus"
+         }
+      ],
+      [
+         10289227,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Callatis"
+         }
+      ],
+      [
+         10223691,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Durostorum",
+            "isCapital": true
+         }
+      ],
+      [
+         10223690,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Appiaria"
+         }
+      ],
+      [
+         10289226,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Tropaeum"
+         }
+      ],
+      [
+         10354762,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Tomis"
+         }
+      ],
+      [
+         10354761,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Histria"
+         }
+      ],
+      [
+         10289225,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Noviodunum"
+         }
+      ],
+      [
+         10223689,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Troesmis"
+         }
+      ],
+      [
+         9896010,
+         {
+            "terrain": "Forest",
+            "province": "Moesia",
+            "name": "Celegerorum"
+         }
+      ],
+      [
+         9961546,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Dasminium"
+         }
+      ],
+      [
+         9896011,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Dardanorum"
+         }
+      ],
+      [
+         9961547,
+         {
+            "terrain": "Forest",
+            "province": "Moesia",
+            "name": "Naissus"
+         }
+      ],
+      [
+         10027083,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Remesiana"
+         }
+      ],
+      [
+         10027082,
+         {
+            "terrain": "Plain",
+            "province": "Moesia",
+            "name": "Ratiaria"
+         }
+      ],
+      [
+         9961544,
+         {
+            "terrain": "Plain",
+            "province": "Dacia",
+            "name": "Berzobis"
+         }
+      ],
+      [
+         10027080,
+         {
+            "terrain": "Plain",
+            "province": "Dacia",
+            "name": "Blandiana"
+         }
+      ],
+      [
+         10092616,
+         {
+            "terrain": "Plain",
+            "province": "Dacia",
+            "name": "Apulum"
+         }
+      ],
+      [
+         10158152,
+         {
+            "terrain": "Plain",
+            "province": "Dacia",
+            "name": "Sacidava"
+         }
+      ],
+      [
+         10223688,
+         {
+            "terrain": "Hill",
+            "province": "Dacia",
+            "name": "Arcobara"
+         }
+      ],
+      [
+         10158151,
+         {
+            "terrain": "Hill",
+            "province": "Dacia",
+            "name": "Potaissa"
+         }
+      ],
+      [
+         10092615,
+         {
+            "terrain": "Plain",
+            "province": "Dacia",
+            "name": "Napoca",
+            "isCapital": true
+         }
+      ],
+      [
+         10027079,
+         {
+            "terrain": "Plain",
+            "province": "Dacia",
+            "name": "Porolissum"
+         }
+      ],
+      [
+         9961545,
+         {
+            "terrain": "Plain",
+            "province": "Dacia",
+            "name": "Tibiscum"
+         }
+      ],
+      [
+         10027081,
+         {
+            "terrain": "Forest",
+            "province": "Dacia",
+            "name": "Sarmizegetusa"
+         }
+      ],
+      [
+         10092617,
+         {
+            "terrain": "Hill",
+            "province": "Dacia",
+            "name": "Decidava"
+         }
+      ],
+      [
+         10158153,
+         {
+            "terrain": "Hill",
+            "province": "Dacia",
+            "name": "Cedonia"
+         }
+      ],
+      [
+         10158154,
+         {
+            "terrain": "Plain",
+            "province": "Dacia",
+            "name": "Romula"
+         }
+      ],
+      [
+         10092618,
+         {
+            "terrain": "Plain",
+            "province": "Dacia",
+            "name": "Montana"
+         }
+      ],
+      [
+         10092619,
+         {
+            "terrain": "Plain",
+            "province": "Dacia",
+            "name": "Oescus"
+         }
+      ],
+      [
+         10092621,
+         {
+            "terrain": "Hill",
+            "province": "Thracia",
+            "name": "Pautalia"
+         }
+      ],
+      [
+         10158157,
+         {
+            "terrain": "Hill",
+            "province": "Thracia",
+            "name": "Philippopolis",
+            "isCapital": true
+         }
+      ],
+      [
+         10223693,
+         {
+            "terrain": "Plain",
+            "province": "Thracia",
+            "name": "Bergoule"
+         }
+      ],
+      [
+         10289229,
+         {
+            "terrain": "Plain",
+            "province": "Thracia",
+            "name": "Bizye"
+         }
+      ],
+      [
+         10289230,
+         {
+            "terrain": "Plain",
+            "province": "Thracia",
+            "name": "Bisanthe"
+         }
+      ],
+      [
+         10354766,
+         {
+            "terrain": "Plain",
+            "province": "Thracia",
+            "name": "Selymbria"
+         }
+      ],
+      [
+         10223695,
+         {
+            "terrain": "Plain",
+            "province": "Thracia",
+            "name": "Ainos"
+         }
+      ],
+      [
+         10354767,
+         {
+            "terrain": "Plain",
+            "province": "Bithynia",
+            "name": "Byzantium",
+            "isCapital": true
+         }
+      ],
+      [
+         10420303,
+         {
+            "terrain": "Plain",
+            "province": "Bithynia",
+            "name": "Nicomedia"
+         }
+      ],
+      [
+         10485839,
+         {
+            "terrain": "Plain",
+            "province": "Bithynia",
+            "name": "Kieros"
+         }
+      ],
+      [
+         10551374,
+         {
+            "terrain": "Plain",
+            "province": "Bithynia",
+            "name": "Heraclea"
+         }
+      ],
+      [
+         10616910,
+         {
+            "terrain": "Forest",
+            "province": "Bithynia",
+            "name": "Tios"
+         }
+      ],
+      [
+         10682446,
+         {
+            "terrain": "Plain",
+            "province": "Bithynia",
+            "name": "Amastris"
+         }
+      ],
+      [
+         10747982,
+         {
+            "terrain": "Forest",
+            "province": "Bithynia",
+            "name": "Sinope"
+         }
+      ],
+      [
+         10551375,
+         {
+            "terrain": "Plain",
+            "province": "Bithynia",
+            "name": "Bithynion"
+         }
+      ],
+      [
+         10289232,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Sestos"
+         }
+      ],
+      [
+         10354768,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Hadrianoi"
+         }
+      ],
+      [
+         10420304,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Nicaea"
+         }
+      ],
+      [
+         10485840,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Dorylaion"
+         }
+      ],
+      [
+         10551376,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Midaion"
+         }
+      ],
+      [
+         10551377,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Laodikeia"
+         }
+      ],
+      [
+         10485841,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Antiochia"
+         }
+      ],
+      [
+         10420305,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Stektorion"
+         }
+      ],
+      [
+         10354769,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Philadelpheia"
+         }
+      ],
+      [
+         10289233,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Erythrai"
+         }
+      ],
+      [
+         10289234,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Ephesus"
+         }
+      ],
+      [
+         10354770,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Alinda"
+         }
+      ],
+      [
+         10420306,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Stratonikeia"
+         }
+      ],
+      [
+         10485842,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Selge"
+         }
+      ],
+      [
+         10354771,
+         {
+            "terrain": "Plain",
+            "province": "Asia",
+            "name": "Cnidus"
+         }
+      ],
+      [
+         10289235,
+         {
+            "terrain": "Forest",
+            "province": "Asia",
+            "name": "Miletus",
+            "isCapital": true
+         }
+      ],
+      [
+         10420307,
+         {
+            "terrain": "Plain",
+            "province": "Lycia",
+            "name": "Telmessos"
+         }
+      ],
+      [
+         10485843,
+         {
+            "terrain": "Plain",
+            "province": "Lycia",
+            "name": "Myra",
+            "isCapital": true
+         }
+      ],
+      [
+         10551379,
+         {
+            "terrain": "Plain",
+            "province": "Lycia",
+            "name": "Aspendos"
+         }
+      ],
+      [
+         10616916,
+         {
+            "terrain": "Plain",
+            "province": "Cilicia",
+            "name": "Animurium"
+         }
+      ],
+      [
+         10616915,
+         {
+            "terrain": "Hill",
+            "province": "Cilicia",
+            "name": "Celenderis"
+         }
+      ],
+      [
+         10682451,
+         {
+            "terrain": "Plain",
+            "province": "Cilicia",
+            "name": "Soloi"
+         }
+      ],
+      [
+         10747986,
+         {
+            "terrain": "Hill",
+            "province": "Cilicia",
+            "name": "Ninica"
+         }
+      ],
+      [
+         10813522,
+         {
+            "terrain": "Hill",
+            "province": "Cilicia",
+            "name": "Adana"
+         }
+      ],
+      [
+         10747987,
+         {
+            "terrain": "Plain",
+            "province": "Cilicia",
+            "name": "Tarsus",
+            "isCapital": true
+         }
+      ],
+      [
+         10616911,
+         {
+            "terrain": "Plain",
+            "province": "Galatia",
+            "name": "Gangra"
+         }
+      ],
+      [
+         10682447,
+         {
+            "terrain": "Plain",
+            "province": "Galatia",
+            "name": "Carissa"
+         }
+      ],
+      [
+         10747984,
+         {
+            "terrain": "Plain",
+            "province": "Galatia",
+            "name": "Pteria"
+         }
+      ],
+      [
+         10682448,
+         {
+            "terrain": "Plain",
+            "province": "Galatia",
+            "name": "Tabia"
+         }
+      ],
+      [
+         10616912,
+         {
+            "terrain": "Plain",
+            "province": "Galatia",
+            "name": "Ancyra",
+            "isCapital": true
+         }
+      ],
+      [
+         10616913,
+         {
+            "terrain": "Plain",
+            "province": "Galatia",
+            "name": "Garsaura"
+         }
+      ],
+      [
+         10682450,
+         {
+            "terrain": "Plain",
+            "province": "Galatia",
+            "name": "Laranda"
+         }
+      ],
+      [
+         10616914,
+         {
+            "terrain": "Plain",
+            "province": "Galatia",
+            "name": "Isaura"
+         }
+      ],
+      [
+         10551378,
+         {
+            "terrain": "Plain",
+            "province": "Galatia",
+            "name": "Amblada"
+         }
+      ],
+      [
+         10813518,
+         {
+            "terrain": "Plain",
+            "province": "Cappadocia",
+            "name": "Amisus"
+         }
+      ],
+      [
+         10747983,
+         {
+            "terrain": "Plain",
+            "province": "Cappadocia",
+            "name": "Amaseia"
+         }
+      ],
+      [
+         10813519,
+         {
+            "terrain": "Plain",
+            "province": "Cappadocia",
+            "name": "Polemonion"
+         }
+      ],
+      [
+         10879055,
+         {
+            "terrain": "Plain",
+            "province": "Cappadocia",
+            "name": "Kerasous"
+         }
+      ],
+      [
+         10944591,
+         {
+            "terrain": "Hill",
+            "province": "Cappadocia",
+            "name": "Trapezus",
+            "isCapital": true
+         }
+      ],
+      [
+         10813520,
+         {
+            "terrain": "Plain",
+            "province": "Cappadocia",
+            "name": "Sebasteia"
+         }
+      ],
+      [
+         10944592,
+         {
+            "terrain": "Hill",
+            "province": "Cappadocia",
+            "name": "Satala"
+         }
+      ],
+      [
+         10879056,
+         {
+            "terrain": "Plain",
+            "province": "Cappadocia",
+            "name": "Nicopolis"
+         }
+      ],
+      [
+         10682449,
+         {
+            "terrain": "Plain",
+            "province": "Cappadocia",
+            "name": "Eusebeia"
+         }
+      ],
+      [
+         10747985,
+         {
+            "terrain": "Plain",
+            "province": "Cappadocia",
+            "name": "Ariaratheia"
+         }
+      ],
+      [
+         10813521,
+         {
+            "terrain": "Plain",
+            "province": "Cappadocia",
+            "name": "Comana"
+         }
+      ],
+      [
+         10879057,
+         {
+            "terrain": "Hill",
+            "province": "Cappadocia",
+            "name": "Melitene"
+         }
+      ],
+      [
+         10879058,
+         {
+            "terrain": "Hill",
+            "province": "Cappadocia",
+            "name": "Adatha"
+         }
+      ],
+      [
+         11010127,
+         {
+            "terrain": "Hill",
+            "province": "Cappadocia",
+            "name": "Apsaros"
+         }
+      ],
+      [
+         11075662,
+         {
+            "terrain": "Hill",
+            "province": "Cappadocia",
+            "name": "Phasis"
+         }
+      ],
+      [
+         10813523,
+         {
+            "terrain": "Plain",
+            "province": "Syria",
+            "name": "Cyrrus"
+         }
+      ],
+      [
+         10813524,
+         {
+            "terrain": "Plain",
+            "province": "Syria",
+            "name": "Rhosos"
+         }
+      ],
+      [
+         10879060,
+         {
+            "terrain": "Plain",
+            "province": "Syria",
+            "name": "Beroia"
+         }
+      ],
+      [
+         10879061,
+         {
+            "terrain": "Plain",
+            "province": "Syria",
+            "name": "Palmyra",
+            "isCapital": true
+         }
+      ],
+      [
+         10813525,
+         {
+            "terrain": "Plain",
+            "province": "Syria",
+            "name": "Pella"
+         }
+      ],
+      [
+         10747989,
+         {
+            "terrain": "Plain",
+            "province": "Syria",
+            "name": "Laodicea"
+         }
+      ],
+      [
+         10813526,
+         {
+            "terrain": "Plain",
+            "province": "Syria",
+            "name": "Berytus"
+         }
+      ],
+      [
+         10879062,
+         {
+            "terrain": "Plain",
+            "province": "Syria",
+            "name": "Damascus"
+         }
+      ],
+      [
+         10747991,
+         {
+            "terrain": "Plain",
+            "province": "Syria",
+            "name": "Tyrus"
+         }
+      ],
+      [
+         10747992,
+         {
+            "terrain": "Plain",
+            "province": "Syria",
+            "name": "Dora"
+         }
+      ],
+      [
+         10813528,
+         {
+            "terrain": "Plain",
+            "province": "Judea",
+            "name": "Gerasa"
+         }
+      ],
+      [
+         10747993,
+         {
+            "terrain": "Plain",
+            "province": "Judea",
+            "name": "Ierusalem"
+         }
+      ],
+      [
+         10682457,
+         {
+            "terrain": "Plain",
+            "province": "Judea",
+            "name": "Gaza"
+         }
+      ],
+      [
+         10747994,
+         {
+            "terrain": "Plain",
+            "province": "Judea",
+            "name": "Elousa"
+         }
+      ],
+      [
+         10682458,
+         {
+            "terrain": "Plain",
+            "province": "Judea",
+            "name": "Rinokoloura"
+         }
+      ],
+      [
+         10616922,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Tamiathis"
+         }
+      ],
+      [
+         10616923,
+         {
+            "terrain": "Plain",
+            "province": "Judea",
+            "name": "Eboda"
+         }
+      ],
+      [
+         10682460,
+         {
+            "terrain": "Plain",
+            "province": "Judea",
+            "name": "Aelana"
+         }
+      ],
+      [
+         10682459,
+         {
+            "terrain": "Plain",
+            "province": "Judea",
+            "name": "Petra",
+            "isCapital": true
+         }
+      ],
+      [
+         10747996,
+         {
+            "terrain": "Plain",
+            "province": "Judea",
+            "name": "Auara"
+         }
+      ],
+      [
+         10551386,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Canopus"
+         }
+      ],
+      [
+         10551387,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Tanis"
+         }
+      ],
+      [
+         10616924,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Pithom"
+         }
+      ],
+      [
+         10616925,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Clysma"
+         }
+      ],
+      [
+         10616926,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Aphrodito"
+         }
+      ],
+      [
+         10551389,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Heliu"
+         }
+      ],
+      [
+         10551388,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Athribis"
+         }
+      ],
+      [
+         10485851,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Naucratis"
+         }
+      ],
+      [
+         10485850,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Alexandria",
+            "isCapital": true
+         }
+      ],
+      [
+         10420314,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Taposiris Megale"
+         }
+      ],
+      [
+         10354778,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Antiphrai"
+         }
+      ],
+      [
+         10420315,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Oasis Parva"
+         }
+      ],
+      [
+         10485852,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Heracleo"
+         }
+      ],
+      [
+         10485853,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Letus"
+         }
+      ],
+      [
+         10551390,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Memphis"
+         }
+      ],
+      [
+         10551391,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Krokodilopolis"
+         }
+      ],
+      [
+         10616927,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Nechesia"
+         }
+      ],
+      [
+         10682464,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Berenike"
+         }
+      ],
+      [
+         10616928,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Lato"
+         }
+      ],
+      [
+         10551392,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Hibis"
+         }
+      ],
+      [
+         10223706,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Chettaia"
+         }
+      ],
+      [
+         10289242,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Paraetonium"
+         }
+      ],
+      [
+         10158170,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Catabathmus Maior"
+         }
+      ],
+      [
+         10027097,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Darnis"
+         }
+      ],
+      [
+         10027096,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Cyrene",
+            "isCapital": true
+         }
+      ],
+      [
+         9961560,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Ptolemais"
+         }
+      ],
+      [
+         9896025,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Arsinoe"
+         }
+      ],
+      [
+         9961561,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Barke"
+         }
+      ],
+      [
+         9961562,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Berenice"
+         }
+      ],
+      [
+         9896027,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Digdida Selorum"
+         }
+      ],
+      [
+         9961563,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Augila"
+         }
+      ],
+      [
+         10027098,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Chairekla"
+         }
+      ],
+      [
+         10092634,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Lasamices"
+         }
+      ],
+      [
+         10092633,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Paliouros"
+         }
+      ],
+      [
+         10223707,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Ammon"
+         }
+      ],
+      [
+         10158171,
+         {
+            "terrain": "Plain",
+            "province": "Cyrenaica",
+            "name": "Jaghbub"
+         }
+      ],
+      [
+         9830491,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Charax"
+         }
+      ],
+      [
+         9764955,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Euphranta"
+         }
+      ],
+      [
+         9764954,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Thubactis"
+         }
+      ],
+      [
+         9699418,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Lepcis Magna"
+         }
+      ],
+      [
+         9633881,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Oea"
+         }
+      ],
+      [
+         9568344,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Pisida"
+         }
+      ],
+      [
+         9568345,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Abrotonum"
+         }
+      ],
+      [
+         9502808,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Zitha"
+         }
+      ],
+      [
+         9437272,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Gigthis"
+         }
+      ],
+      [
+         9371735,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Tacape"
+         }
+      ],
+      [
+         9371734,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Thaenae"
+         }
+      ],
+      [
+         9371733,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Thapsus"
+         }
+      ],
+      [
+         9371732,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Pupput"
+         }
+      ],
+      [
+         9371731,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Carthago",
+            "isCapital": true
+         }
+      ],
+      [
+         9306195,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Hippo Diarrhytus"
+         }
+      ],
+      [
+         9306196,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Thabraca"
+         }
+      ],
+      [
+         9240660,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Hippo Regius"
+         }
+      ],
+      [
+         9175123,
+         {
+            "terrain": "Forest",
+            "province": "Africa",
+            "name": "Rusicade"
+         }
+      ],
+      [
+         9175124,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Chullu"
+         }
+      ],
+      [
+         9109589,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Cuicul"
+         }
+      ],
+      [
+         9175126,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Mascula Tiberia"
+         }
+      ],
+      [
+         9306198,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Sufetula"
+         }
+      ],
+      [
+         9240662,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Theveste"
+         }
+      ],
+      [
+         9175125,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Cirta"
+         }
+      ],
+      [
+         9240661,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Zattara"
+         }
+      ],
+      [
+         9306197,
+         {
+            "terrain": "Plain",
+            "province": "Africa",
+            "name": "Mactaris"
+         }
+      ],
+      [
+         8519765,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Tingi",
+            "isCapital": true
+         }
+      ],
+      [
+         8585302,
+         {
+            "terrain": "Forest",
+            "province": "Mauretania",
+            "name": "Septem"
+         }
+      ],
+      [
+         8650838,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Tamuda"
+         }
+      ],
+      [
+         8519766,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Zilil"
+         }
+      ],
+      [
+         8454231,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Lixus"
+         }
+      ],
+      [
+         8454232,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Banasa"
+         }
+      ],
+      [
+         8519767,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Oppidum Novum"
+         }
+      ],
+      [
+         8519768,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Volubilis"
+         }
+      ],
+      [
+         8716374,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Rusaddir"
+         }
+      ],
+      [
+         8781910,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Siga"
+         }
+      ],
+      [
+         8847446,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Ala Miliaria"
+         }
+      ],
+      [
+         8781909,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Regiae"
+         }
+      ],
+      [
+         8847445,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Arsennaria"
+         }
+      ],
+      [
+         8912980,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Gunugu"
+         }
+      ],
+      [
+         8978516,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Caesarea"
+         }
+      ],
+      [
+         9109588,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Igilgili"
+         }
+      ],
+      [
+         9044052,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Saldae"
+         }
+      ],
+      [
+         9044054,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Zarai"
+         }
+      ],
+      [
+         8978518,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Zabi"
+         }
+      ],
+      [
+         8912982,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Rapidum"
+         }
+      ],
+      [
+         8912981,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Tigava Municipium"
+         }
+      ],
+      [
+         8978517,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Tubusuctu"
+         }
+      ],
+      [
+         9044053,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Sitifis"
+         }
+      ],
+      [
+         8388697,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Sala"
+         }
+      ],
+      [
+         8650821,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Vorgium"
+         }
+      ],
+      [
+         8716357,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Ingena"
+         }
+      ],
+      [
+         8781893,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Diablintum"
+         }
+      ],
+      [
+         8781892,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Augustodurum"
+         }
+      ],
+      [
+         8847428,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Lexoviorum"
+         }
+      ],
+      [
+         8847427,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Rotomagus"
+         }
+      ],
+      [
+         8912963,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Caesaromagus"
+         }
+      ],
+      [
+         8978500,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Lutetia",
+            "isCapital": true
+         }
+      ],
+      [
+         8912964,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Aulercorum"
+         }
+      ],
+      [
+         9044036,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Iatinum"
+         }
+      ],
+      [
+         9044037,
+         {
+            "terrain": "Forest",
+            "province": "Lugdunensis",
+            "name": "Augustobona"
+         }
+      ],
+      [
+         8978501,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Agedincum"
+         }
+      ],
+      [
+         8912965,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Cenabum"
+         }
+      ],
+      [
+         8847429,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Ouindinon"
+         }
+      ],
+      [
+         8847430,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Namnetum"
+         }
+      ],
+      [
+         8912966,
+         {
+            "terrain": "Plain",
+            "province": "Aquitania",
+            "name": "Iuliomagus"
+         }
+      ],
+      [
+         8781894,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Darioritum"
+         }
+      ],
+      [
+         9044038,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Andematunnum"
+         }
+      ],
+      [
+         9044039,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Larga"
+         }
+      ],
+      [
+         9109574,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Cabilonnum"
+         }
+      ],
+      [
+         9109575,
+         {
+            "terrain": "Forest",
+            "province": "Lugdunensis",
+            "name": "Basilia"
+         }
+      ],
+      [
+         9109576,
+         {
+            "terrain": "Forest",
+            "province": "Lugdunensis",
+            "name": "Aventicum"
+         }
+      ],
+      [
+         9109573,
+         {
+            "terrain": "Forest",
+            "province": "Lugdunensis",
+            "name": "Tullum"
+         }
+      ],
+      [
+         9109572,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Durocatalaunum"
+         }
+      ],
+      [
+         8978499,
+         {
+            "terrain": "Plain",
+            "province": "Lugdunensis",
+            "name": "Augustomagus"
+         }
+      ],
+      [
+         8978498,
+         {
+            "terrain": "Plain",
+            "province": "Belgica",
+            "name": "Nemetacum"
+         }
+      ],
+      [
+         9044034,
+         {
+            "terrain": "Plain",
+            "province": "Belgica",
+            "name": "Augusta Viromanduorum"
+         }
+      ],
+      [
+         9044035,
+         {
+            "terrain": "Plain",
+            "province": "Belgica",
+            "name": "Durocortorum"
+         }
+      ],
+      [
+         8978497,
+         {
+            "terrain": "Plain",
+            "province": "Belgica",
+            "name": "Gesoriacum"
+         }
+      ],
+      [
+         9044033,
+         {
+            "terrain": "Plain",
+            "province": "Belgica",
+            "name": "Tarvenna"
+         }
+      ],
+      [
+         9109570,
+         {
+            "terrain": "Plain",
+            "province": "Belgica",
+            "name": "Bagacum"
+         }
+      ],
+      [
+         9109571,
+         {
+            "terrain": "Plain",
+            "province": "Belgica",
+            "name": "Nasagus"
+         }
+      ],
+      [
+         9175107,
+         {
+            "terrain": "Plain",
+            "province": "Belgica",
+            "name": "Augusta Treverorum",
+            "isCapital": true
+         }
+      ],
+      [
+         9175108,
+         {
+            "terrain": "Plain",
+            "province": "Belgica",
+            "name": "Divodurum"
+         }
+      ],
+      [
+         9240644,
+         {
+            "terrain": "Plain",
+            "province": "Belgica",
+            "name": "Vicus Contiomagus"
+         }
+      ],
+      [
+         9175110,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Vesontio"
+         }
+      ],
+      [
+         9175109,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Argentorate"
+         }
+      ],
+      [
+         9240645,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Portus"
+         }
+      ],
+      [
+         9306181,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Grinario"
+         }
+      ],
+      [
+         9306180,
+         {
+            "terrain": "Forest",
+            "province": "Germania",
+            "name": "Noviomagus"
+         }
+      ],
+      [
+         9306179,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Lopodunum"
+         }
+      ],
+      [
+         9240643,
+         {
+            "terrain": "Forest",
+            "province": "Germania",
+            "name": "Borbetomagus"
+         }
+      ],
+      [
+         9240642,
+         {
+            "terrain": "Forest",
+            "province": "Germania",
+            "name": "Mogontiacum"
+         }
+      ],
+      [
+         9175106,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Bonna"
+         }
+      ],
+      [
+         9175105,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Ubiorum",
+            "isCapital": true
+         }
+      ],
+      [
+         9109569,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Atuatuca"
+         }
+      ],
+      [
+         9175104,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Ulpia Traiana"
+         }
+      ],
+      [
+         9109568,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Batavodurum"
+         }
+      ],
+      [
+         9306178,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Auderiensium"
+         }
+      ],
+      [
+         9371716,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Vicus Alisinensium"
+         }
+      ],
+      [
+         9240646,
+         {
+            "terrain": "Plain",
+            "province": "Germania",
+            "name": "Sumelocenna"
+         }
+      ],
+      [
+         9175111,
+         {
+            "terrain": "Hill",
+            "province": "Germania",
+            "name": "Augusta Raurica"
+         }
+      ],
+      [
+         8650818,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Isca"
+         }
+      ],
+      [
+         8650817,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Durnovaria"
+         }
+      ],
+      [
+         8716353,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Venta Belgarum"
+         }
+      ],
+      [
+         8781889,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Noviomagus Reginorum"
+         }
+      ],
+      [
+         8847425,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Durovernum"
+         }
+      ],
+      [
+         8847424,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "isCapital": true,
+            "name": "Londinium"
+         }
+      ],
+      [
+         8781888,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Calleva"
+         }
+      ],
+      [
+         8716352,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Cironium"
+         }
+      ],
+      [
+         8650816,
+         {
+            "terrain": "Forest",
+            "province": "Britannia",
+            "name": "Venta Silurum"
+         }
+      ],
+      [
+         8650815,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Maglona"
+         }
+      ],
+      [
+         8716351,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Viroconium"
+         }
+      ],
+      [
+         8781887,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Ratae"
+         }
+      ],
+      [
+         8847423,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Camulodunum"
+         }
+      ],
+      [
+         8912959,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Venta Icenorum"
+         }
+      ],
+      [
+         8847422,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Lindum"
+         }
+      ],
+      [
+         8781886,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Derbentio"
+         }
+      ],
+      [
+         8716350,
+         {
+            "terrain": "Forest",
+            "province": "Britannia",
+            "name": "Deva"
+         }
+      ],
+      [
+         8650814,
+         {
+            "terrain": "Forest",
+            "province": "Britannia",
+            "name": "Seguntium"
+         }
+      ],
+      [
+         8716349,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Calunium"
+         }
+      ],
+      [
+         8781885,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Isurium"
+         }
+      ],
+      [
+         8847420,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Dictium"
+         }
+      ],
+      [
+         8781884,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Cataractonium"
+         }
+      ],
+      [
+         8716348,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Gabrosentum"
+         }
+      ],
+      [
+         8716347,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Vindovala"
+         }
+      ],
+      [
+         8650811,
+         {
+            "terrain": "Plain",
+            "province": "Britannia",
+            "name": "Luguvalium"
+         }
+      ],
+      [
+         10616918,
+         {
+            "terrain": "Plain",
+            "province": "Cilicia",
+            "name": "Salamis"
+         }
+      ],
+      [
+         9109590,
+         {
+            "terrain": "Plain",
+            "province": "Mauretania",
+            "name": "Thamugadi"
+         }
+      ],
+      [
+         10485857,
+         {
+            "terrain": "Plain",
+            "province": "Aegyptus",
+            "name": "Kysis"
+         }
+      ]
+   ]
+}

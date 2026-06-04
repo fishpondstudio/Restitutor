@@ -1,0 +1,51 @@
+{
+   "version": "2.0.0",
+   "tasks": [
+      {
+         "type": "npm",
+         "script": "dev",
+         "path": "packages/client",
+         "problemMatcher": [],
+         "label": "npm: dev - packages/client",
+         "isBackground": true,
+         "runOptions": {
+            "runOn": "folderOpen"
+         }
+      },
+      {
+         "type": "npm",
+         "script": "watch",
+         "path": ".",
+         "problemMatcher": ["$tsc-watch"],
+         "label": "npm: typecheck",
+         "isBackground": true,
+         "runOptions": {
+            "runOn": "folderOpen"
+         }
+      },
+      {
+         "type": "npm",
+         "script": "watch",
+         "path": "packages/server",
+         "problemMatcher": [],
+         "label": "npm: watch - packages/server",
+         "isBackground": true
+      },
+      {
+         "type": "npm",
+         "script": "sync",
+         "path": "packages/server",
+         "problemMatcher": [],
+         "label": "npm: sync - packages/server",
+         "isBackground": true
+      },
+      {
+         "type": "npm",
+         "script": "test",
+         "path": "packages/shared",
+         "problemMatcher": [],
+         "label": "npm: test - packages/shared",
+         "isBackground": true
+      }
+   ]
+}

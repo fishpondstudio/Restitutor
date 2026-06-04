@@ -1,0 +1,11 @@
+import type { Language } from "@project/shared/src/rpc/ServerMessageTypes";
+import type { CountryCode } from "@project/shared/src/utils/CountryCode";
+import { EN } from "../languages/en";
+
+export const Languages = {
+   en: EN,
+} as const satisfies Record<Language, Record<string, string>>;
+
+export const LanguagesImage = {
+   en: "GB",
+} as const satisfies Record<Language, keyof typeof CountryCode>;

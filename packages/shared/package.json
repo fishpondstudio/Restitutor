@@ -1,0 +1,19 @@
+{
+   "name": "@project/shared",
+   "version": "1.0.0",
+   "description": "",
+   "type": "module",
+   "scripts": {
+      "test": "vitest",
+      "ci": "vitest run"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "devDependencies": {
+      "vitest": "^4.1.7"
+   },
+   "dependencies": {
+      "@msgpack/msgpack": "^3.1.3"
+   }
+}
