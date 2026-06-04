@@ -1,10 +1,10 @@
-# Spaceship Idle Translations
+# Restitutor Translations
 
 Base language is English and can be found in the list below
 
 ## Supported Languages:
 
-- English (base): https://github.com/fishpondstudio/SpaceshipIdle/blob/main/packages/shared/src/languages/en.ts
+- English (base): https://github.com/fishpondstudio/Restitutor/tree/main/packages/client/src/languages
 
 ## Edit Existing Translation
 
