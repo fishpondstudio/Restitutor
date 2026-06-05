@@ -7,8 +7,8 @@ import { availableDiplomatCondition, getMarriageAlliance, getRelation } from "..
 import {
    getProvinceCoreTileCount,
    getProvinceName,
+   getProvinceResource,
    getProvinceStability,
-   getProvinceStat,
 } from "../logic/ProvinceLogic";
 import { dissolveAllTreaties, forcePatronage, requireMinimumAttitude } from "../logic/TreatyLogic";
 import { hasGeneralCondition } from "../logic/WarLogic";
@@ -240,18 +240,15 @@ export const LugdunensisEvent = {
          conditions: (province, save) => [
             {
                name: $t(L.XChristianityInfluenceIsAtLeastY, Province.Lugdunensis.name(), "20"),
-               value: getProvinceStat("christianity", province, save) >= 20,
+               value: getProvinceResource("christianity", province, save) >= 20,
             },
          ],
       },
       buttons: [
          {
             label: () => $t(L.LetHisMemoryGuideUsTowardVirtue),
-            resources: { administrative: -50 },
-            stats: {
-               christianity: 10,
-               christianityYearly: 1,
-            },
+            resources: { administrative: -50, christianity: 10 },
+            stats: { christianityYearly: 1 },
          },
          {
             label: () => $t(L.WeMustRemainBalancedInOurPolicies),
@@ -263,9 +260,7 @@ export const LugdunensisEvent = {
          },
          {
             label: () => $t(L.WeAreNotRuledByBishopsLivingOrDead),
-            stats: {
-               christianity: -10,
-            },
+            resources: { christianity: -10 },
             modifiers: {
                Prestige: { type: "multiply", value: 0.1, duration: 2 * 12 },
             },
@@ -283,7 +278,7 @@ export const LugdunensisEvent = {
          conditions: (province, save) => [
             {
                name: $t(L.XChristianityInfluenceIsAtLeastY, Province.Lugdunensis.name(), "50"),
-               value: getProvinceStat("christianity", province, save) >= 50,
+               value: getProvinceResource("christianity", province, save) >= 50,
             },
          ],
       },
@@ -293,9 +288,7 @@ export const LugdunensisEvent = {
             modifiers: {
                Stability: { type: "add", value: -10, duration: 2 * 12 },
             },
-            stats: {
-               christianity: 10,
-            },
+            resources: { christianity: 10 },
             trades: {
                Aquitania: { offer: { theyOffer: "gold", weOffer: "bread" }, extraProfit: 0.5 },
             },
@@ -305,19 +298,14 @@ export const LugdunensisEvent = {
             modifiers: {
                Stability: { type: "add", value: 10, duration: 2 * 12 },
             },
-            stats: {
-               christianity: -10,
-            },
+            resources: { christianity: -10 },
          },
          {
             label: () => $t(L.ImposeALevyUponThePilgrims),
             attitudes: {
                Aquitania: { type: "add", value: -20, duration: 2 * 12 },
             },
-            stats: {
-               christianity: 5,
-            },
-            resources: { gold: 500 },
+            resources: { gold: 500, christianity: 5 },
          },
       ],
    },
@@ -489,7 +477,7 @@ export const LugdunensisEvent = {
          conditions: (province, save) => [
             {
                name: $t(L.XChristianityInfluenceIsAtLeastY, Province.Lugdunensis.name(), "100"),
-               value: getProvinceStat("christianity", province, save) >= 100,
+               value: getProvinceResource("christianity", province, save) >= 100,
             },
          ],
       },
@@ -500,9 +488,7 @@ export const LugdunensisEvent = {
                Stability: { type: "add", value: 10, duration: 2 * 12 },
                LandTax: { type: "multiply", value: -0.1, duration: 2 * 12 },
             },
-            stats: {
-               christianity: 20,
-            },
+            resources: { christianity: 20 },
          },
          {
             label: () => $t(L.CurbTheBishopsWorldlyAmbitions),
@@ -510,9 +496,7 @@ export const LugdunensisEvent = {
                Stability: { type: "add", value: -10, duration: 2 * 12 },
                LandTax: { type: "multiply", value: 0.1, duration: 2 * 12 },
             },
-            stats: {
-               christianity: -20,
-            },
+            resources: { christianity: -20 },
          },
          {
             label: () => $t(L.AppealToTheEmperorForMediation),

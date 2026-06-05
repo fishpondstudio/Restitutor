@@ -32,7 +32,6 @@ export const ProvinceStats = {
    attackCount: 0,
    defendCount: 0,
    consulVotes: 1,
-   christianity: 10,
    christianityYearly: 1,
    goodsTaxRate: MaxGoodsTaxRate,
 } as const;
@@ -52,7 +51,6 @@ export const ProvinceStatNames: Record<ProvinceStat, () => string> = {
    defendCount: () => $t(L.NumberOfDefenses),
    consulVotes: () => $t(L.ConsulVotes),
    goodsTaxRate: () => $t(L.GoodsTaxRate),
-   christianity: () => $t(L.ChristianityInfluence),
    christianityYearly: () => $t(L.ChristianityYearly),
 } as const;
 
@@ -67,6 +65,7 @@ export const ProvinceResources = {
    legacy: [0, 0] as [number, number],
    generalSkillPoint: [0, 0] as [number, number],
    consulPoint: [0, 0] as [number, number],
+   christianity: [10, 0] as [number, number],
    ...fromEntries(mapOf(Goods, (goods) => [goods, [0, 0] as [number, number]])),
 } as const;
 
@@ -78,6 +77,7 @@ export const ProvinceResourceNames: Record<ProvinceResource, () => string> = {
    legacy: () => $t(L.LegacyPoint),
    generalSkillPoint: () => $t(L.GeneralSkillPoint),
    consulPoint: () => $t(L.ConsulPoint),
+   christianity: () => $t(L.ChristianityInfluence),
    ...fromEntries(mapOf(Goods, (goods, def) => [goods, () => def.name()])),
 } as const;
 

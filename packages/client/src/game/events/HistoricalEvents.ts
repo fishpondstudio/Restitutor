@@ -469,7 +469,7 @@ export const HistoricalEvents = {
       buttons: [
          {
             label: () => $t(L.ToleranceIsWhatUnitesOurEmpire),
-            stats: { christianity: 20 },
+            resources: { christianity: 20 },
             modifiers: {
                Prestige: { type: "multiply", value: -0.1, duration: 10 * 12 },
                Stability: { type: "add", value: 10, duration: 10 * 12 },
@@ -479,7 +479,7 @@ export const HistoricalEvents = {
          },
          {
             label: () => $t(L.ChristianityHasNoPlaceInOurEmpire),
-            stats: { christianity: -20 },
+            resources: { christianity: -20 },
             modifiers: {
                Stability: { type: "add", value: -10, duration: 10 * 12 },
                LandTax: { type: "multiply", value: 0.1, duration: 10 * 12 },
@@ -546,7 +546,8 @@ export const HistoricalEvents = {
       buttons: [
          {
             label: () => $t(L.WeGrantChristiansFreedomOfReligion),
-            stats: { christianity: 50, christianityYearly: 1 },
+            resources: { christianity: 50 },
+            stats: { christianityYearly: 1 },
             effects: [
                {
                   desc: (province, save) => $t(L.EdictOfMilanRemovesMinorReligionPenalties),
@@ -599,7 +600,7 @@ export const HistoricalEvents = {
       buttons: [
          {
             label: () => $t(L.WeShallFollowEmperorJuliansLead),
-            stats: { christianity: -20 },
+            resources: { christianity: -20 },
             modifiers: {
                Prestige: { type: "multiply", value: 0.1, duration: 5 * 12 },
                LandTax: { type: "multiply", value: 0.1, duration: 5 * 12 },
@@ -607,7 +608,7 @@ export const HistoricalEvents = {
          },
          {
             label: () => $t(L.TheShipHasSailedChristianityIsHereToStay),
-            stats: { christianity: 20 },
+            resources: { christianity: 20 },
             modifiers: {
                Stability: { type: "add", value: 10, duration: 5 * 12 },
                TileOutput: { type: "multiply", value: 0.1, duration: 5 * 12 },
@@ -653,7 +654,8 @@ export const HistoricalEvents = {
                Prestige: { type: "multiply", value: 0.1, duration: 5 * 12 },
                LandTax: { type: "multiply", value: 0.1, duration: 5 * 12 },
             },
-            stats: { christianity: 100, christianityYearly: 1 },
+            resources: { christianity: 100 },
+            stats: { christianityYearly: 1 },
             effects: [
                {
                   desc: (province, save) => $t(L.EdictOfThessalonicaChristianityProvinceEffects),

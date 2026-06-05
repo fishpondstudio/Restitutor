@@ -8,7 +8,6 @@ import type { SaveGame } from "../GameState";
 import { randomMaleName } from "../RomanNames";
 import {
    addProvinceResource,
-   addProvinceStat,
    ConsulElectionMonths,
    clearProvincePrestigeRankingCache,
    getProvinceStat,
@@ -57,7 +56,7 @@ export function tickYear(save: SaveGame): void {
    tickConsulElection(save);
    forEach(save.state.provinces, (province) => {
       const yearly = getProvinceStat("christianityYearly", province, save);
-      addProvinceStat("christianity", yearly, province, save);
+      addProvinceResource("christianity", yearly, province, save);
    });
 }
 

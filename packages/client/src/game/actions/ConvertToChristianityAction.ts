@@ -1,6 +1,6 @@
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
-import { getProvinceGoverningCost, getProvinceStat } from "../logic/ProvinceLogic";
+import { getProvinceGoverningCost, getProvinceResource } from "../logic/ProvinceLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
@@ -10,7 +10,7 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
       return EmptyGameAction;
    }
    const governingCost = getProvinceGoverningCost(province, save);
-   const christianity = getProvinceStat("christianity", province, save);
+   const christianity = getProvinceResource("christianity", province, save);
    return {
       condition: finalizeCondition({
          breakdown: [

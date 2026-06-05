@@ -14,7 +14,7 @@ import {
 import { ConvertToChristianityAction } from "../game/actions/ConvertToChristianityAction";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../game/actions/ProvinceUpgrades";
 import { Modifiers, modifierValueToString } from "../game/definitions/Modifier";
-import { ProvinceFlags, ProvinceStatNames } from "../game/definitions/Province";
+import { ProvinceFlags, ProvinceResourceNames } from "../game/definitions/Province";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
 import {
@@ -23,6 +23,7 @@ import {
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,
    getProvinceOverextension,
+   getProvinceResource,
    getProvinceStability,
    getProvinceStat,
    getTilesAnnexedAndCored,
@@ -55,7 +56,7 @@ export function InternalAffairsModal(): React.ReactNode {
    }
    const governingCost = getProvinceGoverningCost(G.save.state.playerProvince, G.save);
    const governingCapacity = getProvinceGoverningCapacity(G.save.state.playerProvince, G.save);
-   const christianity = getProvinceStat("christianity", G.save.state.playerProvince, G.save);
+   const christianity = getProvinceResource("christianity", G.save.state.playerProvince, G.save);
    const christianityYearly = getProvinceStat("christianityYearly", G.save.state.playerProvince, G.save);
    const tileAnnexedAndCored = getTilesAnnexedAndCored(G.save.state.playerProvince, G.save);
    const progressToNextRestoration = getProgressToNextRestoration(G.save.state.playerProvince, G.save);
@@ -226,7 +227,7 @@ export function InternalAffairsModal(): React.ReactNode {
                   }
                >
                   <div className="row g5 m10">
-                     <div>{ProvinceStatNames.christianity()}</div>
+                     <div>{ProvinceResourceNames.christianity()}</div>
                      {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
                         <div className="mi sm text-red">error</div>
                      )}

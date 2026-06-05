@@ -148,7 +148,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
    tickSocialClasses(province, save);
 
    const governingCost = getProvinceGoverningCost(province, save).value;
-   const christianity = getProvinceStat("christianity", province, save);
+   const christianity = getProvinceResource("christianity", province, save);
    if (
       (christianity > governingCost && state.religion !== "Christianity") ||
       (christianity < governingCost && state.religion === "Christianity")
