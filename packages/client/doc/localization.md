@@ -1,147 +1,341 @@
-## Localization Scope
+# Localization Guide
 
-Strings in `.ts` and `tsx` files need localization. These files are in `./src` folder
+This document describes how to extract hardcoded user-facing strings in the Restitutor client into the localization system. Follow it step by step.
 
-Language files are in `./src/languages/`. Currently there's only `en.ts`
+## Quick Reference
 
-Only localize user-facing strings. Do not touch other strings. When not sure, do not touch the string and flag it out.
+| Item | Location |
+|------|----------|
+| Source files to localize | `packages/client/src/**/*.ts` and `packages/client/src/**/*.tsx` |
+| English language file | `packages/client/src/languages/en.ts` |
+| Translation runtime | `packages/client/src/utils/i18n.ts` |
+| HTML rendering helper | `packages/client/src/ui/components/RenderHTMLComp.tsx` |
+| Chronicle markup parser | `packages/client/src/ui/ParseMarkup.tsx` |
+| Format helpers | `@project/shared/src/utils/Helper` (`formatNumber`, `formatDelta`, `formatPercent`, `formatPercentDelta`) |
+| Translate script | `scripts/Translate.js` (run via `pnpm run translate` at repo root) |
 
-Do not localize `imageCredit` that contains credit for the image used.
+## Workflow
 
-`<div className="mi">icon_name</div>` is used for rendering icon, do not extract `icon_name` to localization.
+For each hardcoded user-facing string:
 
-When a string matches an existing localization key, reuse the existing key instead of adding a new one.
+1. **Decide** whether the string should be localized (see [Scope](#scope) below). If unsure, flag it and skip.
+2. **Search** `packages/client/src/languages/en.ts` for an existing key with the same content. Reuse it if found.
+3. **Add** a new entry to `en.ts` (or reuse an existing key).
+4. **Replace** the hardcoded string in source with `$t(L.KeyName, ...args)`.
+5. **Add imports** if the file does not already import `$t` and `L` from `../utils/i18n` (adjust relative path as needed).
+6. **Run checks** (see [Verification](#verification)).
 
-## Localization Format
+### Minimal Example
 
-Localization format uses %% as placeholder, and is replaced by position (left to right) at runtime. For example, given the following localization key value pair:
-`{ LocalizationKey: "It costs %% %% and will give you %% Gold" }`
-At runtime, call `$t(L.LocalizationKey, formatNumber(2000), "Lumber", formatNumber(3000))`. The result will be "It costs 2K Lumber and will give you 2K Gold".
+**Before** (`SomeModal.tsx`):
 
-Pluralization is not supported. Instead, always use plural form.
+```tsx
+<ModalTitleBar title="Incompatible Save" />
+```
 
-## HTML and Special Tags
+**After**:
 
-When the string contains inline HTML tag (e.g. <i> or <b>), you can include that in the localization string, and wrap it in a `html` functional call (imported from `packages\client\src\ui\components\RenderHTMLComp.tsx`). e.g.
+1. Add to `en.ts`: `IncompatibleSave: "Incompatible Save",`
+2. Replace in source:
 
-`<>This is an example of <i>{var1}</i> tag in <b>{var2}</b> file</>`
-can be extracted to `{ LocalizationKey: "This is an example of <i>%%</i> tag in <b>%%</b> file" }` and replaced with
-`html($t(L.LocalizationKey, var1, var2))`
+```tsx
+import { $t, L } from "../utils/i18n";
 
-When localizing Chronicles (`addChronicleEntry`), Keep the special tag (e.g. `<Province>`, `<Tile>`) in the localized string.
+<ModalTitleBar title={$t(L.IncompatibleSave)} />
+```
 
-## Parameter Extraction Hint
+### Example with Parameters
 
-If the raw string uses TypeScript string interpolation, the variable should be extracted to parameters.
-In the raw string, when a substring is wrapped in `{}`, it is a hint that the substring in `{}` MUST be extract to parameters. For example:
-`"{Belgica} nullifies all negative attitudes towards {Lugdunensis}"`
-should be replaced with
-`$t(L.XNullifiesAllNegativeAttitudesTowardsY, Province.Belgica.name(), Province.Lugdunensis.name())`
+**Before**:
 
-`"{Belgica} gets {+10%} Prestige"`
-should be replaced with
-`$t(L.XGetsYPrestige, Province.Belgica.name(), "+10%")`
+```tsx
+`Rebellion is at least 5`
+```
 
-If a raw string does not contains parameter extraction hints, parameter extraction can still be performed.
+**After**:
 
-## Entity Name Replacement
+1. Add to `en.ts`: `RebellionIsAtLeastX: "Rebellion is at least %%",`
+2. Replace: `$t(L.RebellionIsAtLeastX, "5")`
 
-When a direct entity type is used, it should be replaced by corresponding name. For example:
-`const province: Province` should be `Province[province].name()`
-`const goods: Goods` should be `Goods[goods].name()`
-`const culture: Culture` should be `Culture[culture].name()`
-When a corresponding name cannot be found, flag it out.
+## Scope
 
-Localization keys for the following entity types should prefix the entity type:
-- Province
-- Culture
-- Religion
-- Tile
-- PersonTrait
-- Building
-- Tech
-For example:
-`{ ProvinceAchaia: "Achaia" }`
-`{ CultureIberian: "Iberian" }`
-`{ ReligionIberian: "Iberian" }`
-`{ GoodsLeather: "Leather" }`
-`{ PersonTraitSteadfast: "Steadfast" }`
-`{ TilePaxIulia: "Pax Iulia" }`
-Even if several keys have the same content, they should be separated, not merged. For example:
-`{ BuildingMarket: "Market", TechMarket: "Market" }`
-`{ CultureIberian: "Iberian", ReligionIberian: "Iberian" }`
+### Localize
 
-## Numeric Parameters
+- User-facing text shown in the UI: labels, titles, tooltips, descriptions, button text, modal copy, game event text, chronicle entries, advisor messages, etc.
+- Strings in `.ts` and `.tsx` files under `packages/client/src/`.
 
-Try to extract numeric parameters from strings to increase the reusability to localization. For example.
-`Rebellion is at least 5`.
-Don't: "Rebellion is at least 5"
-Do: "Rebellion is at least %%" (and pass `"5"` as parameter)
-`-20 Tile Unrest`
-Don't: "-20 Tile Unrest"
-Do: "%% Tile Unrest" (and pass `"-20"` as parameter)
+### Do NOT Localize
 
-When dealing with numeric parameters, do not add sign and percentage in localization.
-If the parameter is a hard-coded number (i.e. `10`), keep the sign in parameters as string.
-If the parameter is a variable or constant (`let` or `const`), call `formatNumber`, `formatDelta`, `formatPercent` or `formatPercentDelta`. 
-When the original parameter is a `number` type and does not have any existing format* function applied, use `formatNumber`. Do not use `String(var)`.
-For example:
-`+10% War Power`
-Don't: "+%%% War Power" (pass `10` as parameter)
-Don't: "%%% War Power" (pass `+10` or `"+10"` as parameter)
-Don't: "%% War Power" (pass `formatPercentDelta(10)` as parameter)
-Do: "%% War Power" (pass `"+10%"` as parameter)
-Do: "%% War Power" (pass `formatPercentDelta(var1)` as parameter only when it is a variable)
+- `imageCredit` fields (image attribution text in building/definition data).
+- Icon names inside `<div className="mi">icon_name</div>` — these are Material icon identifiers, not display text.
+- Debug output: `console.log`, `console.warn`, `console.error`.
+- Developer errors: `throw new Error(...)`.
+- Code identifiers: enum keys, property names, file paths, CSS class names, React component names.
+- Keys starting with `$` in `en.ts` (e.g. `$Language`) — these are language metadata, not translatable UI strings.
+- Strings in `packages/shared/`, `packages/server/`, or other packages (the client localization system does not cover them).
 
-For example:
-`+10 Stability`
-Don't: "+%% Stability" (pass `10` as parameter)
-Don't: "%% Stability" (pass `+10` as parameter)
-Don't: "%% Stability" (pass `formatDelta(10)` as parameter)
-Do: "%% Stability" (pass `"+10"` as parameter)
-Don't: "%% Stability" (pass `String(var1)` as parameter)
-Do: "%% Stability" (pass `formatDelta(var1)` as parameter only when it is a variable)
+When not sure whether a string is user-facing, **do not touch it** and **flag it** for human review.
 
-## Localization Key Naming
+## Core API
 
-Localization keys should match its content (UpperCamelCase) if the resulting key is <= 64 characters. Otherwise choose a short descriptive name.
+### `$t` and `L`
 
-When content has tokens (%%), replace them with letters X, Y, Z, P, Q, R, S, T, U, V, W by position. For example:
-"%% Tile Unrest for %% months" should be XTileUnrestForYMonths.
+```ts
+import { $t, L } from "../utils/i18n"; // adjust relative path
+```
 
-If a localization content doesn't match its key, its key should be changed to match the content if the resulting key is <= 64 characters.
+- `L` is a clone of the `EN` object from `en.ts`. At runtime, `Object.assign(L, Languages[lang])` swaps in the active language.
+- `$t(L.SomeKey)` looks up the translated string and returns it.
+- `$t(L.SomeKey, arg1, arg2, ...)` substitutes `%%` placeholders left-to-right with the arguments.
+- `$t` always receives `L.KeyName` (which evaluates to the string value), never a bare string literal.
+- Missing translations render as `⚠️<key value>`; missing arguments render as `⚠️<index>`.
 
-When multiple keys have the same content and are not entity names, they should be merged and a generic key name should be chosen, For example:
-`{ BuildingEffect1: "%% Tile Unrest", EventEffect2: "%% Tile Unrest" }` should be
-`{ XTileUnrest: "%% Tile Unrest" }`
-When they are entity names, they can be duplicated - entity naming rule takes precedence.
+### Placeholders
 
-## Improvement Suggestions
+Use `%%` for every runtime substitution. Placeholders are replaced **by position** (left to right), not by name.
 
-Localization should contain minimum required keys. Localization content should be consistent and clear.
+```ts
+// en.ts
+ItCostsXAndWillGiveYouYGold: "It costs %% %% and will give you %% Gold",
 
-List the following suggestions so that I can review. DO NOT directly implement them.
-- When a key can be replaced by compositing two other keys, suggest eliminating the key.
-- When several keys contain similar content, suggest replacing them with a more generic content
-- When keys can be rearranged to improve reusability, suggest an alternative arrangement
-- When localization content is inconsistent, e.g. different casing, different ways of describing the same thing
-- When localization is ambiguous or unclear
-- When localization can be improved for conciseness and clarity
-- When localization contains only token (%%), symbols and numbers, i.e. without anything content to localize, they should not be part of the localization and should be inlined
+// usage
+$t(L.ItCostsXAndWillGiveYouYGold, formatNumber(2000), "Lumber", formatNumber(3000))
+// → "It costs 2K Lumber and will give you 2K Gold"
+```
 
-Implement the following fixes directly.
-When localization content has misspelling or grammar error
-If a localization uses second-person perspective (you, your), it should be changed to use first-person perspective (we, our), except for:
-- Purely functional UI text (e.g. Are you sure you want to hard reset the game?)
-- Quote (In This Sign, You Shall Conquer).
-- "I'm ready to restore the empire". Because it is a UI functional button.
-If a localization does not have a person perspective, leave it as is
+**Pluralization is not supported.** Always use the plural form in the English string (e.g. "%% months", not "%% month(s)").
 
-# Check After Making Changes
+### `html()` for Inline HTML in UI
 
-Whenever you change a localization content, also change its key accordingly to match the content if the key is <= 64 characters. Otherwise, review if the current key is still descriptive enough for the new content, if not, change it to a more descriptive name.
-To check if the project compiles after changes, run `pnpm run build` in the **root** project.
-After changing the project, run `pnpm run check` in the **root** project to apply formatting, linting and import sorting.
-After changing language files (e.g. `en.ts`), Run `pnpm run translate` in the **root** project to check argument, remove unused keys and apply formatting.
+When localized text contains inline HTML (`<i>`, `<b>`, `<br>`, etc.) and is rendered in React UI:
 
-When encountered a case not covered by the above documentation and you are not sure what to do, flag it out so I can add it here.
+```tsx
+import { html } from "../ui/components/RenderHTMLComp";
+
+// en.ts: ExampleOfXTagInYFile: "This is an example of <i>%%</i> tag in <b>%%</b> file"
+html($t(L.ExampleOfXTagInYFile, var1, var2))
+```
+
+Use `html()` only when the string contains HTML tags. Plain text does not need it.
+
+## Parameter Extraction
+
+### Curly-Brace Hints
+
+When the raw string uses `{curly brace}` hints, the wrapped substring **must** become a `%%` parameter:
+
+| Raw string | Replacement |
+|------------|-------------|
+| `"{Belgica} nullifies all negative attitudes towards {Lugdunensis}"` | `$t(L.XNullifiesAllNegativeAttitudesTowardsY, Province.Belgica.name(), Province.Lugdunensis.name())` |
+| `"{Belgica} gets {+10%} Prestige"` | `$t(L.XGetsYPrestige, Province.Belgica.name(), "+10%")` |
+
+Even without `{}` hints, extract variable parts into parameters when it improves reusability.
+
+### Numeric Parameters
+
+Extract numbers, signs, and units into parameters to increase key reuse.
+
+| Original | Don't | Do |
+|----------|-------|-----|
+| `Rebellion is at least 5` | `"Rebellion is at least 5"` (no param) | `"Rebellion is at least %%"` with `"5"` |
+| `-20 Tile Unrest` | `"-20 Tile Unrest"` (no param) | `"%% Tile Unrest"` with `"-20"` |
+
+**Sign and percent rules:**
+
+- Do **not** put signs (`+`, `-`) or `%` in the localization string when they belong to the value.
+- **Hard-coded numbers** (literals like `10`): pass the fully formatted value as a string parameter, including sign and `%` if present.
+- **Variables** (`let`/`const`/expressions): use `formatNumber`, `formatDelta`, `formatPercent`, or `formatPercentDelta` from `@project/shared/src/utils/Helper`. Never use `String(var)`.
+
+| Original | Correct |
+|----------|---------|
+| `+10% War Power` | `"%% War Power"` with `"+10%"` (literal) or `formatPercentDelta(var)` (variable) |
+| `+10 Stability` | `"%% Stability"` with `"+10"` (literal) or `formatDelta(var)` (variable) |
+
+| Original | Incorrect |
+|----------|-----------|
+| `+10% War Power` | `"+%%% War Power"` with `10` |
+| `+10% War Power` | `"%%% War Power"` with `"+10"` |
+| `+10 Stability` | `"+%% Stability"` with `10` |
+| `+10 Stability` | `"%% Stability"` with `formatDelta(10)` for a literal |
+
+## Entity Names
+
+When a variable holds an entity, pass its localized **display name** at the call site — not the raw enum key (except for Chronicle `<Province>` tags; see below).
+
+| Variable type | Call-site expression |
+|---------------|---------------------|
+| `province: Province` | `Province[province].name()` or `getProvinceName(province, save)` when name overrides matter |
+| `goods: Goods` | `Goods[goods].name()` |
+| `culture: Culture` | `Culture[culture].name()` |
+| `religion: Religion` | `Religion[religion].name()` |
+| `tile: Tile` (display name) | `getTileName(tile)` or `TileName[tile]?.()` |
+| `building`, `tech`, `personTrait`, etc. | `Building[x].name()`, `Tech[x].name()`, `PersonTrait[x].name()`, etc. |
+
+If no `.name()` helper exists for an entity type, flag it.
+
+### Entity Key Prefixes
+
+Keys for entity display names in `en.ts` must be prefixed with the entity type, even when multiple keys share the same English text:
+
+| Entity type | Key pattern | Example |
+|-------------|-------------|---------|
+| Province | `Province{Name}` | `ProvinceAchaia: "Achaia"` |
+| Culture | `Culture{Name}` | `CultureIberian: "Iberian"` |
+| Religion | `Religion{Name}` | `ReligionIberian: "Iberian"` |
+| Goods | `Goods{Name}` | `GoodsLeather: "Leather"` |
+| Tile | `Tile{Name}` | `TilePaxIulia: "Pax Iulia"` |
+| PersonTrait | `PersonTrait{Name}` | `PersonTraitSteadfast: "Steadfast"` |
+| Building | `Building{Name}` | `BuildingMarket: "Market"` |
+| Tech | `Tech{Name}` | `TechMarket: "Market"` |
+
+**Never merge** entity name keys even if the text is identical:
+
+```ts
+// Correct — separate keys
+BuildingMarket: "Market",
+TechMarket: "Market",
+CultureIberian: "Iberian",
+ReligionIberian: "Iberian",
+```
+
+Entity definitions (e.g. `packages/client/src/game/definitions/Culture.ts`, `Goods.ts`, `Province.ts`) already reference these keys via `$t(L.EntityKey)`.
+
+## Chronicle Entries (`addChronicleEntry`)
+
+Chronicle text uses special XML-like tags parsed by `renderMarkup()` in `ParseMarkup.tsx`. **Keep these tags in the localized string.**
+
+### `<Province>` tags
+
+```ts
+// en.ts
+XAndYFormedAnAlliance: "<Province>%%</Province> and <Province>%%</Province> formed an alliance.",
+
+// call site — pass the Province enum value, NOT getProvinceName()
+$t(L.XAndYFormedAnAlliance, fromProvince, toProvince)
+```
+
+The parser reads the enum key from inside `<Province>...</Province>` and renders the localized, clickable province name.
+
+### `<Tile>` tags
+
+```ts
+// en.ts
+XDeclaredWarOnYWithTheGoalOfOccupyingZ: "<Province>%%</Province> declared war on <Province>%%</Province> with the goal of occupying %%.",
+
+// call site — wrap each tile ID in <Tile> tags
+$t(
+   L.XDeclaredWarOnYWithTheGoalOfOccupyingZ,
+   attacker,
+   defender,
+   Array.from(war.tiles).map((tile) => `<Tile>${tile}</Tile>`).join(", "),
+)
+```
+
+The parser reads the numeric tile ID from inside `<Tile>...</Tile>` and renders the localized, clickable tile name.
+
+Chronicle content is rendered via `renderMarkup()`, not `html()`. Do not strip or rename `<Province>` / `<Tile>` tags.
+
+## Key Naming
+
+- Keys use **UpperCamelCase**.
+- Keys should match their English content when the resulting key is **≤ 64 characters**. If longer, choose a short but descriptive name.
+- When content changes, update the key to match (if ≤ 64 chars) or verify the existing key is still descriptive.
+
+### Token Placeholders in Key Names
+
+Replace each `%%` in the content with `X`, `Y`, `Z`, `P`, `Q`, `R`, `S`, `T`, `U`, `V`, `W` by position (left to right):
+
+| Content | Key |
+|---------|-----|
+| `%% Tile Unrest for %% months` | `XTileUnrestForYMonths` |
+| `%% nullifies all negative attitudes towards %%` | `XNullifiesAllNegativeAttitudesTowardsY` |
+
+### Merging Non-Entity Keys
+
+When multiple **non-entity** keys share identical content, merge them into one generic key:
+
+```ts
+// Before
+BuildingEffect1: "%% Tile Unrest",
+EventEffect2: "%% Tile Unrest",
+
+// After
+XTileUnrest: "%% Tile Unrest",
+```
+
+Entity name keys are **never** merged, even if the text is identical. Entity prefix rules take precedence.
+
+### Reusing Existing Keys
+
+Before adding a new key, search `en.ts` for an existing entry with the same English text and reuse it. This takes priority over creating duplicates.
+
+## Person Perspective
+
+Game narration uses **first-person** ("we", "our"), not second-person ("you", "your").
+
+**Change** second-person to first-person:
+
+| Before | After |
+|--------|-------|
+| "You gain 10 prestige" | "We gain 10 prestige" |
+
+**Exceptions — keep second-person:**
+
+- Functional confirmation dialogs (e.g. `Are you sure you want to hard reset the game?`)
+- Quotes (e.g. `In This Sign, You Shall Conquer`)
+- The button text `I'm ready to restore the empire`
+
+If a string has no person perspective, leave it as is.
+
+## Grammar and Spelling
+
+Fix misspellings and grammar errors in localization content **directly** (do not just list them as suggestions).
+
+## Improvement Suggestions (Review Only)
+
+When reviewing localization, **list** the following for human review. **Do NOT implement** these directly:
+
+- Keys composable from two other keys → suggest eliminating the redundant key.
+- Similar content across keys → suggest a more generic shared key.
+- Rearrangements that improve reusability → suggest an alternative.
+- Inconsistent casing or wording for the same concept.
+- Ambiguous or unclear phrasing.
+- Opportunities for conciseness and clarity.
+- Keys whose content is only tokens (`%%`), symbols, and numbers with no real text (e.g. `"%% Gold"`) → suggest inlining in source instead of localizing.
+
+## Verification
+
+Run these commands from the **repository root** (`E:/Restitutor`), in order, after making changes:
+
+```sh
+pnpm run build      # TypeScript compile check
+pnpm run check      # Formatting, linting, import sorting (biome)
+pnpm run translate  # Validate %% arg counts, remove unused keys, sync other language files, format
+```
+
+### What `pnpm run translate` Does
+
+1. Scans all `.ts`/`.tsx` files under `packages/` (excluding `languages/`) for `L.KeyName` references and `$t(L.KeyName, ...)` calls.
+2. Validates that the number of `%%` in each key's value matches the number of arguments passed to `$t`.
+3. Removes unused keys from `en.ts` (keys starting with `$` are never removed).
+4. Syncs non-English language files under `packages/client/src/languages/` to match `en.ts` keys.
+5. Formats language files with biome.
+
+If argument counts mismatch, the script prints file, line, key, and expected vs. actual arg count, then exits with code 1.
+
+### After Changing Localization Content
+
+Whenever you change a string's English content, also update its key name to match (if ≤ 64 characters). Otherwise, verify the existing key name is still descriptive; rename if not.
+
+## Flagging Uncertain Cases
+
+When you encounter a case not covered here, or are unsure what to do:
+
+1. **Do not guess.** Leave the string unchanged.
+2. **Flag it** in your response with:
+   - File path and line number
+   - The raw string
+   - Why it is uncertain
+   - Your best guess (if any)
+
+This helps the maintainer extend this document.

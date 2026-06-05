@@ -176,7 +176,7 @@ export function forceDefensePact(fromProvince: Province, toProvince: Province, s
    addChronicleEntry(
       {
          type: "DiplomaticTreaty",
-         content: $t(L.XAndYFormedADefensePact, getProvinceName(fromProvince, save), getProvinceName(toProvince, save)),
+         content: $t(L.XAndYFormedADefensePact, fromProvince, toProvince),
       },
       save,
    );
@@ -256,7 +256,7 @@ export function forceAlliance(fromProvince: Province, toProvince: Province, save
    addChronicleEntry(
       {
          type: "DiplomaticTreaty",
-         content: $t(L.XAndYFormedAnAlliance, getProvinceName(fromProvince, save), getProvinceName(toProvince, save)),
+         content: $t(L.XAndYFormedAnAlliance, fromProvince, toProvince),
       },
       save,
    );
@@ -340,7 +340,7 @@ export function forcePatronage(fromProvince: Province, toProvince: Province, sav
    addChronicleEntry(
       {
          type: "DiplomaticTreaty",
-         content: $t(L.XBecameAClientOfY, getProvinceName(toProvince, save), getProvinceName(fromProvince, save)),
+         content: $t(L.XBecameAClientOfY, toProvince, fromProvince),
       },
       save,
    );
