@@ -15,7 +15,7 @@ export const ManualEvents = {
             modifiers: {
                Prestige: { type: "multiply", value: -0.1, duration: 12 },
             },
-            effects: [
+            custom: [
                {
                   desc: (province, save) => {
                      const governor = save.state.provinces[province]?.governor;
@@ -49,7 +49,7 @@ export const ManualEvents = {
                Prestige: { type: "multiply", value: -0.1, duration: 36 },
                Stability: { type: "add", value: -10, duration: 36 },
             },
-            effects: [
+            custom: [
                {
                   desc: (province, save) => {
                      const governor = save.state.provinces[province]?.governor;

@@ -22,7 +22,7 @@ export const HistoricalEvents = {
             resources: {
                administrative: 100,
             },
-            effects: [
+            custom: [
                {
                   effect: (province, save) => {
                      if (!hasFlag(save.options.flag, GameOptionFlag.PauseGameOnEvent) && isPaused()) {
@@ -37,7 +37,7 @@ export const HistoricalEvents = {
             resources: {
                diplomatic: 100,
             },
-            effects: [
+            custom: [
                {
                   effect: (province, save) => {
                      if (!hasFlag(save.options.flag, GameOptionFlag.PauseGameOnEvent) && isPaused()) {
@@ -52,7 +52,7 @@ export const HistoricalEvents = {
             resources: {
                military: 100,
             },
-            effects: [
+            custom: [
                {
                   effect: (province, save) => {
                      if (!hasFlag(save.options.flag, GameOptionFlag.PauseGameOnEvent) && isPaused()) {
@@ -502,7 +502,7 @@ export const HistoricalEvents = {
             modifiers: {
                WarPower: { type: "multiply", value: 0.25, duration: 10 * 12 },
             },
-            effects: [
+            custom: [
                {
                   desc: (province, save) => $t(L.GainReligiousWarCasusBelliForXYears, "10"),
                   effect: (province, save) => {
@@ -550,7 +550,7 @@ export const HistoricalEvents = {
             modifiers: {
                ChristianityYearly: { type: "add", value: 1 },
             },
-            effects: [
+            custom: [
                {
                   desc: (province, save) => $t(L.EdictOfMilanRemovesMinorReligionPenalties),
                   effect: (province, save) => {
@@ -658,7 +658,7 @@ export const HistoricalEvents = {
                LandTax: { type: "multiply", value: 0.1, duration: 5 * 12 },
             },
             resources: { christianity: 100 },
-            effects: [
+            custom: [
                {
                   desc: (province, save) => $t(L.EdictOfThessalonicaChristianityProvinceEffects),
                },

@@ -1,16 +1,9 @@
 import type { ICondition } from "../actions/GameAction";
 import type { ProvinceUpgrade } from "../actions/ProvinceUpgrades";
-import type { CasusBelli } from "../definitions/CasusBelli";
-import type { IModifier, Modifier } from "../definitions/Modifier";
-import type {
-   Province,
-   ProvinceNameOverride,
-   ProvinceResource,
-   ProvinceStat,
-   TradeOfferBase,
-} from "../definitions/Province";
+import type { Province, ProvinceNameOverride } from "../definitions/Province";
 import type { Religion } from "../definitions/Religion";
 import type { Tech } from "../definitions/Tech";
+import type { IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { GallicEmpireEvents } from "./GallicEmpireEvents";
 import { HistoricalEvents } from "./HistoricalEvents";
@@ -25,13 +18,17 @@ export interface IGameEventImage {
    credit: string;
 }
 
+export interface IGameEventButton extends IGameEffect {
+   label: () => string;
+}
+
 export interface IGameEventConfig {
    name: () => string;
    desc: () => string;
    type?: GameEventType;
    image: IGameEventImage;
    condition?: IGameEventCondition;
-   buttons: IEventButton[];
+   buttons: IGameEventButton[];
 }
 
 export interface IGameEventCondition {
@@ -50,29 +47,6 @@ export interface IGameEventCondition {
    allyCount?: number;
    warPower?: number;
    conditions?: (province: Province, save: SaveGame) => ICondition[];
-}
-
-export interface IEventEffect {
-   effect?: (province: Province, save: SaveGame) => void;
-   desc?: (province: Province, save: SaveGame) => string;
-}
-
-export type IEventTrade = {
-   offer: TradeOfferBase;
-   extraProfit: number;
-};
-
-export interface IEventButton {
-   label: () => string;
-   modifiers?: Partial<Record<Modifier, Omit<IModifier, "name">>>;
-   resources?: Partial<Record<ProvinceResource, number>>;
-   stats?: Partial<Record<ProvinceStat, number>>;
-   attitudes?: Partial<Record<Province, Omit<IModifier, "name"> & { duration: number }>>;
-   infiltration?: Partial<Record<Province, number>>;
-   casusBelli?: Partial<Record<Province, { casusBelli: CasusBelli; duration: number }>>;
-   trades?: Partial<Record<Province, IEventTrade>>;
-   provinceUpgrades?: ProvinceUpgrade[];
-   effects?: IEventEffect[];
 }
 
 const _GameEvents = {

@@ -2,14 +2,16 @@ import { clamp } from "@mantine/hooks";
 import { entriesOf, filterInPlace, forEach, hasFlag, randOne } from "@project/shared/src/utils/Helper";
 import { GameEventModal } from "../../ui/GameEventModal";
 import { G, GameFlags } from "../../utils/Global";
+import { $t, L } from "../../utils/i18n";
 import { showModal } from "../../utils/ModalManager";
 import { addProvinceUpgrade, removeProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import type { IGovernorFamily } from "../definitions/Family";
 import { type Province, ProvinceFlags } from "../definitions/Province";
 import { TimedActions } from "../definitions/TimedAction";
 import { RefreshTiles } from "../Events";
-import { applyEventButton, getEventButtons, getGameEventCondition } from "../events/GameEventLogic";
+import { getEventButtons, getGameEventCondition } from "../events/GameEventLogic";
 import { type GameEvent, GameEvents } from "../events/GameEvents";
+import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor, tickFamily } from "./GovernorLogic";
@@ -139,7 +141,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
          const buttons = getEventButtons(event, province, save);
          if (buttons.length > 0) {
             const button = province === save.state.playerProvince ? buttons[0] : randOne(buttons);
-            applyEventButton(button, data, province, save);
+            applyGameEffect(button, $t(L.XEvent, data.name()), province, save);
          }
          state.events.delete(event);
       }

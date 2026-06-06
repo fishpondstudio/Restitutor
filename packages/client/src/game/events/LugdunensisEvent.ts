@@ -31,7 +31,7 @@ export const LugdunensisEvent = {
             modifiers: {
                WarPower: { type: "multiply", value: 0.2, duration: 3 * 12 },
             },
-            effects: [
+            custom: [
                {
                   effect: (province, save) => {
                      const relation = getRelation(province, "Belgica", save);
@@ -109,7 +109,7 @@ export const LugdunensisEvent = {
             modifiers: {
                WarPower: { type: "multiply", value: 0.2, duration: 3 * 12 },
             },
-            effects: [
+            custom: [
                {
                   effect: (province, save) => {
                      const relation = getRelation(province, "Belgica", save);
@@ -136,7 +136,7 @@ export const LugdunensisEvent = {
             modifiers: {
                Prestige: { type: "multiply", value: 0.2, duration: 3 * 12 },
             },
-            effects: [
+            custom: [
                {
                   effect: (province, save) => {
                      const relation = getRelation("Belgica", province, save);
@@ -182,7 +182,7 @@ export const LugdunensisEvent = {
       buttons: [
          {
             label: () => $t(L.BelgicaShallServeAsOurLoyalClient),
-            effects: [
+            custom: [
                {
                   effect: (province, save) => {
                      dissolveAllTreaties("Belgica", save);

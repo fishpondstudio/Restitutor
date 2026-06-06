@@ -34,7 +34,7 @@ export const RandomEvents = {
                Prestige: { type: "multiply", value: -0.1, duration: 12 * 2 },
                Stability: { type: "add", value: -10, duration: 12 * 2 },
             },
-            effects: [
+            custom: [
                {
                   desc: (province, save) => {
                      return $t(L.OurGovernorsFamilyGetsAMaleChild);

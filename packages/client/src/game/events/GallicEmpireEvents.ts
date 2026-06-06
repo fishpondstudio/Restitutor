@@ -25,7 +25,7 @@ export const GallicEmpireEvents = {
                GoverningCapacity: { type: "add", value: 100 },
                Prestige: { type: "multiply", value: 0.2 },
             },
-            effects: [
+            custom: [
                {
                   effect: (province, save) => {
                      setProvinceNameOverride(province, "GallicEmpire", save);
@@ -60,7 +60,7 @@ export const GallicEmpireEvents = {
       buttons: [
          {
             label: () => $t(L.BritanniaShallServeAsOurLoyalClient),
-            effects: [
+            custom: [
                {
                   effect: (province, save) => {
                      dissolveAllTreaties("Britannia", save);
