@@ -226,6 +226,11 @@ export function TopLeftPanel(): React.ReactNode {
             </BreakdownTooltip>
             <div className="divider vertical" />
             <div style={IconRowStyle}>
+               <FloatingTip label={$t(L.FamilyTree)}>
+                  <div className="pointer" id="TopPanel_FamilyTree" onClick={() => showModal(<FamilyTreeModal />)}>
+                     <img src={FamilyTree} width={IconWidth} />
+                  </div>
+               </FloatingTip>
                <FloatingTip label={$t(L.TilesAndUpgrades)}>
                   <div
                      id="TopPanel_TileCount"
@@ -235,22 +240,6 @@ export function TopLeftPanel(): React.ReactNode {
                      }}
                   >
                      <img src={ProvinceImage} width={IconWidth} />
-                  </div>
-               </FloatingTip>
-               <FloatingTip label={$t(L.FamilyTree)}>
-                  <div className="pointer" id="TopPanel_FamilyTree" onClick={() => showModal(<FamilyTreeModal />)}>
-                     <img src={FamilyTree} width={IconWidth} />
-                  </div>
-               </FloatingTip>
-               <FloatingTip w={300} className="p0" label={<DiplomatsMerchantsTooltip />}>
-                  <div
-                     id="TopPanel_Diplomats"
-                     className="pointer"
-                     onClick={() => {
-                        showSidebar(<DiplomacyPage province={G.save.state.playerProvince} />);
-                     }}
-                  >
-                     <img src={Diplomat} width={IconWidth} />
                   </div>
                </FloatingTip>
                <FloatingTip
@@ -291,6 +280,17 @@ export function TopLeftPanel(): React.ReactNode {
                <FloatingTip label={$t(L.SocialClass)}>
                   <div className="pointer" onClick={() => showModal(<SocialClassModal />)}>
                      <img src={SocialClass} width={IconWidth} />
+                  </div>
+               </FloatingTip>
+               <FloatingTip w={300} className="p0" label={<DiplomatsMerchantsTooltip />}>
+                  <div
+                     id="TopPanel_Diplomats"
+                     className="pointer"
+                     onClick={() => {
+                        showSidebar(<DiplomacyPage province={G.save.state.playerProvince} />);
+                     }}
+                  >
+                     <img src={Diplomat} width={IconWidth} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Production)}>
