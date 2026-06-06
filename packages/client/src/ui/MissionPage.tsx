@@ -1,9 +1,13 @@
 import { Switch } from "@mantine/core";
 import { clearFlag, hasFlag, setFlag } from "@project/shared/src/utils/Helper";
 import { GameOptionUpdated, GameStateUpdated } from "../game/Events";
-import { getAvailableEvents, getEventButtons, getGameEventCondition } from "../game/events/GameEventLogic";
+import {
+   getAvailableEvents,
+   getEventButtons,
+   getGameEventButtonDesc,
+   getGameEventCondition,
+} from "../game/events/GameEventLogic";
 import { GameEvents } from "../game/events/GameEvents";
-import { getGameEffectDesc } from "../game/GameEffect";
 import { GameOptionFlag } from "../game/GameOption";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -53,7 +57,10 @@ export function MissionPage(): React.ReactNode {
                      {buttons.length > 1 ? ` ${$t(L.ChooseOne)}` : ""}
                   </div>
                   {buttons.map((button, index) => (
-                     <FloatingTip key={index} label={getGameEffectDesc(button, G.save.state.playerProvince, G.save)}>
+                     <FloatingTip
+                        key={index}
+                        label={getGameEventButtonDesc(button, G.save.state.playerProvince, G.save)}
+                     >
                         <div className="row ml10 mr5 my5 g5" key={button.label()}>
                            <div className="mi xs">arrow_forward</div>
                            <div className="f1">{button.label()}</div>

@@ -1,8 +1,13 @@
 import { formatNumber, randOne } from "@project/shared/src/utils/Helper";
 import { GameStateUpdated } from "../game/Events";
-import { getEventButtons, getGameEventCondition, getGameEventImages } from "../game/events/GameEventLogic";
+import {
+   applyGameEventButton,
+   getEventButtons,
+   getGameEventButtonDesc,
+   getGameEventCondition,
+   getGameEventImages,
+} from "../game/events/GameEventLogic";
 import { type GameEvent, GameEvents } from "../game/events/GameEvents";
-import { applyGameEffect, getGameEffectDesc } from "../game/GameEffect";
 import { PendingGameEventTimeoutMonths } from "../game/logic/TickProvince";
 import { G } from "../utils/Global";
 import { useTypedEvent } from "../utils/Hook";
@@ -29,7 +34,7 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
          key={index}
          tooltip={
             <>
-               <div className="m10">{getGameEffectDesc(button, G.save.state.playerProvince, G.save)}</div>
+               <div className="m10">{getGameEventButtonDesc(button, G.save.state.playerProvince, G.save)}</div>
                <div className="divider" />
                <div className="text-xs text-dimmed m10">
                   {$t(L.GameEventDecisionTimeoutWarning, formatNumber(PendingGameEventTimeoutMonths))}
@@ -43,7 +48,7 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
                return;
             }
             if (state.events.has(event)) {
-               applyGameEffect(button, $t(L.XEvent, data.name()), G.save.state.playerProvince, G.save);
+               applyGameEventButton(button, $t(L.XEvent, data.name()), G.save.state.playerProvince, G.save);
                state.events.delete(event);
                GameStateUpdated.emit();
             }

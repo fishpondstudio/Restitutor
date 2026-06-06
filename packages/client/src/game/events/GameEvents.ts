@@ -3,7 +3,7 @@ import type { ProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import type { Province, ProvinceNameOverride } from "../definitions/Province";
 import type { Religion } from "../definitions/Religion";
 import type { Tech } from "../definitions/Tech";
-import type { IGameEffect } from "../GameEffect";
+import type { ICustomEffect, IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { GallicEmpireEvents } from "./GallicEmpireEvents";
 import { HistoricalEvents } from "./HistoricalEvents";
@@ -20,6 +20,7 @@ export interface IGameEventImage {
 
 export interface IGameEventButton extends IGameEffect {
    label: () => string;
+   custom?: ICustomEffect[];
 }
 
 export interface IGameEventConfig {

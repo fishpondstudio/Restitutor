@@ -1,10 +1,13 @@
 import { filterOf, forEach, formatNumber, sizeOf } from "@project/shared/src/utils/Helper";
+import type React from "react";
+import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
 import { finalizeCondition, type IConditionBreakdown } from "../actions/GameAction";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../actions/ProvinceUpgrades";
 import { type Province, ProvinceNameOverrides } from "../definitions/Province";
 import { Religion } from "../definitions/Religion";
 import { Tech } from "../definitions/Tech";
+import { applyGameEffect, getGameEffectDesc } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import {
    getAnnexedTiles,
@@ -25,6 +28,29 @@ import {
    type IGameEventCondition,
    type IGameEventImage,
 } from "./GameEvents";
+
+export function getGameEventButtonDesc(button: IGameEventButton, province: Province, save: SaveGame): React.ReactNode {
+   return (
+      <>
+         {getGameEffectDesc(button, province, save)}
+         {button.custom?.map(
+            (effect, index) => effect.desc && <div key={index}>{html(effect.desc(province, save))}</div>,
+         )}
+      </>
+   );
+}
+
+export function applyGameEventButton(
+   button: IGameEventButton,
+   source: string,
+   province: Province,
+   save: SaveGame,
+): void {
+   applyGameEffect(button, source, province, save);
+   button.custom?.forEach((effect) => {
+      effect.effect?.(province, save);
+   });
+}
 
 export function filterProvinces<T>(
    provinces: Partial<Record<Province, T>>,
