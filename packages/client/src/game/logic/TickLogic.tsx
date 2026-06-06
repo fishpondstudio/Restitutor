@@ -10,6 +10,7 @@ import {
    addProvinceResource,
    ConsulElectionMonths,
    clearProvincePrestigeRankingCache,
+   getChristianityYearly,
    getProvinceStat,
    resetProvinceResource,
    rollTradeOffers,
@@ -55,7 +56,7 @@ export function tickYear(save: SaveGame): void {
    clearProvincePrestigeRankingCache();
    tickConsulElection(save);
    forEach(save.state.provinces, (province) => {
-      const yearly = getProvinceStat("christianityYearly", province, save);
+      const yearly = getChristianityYearly(province, save).value;
       addProvinceResource("christianity", yearly, province, save);
    });
 }

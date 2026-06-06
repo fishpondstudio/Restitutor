@@ -547,7 +547,9 @@ export const HistoricalEvents = {
          {
             label: () => $t(L.WeGrantChristiansFreedomOfReligion),
             resources: { christianity: 50 },
-            stats: { christianityYearly: 1 },
+            modifiers: {
+               ChristianityYearly: { type: "add", value: 1 },
+            },
             effects: [
                {
                   desc: (province, save) => $t(L.EdictOfMilanRemovesMinorReligionPenalties),
@@ -651,11 +653,11 @@ export const HistoricalEvents = {
          {
             label: () => $t(L.ChristianityIsTheOneAndOnlyTrueFaith),
             modifiers: {
+               ChristianityYearly: { type: "add", value: 1 },
                Prestige: { type: "multiply", value: 0.1, duration: 5 * 12 },
                LandTax: { type: "multiply", value: 0.1, duration: 5 * 12 },
             },
             resources: { christianity: 100 },
-            stats: { christianityYearly: 1 },
             effects: [
                {
                   desc: (province, save) => $t(L.EdictOfThessalonicaChristianityProvinceEffects),

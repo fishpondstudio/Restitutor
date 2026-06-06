@@ -31,7 +31,7 @@ export function TimedActionButton({
 }): React.ReactNode {
    const config = TimedActions[timedAction];
    if (!("action" in config)) {
-      console.error(`TimedActionButton requires a defined action: ${timedAction}`);
+      console.error(`TimedAction ${timedAction} missing "action" property!`);
       return null;
    }
    return (

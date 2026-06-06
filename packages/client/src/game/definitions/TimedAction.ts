@@ -543,6 +543,20 @@ class TimedActionDefinitions {
       duration: 12 * 5,
       cooldown: 12 * 2,
    };
+   AppointBishop: IProvinceTimedAction = {
+      name: () => $t(L.AppointBishop),
+      desc: () => $t(L.AppointBishopDesc, "+1"),
+      duration: 12 * 10,
+      cooldown: 12 * 10,
+      action: (province, save) => {
+         return createGameAction({
+            timedAction: "AppointBishop",
+            cost: { christianity: (12 * 10) / 2 },
+            province: province,
+            save: save,
+         });
+      },
+   };
    GameEventTimer: ITimedAction = {
       name: () => EmptyString,
       duration: 0,

@@ -1931,4 +1931,7 @@ export const EN = {
    ProgressToNextRestoration: "Progress to Next Restoration",
    GoverningCapacityPerRestorationIsDeterminedAsFollows: "Governing Capacity per Restoration is determined as follows:",
    Restoration: "Restoration",
+   AppointBishop: "Appoint a Bishop",
+   AppointBishopDesc: "Appointing a bishop gives %% Christianity Influence per year.",
+   ChristianityYearlyDesc: "This is the amount of Christianity Influence our province gains each year.",
 };

@@ -1225,3 +1225,10 @@ export function getGoverningCapacityPerRestoration(province: Province, save: Sav
    result.add.push({ name: $t(L.BaseValue), value: BaseGoverningCapacityPerRestoration });
    return finalizeBreakdown(result);
 }
+
+export function getChristianityYearly(province: Province, save: SaveGame): IValueBreakdown {
+   const result = makeValueBreakdown();
+   result.add.push({ name: $t(L.BaseValue), value: 1 });
+   attachModifiers("ChristianityYearly", result, province, save);
+   return finalizeBreakdown(result);
+}

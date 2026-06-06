@@ -18,6 +18,7 @@ import { ProvinceFlags, ProvinceResourceNames } from "../game/definitions/Provin
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
 import {
+   getChristianityYearly,
    getGoverningCapacityPerRestoration,
    getProgressToNextRestoration,
    getProvinceGoverningCapacity,
@@ -25,7 +26,6 @@ import {
    getProvinceOverextension,
    getProvinceResource,
    getProvinceStability,
-   getProvinceStat,
    getTilesAnnexedAndCored,
    TilesPerRestoration,
 } from "../game/logic/ProvinceLogic";
@@ -57,7 +57,7 @@ export function InternalAffairsModal(): React.ReactNode {
    const governingCost = getProvinceGoverningCost(G.save.state.playerProvince, G.save);
    const governingCapacity = getProvinceGoverningCapacity(G.save.state.playerProvince, G.save);
    const christianity = getProvinceResource("christianity", G.save.state.playerProvince, G.save);
-   const christianityYearly = getProvinceStat("christianityYearly", G.save.state.playerProvince, G.save);
+   const christianityYearly = getChristianityYearly(G.save.state.playerProvince, G.save);
    const tileAnnexedAndCored = getTilesAnnexedAndCored(G.save.state.playerProvince, G.save);
    const progressToNextRestoration = getProgressToNextRestoration(G.save.state.playerProvince, G.save);
    const governingCapacityPerRestoration = getGoverningCapacityPerRestoration(G.save.state.playerProvince, G.save);
@@ -204,12 +204,10 @@ export function InternalAffairsModal(): React.ReactNode {
                               <div className="f1">{$t(L.GoverningCost)}</div>
                               <div>{formatNumber(governingCost.value)}</div>
                            </div>
-                           <div className="row my5">
-                              <div className="f1">{$t(L.ChristianityYearly)}</div>
-                              <div>{colorNumber(christianityYearly)}</div>
-                           </div>
                         </div>
-                        <div className="divider my10" />
+                        <div className="h2">{$t(L.ChristianityYearly)}</div>
+                        <BreakdownComp breakdown={christianityYearly} />
+                        <div className="divider" />
                         <div className="m10">
                            {$t(L.ChristianityConversionEffectsDescription)}
                            <div className="h10" />
@@ -234,7 +232,7 @@ export function InternalAffairsModal(): React.ReactNode {
                      <div className="f1" />
                      <div>
                         {formatNumber(christianity)}/{formatNumber(governingCost.value)}
-                        <span className="text-green"> ({formatDelta(christianityYearly)})</span>
+                        <span className="text-green"> ({formatDelta(christianityYearly.value)})</span>
                      </div>
                   </div>
                </FloatingTip>
@@ -243,9 +241,9 @@ export function InternalAffairsModal(): React.ReactNode {
             </div>
             <div className="divider vertical" />
             <div style={{ width: 250 }}>
-               <div className="mx10">
+               <div className="col stretch m10 g5">
                   <ActionButton
-                     className="btn w100"
+                     className="btn"
                      action={ConvertToChristianityAction(G.save.state.playerProvince, G.save)}
                      tooltip={(element) => (
                         <>
@@ -256,6 +254,7 @@ export function InternalAffairsModal(): React.ReactNode {
                   >
                      {$t(L.ConvertToChristianity)}
                   </ActionButton>
+                  <TimedActionButton timedAction="AppointBishop" />
                </div>
             </div>
          </div>

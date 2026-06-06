@@ -248,7 +248,9 @@ export const LugdunensisEvent = {
          {
             label: () => $t(L.LetHisMemoryGuideUsTowardVirtue),
             resources: { administrative: -50, christianity: 10 },
-            stats: { christianityYearly: 1 },
+            modifiers: {
+               ChristianityYearly: { type: "add", value: 1, duration: 2 * 12 },
+            },
          },
          {
             label: () => $t(L.WeMustRemainBalancedInOurPolicies),
