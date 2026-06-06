@@ -77,6 +77,7 @@ import {
 
 const AIDeclareWarChance = 0.2;
 const AIWarMaxUnrest = 10;
+const EnableAILogging = import.meta.env.DEV;
 
 export function tickAI(save: SaveGame): void {
    forEach(save.state.provinces, (province, state) => {
@@ -298,12 +299,12 @@ function doWar(province: Province, save: SaveGame): void {
             continue;
          }
          if (currentWar.actualWarScore >= currentWar.requiredWarScore) {
-            console.log(`${province} signs peace treaty with ${currentWar.defender}`);
+            logAI(`${province} signs peace treaty with ${currentWar.defender}`);
             tryDoHeadless(SignPeaceTreatyAction(currentWar, province, save), "SignPeaceTreaty", province, save);
             continue;
          }
          if (getAverageUnrest(province, save) > AIWarMaxUnrest) {
-            console.log(`${province} negotiates white peace with ${currentWar.defender} due to unrest`);
+            logAI(`${province} negotiates white peace with ${currentWar.defender} due to unrest`);
             tryDoHeadless(NegotiateWhitePeaceAction(currentWar, province, save), "NegotiateWhitePeace", province, save);
             continue;
          }
@@ -317,7 +318,7 @@ function doWar(province: Province, save: SaveGame): void {
             ) < 0.5
          ) {
             const action = NegotiateWhitePeaceAction(currentWar, province, save);
-            console.log(`${province} negotiates white peace with ${currentWar.defender} due to low success chance`);
+            logAI(`${province} negotiates white peace with ${currentWar.defender} due to low success chance`);
             tryDoHeadless(action, "NegotiateWhitePeace", province, save);
          }
       }
@@ -331,11 +332,16 @@ function doWar(province: Province, save: SaveGame): void {
       return;
    }
    const { tile, estimatedMonth } = warGoal;
+   const tileData = save.state.tiles.get(tile);
    const maxWarMonths = getMaxWarMonths(province, save);
    if (estimatedMonth > maxWarMonths) {
+      if (tileData) {
+         logAI(
+            `${province} skips declaring war on ${tileData.province} because it takes too long (${estimatedMonth} > ${maxWarMonths})`,
+         );
+      }
       return;
    }
-   const tileData = save.state.tiles.get(tile);
    if (tileData) {
       const relation = getRelation(province, tileData.province, save);
       if (relation) {
@@ -353,7 +359,7 @@ function doWar(province: Province, save: SaveGame): void {
          "ConquestMission",
          save,
       );
-      console.log(`${province} declares war on ${tileData.province}\n${printAction(action, province, save)}`);
+      logAI(`${province} declares war on ${tileData.province}\n${printAction(action, province, save)}`);
       tryDoHeadless(action, "DeclareWar", province, save);
    }
 }
@@ -660,4 +666,11 @@ function getAverageUnrest(province: Province, save: SaveGame): number {
 function getMaxWarMonths(province: Province, save: SaveGame): number {
    const averageUnrest = getAverageUnrest(province, save);
    return clamp((AIWarMaxUnrest - averageUnrest) / MonthlyStabilityCostWithCB, 0, Number.POSITIVE_INFINITY);
+}
+
+function logAI(message?: any, ...optionalParams: any[]): void {
+   if (!EnableAILogging) {
+      return;
+   }
+   console.log(message, ...optionalParams);
 }
