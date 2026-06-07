@@ -50,7 +50,7 @@ import { getTechsCanBeResearched, hasResearched } from "../game/logic/TechLogic"
 import { monthToNextYear } from "../game/logic/TickLogic";
 import { PendingGameEventTimeoutMonths } from "../game/logic/TickProvince";
 import { getTileUnrest } from "../game/logic/TileLogic";
-import { getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
+import { getTimedActionTimeLeft, makeGameAction } from "../game/logic/TimedActionLogic";
 import {
    getCurrentGeneral,
    getCurrentWars,
@@ -526,15 +526,15 @@ const CanAppointPontiff: ITodo = {
    className: (save) => "green",
    tooltip: (save) => {
       const result: string[] = [];
-      const appointPontiff = TimedActions.AppointPontiff.costCondition(save.state.playerProvince, save);
+      const appointPontiff = makeGameAction("AppointPontiff", save.state.playerProvince, save);
       if (canDoAction(appointPontiff, save.state.playerProvince, save)) {
          result.push($t(L.Pontiff));
       }
-      const appointEnvoy = TimedActions.AppointEnvoy.costCondition(save.state.playerProvince, save);
+      const appointEnvoy = makeGameAction("AppointEnvoy", save.state.playerProvince, save);
       if (canDoAction(appointEnvoy, save.state.playerProvince, save)) {
          result.push($t(L.Envoy));
       }
-      const appointArmyStaff = TimedActions.AppointArmyStaff.costCondition(save.state.playerProvince, save);
+      const appointArmyStaff = makeGameAction("AppointArmyStaff", save.state.playerProvince, save);
       if (canDoAction(appointArmyStaff, save.state.playerProvince, save)) {
          result.push($t(L.ArmyStaff));
       }

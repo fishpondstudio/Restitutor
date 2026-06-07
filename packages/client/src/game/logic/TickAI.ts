@@ -535,15 +535,7 @@ function selectAdvisor(province: Province, save: SaveGame): void {
    }
 }
 
-function tryDoHeadless(
-   action: IGameAction | undefined,
-   aiAction: AIAction,
-   province: Province,
-   save: SaveGame,
-): boolean {
-   if (!action) {
-      return false;
-   }
+function tryDoHeadless(action: IGameAction, aiAction: AIAction, province: Province, save: SaveGame): boolean {
    const state = save.state.provinces[province];
    if (!state) {
       return false;

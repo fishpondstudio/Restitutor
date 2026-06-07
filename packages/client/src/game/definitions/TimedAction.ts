@@ -345,7 +345,7 @@ class TimedActionDefinitions {
       },
       effect: {
          modifiers: {
-            WarPower: { type: "add", value: 0.1, duration: 12 },
+            WarPower: { type: "multiply", value: 0.1, duration: 12 },
          },
       },
    };
@@ -559,5 +559,8 @@ class TimedActionDefinitions {
 export type TimedAction = keyof TimedActionDefinitions;
 export type TimedActionWithDuration = {
    [K in TimedAction]: TimedActionDefinitions[K] extends { duration: number } ? K : never;
+}[TimedAction];
+export type TimedActionWithEffect = {
+   [K in TimedAction]: TimedActionDefinitions[K] extends { effect: IGameEffect } ? K : never;
 }[TimedAction];
 export const TimedActions = new TimedActionDefinitions();
