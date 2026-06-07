@@ -7,10 +7,8 @@ import {
    type IGameAction,
 } from "../game/actions/GameAction";
 import type { ProvinceResourceCosts } from "../game/definitions/Province";
-import { type TimedAction, TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { hasEnoughProvinceResources, trySpendProvinceResources } from "../game/logic/ProvinceLogic";
-import { TimedActionDescComp } from "../game/logic/TimedActionLogic";
 import { useDebugKey } from "../game/Shortcut";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -19,37 +17,6 @@ import { ConditionBreakdownComp } from "./ConditionBreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { ResourceCostComp } from "./ResourceCostComp";
 import { playClick, playError } from "./Sound";
-
-export function TimedActionButton({
-   timedAction,
-   id,
-   className,
-}: {
-   timedAction: TimedAction;
-   id?: string;
-   className?: string;
-}): React.ReactNode {
-   const config = TimedActions[timedAction];
-   if (!("action" in config)) {
-      console.error(`TimedAction ${timedAction} missing "action" property!`);
-      return null;
-   }
-   return (
-      <ActionButton
-         id={id}
-         className={className}
-         action={config.action(G.save.state.playerProvince, G.save)}
-         tooltip={(element) => (
-            <>
-               <TimedActionDescComp action={timedAction} />
-               {element}
-            </>
-         )}
-      >
-         {config.name()}
-      </ActionButton>
-   );
-}
 
 export function ActionButton({
    action,

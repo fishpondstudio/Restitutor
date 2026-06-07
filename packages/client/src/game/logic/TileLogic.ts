@@ -314,14 +314,6 @@ export function getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    if (overextension > 0) {
       breakdown.multiply.push({ name: $t(L.Overextension), value: -overextension * 0.01 });
    }
-   const taxRelief = getTimedActionTimeLeft("GrantTaxRelief", data.province, save);
-   if (taxRelief > 0) {
-      breakdown.multiply.push({
-         name: $t(L.TaxRelief),
-         desc: $t(L.XMonthsLeft, formatNumber(taxRelief)),
-         value: -0.2,
-      });
-   }
    const bankruptcy = getTimedActionTimeLeft("Bankruptcy", data.province, save);
    if (bankruptcy > 0) {
       breakdown.multiply.push({

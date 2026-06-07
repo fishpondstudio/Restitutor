@@ -16,18 +16,20 @@ import {
    trySpendProvinceResources,
 } from "../game/logic/ProvinceLogic";
 import { notEnoughResourcesError } from "../game/logic/ResourceLogic";
-import { startTimedAction, TimedActionDescComp, timedActionConditions } from "../game/logic/TimedActionLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
+import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar, showModal } from "../utils/ModalManager";
-import { ActionButton, TimedActionButton } from "./ActionButton";
+import { ActionButton } from "./ActionButton";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { FamilyTreeModal } from "./FamilyModal";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { playClick, playError } from "./Sound";
+import { TimedActionButton } from "./TimedActionButton";
 import { Grid3 } from "./UIConstant";
 
 export function GovernmentModal(): React.ReactNode {

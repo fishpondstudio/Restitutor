@@ -1,7 +1,7 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { AppeaseAction } from "../game/actions/AppeaseAction";
 import { TimedActions } from "../game/definitions/TimedAction";
-import { TimedActionDescComp } from "../game/logic/TimedActionLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { G } from "../utils/Global";
 import { ActionButton } from "./ActionButton";
 

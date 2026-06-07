@@ -6,7 +6,7 @@ import {
    UpgradeProductionAction,
 } from "../game/actions/UpgradeActions";
 import { getTileUpgradeCost } from "../game/logic/TileLogic";
-import { TimedActionDescComp } from "../game/logic/TimedActionLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";

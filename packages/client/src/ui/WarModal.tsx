@@ -20,12 +20,8 @@ import {
    setProvinceStat,
 } from "../game/logic/ProvinceLogic";
 import { monthToDate } from "../game/logic/TickLogic";
-import {
-   getTimedActionTimeLeft,
-   startTimedAction,
-   TimedActionDescComp,
-   timedActionConditions,
-} from "../game/logic/TimedActionLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
+import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import {
    getCurrentWars,
    getTruceLength,

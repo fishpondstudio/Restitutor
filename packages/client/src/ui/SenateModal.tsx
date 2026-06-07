@@ -15,11 +15,11 @@ import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar, showModal } from "../utils/ModalManager";
-import { TimedActionButton } from "./ActionButton";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { DissolveTreatyModal } from "./DissolveTreatyModal";
 import { NamePublicEnemyModal } from "./NamePublicEnemyModal";
+import { TimedActionButton } from "./TimedActionButton";
 import { Grid2, Grid3 } from "./UIConstant";
 
 export function SenateModal(): React.ReactNode {

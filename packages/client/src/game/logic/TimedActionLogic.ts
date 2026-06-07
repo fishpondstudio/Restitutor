@@ -2,9 +2,10 @@ import { clamp, formatNumber } from "@project/shared/src/utils/Helper";
 import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
 import { finalizeCondition, type ICondition, type IGameAction } from "../actions/GameAction";
-import type { Province, ProvinceResourceCosts } from "../definitions/Province";
+import type { Province } from "../definitions/Province";
 import { Tech } from "../definitions/Tech";
-import { type TimedAction, TimedActions } from "../definitions/TimedAction";
+import { type TimedAction, TimedActions, type TimedActionWithDuration } from "../definitions/TimedAction";
+import { applyGameEffect, getGameEffectDesc } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { hasResearched } from "./TechLogic";
 
@@ -21,7 +22,7 @@ export function getTimedActionCooldownLeft(timedAction: TimedAction, province: P
    return clamp(lastPerformed + config.cooldown - save.state.month, 0, Number.POSITIVE_INFINITY);
 }
 
-export function getTimedActionTimeLeft(timedAction: TimedAction, province: Province, save: SaveGame): number {
+export function getTimedActionTimeLeft(timedAction: TimedActionWithDuration, province: Province, save: SaveGame): number {
    const config = TimedActions[timedAction];
    const state = save.state.provinces[province];
    if (!state) {
@@ -76,61 +77,48 @@ export function startTimedAction(action: TimedAction, province: Province, save: 
    state.timedActions.set(action, save.state.month);
 }
 
-export function endTimedAction(action: TimedAction, province: Province, save: SaveGame): void {
+export function endTimedAction(action: TimedActionWithDuration, province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
    if (!state) {
       return;
    }
+   const config = TimedActions[action];
    const timeLeft = getTimedActionTimeLeft(action, province, save);
    if (timeLeft > 0) {
-      state.timedActions.set(action, save.state.month - TimedActions[action].duration);
+      state.timedActions.set(action, save.state.month - config.duration);
    }
 }
 
-export function TimedActionDescComp({ action }: { action: TimedAction }): React.ReactNode {
-   const def = TimedActions[action];
-   return (
-      <>
-         {def.desc && <div className="m10">{html(def.desc())}</div>}
-         {def.duration > 0 && (
-            <div className="row mx10 my5">
-               <div className="f1">{$t(L.Duration)}</div>
-               <div className="text-sm text-dimmed">{$t(L.XMonths, formatNumber(def.duration))}</div>
-            </div>
-         )}
-         {def.cooldown > 0 && (
-            <div className="row mx10 my5">
-               <div className="f1">{$t(L.Cooldown)}</div>
-               <div className="text-sm text-dimmed">{$t(L.XMonths, formatNumber(def.cooldown))}</div>
-            </div>
-         )}
-      </>
-   );
+export function getTimedActionDesc(action: TimedAction, province: Province, save: SaveGame): React.ReactNode {
+   const config = TimedActions[action];
+   if ("desc" in config) {
+      if (config.desc) {
+         return html(config.desc());
+      }
+      return null;
+   }
+   if ("effect" in config) {
+      return getGameEffectDesc(config.effect, province, save);
+   }
 }
 
-export function createGameAction({
-   timedAction,
-   cost,
-   conditions,
-   effect,
-   province,
-   save,
-}: {
-   timedAction: TimedAction;
-   cost?: ProvinceResourceCosts;
-   conditions?: ICondition[];
-   effect?: () => void;
-   province: Province;
-   save: SaveGame;
-}): IGameAction {
-   return {
-      cost: cost,
-      condition: finalizeCondition({
-         breakdown: [...timedActionConditions({ action: timedAction }, province, save), ...(conditions ?? [])],
-      }),
-      effect: () => {
-         startTimedAction(timedAction, province, save);
-         effect?.();
-      },
-   };
+export function makeGameAction(timedAction: TimedAction, province: Province, save: SaveGame): IGameAction | undefined {
+   const config = TimedActions[timedAction];
+   if ("effect" in config) {
+      const condition = config.costCondition?.(province, save);
+      return {
+         cost: condition?.cost,
+         condition: finalizeCondition({
+            breakdown: [
+               ...timedActionConditions({ action: timedAction }, province, save),
+               ...(condition?.condition?.breakdown ?? []),
+            ],
+         }),
+         effect: () => {
+            startTimedAction(timedAction, province, save);
+            applyGameEffect(config.effect, config.name(), province, save);
+         },
+      };
+   }
+   return undefined;
 }

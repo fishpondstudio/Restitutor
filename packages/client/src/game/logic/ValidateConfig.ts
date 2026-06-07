@@ -2,7 +2,7 @@ import { entriesOf, forEach, sizeOf } from "@project/shared/src/utils/Helper";
 import { type Building, Buildings } from "../definitions/Building";
 import { Goods } from "../definitions/Goods";
 import { Tech } from "../definitions/Tech";
-import { TimedActions } from "../definitions/TimedAction";
+import { type IBaseTimedAction, type TimedAction, TimedActions } from "../definitions/TimedAction";
 
 export function validateConfig(): void {
    const buildings = new Set<Building>();
@@ -21,7 +21,7 @@ export function validateConfig(): void {
       });
       config.timedActions?.forEach((timedAction) => {
          const def = TimedActions[timedAction];
-         if (def.desc === undefined) {
+         if ("desc" in def && def.desc === undefined) {
             console.error(`Timed action ${timedAction} is unlocked by tech ${tech} but has no description`);
          }
          if (def.tech !== undefined) {
@@ -43,15 +43,10 @@ export function validateConfig(): void {
          console.error(`Raw goods ${g} should not be locked by any tech`);
       }
    });
-   forEach(TimedActions, (timedAction, config) => {
-      if (config.tech !== undefined && config.desc === undefined) {
-         console.error(`Timed action ${timedAction} is unlocked by tech ${config.tech} but has no description`);
-      }
-   });
    console.log(
-      `⚠️TimedActions not unlocked by tech:\n${entriesOf(TimedActions)
+      `⚠️TimedActions not unlocked by tech:\n${entriesOf(TimedActions as Partial<Record<TimedAction, IBaseTimedAction>>)
          .flatMap(([timedAction, config]) => {
-            if (config.tech === undefined && config.desc !== undefined) {
+            if (config.tech === undefined && "desc" in config && config.desc !== undefined) {
                return `- ${config.name()} (${timedAction})`;
             }
             return [];

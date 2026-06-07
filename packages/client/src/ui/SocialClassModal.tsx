@@ -12,7 +12,8 @@ import {
    getLoyaltyEquilibrium,
    SocialClassDissentEffectPct,
 } from "../game/logic/SocialClassLogic";
-import { startTimedAction, TimedActionDescComp, timedActionConditions } from "../game/logic/TimedActionLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
+import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";

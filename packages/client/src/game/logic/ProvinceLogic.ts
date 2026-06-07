@@ -270,48 +270,12 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
 
 export function getProvinceStability(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
-   const holdGames = getTimedActionTimeLeft("HoldGames", province, save);
-   if (holdGames > 0) {
-      breakdown.add.push({
-         name: $t(L.HoldingGames),
-         desc: $t(L.XMonthsLeft, formatNumber(holdGames)),
-         value: 10,
-      });
-   }
-   const expandGrainDole = getTimedActionTimeLeft("ExpandGrainDole", province, save);
-   if (expandGrainDole > 0) {
-      breakdown.add.push({
-         name: $t(L.ExpandingGrainDole),
-         desc: $t(L.XMonthsLeft, formatNumber(expandGrainDole)),
-         value: 10,
-      });
-   }
-
-   const taxRelief = getTimedActionTimeLeft("GrantTaxRelief", province, save);
-   if (taxRelief > 0) {
-      breakdown.add.push({
-         name: $t(L.TaxRelief),
-         desc: $t(L.XMonthsLeft, formatNumber(taxRelief)),
-         value: 10,
-      });
-   }
-
-   const civicUnity = getTimedActionTimeLeft("AffirmCivicUnity", province, save);
-   if (civicUnity > 0) {
-      breakdown.add.push({
-         name: $t(L.CivicUnity),
-         desc: $t(L.XMonthsLeft, formatNumber(civicUnity)),
-         value: 10,
-      });
-   }
-
    if (hasProvinceUpgrade("UpperClassStability", province, save)) {
       breakdown.add.push({
          ...getSocialClassBonusName("UpperClassStability"),
          value: 10,
       });
    }
-
    if (isSocialClassDissent("UpperClass", province, save)) {
       breakdown.add.push({
          name: $t(L.XClassDissent, SocialClassNames.UpperClass()),
@@ -456,14 +420,6 @@ export function getArmyMaintenanceCost(province: Province, save: SaveGame): IVal
          });
       }
    }
-   const hireMercenaries = getTimedActionTimeLeft("HireMercenaries", province, save);
-   if (hireMercenaries > 0) {
-      breakdown.multiply.push({
-         name: $t(L.HireMercenaries),
-         desc: $t(L.XMonthsLeft, formatNumber(hireMercenaries)),
-         value: 0.25,
-      });
-   }
    attachModifiers("ArmyMaintenance", breakdown, province, save);
    getProvinceTraits("Prudent", province, save).forEach((trait) => {
       breakdown.multiply.push({ ...trait, value: -0.02 });
@@ -533,30 +489,6 @@ export function getProvinceGoverningCapacity(province: Province, save: SaveGame)
       breakdown.add.push({
          name: $t(L.Restoration),
          value: restoration * getGoverningCapacityPerRestoration(province, save).value,
-      });
-   }
-   const reformCuria = getTimedActionTimeLeft("ReformCuria", province, save);
-   if (reformCuria > 0) {
-      breakdown.add.push({
-         name: $t(L.ReformingCuria),
-         desc: $t(L.XMonthsLeft, formatNumber(reformCuria)),
-         value: 100,
-      });
-   }
-   const renewVestments = getTimedActionTimeLeft("RenewVestments", province, save);
-   if (renewVestments > 0) {
-      breakdown.add.push({
-         name: $t(L.RenewingVestments),
-         desc: $t(L.XMonthsLeft, formatNumber(renewVestments)),
-         value: 100,
-      });
-   }
-   const recruitTalents = getTimedActionTimeLeft("RecruitTalents", province, save);
-   if (recruitTalents > 0) {
-      breakdown.add.push({
-         name: $t(L.RecruitingTalents),
-         desc: $t(L.XMonthsLeft, formatNumber(recruitTalents)),
-         value: 100,
       });
    }
    attachModifiers("GoverningCapacity", breakdown, province, save);
@@ -659,9 +591,6 @@ export function getProvinceGovernmentPoint(type: GovernorPower, province: Provin
    if (type === "administrative") {
       attachModifiers("AdministrativePoint", breakdown, province, save);
    }
-   if (type === "administrative" && getTimedActionTimeLeft("AppointPontiff", province, save) > 0) {
-      breakdown.add.push({ name: $t(L.FromPontiff), value: 1 });
-   }
    if (type === "administrative" && hasProvinceUpgrade("UpperClassAdministrativePoint", province, save)) {
       breakdown.add.push({
          ...getSocialClassBonusName("UpperClassAdministrativePoint"),
@@ -670,9 +599,6 @@ export function getProvinceGovernmentPoint(type: GovernorPower, province: Provin
    }
    if (type === "diplomatic") {
       attachModifiers("DiplomaticPoint", breakdown, province, save);
-   }
-   if (type === "diplomatic" && getTimedActionTimeLeft("AppointEnvoy", province, save) > 0) {
-      breakdown.add.push({ name: $t(L.FromEnvoy), value: 1 });
    }
    if (type === "diplomatic" && hasProvinceUpgrade("MiddleClassDiplomaticPoint", province, save)) {
       breakdown.add.push({
@@ -683,17 +609,11 @@ export function getProvinceGovernmentPoint(type: GovernorPower, province: Provin
    if (type === "military") {
       attachModifiers("MilitaryPoint", breakdown, province, save);
    }
-   if (type === "military" && getTimedActionTimeLeft("AppointArmyStaff", province, save) > 0) {
-      breakdown.add.push({ name: $t(L.FromArmyStaff), value: 1 });
-   }
    if (type === "military" && hasProvinceUpgrade("LowerClassMilitaryPoint", province, save)) {
       breakdown.add.push({
          ...getSocialClassBonusName("LowerClassMilitaryPoint"),
          value: 1,
       });
-   }
-   if (getTimedActionTimeLeft("EnactSenateOversight", province, save) > 0) {
-      breakdown.add.push({ name: $t(L.FromSenateOversight), value: 1 });
    }
    return finalizeBreakdown(breakdown);
 }
@@ -851,22 +771,6 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
    if (hasProvinceUpgrade("LowerClassWarPower", province, save)) {
       result.multiply.push({
          ...getSocialClassBonusName("LowerClassWarPower"),
-         value: 0.1,
-      });
-   }
-   const hireMercenaries = getTimedActionTimeLeft("HireMercenaries", province, save);
-   if (hireMercenaries > 0) {
-      result.multiply.push({
-         name: $t(L.HireMercenaries),
-         desc: $t(L.XMonthsLeft, formatNumber(hireMercenaries)),
-         value: 0.25,
-      });
-   }
-   const declareMobilization = getTimedActionTimeLeft("DeclareMobilization", province, save);
-   if (declareMobilization > 0) {
-      result.multiply.push({
-         name: $t(L.DeclareMobilization),
-         desc: $t(L.XMonthsLeft, formatNumber(declareMobilization)),
          value: 0.1,
       });
    }

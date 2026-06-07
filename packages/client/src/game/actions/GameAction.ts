@@ -19,14 +19,6 @@ export interface IGameAction extends IGameCostCondition {
    effect: (options: { headless: boolean }) => void;
 }
 
-export function areGameActionsEqual(a: IGameAction, b: IGameAction): boolean {
-   return (
-      areProvinceCostsEqual(a.cost, b.cost) &&
-      areConditionBreakdownsEqual(a.condition, b.condition) &&
-      (a.condition?.value === false || b.condition?.value === false || a.effect === b.effect)
-   );
-}
-
 export interface ICondition {
    name: string;
    desc?: string;

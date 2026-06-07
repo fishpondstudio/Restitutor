@@ -35,7 +35,7 @@ import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
-import { ActionButton, TimedActionButton } from "./ActionButton";
+import { ActionButton } from "./ActionButton";
 import { AppeaseButton } from "./AppeaseButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
@@ -47,6 +47,7 @@ import { html } from "./components/RenderHTMLComp";
 import { MakeCoreButton } from "./MakeCoreButton";
 import { playClick } from "./Sound";
 import { TilePage } from "./TilePage";
+import { TimedActionButton } from "./TimedActionButton";
 
 export function InternalAffairsModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);

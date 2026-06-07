@@ -526,15 +526,15 @@ const CanAppointPontiff: ITodo = {
    className: (save) => "green",
    tooltip: (save) => {
       const result: string[] = [];
-      const appointPontiff = TimedActions.AppointPontiff.action(save.state.playerProvince, save);
+      const appointPontiff = TimedActions.AppointPontiff.costCondition(save.state.playerProvince, save);
       if (canDoAction(appointPontiff, save.state.playerProvince, save)) {
          result.push($t(L.Pontiff));
       }
-      const appointEnvoy = TimedActions.AppointEnvoy.action(save.state.playerProvince, save);
+      const appointEnvoy = TimedActions.AppointEnvoy.costCondition(save.state.playerProvince, save);
       if (canDoAction(appointEnvoy, save.state.playerProvince, save)) {
          result.push($t(L.Envoy));
       }
-      const appointArmyStaff = TimedActions.AppointArmyStaff.action(save.state.playerProvince, save);
+      const appointArmyStaff = TimedActions.AppointArmyStaff.costCondition(save.state.playerProvince, save);
       if (canDoAction(appointArmyStaff, save.state.playerProvince, save)) {
          result.push($t(L.ArmyStaff));
       }

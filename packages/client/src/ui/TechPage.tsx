@@ -8,7 +8,8 @@ import { Tech } from "../game/definitions/Tech";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { getResearchCost, getResearchCostBreakdown } from "../game/logic/TechLogic";
-import { TimedActionDescComp } from "../game/logic/TimedActionLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
+import { getTimedActionDesc } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -115,7 +116,9 @@ export function TechPage({ tech }: { tech: Tech }): React.ReactNode {
                         <FloatingTip className="p0" w={300} label={<TimedActionDescComp action={timedAction} />}>
                            <div className="m10">
                               <div>{def.name()}</div>
-                              {def.desc && html(def.desc(), { className: "text-sm text-dimmed" })}
+                              <div className="text-sm text-dimmed">
+                                 {getTimedActionDesc(timedAction, G.save.state.playerProvince, G.save)}
+                              </div>
                            </div>
                         </FloatingTip>
                         <div className="divider" />

@@ -3,7 +3,7 @@ import { MakeCoreAction } from "../game/actions/MakeCoreAction";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { getTileMakeCoreCost } from "../game/logic/TileLogic";
-import { TimedActionDescComp } from "../game/logic/TimedActionLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";

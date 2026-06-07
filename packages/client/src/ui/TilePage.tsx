@@ -21,7 +21,8 @@ import {
    isCapital,
    tileIsOurCoreCondition,
 } from "../game/logic/TileLogic";
-import { TimedActionDescComp, timedActionConditions } from "../game/logic/TimedActionLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
+import { timedActionConditions } from "../game/logic/TimedActionLogic";
 import { getWarForTile } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";

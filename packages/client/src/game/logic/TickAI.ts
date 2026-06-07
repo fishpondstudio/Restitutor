@@ -40,7 +40,6 @@ import {
    Provinces,
 } from "../definitions/Province";
 import { SocialClasses } from "../definitions/SocialClass";
-import { TimedActions } from "../definitions/TimedAction";
 import type { SaveGame } from "../GameState";
 import { getDiplomats, getRelation, HumiliateRivalCasusBelliMonths } from "./DiplomacyLogic";
 import { optimizeProduction } from "./ProductionLogic";
@@ -62,7 +61,12 @@ import {
 } from "./ProvinceLogic";
 import { getCheapestLockedTech } from "./TechLogic";
 import { getBuildingSlot, getTileUnrest } from "./TileLogic";
-import { getTimedActionCooldownLeft, getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
+import {
+   getTimedActionCooldownLeft,
+   getTimedActionTimeLeft,
+   makeGameAction,
+   startTimedAction,
+} from "./TimedActionLogic";
 import { forceAlliance, forceDefensePact, getTreatyCount } from "./TreatyLogic";
 import {
    getCurrentWars,
@@ -243,14 +247,9 @@ export function tickAI(save: SaveGame): void {
       lookForSpouse(state.governor, province, save);
       doWar(province, save);
       tryDoHeadless(ConvertToChristianityAction(province, save), "ConvertToChristianity", province, save);
-      tryDoHeadless(TimedActions.AppointPontiff.action(province, save), "AppointPontiffEnvoyArmyStaff", province, save);
-      tryDoHeadless(TimedActions.AppointEnvoy.action(province, save), "AppointPontiffEnvoyArmyStaff", province, save);
-      tryDoHeadless(
-         TimedActions.AppointArmyStaff.action(province, save),
-         "AppointPontiffEnvoyArmyStaff",
-         province,
-         save,
-      );
+      tryDoHeadless(makeGameAction("AppointPontiff", province, save), "AppointPontiffEnvoyArmyStaff", province, save);
+      tryDoHeadless(makeGameAction("AppointEnvoy", province, save), "AppointPontiffEnvoyArmyStaff", province, save);
+      tryDoHeadless(makeGameAction("AppointArmyStaff", province, save), "AppointPontiffEnvoyArmyStaff", province, save);
    });
 }
 
@@ -371,7 +370,7 @@ function getDesiredTreatyCount(province: Province, save: SaveGame): number {
 function doSenateVote(province: Province, save: SaveGame): void {
    pledgeProvinceConsulVotes(province, save);
    if (getProvinceResource("consulPoint", province, save) > 0) {
-      tryDoHeadless(TimedActions.RequestFunding.action!(province, save), "RequestFunding", province, save);
+      tryDoHeadless(makeGameAction("RequestFunding", province, save), "RequestFunding", province, save);
    }
 }
 
@@ -536,7 +535,15 @@ function selectAdvisor(province: Province, save: SaveGame): void {
    }
 }
 
-function tryDoHeadless(action: IGameAction, aiAction: AIAction, province: Province, save: SaveGame): boolean {
+function tryDoHeadless(
+   action: IGameAction | undefined,
+   aiAction: AIAction,
+   province: Province,
+   save: SaveGame,
+): boolean {
+   if (!action) {
+      return false;
+   }
    const state = save.state.provinces[province];
    if (!state) {
       return false;

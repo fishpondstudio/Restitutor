@@ -60,11 +60,11 @@ import {
    isGreatPowerCondition,
    isNorGreatPowerCondition,
 } from "../game/logic/ProvinceLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
    getTimedActionCooldownLeft,
    getTimedActionTimeLeft,
    startTimedAction,
-   TimedActionDescComp,
    timedActionConditions,
 } from "../game/logic/TimedActionLogic";
 import {
@@ -1003,10 +1003,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                            }),
                            effect: () => {
                               startTimedAction("CorruptOfficials", G.save.state.playerProvince, G.save);
-                              const infiltrate = usToThem.infiltrate;
-                              if (infiltrate) {
-                                 infiltrate.value += 50;
-                              }
+                              usToThem.infiltrate.value += 50;
                            },
                         }}
                         tooltip={(element) => (

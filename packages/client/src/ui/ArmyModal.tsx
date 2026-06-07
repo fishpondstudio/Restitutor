@@ -17,7 +17,7 @@ import {
    getWarPower,
    setProvinceStat,
 } from "../game/logic/ProvinceLogic";
-import { TimedActionDescComp } from "../game/logic/TimedActionLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
    dismissGeneral,
    getCavalryUnitWarPower,
@@ -33,11 +33,12 @@ import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
-import { ActionButton, TimedActionButton } from "./ActionButton";
+import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownRow } from "./BreakdownRow";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
+import { TimedActionButton } from "./TimedActionButton";
 import { Grid3 } from "./UIConstant";
 
 export function ArmyModal(): React.ReactNode {
