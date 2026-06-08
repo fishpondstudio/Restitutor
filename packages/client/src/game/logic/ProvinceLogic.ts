@@ -52,7 +52,6 @@ import { generateRandomGovernor } from "./GovernorLogic";
 import { getSocialClassBonusName, isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
 import {
    BankruptcyStabilityReduction,
-   getTileDefense,
    getTileGoodsTax,
    getTileGoverningCost,
    getTileLandTax,
@@ -366,16 +365,6 @@ export function getProvincesByDistance(province: Province, save: SaveGame): Prov
          return MapGrid.distanceTile(d1.capital, capital) - MapGrid.distanceTile(d2.capital, capital);
       })
       .map(([p]) => p);
-}
-
-export function getProvinceense(province: Province, save: SaveGame): IValueBreakdown {
-   const breakdown: IValueBreakdown = makeValueBreakdown();
-   for (const [tile, data] of save.state.tiles) {
-      if (data.province === province) {
-         breakdown.add.push({ name: getTileName(tile), value: getTileDefense(tile, save).value });
-      }
-   }
-   return finalizeBreakdown(breakdown);
 }
 
 const InfantryMaintenanceCost = 0.01;

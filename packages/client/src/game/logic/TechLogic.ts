@@ -6,7 +6,7 @@ import type { Building } from "../definitions/Building";
 import type { Province, ProvinceResourceCosts } from "../definitions/Province";
 import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
-import { hasEnoughProvinceResources } from "./ProvinceLogic";
+import { attachModifiers, hasEnoughProvinceResources } from "./ProvinceLogic";
 import { stringToPosition } from "./StringToPosition";
 import { BankruptcyExpenseIncrease } from "./TileLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
@@ -27,6 +27,7 @@ export function getResearchCostBreakdown(province: Province, save: SaveGame): IV
       ),
       value: 1.1 ** state.unlockedTech.size - 1,
    });
+   attachModifiers("ResearchCost", breakdown, province, save);
    const bankruptcy = getTimedActionTimeLeft("Bankruptcy", province, save);
    if (bankruptcy > 0) {
       breakdown.multiply.push({
