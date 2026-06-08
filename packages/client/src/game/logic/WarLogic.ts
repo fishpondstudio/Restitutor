@@ -317,9 +317,8 @@ export function getTruceLength(war: IWar): number {
    return clamp(war.log.length, MinimumTruceMonths, Number.POSITIVE_INFINITY);
 }
 
-export const MonthlyStabilityCostWithCB = 0.25;
-export const MonthlyStabilityCostWithoutCB = 0.5;
-
+const MonthlyStabilityCostWithCB = 0.1;
+const MonthlyStabilityCostWithoutCB = 0.2;
 export const MonthlyExtraArmyMaintenancePct = 0.5;
 
 export function getWarMonthlyMilitaryPoint(war: IWar): number {
@@ -328,6 +327,29 @@ export function getWarMonthlyMilitaryPoint(war: IWar): number {
 
 export function calculateWarMonthlyMilitaryPoint(lengthOfWar: number, tileCount: number): number {
    return Math.ceil(lengthOfWar / 12) * tileCount;
+}
+
+export function calculateWarMonthlyStability(lengthOfWar: number, casusBelli: CasusBelli): number {
+   const cost = casusBelli === "None" ? MonthlyStabilityCostWithoutCB : MonthlyStabilityCostWithCB;
+   return Math.ceil(lengthOfWar / 12) * cost;
+}
+
+export function calculateWarTotalStability(lengthOfWar: number, casusBelli: CasusBelli): number {
+   let result = 0;
+   for (let i = 1; i <= lengthOfWar; i++) {
+      result += calculateWarMonthlyStability(i, casusBelli);
+   }
+   return result;
+}
+
+export function calculateWarLengthForStability(stability: number, casusBelli: CasusBelli): number {
+   let warLength = 1;
+   let currentStability = 0;
+   while (currentStability < stability) {
+      currentStability += calculateWarMonthlyStability(warLength, casusBelli);
+      warLength++;
+   }
+   return warLength;
 }
 
 function filterNeighborTiles(tiles: Iterable<Tile>, province: Province, save: SaveGame): Tile[] {

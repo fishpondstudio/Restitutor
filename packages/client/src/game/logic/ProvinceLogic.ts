@@ -60,14 +60,13 @@ import {
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
 import { getClients, getPatrons } from "./TreatyLogic";
 import {
+   calculateWarTotalStability,
    getCavalryUnitWarPower,
    getCurrentWars,
    getGeneralMonthlyCost,
    getInfantryUnitWarPower,
    getRangedUnitWarPower,
    MonthlyExtraArmyMaintenancePct,
-   MonthlyStabilityCostWithCB,
-   MonthlyStabilityCostWithoutCB,
 } from "./WarLogic";
 
 export function getProvinceStat(stat: ProvinceStat, province: Province, save: SaveGame): number {
@@ -316,8 +315,8 @@ export function getProvinceStability(province: Province, save: SaveGame): IValue
 
    for (const war of wars) {
       if (war.attacker === province) {
-         let warCost = war.casusBelli === "None" ? MonthlyStabilityCostWithoutCB : MonthlyStabilityCostWithCB;
-         warCost *= war.log.length;
+         // Here we should use `war.log.length`, instead of `war.log.length + 1`. Check the implementation of `calculateWarTotalStability`.
+         const warCost = calculateWarTotalStability(war.log.length, war.casusBelli);
          breakdown.add.push({
             name: $t(L.XYWar, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
             desc: $t(L.WarHasBeenGoingOnForXMonths, formatNumber(war.log.length)),

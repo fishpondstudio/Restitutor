@@ -69,6 +69,7 @@ import {
 } from "./TimedActionLogic";
 import { forceAlliance, forceDefensePact, getTreatyCount } from "./TreatyLogic";
 import {
+   calculateWarLengthForStability,
    getCurrentWars,
    getWarMonthlyMilitaryPoint,
    getWarParticipants,
@@ -76,7 +77,6 @@ import {
    getWarSuccessChance,
    getWarTiles,
    MinConscription,
-   MonthlyStabilityCostWithCB,
 } from "./WarLogic";
 
 const AIDeclareWarChance = 0.2;
@@ -664,7 +664,11 @@ function getAverageUnrest(province: Province, save: SaveGame): number {
 
 function getMaxWarMonths(province: Province, save: SaveGame): number {
    const averageUnrest = getAverageUnrest(province, save);
-   return clamp((AIWarMaxUnrest - averageUnrest) / MonthlyStabilityCostWithCB, 0, Number.POSITIVE_INFINITY);
+   return clamp(
+      calculateWarLengthForStability(AIWarMaxUnrest - averageUnrest, "ConquestMission"),
+      0,
+      Number.POSITIVE_INFINITY,
+   );
 }
 
 function logAI(message?: any, ...optionalParams: any[]): void {

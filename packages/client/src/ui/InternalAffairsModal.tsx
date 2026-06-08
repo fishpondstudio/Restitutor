@@ -38,7 +38,7 @@ import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
-import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
+import { BreakdownTooltip } from "./BreakdownRow";
 import { showSidebar } from "./common/Sidebar";
 import { SidebarComp } from "./common/SidebarComp";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
@@ -76,6 +76,8 @@ export function InternalAffairsPage(): React.ReactNode {
          return b[1].rebellion - a[1].rebellion;
       });
    const religiousCohesion = getReligiousCohesion(G.save.state.playerProvince, G.save);
+   const overExtension = getProvinceOverextension(G.save.state.playerProvince, G.save);
+   const stability = getProvinceStability(G.save.state.playerProvince, G.save);
    return (
       <SidebarComp title={$t(L.InternalAffairs)}>
          <div className="h1">{$t(L.GoverningAndStability)}</div>
@@ -101,29 +103,34 @@ export function InternalAffairsPage(): React.ReactNode {
          <Progress value={(100 * governingCost.value) / governingCapacity.value} className="mx10" />
          <div className="h10" />
          <div className="divider" />
-         <BreakdownRow
-            className="m10"
-            name={$t(L.Overextension)}
-            breakdown={getProvinceOverextension(G.save.state.playerProvince, G.save)}
+         <BreakdownTooltip
+            breakdown={overExtension}
             tooltip={(element) => (
                <>
                   <div className="m10">{$t(L.GoverningOvercapacityContributesToOverextension)}</div>
                   {element}
                </>
             )}
-            formatFunc={colorNumberReverse}
-         />
-         <BreakdownRow
-            className="m10"
-            name={$t(L.Stability)}
-            breakdown={getProvinceStability(G.save.state.playerProvince, G.save)}
+         >
+            <div className="row mx10 my5">
+               <div className="f1">{$t(L.Overextension)}</div>
+               <div>{colorNumberReverse(overExtension.value)}</div>
+            </div>
+         </BreakdownTooltip>
+         <BreakdownTooltip
+            breakdown={stability}
             tooltip={(element) => (
                <>
                   <div className="m10">{Modifiers.Stability.desc()}</div>
                   {element}
                </>
             )}
-         />
+         >
+            <div className="row mx10 my5">
+               <div className="f1">{$t(L.Stability)}</div>
+               <div>{colorNumber(stability.value)}</div>
+            </div>
+         </BreakdownTooltip>
          <div className="divider" />
          <div className="m10">
             <FloatingTip label={html($t(L.SettleUnrestAutomaticallyEveryMonth, "0"))}>
