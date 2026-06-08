@@ -27,7 +27,7 @@ export function getAdvisorMonthlyCost(level: number, province: Province, save: S
    const breakdown: IValueBreakdown = makeValueBreakdown();
    if (level <= 0) {
       breakdown.add.push({ name: $t(L.NoAdvisor), value: 0 });
-      return breakdown;
+      return finalizeBreakdown(breakdown);
    }
    breakdown.add.push({
       name: $t(L.BaseCost),
@@ -45,7 +45,7 @@ export function getAdvisorInitialCost(level: number, province: Province, save: S
    const breakdown: IValueBreakdown = makeValueBreakdown();
    if (level <= 0) {
       breakdown.add.push({ name: $t(L.NoAdvisor), value: 0 });
-      return breakdown;
+      return finalizeBreakdown(breakdown);
    }
    breakdown.add.push({
       name: $t(L.BaseCost),

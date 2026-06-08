@@ -164,11 +164,11 @@ export function modifierDurationToString(duration: number): string {
 
 GameStateUpdated.on(() => {
    forEach(G.save.state.provinces, (province, state) => {
-      state.monthlyModifiers = {};
+      state.dynamicModifiers = {};
       state.unlockedTech.forEach((tech) => {
          forEach(Tech[tech].modifiers, (modifier, data) => {
             const { type, value } = data;
-            safePush(state.monthlyModifiers, modifier, {
+            safePush(state.dynamicModifiers, modifier, {
                type,
                value,
                name: $t(L.XResearch, Tech[tech].name()),
@@ -180,7 +180,7 @@ GameStateUpdated.on(() => {
          if (modifiers) {
             forEach(modifiers, (modifier, data) => {
                const { type, value } = data;
-               safePush(state.monthlyModifiers, modifier, {
+               safePush(state.dynamicModifiers, modifier, {
                   type,
                   value,
                   name: ProvinceUpgrades[upgrade].name(),
@@ -190,7 +190,7 @@ GameStateUpdated.on(() => {
       });
       state.legacyUpgrades.forEach((level, upgrade) => {
          const { modifierType, modifierValue } = LegacyUpgrades[upgrade];
-         safePush(state.monthlyModifiers, upgrade, {
+         safePush(state.dynamicModifiers, upgrade, {
             type: modifierType,
             value: modifierValue * level,
             name: $t(L.LegacyUpgrade),

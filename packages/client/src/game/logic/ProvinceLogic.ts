@@ -526,7 +526,7 @@ export function initProvince(province: Province): IProvince {
       timedActions: new Map(),
       production: fromEntries(entriesOf(Goods).map(([goods]) => [goods, { capacity: 0, storage: 0, autoSell: false }])),
       modifiers: {},
-      monthlyModifiers: {},
+      dynamicModifiers: {},
       events: new Map(),
       usedEvents: new Set(),
       legacyUpgrades: new Map(),

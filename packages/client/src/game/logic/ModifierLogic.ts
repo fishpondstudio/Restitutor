@@ -27,9 +27,9 @@ export function attachModifiers(
          });
       }
    }
-   const monthlyModifiers = save.state.provinces[province]?.monthlyModifiers[type];
-   if (monthlyModifiers) {
-      for (const modifier of monthlyModifiers) {
+   const dynamicModifiers = save.state.provinces[province]?.dynamicModifiers[type];
+   if (dynamicModifiers) {
+      for (const modifier of dynamicModifiers) {
          breakdown[modifier.type].push({
             name: modifier.name,
             value: modifier.value,
@@ -49,7 +49,7 @@ export function addModifier({ modifier, name, type, value, duration, province, s
 export function addMonthlyModifier(type: Modifier, value: IModifier, province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
    if (state) {
-      safePush(state.monthlyModifiers, type, value);
+      safePush(state.dynamicModifiers, type, value);
    }
 }
 
