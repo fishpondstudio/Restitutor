@@ -50,7 +50,7 @@ export function WarMonthlyConsequences({
                               const monthly = calculateWarMonthlyMilitaryPoint(year * 12 + 1, tiles.size);
                               return (
                                  <tr key={year}>
-                                    <td>{year + 1}</td>
+                                    <td>{year}</td>
                                     <td className="text-right text-red">{formatNumber(-monthly)}</td>
                                     <td className="text-right text-red">{formatNumber(round(-monthly * 12, 1))}</td>
                                  </tr>
@@ -98,7 +98,7 @@ export function WarMonthlyConsequences({
                               const monthly = calculateWarMonthlyStability(year * 12, casusBelli);
                               return (
                                  <tr key={year}>
-                                    <td>{year + 1}</td>
+                                    <td>{year}</td>
                                     <td className="text-right text-red">{formatNumber(round(-monthly, 1))}</td>
                                     <td className="text-right text-red">{formatNumber(round(-monthly * 12, 1))}</td>
                                  </tr>
