@@ -1463,7 +1463,7 @@ export const EN = {
    TimedActionDeterAggressionDesc: "Deterring aggression requires us to join the defender against this province if they attack another province. Our Prestige is increased by %% (%% if they are our rival) when the deterrence is in effect.",
    TimedActionDissolveTreatyDesc: "Dissolving a treaty ends a province's diplomatic treaty with another province. It also prevents the province from making new treaties.",
    TimedActionEnactSenateOversightDesc: "Enacting senate oversight gives %% Administrative, Diplomatic, and Military Points.",
-   TimedActionEvangelizeTileDesc: "Evangelizing a tile converts its religion to Christianity. We need to adopt <i>The Edict of Thessalonica</i> (380 AD), which makes Christianity our province's religion.",
+   TimedActionEvangelizeTileDesc: "Evangelizing a tile converts its religion to Christianity.",
    TimedActionFabricateCasusBelliDesc: "Fabricating a casus belli grants us a <i>Diplomatic Dispute</i> casus belli against them.",
    TimedActionForceAttackDesc: "With a forceful attack, if our attack is repelled, we lose %% of our standing army instead of %% war score.",
    TimedActionFortifyBordersDesc: "Fortifying our borders increases the manpower of our tiles that border the war goal tiles by %%.",

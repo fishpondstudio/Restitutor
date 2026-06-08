@@ -1,5 +1,5 @@
 import { Slider } from "@mantine/core";
-import { formatNumber } from "@project/shared/src/utils/Helper";
+import { formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
 import {
    MakeGovernorGeneralAction,
    RecruitGeneralAction,
@@ -28,6 +28,7 @@ import {
    hasGeneralCondition,
    MaxConscription,
    MinConscription,
+   MonthlyMoraleIncrease,
 } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -190,12 +191,6 @@ export function ArmyModal(): React.ReactNode {
                </div>
             </div>
          </div>
-         <div className="h1">{$t(L.Actions)}</div>
-         <div className="m10" style={Grid3}>
-            <TimedActionButton timedAction="UpgradeRations" />
-            <TimedActionButton timedAction="RefitArmor" />
-            <TimedActionButton timedAction="ServiceWeapons" />
-         </div>
          <div className="h1">{$t(L.ArmyGeneral)}</div>
          <div className="m10" style={Grid3}>
             <ActionButton
@@ -258,13 +253,19 @@ export function ArmyModal(): React.ReactNode {
             <UpgradeSkillButton skill="rangedSkill" />
             <UpgradeSkillButton skill="cavalrySkill" />
          </div>
+         <div className="h1">{$t(L.Actions)}</div>
+         <div className="m10" style={Grid3}>
+            <TimedActionButton timedAction="UpgradeRations" />
+            <TimedActionButton timedAction="RefitArmor" />
+            <TimedActionButton timedAction="ServiceWeapons" />
+         </div>
          <div className="h1">{$t(L.MaintenanceAndMorale)}</div>
          <div className="mx10 my5">{$t(L.ArmyMaintenance)}</div>
          <Slider
             className="m10"
             value={armyMaintenance}
             onChange={(value) => {
-               if (value < getProvinceStat("armyMaintenance", G.save.state.playerProvince, G.save)) {
+               if (value < getProvinceStat("armyMorale", G.save.state.playerProvince, G.save)) {
                   setProvinceStat("armyMorale", value, G.save.state.playerProvince, G.save);
                }
                setProvinceStat("armyMaintenance", value, G.save.state.playerProvince, G.save);
@@ -286,7 +287,12 @@ export function ArmyModal(): React.ReactNode {
          <div className="row mx10 my5">
             <div className="f1">{$t(L.CurrentMorale)}</div>
             {armyMaintenance > armyMorale && (
-               <FloatingTip label={$t(L.MoraleIsIncreasingAtXPerMonthToReachArmyMaintenance, "1%")}>
+               <FloatingTip
+                  label={$t(
+                     L.MoraleIsIncreasingAtXPerMonthToReachArmyMaintenance,
+                     formatPercent(MonthlyMoraleIncrease / 100),
+                  )}
+               >
                   <div className="mi sm text-green">trending_up</div>
                </FloatingTip>
             )}

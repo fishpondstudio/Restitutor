@@ -3,7 +3,7 @@ import type { Province } from "../definitions/Province";
 import { Tech } from "../definitions/Tech";
 import { RefreshTechTree } from "../Events";
 import type { SaveGame } from "../GameState";
-import { getResearchCost, getResearchCostBreakdown } from "../logic/TechLogic";
+import { getResearchCostBreakdown, makeResearchCost } from "../logic/TechLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import type { IGameAction } from "./GameAction";
 import { finalizeCondition } from "./GameAction";
@@ -16,7 +16,7 @@ export function ResearchTechAction(tech: Tech, province: Province, save: SaveGam
    const breakdown = getResearchCostBreakdown(province, save);
    const allPrerequisitesUnlocked = Tech[tech].requires.reduce((acc, t) => acc && state.unlockedTech.has(t), true);
    return {
-      cost: getResearchCost(tech, breakdown.value),
+      cost: makeResearchCost(tech, breakdown.value),
       condition: finalizeCondition({
          breakdown: [
             { name: $t(L.AllPrerequisitesAreResearched), value: allPrerequisitesUnlocked },

@@ -9,7 +9,7 @@ export interface IProvinceUpgrade {
    modifiers?: Partial<Record<Modifier, IBaseModifier>>;
 }
 
-export const ProvinceUpgrades: Record<string, IProvinceUpgrade> = {
+const _ProvinceUpgrades = {
    Tetrarchy: {
       name: () => $t(L.Tetrarchy),
    },
@@ -61,9 +61,10 @@ export const ProvinceUpgrades: Record<string, IProvinceUpgrade> = {
    LowerClassManpowerRelief: {
       name: () => EmptyString,
    },
-} as const;
+} as const satisfies Record<string, IProvinceUpgrade>;
 
-export type ProvinceUpgrade = keyof typeof ProvinceUpgrades;
+export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;
+export const ProvinceUpgrades = _ProvinceUpgrades as Record<ProvinceUpgrade, IProvinceUpgrade>;
 
 export function hasProvinceUpgrade(upgrade: ProvinceUpgrade, province: Province, save: SaveGame): boolean {
    const state = save.state.provinces[province];

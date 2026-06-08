@@ -7,7 +7,7 @@ import { Modifiers, modifierToString } from "../game/definitions/Modifier";
 import { Tech } from "../game/definitions/Tech";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
-import { getResearchCost, getResearchCostBreakdown } from "../game/logic/TechLogic";
+import { getResearchCostBreakdown, makeResearchCost } from "../game/logic/TechLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { getTimedActionDesc } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
@@ -28,7 +28,7 @@ export function TechPage({ tech }: { tech: Tech }): React.ReactNode {
       return null;
    }
    const breakdown = getResearchCostBreakdown(G.save.state.playerProvince, G.save);
-   const unlockCost = getResearchCost(tech, breakdown.value);
+   const unlockCost = makeResearchCost(tech, breakdown.value);
    const config = Tech[tech];
    return (
       <SidebarComp title={config.name()}>

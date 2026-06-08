@@ -41,7 +41,7 @@ export function BankruptcyEffectComp({ province }: { province: Province }): Reac
          <div className="row mx10 my5">
             <div className="f1">{$t(L.ResearchCost)}</div>
             <div className="text-red">{formatPercentDelta(BankruptcyExpenseIncrease)}</div>
-         </div>{" "}
+         </div>
          <div className="row mx10 my5">
             <div className="f1">{$t(L.MonthlyInterestRate)}</div>
             <div className="text-red">{formatPercentDelta(BankruptcyExpenseIncrease)}</div>

@@ -14,6 +14,7 @@ import { ConvertToChristianityAction } from "../game/actions/ConvertToChristiani
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../game/actions/ProvinceUpgrades";
 import { Modifiers, modifierValueToString } from "../game/definitions/Modifier";
 import { ProvinceFlags, ProvinceResourceNames } from "../game/definitions/Province";
+import { Religion } from "../game/definitions/Religion";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
 import {
@@ -25,6 +26,7 @@ import {
    getProvinceOverextension,
    getProvinceResource,
    getProvinceStability,
+   getReligiousCohesion,
    getTilesAnnexedAndCored,
    TilesPerRestoration,
 } from "../game/logic/ProvinceLogic";
@@ -73,6 +75,7 @@ export function InternalAffairsPage(): React.ReactNode {
          }
          return b[1].rebellion - a[1].rebellion;
       });
+   const religiousCohesion = getReligiousCohesion(G.save.state.playerProvince, G.save);
    return (
       <SidebarComp title={$t(L.InternalAffairs)}>
          <div className="h1">{$t(L.GoverningAndStability)}</div>
@@ -88,7 +91,7 @@ export function InternalAffairsPage(): React.ReactNode {
                </>
             )}
          >
-            <div className="row m10">
+            <div className="row mx10 my5">
                <div className="f1">{$t(L.GoverningCostCapacity)}</div>
                <div>
                   {formatNumber(governingCost.value)}/{formatNumber(governingCapacity.value)}
@@ -96,7 +99,7 @@ export function InternalAffairsPage(): React.ReactNode {
             </div>
          </BreakdownTooltip>
          <Progress value={(100 * governingCost.value) / governingCapacity.value} className="mx10" />
-         <div className="h15" />
+         <div className="h10" />
          <div className="divider" />
          <BreakdownRow
             className="m10"
@@ -182,6 +185,17 @@ export function InternalAffairsPage(): React.ReactNode {
             <TimedActionButton timedAction="RenewVestments" />
          </div>
          <div className="h1">{$t(L.Religion)}</div>
+         <div className="row mx10 my5">
+            <div className="f1">Provincial Religion</div>
+            <div>{Religion[state.religion].name()}</div>
+         </div>
+         <div className="row mx10 my5">
+            <div className="f1">Religious Cohesion</div>
+            <div>{formatPercent(religiousCohesion)}</div>
+         </div>
+         <Progress value={100 * religiousCohesion} className="mx10" />
+         <div className="h10" />
+         <div className="divider" />
          <FloatingTip
             className="p0"
             w={300}

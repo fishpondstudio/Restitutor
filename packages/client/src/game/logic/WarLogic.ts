@@ -82,6 +82,7 @@ export const WarResultScore = {
 
 export const MaxConscription = 50;
 export const MinConscription = 5;
+export const MonthlyMoraleIncrease = 10;
 
 function getCoDefenders(attacker: Province, defender: Province, save: SaveGame): Map<Province, IConditionBreakdown> {
    const result = new Map<Province, IConditionBreakdown>();

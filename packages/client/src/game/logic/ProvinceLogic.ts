@@ -1136,3 +1136,21 @@ export function getChristianityYearly(province: Province, save: SaveGame): IValu
    attachModifiers("ChristianityYearly", result, province, save);
    return finalizeBreakdown(result);
 }
+
+export function getReligiousCohesion(province: Province, save: SaveGame): number {
+   let sameReligion = 0;
+   let total = 0;
+   const state = save.state.provinces[province];
+   if (!state) {
+      return 0;
+   }
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province === province) {
+         if (data.religion === state.religion) {
+            sameReligion += 1;
+         }
+         total += 1;
+      }
+   }
+   return sameReligion / total;
+}

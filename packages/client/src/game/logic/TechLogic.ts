@@ -43,18 +43,18 @@ export function getTechPosition(tech: Tech): { x: number; y: number } {
    return { x, y };
 }
 
-export function getResearchCost(tech: Tech, value: number): ProvinceResourceCosts {
+export function makeResearchCost(tech: Tech, cost: number): ProvinceResourceCosts {
    const researchCost: ProvinceResourceCosts = {};
    const position = getTechPosition(tech);
    switch (position.y) {
       case 0:
-         researchCost.administrative = value;
+         researchCost.administrative = cost;
          break;
       case 1:
-         researchCost.diplomatic = value;
+         researchCost.diplomatic = cost;
          break;
       case 2:
-         researchCost.military = value;
+         researchCost.military = cost;
          break;
    }
    return researchCost;
@@ -85,7 +85,7 @@ export function getTechsCanBeResearched(province: Province, save: SaveGame): Tec
       if (config.requires.some((t) => !hasResearched(t, province, save))) {
          return;
       }
-      if (!hasEnoughProvinceResources(getResearchCost(tech, cost), province, save)) {
+      if (!hasEnoughProvinceResources(makeResearchCost(tech, cost), province, save)) {
          return;
       }
       result.push(tech);

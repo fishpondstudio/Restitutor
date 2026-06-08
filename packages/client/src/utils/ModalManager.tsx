@@ -117,7 +117,7 @@ export function showModal(modal: React.ReactElement): void {
    ShowModal.emit(modal);
 }
 
-document.addEventListener("click", (event) => {
+document.addEventListener("mousedown", (event) => {
    if (!(event.target instanceof HTMLElement)) {
       return;
    }
