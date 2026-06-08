@@ -113,7 +113,7 @@ export function makeValueBreakdown({
    return {
       value: 0,
       totalAdd: 0,
-      totalMultiply: 0,
+      totalMultiply: multiplyBase.value,
       add: [],
       multiplyBase,
       multiply: [],

@@ -1,7 +1,7 @@
-import { formatNumber, formatPercent, range, type Tile } from "@project/shared/src/utils/Helper";
+import { formatNumber, formatPercentDelta, range, type Tile } from "@project/shared/src/utils/Helper";
 import type { CasusBelli } from "../game/definitions/CasusBelli";
+import { Modifiers } from "../game/definitions/Modifier";
 import type { Province } from "../game/definitions/Province";
-import { getArmyMaintenanceCost } from "../game/logic/ProvinceLogic";
 import {
    calculateWarMonthlyMilitaryPoint,
    type IWarLog,
@@ -9,7 +9,6 @@ import {
    MonthlyStabilityCostWithCB,
    MonthlyStabilityCostWithoutCB,
 } from "../game/logic/WarLogic";
-import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { FloatingTip } from "./components/FloatingTip";
 
@@ -71,34 +70,36 @@ export function WarMonthlyConsequences({
                </div>
                <div className="text-red">
                   {formatNumber(-calculateWarMonthlyMilitaryPoint(log ? log.length + 1 : 1, tiles.size))}
+                  {$t(L.SlashMonth)}
                </div>
             </div>
          </FloatingTip>
-         <div className="row mx10 my5">
-            <div className="f1">
-               <div>{$t(L.Gold)}</div>
-               <div className="text-xs text-dimmed text-italic">
-                  {$t(L.AddsAnExtraXToArmyMaintenanceCostDuringWar, formatPercent(MonthlyExtraArmyMaintenancePct))}
-               </div>
-            </div>
-            <div className="text-red">
-               {formatNumber(-getArmyMaintenanceCost(attacker, G.save).value * MonthlyExtraArmyMaintenancePct)}
-            </div>
-         </div>
          {casusBelli === "None" ? (
             <div className="row mx10 my5">
                <div className="f1">
                   <div>{$t(L.Stability)}</div>
                   <div className="text-xs text-dimmed text-italic">{$t(L.DueToLackOfCasusBelli)}</div>
                </div>
-               <div className="text-red">{formatNumber(-MonthlyStabilityCostWithoutCB)}</div>
+               <div className="text-red">
+                  {formatNumber(-MonthlyStabilityCostWithoutCB)}
+                  {$t(L.SlashMonth)}
+               </div>
             </div>
          ) : (
             <div className="row mx10 my5">
                <div className="f1">{$t(L.Stability)}</div>
-               <div className="text-red">{formatNumber(-MonthlyStabilityCostWithCB)}</div>
+               <div className="text-red">
+                  {formatNumber(-MonthlyStabilityCostWithCB)}
+                  {$t(L.SlashMonth)}
+               </div>
             </div>
          )}
+         <div className="row mx10 my5">
+            <div className="f1">
+               <div>{Modifiers.ArmyMaintenance.name()}</div>
+            </div>
+            <div className="text-red">{formatPercentDelta(MonthlyExtraArmyMaintenancePct)}</div>
+         </div>
       </>
    );
 }

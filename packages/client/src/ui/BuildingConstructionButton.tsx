@@ -36,7 +36,7 @@ export function BuildingConstructionButton({
                         <div className="f1">{ProvinceResourceNames[resource]()}</div>
                         <div>
                            {cost}
-                           <span className="text-dimmed text-xs">{$t(L.Month)}</span>
+                           <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
                         </div>
                      </div>
                   ))}

@@ -138,7 +138,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
                   {successChance - failChance <= 0 ? (
                      <span className="text-red">{$t(L.Never)}</span>
                   ) : (
-                     <>{$t(L.XMonths, formatNumber(Math.ceil(warScore.value / (successChance - failChance))))}</>
+                     $t(L.XMonths, formatNumber(Math.ceil(warScore.value / (successChance - failChance))))
                   )}
                </div>
             </div>

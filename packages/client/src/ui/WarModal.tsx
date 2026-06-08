@@ -560,10 +560,7 @@ function DecimateOurArmyButton({ war, province }: { war: IWar; province: Provinc
          className="btn py2"
          action={{
             cost: {
-               gold:
-                  getArmyMaintenanceCost(province, G.save).value *
-                  getProvinceStat("actualConscription", G.save.state.playerProvince, G.save) *
-                  0.1,
+               gold: getArmyMaintenanceCost(province, G.save).value,
             },
             condition: finalizeCondition({
                breakdown: [

@@ -64,7 +64,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                                  <div className="f1">{Goods[g].name()}</div>
                                  <div>
                                     {formatDelta(-amount * capacity)}
-                                    <span className="text-dimmed text-xs">{$t(L.Month)}</span>
+                                    <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
                                  </div>
                               </div>
                            ))}
@@ -77,7 +77,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                         <div className="f1">{config.name()}</div>
                         <div>
                            {formatDelta(capacity)}
-                           <span className="text-dimmed text-xs">{$t(L.Month)}</span>
+                           <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
                         </div>
                      </div>
                   </div>
@@ -103,14 +103,14 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                      <div className="f1">{$t(L.GoodsTax)}</div>
                      <div className="text-yellow">
                         {formatDelta(goodsTax)} {$t(L.Gold)}
-                        <span className="text-dimmed text-xs">{$t(L.Month)}</span>
+                        <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
                      </div>
                   </div>
                   <div className="row mx10 my5">
                      <div className="f1">{$t(L.NetAfterTax)}</div>
                      <div>
                         {colorNumber(capacity * (1 - goodsTaxRate))}
-                        <span className="text-dimmed text-xs">{$t(L.Month)}</span>
+                        <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
                      </div>
                   </div>
                   <div className="h2">{$t(L.XStorage, config.name())}</div>
@@ -122,14 +122,14 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                      <div className="f1">{$t(L.Consumed)}</div>
                      <div>
                         {formatDelta(-consumed, "")}
-                        <span className="text-dimmed text-xs">{$t(L.Month)}</span>
+                        <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
                      </div>
                   </div>
                   <div className="row mx10 my5">
                      <div className="f1">{$t(L.Trade)}</div>
                      <div>
                         {formatNumber(getGoodsTraded(data.goods, G.save.state.playerProvince, G.save))}
-                        <span className="text-dimmed text-xs">{$t(L.Month)}</span>
+                        <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
                      </div>
                   </div>
                </>
