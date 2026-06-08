@@ -26,8 +26,8 @@ import {
    getRelation,
    getRelations,
 } from "./DiplomacyLogic";
+import { attachModifiers } from "./ModifierLogic";
 import {
-   attachModifiers,
    getProvinceStat,
    getProvinceUpgrade,
    getWarPower,

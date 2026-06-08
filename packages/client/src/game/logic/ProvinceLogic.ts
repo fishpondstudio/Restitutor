@@ -8,7 +8,6 @@ import {
    keysOf,
    pointToTile,
    range,
-   safePush,
    shuffle,
    sizeOf,
    type Tile,
@@ -22,7 +21,6 @@ import { hasProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import { Buildings } from "../definitions/Building";
 import { Goods, Price } from "../definitions/Goods";
-import type { IModifier, Modifier } from "../definitions/Modifier";
 import { getProvinceTraits } from "../definitions/PersonTrait";
 import {
    type ActiveTrade,
@@ -49,6 +47,7 @@ import { RomeMap } from "../RomeMap";
 import { makeCached } from "./CacheLogic";
 import { getRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
+import { attachModifiers } from "./ModifierLogic";
 import { getSocialClassBonusName, isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
 import {
    BankruptcyStabilityReduction,
@@ -976,67 +975,6 @@ export function pledgeProvinceConsulVotes(province: Province, save: SaveGame): v
          new Set(shuffle(range(0, save.state.senate.consulCandidates.length)).slice(0, 2)),
       );
    }
-}
-
-interface IAddModifier extends IModifier {
-   modifier: Modifier;
-   province: Province;
-   save: SaveGame;
-}
-
-export function addModifier({ modifier, name, type, value, duration, province, save }: IAddModifier): void {
-   const state = save.state.provinces[province];
-   if (state) {
-      safePush(state.modifiers, modifier, { name, type, value, duration });
-   }
-}
-
-export function addMonthlyModifier(type: Modifier, value: IModifier, province: Province, save: SaveGame): void {
-   const state = save.state.provinces[province];
-   if (state) {
-      safePush(state.monthlyModifiers, type, value);
-   }
-}
-
-export function attachTileModifiers(modifiers: IModifier[] | undefined, breakdown: IValueBreakdown): IValueBreakdown {
-   if (modifiers) {
-      for (const modifier of modifiers) {
-         breakdown[modifier.type].push({
-            name: modifier.name,
-            desc: Number.isFinite(modifier.duration) ? $t(L.XMonthsLeft, formatNumber(modifier.duration)) : undefined,
-            value: modifier.value,
-         });
-      }
-   }
-   return breakdown;
-}
-
-export function attachModifiers(
-   type: Modifier,
-   breakdown: IValueBreakdown,
-   province: Province,
-   save: SaveGame,
-): IValueBreakdown {
-   const modifiers = save.state.provinces[province]?.modifiers[type];
-   if (modifiers) {
-      for (const modifier of modifiers) {
-         breakdown[modifier.type].push({
-            name: modifier.name,
-            desc: Number.isFinite(modifier.duration) ? $t(L.XMonthsLeft, formatNumber(modifier.duration)) : undefined,
-            value: modifier.value,
-         });
-      }
-   }
-   const monthlyModifiers = save.state.provinces[province]?.monthlyModifiers[type];
-   if (monthlyModifiers) {
-      for (const modifier of monthlyModifiers) {
-         breakdown[modifier.type].push({
-            name: modifier.name,
-            value: modifier.value,
-         });
-      }
-   }
-   return breakdown;
 }
 
 export function getProvinceName(province: Province, save: SaveGame): string {

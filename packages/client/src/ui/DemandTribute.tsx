@@ -6,8 +6,8 @@ import type { Province } from "../game/definitions/Province";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { addAttitudeModifier } from "../game/logic/DiplomacyLogic";
+import { addModifier } from "../game/logic/ModifierLogic";
 import {
-   addModifier,
    addProvinceResource,
    getProvinceName,
    getProvincePrestige,

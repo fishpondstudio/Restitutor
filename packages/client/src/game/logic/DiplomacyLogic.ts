@@ -14,7 +14,8 @@ import type { IRelation, Province, ProvinceResourceCosts } from "../definitions/
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { getFamilyMemberFrom } from "./GovernorLogic";
-import { attachModifiers, getProvinceName } from "./ProvinceLogic";
+import { attachModifiers } from "./ModifierLogic";
+import { getProvinceName } from "./ProvinceLogic";
 
 export const MaxImprovedRelations = 50;
 export const RivalAttitudeModifier = -20;

@@ -47,8 +47,8 @@ import {
    tryUseInfiltration,
    UndermineArmyCost,
 } from "../game/logic/DiplomacyLogic";
+import { addModifier } from "../game/logic/ModifierLogic";
 import {
-   addModifier,
    addProvinceStat,
    getProvinceName,
    getProvincePrestige,

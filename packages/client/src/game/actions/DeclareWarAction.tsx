@@ -15,7 +15,8 @@ import {
    isClientOfAnyProvince,
    isWithinDiplomaticRange,
 } from "../logic/DiplomacyLogic";
-import { addModifier, addProvinceStat, getProvinceName } from "../logic/ProvinceLogic";
+import { addModifier } from "../logic/ModifierLogic";
+import { addProvinceStat, getProvinceName } from "../logic/ProvinceLogic";
 import { showGameEventModal } from "../logic/TickProvince";
 import {
    getTruceMonthsLeft,

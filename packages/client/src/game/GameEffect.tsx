@@ -23,13 +23,8 @@ import { TimedActions } from "./definitions/TimedAction";
 import { filterProvinces } from "./events/GameEventLogic";
 import type { SaveGame } from "./GameState";
 import { addAttitudeModifier, getRelation } from "./logic/DiplomacyLogic";
-import {
-   addModifier,
-   addProvinceResource,
-   addProvinceStat,
-   generateTrade,
-   getProvinceName,
-} from "./logic/ProvinceLogic";
+import { addModifier } from "./logic/ModifierLogic";
+import { addProvinceResource, addProvinceStat, generateTrade, getProvinceName } from "./logic/ProvinceLogic";
 
 export interface IGameEffect {
    modifiers?: Partial<Record<Modifier, Omit<IModifier, "name">>>;

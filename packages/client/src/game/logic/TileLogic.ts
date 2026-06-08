@@ -12,13 +12,8 @@ import { SocialClassNames } from "../definitions/SocialClass";
 import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
-import {
-   attachModifiers,
-   attachTileModifiers,
-   getProvinceOverextension,
-   getProvinceStability,
-   getProvinceStat,
-} from "./ProvinceLogic";
+import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
+import { getProvinceOverextension, getProvinceStability, getProvinceStat } from "./ProvinceLogic";
 import { getSocialClassBonusName, isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
 import { getBuildingTech, hasResearched } from "./TechLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";

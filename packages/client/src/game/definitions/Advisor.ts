@@ -2,7 +2,7 @@ import { formatNumber, range, shuffle } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
-import { attachModifiers } from "../logic/ProvinceLogic";
+import { attachModifiers } from "../logic/ModifierLogic";
 import { randomMaleName } from "../RomanNames";
 import { AdvisorTraits, getProvinceTraits, type PersonTrait } from "./PersonTrait";
 import type { Province } from "./Province";
