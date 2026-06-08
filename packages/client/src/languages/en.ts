@@ -1934,4 +1934,5 @@ export const EN = {
    AppointBishop: "Appoint a Bishop",
    AppointBishopDesc: "Appointing a bishop gives %% Christianity Influence per year.",
    ChristianityYearlyDesc: "This is the amount of Christianity Influence our province gains each year.",
+   Reset: "Reset",
 };

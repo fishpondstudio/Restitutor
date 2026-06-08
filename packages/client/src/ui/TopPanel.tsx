@@ -18,12 +18,14 @@ import SocialClass from "../assets/images/SocialClass.svg";
 import Stability from "../assets/images/Stability.svg";
 import Trade from "../assets/images/Trade.svg";
 import { Modifiers } from "../game/definitions/Modifier";
+import { ProvinceResourceNames } from "../game/definitions/Province";
 import { MapBackgroundColors } from "../game/definitions/Tile";
 import { GameStateUpdated } from "../game/Events";
 import { getCurrentRelations, getDiplomats } from "../game/logic/DiplomacyLogic";
 import {
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,
+   getProvinceGovernmentPoint,
    getProvinceIncome,
    getProvinceName,
    getProvinceOverextension,
@@ -47,7 +49,7 @@ import { FloatingTip } from "./components/FloatingTip";
 import { DiplomacyPage } from "./DiplomacyPage";
 import { FamilyTreeModal } from "./FamilyModal";
 import { GovernmentModal } from "./GovernmentModal";
-import { InternalAffairsModal } from "./InternalAffairsModal";
+import { InternalAffairsPage } from "./InternalAffairsModal";
 import { LeftPanel } from "./LeftPanel";
 import { LegacyUpgradePage } from "./LegacyUpgradePage";
 import { MissionPage } from "./MissionPage";
@@ -75,7 +77,7 @@ export function TopPanel(): React.ReactNode {
 }
 
 const FirstColumnWidth = 140;
-const ColumnWidth = 80;
+const ColumnWidth = 90;
 const IconWidth = 20;
 const IconRowStyle = { flex: "1", display: "flex", justifyContent: "space-between", alignItems: "center" };
 
@@ -88,6 +90,9 @@ export function TopLeftPanel(): React.ReactNode {
    }
    const warPower = getWarPower(G.save.state.playerProvince, G.save);
    const prestige = getProvincePrestige(G.save.state.playerProvince, G.save);
+   const administrativePoint = getProvinceGovernmentPoint("administrative", G.save.state.playerProvince, G.save);
+   const diplomaticPoint = getProvinceGovernmentPoint("diplomatic", G.save.state.playerProvince, G.save);
+   const militaryPoint = getProvinceGovernmentPoint("military", G.save.state.playerProvince, G.save);
    return (
       <div className="resource-panel panel col fstart">
          <div className="f1 row mx10 stretch">
@@ -123,7 +128,15 @@ export function TopLeftPanel(): React.ReactNode {
                </FloatingTip>
             </div>
             <div className="divider vertical" />
-            <FloatingTip label={$t(L.AdministrativePoint)}>
+            <BreakdownTooltip
+               breakdown={administrativePoint}
+               tooltip={(element) => (
+                  <>
+                     <div className="h2">{ProvinceResourceNames.administrative()}</div>
+                     {element}
+                  </>
+               )}
+            >
                <div
                   id="TopPanel_AdministrativePoint"
                   className="row g0 pointer"
@@ -132,11 +145,22 @@ export function TopLeftPanel(): React.ReactNode {
                >
                   <img src={Administrative} width={IconWidth} />
                   <div className="f1" />
-                  <div>{formatNumber(getProvinceResource("administrative", G.save.state.playerProvince, G.save))}</div>
+                  <div>
+                     {formatNumber(getProvinceResource("administrative", G.save.state.playerProvince, G.save))}
+                     {colorNumber(administrativePoint.value)}
+                  </div>
                </div>
-            </FloatingTip>
+            </BreakdownTooltip>
             <div className="divider vertical" />
-            <FloatingTip label={$t(L.DiplomaticPoint)}>
+            <BreakdownTooltip
+               breakdown={diplomaticPoint}
+               tooltip={(element) => (
+                  <>
+                     <div className="h2">{ProvinceResourceNames.diplomatic()}</div>
+                     {element}
+                  </>
+               )}
+            >
                <div
                   className="row g0 pointer"
                   style={{ width: ColumnWidth }}
@@ -144,11 +168,22 @@ export function TopLeftPanel(): React.ReactNode {
                >
                   <img src={Diplomatic} width={IconWidth} />
                   <div className="f1" />
-                  <div>{formatNumber(getProvinceResource("diplomatic", G.save.state.playerProvince, G.save))}</div>
+                  <div>
+                     {formatNumber(getProvinceResource("diplomatic", G.save.state.playerProvince, G.save))}
+                     {colorNumber(diplomaticPoint.value)}
+                  </div>
                </div>
-            </FloatingTip>
+            </BreakdownTooltip>
             <div className="divider vertical" />
-            <FloatingTip label={$t(L.MilitaryPoint)}>
+            <BreakdownTooltip
+               breakdown={militaryPoint}
+               tooltip={(element) => (
+                  <>
+                     <div className="h2">{ProvinceResourceNames.military()}</div>
+                     {element}
+                  </>
+               )}
+            >
                <div
                   className="row g0 pointer"
                   style={{ width: ColumnWidth }}
@@ -156,9 +191,12 @@ export function TopLeftPanel(): React.ReactNode {
                >
                   <img src={Military} width={IconWidth} />
                   <div className="f1" />
-                  <div>{formatNumber(getProvinceResource("military", G.save.state.playerProvince, G.save))}</div>
+                  <div>
+                     {formatNumber(getProvinceResource("military", G.save.state.playerProvince, G.save))}
+                     {colorNumber(militaryPoint.value)}
+                  </div>
                </div>
-            </FloatingTip>
+            </BreakdownTooltip>
             <div className="divider vertical" />
             <BreakdownTooltip
                breakdown={warPower}
@@ -271,7 +309,7 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_InternalAffairs"
                      className="pointer"
                      onClick={() => {
-                        showModal(<InternalAffairsModal />);
+                        showSidebar(<InternalAffairsPage />);
                      }}
                   >
                      <img src={Stability} width={IconWidth} />

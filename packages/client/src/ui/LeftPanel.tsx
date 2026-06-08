@@ -72,7 +72,7 @@ import { DiplomacyPage } from "./DiplomacyPage";
 import { FamilyTreeModal } from "./FamilyModal";
 import { GameEventModal } from "./GameEventModal";
 import { GovernmentModal } from "./GovernmentModal";
-import { InternalAffairsModal } from "./InternalAffairsModal";
+import { InternalAffairsPage } from "./InternalAffairsModal";
 import { LegacyUpgradePage } from "./LegacyUpgradePage";
 import { ProductionModal } from "./ProductionModal";
 import { SenateModal } from "./SenateModal";
@@ -206,7 +206,7 @@ const Rebellions: ITodo = {
       );
    },
    onClick: (save) => {
-      showModal(<InternalAffairsModal />);
+      showModal(<InternalAffairsPage />);
    },
 };
 
@@ -486,7 +486,7 @@ const OverextensionWarning: ITodo = {
       return null;
    },
    onClick: (save) => {
-      showModal(<InternalAffairsModal />);
+      showModal(<InternalAffairsPage />);
    },
 };
 
@@ -588,7 +588,7 @@ const CanMakeCore: ITodo = {
       );
    },
    onClick: (save) => {
-      showModal(<InternalAffairsModal />);
+      showModal(<InternalAffairsPage />);
    },
 };
 

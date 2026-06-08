@@ -8,7 +8,6 @@ import {
    formatPercent,
    hasFlag,
    mapOf,
-   removeSpace,
    toggleFlag,
 } from "@project/shared/src/utils/Helper";
 import { ConvertToChristianityAction } from "../game/actions/ConvertToChristianityAction";
@@ -34,22 +33,21 @@ import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { hideModal } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
-import { AppeaseButton } from "./AppeaseButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
-import { CrackDownButton } from "./CrackDownButton";
 import { showSidebar } from "./common/Sidebar";
+import { SidebarComp } from "./common/SidebarComp";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
-import { MakeCoreButton } from "./MakeCoreButton";
 import { playClick } from "./Sound";
 import { TilePage } from "./TilePage";
 import { TimedActionButton } from "./TimedActionButton";
+import { Grid2 } from "./UIConstant";
 
-export function InternalAffairsModal(): React.ReactNode {
+export function InternalAffairsPage(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
@@ -76,280 +74,253 @@ export function InternalAffairsModal(): React.ReactNode {
          return b[1].rebellion - a[1].rebellion;
       });
    return (
-      <ModalComp size="lg" title={<ModalTitleBar title={$t(L.InternalAffairs)} dismiss />}>
+      <SidebarComp title={$t(L.InternalAffairs)}>
          <div className="h1">{$t(L.GoverningAndStability)}</div>
-         <div className="row g0 fstart">
-            <div className="f1">
-               <BreakdownTooltip
-                  breakdown={governingCost}
-                  tooltip={(element) => (
-                     <>
-                        <div className="m10">{html($t(L.GoverningCostIsTheSumOfAllTilesGoverningCost))}</div>
-                        {element}
-                        <div className="divider" />
-                        <div className="m10">{$t(L.GoverningCapacityIsDeterminedAsFollows)}</div>
-                        <BreakdownComp breakdown={governingCapacity} />
-                     </>
-                  )}
-               >
-                  <div className="row m10">
-                     <div className="f1">{$t(L.GoverningCostCapacity)}</div>
-                     <div>
-                        {formatNumber(governingCost.value)}/{formatNumber(governingCapacity.value)}
-                     </div>
-                  </div>
-               </BreakdownTooltip>
-               <Progress value={(100 * governingCost.value) / governingCapacity.value} className="mx10" />
-               <div className="h15" />
-               <div className="divider" />
-               <BreakdownRow
-                  className="m10"
-                  name={$t(L.Overextension)}
-                  breakdown={getProvinceOverextension(G.save.state.playerProvince, G.save)}
-                  tooltip={(element) => (
-                     <>
-                        <div className="m10">{$t(L.GoverningOvercapacityContributesToOverextension)}</div>
-                        {element}
-                     </>
-                  )}
-                  formatFunc={colorNumberReverse}
-               />
-               <BreakdownRow
-                  className="m10"
-                  name={$t(L.Stability)}
-                  breakdown={getProvinceStability(G.save.state.playerProvince, G.save)}
-                  tooltip={(element) => (
-                     <>
-                        <div className="m10">{Modifiers.Stability.desc()}</div>
-                        {element}
-                     </>
-                  )}
-               />
-               <div className="divider" />
-               <FloatingTip
-                  className="p0"
-                  w={300}
-                  label={
-                     <>
-                        <div className="m10 row">
-                           <div className="f1">{$t(L.ProgressToNextRestoration)}</div>
-                           <div>{formatPercent(progressToNextRestoration)}</div>
-                        </div>
-                        <div className="divider" />
-                        <div className="m10">
-                           {html(
-                              $t(
-                                 L.EveryXTilesAnnexedAndCoredGrant1RestorationEachRestorationGrantsYGoverningCapacity,
-                                 TilesPerRestoration,
-                                 governingCapacityPerRestoration.value,
-                              ),
-                           )}
-                        </div>
-                        <div className="divider" />
-                        <div className="m10">{$t(L.GoverningCapacityPerRestorationIsDeterminedAsFollows)}</div>
-                        <BreakdownComp breakdown={governingCapacityPerRestoration} />
-                     </>
-                  }
-               >
-                  <div className="m10">
-                     <div className="row my5">
-                        <div className="f1">{$t(L.Restoration)}</div>
-                        <div>{formatNumber(tileAnnexedAndCored)}</div>
-                     </div>
-                     <div className="h5" />
-                     <Progress value={100 * progressToNextRestoration} />
-                     <div className="h5" />
-                  </div>
-               </FloatingTip>
-               <div className="h2">{$t(L.Automation)}</div>
-               <div className="m10">
-                  <FloatingTip label={html($t(L.SettleUnrestAutomaticallyEveryMonth, "0"))}>
-                     <div className="row my5">
-                        <div className="f1">{$t(L.AutomaticallySettleUnrest)}</div>
-                        <Switch
-                           checked={hasFlag(state.flags, ProvinceFlags.AutomaticallySettleUnrest)}
-                           onChange={() => {
-                              state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallySettleUnrest);
-                              GameStateUpdated.emit();
-                           }}
-                        />
-                     </div>
-                  </FloatingTip>
+         <BreakdownTooltip
+            breakdown={governingCost}
+            tooltip={(element) => (
+               <>
+                  <div className="m10">{html($t(L.GoverningCostIsTheSumOfAllTilesGoverningCost))}</div>
+                  {element}
+                  <div className="divider" />
+                  <div className="m10">{$t(L.GoverningCapacityIsDeterminedAsFollows)}</div>
+                  <BreakdownComp breakdown={governingCapacity} />
+               </>
+            )}
+         >
+            <div className="row m10">
+               <div className="f1">{$t(L.GoverningCostCapacity)}</div>
+               <div>
+                  {formatNumber(governingCost.value)}/{formatNumber(governingCapacity.value)}
                </div>
             </div>
-            <div className="divider vertical" />
-            <div style={{ width: 250 }} className="p10 col stretch g5">
-               <TimedActionButton timedAction="HoldGames" />
-               <TimedActionButton timedAction="ExpandGrainDole" />
-               <TimedActionButton timedAction="GrantTaxRelief" />
-               <TimedActionButton timedAction="ReformCuria" />
-               <TimedActionButton timedAction="RecruitTalents" />
-               <TimedActionButton timedAction="RenewVestments" />
-               <div className="f1" />
-            </div>
+         </BreakdownTooltip>
+         <Progress value={(100 * governingCost.value) / governingCapacity.value} className="mx10" />
+         <div className="h15" />
+         <div className="divider" />
+         <BreakdownRow
+            className="m10"
+            name={$t(L.Overextension)}
+            breakdown={getProvinceOverextension(G.save.state.playerProvince, G.save)}
+            tooltip={(element) => (
+               <>
+                  <div className="m10">{$t(L.GoverningOvercapacityContributesToOverextension)}</div>
+                  {element}
+               </>
+            )}
+            formatFunc={colorNumberReverse}
+         />
+         <BreakdownRow
+            className="m10"
+            name={$t(L.Stability)}
+            breakdown={getProvinceStability(G.save.state.playerProvince, G.save)}
+            tooltip={(element) => (
+               <>
+                  <div className="m10">{Modifiers.Stability.desc()}</div>
+                  {element}
+               </>
+            )}
+         />
+         <div className="divider" />
+         <div className="m10">
+            <FloatingTip label={html($t(L.SettleUnrestAutomaticallyEveryMonth, "0"))}>
+               <div className="row my5">
+                  <div className="f1">{$t(L.AutomaticallySettleUnrest)}</div>
+                  <Switch
+                     size="xs"
+                     checked={hasFlag(state.flags, ProvinceFlags.AutomaticallySettleUnrest)}
+                     onChange={() => {
+                        state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallySettleUnrest);
+                        GameStateUpdated.emit();
+                     }}
+                  />
+               </div>
+            </FloatingTip>
          </div>
-         <div className="h1">{$t(L.ReligionChristianity)}</div>
-         <div className="row g0">
-            <div className="f1">
-               <FloatingTip
-                  className="p0"
-                  w={300}
-                  label={
-                     <>
-                        <div className="m10">
-                           <div className="row my5">
-                              <div className="f1">{$t(L.ChristianityInfluence)}</div>
-                              <div>{formatNumber(christianity)}</div>
-                           </div>
-                           <div className="row my5">
-                              <div className="f1">{$t(L.GoverningCost)}</div>
-                              <div>{formatNumber(governingCost.value)}</div>
-                           </div>
-                        </div>
-                        <div className="h2">{$t(L.ChristianityYearly)}</div>
-                        <BreakdownComp breakdown={christianityYearly} />
-                        <div className="divider" />
-                        <div className="m10">
-                           {$t(L.ChristianityConversionEffectsDescription)}
-                           <div className="h10" />
-                           {mapOf(ProvinceUpgrades.ReligiousUnrest.modifiers, (modifier, data) => (
-                              <div className="row my5" key={modifier}>
-                                 <div className="f1">{Modifiers[modifier].name()}</div>
-                                 <div className="text-red">{modifierValueToString(data)}</div>
-                              </div>
-                           ))}
-                           {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
-                              <div className="text-red my5">{$t(L.TheEffectIsCurrentlyActive)}</div>
-                           )}
-                        </div>
-                     </>
-                  }
-               >
-                  <div className="row g5 m10">
-                     <div>{ProvinceResourceNames.christianity()}</div>
-                     {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
-                        <div className="mi sm text-red">error</div>
-                     )}
-                     <div className="f1" />
-                     <div>
-                        {formatNumber(christianity)}/{formatNumber(governingCost.value)}
-                        <span className="text-green"> ({formatDelta(christianityYearly.value)})</span>
-                     </div>
+         <div className="divider" />
+         <FloatingTip
+            className="p0"
+            w={300}
+            label={
+               <>
+                  <div className="m10 row">
+                     <div className="f1">{$t(L.ProgressToNextRestoration)}</div>
+                     <div>{formatPercent(progressToNextRestoration)}</div>
                   </div>
-               </FloatingTip>
-               <Progress value={(100 * christianity) / governingCost.value} className="m10" />
+                  <div className="divider" />
+                  <div className="m10">
+                     {html(
+                        $t(
+                           L.EveryXTilesAnnexedAndCoredGrant1RestorationEachRestorationGrantsYGoverningCapacity,
+                           TilesPerRestoration,
+                           governingCapacityPerRestoration.value,
+                        ),
+                     )}
+                  </div>
+                  <div className="divider" />
+                  <div className="m10">{$t(L.GoverningCapacityPerRestorationIsDeterminedAsFollows)}</div>
+                  <BreakdownComp breakdown={governingCapacityPerRestoration} />
+               </>
+            }
+         >
+            <div className="m10">
+               <div className="row my5">
+                  <div className="f1">{$t(L.Restoration)}</div>
+                  <div>{formatNumber(tileAnnexedAndCored)}</div>
+               </div>
+               <div className="h5" />
+               <Progress value={100 * progressToNextRestoration} />
                <div className="h5" />
             </div>
-            <div className="divider vertical" />
-            <div style={{ width: 250 }}>
-               <div className="col stretch m10 g5">
-                  <ActionButton
-                     className="btn"
-                     action={ConvertToChristianityAction(G.save.state.playerProvince, G.save)}
-                     tooltip={(element) => (
-                        <>
-                           <div className="m10">{$t(L.ConvertingToChristianityDescription)}</div>
-                           {element}
-                        </>
+         </FloatingTip>
+         <div className="m10" style={Grid2}>
+            <TimedActionButton timedAction="HoldGames" />
+            <TimedActionButton timedAction="ExpandGrainDole" />
+            <TimedActionButton timedAction="GrantTaxRelief" />
+            <TimedActionButton timedAction="ReformCuria" />
+            <TimedActionButton timedAction="RecruitTalents" />
+            <TimedActionButton timedAction="RenewVestments" />
+         </div>
+         <div className="h1">{$t(L.Religion)}</div>
+         <FloatingTip
+            className="p0"
+            w={300}
+            label={
+               <>
+                  <div className="m10">
+                     <div className="row my5">
+                        <div className="f1">{$t(L.ChristianityInfluence)}</div>
+                        <div>{formatNumber(christianity)}</div>
+                     </div>
+                     <div className="row my5">
+                        <div className="f1">{$t(L.GoverningCost)}</div>
+                        <div>{formatNumber(governingCost.value)}</div>
+                     </div>
+                  </div>
+                  <div className="h2">{$t(L.ChristianityYearly)}</div>
+                  <BreakdownComp breakdown={christianityYearly} />
+                  <div className="divider" />
+                  <div className="m10">
+                     {$t(L.ChristianityConversionEffectsDescription)}
+                     <div className="h10" />
+                     {mapOf(ProvinceUpgrades.ReligiousUnrest.modifiers, (modifier, data) => (
+                        <div className="row my5" key={modifier}>
+                           <div className="f1">{Modifiers[modifier].name()}</div>
+                           <div className="text-red">{modifierValueToString(data)}</div>
+                        </div>
+                     ))}
+                     {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
+                        <div className="text-red my5">{$t(L.TheEffectIsCurrentlyActive)}</div>
                      )}
-                  >
-                     {$t(L.ConvertToChristianity)}
-                  </ActionButton>
-                  <TimedActionButton timedAction="AppointBishop" />
+                  </div>
+               </>
+            }
+         >
+            <div className="row g5 m10">
+               <div>{ProvinceResourceNames.christianity()}</div>
+               {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
+                  <div className="mi sm text-red">error</div>
+               )}
+               <div className="f1" />
+               <div>
+                  {formatNumber(christianity)}/{formatNumber(governingCost.value)}
+                  <span className="text-green"> ({formatDelta(christianityYearly.value)})</span>
                </div>
             </div>
+         </FloatingTip>
+         <Progress value={(100 * christianity) / governingCost.value} className="m10" />
+         <div className="m10" style={Grid2}>
+            <ActionButton
+               className="btn"
+               action={ConvertToChristianityAction(G.save.state.playerProvince, G.save)}
+               tooltip={(element) => (
+                  <>
+                     <div className="m10">{$t(L.ConvertingToChristianityDescription)}</div>
+                     {element}
+                  </>
+               )}
+            >
+               {$t(L.ConvertToChristianity)}
+            </ActionButton>
+            <TimedActionButton timedAction="AppointBishop" />
          </div>
          <div className="h1">{$t(L.AutonomyAndRebellion)}</div>
-         <div className="m10">
-            <table className="data-table">
-               <thead>
-                  <tr>
-                     <th></th>
-                     <th>{$t(L.Unrest)}</th>
-                     <th colSpan={2}>{$t(L.Autonomy)}</th>
-                     <th colSpan={2}>{$t(L.Rebellion)}</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {tiles.map(([tile, tileData]) => {
-                     const unrest = getTileUnrest(tile, G.save);
-                     return (
-                        <tr key={tile}>
-                           <td>
-                              <div
-                                 className="row g5 pointer"
-                                 onClick={() => {
-                                    hideModal();
-                                    G.scene.getCurrent(WorldScene)?.drawSelectors(new Set([tile]));
-                                    showSidebar(<TilePage tile={tile} />);
-                                 }}
-                              >
-                                 <div className="mi sm">open_in_new</div>
-                                 {getTileName(tile)}
-                                 {isCapital(tile, G.save) && <div className="mi sm text-yellow">stars</div>}
-                                 <div className="f1" />
-                              </div>
-                           </td>
-                           <td>
-                              <BreakdownTooltip breakdown={unrest}>
-                                 <div>{colorNumber(unrest.value, true)}</div>
-                              </BreakdownTooltip>
-                           </td>
-                           <td>{tileData.autonomy}</td>
-                           <td className="nowrap">
-                              <FloatingTip label={$t(L.SetTileAutonomyToX, "0")}>
-                                 <button
-                                    className="btn"
-                                    onClick={() => {
-                                       playClick();
-                                       tileData.autonomy = 0;
-                                       GameStateUpdated.emit();
-                                    }}
-                                 >
-                                    0
-                                 </button>
-                              </FloatingTip>
-                              <FloatingTip label={$t(L.SettlingUnrestAdjustsAutonomySoThatTileUnrestIsAtMostX, "0")}>
-                                 <button
-                                    className="btn"
-                                    onClick={() => {
-                                       playClick();
-                                       const unrest = getTileUnrest(tile, G.save).value;
-                                       tileData.autonomy = clamp(tileData.autonomy + Math.ceil(unrest), 0, 100);
-                                       GameStateUpdated.emit();
-                                    }}
-                                 >
-                                    {$t(L.Settle)}
-                                 </button>
-                              </FloatingTip>
-                           </td>
-                           <td
-                              className={cls(
-                                 tileData.rebellion >= 8 ? "text-red" : tileData.rebellion >= 5 ? "text-yellow" : null,
-                              )}
+         {tiles.map(([tile, tileData]) => {
+            const unrest = getTileUnrest(tile, G.save);
+            return (
+               <div className="box m10 text-sm" key={tile}>
+                  <div className="h3 row">
+                     {getTileName(tile)}
+                     {isCapital(tile, G.save) && <div className="mi sm text-yellow">stars</div>}
+                     <div className="f1" />
+                     <div
+                        className="mi sm pointer"
+                        onClick={() => {
+                           hideModal();
+                           G.scene
+                              .getCurrent(WorldScene)
+                              ?.lookAt(tile, { time: 0.2 })
+                              .then((scene) => {
+                                 scene.drawSelectors(new Set([tile]));
+                                 scene.drawProvinceOutline(tileData.province);
+                              });
+                           showSidebar(<TilePage tile={tile} />);
+                        }}
+                     >
+                        open_in_new
+                     </div>
+                  </div>
+                  <BreakdownTooltip breakdown={unrest}>
+                     <div className="row mx10 my5">
+                        <div className="f1">{$t(L.Unrest)}</div>
+                        <div>{colorNumber(unrest.value, true)}</div>
+                     </div>
+                  </BreakdownTooltip>
+                  <div className="row mx10 my5">
+                     <div className="f1">{$t(L.Autonomy)}</div>
+                     <div className="row g5">
+                        <FloatingTip label={$t(L.SetTileAutonomyToX, "0")}>
+                           <button
+                              className="btn text-xs"
+                              onClick={() => {
+                                 playClick();
+                                 tileData.autonomy = 0;
+                                 GameStateUpdated.emit();
+                              }}
                            >
-                              {tileData.rebellion}/10
-                           </td>
-                           <td className="nowrap">
-                              <AppeaseButton tile={tile} /> <CrackDownButton tile={tile} />{" "}
-                              <MakeCoreButton
-                                 id={`InternalAffairs_MakeCore_${removeSpace(getTileName(tile))}`}
-                                 tile={tile}
-                              />
-                           </td>
-                        </tr>
-                     );
-                  })}
-                  {tiles.length === 0 && (
-                     <tr>
-                        <td className="text-dimmed text-italic" colSpan={5}>
-                           {$t(L.NoRebellions)}
-                        </td>
-                     </tr>
-                  )}
-               </tbody>
-            </table>
-         </div>
-      </ModalComp>
+                              {$t(L.Reset)}
+                           </button>
+                        </FloatingTip>
+                        <FloatingTip label={$t(L.SettlingUnrestAdjustsAutonomySoThatTileUnrestIsAtMostX, "0")}>
+                           <button
+                              className="btn text-xs"
+                              onClick={() => {
+                                 playClick();
+                                 const unrest = getTileUnrest(tile, G.save).value;
+                                 tileData.autonomy = clamp(tileData.autonomy + Math.ceil(unrest), 0, 100);
+                                 GameStateUpdated.emit();
+                              }}
+                           >
+                              {$t(L.Settle)}
+                           </button>
+                        </FloatingTip>
+                     </div>
+                     <div>{tileData.autonomy}</div>
+                  </div>
+                  <div className="row mx10 my5">
+                     <div className="f1">{$t(L.Rebellion)}</div>
+                     <div
+                        className={cls(
+                           tileData.rebellion >= 8 ? "text-red" : tileData.rebellion >= 5 ? "text-yellow" : null,
+                        )}
+                     >
+                        {tileData.rebellion}/10
+                     </div>
+                  </div>
+               </div>
+            );
+         })}
+         {tiles.length === 0 && <div className="text-dimmed m10">{$t(L.NoRebellions)}</div>}
+      </SidebarComp>
    );
 }

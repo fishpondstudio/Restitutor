@@ -540,12 +540,12 @@ class TimedActionDefinitions {
       cooldown: 12 * 10,
       costCondition: (province, save) => {
          return {
-            cost: { christianity: (12 * 10) / 2 },
+            cost: { christianity: 12 * 5 },
          };
       },
       effect: {
          modifiers: {
-            ChristianityYearly: { type: "add", value: 1, duration: 12 },
+            ChristianityYearly: { type: "add", value: 1, duration: 12 * 10 },
          },
       },
    };

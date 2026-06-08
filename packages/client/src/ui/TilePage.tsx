@@ -339,6 +339,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                            {html($t(L.ExampleAutonomyAtXYReducesTileOutputByZP, "25", "25%", "-15", "15%"))}
                         </div>
                      </div>
+                     <div className="divider my10"></div>
                      {element}
                   </>
                )}
