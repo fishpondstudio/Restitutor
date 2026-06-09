@@ -1,4 +1,4 @@
-import type { Tile } from "@project/shared/src/utils/Helper";
+import { cls, type Tile } from "@project/shared/src/utils/Helper";
 import { MakeCoreAction } from "../game/actions/MakeCoreAction";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
@@ -10,7 +10,15 @@ import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { html } from "./components/RenderHTMLComp";
 
-export function MakeCoreButton({ tile, id }: { tile: Tile; id?: string }): React.ReactNode {
+export function MakeCoreButton({
+   tile,
+   id,
+   className,
+}: {
+   tile: Tile;
+   id?: string;
+   className?: string;
+}): React.ReactNode {
    const tileData = G.save.state.tiles.get(tile);
    if (!tileData) {
       return null;
@@ -37,7 +45,7 @@ export function MakeCoreButton({ tile, id }: { tile: Tile; id?: string }): React
                <BreakdownComp breakdown={cost} />
             </>
          )}
-         className="btn text-sm"
+         className={cls("btn", className)}
          action={MakeCoreAction(tile, G.save.state.playerProvince, G.save)}
       >
          {TimedActions.MakeCore.name()}

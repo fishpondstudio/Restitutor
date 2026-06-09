@@ -210,7 +210,7 @@ export const EN = {
    DeclareWar: "Declare War",
    DeclareWarOnBelgica: "Declare war on Belgica",
    DeclareWarOnBelgicaDesc:
-      "Now we are ready for war. Right click Belgica <i>on the map</i> to open Diplomacy Panel and then follow the on-screen instructions to declare war on Belgica.<br>War can place significant strain on our province so start small: pick <i>Durocortorum</i> as the war goal.<br>We should almost always have a <i>casus belli</i> when declaring war. Our selected mission grants us one, and we can also fabricate one if needed.",
+      "Now we are ready for war. Right click Belgica <i>on the map</i> to open Diplomacy Panel and then follow the on-screen instructions to declare war on Belgica.<br>War can place significant strain on our province so start small: pick <i>Durocortorum</i> as the war goal.<br>We should almost always have a <i>casus belli</i> when declaring war. We currently have one and we can also fabricate one if needed.",
    DecreaseGameSpeed: "Decrease Game Speed",
    DefaultPledgeSupportTooltip: "By default we can only pledge our own support (i.e. provincial backing = 1). We can request other provinces to pledge with us through diplomacy, thus increasing our provincial backing.",
    Defender: "Defender",
@@ -472,9 +472,8 @@ export const EN = {
    MakeDurocortorumOurCore: "Make Durocortorum our core",
    MakeDurocortorumOurCoreDesc: "A newly conquered tile is not our core yet - non-core tiles contribute to overextension, which negatively affects our province. We need to spend <i>administrative</i> points to integrate the tile and make it our core - follow the on-screen instructions.",
    MakeGovernorGeneral: "Make Governor General",
-   MakeOurGovernorAGeneral: "Make our governor a general",
-   MakeOurGovernorAGeneralDesc:
-      "A general will improve our army's war power. We can recruit one, which costs gold, or make our governor a general, which adds a 10% death chance. Follow the on-screen instructions to appoint our governor as general.<br>Our general will accumulate skill points after winning a war, which can be used to further improve our war power. Skill points and upgrades do not carry over to our next general.",
+   RecruitAGeneralDesc:
+      "A general will improve our army's war power. We can recruit one, which increases our army maintenance, or make our governor a general, which increases his death chance. Follow the on-screen instructions to recruit a general.<br>Our general will accumulate skill points after winning a war, which can be used to further improve our war power. Skill points and upgrades do not carry over to our next general.",
    MakeWarSpeech: "Make War Speech",
    MakeXOurCoreTile: "Make <i>%%</i> our core tile.",
    MakingGovernorGeneralDoesNotCostGold: "Making our governor general does not cost gold, but will add <i>%% death chance</i>. Our governor general has base skills of %%/%%/%%.",
@@ -1913,4 +1912,5 @@ export const EN = {
    CulturalCohesion: "Cultural Cohesion",
    ProvincialCulture: "Provincial Culture",
    ModifierMonthlyInterestRateDesc: "Our outstanding loans accrue interest every month at this interest rate.",
+   RecruitAGeneralTutorial: "Recruit a general",
 };

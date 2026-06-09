@@ -48,6 +48,7 @@ import { SidebarComp } from "./common/SidebarComp";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
+import { MakeCoreButton } from "./MakeCoreButton";
 import { playClick } from "./Sound";
 import { TilePage } from "./TilePage";
 import { TimedActionButton } from "./TimedActionButton";
@@ -367,6 +368,7 @@ export function InternalAffairsPage(): React.ReactNode {
                   </div>
                   <div className="row g5 mx10 my5">
                      <div className="f1">{$t(L.Rebellion)}</div>
+                     <MakeCoreButton className="text-xs" id={`InternalAffairsPage_MakeCore_${tile}`} tile={tile} />
                      <AppeaseButton tile={tile} className="text-xs" />
                      <CrackDownButton tile={tile} className="text-xs" />
                      <div

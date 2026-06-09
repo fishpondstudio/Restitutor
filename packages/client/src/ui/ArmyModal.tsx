@@ -1,5 +1,5 @@
 import { Slider } from "@mantine/core";
-import { formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
+import { formatNumber, formatPercent, formatPercentDelta } from "@project/shared/src/utils/Helper";
 import {
    MakeGovernorGeneralAction,
    RecruitGeneralAction,
@@ -10,6 +10,7 @@ import { ProvinceResourceNames, ProvinceStatNames } from "../game/definitions/Pr
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import {
+   GeneralArmyMaintenancePct,
    getArmyMaintenanceCost,
    getProvinceManpower,
    getProvinceResource,
@@ -22,7 +23,6 @@ import {
    dismissGeneral,
    getCavalryUnitWarPower,
    getCurrentGeneral,
-   getGeneralMonthlyCost,
    getInfantryUnitWarPower,
    getRangedUnitWarPower,
    hasGeneralCondition,
@@ -35,7 +35,6 @@ import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
-import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownRow } from "./BreakdownRow";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
@@ -194,12 +193,15 @@ export function ArmyModal(): React.ReactNode {
          <div className="h1">{$t(L.ArmyGeneral)}</div>
          <div className="m10" style={Grid3}>
             <ActionButton
+               id="ArmyModal_RecruitGeneral"
                action={RecruitGeneralAction(G.save.state.playerProvince, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="RecruitAGeneral" />
                      <div className="h2">{$t(L.MonthlyGoldCost)}</div>
-                     <BreakdownComp breakdown={getGeneralMonthlyCost(G.save.state.playerProvince, G.save)} />
+                     <div className="mx10 my5">
+                        {$t(L.XArmyMaintenanceCost, formatPercentDelta(GeneralArmyMaintenancePct))}
+                     </div>
                      {element}
                   </>
                )}

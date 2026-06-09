@@ -27,13 +27,7 @@ import {
    getRelations,
 } from "./DiplomacyLogic";
 import { attachModifiers } from "./ModifierLogic";
-import {
-   getProvinceStat,
-   getProvinceUpgrade,
-   getWarPower,
-   resetProvinceResource,
-   setProvinceStat,
-} from "./ProvinceLogic";
+import { getProvinceStat, getWarPower, resetProvinceResource, setProvinceStat } from "./ProvinceLogic";
 import { getTileDefense } from "./TileLogic";
 import { endTimedAction, getTimedActionTimeLeft } from "./TimedActionLogic";
 
@@ -462,17 +456,6 @@ export function isWarStalled(war: IWar, save: SaveGame): boolean {
 }
 
 export const WhitePeaceCostPerTile = 20;
-
-export function getGeneralMonthlyCost(province: Province, save: SaveGame): IValueBreakdown {
-   const result = makeValueBreakdown({ reverse: true });
-   const totalUpgrade = getProvinceUpgrade(province, save);
-   result.add.push({
-      name: $t(L.FromTotalTileUpgrades),
-      value: 0.1 * totalUpgrade,
-      desc: $t(L.XGoldPerUpgrade, "0.1"),
-   });
-   return finalizeBreakdown(result);
-}
 
 export function getInfantryUnitWarPower(province: Province, save: SaveGame): IValueBreakdown {
    const result = makeValueBreakdown();

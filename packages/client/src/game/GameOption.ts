@@ -27,6 +27,6 @@ export class GameOption {
    shortcuts = DefaultShortcuts;
    version = SupportedSaveVersion;
    build = 0;
-   chroniclePopupFrequency = 1;
+   chroniclePopupFrequency = 5;
    id = uuid4();
 }

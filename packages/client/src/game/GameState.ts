@@ -159,7 +159,7 @@ function initTileUpgrades(save: SaveGame): void {
             if (total <= 0) break;
          }
       }
-      const incomeTarget = 36;
+      const incomeTarget = 45;
       let maxIteration = 1000;
       while (true) {
          if (--maxIteration <= 0) {

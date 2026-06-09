@@ -1,4 +1,4 @@
-import { entriesOf, removeSpace, type Tile } from "@project/shared/src/utils/Helper";
+import { entriesOf, type Tile } from "@project/shared/src/utils/Helper";
 import { memo } from "react";
 import { type Building, Buildings } from "../game/definitions/Building";
 import { getTileName } from "../game/definitions/TileName";
@@ -126,7 +126,7 @@ function UpgradeButtonsColumns({ tile }: { tile: Tile }): React.ReactNode {
       <>
          <td>
             <UpgradeInfrastructureButton
-               id={`TileListModal_UpgradeInfrastructure_${removeSpace(getTileName(tile))}`}
+               id={`TileListModal_UpgradeInfrastructure_${tile}`}
                style={UpgradeButtonStyle}
                tile={tile}
             >
@@ -135,7 +135,7 @@ function UpgradeButtonsColumns({ tile }: { tile: Tile }): React.ReactNode {
          </td>
          <td>
             <UpgradeProductionButton
-               id={`TileListModal_UpgradeProduction_${removeSpace(getTileName(tile))}`}
+               id={`TileListModal_UpgradeProduction_${tile}`}
                style={UpgradeButtonStyle}
                tile={tile}
             >
@@ -144,7 +144,7 @@ function UpgradeButtonsColumns({ tile }: { tile: Tile }): React.ReactNode {
          </td>
          <td>
             <UpgradePopulationButton
-               id={`TileListModal_UpgradePopulation_${removeSpace(getTileName(tile))}`}
+               id={`TileListModal_UpgradePopulation_${tile}`}
                style={UpgradeButtonStyle}
                tile={tile}
             >

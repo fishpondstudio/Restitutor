@@ -74,15 +74,15 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: getTutorialId(),
-      name: () => $t(L.MakeOurGovernorAGeneral),
-      desc: () => $t(L.MakeOurGovernorAGeneralDesc),
+      name: () => $t(L.RecruitAGeneralTutorial),
+      desc: () => $t(L.RecruitAGeneralDesc),
       progress: (save) => {
          if (getCurrentGeneral(save.state.playerProvince, save) !== undefined) {
             return [1, 1];
          }
          return [0, 1];
       },
-      selectors: ["#TopPanel_WarPower", "#ArmyModal_MakeGovernorGeneral"],
+      selectors: ["#TopPanel_WarPower", "#ArmyModal_RecruitGeneral"],
    },
    {
       id: getTutorialId(),
@@ -133,7 +133,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: [
          "#DiplomacyPage_DeclareWar_Belgica",
-         "#DeclareWarPage_Tile_Durocortorum_Unselected",
+         `#DeclareWarPage_Tile_${DurocortorumTile}_Unselected`,
          "#DeclareWarPage_DeclareWar_Belgica:enabled",
       ],
    },
@@ -160,7 +160,7 @@ export const Tutorial: ITutorial[] = [
          }
          return [0, 1];
       },
-      selectors: ["#TopPanel_InternalAffairs", "#InternalAffairs_MakeCore_Durocortorum"],
+      selectors: ["#TopPanel_InternalAffairs", `#InternalAffairsPage_MakeCore_${DurocortorumTile}`],
    },
    {
       id: getTutorialId(),
@@ -173,7 +173,7 @@ export const Tutorial: ITutorial[] = [
          }
          return [0, 1];
       },
-      selectors: ["#TopPanel_TileCount", "#TileListModal_UpgradeProduction_Lutetia"],
+      selectors: ["#TopPanel_TileCount", `#TileListModal_UpgradeProduction_${LutetiaTile}`],
    },
    {
       id: getTutorialId(),

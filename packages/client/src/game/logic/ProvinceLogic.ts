@@ -63,7 +63,6 @@ import {
    calculateWarTotalStability,
    getCavalryUnitWarPower,
    getCurrentWars,
-   getGeneralMonthlyCost,
    getInfantryUnitWarPower,
    getRangedUnitWarPower,
    MonthlyExtraArmyMaintenancePct,
@@ -369,6 +368,8 @@ const InfantryMaintenanceCost = 0.01;
 const RangedMaintenanceCost = 0.02;
 const CavalryMaintenanceCost = 0.03;
 
+export const GeneralArmyMaintenancePct = 0.1;
+
 export function getArmyMaintenanceCost(province: Province, save: SaveGame): IValueBreakdown {
    const maintenance = getProvinceStat("armyMaintenance", province, save);
    const breakdown: IValueBreakdown = makeValueBreakdown({
@@ -406,6 +407,13 @@ export function getArmyMaintenanceCost(province: Province, save: SaveGame): IVal
             value: MonthlyExtraArmyMaintenancePct,
          });
       }
+   }
+   const recruitAGeneral = getTimedActionTimeLeft("RecruitAGeneral", province, save);
+   if (recruitAGeneral > 0) {
+      breakdown.multiply.push({
+         name: $t(L.RecruitAGeneral),
+         value: GeneralArmyMaintenancePct,
+      });
    }
    attachModifiers("ArmyMaintenance", breakdown, province, save);
    getProvinceTraits("Prudent", province, save).forEach((trait) => {
@@ -702,14 +710,6 @@ export function getProvinceIncome(
          value: -revenue.value * 0.1,
       });
    });
-
-   const recruitAGeneral = getTimedActionTimeLeft("RecruitAGeneral", province, save);
-   if (recruitAGeneral > 0) {
-      expense.add.push({
-         name: $t(L.RecruitAGeneral),
-         value: -getGeneralMonthlyCost(province, save).value,
-      });
-   }
 
    return {
       revenue: revenue,

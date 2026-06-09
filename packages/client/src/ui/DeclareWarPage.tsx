@@ -1,5 +1,5 @@
 import { type ComboboxItem, Select } from "@mantine/core";
-import { cls, formatNumber, formatPercent, removeSpace, type Tile } from "@project/shared/src/utils/Helper";
+import { cls, formatNumber, formatPercent, type Tile } from "@project/shared/src/utils/Helper";
 import { useEffect, useState } from "react";
 import { DeclareWarAction, getOneTimeConsequences } from "../game/actions/DeclareWarAction";
 import { CasusBelli } from "../game/definitions/CasusBelli";
@@ -93,7 +93,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
                      "box row py2 px2 pr5 g5 pointer",
                      selectedTiles.has(tile) ? "primary text-primary" : "",
                   )}
-                  id={`DeclareWarPage_Tile_${removeSpace(getTileName(tile))}_${selectedTiles.has(tile) ? "Selected" : "Unselected"}`}
+                  id={`DeclareWarPage_Tile_${tile}_${selectedTiles.has(tile) ? "Selected" : "Unselected"}`}
                   key={tile}
                   onClick={() =>
                      setSelectedTiles((prev) => {

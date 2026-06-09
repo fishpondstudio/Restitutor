@@ -85,6 +85,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             )}
             <div className="row my5">
                <div className="f1">{$t(L.Core)}</div>
+               <MakeCoreButton className="text-sm" tile={tile} />
                <div>
                   {tileData.coreProvinces.has(tileData.province) ? (
                      <div className="mi sm text-green">check_circle</div>
@@ -92,7 +93,6 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                      <div className="mi sm text-red">cancel</div>
                   )}
                </div>
-               <MakeCoreButton tile={tile} />
             </div>
             <div className="row my5">
                <div className="f1">{$t(L.Terrain)}</div>

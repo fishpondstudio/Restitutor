@@ -59,7 +59,7 @@ export const ProvinceResources = {
    administrative: [0, 0] as [number, number],
    diplomatic: [0, 0] as [number, number],
    military: [0, 0] as [number, number],
-   gold: [300, 0] as [number, number],
+   gold: [1453, 0] as [number, number],
    legacy: [0, 0] as [number, number],
    generalSkillPoint: [0, 0] as [number, number],
    consulPoint: [0, 0] as [number, number],

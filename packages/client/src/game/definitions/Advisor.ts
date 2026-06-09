@@ -32,7 +32,7 @@ export function getAdvisorMonthlyCost(level: number, province: Province, save: S
    breakdown.add.push({
       name: $t(L.BaseCost),
       desc: $t(L.ForLevelXAdvisor, formatNumber(level)),
-      value: 4 ** level * 3,
+      value: 4 ** (level - 1) * 10,
    });
    attachModifiers("AdvisorCost", breakdown, province, save);
    getProvinceTraits("Thrifty", province, save).forEach((trait) => {

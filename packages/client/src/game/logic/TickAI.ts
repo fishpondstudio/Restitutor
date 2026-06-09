@@ -636,6 +636,13 @@ function findWarGoal(province: Province, save: SaveGame): { tile: Tile; estimate
    let bestEstimatedTime = Number.POSITIVE_INFINITY;
    const warTiles = getWarTiles(save);
    for (const [otherProvince, otherTiles] of neighbors) {
+      // NPC should not attack the player until they have declared their 2nd war!
+      if (
+         otherProvince === save.state.playerProvince &&
+         getProvinceStat("attackCount", save.state.playerProvince, save) <= 1
+      ) {
+         continue;
+      }
       const { coAttackers, coDefenders } = getWarParticipants(province, otherProvince, save);
       const action = DeclareWarAction(
          province,
