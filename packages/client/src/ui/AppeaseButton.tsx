@@ -1,11 +1,11 @@
-import type { Tile } from "@project/shared/src/utils/Helper";
+import { cls, type Tile } from "@project/shared/src/utils/Helper";
 import { AppeaseAction } from "../game/actions/AppeaseAction";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { G } from "../utils/Global";
 import { ActionButton } from "./ActionButton";
 
-export function AppeaseButton({ tile }: { tile: Tile }): React.ReactNode {
+export function AppeaseButton({ tile, className }: { tile: Tile; className?: string }): React.ReactNode {
    return (
       <ActionButton
          tooltip={(element) => (
@@ -14,7 +14,7 @@ export function AppeaseButton({ tile }: { tile: Tile }): React.ReactNode {
                {element}
             </>
          )}
-         className="btn f1"
+         className={cls("btn", className)}
          action={AppeaseAction(tile, G.save.state.playerProvince, G.save)}
       >
          {TimedActions.Appease.name()}

@@ -22,6 +22,7 @@ import { ResearchTechAction } from "../actions/ResearchTechAction";
 import { SignPeaceTreatyAction } from "../actions/SignPeaceTreatyAction";
 import { LookForLocalSpouseAction } from "../actions/SpouseActions";
 import { TradeWithAction } from "../actions/TradeActions";
+import { OfferAllianceAction, OfferDefensePactAction } from "../actions/TreatyActions";
 import {
    UpgradeInfrastructureAction,
    UpgradePopulationAction,
@@ -41,13 +42,18 @@ import {
 } from "../definitions/Province";
 import { SocialClasses } from "../definitions/SocialClass";
 import type { SaveGame } from "../GameState";
-import { getDiplomats, getRelation, HumiliateRivalCasusBelliMonths } from "./DiplomacyLogic";
+import {
+   getDiplomats,
+   getRelation,
+   getRelations,
+   HumiliateRivalCasusBelliMonths,
+   improveRelations,
+} from "./DiplomacyLogic";
 import { optimizeProduction } from "./ProductionLogic";
 import {
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,
    getProvinceIncome,
-   getProvincePrestige,
    getProvinceProductionCapacity,
    getProvinceResource,
    getProvinceStat,
@@ -67,7 +73,7 @@ import {
    makeGameAction,
    startTimedAction,
 } from "./TimedActionLogic";
-import { forceAlliance, forceDefensePact, getTreatyCount } from "./TreatyLogic";
+import { getTreatyCount } from "./TreatyLogic";
 import {
    calculateWarLengthForStability,
    getCurrentWars,
@@ -80,7 +86,7 @@ import {
 } from "./WarLogic";
 
 const AIDeclareWarChance = 0.2;
-const AIWarMaxUnrest = 10;
+const AIWarMaxUnrest = 20;
 const EnableAILogging = import.meta.env.DEV;
 
 export function tickAI(save: SaveGame): void {
@@ -388,6 +394,12 @@ function doDiplomacy(province: Province, save: SaveGame): void {
    const part3 = sortedProvinces.slice(10);
    const candidates = [...shuffle(part1), ...shuffle(part2), ...shuffle(part3)];
    doTreaties(province, candidates, save);
+   getRelations(province, save)?.forEach((relation, otherProvince) => {
+      if (relation.treaty) {
+         improveRelations(province, otherProvince, save);
+      }
+      tryDoHeadless(OfferAllianceAction(province, otherProvince, save), "OfferTreaty", province, save);
+   });
    if (getTimedActionCooldownLeft("ChangeRival", province, save) <= 0) {
       startTimedAction("ChangeRival", province, save);
       const rivals = state.rivals;
@@ -456,13 +468,12 @@ function doTreaties(province: Province, candidates: Province[], save: SaveGame):
       if (getTreatyCount(candidate, save) >= getDesiredTreatyCount(candidate, save)) {
          continue;
       }
-
-      if (getProvincePrestige(province, save).value >= 1.25 * getProvincePrestige(candidate, save).value) {
-         forceAlliance(province, candidate, save);
-      } else {
-         forceDefensePact(province, candidate, save);
+      if (tryDoHeadless(OfferAllianceAction(province, candidate, save), "OfferTreaty", province, save)) {
+         continue;
       }
-
+      if (tryDoHeadless(OfferDefensePactAction(province, candidate, save), "OfferTreaty", province, save)) {
+         continue;
+      }
       break;
    }
 }

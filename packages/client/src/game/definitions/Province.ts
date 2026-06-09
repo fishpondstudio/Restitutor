@@ -165,6 +165,7 @@ export const AIActions = [
    "TradeGoods",
    "UpgradeGeneralSkill",
    "ConvertToChristianity",
+   "OfferTreaty",
 ] as const;
 export type AIAction = (typeof AIActions)[number];
 
@@ -180,8 +181,8 @@ export type Treaty = (typeof Treaty)[number];
 export const TreatyNames: Record<Treaty, () => string> = {
    DefensePact: () => $t(L.DefensePact),
    Alliance: () => $t(L.Alliance),
-   Client: () => $t(L.Client),
-   Patron: () => $t(L.Patron),
+   Client: () => $t(L.Clientage),
+   Patron: () => $t(L.Patronage),
 } as const;
 
 export interface IRelation {

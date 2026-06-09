@@ -37,8 +37,10 @@ import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
+import { AppeaseButton } from "./AppeaseButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
+import { CrackDownButton } from "./CrackDownButton";
 import { showSidebar } from "./common/Sidebar";
 import { SidebarComp } from "./common/SidebarComp";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
@@ -328,8 +330,10 @@ export function InternalAffairsPage(): React.ReactNode {
                      </div>
                      <div>{tileData.autonomy}</div>
                   </div>
-                  <div className="row mx10 my5">
+                  <div className="row g5 mx10 my5">
                      <div className="f1">{$t(L.Rebellion)}</div>
+                     <AppeaseButton tile={tile} className="text-xs" />
+                     <CrackDownButton tile={tile} className="text-xs" />
                      <div
                         className={cls(
                            tileData.rebellion >= 8 ? "text-red" : tileData.rebellion >= 5 ? "text-yellow" : null,

@@ -1,11 +1,12 @@
 import { $t, L } from "../../utils/i18n";
+import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province, ProvinceNameOverrides } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { RefreshTiles } from "../Events";
 import { getOriginalTileCount } from "../GameState";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
 import { getProvinceCoreTileCount, setProvinceNameOverride } from "../logic/ProvinceLogic";
-import { dissolveAllTreaties, forcePatronage, requireMinimumAttitude } from "../logic/TreatyLogic";
+import { dissolveAllTreaties, requireMinimumAttitude } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -64,7 +65,7 @@ export const GallicEmpireEvents = {
                {
                   effect: (province, save) => {
                      dissolveAllTreaties("Britannia", save);
-                     forcePatronage(province, "Britannia", save);
+                     OfferPatronageAction(province, "Britannia", save).effect({ headless: false });
                   },
                   desc: (province, save) => $t(L.XBecomesOurClient, Province.Britannia.name()),
                },

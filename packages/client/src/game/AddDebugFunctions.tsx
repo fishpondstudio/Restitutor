@@ -14,7 +14,6 @@ import { rebirth } from "./logic/LegacyUpgradeLogic";
 import { addProvinceResource, GovernorMaxExcl, GovernorMinIncl } from "./logic/ProvinceLogic";
 import { monthToDate } from "./logic/TickLogic";
 import { addGameEvent } from "./logic/TickProvince";
-import { forceAlliance } from "./logic/TreatyLogic";
 import { type IWar, WarFlag, WarLogFlag } from "./logic/WarLogic";
 import { randomFemaleName, randomMaleName } from "./RomanNames";
 import { DefaultShortcuts } from "./ShortcutDefinition";
@@ -58,11 +57,6 @@ export function addDebugFunctions(): void {
    };
    // @ts-expect-error
    globalThis.initDiplomacy = () => {
-      GameStateUpdated.emit();
-   };
-   // @ts-expect-error
-   globalThis.forceAlliance = (province: Province) => {
-      forceAlliance(G.save.state.playerProvince, province, G.save);
       GameStateUpdated.emit();
    };
    // @ts-expect-error

@@ -5,9 +5,11 @@ import {
    fromEntries,
    randomAlphaNumeric,
    range,
+   shuffle,
    type Tile,
    uuid4,
 } from "@project/shared/src/utils/Helper";
+import { $t, L } from "../utils/i18n";
 import type { IChronicleEntry } from "./definitions/Chronicle";
 import { Goods } from "./definitions/Goods";
 import type { Province } from "./definitions/Province";
@@ -15,7 +17,7 @@ import { type IProvince, Provinces } from "./definitions/Province";
 import { type ITileData, initTiles } from "./definitions/Tile";
 import { GameStateUpdated } from "./Events";
 import { GameOption } from "./GameOption";
-import { getRelation } from "./logic/DiplomacyLogic";
+import { addAttitudeModifier, getProvincesWithinDiplomaticRange, getRelation } from "./logic/DiplomacyLogic";
 import { tickProduction } from "./logic/ProductionLogic";
 import {
    getProvinceIncome,
@@ -77,6 +79,7 @@ export function initSaveGame(save: SaveGame): SaveGame {
    initTileUpgrades(save);
    initTileProductions(save);
    initPlayerProvince(save);
+   initAttitudes(save);
    return save;
 }
 
@@ -89,6 +92,27 @@ function initTileProductions(save: SaveGame) {
       });
       for (let i = 0; i < 12; ++i) {
          tickProduction(province, save);
+      }
+   });
+}
+
+function initAttitudes(save: SaveGame): void {
+   forEach(save.state.provinces, (province) => {
+      const provinces = getProvincesWithinDiplomaticRange(province, save);
+      shuffle(provinces);
+      for (let i = 0; i < Math.min(provinces.length, 2); ++i) {
+         const otherProvince = provinces[i];
+         addAttitudeModifier(
+            province,
+            otherProvince,
+            {
+               type: "add",
+               name: $t(L.Historical),
+               value: 50,
+               duration: 12 * 10,
+            },
+            save,
+         );
       }
    });
 }

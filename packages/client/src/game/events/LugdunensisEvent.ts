@@ -1,5 +1,6 @@
 import { filterInPlace, fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
+import { OfferPatronageAction } from "../actions/TreatyActions";
 import { CasusBelli } from "../definitions/CasusBelli";
 import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
@@ -10,7 +11,7 @@ import {
    getProvinceResource,
    getProvinceStability,
 } from "../logic/ProvinceLogic";
-import { dissolveAllTreaties, forcePatronage, requireMinimumAttitude } from "../logic/TreatyLogic";
+import { dissolveAllTreaties, requireMinimumAttitude } from "../logic/TreatyLogic";
 import { hasGeneralCondition } from "../logic/WarLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -186,7 +187,7 @@ export const LugdunensisEvent = {
                {
                   effect: (province, save) => {
                      dissolveAllTreaties("Belgica", save);
-                     forcePatronage(province, "Belgica", save);
+                     OfferPatronageAction(province, "Belgica", save).effect({ headless: false });
                   },
                   desc: (province, save) => $t(L.XBecomesOurClient, Province.Belgica.name()),
                },

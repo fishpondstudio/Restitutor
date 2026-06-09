@@ -68,28 +68,13 @@ import {
    timedActionConditions,
 } from "../game/logic/TimedActionLogic";
 import {
-   CancelAlliancePenaltyItem,
-   CancelDefensePactPenaltyItem,
-   CancelPatronagePenaltyItem,
-   cancelAlliance,
-   cancelDefensePact,
-   cancelPatronage,
-   canOfferAlliance,
-   canOfferDefensePact,
-   canOfferPatronage,
    canSabotage,
    getAllies,
    getClients,
    getDefensePacts,
    getPatrons,
    getTreatyMonthLeft,
-   hasOfferedAlliance,
-   hasOfferedDefensePact,
-   hasOfferedPatronage,
    requireHigherPrestige,
-   tryOfferAlliance,
-   tryOfferDefensePact,
-   tryOfferPatronage,
    trySabotage,
 } from "../game/logic/TreatyLogic";
 import { getCurrentWars, getTruceMonthsLeft, getWarsBetween } from "../game/logic/WarLogic";
@@ -112,6 +97,7 @@ import { DemandTribute } from "./DemandTribute";
 import { LookForSpouseModal } from "./LookForSpouseModal";
 import { playClick, playError } from "./Sound";
 import { TradeModal } from "./TradeModal";
+import { TreatyActionButtonV2 } from "./TreatyActionButtonV2";
 import { WarTooltip } from "./WarTooltip";
 
 const ActionWidth = 250;
@@ -457,36 +443,20 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      </FloatingTip>
                   </div>
                   <div className="m10 col stretch g5">
-                     <TreatyActionButton
-                        province={province}
-                        hasOfferedFunc={hasOfferedDefensePact}
-                        cancelFunc={cancelDefensePact}
-                        canOfferFunc={canOfferDefensePact}
-                        tryOfferFunc={tryOfferDefensePact}
-                        offerLabel={$t(L.OfferDefensePact)}
-                        cancelLabel={$t(L.CancelDefensePact)}
-                        cancelPenalty={[CancelDefensePactPenaltyItem]}
+                     <TreatyActionButtonV2
+                        ourProvince={G.save.state.playerProvince}
+                        theirProvince={province}
+                        treaty="DefensePact"
                      />
-                     <TreatyActionButton
-                        province={province}
-                        hasOfferedFunc={hasOfferedAlliance}
-                        cancelFunc={cancelAlliance}
-                        canOfferFunc={canOfferAlliance}
-                        tryOfferFunc={tryOfferAlliance}
-                        offerLabel={$t(L.OfferAlliance)}
-                        cancelLabel={$t(L.CancelAlliance)}
-                        cancelPenalty={[CancelAlliancePenaltyItem]}
+                     <TreatyActionButtonV2
+                        ourProvince={G.save.state.playerProvince}
+                        theirProvince={province}
+                        treaty="Alliance"
                      />
-                     <TreatyActionButton
-                        province={province}
-                        hasOfferedFunc={hasOfferedPatronage}
-                        cancelFunc={cancelPatronage}
-                        canOfferFunc={canOfferPatronage}
-                        tryOfferFunc={tryOfferPatronage}
-                        offerLabel={$t(L.OfferPatronage)}
-                        offerTooltip={<div className="m10">{$t(L.IfTheyAcceptPatronageTheyBecomeOurClient)}</div>}
-                        cancelLabel={$t(L.CancelPatronage)}
-                        cancelPenalty={[CancelPatronagePenaltyItem]}
+                     <TreatyActionButtonV2
+                        ourProvince={G.save.state.playerProvince}
+                        theirProvince={province}
+                        treaty="Patron"
                      />
                   </div>
                   <div className="h1">{$t(L.RelationsActions)}</div>

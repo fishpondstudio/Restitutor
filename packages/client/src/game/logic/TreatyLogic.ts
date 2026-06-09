@@ -1,25 +1,37 @@
 import { clamp, formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
-import type { ICondition, IConditionBreakdown, IValueBreakdownItem } from "../actions/GameAction";
+import type { ICondition, IConditionBreakdown, IGameAction, IValueBreakdownItem } from "../actions/GameAction";
 import { finalizeCondition } from "../actions/GameAction";
-import { addChronicleEntry } from "../definitions/Chronicle";
-import type { Province } from "../definitions/Province";
+import { OfferAllianceAction, OfferDefensePactAction, OfferPatronageAction } from "../actions/TreatyActions";
+import { type Province, type Treaty, TreatyNames } from "../definitions/Province";
 import { TimedActions } from "../definitions/TimedAction";
 import type { SaveGame } from "../GameState";
 import {
    addAttitudeModifier,
-   availableDiplomatCondition,
    getAttitudeTowards,
    getRelation,
    getRelations,
-   isClientOfAnyProvince,
-   isWithinDiplomaticRange,
    requireInfiltration,
    tryUseInfiltration,
 } from "./DiplomacyLogic";
-import { getProvinceName, getProvincePrestige, getProvincesInRange } from "./ProvinceLogic";
-import { startTimedAction, timedActionConditions } from "./TimedActionLogic";
+import { getProvinceName, getProvincePrestige } from "./ProvinceLogic";
+import { startTimedAction } from "./TimedActionLogic";
 import { getWarsBetween } from "./WarLogic";
+
+export const CancelTreatyPenalty: Record<Exclude<Treaty, "Client">, { duration: number; attitude: number }> = {
+   DefensePact: { duration: 12 * 2, attitude: -10 },
+   Alliance: { duration: 12 * 4, attitude: -20 },
+   Patron: { duration: 12 * 10, attitude: -50 },
+};
+
+export const OfferTreatyAction: Record<
+   Exclude<Treaty, "Client">,
+   (fromProvince: Province, toProvince: Province, save: SaveGame) => IGameAction
+> = {
+   DefensePact: OfferDefensePactAction,
+   Alliance: OfferAllianceAction,
+   Patron: OfferPatronageAction,
+};
 
 export const CancelProtectionDurationMonths = 12 * 3;
 export const CancelProtectionPenaltyItem: IValueBreakdownItem = {
@@ -98,7 +110,12 @@ export function requireHigherPrestige(us: Province, them: Province, percentage: 
    const ourPrestige = getProvincePrestige(us, save).value;
    const theirPrestige = getProvincePrestige(them, save).value;
    return {
-      name: $t(L.OurPrestigeIsAtLeastXOfTheirs, formatPercent(percentage)),
+      name: $t(
+         L.XPrestigeIsAtLeastYOfZ,
+         getProvinceName(us, save),
+         formatPercent(percentage),
+         getProvinceName(them, save),
+      ),
       value: ourPrestige >= theirPrestige * percentage,
       desc: $t(
          L.OurPrestigeXTheirPrestigeYWeNeedAtLeastZ,
@@ -106,6 +123,20 @@ export function requireHigherPrestige(us: Province, them: Province, percentage: 
          formatNumber(theirPrestige),
          formatNumber(percentage * theirPrestige),
       ),
+   };
+}
+
+export function requireMinimumAttitudeV2(from: Province, to: Province, attitude: number, save: SaveGame): ICondition {
+   const current = getAttitudeTowards(from, to, save);
+   return {
+      name: $t(
+         L.XHasAtLeastYAttitudeTowardsZ,
+         getProvinceName(from, save),
+         formatNumber(attitude),
+         getProvinceName(to, save),
+      ),
+      progress: [current.value, attitude],
+      value: current.value >= attitude,
    };
 }
 
@@ -123,248 +154,68 @@ export function requireMinimumAttitude(us: Province, them: Province, attitude: n
    };
 }
 
-export function hasOfferedDefensePact(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {
-   return (
-      getRelation(fromProvince, toProvince, save)?.treaty?.type === "DefensePact" &&
-      getRelation(toProvince, fromProvince, save)?.treaty?.type === "DefensePact"
-   );
+export function requirePeaceBetween(ourProvince: Province, theirProvince: Province, save: SaveGame): ICondition {
+   return {
+      name: $t(L.XIsNotAtWarWithY, getProvinceName(ourProvince, save), getProvinceName(theirProvince, save)),
+      value: getWarsBetween(ourProvince, theirProvince, save).length === 0,
+   };
 }
 
-export function canOfferDefensePact(fromProvince: Province, toProvince: Province, save: SaveGame): IConditionBreakdown {
-   return finalizeCondition({
-      breakdown: [
-         ...timedActionConditions({ action: "DiplomaticTreaty" }, fromProvince, save),
-         { name: $t(L.WeAreNotAtWarWithThem), value: getWarsBetween(fromProvince, toProvince, save).length === 0 },
-         requireHigherPrestige(fromProvince, toProvince, 1, save),
-         requireMinimumAttitude(fromProvince, toProvince, 25, save),
-         availableDiplomatCondition(fromProvince, toProvince, save),
-         availableDiplomatCondition(toProvince, fromProvince, save),
-         isWithinDiplomaticRange(fromProvince, toProvince, save),
-         {
-            name: $t(L.WeDontAlreadyHaveAnActiveDefensePactWithThem),
-            value: !hasOfferedDefensePact(fromProvince, toProvince, save),
-         },
-         {
-            name: $t(L.WeDontAlreadyHaveAnActiveAllianceWithThem),
-            value: !hasOfferedAlliance(fromProvince, toProvince, save),
-         },
-         {
-            name: $t(L.WeDontAlreadyHaveAnActivePatronageWithThem),
-            value: !hasOfferedPatronage(fromProvince, toProvince, save),
-         },
-      ],
-   });
+export function requireNoTreatyBetween(
+   treaties: Exclude<Treaty, "Client">[],
+   fromProvince: Province,
+   toProvince: Province,
+   save: SaveGame,
+): ICondition {
+   return {
+      name: $t(
+         L.XDoesntHaveAnActiveYWithZ,
+         getProvinceName(fromProvince, save),
+         treaties.map((t) => TreatyNames[t]()).join(", "),
+         getProvinceName(toProvince, save),
+      ),
+      value: treaties.every((t) => !hasTreatyBetween(t, fromProvince, toProvince, save)),
+   };
 }
 
-export function tryOfferDefensePact(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {
-   if (!canOfferDefensePact(fromProvince, toProvince, save)) {
-      return false;
-   }
-   forceDefensePact(fromProvince, toProvince, save);
-   startTimedAction("DiplomaticTreaty", fromProvince, save);
-   return true;
-}
-
-export function forceDefensePact(fromProvince: Province, toProvince: Province, save: SaveGame): void {
+export function hasTreatyBetween(
+   treaty: Exclude<Treaty, "Client">,
+   fromProvince: Province,
+   toProvince: Province,
+   save: SaveGame,
+): boolean {
    const fromTo = getRelation(fromProvince, toProvince, save);
    const toFrom = getRelation(toProvince, fromProvince, save);
    if (!fromTo || !toFrom) {
-      return;
-   }
-   fromTo.treaty = { type: "DefensePact", month: save.state.month };
-   toFrom.treaty = { type: "DefensePact", month: save.state.month };
-   addChronicleEntry(
-      {
-         type: "DiplomaticTreaty",
-         content: $t(L.XAndYFormedADefensePact, fromProvince, toProvince),
-      },
-      save,
-   );
-}
-
-export function cancelDefensePact(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {
-   if (!hasOfferedDefensePact(fromProvince, toProvince, save)) {
       return false;
    }
+   return fromTo.treaty?.type === treaty || toFrom.treaty?.type === treaty;
+}
+
+export function cancelTreaty(
+   treaty: Exclude<Treaty, "Client">,
+   fromProvince: Province,
+   toProvince: Province,
+   save: SaveGame,
+): boolean {
    const fromTo = getRelation(fromProvince, toProvince, save);
    const toFrom = getRelation(toProvince, fromProvince, save);
    if (!fromTo || !toFrom) {
+      return false;
+   }
+   if (!hasTreatyBetween(treaty, fromProvince, toProvince, save)) {
       return false;
    }
    fromTo.treaty = undefined;
    toFrom.treaty = undefined;
    addAttitudeModifier(
-      fromProvince,
       toProvince,
+      fromProvince,
       {
          type: "add",
-         name: CancelDefensePactPenaltyItem.name,
-         value: CancelDefensePactPenaltyItem.value,
-         duration: CancelDefensePactDurationMonths,
-      },
-      save,
-   );
-   return true;
-}
-
-export function hasOfferedAlliance(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {
-   return (
-      getRelation(fromProvince, toProvince, save)?.treaty?.type === "Alliance" &&
-      getRelation(toProvince, fromProvince, save)?.treaty?.type === "Alliance"
-   );
-}
-
-export function canOfferAlliance(fromProvince: Province, toProvince: Province, save: SaveGame): IConditionBreakdown {
-   return finalizeCondition({
-      breakdown: [
-         ...timedActionConditions({ action: "DiplomaticTreaty" }, fromProvince, save),
-         { name: $t(L.WeAreNotAtWarWithThem), value: getWarsBetween(fromProvince, toProvince, save).length === 0 },
-         requireHigherPrestige(fromProvince, toProvince, 1.25, save),
-         requireMinimumAttitude(fromProvince, toProvince, 50, save),
-         availableDiplomatCondition(fromProvince, toProvince, save),
-         availableDiplomatCondition(toProvince, fromProvince, save),
-         isWithinDiplomaticRange(fromProvince, toProvince, save),
-         {
-            name: $t(L.WeDontAlreadyHaveAnActiveAllianceWithThem),
-            value: !hasOfferedAlliance(fromProvince, toProvince, save),
-         },
-         {
-            name: $t(L.WeDontAlreadyHaveAnActivePatronageWithThem),
-            value: !hasOfferedPatronage(fromProvince, toProvince, save),
-         },
-      ],
-   });
-}
-
-export function tryOfferAlliance(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {
-   if (!canOfferAlliance(fromProvince, toProvince, save)) {
-      return false;
-   }
-   forceAlliance(fromProvince, toProvince, save);
-   startTimedAction("DiplomaticTreaty", fromProvince, save);
-   return true;
-}
-
-export function forceAlliance(fromProvince: Province, toProvince: Province, save: SaveGame): void {
-   const fromTo = getRelation(fromProvince, toProvince, save);
-   const toFrom = getRelation(toProvince, fromProvince, save);
-   if (!fromTo || !toFrom) {
-      return;
-   }
-   fromTo.treaty = { type: "Alliance", month: save.state.month };
-   toFrom.treaty = { type: "Alliance", month: save.state.month };
-   addChronicleEntry(
-      {
-         type: "DiplomaticTreaty",
-         content: $t(L.XAndYFormedAnAlliance, fromProvince, toProvince),
-      },
-      save,
-   );
-}
-
-export function cancelAlliance(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {
-   if (!hasOfferedAlliance(fromProvince, toProvince, save)) {
-      return false;
-   }
-   const fromTo = getRelation(fromProvince, toProvince, save);
-   const toFrom = getRelation(toProvince, fromProvince, save);
-   if (!fromTo || !toFrom) {
-      return false;
-   }
-   fromTo.treaty = undefined;
-   toFrom.treaty = undefined;
-   addAttitudeModifier(
-      fromProvince,
-      toProvince,
-      {
-         type: "add",
-         name: CancelAlliancePenaltyItem.name,
-         value: CancelAlliancePenaltyItem.value,
-         duration: CancelAllianceDurationMonths,
-      },
-      save,
-   );
-   return true;
-}
-
-export function hasOfferedPatronage(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {
-   return (
-      getRelation(fromProvince, toProvince, save)?.treaty?.type === "Patron" &&
-      getRelation(toProvince, fromProvince, save)?.treaty?.type === "Client"
-   );
-}
-
-export function canOfferPatronage(fromProvince: Province, toProvince: Province, save: SaveGame): IConditionBreakdown {
-   return finalizeCondition({
-      breakdown: [
-         ...timedActionConditions({ action: "DiplomaticTreaty" }, fromProvince, save),
-         { name: $t(L.WeAreNotAtWarWithThem), value: getWarsBetween(fromProvince, toProvince, save).length === 0 },
-         requireHigherPrestige(fromProvince, toProvince, 5, save),
-         requireMinimumAttitude(fromProvince, toProvince, 150, save),
-         availableDiplomatCondition(fromProvince, toProvince, save),
-         availableDiplomatCondition(toProvince, fromProvince, save),
-         isWithinDiplomaticRange(fromProvince, toProvince, save),
-         {
-            name: $t(L.WeShareALandBorderWithThem),
-            value: getProvincesInRange(1, fromProvince, save).has(toProvince),
-         },
-         {
-            name: $t(L.WeDontAlreadyHaveAnActivePatronageWithThem),
-            value: !hasOfferedPatronage(fromProvince, toProvince, save),
-         },
-         {
-            name: $t(L.TheyAreNotAClientOfAnotherProvince),
-            value: !isClientOfAnyProvince(toProvince, save),
-         },
-      ],
-   });
-}
-
-export function tryOfferPatronage(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {
-   if (!canOfferPatronage(fromProvince, toProvince, save)) {
-      return false;
-   }
-   forcePatronage(fromProvince, toProvince, save);
-   startTimedAction("DiplomaticTreaty", fromProvince, save);
-   return true;
-}
-
-export function forcePatronage(fromProvince: Province, toProvince: Province, save: SaveGame): void {
-   const fromTo = getRelation(fromProvince, toProvince, save);
-   const toFrom = getRelation(toProvince, fromProvince, save);
-   if (!fromTo || !toFrom) {
-      return;
-   }
-   fromTo.treaty = { type: "Patron", month: save.state.month };
-   toFrom.treaty = { type: "Client", month: save.state.month };
-   addChronicleEntry(
-      {
-         type: "DiplomaticTreaty",
-         content: $t(L.XBecameAClientOfY, toProvince, fromProvince),
-      },
-      save,
-   );
-}
-
-export function cancelPatronage(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {
-   if (!hasOfferedPatronage(fromProvince, toProvince, save)) {
-      return false;
-   }
-   const fromTo = getRelation(fromProvince, toProvince, save);
-   const toFrom = getRelation(toProvince, fromProvince, save);
-   if (!fromTo || !toFrom) {
-      return false;
-   }
-   fromTo.treaty = undefined;
-   toFrom.treaty = undefined;
-   addAttitudeModifier(
-      fromProvince,
-      toProvince,
-      {
-         type: "add",
-         name: CancelPatronagePenaltyItem.name,
-         value: CancelPatronagePenaltyItem.value,
-         duration: CancelPatronageDurationMonths,
+         name: $t(L.CancelledX, TreatyNames[treaty]()),
+         value: CancelTreatyPenalty[treaty].attitude,
+         duration: CancelTreatyPenalty[treaty].duration,
       },
       save,
    );

@@ -41,6 +41,7 @@ import { DiplomacyPage } from "./DiplomacyPage";
 import { MakeCoreButton } from "./MakeCoreButton";
 import { playClick } from "./Sound";
 import { TileBuildingsModal } from "./TileBuildingsModal";
+import { Grid2 } from "./UIConstant";
 import { UpgradeInfrastructureButton, UpgradePopulationButton, UpgradeProductionButton } from "./UpgradeButtons";
 import { WarTooltip } from "./WarTooltip";
 
@@ -352,7 +353,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             </div>
             <Progress value={tileData.rebellion * 10} />
             {isMyProvince && (
-               <div className="row mt10">
+               <div style={Grid2} className="mt10">
                   <AppeaseButton tile={tile} />
                   <CrackDownButton tile={tile} />
                </div>

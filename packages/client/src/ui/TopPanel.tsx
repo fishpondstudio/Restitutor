@@ -49,7 +49,7 @@ import { FloatingTip } from "./components/FloatingTip";
 import { DiplomacyPage } from "./DiplomacyPage";
 import { FamilyTreeModal } from "./FamilyModal";
 import { GovernmentModal } from "./GovernmentModal";
-import { InternalAffairsPage } from "./InternalAffairsModal";
+import { InternalAffairsPage } from "./InternalAffairsPage";
 import { LeftPanel } from "./LeftPanel";
 import { LegacyUpgradePage } from "./LegacyUpgradePage";
 import { MissionPage } from "./MissionPage";

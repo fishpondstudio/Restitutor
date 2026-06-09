@@ -348,6 +348,19 @@ export function isWithinDiplomaticRange(ourProvince: Province, theirProvince: Pr
    };
 }
 
+export function getProvincesWithinDiplomaticRange(province: Province, save: SaveGame): Province[] {
+   const result: Province[] = [];
+   forEach(save.state.provinces, (otherProvince) => {
+      if (otherProvince === province) return;
+      const diplomaticDistance = getDiplomaticDistance(province, otherProvince, save);
+      const diplomaticRange = getDiplomaticRange(province, save);
+      if (diplomaticDistance <= diplomaticRange.value) {
+         result.push(otherProvince);
+      }
+   });
+   return result;
+}
+
 export function getProvincesThatGuaranteeDefenseOf(province: Province, save: SaveGame): Province[] {
    const result: Province[] = [];
    forEach(save.state.provinces, (otherProvince) => {

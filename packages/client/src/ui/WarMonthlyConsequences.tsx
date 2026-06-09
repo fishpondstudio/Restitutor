@@ -1,4 +1,4 @@
-import { formatNumber, formatPercentDelta, range, round, type Tile } from "@project/shared/src/utils/Helper";
+import { formatNumber, formatPercentDelta, range, type Tile } from "@project/shared/src/utils/Helper";
 import type { CasusBelli } from "../game/definitions/CasusBelli";
 import { Modifiers } from "../game/definitions/Modifier";
 import type { Province } from "../game/definitions/Province";
@@ -52,7 +52,7 @@ export function WarMonthlyConsequences({
                                  <tr key={year}>
                                     <td>{year}</td>
                                     <td className="text-right text-red">{formatNumber(-monthly)}</td>
-                                    <td className="text-right text-red">{formatNumber(round(-monthly * 12, 1))}</td>
+                                    <td className="text-right text-red">{formatNumber(-monthly * 12)}</td>
                                  </tr>
                               );
                            })}
@@ -99,8 +99,8 @@ export function WarMonthlyConsequences({
                               return (
                                  <tr key={year}>
                                     <td>{year}</td>
-                                    <td className="text-right text-red">{formatNumber(round(-monthly, 1))}</td>
-                                    <td className="text-right text-red">{formatNumber(round(-monthly * 12, 1))}</td>
+                                    <td className="text-right text-red">{formatNumber(-monthly)}</td>
+                                    <td className="text-right text-red">{formatNumber(-monthly * 12)}</td>
                                  </tr>
                               );
                            })}
