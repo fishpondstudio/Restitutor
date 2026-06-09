@@ -10,7 +10,7 @@ import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 
-export function TreatyActionButtonV2({
+export function TreatyActionButton({
    ourProvince,
    theirProvince,
    treaty,

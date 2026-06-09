@@ -4,7 +4,7 @@ import type React from "react";
 import { memo } from "react";
 import { DemandTileCostCondition } from "../game/actions/DemandTileCostCondition";
 import { DemandTributeCostCondition } from "../game/actions/DemandTributeCostCondition";
-import type { IConditionBreakdown, IValueBreakdownItem } from "../game/actions/GameAction";
+import type { IConditionBreakdown } from "../game/actions/GameAction";
 import { finalizeCondition } from "../game/actions/GameAction";
 import { CasusBelli } from "../game/definitions/CasusBelli";
 import { Culture } from "../game/definitions/Culture";
@@ -73,7 +73,6 @@ import {
    getClients,
    getDefensePacts,
    getPatrons,
-   getTreatyMonthLeft,
    requireHigherPrestige,
    trySabotage,
 } from "../game/logic/TreatyLogic";
@@ -84,7 +83,6 @@ import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { showModal } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
-import { ValueListComp } from "./BreakdownComp";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
 import { showSidebar } from "./common/Sidebar";
 import { SidebarComp, SidebarWidth } from "./common/SidebarComp";
@@ -95,9 +93,9 @@ import { DeclareWarPage } from "./DeclareWarPage";
 import { DemandTileModal } from "./DemandTileModal";
 import { DemandTribute } from "./DemandTribute";
 import { LookForSpouseModal } from "./LookForSpouseModal";
-import { playClick, playError } from "./Sound";
+import { playClick } from "./Sound";
 import { TradeModal } from "./TradeModal";
-import { TreatyActionButtonV2 } from "./TreatyActionButtonV2";
+import { TreatyActionButton } from "./TreatyActionButton";
 import { WarTooltip } from "./WarTooltip";
 
 const ActionWidth = 250;
@@ -443,17 +441,17 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      </FloatingTip>
                   </div>
                   <div className="m10 col stretch g5">
-                     <TreatyActionButtonV2
+                     <TreatyActionButton
                         ourProvince={G.save.state.playerProvince}
                         theirProvince={province}
                         treaty="DefensePact"
                      />
-                     <TreatyActionButtonV2
+                     <TreatyActionButton
                         ourProvince={G.save.state.playerProvince}
                         theirProvince={province}
                         treaty="Alliance"
                      />
-                     <TreatyActionButtonV2
+                     <TreatyActionButton
                         ourProvince={G.save.state.playerProvince}
                         theirProvince={province}
                         treaty="Patron"
@@ -1403,92 +1401,6 @@ function AllianceTableComp(): React.ReactNode {
             <div className="mi sm inline">remove</div> {$t(L.ActionNotAvailable)}
          </div>
       </>
-   );
-}
-
-function TreatyActionButton({
-   province,
-   hasOfferedFunc,
-   cancelFunc,
-   canOfferFunc,
-   tryOfferFunc,
-   offerLabel,
-   offerTooltip,
-   cancelLabel,
-   cancelPenalty,
-}: {
-   province: Province;
-   hasOfferedFunc: (fromProvince: Province, toProvince: Province, save: SaveGame) => boolean;
-   cancelFunc: (fromProvince: Province, toProvince: Province, save: SaveGame) => boolean;
-   canOfferFunc: (fromProvince: Province, toProvince: Province, save: SaveGame) => IConditionBreakdown;
-   tryOfferFunc: (fromProvince: Province, toProvince: Province, save: SaveGame) => boolean;
-   offerLabel: React.ReactNode;
-   offerTooltip?: React.ReactNode;
-   cancelLabel: React.ReactNode;
-   cancelPenalty: IValueBreakdownItem[];
-}): React.ReactNode {
-   const canOffer = canOfferFunc(G.save.state.playerProvince, province, G.save);
-   const monthLeft = getTreatyMonthLeft(G.save.state.playerProvince, province, G.save);
-   return hasOfferedFunc(G.save.state.playerProvince, province, G.save) ? (
-      <button
-         className="btn py2"
-         onClick={() => {
-            if (cancelFunc(G.save.state.playerProvince, province, G.save)) {
-               playClick();
-               GameStateUpdated.emit();
-            } else {
-               playError();
-            }
-         }}
-      >
-         <FloatingTip
-            w={300}
-            className="p0"
-            label={
-               <>
-                  <div className="m10">
-                     {html(
-                        $t(
-                           L.ThisTreatyLastsForXMonthsAndExpiresInYMonths,
-                           formatNumber(TimedActions.DiplomaticTreaty.duration),
-                           formatNumber(monthLeft),
-                        ),
-                     )}
-                  </div>
-                  <div className="divider" />
-                  <div className="m10">{$t(L.CancellingATreatyBeforeExpiryNegativelyImpactsAttitude)}</div>
-                  <ValueListComp items={cancelPenalty} />
-               </>
-            }
-         >
-            <div>{cancelLabel}</div>
-         </FloatingTip>
-      </button>
-   ) : (
-      <ActionButton
-         action={{
-            cost: { diplomatic: 50 },
-            condition: canOffer,
-            effect: () => {
-               tryOfferFunc(G.save.state.playerProvince, province, G.save);
-            },
-         }}
-         tooltip={(element) => (
-            <>
-               {offerTooltip}
-               <div className="m10">
-                  {$t(
-                     L.ATreatyLastsForXMonthsAndHasToBeRenegotiatedAfterExpiry,
-                     formatNumber(TimedActions.DiplomaticTreaty.duration),
-                  )}
-               </div>
-               {element}
-            </>
-         )}
-         className="btn py2"
-      >
-         {offerLabel}
-      </ActionButton>
    );
 }
 
