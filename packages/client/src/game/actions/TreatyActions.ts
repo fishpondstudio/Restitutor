@@ -9,7 +9,7 @@ import {
    isWithinDiplomaticRange,
 } from "../logic/DiplomacyLogic";
 import { getProvinceName, getProvincesInRange } from "../logic/ProvinceLogic";
-import { timedActionConditions } from "../logic/TimedActionLogic";
+import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import {
    requireHigherPrestige,
    requireMinimumAttitudeV2,
@@ -42,6 +42,7 @@ export function OfferDefensePactAction(fromProvince: Province, toProvince: Provi
          if (!fromTo || !toFrom) {
             return;
          }
+         startTimedAction("DiplomaticTreaty", fromProvince, save);
          fromTo.treaty = { type: "DefensePact", month: save.state.month };
          toFrom.treaty = { type: "DefensePact", month: save.state.month };
          addChronicleEntry(
@@ -79,6 +80,7 @@ export function OfferAllianceAction(fromProvince: Province, toProvince: Province
          if (!fromTo || !toFrom) {
             return;
          }
+         startTimedAction("DiplomaticTreaty", fromProvince, save);
          fromTo.treaty = { type: "Alliance", month: save.state.month };
          toFrom.treaty = { type: "Alliance", month: save.state.month };
          addChronicleEntry(
@@ -127,6 +129,7 @@ export function OfferPatronageAction(fromProvince: Province, toProvince: Provinc
          if (!fromTo || !toFrom) {
             return;
          }
+         startTimedAction("DiplomaticTreaty", fromProvince, save);
          fromTo.treaty = { type: "Patron", month: save.state.month };
          toFrom.treaty = { type: "Client", month: save.state.month };
          addChronicleEntry(
