@@ -12,6 +12,7 @@ import {
 } from "@project/shared/src/utils/Helper";
 import { ConvertToChristianityAction } from "../game/actions/ConvertToChristianityAction";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../game/actions/ProvinceUpgrades";
+import { Culture } from "../game/definitions/Culture";
 import { Modifiers, modifierValueToString } from "../game/definitions/Modifier";
 import { ProvinceFlags, ProvinceResourceNames } from "../game/definitions/Province";
 import { Religion } from "../game/definitions/Religion";
@@ -19,6 +20,7 @@ import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
 import {
    getChristianityYearly,
+   getCulturalCohesion,
    getGoverningCapacityPerRestoration,
    getProgressToNextRestoration,
    getProvinceGoverningCapacity,
@@ -78,6 +80,7 @@ export function InternalAffairsPage(): React.ReactNode {
          return b[1].rebellion - a[1].rebellion;
       });
    const religiousCohesion = getReligiousCohesion(G.save.state.playerProvince, G.save);
+   const culturalCohesion = getCulturalCohesion(G.save.state.playerProvince, G.save);
    const overExtension = getProvinceOverextension(G.save.state.playerProvince, G.save);
    const stability = getProvinceStability(G.save.state.playerProvince, G.save);
    return (
@@ -198,7 +201,15 @@ export function InternalAffairsPage(): React.ReactNode {
             <div className="f1">{$t(L.ProvincialReligion)}</div>
             <div>{Religion[state.religion].name()}</div>
          </div>
-         <FloatingTip label={$t(L.ReligiousCohesionTooltip)}>
+         <FloatingTip
+            label={
+               <>
+                  <div>{$t(L.ReligiousCohesionTooltip)}</div>
+                  <div className="h10" />
+                  <div>{$t(L.CohesionEffectTooltip)}</div>
+               </>
+            }
+         >
             <div className="row mx10 my5">
                <div className="f1">{$t(L.ReligiousCohesion)}</div>
                <div>{formatPercent(religiousCohesion)}</div>
@@ -269,6 +280,28 @@ export function InternalAffairsPage(): React.ReactNode {
             </ActionButton>
             <TimedActionButton timedAction="AppointBishop" />
          </div>
+         <div className="h1">{$t(L.Culture)}</div>
+         <div className="row mx10 my5">
+            <div className="f1">{$t(L.ProvincialCulture)}</div>
+            <div>{Culture[state.culture].name()}</div>
+         </div>
+         <FloatingTip
+            label={
+               <>
+                  <div>{$t(L.CulturalCohesionTooltip)}</div>
+                  <div className="h10" />
+                  <div>{$t(L.CohesionEffectTooltip)}</div>
+               </>
+            }
+         >
+            <div className="row mx10 my5">
+               <div className="f1">{$t(L.CulturalCohesion)}</div>
+               <div>{formatPercent(culturalCohesion)}</div>
+            </div>
+         </FloatingTip>
+         <Progress value={100 * religiousCohesion} className="mx10" />
+         <div className="h10" />
+         <div className="divider" />
          <div className="h1">{$t(L.AutonomyAndRebellion)}</div>
          {tiles.map(([tile, tileData]) => {
             const unrest = getTileUnrest(tile, G.save);

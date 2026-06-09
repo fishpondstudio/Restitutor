@@ -496,6 +496,10 @@ function _getProvinceGoverningCost(province: Province, save: SaveGame): IValueBr
    if (religiousCohesion !== 0) {
       breakdown.multiply.push({ name: $t(L.ReligiousCohesion), value: religiousCohesion });
    }
+   const culturalCohesion = (0.5 - getCulturalCohesion(province, save)) * 0.1;
+   if (culturalCohesion !== 0) {
+      breakdown.multiply.push({ name: $t(L.CulturalCohesion), value: culturalCohesion });
+   }
    return finalizeBreakdown(breakdown);
 }
 
@@ -1083,4 +1087,22 @@ export function getReligiousCohesion(province: Province, save: SaveGame): number
       }
    }
    return sameReligion / total;
+}
+
+export function getCulturalCohesion(province: Province, save: SaveGame): number {
+   let sameCulture = 0;
+   let total = 0;
+   const state = save.state.provinces[province];
+   if (!state) {
+      return 0;
+   }
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province === province) {
+         if (data.culture === state.culture) {
+            sameCulture += 1;
+         }
+         total += 1;
+      }
+   }
+   return sameCulture / total;
 }
