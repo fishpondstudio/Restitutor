@@ -43,6 +43,7 @@ import {
 import { SocialClasses } from "../definitions/SocialClass";
 import type { SaveGame } from "../GameState";
 import {
+   cancelImproveRelations,
    getDiplomats,
    getRelation,
    getRelations,
@@ -397,8 +398,9 @@ function doDiplomacy(province: Province, save: SaveGame): void {
    getRelations(province, save)?.forEach((relation, otherProvince) => {
       if (relation.treaty) {
          improveRelations(province, otherProvince, save);
+      } else {
+         cancelImproveRelations(province, otherProvince, save);
       }
-      tryDoHeadless(OfferAllianceAction(province, otherProvince, save), "OfferTreaty", province, save);
    });
    if (getTimedActionCooldownLeft("ChangeRival", province, save) <= 0) {
       startTimedAction("ChangeRival", province, save);
