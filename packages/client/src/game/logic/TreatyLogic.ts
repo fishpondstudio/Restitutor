@@ -1,6 +1,6 @@
 import { clamp, formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
-import type { ICondition, IConditionBreakdown, IGameAction, IValueBreakdownItem } from "../actions/GameAction";
+import type { ICondition, IConditionBreakdown, IGameAction } from "../actions/GameAction";
 import { finalizeCondition } from "../actions/GameAction";
 import { OfferAllianceAction, OfferDefensePactAction, OfferPatronageAction } from "../actions/TreatyActions";
 import { type Province, type Treaty, TreatyNames } from "../definitions/Province";
@@ -31,34 +31,6 @@ export const OfferTreatyAction: Record<
    DefensePact: OfferDefensePactAction,
    Alliance: OfferAllianceAction,
    Patron: OfferPatronageAction,
-};
-
-export const CancelProtectionDurationMonths = 12 * 3;
-export const CancelProtectionPenaltyItem: IValueBreakdownItem = {
-   name: $t(L.CancelledProtection),
-   value: -20,
-   desc: $t(L.ForXMonths, formatNumber(CancelProtectionDurationMonths)),
-};
-
-export const CancelDefensePactDurationMonths = 12 * 4;
-export const CancelDefensePactPenaltyItem: IValueBreakdownItem = {
-   name: $t(L.CancelledDefensePact),
-   value: -10,
-   desc: $t(L.ForXMonths, formatNumber(CancelDefensePactDurationMonths)),
-};
-
-export const CancelAllianceDurationMonths = 12 * 5;
-export const CancelAlliancePenaltyItem: IValueBreakdownItem = {
-   name: $t(L.CancelledAlliance),
-   value: -10,
-   desc: $t(L.ForXMonths, formatNumber(CancelAllianceDurationMonths)),
-};
-
-export const CancelPatronageDurationMonths = 12 * 10;
-export const CancelPatronagePenaltyItem: IValueBreakdownItem = {
-   name: $t(L.CancelledPatronage),
-   value: -50,
-   desc: $t(L.ForXMonths, formatNumber(CancelPatronageDurationMonths)),
 };
 
 export function getDefensePacts(province: Province, save: SaveGame): Province[] {

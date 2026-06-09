@@ -2,7 +2,13 @@ import { $t, L } from "../../utils/i18n";
 import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
-import { availableDiplomatCondition, getRelation, isWithinDiplomaticRange } from "../logic/DiplomacyLogic";
+import {
+   availableDiplomatCondition,
+   getRelation,
+   isClientOfAnyProvince,
+   isWithinDiplomaticRange,
+} from "../logic/DiplomacyLogic";
+import { getProvinceName, getProvincesInRange } from "../logic/ProvinceLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
 import {
    requireHigherPrestige,
@@ -99,7 +105,18 @@ export function OfferPatronageAction(fromProvince: Province, toProvince: Provinc
             requireHigherPrestige(fromProvince, toProvince, 5, save),
             availableDiplomatCondition(fromProvince, toProvince, save),
             isWithinDiplomaticRange(fromProvince, toProvince, save),
-
+            {
+               name: $t(
+                  L.XSharesALandBorderWithY,
+                  getProvinceName(fromProvince, save),
+                  getProvinceName(toProvince, save),
+               ),
+               value: getProvincesInRange(1, fromProvince, save).has(toProvince),
+            },
+            {
+               name: $t(L.XIsNotAClientOfAnyProvince, getProvinceName(toProvince, save)),
+               value: !isClientOfAnyProvince(toProvince, save),
+            },
             requireMinimumAttitudeV2(toProvince, fromProvince, 100, save),
             availableDiplomatCondition(toProvince, fromProvince, save),
          ],
