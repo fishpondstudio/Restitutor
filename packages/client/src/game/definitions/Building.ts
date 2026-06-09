@@ -35,10 +35,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileUnrest, "-10"),
       image: Amphitheatre,
       construction: {
-         gold: 120,
+         gold: 100,
       },
       maintenance: {
-         gold: 1,
+         gold: 0.5,
       },
       conditions: () => [],
       imageCredit: "Colosseum Rome, Michel Vincent Brandoin (c. 1700s)",
@@ -48,10 +48,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileUnrest, "-20"),
       image: CircusMaximus,
       construction: {
-         gold: 4 * 120,
+         gold: 400,
       },
       maintenance: {
-         gold: 4,
+         gold: 2,
       },
       conditions: () => [],
       imageCredit: "Forum Nervae, Forum Augusti, Christoph Ziegler (1882)",
@@ -61,10 +61,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileLandTax, "+20%"),
       image: TownSquare,
       construction: {
-         gold: 120,
+         gold: 100,
       },
       maintenance: {
-         gold: 1,
+         gold: 0.5,
       },
       conditions: () => [],
       imageCredit: "Greece, Athens - Agora Monastiraki Square (1853), Harald Conrad Stilling (Danish, 1815 - 1891)",
@@ -74,10 +74,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileLandTax, "+40%"),
       image: Forum,
       construction: {
-         gold: 4 * 120,
+         gold: 400,
       },
       maintenance: {
-         gold: 4,
+         gold: 2,
       },
       conditions: () => [],
       imageCredit: "Das Forum Romanum, J. Bühlmann (1901)",
@@ -87,10 +87,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileOutput, "+20%"),
       image: Market,
       construction: {
-         gold: 120,
+         gold: 100,
       },
       maintenance: {
-         gold: 1,
+         gold: 0.5,
       },
       conditions: () => [],
       imageCredit: "Flower market in Amsterdam, Heinrich Hermanns (1900s)",
@@ -100,10 +100,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileOutput, "+40%"),
       image: TradeDistrict,
       construction: {
-         gold: 4 * 120,
+         gold: 400,
       },
       maintenance: {
-         gold: 4,
+         gold: 2,
       },
       conditions: () => [],
       imageCredit: "The Bazaar at Athens, Dodwell Edward (Irish, 1767-1832)",
@@ -113,10 +113,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileManpower, "+20%"),
       image: ArmyCamp,
       construction: {
-         gold: 120,
+         gold: 100,
       },
       maintenance: {
-         gold: 1,
+         gold: 0.5,
       },
       conditions: () => [],
       imageCredit: "An Army Camp (c. 1662 - c. 1664), Philips Wouwerman (Dutch, 1619-1668)",
@@ -126,10 +126,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileManpower, "+40%"),
       image: Barracks,
       construction: {
-         gold: 4 * 120,
+         gold: 400,
       },
       maintenance: {
-         gold: 4,
+         gold: 2,
       },
       conditions: () => [],
       imageCredit: "Der erste Hof der Salzgries-Kaserne in Wien, Emil Hütter (1880)",
@@ -139,10 +139,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileDefense, "+20%"),
       image: Castra,
       construction: {
-         gold: 120,
+         gold: 100,
       },
       maintenance: {
-         gold: 1,
+         gold: 0.5,
       },
       conditions: () => [],
       imageCredit: "Im römischen Lager, Johannes Gehrts (1900)",
@@ -152,10 +152,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileDefense, "+40%"),
       image: Citadel,
       construction: {
-         gold: 4 * 120,
+         gold: 400,
       },
       maintenance: {
-         gold: 4,
+         gold: 2,
       },
       conditions: () => [],
       imageCredit: "Im römischen Lager, Johannes Gehrts (1900)",
@@ -165,10 +165,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileMaintenanceCostAndYBuildingSlot, "-20%", "+1"),
       image: Temple,
       construction: {
-         gold: 2 * 120,
+         gold: 200,
       },
       maintenance: {
-         gold: 2,
+         gold: 1,
       },
       conditions: () => [],
       imageCredit: "Sacrifice In Front Of A Roman Temple, Vinzenz Fischer (1791)",
@@ -178,10 +178,10 @@ export const _Buildings = {
       desc: () => $t(L.XTileGoverningCost, "-20%"),
       image: Courthouse,
       construction: {
-         gold: 120,
+         gold: 100,
       },
       maintenance: {
-         gold: 1,
+         gold: 0.5,
       },
       conditions: () => [],
       imageCredit: "Forum Nervae, Forum Augusti, Christoph Ziegler (1882)  ",
@@ -191,10 +191,10 @@ export const _Buildings = {
       desc: () => $t(L.XProductionCapacity, "+1"),
       image: Workshop,
       construction: {
-         gold: 120,
+         gold: 100,
       },
       maintenance: {
-         gold: 1,
+         gold: 0.5,
       },
       conditions: () => [],
       imageCredit: "A Forge (18th century), Antonio Zucchi (Italian, 1726-1796)",
@@ -204,10 +204,10 @@ export const _Buildings = {
       desc: () => $t(L.XTradeCapacity, "+1"),
       image: Harbour,
       construction: {
-         gold: 120,
+         gold: 100,
       },
       maintenance: {
-         gold: 1,
+         gold: 0.5,
       },
       conditions: (tile, save) => [{ name: $t(L.TileIsCoastal), value: isCoastal(tile) }],
       imageCredit: "View of a Mediterranean harbour, Hendrik Frans Van Lint (Flemish, 1684-1763)",

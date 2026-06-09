@@ -6,11 +6,16 @@
 - Appoint Bishop: costs 60 Christianity influence, grants +1 Christianity yearly for 10 years.
 - Top panel resource tooltips (Administrative, Diplomatic, Military) now show detailed breakdowns with monthly income.
 - Internal Affairs page redesigned as a side panel.
-- Religious Cohesion  measures the percentage of tiles that share the provincial religion: > 50% cohesion reduces Governing Cost, < 50% increases it.
+- Religious Cohesion: measures the percentage of tiles that share the provincial religion. > 50% reduces Governing Cost and < 50% increases it (-5% ~ 5%).
+- Cultural Cohesion: measures the percentage of tiles that share the provincial culture. > 50% reduces Governing Cost and < 50% increases it (-5% ~ 5%).
+- Rebalance Building Construction/Maintenance cost.
 
-# Diplomacy Rework
+## Diplomacy Rework
 - Each run assigns a "Historical" attitude bonus (+50 for 10 years) to 2 random provinces within diplomatic range, making NPC performance vary between runs.
 - NPC treaty logic is now identical to the player's. Treaty requirements have been rebalanced so both sides play on a level field.
+
+## QoL
+- Add monthly Administrative/Diplomatic/Military change in top panel.
 
 ## Bugfixes
 - Fixed technologies and upgrades that modify research cost not applying correctly.

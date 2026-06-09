@@ -67,6 +67,7 @@ import {
    trySpendProvinceResources,
 } from "./ProvinceLogic";
 import { getCheapestLockedTech } from "./TechLogic";
+import { getGameDate } from "./TickLogic";
 import { getBuildingSlot, getTileUnrest } from "./TileLogic";
 import {
    getTimedActionCooldownLeft,
@@ -89,8 +90,13 @@ import {
 const AIDeclareWarChance = 0.2;
 const AIWarMaxUnrest = 20;
 const EnableAILogging = import.meta.env.DEV;
+const MaxYear = 400;
 
 export function tickAI(save: SaveGame): void {
+   if (hasFlag(G.flags, GameFlags.Sandbox) && getGameDate(save.state.tick).getFullYear() >= MaxYear) {
+      G.speed = 0;
+      return;
+   }
    forEach(save.state.provinces, (province, state) => {
       if (!hasFlag(G.flags, GameFlags.Sandbox) && province === save.state.playerProvince) {
          return;
