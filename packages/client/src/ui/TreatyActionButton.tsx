@@ -42,7 +42,8 @@ export function TreatyActionButton({
             }}
             tooltip={(element) => (
                <>
-                  <div className="row m10">
+                  <div className="h2">{$t(L.CancelX, TreatyNames[treaty]())}</div>
+                  <div className="row mx10 my5">
                      {$t(
                         L.CancellingXWillResultInYAttitudeTowardsZ,
                         TreatyNames[treaty](),
@@ -66,6 +67,13 @@ export function TreatyActionButton({
          action={OfferTreatyAction[treaty](ourProvince, theirProvince, G.save)}
          tooltip={(element) => (
             <>
+               <div className="h3">{$t(L.OfferX, TreatyNames[treaty]())}</div>
+               {treaty === "Patron" && (
+                  <>
+                     <div className="mx10 my5">{$t(L.OfferingPatronageWillMakeThenOurClient)}</div>
+                     <div className="divider" />
+                  </>
+               )}
                <div className="row mx10 my5">
                   <div className="f1">{$t(L.Duration)}</div>
                   <div className="text-dimmed">{modifierDurationToString(TimedActions.DiplomaticTreaty.duration)}</div>
