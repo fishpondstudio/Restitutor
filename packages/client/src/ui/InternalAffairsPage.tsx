@@ -198,10 +198,12 @@ export function InternalAffairsPage(): React.ReactNode {
             <div className="f1">Provincial Religion</div>
             <div>{Religion[state.religion].name()}</div>
          </div>
-         <div className="row mx10 my5">
-            <div className="f1">Religious Cohesion</div>
-            <div>{formatPercent(religiousCohesion)}</div>
-         </div>
+         <FloatingTip label="Religious Cohesion is the percentage of tiles that share the provincial religion. For every 1% above 50% cohesion, Governing Cost decreases by 0.1%. For every 1% below 50%, Governing Cost increases by 0.1%.">
+            <div className="row mx10 my5">
+               <div className="f1">{$t(L.ReligiousCohesion)}</div>
+               <div>{formatPercent(religiousCohesion)}</div>
+            </div>
+         </FloatingTip>
          <Progress value={100 * religiousCohesion} className="mx10" />
          <div className="h10" />
          <div className="divider" />

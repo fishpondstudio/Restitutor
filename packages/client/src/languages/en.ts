@@ -1905,4 +1905,5 @@ export const EN = {
    XIsNotAClientOfAnyProvince: "%% is not a client of any province",
    OfferingPatronageWillMakeThenOurClient: "Offering Patronage will make them our client.",
    ExpiresIn: "Expires in",
+   ReligiousCohesion: "Religious Cohesion",
 };
