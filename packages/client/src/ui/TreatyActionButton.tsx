@@ -5,7 +5,13 @@ import { modifierDurationToString } from "../game/definitions/Modifier";
 import { type Province, type Treaty, TreatyNames } from "../game/definitions/Province";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
-import { CancelTreatyPenalty, cancelTreaty, hasTreatyBetween, OfferTreatyAction } from "../game/logic/TreatyLogic";
+import {
+   CancelTreatyPenalty,
+   cancelTreaty,
+   getTreatyMonthLeft,
+   hasTreatyBetween,
+   OfferTreatyAction,
+} from "../game/logic/TreatyLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
@@ -42,6 +48,12 @@ export function TreatyActionButton({
             }}
             tooltip={(element) => (
                <>
+                  <div className="row mx10 my5">
+                     <div className="f1">{$t(L.ExpiresIn)}</div>
+                     <div className="text-dimmed">
+                        {modifierDurationToString(getTreatyMonthLeft(ourProvince, theirProvince, G.save))}
+                     </div>
+                  </div>
                   <div className="h2">{$t(L.CancelX, TreatyNames[treaty]())}</div>
                   <div className="row mx10 my5">
                      {$t(

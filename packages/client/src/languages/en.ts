@@ -1904,4 +1904,5 @@ export const EN = {
    XSharesALandBorderWithY: "%% shares a land border with %%",
    XIsNotAClientOfAnyProvince: "%% is not a client of any province",
    OfferingPatronageWillMakeThenOurClient: "Offering Patronage will make them our client.",
+   ExpiresIn: "Expires in",
 };
