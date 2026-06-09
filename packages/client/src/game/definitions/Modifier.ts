@@ -138,6 +138,10 @@ export const Modifiers = {
       name: () => $t(L.ChristianityYearly),
       desc: () => $t(L.ChristianityYearlyDesc),
    },
+   MonthlyInterestRate: {
+      name: () => $t(L.MonthlyInterestRate),
+      desc: () => $t(L.ModifierMonthlyInterestRateDesc),
+   },
 } as const satisfies Record<string, IModifierDefinition>;
 
 export type Modifier = keyof typeof Modifiers;

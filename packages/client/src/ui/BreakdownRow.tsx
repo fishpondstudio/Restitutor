@@ -1,4 +1,4 @@
-import { cls, formatDelta, formatNumber } from "@project/shared/src/utils/Helper";
+import { cls, formatDelta, formatNumber, formatPercent, formatPercentDelta } from "@project/shared/src/utils/Helper";
 import type { IValueBreakdown } from "../game/actions/GameAction";
 import { BreakdownComp } from "./BreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";
@@ -17,7 +17,7 @@ export function BreakdownRow({
    formatFunc?: (value: number) => React.ReactNode;
 }): React.ReactNode {
    return (
-      <BreakdownTooltip breakdown={breakdown} tooltip={tooltip}>
+      <BreakdownTooltip breakdown={breakdown} tooltip={tooltip} formatFunc={formatFunc}>
          <div className={cls("row", className)}>
             <div className="f1">{name}</div>
             <div>{formatFunc(breakdown.value)}</div>
@@ -36,13 +36,20 @@ export function BreakdownTooltip({
    tooltip?: (element: React.ReactNode) => React.ReactNode;
    formatFunc?: (value: number) => React.ReactNode;
 }>): React.ReactNode {
+   let formatDeltaFunc = formatFunc;
+   if (formatFunc === formatPercent) {
+      formatDeltaFunc = formatPercentDelta;
+   }
+   if (formatFunc === formatNumber) {
+      formatDeltaFunc = formatDelta;
+   }
    return (
       <FloatingTip
          label={
             tooltip ? (
-               tooltip(<BreakdownComp breakdown={breakdown} formatFunc={formatFunc} />)
+               tooltip(<BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} />)
             ) : (
-               <BreakdownComp breakdown={breakdown} formatFunc={formatFunc} />
+               <BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} />
             )
          }
          w={300}

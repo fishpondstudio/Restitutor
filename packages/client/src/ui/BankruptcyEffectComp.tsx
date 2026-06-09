@@ -1,7 +1,7 @@
 import { formatDelta, formatPercentDelta } from "@project/shared/src/utils/Helper";
 import type { Province } from "../game/definitions/Province";
 import {
-   BankruptcyExpenseIncrease,
+   BankruptcyExpenseIncreasePct,
    BankruptcyRevenueReduction,
    BankruptcyStabilityReduction,
 } from "../game/logic/TileLogic";
@@ -36,15 +36,15 @@ export function BankruptcyEffectComp({ province }: { province: Province }): Reac
          </div>
          <div className="row mx10 my5">
             <div className="f1">{$t(L.TileUpgradeCost)}</div>
-            <div className="text-red">{formatPercentDelta(BankruptcyExpenseIncrease)}</div>
+            <div className="text-red">{formatPercentDelta(BankruptcyExpenseIncreasePct)}</div>
          </div>
          <div className="row mx10 my5">
             <div className="f1">{$t(L.ResearchCost)}</div>
-            <div className="text-red">{formatPercentDelta(BankruptcyExpenseIncrease)}</div>
+            <div className="text-red">{formatPercentDelta(BankruptcyExpenseIncreasePct)}</div>
          </div>
          <div className="row mx10 my5">
             <div className="f1">{$t(L.MonthlyInterestRate)}</div>
-            <div className="text-red">{formatPercentDelta(BankruptcyExpenseIncrease)}</div>
+            <div className="text-red">{formatPercentDelta(BankruptcyExpenseIncreasePct)}</div>
          </div>
       </>
    );

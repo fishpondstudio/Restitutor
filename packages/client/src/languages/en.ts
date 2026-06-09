@@ -1912,4 +1912,5 @@ export const EN = {
    CohesionEffectTooltip: "Every 1% above 50% cohesion reduces Governing Cost by 0.1%. Every 1% below 50% cohesion increases Governing Cost by 0.1%.",
    CulturalCohesion: "Cultural Cohesion",
    ProvincialCulture: "Provincial Culture",
+   ModifierMonthlyInterestRateDesc: "Our outstanding loans accrue interest every month at this interest rate.",
 };

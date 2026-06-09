@@ -70,8 +70,8 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
 }
 
 export const BankruptcyRevenueReduction = -0.8;
-export const BankruptcyStabilityReduction = -20;
-export const BankruptcyExpenseIncrease = 1;
+export const BankruptcyStabilityReduction = -10;
+export const BankruptcyExpenseIncreasePct = 1;
 
 export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
@@ -605,7 +605,7 @@ export function getTileUpgradeCost(tile: Tile, resource: GovernorPower, save: Sa
       breakdown.multiply.push({
          name: $t(L.Bankruptcy),
          desc: $t(L.XMonthsLeft, formatNumber(bankruptcy)),
-         value: BankruptcyExpenseIncrease,
+         value: BankruptcyExpenseIncreasePct,
       });
    }
    if (resource === "administrative") {

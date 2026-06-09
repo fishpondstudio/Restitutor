@@ -9,7 +9,7 @@ import type { SaveGame } from "../GameState";
 import { attachModifiers } from "./ModifierLogic";
 import { hasEnoughProvinceResources } from "./ProvinceLogic";
 import { stringToPosition } from "./StringToPosition";
-import { BankruptcyExpenseIncrease } from "./TileLogic";
+import { BankruptcyExpenseIncreasePct } from "./TileLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
 
 export function getResearchCostBreakdown(province: Province, save: SaveGame): IValueBreakdown {
@@ -34,7 +34,7 @@ export function getResearchCostBreakdown(province: Province, save: SaveGame): IV
       breakdown.multiply.push({
          name: $t(L.Bankruptcy),
          desc: $t(L.XMonthsLeft, formatNumber(bankruptcy)),
-         value: BankruptcyExpenseIncrease,
+         value: BankruptcyExpenseIncreasePct,
       });
    }
    return finalizeBreakdown(breakdown);
