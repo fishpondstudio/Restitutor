@@ -1906,4 +1906,6 @@ export const EN = {
    OfferingPatronageWillMakeThenOurClient: "Offering Patronage will make them our client.",
    ExpiresIn: "Expires in",
    ReligiousCohesion: "Religious Cohesion",
+   ProvincialReligion: "Provincial Religion",
+   ReligiousCohesionTooltip: "Religious Cohesion is the percentage of tiles that share the provincial religion. For every 1% above 50% cohesion, Governing Cost decreases by 0.1%. For every 1% below 50%, Governing Cost increases by 0.1%.",
 };

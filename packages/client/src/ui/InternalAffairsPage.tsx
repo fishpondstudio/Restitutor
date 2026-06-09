@@ -195,10 +195,10 @@ export function InternalAffairsPage(): React.ReactNode {
          </div>
          <div className="h1">{$t(L.Religion)}</div>
          <div className="row mx10 my5">
-            <div className="f1">Provincial Religion</div>
+            <div className="f1">{$t(L.ProvincialReligion)}</div>
             <div>{Religion[state.religion].name()}</div>
          </div>
-         <FloatingTip label="Religious Cohesion is the percentage of tiles that share the provincial religion. For every 1% above 50% cohesion, Governing Cost decreases by 0.1%. For every 1% below 50%, Governing Cost increases by 0.1%.">
+         <FloatingTip label={$t(L.ReligiousCohesionTooltip)}>
             <div className="row mx10 my5">
                <div className="f1">{$t(L.ReligiousCohesion)}</div>
                <div>{formatPercent(religiousCohesion)}</div>
