@@ -22,7 +22,7 @@ import { ResearchTechAction } from "../actions/ResearchTechAction";
 import { SignPeaceTreatyAction } from "../actions/SignPeaceTreatyAction";
 import { LookForLocalSpouseAction } from "../actions/SpouseActions";
 import { TradeWithAction } from "../actions/TradeActions";
-import { OfferAllianceAction, OfferDefensePactAction } from "../actions/TreatyActions";
+import { OfferAllianceAction, OfferDefensePactAction, OfferPatronageAction } from "../actions/TreatyActions";
 import {
    UpgradeInfrastructureAction,
    UpgradePopulationAction,
@@ -398,6 +398,13 @@ function doDiplomacy(province: Province, save: SaveGame): void {
    getRelations(province, save)?.forEach((relation, otherProvince) => {
       if (relation.treaty) {
          improveRelations(province, otherProvince, save);
+         // If we already have a treaty, we will try to upgrade it to higher levels.
+         if (tryDoHeadless(OfferPatronageAction(province, otherProvince, save), "OfferTreaty", province, save)) {
+            return;
+         }
+         if (tryDoHeadless(OfferAllianceAction(province, otherProvince, save), "OfferTreaty", province, save)) {
+            return;
+         }
       } else {
          cancelImproveRelations(province, otherProvince, save);
       }
