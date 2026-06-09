@@ -103,8 +103,8 @@ function initAttitudes(save: SaveGame): void {
       for (let i = 0; i < Math.min(provinces.length, 2); ++i) {
          const otherProvince = provinces[i];
          addAttitudeModifier(
-            province,
             otherProvince,
+            province,
             {
                type: "add",
                name: $t(L.Historical),
