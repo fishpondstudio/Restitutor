@@ -1498,6 +1498,9 @@ export const EN = {
    UpgradeLutetiasProductionDesc:
       "To further develop our province, we need to upgrade our tiles. There are three types of upgrades:<br>- Infrastructure upgrades cost <i>administrative</i> points and increase the tile's <i>land tax</i>.<br>- Production upgrades cost <i>diplomatic</i> points and increase the tile's <i>output</i>.<br>- Population upgrades cost <i>military</i> points and increase the tile's <i>manpower</i>.<br>The Tiles & Upgrades screen provides a convenient way to upgrade tiles - follow the on-screen instructions to upgrade Lutetia's production.",
    UpgradePopulation: "Upgrade Population",
+   SetUpLumberProduction: "Set up Lumber production",
+   SetUpLumberProductionDesc:
+      "When we produce higher-value goods, part of the added value is taxed, while the remaining goods can be used for further production or trade. Our province has a limited amount of production capacity (can be increased by research), which we can assign to different types of production.<br>Follow the on-screen instructions to assign 2 capacity to Lumber production.",
    UpgradeProduction: "Upgrade Production",
    UpgradeRations: "Upgrade Rations",
    Upgrades: "Upgrades",

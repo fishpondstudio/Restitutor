@@ -54,7 +54,7 @@ export class TechDefinitions {
          InfantryUnitPower: { type: "add", value: 1 },
       },
       timedActions: ["Crackdown"],
-      goods: ["ironIngots"],
+      goods: ["lumber"],
    } as const;
 
    C1: ITechDefinition = {
@@ -87,7 +87,7 @@ export class TechDefinitions {
          CavalryUnitPower: { type: "add", value: 1 },
       },
       buildings: ["ArmyCamp"],
-      goods: ["lumber"],
+      goods: ["ironIngots"],
    } as const;
 
    D1: ITechDefinition = {

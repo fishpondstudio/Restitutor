@@ -29,6 +29,7 @@ import {
    getProvinceResource,
    getProvinceStability,
    getReligiousCohesion,
+   getRestoration,
    getTilesAnnexedAndCored,
    TilesPerRestoration,
 } from "../game/logic/ProvinceLogic";
@@ -182,6 +183,10 @@ export function InternalAffairsPage(): React.ReactNode {
             <div className="m10">
                <div className="row my5">
                   <div className="f1">{$t(L.Restoration)}</div>
+                  <div>{formatNumber(getRestoration(G.save.state.playerProvince, G.save))}</div>
+               </div>
+               <div className="row my5">
+                  <div className="f1">{$t(L.TilesAnnexedAndCored)}</div>
                   <div>{formatNumber(tileAnnexedAndCored)}</div>
                </div>
                <div className="h5" />

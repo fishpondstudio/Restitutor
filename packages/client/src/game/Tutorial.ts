@@ -277,6 +277,17 @@ export const Tutorial: ITutorial[] = [
       selectors: ["#BottomPanel_TechTree_Inactive", "#TechPage_Research_B3"],
    },
    {
+      id: "Production",
+      name: () => $t(L.SetUpLumberProduction),
+      desc: () => $t(L.SetUpLumberProductionDesc),
+      progress: (save) => {
+         const state = save.state.provinces[save.state.playerProvince];
+         const lumberProduction = state?.production.lumber?.capacity ?? 0;
+         return [lumberProduction, 2];
+      },
+      selectors: ["#TopPanel_Production", "#ProductionNode_Capacity_lumber_0", "#ProductionNode_Capacity_lumber_1"],
+   },
+   {
       id: "CarryOn",
       name: () => $t(L.CarryOnUntilProgressSlowsDown),
       desc: () => $t(L.CarryOnUntilProgressSlowsDownDesc),

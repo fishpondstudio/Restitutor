@@ -1,6 +1,5 @@
 import { hasFlag } from "@project/shared/src/utils/Helper";
 import { G } from "../utils/Global";
-import { GameStateUpdated } from "./Events";
 import { GameOptionFlag } from "./GameOption";
 import type { SaveGame } from "./GameState";
 import { type ITutorial, Tutorial } from "./Tutorial";
@@ -23,7 +22,6 @@ export function getCurrentTutorial(save: SaveGame): ITutorial | null {
          const nextTutorial = Tutorial[i + 1];
          if (nextTutorial) {
             nextTutorial.setup?.(save);
-            GameStateUpdated.emit();
          }
          continue;
       }

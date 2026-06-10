@@ -186,6 +186,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                         GameStateUpdated.emit();
                      }}
                      disabled={usedCapacity >= totalCapacity.value}
+                     id={`ProductionNode_Capacity_${data.goods}_${capacity}`}
                   >
                      <div className="mi sm">add</div>
                   </button>

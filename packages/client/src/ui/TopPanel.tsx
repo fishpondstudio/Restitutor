@@ -332,7 +332,7 @@ export function TopLeftPanel(): React.ReactNode {
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Production)}>
-                  <div className="pointer" onClick={() => showModal(<ProductionModal />)}>
+                  <div className="pointer" id="TopPanel_Production" onClick={() => showModal(<ProductionModal />)}>
                      <img src={Production} width={IconWidth} />
                   </div>
                </FloatingTip>
