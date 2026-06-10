@@ -35,7 +35,7 @@ export function LookForLocalSpouseAction(
             family.female = null;
             removeEmptyFamily(save);
             if (!headless) {
-               showSuccess($t(L.OurDaughterXHasJoinedHerHusbandsFamily, daughter.name.join(" ")));
+               showSuccess($t(L.OurDaughter$1HasJoinedHerHusbandsFamily, daughter.name.join(" ")));
             }
          }
          if (!family.female && family.male) {
@@ -88,7 +88,7 @@ export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Pr
             theirs.female = ours.female;
             ours.female = null;
             if (!headless) {
-               showSuccess($t(L.OurDaughterXHasJoinedHerHusbandsFamily, daughter.name.join(" ")));
+               showSuccess($t(L.OurDaughter$1HasJoinedHerHusbandsFamily, daughter.name.join(" ")));
             }
          }
          removeEmptyFamily(save);

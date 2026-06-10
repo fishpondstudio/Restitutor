@@ -6,7 +6,7 @@ import { getProvinceResource } from "./ProvinceLogic";
 
 export function notEnoughResourcesError(resources: Partial<Record<ProvinceResource, number>>, save: SaveGame): string {
    return $t(
-      L.NotEnoughResourcesX,
+      L.NotEnoughResources$1,
       entriesOf(resources)
          .map(
             ([key, value]) =>

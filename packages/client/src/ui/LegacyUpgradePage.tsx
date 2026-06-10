@@ -135,7 +135,7 @@ export function LegacyUpgradePage(): React.ReactNode {
                   showModal(
                      <ConfirmModal
                         title={$t(L.ConfirmRebirth)}
-                        message={$t(L.AreYouSureYouWantToRebirthAsTheGovernorOfX, getProvinceName(province, G.save))}
+                        message={$t(L.AreYouSureYouWantToRebirthAsTheGovernorOf$1, getProvinceName(province, G.save))}
                         confirm={{
                            label: $t(L.Rebirth),
                            onClick: async () => {

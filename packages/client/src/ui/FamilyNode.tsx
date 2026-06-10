@@ -84,7 +84,7 @@ export function PersonNode({
                   ))}
                   {person === state.governor.male ? (
                      <div className="mx10 my5 text-yellow text-italic">
-                        {$t(L.ANewTraitIsAcquiredEveryXYears, "10")}
+                        {$t(L.ANewTraitIsAcquiredEvery$1Years, "10")}
                      </div>
                   ) : (
                      <div className="mx10 my5 text-red text-italic">{$t(L.OnlyGovernorsTraitsHaveActiveEffects)}</div>
@@ -135,7 +135,11 @@ export function PersonNode({
                <div className="f1">
                   <div className="text-display">{person ? person.name.join(" ") : ""}</div>
                   <div className="text-xs">
-                     {$t(L.AgeXSkillY, person.age, `${person.administrative}/${person.diplomatic}/${person.military}`)}
+                     {$t(
+                        L.Age$1Skill$2,
+                        person.age,
+                        `${person.administrative}/${person.diplomatic}/${person.military}`,
+                     )}
                   </div>
                </div>
             ) : (

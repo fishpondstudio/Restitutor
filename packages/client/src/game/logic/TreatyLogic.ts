@@ -83,14 +83,14 @@ export function requireHigherPrestige(us: Province, them: Province, percentage: 
    const theirPrestige = getProvincePrestige(them, save).value;
    return {
       name: $t(
-         L.XPrestigeIsAtLeastYOfZ,
+         L.$1PrestigeIsAtLeast$2Of$3,
          getProvinceName(us, save),
          formatPercent(percentage),
          getProvinceName(them, save),
       ),
       value: ourPrestige >= theirPrestige * percentage,
       desc: $t(
-         L.OurPrestigeXTheirPrestigeYWeNeedAtLeastZ,
+         L.OurPrestige$1TheirPrestige$2WeNeedAtLeast$3,
          formatNumber(ourPrestige),
          formatNumber(theirPrestige),
          formatNumber(percentage * theirPrestige),
@@ -102,7 +102,7 @@ export function requireMinimumAttitudeV2(from: Province, to: Province, attitude:
    const current = getAttitudeTowards(from, to, save);
    return {
       name: $t(
-         L.XHasAtLeastYAttitudeTowardsZ,
+         L.$1HasAtLeast$2AttitudeTowards$3,
          getProvinceName(from, save),
          formatNumber(attitude),
          getProvinceName(to, save),
@@ -116,7 +116,7 @@ export function requireMinimumAttitude(us: Province, them: Province, attitude: n
    const current = getAttitudeTowards(them, us, save);
    return {
       name: $t(
-         L.XHasAtLeastYAttitudeTowardsZ,
+         L.$1HasAtLeast$2AttitudeTowards$3,
          getProvinceName(them, save),
          formatNumber(attitude),
          getProvinceName(us, save),
@@ -128,7 +128,7 @@ export function requireMinimumAttitude(us: Province, them: Province, attitude: n
 
 export function requirePeaceBetween(ourProvince: Province, theirProvince: Province, save: SaveGame): ICondition {
    return {
-      name: $t(L.XIsNotAtWarWithY, getProvinceName(ourProvince, save), getProvinceName(theirProvince, save)),
+      name: $t(L.$1IsNotAtWarWith$2, getProvinceName(ourProvince, save), getProvinceName(theirProvince, save)),
       value: getWarsBetween(ourProvince, theirProvince, save).length === 0,
    };
 }
@@ -141,7 +141,7 @@ export function requireNoTreatyBetween(
 ): ICondition {
    return {
       name: $t(
-         L.XDoesntHaveAnActiveYWithZ,
+         L.$1DoesntHaveAnActive$2With$3,
          getProvinceName(fromProvince, save),
          treaties.map((t) => TreatyNames[t]()).join(", "),
          getProvinceName(toProvince, save),
@@ -185,7 +185,7 @@ export function cancelTreaty(
       fromProvince,
       {
          type: "add",
-         name: $t(L.CancelledX, TreatyNames[treaty]()),
+         name: $t(L.Cancelled$1, TreatyNames[treaty]()),
          value: CancelTreatyPenalty[treaty].attitude,
          duration: CancelTreatyPenalty[treaty].duration,
       },
@@ -234,7 +234,7 @@ export function requireDefensePactAllyOrPatronCount(province: Province, count: n
       }
    }
    return {
-      name: $t(L.XHasAtLeastYDefensePactsAlliesOrPatrons, getProvinceName(province, save), formatNumber(count)),
+      name: $t(L.$1HasAtLeast$2DefensePactsAlliesOrPatrons, getProvinceName(province, save), formatNumber(count)),
       value: result >= count,
    };
 }

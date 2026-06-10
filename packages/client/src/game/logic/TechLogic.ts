@@ -21,11 +21,7 @@ export function getResearchCostBreakdown(province: Province, save: SaveGame): IV
    breakdown.add.push({ name: $t(L.BaseCost), value: 200 });
    breakdown.multiply.push({
       name: $t(L.ResearchedTech),
-      desc: $t(
-         L.EachTechResearchedRaisesCostByXCompoundedYTechsHaveBeenResearched,
-         "10%",
-         formatNumber(state.unlockedTech.size),
-      ),
+      desc: $t(L.EachTechResearchedRaisesCostBy$1$2, "10%", formatNumber(state.unlockedTech.size)),
       value: 1.1 ** state.unlockedTech.size - 1,
    });
    attachModifiers("ResearchCost", breakdown, province, save);
@@ -33,7 +29,7 @@ export function getResearchCostBreakdown(province: Province, save: SaveGame): IV
    if (bankruptcy > 0) {
       breakdown.multiply.push({
          name: $t(L.Bankruptcy),
-         desc: $t(L.XMonthsLeft, formatNumber(bankruptcy)),
+         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
          value: BankruptcyExpenseIncreasePct,
       });
    }

@@ -37,7 +37,7 @@ export function MakeCoreButton({
          id={id}
          tooltip={(element) => (
             <>
-               <div className="m10">{html($t(L.MakeXOurCoreTile, getTileName(tile)))}</div>
+               <div className="m10">{html($t(L.Make$1OurCoreTile, getTileName(tile)))}</div>
                <TimedActionDescComp action="MakeCore" />
                {element}
                <div className="divider"></div>

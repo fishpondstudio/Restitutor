@@ -33,7 +33,7 @@ export const GallicEmpireEvents = {
                      RefreshTiles.emit({ tiles: [], options: { visual: true } });
                   },
                   desc: (province, save) => {
-                     return $t(L.OurProvinceIsNowKnownAsTheX, ProvinceNameOverrides.GallicEmpire());
+                     return $t(L.OurProvinceIsNowKnownAsThe$1, ProvinceNameOverrides.GallicEmpire());
                   },
                },
             ],
@@ -51,7 +51,7 @@ export const GallicEmpireEvents = {
             return [
                availableDiplomatCondition(province, "Britannia", save),
                {
-                  name: $t(L.XHasAtMostYCoreTiles, Province.Britannia.name(), "5"),
+                  name: $t(L.$1HasAtMost$2CoreTiles, Province.Britannia.name(), "5"),
                   value: getProvinceCoreTileCount("Britannia", save) <= 5,
                },
                requireMinimumAttitude(province, "Britannia", 50, save),
@@ -67,7 +67,7 @@ export const GallicEmpireEvents = {
                      dissolveAllTreaties("Britannia", save);
                      OfferPatronageAction(province, "Britannia", save).effect({ headless: false });
                   },
-                  desc: (province, save) => $t(L.XBecomesOurClient, Province.Britannia.name()),
+                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Britannia.name()),
                },
             ],
          },

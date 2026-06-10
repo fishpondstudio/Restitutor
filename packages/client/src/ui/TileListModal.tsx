@@ -152,7 +152,7 @@ function UpgradeButtonsColumns({ tile }: { tile: Tile }): React.ReactNode {
             </UpgradePopulationButton>
          </td>
          <td>
-            <FloatingTip label={html($t(L.TotalUpgradesXUpgradeTimesY, totalUpgrades, tileData.upgradeCount))}>
+            <FloatingTip label={html($t(L.TotalUpgrades$1UpgradeTimes$2, totalUpgrades, tileData.upgradeCount))}>
                <div>
                   {totalUpgrades}/{tileData.upgradeCount}
                </div>

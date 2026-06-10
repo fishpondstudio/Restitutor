@@ -60,7 +60,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
    const estimatedTimeLeft = Math.ceil((war.requiredWarScore - war.actualWarScore) / (successChance - failChance));
    const forceAttack = getTimedActionTimeLeft("ForceAttack", war.attacker, G.save);
    return (
-      <ModalComp size="lg" title={<ModalTitleBar title={$t(L.XYWar, war.attacker, war.defender)} dismiss />}>
+      <ModalComp size="lg" title={<ModalTitleBar title={$t(L.$1$2War, war.attacker, war.defender)} dismiss />}>
          <WarPowerComp
             attacker={war.attacker}
             coAttackers={war.coAttackers}
@@ -98,7 +98,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                   {successChance - failChance <= 0 ? (
                      <span className="text-red">{$t(L.Never)}</span>
                   ) : (
-                     <>{$t(L.XMonths, formatNumber(estimatedTimeLeft))}</>
+                     <>{$t(L.$1Months, formatNumber(estimatedTimeLeft))}</>
                   )}
                </div>
             </div>
@@ -106,12 +106,12 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
          {forceAttack > 0 && (
             <div className="row mx10 my5 text-yellow">
                <div className="f1">{$t(L.ForcefulAttack)}</div>
-               <div>{$t(L.XMonthsLeft, formatNumber(forceAttack))}</div>
+               <div>{$t(L.$1MonthsLeft, formatNumber(forceAttack))}</div>
             </div>
          )}
          {isWon && (
             <div className="mx10 my5 text-green">
-               {$t(L.AfterXMonthsYHasWonTheWar, formatNumber(war.log.length), war.attacker)}
+               {$t(L.After$1Months$2HasWonTheWar, formatNumber(war.log.length), war.attacker)}
             </div>
          )}
          {war.attacker === G.save.state.playerProvince && !isWon && successChance < 0.5 && (
@@ -219,7 +219,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
 function WarLogScoreComp({ log }: { log: IWarLog }): React.ReactNode {
    if (hasFlag(log.flag, WarLogFlag.ForceAttack)) {
       return (
-         <FloatingTip label={$t(L.TimedActionForceAttackDesc, "10%", "1")}>
+         <FloatingTip label={$t(L.TimedActionForceAttackDesc$1$2, "10%", "1")}>
             <span className="text-red">0*</span>
          </FloatingTip>
       );
@@ -302,7 +302,7 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
          tooltip={(element) => (
             <>
                <div className="m10">
-                  {$t(L.LeavingWarCoalitionTooltip, coalitionLeader, "50", formatNumber(getTruceLength(war)))}
+                  {$t(L.LeavingWarCoalitionTooltip$1$2$3, coalitionLeader, "50", formatNumber(getTruceLength(war)))}
                </div>
                {element}
             </>
@@ -331,7 +331,7 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
                   {
                      type: "add",
                      name: $t(
-                        L.XLeftWarCoalitionInYZWar,
+                        L.$1LeftWarCoalitionIn$2$3War,
                         getProvinceName(province, G.save),
                         getProvinceName(war.attacker, G.save),
                         getProvinceName(war.defender, G.save),
@@ -342,7 +342,7 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
                   G.save,
                );
                if (!headless) {
-                  showSuccess($t(L.WeHaveLeftTheXWar, `${war.attacker}-${war.defender}`));
+                  showSuccess($t(L.WeHaveLeftThe$1War, `${war.attacker}-${war.defender}`));
                   hideModal();
                }
             },
@@ -413,7 +413,7 @@ function FortifyOurBordersButton({ war, province }: { war: IWar; province: Provi
             condition: finalizeCondition({
                breakdown: [
                   ...timedActionConditions({ action: "FortifyBorders" }, province, G.save),
-                  { name: $t(L.XYWarIsOngoing, war.attacker, war.defender), value: true },
+                  { name: $t(L.$1$2WarIsOngoing, war.attacker, war.defender), value: true },
                   {
                      name: $t(L.WeAreTheLeadAttackerOrDefenderOfTheWar),
                      value: war.attacker === province || war.defender === province,
@@ -593,7 +593,7 @@ function DecimateOurArmyButton({ war, province }: { war: IWar; province: Provinc
 }
 
 export function WhitePeaceTooltip({ war }: { war: IWar }): React.ReactNode {
-   return <>{$t(L.WhitePeaceTooltip, formatNumber(getTruceLength(war)), war.attacker, war.defender)}</>;
+   return <>{$t(L.WhitePeaceTooltip$1$2$3, formatNumber(getTruceLength(war)), war.attacker, war.defender)}</>;
 }
 
 export function PeaceTreatyTooltip({ war }: { war: IWar }): React.ReactNode {
@@ -602,10 +602,10 @@ export function PeaceTreatyTooltip({ war }: { war: IWar }): React.ReactNode {
       .join(", ");
    return (
       <ul>
-         <li>{html($t(L.XShallCedeYToZ, war.defender, tileNames, war.attacker))}</li>
+         <li>{html($t(L.$1ShallCede$2To$3, war.defender, tileNames, war.attacker))}</li>
          <li>
             {$t(
-               L.AXMonthTruceShallBeEnactedBetweenYAndZ,
+               L.A$1MonthTruceShallBeEnactedBetween$2And$3,
                formatNumber(getTruceLength(war)),
                war.attacker,
                war.defender,
@@ -614,7 +614,7 @@ export function PeaceTreatyTooltip({ war }: { war: IWar }): React.ReactNode {
          <li>
             {html(
                $t(
-                  L.XGetsAYCasusBelliAgainstZForPYears,
+                  L.$1GetsA$2CasusBelliAgainst$3For$4Years,
                   war.defender,
                   CasusBelli.Reconquista.name(),
                   war.attacker,

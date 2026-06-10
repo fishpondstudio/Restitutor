@@ -52,7 +52,7 @@ export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: S
          addChronicleEntry(
             {
                type: "WarEnded",
-               content: $t(L.ChronicleWhitePeace, war.attacker, war.defender, getTruceLength(war)),
+               content: $t(L.ChronicleWhitePeace$1$2$3, war.attacker, war.defender, getTruceLength(war)),
             },
             save,
          );

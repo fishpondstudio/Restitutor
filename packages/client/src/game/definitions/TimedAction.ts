@@ -46,13 +46,13 @@ class TimedActionDefinitions {
    };
    Appease: ITimedAction = {
       name: () => $t(L.Appease),
-      desc: () => $t(L.TimedActionAppeaseDesc, "5"),
+      desc: () => $t(L.TimedActionAppeaseDesc$1, "5"),
       duration: 0,
       cooldown: 0,
    };
    Crackdown: ITimedAction = {
       name: () => $t(L.CrackDown),
-      desc: () => $t(L.TimedActionCrackdownDesc, "0", "10", "5"),
+      desc: () => $t(L.TimedActionCrackdownDesc$1$2$3, "0", "10", "5"),
       duration: 0,
       cooldown: 0,
    };
@@ -128,7 +128,7 @@ class TimedActionDefinitions {
    };
    MakeWarSpeech: ITimedAction = {
       name: () => $t(L.MakeWarSpeech),
-      desc: () => $t(L.TimedActionMakeWarSpeechDesc, "10%"),
+      desc: () => $t(L.TimedActionMakeWarSpeechDesc$1, "10%"),
       duration: 12,
       cooldown: 36,
    };
@@ -145,7 +145,7 @@ class TimedActionDefinitions {
    };
    UndermineTheirArmy: ITimedAction = {
       name: () => $t(L.UndermineTheirArmy),
-      desc: () => $t(L.UnderminingTheirArmyReducesTheirWarPowerByX, "10%"),
+      desc: () => $t(L.UnderminingTheirArmyReducesTheirWarPowerBy$1, "10%"),
       duration: 12,
       cooldown: 48,
    };
@@ -156,13 +156,13 @@ class TimedActionDefinitions {
    };
    RecruitAGeneral: ITimedAction = {
       name: () => $t(L.RecruitAGeneral),
-      desc: () => $t(L.RecruitingAGeneralCostsGoldEveryMonthAGeneralHasABaseSkillOfX, "1/1/1"),
+      desc: () => $t(L.RecruitingAGeneralCostsGoldEveryMonthAGeneralHasABaseSkillOf$1, "1/1/1"),
       duration: 12 * 30,
       cooldown: 12 * 30,
    };
    FortifyBorders: ITimedAction = {
       name: () => $t(L.FortifyOurBorders),
-      desc: () => $t(L.TimedActionFortifyBordersDesc, "100%"),
+      desc: () => $t(L.TimedActionFortifyBordersDesc$1, "100%"),
       duration: 12 * 2,
       cooldown: 12 * 4,
    };
@@ -266,7 +266,7 @@ class TimedActionDefinitions {
    };
    CorruptOfficials: ITimedAction = {
       name: () => $t(L.CorruptOfficials),
-      desc: () => $t(L.CorruptingOfficialsIncreasesOurInfiltrationByX, "50"),
+      desc: () => $t(L.CorruptingOfficialsIncreasesOurInfiltrationBy$1, "50"),
       duration: 0,
       cooldown: 12 * 5,
    };
@@ -282,13 +282,13 @@ class TimedActionDefinitions {
    };
    Denounce: ITimedAction = {
       name: () => $t(L.Denounce),
-      desc: () => $t(L.TimedActionDenounceDesc, "50", "10%", "20%"),
+      desc: () => $t(L.TimedActionDenounceDesc$1$2$3, "50", "10%", "20%"),
       duration: 12 * 2,
       cooldown: 12 * 4,
    };
    DemandElectionBacking: ITimedAction = {
       name: () => $t(L.DemandElectionBacking),
-      desc: () => $t(L.TimedActionDemandElectionBackingDesc, "1"),
+      desc: () => $t(L.TimedActionDemandElectionBackingDesc$1, "1"),
       duration: 0,
       cooldown: 6,
    };
@@ -365,13 +365,13 @@ class TimedActionDefinitions {
    };
    PublicEnemy: ITimedAction = {
       name: () => $t(L.NamePublicEnemy),
-      desc: () => $t(L.TimedActionPublicEnemyDesc, "10%"),
+      desc: () => $t(L.TimedActionPublicEnemyDesc$1, "10%"),
       duration: 12 * 2,
       cooldown: 12 * 2,
    };
    SendAGift: ITimedAction = {
       name: () => $t(L.SendAGift),
-      desc: () => $t(L.SendingAGiftToAProvinceIncreasesTheirAttitudeTowardsUsByX, "25"),
+      desc: () => $t(L.SendingAGiftToAProvinceIncreasesTheirAttitudeTowardsUsBy$1, "25"),
       duration: 12,
       cooldown: 12 * 10,
    };
@@ -395,13 +395,13 @@ class TimedActionDefinitions {
    };
    GuaranteeDefense: ITimedAction = {
       name: () => $t(L.GuaranteeDefense),
-      desc: () => $t(L.TimedActionGuaranteeDefenseDesc, "50"),
+      desc: () => $t(L.TimedActionGuaranteeDefenseDesc$1, "50"),
       duration: 12 * 4,
       cooldown: 12 * 2,
    };
    DeterAggression: ITimedAction = {
       name: () => $t(L.DeterAggression),
-      desc: () => $t(L.TimedActionDeterAggressionDesc, "10%", "20%"),
+      desc: () => $t(L.TimedActionDeterAggressionDesc$1$2, "10%", "20%"),
       duration: 12 * 4,
       cooldown: 12 * 2,
    };
@@ -460,7 +460,7 @@ class TimedActionDefinitions {
    };
    DecimateOurArmy: ITimedAction = {
       name: () => $t(L.DecimateOurArmy),
-      desc: () => $t(L.DecimatingOurArmyReducesOurStandingArmyByXAndGrantsUsYWarScore, "10%", "1"),
+      desc: () => $t(L.DecimatingOurArmyReducesOurStandingArmyBy$1AndGrantsUs$2WarScore, "10%", "1"),
       duration: 0,
       cooldown: 24,
    };
@@ -472,7 +472,7 @@ class TimedActionDefinitions {
    };
    ForceAttack: ITimedAction = {
       name: () => $t(L.LaunchForcefulAttack),
-      desc: () => $t(L.TimedActionForceAttackDesc, "10%", "1"),
+      desc: () => $t(L.TimedActionForceAttackDesc$1$2, "10%", "1"),
       duration: 6,
       cooldown: 24,
    };
@@ -484,25 +484,25 @@ class TimedActionDefinitions {
    };
    SummonGovernor: ITimedAction = {
       name: () => $t(L.SummonGovernor),
-      desc: () => $t(L.TimedActionSummonGovernorDesc, "10%", "10%"),
+      desc: () => $t(L.TimedActionSummonGovernorDesc$1$2, "10%", "10%"),
       duration: 12,
       cooldown: 12 * 3,
    };
    RequestMilitaryAid: ITimedAction = {
       name: () => $t(L.RequestMilitaryAid),
-      desc: () => $t(L.TimedActionRequestMilitaryAidDesc, "10%", "10%"),
+      desc: () => $t(L.TimedActionRequestMilitaryAidDesc$1$2, "10%", "10%"),
       duration: 12,
       cooldown: 12 * 3,
    };
    SubvertGarrison: ITimedAction = {
       name: () => $t(L.SubvertBorderGarrison),
-      desc: () => $t(L.TimedActionSubvertGarrisonDesc, "20%"),
+      desc: () => $t(L.TimedActionSubvertGarrisonDesc$1, "20%"),
       duration: 12,
       cooldown: 12 * 4,
    };
    InciteUnrest: ITimedAction = {
       name: () => $t(L.InciteBorderUnrest),
-      desc: () => $t(L.TimedActionInciteUnrestDesc, "20"),
+      desc: () => $t(L.TimedActionInciteUnrestDesc$1, "20"),
       duration: 12,
       cooldown: 12 * 4,
    };
@@ -526,7 +526,7 @@ class TimedActionDefinitions {
    };
    CurryFavor: ITimedAction = {
       name: () => $t(L.CurryFavor),
-      desc: () => $t(L.TimedActionCurryFavorDesc, "20", "20"),
+      desc: () => $t(L.TimedActionCurryFavorDesc$1$2, "20", "20"),
       duration: 0,
       cooldown: 12 * 2,
    };

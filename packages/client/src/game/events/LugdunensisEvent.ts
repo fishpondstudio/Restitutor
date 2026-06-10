@@ -44,7 +44,7 @@ export const LugdunensisEvent = {
                   },
                   desc: (province, save) => {
                      return $t(
-                        L.XGetsAYCasusBelliAgainstZForPYears,
+                        L.$1GetsA$2CasusBelliAgainst$3For$4Years,
                         getProvinceName(province, save),
                         CasusBelli.ConquestMission.name(),
                         getProvinceName("Belgica", save),
@@ -122,7 +122,7 @@ export const LugdunensisEvent = {
                   },
                   desc: (province, save) => {
                      return $t(
-                        L.XGetsAYCasusBelliAgainstZForPYears,
+                        L.$1GetsA$2CasusBelliAgainst$3For$4Years,
                         getProvinceName(province, save),
                         CasusBelli.ConquestMission.name(),
                         getProvinceName("Belgica", save),
@@ -149,7 +149,7 @@ export const LugdunensisEvent = {
                   },
                   desc: (province, save) => {
                      return $t(
-                        L.XNullifiesAllNegativeAttitudesTowardsY,
+                        L.$1NullifiesAllNegativeAttitudesTowards$2,
                         Province.Belgica.name(),
                         Province.Lugdunensis.name(),
                      );
@@ -169,11 +169,11 @@ export const LugdunensisEvent = {
          year: [220, 250],
          conditions: (province, save) => [
             {
-               name: $t(L.XHasAtMostYCoreTiles, Province.Belgica.name(), "3"),
+               name: $t(L.$1HasAtMost$2CoreTiles, Province.Belgica.name(), "3"),
                value: getProvinceCoreTileCount("Belgica", save) <= 3,
             },
             {
-               name: $t(L.XHasAMarriageWithY, Province.Lugdunensis.name(), Province.Belgica.name()),
+               name: $t(L.$1HasAMarriageWith$2, Province.Lugdunensis.name(), Province.Belgica.name()),
                value: getMarriageAlliance(province, "Belgica", save).length > 0,
             },
             availableDiplomatCondition(province, "Belgica", save),
@@ -189,7 +189,7 @@ export const LugdunensisEvent = {
                      dissolveAllTreaties("Belgica", save);
                      OfferPatronageAction(province, "Belgica", save).effect({ headless: false });
                   },
-                  desc: (province, save) => $t(L.XBecomesOurClient, Province.Belgica.name()),
+                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Belgica.name()),
                },
             ],
          },
@@ -204,7 +204,7 @@ export const LugdunensisEvent = {
          year: [220, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.XStabilityIsLessThanY, Province.Lugdunensis.name(), "0"),
+               name: $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
                value: getProvinceStability(province, save).value < 0,
             },
          ],
@@ -240,7 +240,7 @@ export const LugdunensisEvent = {
          year: [200, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.XChristianityInfluenceIsAtLeastY, Province.Lugdunensis.name(), "20"),
+               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "20"),
                value: getProvinceResource("christianity", province, save) >= 20,
             },
          ],
@@ -280,7 +280,7 @@ export const LugdunensisEvent = {
          techs: ["D1"],
          conditions: (province, save) => [
             {
-               name: $t(L.XChristianityInfluenceIsAtLeastY, Province.Lugdunensis.name(), "50"),
+               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "50"),
                value: getProvinceResource("christianity", province, save) >= 50,
             },
          ],
@@ -321,7 +321,7 @@ export const LugdunensisEvent = {
          year: [250, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.XStabilityIsAtLeastY, Province.Lugdunensis.name(), "0"),
+               name: $t(L.$1StabilityIsAtLeast$2, Province.Lugdunensis.name(), "0"),
                value: getProvinceStability(province, save).value >= 0,
             },
          ],
@@ -340,7 +340,7 @@ export const LugdunensisEvent = {
             },
          },
          {
-            label: () => $t(L.RequestAidFromX, Province.Narbonensis.name()),
+            label: () => $t(L.RequestAidFrom$1, Province.Narbonensis.name()),
             modifiers: {
                Prestige: { type: "multiply", value: -0.1, duration: 2 * 12 },
             },
@@ -359,7 +359,7 @@ export const LugdunensisEvent = {
          year: [260, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.XStabilityIsAtLeastY, Province.Lugdunensis.name(), "0"),
+               name: $t(L.$1StabilityIsAtLeast$2, Province.Lugdunensis.name(), "0"),
                value: getProvinceStability(province, save).value >= 0,
             },
          ],
@@ -418,7 +418,7 @@ export const LugdunensisEvent = {
             resources: { administrative: 50 },
          },
          {
-            label: () => $t(L.RequestAidFromX, Province.Aquitania.name()),
+            label: () => $t(L.RequestAidFrom$1, Province.Aquitania.name()),
             modifiers: {
                Prestige: { type: "add", value: -10, duration: 2 * 12 },
             },
@@ -438,7 +438,7 @@ export const LugdunensisEvent = {
          year: [280, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.XStabilityIsLessThanY, Province.Lugdunensis.name(), "0"),
+               name: $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
                value: getProvinceStability(province, save).value < 0,
             },
          ],
@@ -459,7 +459,7 @@ export const LugdunensisEvent = {
             },
          },
          {
-            label: () => $t(L.InviteXToJoinDefenses, Province.Aquitania.name()),
+            label: () => $t(L.Invite$1ToJoinDefenses, Province.Aquitania.name()),
             modifiers: {
                Defense: { type: "multiply", value: 0.1, duration: 2 * 12 },
                Prestige: { type: "add", value: -10, duration: 2 * 12 },
@@ -479,7 +479,7 @@ export const LugdunensisEvent = {
          year: [300, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.XChristianityInfluenceIsAtLeastY, Province.Lugdunensis.name(), "100"),
+               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "100"),
                value: getProvinceResource("christianity", province, save) >= 100,
             },
          ],
@@ -519,7 +519,7 @@ export const LugdunensisEvent = {
          year: [330, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.XStabilityIsLessThanY, Province.Lugdunensis.name(), "0"),
+               name: $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
                value: getProvinceStability(province, save).value < 0,
             },
          ],
@@ -587,7 +587,7 @@ export const LugdunensisEvent = {
          year: [380, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.XStabilityIsLessThanY, Province.Lugdunensis.name(), "0"),
+               name: $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
                value: getProvinceStability(province, save).value < 0,
             },
          ],

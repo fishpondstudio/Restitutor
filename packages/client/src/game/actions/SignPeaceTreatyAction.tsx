@@ -83,7 +83,7 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
             {
                type: "WarEnded",
                content: $t(
-                  L.XSignedAPeaceTreatyWithYZCededPToQAndARMonthTruceWasEnacted,
+                  L.SignedAPeaceTreatyWithCededTilesTruce$1$2$3$4$5$6,
                   war.attacker,
                   war.defender,
                   war.defender,

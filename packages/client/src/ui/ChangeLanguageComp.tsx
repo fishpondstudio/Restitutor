@@ -18,7 +18,7 @@ export function ChangeLanguageComp(): React.ReactNode {
             leftSection={<div className="mi sm">translate</div>}
             checkIconPosition="right"
             data={SupportedLanguages.map((language) => ({
-               label: Languages[language].$Language,
+               label: Languages[language].$$Language,
                value: language,
             }))}
             value={G.save.options.language}

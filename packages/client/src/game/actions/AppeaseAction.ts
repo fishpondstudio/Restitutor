@@ -19,7 +19,7 @@ export function AppeaseAction(tile: Tile, province: Province, save: SaveGame): I
          breakdown: [
             ...timedActionConditions({ action: "Appease" }, province, save),
             { name: $t(L.CurrentlyNotInRebellion), value: tileData.rebellion < 10 },
-            { name: $t(L.RebellionIsAtLeastX, "5"), value: tileData.rebellion >= 5 },
+            { name: $t(L.RebellionIsAtLeast$1, "5"), value: tileData.rebellion >= 5 },
          ],
       }),
       effect: () => {

@@ -32,7 +32,7 @@ export interface IBuilding {
 export const _Buildings = {
    Amphitheatre: {
       name: () => $t(L.BuildingAmphitheatre),
-      desc: () => $t(L.XTileUnrest, "-10"),
+      desc: () => $t(L.$1TileUnrest, "-10"),
       image: Amphitheatre,
       construction: {
          gold: 100,
@@ -45,7 +45,7 @@ export const _Buildings = {
    },
    CircusMaximus: {
       name: () => $t(L.BuildingCircusMaximus),
-      desc: () => $t(L.XTileUnrest, "-20"),
+      desc: () => $t(L.$1TileUnrest, "-20"),
       image: CircusMaximus,
       construction: {
          gold: 400,
@@ -58,7 +58,7 @@ export const _Buildings = {
    },
    TownSquare: {
       name: () => $t(L.BuildingTownSquare),
-      desc: () => $t(L.XTileLandTax, "+20%"),
+      desc: () => $t(L.$1TileLandTax, "+20%"),
       image: TownSquare,
       construction: {
          gold: 100,
@@ -71,7 +71,7 @@ export const _Buildings = {
    },
    Forum: {
       name: () => $t(L.BuildingForum),
-      desc: () => $t(L.XTileLandTax, "+40%"),
+      desc: () => $t(L.$1TileLandTax, "+40%"),
       image: Forum,
       construction: {
          gold: 400,
@@ -84,7 +84,7 @@ export const _Buildings = {
    },
    Market: {
       name: () => $t(L.BuildingMarket),
-      desc: () => $t(L.XTileOutput, "+20%"),
+      desc: () => $t(L.$1TileOutput, "+20%"),
       image: Market,
       construction: {
          gold: 100,
@@ -97,7 +97,7 @@ export const _Buildings = {
    },
    TradeDistrict: {
       name: () => $t(L.BuildingTradeDistrict),
-      desc: () => $t(L.XTileOutput, "+40%"),
+      desc: () => $t(L.$1TileOutput, "+40%"),
       image: TradeDistrict,
       construction: {
          gold: 400,
@@ -110,7 +110,7 @@ export const _Buildings = {
    },
    ArmyCamp: {
       name: () => $t(L.BuildingArmyCamp),
-      desc: () => $t(L.XTileManpower, "+20%"),
+      desc: () => $t(L.$1TileManpower, "+20%"),
       image: ArmyCamp,
       construction: {
          gold: 100,
@@ -123,7 +123,7 @@ export const _Buildings = {
    },
    Barracks: {
       name: () => $t(L.BuildingBarracks),
-      desc: () => $t(L.XTileManpower, "+40%"),
+      desc: () => $t(L.$1TileManpower, "+40%"),
       image: Barracks,
       construction: {
          gold: 400,
@@ -136,7 +136,7 @@ export const _Buildings = {
    },
    Castra: {
       name: () => $t(L.BuildingCastra),
-      desc: () => $t(L.XTileDefense, "+20%"),
+      desc: () => $t(L.$1TileDefense, "+20%"),
       image: Castra,
       construction: {
          gold: 100,
@@ -149,7 +149,7 @@ export const _Buildings = {
    },
    Citadel: {
       name: () => $t(L.BuildingCitadel),
-      desc: () => $t(L.XTileDefense, "+40%"),
+      desc: () => $t(L.$1TileDefense, "+40%"),
       image: Citadel,
       construction: {
          gold: 400,
@@ -162,7 +162,7 @@ export const _Buildings = {
    },
    Temple: {
       name: () => $t(L.BuildingTemple),
-      desc: () => $t(L.XTileMaintenanceCostAndYBuildingSlot, "-20%", "+1"),
+      desc: () => $t(L.$1TileMaintenanceCostAnd$2BuildingSlot, "-20%", "+1"),
       image: Temple,
       construction: {
          gold: 200,
@@ -175,7 +175,7 @@ export const _Buildings = {
    },
    Courthouse: {
       name: () => $t(L.BuildingCourthouse),
-      desc: () => $t(L.XTileGoverningCost, "-20%"),
+      desc: () => $t(L.$1TileGoverningCost, "-20%"),
       image: Courthouse,
       construction: {
          gold: 100,
@@ -188,7 +188,7 @@ export const _Buildings = {
    },
    Workshop: {
       name: () => $t(L.BuildingWorkshop),
-      desc: () => $t(L.XProductionCapacity, "+1"),
+      desc: () => $t(L.$1ProductionCapacity, "+1"),
       image: Workshop,
       construction: {
          gold: 100,
@@ -201,7 +201,7 @@ export const _Buildings = {
    },
    Harbour: {
       name: () => $t(L.BuildingHarbour),
-      desc: () => $t(L.XTradeCapacity, "+1"),
+      desc: () => $t(L.$1TradeCapacity, "+1"),
       image: Harbour,
       construction: {
          gold: 100,

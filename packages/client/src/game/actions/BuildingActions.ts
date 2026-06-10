@@ -37,7 +37,7 @@ export function DemolishBuildingAction(
          breakdown: [
             tileIsOurCoreCondition(tile, province, save),
             {
-               name: $t(L.XIsBuilt, Buildings[building].name()),
+               name: $t(L.$1IsBuilt, Buildings[building].name()),
                value: save.state.tiles.get(tile)?.buildings.has(building) ?? false,
             },
          ],

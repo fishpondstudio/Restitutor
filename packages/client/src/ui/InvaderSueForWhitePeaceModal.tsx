@@ -10,8 +10,8 @@ import { WhitePeaceTooltip } from "./WarModal";
 export function InvaderSueForWhitePeaceModal({ war }: { war: IWar }): React.ReactNode {
    return (
       <GenericEventModal
-         title={$t(L.XSuedForWhitePeace, war.attacker)}
-         content={$t(L.InvaderSuedForWhitePeaceDesc, war.log.length, war.attacker)}
+         title={$t(L.$1SuedForWhitePeace, war.attacker)}
+         content={$t(L.InvaderSuedForWhitePeaceDesc$1$2, war.log.length, war.attacker)}
          image={EventImage.InvaderSueForWhitePeace.url}
          titleTooltip={<div className="m10">Image Credit: {EventImage.InvaderSueForWhitePeace.credit}</div>}
          buttons={[

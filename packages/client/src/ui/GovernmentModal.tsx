@@ -42,7 +42,7 @@ export function GovernmentModal(): React.ReactNode {
       <ModalComp
          size="lg"
          title={
-            <ModalTitleBar title={$t(L.GovernmentOfX, getProvinceName(G.save.state.playerProvince, G.save))} dismiss />
+            <ModalTitleBar title={$t(L.GovernmentOf$1, getProvinceName(G.save.state.playerProvince, G.save))} dismiss />
          }
       >
          <div className="h1 row">

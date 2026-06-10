@@ -83,7 +83,7 @@ export function LookForSpouseModal({ family, province }: { family?: IFamily; pro
                <div className="m10">
                   <div>
                      {$t(
-                        L.AgeXAdministrativeYDiplomaticZMilitaryP,
+                        L.Age$1Administrative$2Diplomatic$3Military$4,
                         formatNumber(person.age),
                         formatNumber(person.administrative),
                         formatNumber(person.diplomatic),
@@ -100,7 +100,7 @@ export function LookForSpouseModal({ family, province }: { family?: IFamily; pro
          {person && selectedFamily && (
             <>
                <div className="box m10">
-                  <div className="h1">{$t(L.FromX, getProvinceName(G.save.state.playerProvince, G.save))}</div>
+                  <div className="h1">{$t(L.From$1, getProvinceName(G.save.state.playerProvince, G.save))}</div>
                   <div className="m10" style={Grid3}>
                      <LocalSpouseButton family={selectedFamily} socialClass="UpperClass" />
                      <LocalSpouseButton family={selectedFamily} socialClass="MiddleClass" />
@@ -136,7 +136,7 @@ export function LookForSpouseModal({ family, province }: { family?: IFamily; pro
                                  </div>
                                  <div className="text-dimmed text-sm">
                                     {$t(
-                                       L.XAgeYSkillZPQ,
+                                       L.$1Age$2Skill$3$4$5,
                                        getProvinceName(person.province, G.save),
                                        formatNumber(person.age),
                                        formatNumber(person.administrative),
@@ -154,7 +154,7 @@ export function LookForSpouseModal({ family, province }: { family?: IFamily; pro
                                  )}
                                  tooltip={(element) => (
                                     <>
-                                       <div className="m10">{$t(L.OfferingMarriageIncreasesAttitudeByX, "50")}</div>
+                                       <div className="m10">{$t(L.OfferingMarriageIncreasesAttitudeBy$1, "50")}</div>
                                        {element}
                                     </>
                                  )}
@@ -183,7 +183,7 @@ function LocalSpouseButton({ family, socialClass }: { family: IFamily; socialCla
             <>
                <div className="m10">
                   {$t(
-                     L.FindAnEligibleSpouseFromXClassInYTheZClassWillGain50Loyalty,
+                     L.FindAnEligibleSpouseFrom$1ClassIn$2The$3ClassWillGain50Loyalty,
                      SocialClassNames[socialClass](),
                      getProvinceName(G.save.state.playerProvince, G.save),
                      SocialClassNames[socialClass](),

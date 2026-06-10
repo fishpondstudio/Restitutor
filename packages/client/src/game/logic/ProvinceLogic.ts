@@ -274,19 +274,19 @@ export function getProvinceStability(province: Province, save: SaveGame): IValue
    }
    if (isSocialClassDissent("UpperClass", province, save)) {
       breakdown.add.push({
-         name: $t(L.XClassDissent, SocialClassNames.UpperClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
          value: SocialClassDissentEffectPct * 100,
       });
    }
    if (isSocialClassDissent("MiddleClass", province, save)) {
       breakdown.add.push({
-         name: $t(L.XClassDissent, SocialClassNames.MiddleClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.MiddleClass()),
          value: SocialClassDissentEffectPct * 100,
       });
    }
    if (isSocialClassDissent("LowerClass", province, save)) {
       breakdown.add.push({
-         name: $t(L.XClassDissent, SocialClassNames.LowerClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.LowerClass()),
          value: SocialClassDissentEffectPct * 100,
       });
    }
@@ -300,7 +300,7 @@ export function getProvinceStability(province: Province, save: SaveGame): IValue
    if (bankruptcy > 0) {
       breakdown.add.push({
          name: $t(L.Bankruptcy),
-         desc: $t(L.XMonthsLeft, formatNumber(bankruptcy)),
+         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
          value: BankruptcyStabilityReduction,
       });
    }
@@ -317,8 +317,8 @@ export function getProvinceStability(province: Province, save: SaveGame): IValue
          // Here we should use `war.log.length`, instead of `war.log.length + 1`. Check the implementation of `calculateWarTotalStability`.
          const warCost = calculateWarTotalStability(war.log.length, war.casusBelli);
          breakdown.add.push({
-            name: $t(L.XYWar, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
-            desc: $t(L.WarHasBeenGoingOnForXMonths, formatNumber(war.log.length)),
+            name: $t(L.$1$2War, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
+            desc: $t(L.WarHasBeenGoingOnFor$1Months, formatNumber(war.log.length)),
             value: -warCost,
          });
       }
@@ -384,26 +384,26 @@ export function getArmyMaintenanceCost(province: Province, save: SaveGame): IVal
    const infantryCost = manpower.value * conscription * InfantryMaintenanceCost * infantryUnit * 0.01;
    breakdown.add.push({
       name: $t(L.InfantryCost),
-      desc: $t(L.XGoldPerArmySize, formatNumber(InfantryMaintenanceCost)),
+      desc: $t(L.$1GoldPerArmySize, formatNumber(InfantryMaintenanceCost)),
       value: infantryCost,
    });
    const rangedCost = manpower.value * conscription * RangedMaintenanceCost * rangedUnit * 0.01;
    breakdown.add.push({
       name: $t(L.RangedCost),
-      desc: $t(L.XGoldPerArmySize, formatNumber(RangedMaintenanceCost)),
+      desc: $t(L.$1GoldPerArmySize, formatNumber(RangedMaintenanceCost)),
       value: rangedCost,
    });
    const cavalryCost = manpower.value * conscription * CavalryMaintenanceCost * cavalryUnit * 0.01;
    breakdown.add.push({
       name: $t(L.CavalryCost),
-      desc: $t(L.XGoldPerArmySize, formatNumber(CavalryMaintenanceCost)),
+      desc: $t(L.$1GoldPerArmySize, formatNumber(CavalryMaintenanceCost)),
       value: cavalryCost,
    });
    const wars = getCurrentWars(province, save);
    for (const war of wars) {
       if (war.attacker === province) {
          breakdown.multiply.push({
-            name: $t(L.XYWar, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
+            name: $t(L.$1$2War, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
             value: MonthlyExtraArmyMaintenancePct,
          });
       }
@@ -438,21 +438,21 @@ export function getMercenaryCost(province: Province, save: SaveGame): IValueBrea
       result.add.push({
          name: $t(L.InfantryMercenaryCost),
          value: infantryCost * 12,
-         desc: $t(L.XInfantry, formatDelta(infantryUnits)),
+         desc: $t(L.$1Infantry, formatDelta(infantryUnits)),
       });
       const rangedUnits = manpower.value * diff * rangedUnit * 0.01;
       const rangedCost = rangedUnits * RangedMaintenanceCost;
       result.add.push({
          name: $t(L.RangedMercenaryCost),
          value: rangedCost * 12,
-         desc: $t(L.XRanged, formatDelta(rangedUnits)),
+         desc: $t(L.$1Ranged, formatDelta(rangedUnits)),
       });
       const cavalryUnits = manpower.value * diff * cavalryUnit * 0.01;
       const cavalryCost = cavalryUnits * CavalryMaintenanceCost;
       result.add.push({
          name: $t(L.CavalryMercenaryCost),
          value: cavalryCost * 12,
-         desc: $t(L.XCavalry, formatDelta(cavalryUnits)),
+         desc: $t(L.$1Cavalry, formatDelta(cavalryUnits)),
       });
    }
    return finalizeBreakdown(result);
@@ -684,7 +684,7 @@ export function getProvinceIncome(
 
    getClients(province, save).forEach((clientProvince) => {
       revenue.add.push({
-         name: $t(L.TributeFromX, getProvinceName(clientProvince, save)),
+         name: $t(L.TributeFrom$1, getProvinceName(clientProvince, save)),
          value: getProvinceIncome(clientProvince, save).revenue.value * 0.1,
       });
    });
@@ -696,9 +696,9 @@ export function getProvinceIncome(
 
    state.monthly.tradeGold.forEach((value, otherProvince) => {
       if (value > 0) {
-         revenue.add.push({ name: $t(L.TradeWithX, getProvinceName(otherProvince, save)), value: value });
+         revenue.add.push({ name: $t(L.TradeWith$1, getProvinceName(otherProvince, save)), value: value });
       } else {
-         expense.add.push({ name: $t(L.TradeWithX, getProvinceName(otherProvince, save)), value: -value });
+         expense.add.push({ name: $t(L.TradeWith$1, getProvinceName(otherProvince, save)), value: -value });
       }
    });
 
@@ -706,7 +706,7 @@ export function getProvinceIncome(
    finalizeBreakdown(revenue);
    getPatrons(province, save).forEach((patronProvince) => {
       expense.add.push({
-         name: $t(L.TributeToX, getProvinceName(patronProvince, save)),
+         name: $t(L.TributeTo$1, getProvinceName(patronProvince, save)),
          value: -revenue.value * 0.1,
       });
    });
@@ -739,17 +739,17 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
    result.add.push({
       name: $t(L.Infantry),
       value: totalArmy * infantryUnit * 0.01 * infantryUnitWarPower,
-      desc: $t(L.UnitPowerX, formatNumber(infantryUnitWarPower)),
+      desc: $t(L.UnitPower$1, formatNumber(infantryUnitWarPower)),
    });
    result.add.push({
       name: $t(L.Ranged),
       value: totalArmy * rangedUnit * 0.01 * rangedUnitWarPower,
-      desc: $t(L.UnitPowerX, formatNumber(rangedUnitWarPower)),
+      desc: $t(L.UnitPower$1, formatNumber(rangedUnitWarPower)),
    });
    result.add.push({
       name: $t(L.Cavalry),
       value: totalArmy * cavalryUnit * 0.01 * cavalryUnitWarPower,
-      desc: $t(L.UnitPowerX, formatNumber(cavalryUnitWarPower)),
+      desc: $t(L.UnitPower$1, formatNumber(cavalryUnitWarPower)),
    });
    getProvinceTraits("Bold", province, save).forEach((trait) => {
       result.multiply.push({ ...trait, value: 0.02 });
@@ -759,7 +759,7 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
    if (makeWarSpeech > 0) {
       result.multiply.push({
          name: $t(L.MakeWarSpeech),
-         desc: $t(L.XMonthsLeft, formatNumber(makeWarSpeech)),
+         desc: $t(L.$1MonthsLeft, formatNumber(makeWarSpeech)),
          value: 0.1,
       });
    }
@@ -774,25 +774,25 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
       wars.forEach((war) => {
          if (war.attacker === province) {
             result.multiply.push({
-               name: $t(L.XYWarAttacker, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
+               name: $t(L.$1$2WarAttacker, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
                value: AttackerWarPowerDiscount,
             });
          }
          if (war.defender === province) {
             result.multiply.push({
-               name: $t(L.XYWarDefender, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
+               name: $t(L.$1$2WarDefender, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
                value: DefenderWarPowerDiscount,
             });
          }
          if (war.coAttackers.has(province)) {
             result.multiply.push({
-               name: $t(L.XYWarCoAttacker, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
+               name: $t(L.$1$2WarCoAttacker, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
                value: CoAttackerWarPowerDiscount,
             });
          }
          if (war.coDefenders.has(province)) {
             result.multiply.push({
-               name: $t(L.XYWarCoDefender, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
+               name: $t(L.$1$2WarCoDefender, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
                value: CoDefenderWarPowerDiscount,
             });
          }
@@ -849,14 +849,14 @@ export function isProvinceGreatPower(province: Province, save: SaveGame): boolea
 
 export function isGreatPowerCondition(province: Province, save: SaveGame): ICondition {
    return {
-      name: $t(L.XIsAGreatPower, getProvinceName(province, save)),
+      name: $t(L.$1IsAGreatPower, getProvinceName(province, save)),
       value: isProvinceGreatPower(province, save),
    };
 }
 
 export function isNorGreatPowerCondition(province: Province, save: SaveGame): ICondition {
    return {
-      name: $t(L.XIsNotAGreatPower, getProvinceName(province, save)),
+      name: $t(L.$1IsNotAGreatPower, getProvinceName(province, save)),
       value: !isProvinceGreatPower(province, save),
    };
 }

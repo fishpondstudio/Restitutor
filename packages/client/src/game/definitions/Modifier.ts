@@ -161,9 +161,9 @@ export function modifierValueToString(data: Omit<IModifier, "name">): string {
 export function modifierDurationToString(duration: number): string {
    if (duration > 12 && duration % 12 === 0) {
       const years = Math.floor(duration / 12);
-      return $t(L.XYears, formatNumber(years));
+      return $t(L.$1Years, formatNumber(years));
    }
-   return $t(L.XMonths, formatNumber(duration));
+   return $t(L.$1Months, formatNumber(duration));
 }
 
 GameStateUpdated.on(() => {
@@ -175,7 +175,7 @@ GameStateUpdated.on(() => {
             safePush(state.dynamicModifiers, modifier, {
                type,
                value,
-               name: $t(L.XResearch, Tech[tech].name()),
+               name: $t(L.$1Research, Tech[tech].name()),
             });
          });
       });

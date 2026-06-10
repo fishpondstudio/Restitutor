@@ -77,10 +77,10 @@ export function DeclareWarAction(
                desc:
                   warCoalitions.length > 0
                      ? $t(
-                          L.WeAreInTheFollowingWarCoalitionsX,
+                          L.WeAreInTheFollowingWarCoalitions$1,
                           warCoalitions
                              .map((w) =>
-                                $t(L.XYWar, getProvinceName(w.attacker, save), getProvinceName(w.defender, save)),
+                                $t(L.$1$2War, getProvinceName(w.attacker, save), getProvinceName(w.defender, save)),
                              )
                              .join(", "),
                        )
@@ -89,7 +89,7 @@ export function DeclareWarAction(
             {
                name: $t(L.WeAreNotInATruceWithThem),
                value: truceMonthsLeft <= 0,
-               desc: truceMonthsLeft > 0 ? $t(L.TruceWillEndInXMonths, truceMonthsLeft) : undefined,
+               desc: truceMonthsLeft > 0 ? $t(L.TruceWillEndIn$1Months, truceMonthsLeft) : undefined,
             },
             isWithinDiplomaticRange(attacker, defender, save),
          ],
@@ -148,7 +148,7 @@ export function DeclareWarAction(
             {
                type: "WarStarted",
                content: $t(
-                  L.XDeclaredWarOnYWithTheGoalOfOccupyingZ,
+                  L.$1DeclaredWarOn$2WithTheGoalOfOccupying$3,
                   attacker,
                   defender,
                   Array.from(war.tiles)
@@ -176,19 +176,19 @@ export function getOneTimeConsequences(
       value: -WarOneTimeDiplomaticPoint,
    });
    result.push({
-      name: $t(L.XsAttitude, getProvinceName(defender, save)),
-      desc: $t(L.ForXYearsBecauseWeAreAttackingThem, "50"),
+      name: $t(L.$1sAttitude, getProvinceName(defender, save)),
+      desc: $t(L.For$1YearsBecauseWeAreAttackingThem, "50"),
       value: -100,
    });
    if (casusBelli === "None") {
       result.push({
          name: $t(L.AllProvincesAttitude),
-         desc: $t(L.ForXYearsDueToLackOfCasusBelli, "10"),
+         desc: $t(L.For$1YearsDueToLackOfCasusBelli, "10"),
          value: -50,
       });
       result.push({
          name: $t(L.Stability),
-         desc: $t(L.ForXYearsDueToLackOfCasusBelli, "10"),
+         desc: $t(L.For$1YearsDueToLackOfCasusBelli, "10"),
          value: -20,
       });
    }
@@ -207,7 +207,7 @@ export function doOneTimeConsequences(
       attacker,
       {
          type: "add",
-         name: $t(L.XDeclaredWarOnY, getProvinceName(attacker, save), getProvinceName(defender, save)),
+         name: $t(L.$1DeclaredWarOn$2, getProvinceName(attacker, save), getProvinceName(defender, save)),
          value: -100,
          duration: 12 * 50,
       },
@@ -223,7 +223,7 @@ export function doOneTimeConsequences(
             attacker,
             {
                type: "add",
-               name: $t(L.XDeclaredWarWithoutCasusBelli, getProvinceName(attacker, save)),
+               name: $t(L.$1DeclaredWarWithoutCasusBelli, getProvinceName(attacker, save)),
                value: -50,
                duration: 12 * 10,
             },
@@ -244,7 +244,7 @@ export function doOneTimeConsequences(
       addModifier({
          modifier: "WarPower",
          type: "multiply",
-         name: $t(L.XCasusBelli, CasusBelli.HumiliateRival.name()),
+         name: $t(L.$1CasusBelli, CasusBelli.HumiliateRival.name()),
          value: 0.1,
          duration: 12 * 5,
          province: attacker,
@@ -255,7 +255,7 @@ export function doOneTimeConsequences(
       addModifier({
          modifier: "WarPower",
          type: "multiply",
-         name: $t(L.XCasusBelli, CasusBelli.PublicEnemy.name()),
+         name: $t(L.$1CasusBelli, CasusBelli.PublicEnemy.name()),
          value: 0.2,
          duration: 12 * 2,
          province: attacker,
@@ -266,7 +266,7 @@ export function doOneTimeConsequences(
       addModifier({
          modifier: "Prestige",
          type: "multiply",
-         name: $t(L.XCasusBelli, CasusBelli.DiplomaticDispute.name()),
+         name: $t(L.$1CasusBelli, CasusBelli.DiplomaticDispute.name()),
          value: -0.1,
          duration: 12 * 5,
          province: attacker,
@@ -277,7 +277,7 @@ export function doOneTimeConsequences(
       addModifier({
          modifier: "Prestige",
          type: "multiply",
-         name: $t(L.XCasusBelli, CasusBelli.DemandRejected.name()),
+         name: $t(L.$1CasusBelli, CasusBelli.DemandRejected.name()),
          value: 0.1,
          duration: 12 * 5,
          province: attacker,

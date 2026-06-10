@@ -22,7 +22,7 @@ export function MakeGovernorGeneralAction(province: Province, save: SaveGame): I
                value: getCurrentGeneral(province, save) === undefined,
             },
             {
-               name: $t(L.OurGovernorIsAtLeastXYearsOld, "16"),
+               name: $t(L.OurGovernorIsAtLeast$1YearsOld, "16"),
                value: state.governor.male.age >= 16,
             },
          ],

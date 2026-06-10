@@ -58,7 +58,7 @@ export function timedActionConditions(
       const tech = TimedActions[action].tech;
       if (tech !== undefined) {
          result.push({
-            name: $t(L.XResearched, Tech[tech].name()),
+            name: $t(L.$1Researched, Tech[tech].name()),
             value: hasResearched(tech, province, save),
          });
       }
@@ -70,8 +70,8 @@ export function timedActionConditions(
          name: label,
          desc:
             cooldownLeft > 0
-               ? $t(L.XMonthsLeft, formatNumber(cooldownLeft))
-               : $t(L.CooldownXMonths, formatNumber(TimedActions[action].cooldown)),
+               ? $t(L.$1MonthsLeft, formatNumber(cooldownLeft))
+               : $t(L.Cooldown$1Months, formatNumber(TimedActions[action].cooldown)),
          value: cooldownLeft <= 0,
       });
    }

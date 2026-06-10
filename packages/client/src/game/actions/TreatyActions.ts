@@ -48,7 +48,7 @@ export function OfferDefensePactAction(fromProvince: Province, toProvince: Provi
          addChronicleEntry(
             {
                type: "DiplomaticTreaty",
-               content: $t(L.XAndYFormedADefensePact, fromProvince, toProvince),
+               content: $t(L.$1And$2FormedADefensePact, fromProvince, toProvince),
             },
             save,
          );
@@ -86,7 +86,7 @@ export function OfferAllianceAction(fromProvince: Province, toProvince: Province
          addChronicleEntry(
             {
                type: "DiplomaticTreaty",
-               content: $t(L.XAndYFormedAnAlliance, fromProvince, toProvince),
+               content: $t(L.$1And$2FormedAnAlliance, fromProvince, toProvince),
             },
             save,
          );
@@ -109,14 +109,14 @@ export function OfferPatronageAction(fromProvince: Province, toProvince: Provinc
             isWithinDiplomaticRange(fromProvince, toProvince, save),
             {
                name: $t(
-                  L.XSharesALandBorderWithY,
+                  L.$1SharesALandBorderWith$2,
                   getProvinceName(fromProvince, save),
                   getProvinceName(toProvince, save),
                ),
                value: getProvincesInRange(1, fromProvince, save).has(toProvince),
             },
             {
-               name: $t(L.XIsNotAClientOfAnyProvince, getProvinceName(toProvince, save)),
+               name: $t(L.$1IsNotAClientOfAnyProvince, getProvinceName(toProvince, save)),
                value: !isClientOfAnyProvince(toProvince, save),
             },
             requireMinimumAttitudeV2(toProvince, fromProvince, 100, save),
@@ -135,7 +135,7 @@ export function OfferPatronageAction(fromProvince: Province, toProvince: Provinc
          addChronicleEntry(
             {
                type: "DiplomaticTreaty",
-               content: $t(L.XBecameAClientOfY, toProvince, fromProvince),
+               content: $t(L.$1BecameAClientOf$2, toProvince, fromProvince),
             },
             save,
          );

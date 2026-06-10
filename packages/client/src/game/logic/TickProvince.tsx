@@ -140,7 +140,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
          const buttons = getEventButtons(event, province, save);
          if (buttons.length > 0) {
             const button = province === save.state.playerProvince ? buttons[0] : randOne(buttons);
-            applyGameEventButton(button, $t(L.XEvent, data.name()), province, save);
+            applyGameEventButton(button, $t(L.$1Event, data.name()), province, save);
          }
          state.events.delete(event);
       }

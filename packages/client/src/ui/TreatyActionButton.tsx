@@ -33,7 +33,7 @@ export function TreatyActionButton({
                   breakdown: [
                      {
                         name: $t(
-                           L.XHasAnActiveYWithZ,
+                           L.$1HasAnActive$2With$3,
                            getProvinceName(ourProvince, G.save),
                            TreatyNames[treaty](),
                            getProvinceName(theirProvince, G.save),
@@ -54,10 +54,10 @@ export function TreatyActionButton({
                         {modifierDurationToString(getTreatyMonthLeft(ourProvince, theirProvince, G.save))}
                      </div>
                   </div>
-                  <div className="h2">{$t(L.CancelX, TreatyNames[treaty]())}</div>
+                  <div className="h2">{$t(L.Cancel$1, TreatyNames[treaty]())}</div>
                   <div className="row mx10 my5">
                      {$t(
-                        L.CancellingXWillResultInYAttitudeTowardsZ,
+                        L.Cancelling$1WillResultIn$2$3AttitudeTowards$4,
                         TreatyNames[treaty](),
                         formatNumber(CancelTreatyPenalty[treaty].attitude),
                         getProvinceName(theirProvince, G.save),
@@ -70,7 +70,7 @@ export function TreatyActionButton({
             )}
             className="btn py2 red"
          >
-            {$t(L.CancelX, TreatyNames[treaty]())}
+            {$t(L.Cancel$1, TreatyNames[treaty]())}
          </ActionButton>
       );
    }
@@ -79,7 +79,7 @@ export function TreatyActionButton({
          action={OfferTreatyAction[treaty](ourProvince, theirProvince, G.save)}
          tooltip={(element) => (
             <>
-               <div className="h3">{$t(L.OfferX, TreatyNames[treaty]())}</div>
+               <div className="h3">{$t(L.Offer$1, TreatyNames[treaty]())}</div>
                {treaty === "Patron" && (
                   <>
                      <div className="mx10 my5">{$t(L.OfferingPatronageWillMakeThenOurClient)}</div>
@@ -95,7 +95,7 @@ export function TreatyActionButton({
          )}
          className="btn py2"
       >
-         {$t(L.OfferX, TreatyNames[treaty]())}
+         {$t(L.Offer$1, TreatyNames[treaty]())}
       </ActionButton>
    );
 }

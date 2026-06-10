@@ -29,7 +29,7 @@ export function DemandTileModal({ province }: { province: Province }): React.Rea
       <ModalComp
          size="sm"
          title={
-            <ModalTitleBar title={$t(L.DemandATileFromX, getProvinceName(province, G.save))} dismiss={!rollStarted} />
+            <ModalTitleBar title={$t(L.DemandATileFrom$1, getProvinceName(province, G.save))} dismiss={!rollStarted} />
          }
       >
          <div className="m10 text-sm">{html($t(L.DemandTileAsGreatPower))}</div>
@@ -134,7 +134,7 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
                      <div>{formatNumber(prestige.value)}</div>
                   </div>
                ))}
-               <div className="h2">{$t(L.TotalUpgradesOfX, getTileName(tile))}</div>
+               <div className="h2">{$t(L.TotalUpgradesOf$1, getTileName(tile))}</div>
                <div className="row mx10 my5">
                   <div className="f1">{$t(L.TotalUpgrades)}</div>
                   <div>{tileUpgrades}</div>
@@ -150,7 +150,7 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
                   tileData.province,
                   G.save.state.playerProvince,
                   {
-                     name: $t(L.XDemandedATile, getProvinceName(G.save.state.playerProvince, G.save)),
+                     name: $t(L.$1DemandedATile, getProvinceName(G.save.state.playerProvince, G.save)),
                      value: -50,
                      duration: TimedActions.DemandTile.duration,
                      type: "add",
@@ -177,7 +177,7 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
             addModifier({
                modifier: "Prestige",
                type: "multiply",
-               name: $t(L.DemandRejectedByX, getProvinceName(tileData.province, G.save)),
+               name: $t(L.DemandRejectedBy$1, getProvinceName(tileData.province, G.save)),
                value: -0.1,
                duration: TimedActions.DemandTile.duration,
                province: G.save.state.playerProvince,
@@ -202,7 +202,7 @@ function DemandAcceptedConsequences({ tile }: { tile: Tile }): React.ReactNode {
          <li>
             {html(
                $t(
-                  L.XShallCedeYToZ,
+                  L.$1ShallCede$2To$3,
                   getProvinceName(tileData.province, G.save),
                   getTileName(tile),
                   getProvinceName(G.save.state.playerProvince, G.save),
@@ -211,7 +211,7 @@ function DemandAcceptedConsequences({ tile }: { tile: Tile }): React.ReactNode {
          </li>
          <li>
             {$t(
-               L.XsAttitudeTowardsYIsDecreasedByZForPMonths,
+               L.$1sAttitudeTowards$2IsDecreasedBy$3For$4Months,
                getProvinceName(tileData.province, G.save),
                getProvinceName(G.save.state.playerProvince, G.save),
                "50",
@@ -232,7 +232,7 @@ function DemandRejectedConsequences({ tile }: { tile: Tile }): React.ReactNode {
          <li>
             {html(
                $t(
-                  L.XGetsAYCasusBelliAgainstZForPMonths,
+                  L.$1GetsA$2CasusBelliAgainst$3For$4Months,
                   getProvinceName(G.save.state.playerProvince, G.save),
                   CasusBelli.DemandRejected.name(),
                   getProvinceName(tileData.province, G.save),
@@ -242,7 +242,7 @@ function DemandRejectedConsequences({ tile }: { tile: Tile }): React.ReactNode {
          </li>
          <li>
             {$t(
-               L.XGetsYPrestigeForZMonths,
+               L.$1Gets$2PrestigeFor$3Months,
                getProvinceName(G.save.state.playerProvince, G.save),
                "-10%",
                formatNumber(TimedActions.DemandTile.duration),
@@ -250,7 +250,7 @@ function DemandRejectedConsequences({ tile }: { tile: Tile }): React.ReactNode {
          </li>
          <li>
             {$t(
-               L.XsAttitudeTowardsYIsDecreasedByZForPMonths,
+               L.$1sAttitudeTowards$2IsDecreasedBy$3For$4Months,
                getProvinceName(tileData.province, G.save),
                getProvinceName(G.save.state.playerProvince, G.save),
                "50",

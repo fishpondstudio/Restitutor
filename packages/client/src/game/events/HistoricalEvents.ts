@@ -504,7 +504,7 @@ export const HistoricalEvents = {
             },
             custom: [
                {
-                  desc: (province, save) => $t(L.GainReligiousWarCasusBelliForXYears, "10"),
+                  desc: (province, save) => $t(L.GainReligiousWarCasusBelliFor$1Years, "10"),
                   effect: (province, save) => {
                      const state = save.state.provinces[province];
                      if (!state) {

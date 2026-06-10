@@ -15,8 +15,10 @@ export function DeclareWarOnUsModal({ war }: { war: IWar }): React.ReactNode {
       .join(", ");
    return (
       <GenericEventModal
-         title={$t(L.XDeclaredWar, war.attacker)}
-         content={html($t(L.GovernorDeclaredWarOnUsDesc, war.attacker, CasusBelli[war.casusBelli].name(), warGoal))}
+         title={$t(L.$1DeclaredWar, war.attacker)}
+         content={html(
+            $t(L.GovernorDeclaredWarOnUsDesc$1$2$3, war.attacker, CasusBelli[war.casusBelli].name(), warGoal),
+         )}
          image={EventImage.DeclareWar.url}
          titleTooltip={<div className="m10">Image Credit: {EventImage.DeclareWar.credit}</div>}
          buttons={[

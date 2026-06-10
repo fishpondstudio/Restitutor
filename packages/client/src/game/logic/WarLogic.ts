@@ -168,7 +168,7 @@ function getCoAttackers(attacker: Province, defender: Province, save: SaveGame):
                         name: $t(L.TheirAttitudeTowardsUsIsHigherThanTheDefenders),
                         value: attitudeTowardsAttacker.value > attackerTowardsDefender.value,
                         desc: $t(
-                           L.AttitudeTowardsUsXAttitudeTowardsDefenderY,
+                           L.AttitudeTowardsUs$1AttitudeTowardsDefender$2,
                            formatNumber(attitudeTowardsAttacker.value),
                            formatNumber(attackerTowardsDefender.value),
                         ),
@@ -245,7 +245,7 @@ export function getWarScore(
          });
          if (casusBelli === "Reconquista" && data.originalProvince === attacker) {
             result.add.push({
-               name: $t(L.ReconquistaX, getTileName(tile)),
+               name: $t(L.Reconquista$1, getTileName(tile)),
                value: -0.5 * defense.value,
             });
          }
@@ -258,7 +258,7 @@ export function getWarScore(
    if (nonNeighborTileCount > 0) {
       result.multiply.push({
          name: $t(L.RemoteTiles),
-         desc: $t(L.XTilesNotBorderingOurProvince, formatNumber(nonNeighborTileCount)),
+         desc: $t(L.$1TilesNotBorderingOurProvince, formatNumber(nonNeighborTileCount)),
          value: 0.1 * nonNeighborTileCount,
       });
    }
@@ -267,7 +267,7 @@ export function getWarScore(
    result.multiply.push({
       name: $t(L.WarmongerPenalty),
       value: 1.05 ** warCount - 1,
-      desc: $t(L.EachWarStartedRaisesThePenaltyByXCompoundedCurrentlyYWarsStarted, "5%", formatNumber(warCount)),
+      desc: $t(L.EachWarStartedRaisesThePenaltyBy$1$2, "5%", formatNumber(warCount)),
    });
 
    if (!AreTilesContiguous(tiles)) {

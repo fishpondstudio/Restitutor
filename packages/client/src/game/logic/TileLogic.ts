@@ -48,7 +48,7 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
    const distanceFromCapital = getDistanceFromCapital(tile, save);
    breakdown.multiply.push({
       name: $t(L.DistanceFromCapital),
-      desc: $t(L.XTilesFromCapitalYPerTile, formatNumber(distanceFromCapital), "10%"),
+      desc: $t(L.$1TilesFromCapital$2PerTile, formatNumber(distanceFromCapital), "10%"),
       value: distanceFromCapital * 0.1,
    });
    if (isCapital(tile, save)) {
@@ -81,7 +81,7 @@ export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    breakdown.add.push({
       name: $t(L.Population),
-      desc: $t(L.XPerPopulationUpgrade, "1000"),
+      desc: $t(L.$1PerPopulationUpgrade, "1000"),
       value: data.population * 1000,
    });
    attachTileModifiers(data.modifiers.Manpower, breakdown);
@@ -116,19 +116,19 @@ export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (isSocialClassDissent("UpperClass", data.province, save)) {
       breakdown.multiply.push({
-         name: $t(L.XClassDissent, SocialClassNames.UpperClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
          value: SocialClassDissentEffectPct,
       });
    }
    if (isSocialClassDissent("MiddleClass", data.province, save)) {
       breakdown.multiply.push({
-         name: $t(L.XClassDissent, SocialClassNames.MiddleClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.MiddleClass()),
          value: SocialClassDissentEffectPct,
       });
    }
    if (isSocialClassDissent("LowerClass", data.province, save)) {
       breakdown.multiply.push({
-         name: $t(L.XClassDissent, SocialClassNames.LowerClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.LowerClass()),
          value: SocialClassDissentEffectPct,
       });
    }
@@ -140,7 +140,7 @@ export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
             if (MapGrid.distanceTile(tile, warTile) <= 1) {
                breakdown.multiply.push({
                   name: $t(L.FortifiedBorders),
-                  desc: $t(L.XMonthsLeft, formatNumber(fortifyBorders)),
+                  desc: $t(L.$1MonthsLeft, formatNumber(fortifyBorders)),
                   value: 1,
                });
                break;
@@ -152,7 +152,7 @@ export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    if (bankruptcy > 0) {
       breakdown.multiply.push({
          name: $t(L.Bankruptcy),
-         desc: $t(L.XMonthsLeft, formatNumber(bankruptcy)),
+         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
          value: BankruptcyRevenueReduction,
       });
    }
@@ -185,7 +185,7 @@ export function getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    breakdown.multiply.push({
       name: $t(L.Infrastructure),
-      desc: $t(L.XPerInfrastructureLevel, "1%"),
+      desc: $t(L.$1PerInfrastructureLevel, "1%"),
       value: data.infrastructure * 0.01,
    });
    if (data.terrain === "Mountain") {
@@ -226,17 +226,17 @@ export function getTileUnrest(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    breakdown.add.push({
       name: $t(L.Stability),
-      desc: $t(L.XStabilityReducesUnrestByY, "1", "1"),
+      desc: $t(L.$1StabilityReducesUnrestBy$2, "1", "1"),
       value: -getProvinceStability(data.province, save).value,
    });
    breakdown.add.push({
       name: $t(L.Population),
-      desc: $t(L.XUnrestPerPopulation, "+3"),
+      desc: $t(L.$1UnrestPerPopulation, "+3"),
       value: data.population * 3,
    });
    breakdown.add.push({
       name: $t(L.Production),
-      desc: $t(L.XUnrestPerProduction, "-2"),
+      desc: $t(L.$1UnrestPerProduction, "-2"),
       value: -2 * data.production,
    });
    if (isCapital(tile, save)) {
@@ -269,8 +269,8 @@ export function getTileUnrest(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    const conscription = getProvinceStat("actualConscription", data.province, save);
    breakdown.add.push({
-      name: $t(L.ConscriptionX, formatNumber(conscription)),
-      desc: $t(L.XUnrestPerYConscription, "0.5", "1%"),
+      name: $t(L.Conscription$1, formatNumber(conscription)),
+      desc: $t(L.$1UnrestPer$2Conscription, "0.5", "1%"),
       value: conscription * UnrestPerActualConscription,
    });
 
@@ -285,7 +285,7 @@ export function getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    breakdown.add.push({
       name: $t(L.Infrastructure),
-      desc: $t(L.XPerInfrastructureLevel, "2"),
+      desc: $t(L.$1PerInfrastructureLevel, "2"),
       value: data.infrastructure * 2,
    });
    attachTileModifiers(data.modifiers.LandTax, breakdown);
@@ -313,7 +313,7 @@ export function getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    if (bankruptcy > 0) {
       breakdown.multiply.push({
          name: $t(L.Bankruptcy),
-         desc: $t(L.XMonthsLeft, formatNumber(bankruptcy)),
+         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
          value: BankruptcyRevenueReduction,
       });
    }
@@ -331,19 +331,19 @@ export function getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (isSocialClassDissent("UpperClass", data.province, save)) {
       breakdown.multiply.push({
-         name: $t(L.XClassDissent, SocialClassNames.UpperClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
          value: SocialClassDissentEffectPct,
       });
    }
    if (isSocialClassDissent("MiddleClass", data.province, save)) {
       breakdown.multiply.push({
-         name: $t(L.XClassDissent, SocialClassNames.MiddleClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.MiddleClass()),
          value: SocialClassDissentEffectPct,
       });
    }
    if (isSocialClassDissent("LowerClass", data.province, save)) {
       breakdown.multiply.push({
-         name: $t(L.XClassDissent, SocialClassNames.LowerClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.LowerClass()),
          value: SocialClassDissentEffectPct,
       });
    }
@@ -399,7 +399,7 @@ export function getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    if (bankruptcy > 0) {
       breakdown.multiply.push({
          name: $t(L.Bankruptcy),
-         desc: $t(L.XMonthsLeft, formatNumber(bankruptcy)),
+         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
          value: BankruptcyRevenueReduction,
       });
    }
@@ -417,19 +417,19 @@ export function getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (isSocialClassDissent("UpperClass", data.province, save)) {
       breakdown.multiply.push({
-         name: $t(L.XClassDissent, SocialClassNames.UpperClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
          value: SocialClassDissentEffectPct,
       });
    }
    if (isSocialClassDissent("MiddleClass", data.province, save)) {
       breakdown.multiply.push({
-         name: $t(L.XClassDissent, SocialClassNames.MiddleClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.MiddleClass()),
          value: SocialClassDissentEffectPct,
       });
    }
    if (isSocialClassDissent("LowerClass", data.province, save)) {
       breakdown.multiply.push({
-         name: $t(L.XClassDissent, SocialClassNames.LowerClass()),
+         name: $t(L.$1ClassDissent, SocialClassNames.LowerClass()),
          value: SocialClassDissentEffectPct,
       });
    }
@@ -481,7 +481,7 @@ export function getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakd
    const distance = getDistanceFromCapital(tile, save);
    breakdown.add.push({
       name: $t(L.DistanceFromCapital),
-      desc: $t(L.XTilesFromCapitalYGoldPerTile, formatNumber(distance), formatNumber(MaintenanceCostPerTileDistance)),
+      desc: $t(L.$1TilesFromCapital$2GoldPerTile, formatNumber(distance), formatNumber(MaintenanceCostPerTileDistance)),
       value: distance * MaintenanceCostPerTileDistance,
    });
    if (data.culture === state.culture) {
@@ -503,7 +503,7 @@ export function getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakd
    if (unevenUpgrades > 0) {
       breakdown.multiply.push({
          name: $t(L.UnevenUpgrade),
-         desc: $t(L.UnevenUpgradeDesc, "10%", formatNumber(unevenUpgrades)),
+         desc: $t(L.UnevenUpgradeDesc$1$2, "10%", formatNumber(unevenUpgrades)),
          value: unevenUpgrades * 0.1,
       });
    }
@@ -512,7 +512,7 @@ export function getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakd
       breakdown.multiply.push({
          name: $t(L.FromStability),
          value: -clamp(stability, 0, 50) * 0.01,
-         desc: $t(L.XPerStabilityMaxYReduction, "1%", "50%"),
+         desc: $t(L.$1PerStabilityMax$2Reduction, "1%", "50%"),
       });
    }
    attachTileModifiers(data.modifiers.Maintenance, breakdown);
@@ -551,13 +551,13 @@ export function getTileMakeCoreCost(tile: Tile, save: SaveGame): IValueBreakdown
    const totalUpgrades = data.infrastructure + data.production + data.population;
    breakdown.add.push({
       name: $t(L.TileUpgrades),
-      desc: $t(L.XAdministrativePointsPerUpgrade, "10"),
+      desc: $t(L.$1AdministrativePointsPerUpgrade, "10"),
       value: totalUpgrades * 10,
    });
    const makeCoreCount = getProvinceStat("makeCoreCount", data.province, save);
    breakdown.multiply.push({
       name: $t(L.NumberOfCoresMade),
-      desc: $t(L.EachCoreMadeRaisesTheCostByXCompoundedYCoresHaveBeenMade, "20%", formatNumber(makeCoreCount)),
+      desc: $t(L.EachCoreMadeRaisesTheCostBy$1Compounded$2CoresHaveBeenMade, "20%", formatNumber(makeCoreCount)),
       value: 1.2 ** makeCoreCount - 1,
    });
    if (data.culture === state.culture) {
@@ -587,7 +587,7 @@ export function getTileUpgradeCost(tile: Tile, resource: GovernorPower, save: Sa
    breakdown.add.push({ name: $t(L.BaseValue), value: 50 });
    breakdown.multiply.push({
       name: $t(L.TileUpgrades),
-      desc: $t(L.TileUpgradesCostDesc, formatNumber(data.upgradeCount)),
+      desc: $t(L.TileUpgradesCostDesc$1, formatNumber(data.upgradeCount)),
       value: 1.2 ** data.upgradeCount - 1,
    });
    if (data.culture === state.culture) {
@@ -604,7 +604,7 @@ export function getTileUpgradeCost(tile: Tile, resource: GovernorPower, save: Sa
    if (bankruptcy > 0) {
       breakdown.multiply.push({
          name: $t(L.Bankruptcy),
-         desc: $t(L.XMonthsLeft, formatNumber(bankruptcy)),
+         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
          value: BankruptcyExpenseIncreasePct,
       });
    }
@@ -635,7 +635,7 @@ export function getTileBuildingCondition(
       tileIsOurCoreCondition(tile, province, save),
       {
          name: $t(L.TileHasAFreeBuildingSlot),
-         desc: $t(L.UsedTotalBuildingSlotsXY, formatNumber(buildingCount), formatNumber(buildingSlot.value)),
+         desc: $t(L.UsedTotalBuildingSlots$1$2, formatNumber(buildingCount), formatNumber(buildingSlot.value)),
          value: buildingSlot.value > buildingCount,
       },
       {
@@ -647,7 +647,7 @@ export function getTileBuildingCondition(
    const tech = getBuildingTech(building);
    if (tech) {
       breakdown.push({
-         name: $t(L.XResearched, Tech[tech].name()),
+         name: $t(L.$1Researched, Tech[tech].name()),
          value: hasResearched(tech, province, save),
       });
    }

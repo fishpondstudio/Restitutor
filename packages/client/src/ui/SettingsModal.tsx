@@ -124,7 +124,7 @@ export function SettingsModal(): React.ReactNode {
                className="btn"
                onClick={async () => {
                   const fileHandle = await saveToFile(G.save);
-                  showSuccess($t(L.GameSavedToFileX, fileHandle.name));
+                  showSuccess($t(L.GameSavedToFile$1, fileHandle.name));
                }}
             >
                {$t(L.SaveToFile)}

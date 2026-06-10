@@ -21,7 +21,7 @@ export const RandomEvents = {
             }
             return [
                {
-                  name: $t(L.XsGovernorIsAtLeastYYearsOld, getProvinceName(province, save), "20"),
+                  name: $t(L.$1sGovernorIsAtLeast$2YearsOld, getProvinceName(province, save), "20"),
                   value: governor.male.age >= 20,
                },
             ];

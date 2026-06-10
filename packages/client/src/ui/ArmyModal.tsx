@@ -86,7 +86,7 @@ export function ArmyModal(): React.ReactNode {
          <div className="row g5 mx10 my5">
             <div className="f1">{$t(L.ActualConscription)}</div>
             {targetConscription > actualConscription && (
-               <FloatingTip label={$t(L.ActualConscriptionIncreasingAtXPerMonth, "1%")}>
+               <FloatingTip label={$t(L.ActualConscriptionIncreasingAt$1PerMonth, "1%")}>
                   <div className="mi sm text-green">trending_up</div>
                </FloatingTip>
             )}
@@ -101,7 +101,7 @@ export function ArmyModal(): React.ReactNode {
          <div className="row g5 mx10 my5 text-display text-lg">
             <div className="f1">{$t(L.StandingArmy)}</div>
             {targetConscription > actualConscription && (
-               <FloatingTip label={$t(L.ActualConscriptionIncreasingAtXPerMonth, "1%")}>
+               <FloatingTip label={$t(L.ActualConscriptionIncreasingAt$1PerMonth, "1%")}>
                   <div className="mi sm text-green">trending_up</div>
                </FloatingTip>
             )}
@@ -200,7 +200,7 @@ export function ArmyModal(): React.ReactNode {
                      <TimedActionDescComp action="RecruitAGeneral" />
                      <div className="h2">{$t(L.MonthlyGoldCost)}</div>
                      <div className="mx10 my5">
-                        {$t(L.XArmyMaintenanceCost, formatPercentDelta(GeneralArmyMaintenancePct))}
+                        {$t(L.$1ArmyMaintenanceCost, formatPercentDelta(GeneralArmyMaintenancePct))}
                      </div>
                      {element}
                   </>
@@ -213,7 +213,9 @@ export function ArmyModal(): React.ReactNode {
                action={MakeGovernorGeneralAction(G.save.state.playerProvince, G.save)}
                tooltip={(element) => (
                   <>
-                     <div className="m10">{html($t(L.MakingGovernorGeneralDoesNotCostGold, "10%", "1", "1", "1"))}</div>
+                     <div className="m10">
+                        {html($t(L.MakingGovernorGeneralDoesNotCostGold$1$2$3$4, "10%", "1", "1", "1"))}
+                     </div>
                      {element}
                   </>
                )}
@@ -243,7 +245,7 @@ export function ArmyModal(): React.ReactNode {
             {getCurrentGeneral(G.save.state.playerProvince, G.save) === undefined && (
                <div className="text-yellow mb5">{$t(L.GeneralIsCurrentlyVacantConsiderAppointingAGeneral)}</div>
             )}
-            <FloatingTip label={html($t(L.OurGeneralWillAccumulateSkillPoints, "1"))}>
+            <FloatingTip label={html($t(L.OurGeneralWillAccumulateSkillPoints$1, "1"))}>
                <div className="row">
                   <div className="f1">{ProvinceResourceNames.generalSkillPoint()}</div>
                   <div>{getProvinceResource("generalSkillPoint", G.save.state.playerProvince, G.save)}</div>
@@ -293,7 +295,7 @@ export function ArmyModal(): React.ReactNode {
             {armyMaintenance > armyMorale && (
                <FloatingTip
                   label={$t(
-                     L.MoraleIsIncreasingAtXPerMonthToReachArmyMaintenance,
+                     L.MoraleIsIncreasingAt$1PerMonthToReachArmyMaintenance,
                      formatPercent(ArmyMoraleMonthlyIncrease / 100),
                   )}
                >

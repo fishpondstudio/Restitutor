@@ -32,9 +32,9 @@ export function WarMonthlyConsequences({
                <>
                   <div className="m10">
                      <i>
-                        {$t(L.MonthlyMilitaryPointDescription, "1")} {$t(L.IncreasesByXEveryYear, "1")}
+                        {$t(L.MonthlyMilitaryPointDescription$1, "1")} {$t(L.IncreasesBy$1EveryYear, "1")}
                      </i>{" "}
-                     {$t(L.EveryMonthMilitaryPointCost, "5")}
+                     {$t(L.EveryMonthMilitaryPointCost$1, "5")}
                   </div>
                   <div className="m10">
                      <table className="data-table">
@@ -66,7 +66,7 @@ export function WarMonthlyConsequences({
                <div className="f1">
                   <div>{$t(L.MilitaryPoint)}</div>
                   <div className="text-xs text-dimmed text-italic">
-                     {$t(L.MonthlyMilitaryPointDescription, "1")} {$t(L.IncreasesByXEveryYear, "1")}
+                     {$t(L.MonthlyMilitaryPointDescription$1, "1")} {$t(L.IncreasesBy$1EveryYear, "1")}
                   </div>
                </div>
                <div className="text-red">
@@ -81,8 +81,8 @@ export function WarMonthlyConsequences({
             label={
                <>
                   <div className="m10">
-                     <i>{$t(L.IncreasesByXEveryYear, formatNumber(calculateWarMonthlyStability(1, casusBelli)))}</i>{" "}
-                     {$t(L.EveryMonthStabilityCost, "5")}
+                     <i>{$t(L.IncreasesBy$1EveryYear, formatNumber(calculateWarMonthlyStability(1, casusBelli)))}</i>{" "}
+                     {$t(L.EveryMonthStabilityCost$1, "5")}
                   </div>
                   <div className="m10">
                      <table className="data-table">
@@ -115,7 +115,7 @@ export function WarMonthlyConsequences({
                   <div>{$t(L.Stability)}</div>
                   <div className="text-xs text-dimmed text-italic">
                      {casusBelli === "None" && $t(L.DueToLackOfCasusBelli)}{" "}
-                     {$t(L.IncreasesByXEveryYear, formatNumber(calculateWarMonthlyStability(1, casusBelli)))}
+                     {$t(L.IncreasesBy$1EveryYear, formatNumber(calculateWarMonthlyStability(1, casusBelli)))}
                   </div>
                </div>
                <div className="text-red">

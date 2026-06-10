@@ -117,7 +117,7 @@ export interface ITodo {
 function WarTodo(war: IWar, index: number): ITodo {
    return {
       id: `LeftPanel_OngoingWar_${index}`,
-      name: (save) => $t(L.XYWar, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
+      name: (save) => $t(L.$1$2War, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
       icon: (save) => {
          if (war.attacker === save.state.playerProvince) {
             const successChance = getWarSuccessChance(
@@ -199,8 +199,8 @@ const Rebellions: ITodo = {
       }
       return (
          <div className="m10">
-            {current.size > 0 && <div>{html($t(L.TilesCurrentlyInRebellionX, Array.from(current).join(", ")))}</div>}
-            {aboutTo.size > 0 && <div>{html($t(L.TilesAboutToRebelX, Array.from(aboutTo).join(", ")))}</div>}
+            {current.size > 0 && <div>{html($t(L.TilesCurrentlyInRebellion$1, Array.from(current).join(", ")))}</div>}
+            {aboutTo.size > 0 && <div>{html($t(L.TilesAboutToRebel$1, Array.from(aboutTo).join(", ")))}</div>}
             <div>{$t(L.ClickToViewDetails)}</div>
          </div>
       );
@@ -240,7 +240,7 @@ const EligibleForMarriage: ITodo = {
          return null;
       }
       return (
-         <div className="m10">{$t(L.WeHaveXFamilyMembersEligibleForMarriageClickToViewDetails, result.length)}</div>
+         <div className="m10">{$t(L.WeHave$1FamilyMembersEligibleForMarriageClickToViewDetails, result.length)}</div>
       );
    },
    onClick: (save) => {
@@ -281,7 +281,7 @@ const SocialClassDissent: ITodo = {
                      estimatedDissentTime === 0
                         ? $t(L.InDissent)
                         : estimatedDissentTime > 0 && Number.isFinite(estimatedDissentTime)
-                          ? $t(L.InXMonths, formatNumber(estimatedDissentTime))
+                          ? $t(L.In$1Months, formatNumber(estimatedDissentTime))
                           : "";
                   return (
                      <li key={sc}>
@@ -329,7 +329,7 @@ const ExpiringConsulPoints: ITodo = {
          return (
             <div className="m10">
                {$t(
-                  L.ExpiringConsulPointsTooltip,
+                  L.ExpiringConsulPointsTooltip$1$2,
                   getProvinceResource("consulPoint", save.state.playerProvince, save),
                   monthToNextYear(save),
                )}
@@ -418,7 +418,7 @@ const EnactedTruce: ITodo = {
                {result.map(([province, monthsLeft]) => (
                   <li key={province}>
                      {getProvinceName(save.state.playerProvince, save)}-{getProvinceName(province, save)} (
-                     {$t(L.XMonthsLeft, formatNumber(monthsLeft))})
+                     {$t(L.$1MonthsLeft, formatNumber(monthsLeft))})
                   </li>
                ))}
             </ul>
@@ -448,7 +448,7 @@ const IdleDiplomats: ITodo = {
       if (idleDiplomats <= 0) {
          return null;
       }
-      return <div className="m10">{$t(L.IdleDiplomatsTooltip, idleDiplomats)}</div>;
+      return <div className="m10">{$t(L.IdleDiplomatsTooltip$1, idleDiplomats)}</div>;
    },
    onClick: (save) => {},
 };
@@ -465,7 +465,7 @@ const OutstandingLoans: ITodo = {
       if (data.loans.length === 0) {
          return null;
       }
-      return <div className="m10">{$t(L.OutstandingLoansTooltip, data.loans.length)}</div>;
+      return <div className="m10">{$t(L.OutstandingLoansTooltip$1, data.loans.length)}</div>;
    },
    onClick: (save) => {
       showSidebar(<TreasuryPage />);
@@ -480,7 +480,9 @@ const OverextensionWarning: ITodo = {
       const overextension = getProvinceOverextension(save.state.playerProvince, save);
       if (overextension.value > 0) {
          return (
-            <div className="m10">{$t(L.WeHaveXOverextensionClickToViewDetails, formatNumber(overextension.value))}</div>
+            <div className="m10">
+               {$t(L.WeHave$1OverextensionClickToViewDetails, formatNumber(overextension.value))}
+            </div>
          );
       }
       return null;
@@ -503,7 +505,7 @@ const TechCanBeResearched: ITodo = {
          <div className="m10">
             {html(
                $t(
-                  L.WeHaveXTechsThatCanBeResearchedYClickToViewDetails,
+                  L.WeHave$1TechsThatCanBeResearched$2ClickToViewDetails,
                   techs.length,
                   techs.map((t) => Tech[t].name()).join(", "),
                ),
@@ -541,7 +543,7 @@ const CanAppointPontiff: ITodo = {
       if (result.length === 0) {
          return null;
       }
-      return <div className="m10">{$t(L.XCanBeAppointedClickToViewDetails, result.join(", "))}</div>;
+      return <div className="m10">{$t(L.$1CanBeAppointedClickToViewDetails, result.join(", "))}</div>;
    },
    onClick: (save) => {
       showModal(<GovernmentModal />);
@@ -583,7 +585,7 @@ const CanMakeCore: ITodo = {
       if (tiles.size === 0) return null;
       return (
          <div className="m10">
-            {html($t(L.TilesThatAreNotOurCoreXClickToViewDetails, Array.from(tiles).join(", ")))}
+            {html($t(L.TilesThatAreNotOurCore$1ClickToViewDetails, Array.from(tiles).join(", ")))}
          </div>
       );
    },
@@ -613,7 +615,7 @@ const AvailableProductionCapacity: ITodo = {
       return (
          <div className="m10">
             {$t(
-               L.WeHaveXAvailableProductionCapacityClickToViewDetails,
+               L.WeHave$1AvailableProductionCapacityClickToViewDetails,
                formatNumber(totalCapacity.value - usedCapacity),
             )}
          </div>
@@ -680,7 +682,7 @@ const TreatiesAboutToExpire: ITodo = {
       if (treaties.length === 0) return null;
       return (
          <div className="m10">
-            {html($t(L.TheFollowingDiplomaticTreatiesAreAboutToExpireInLessThanXMonthsY, "6", treaties.join(", ")))}
+            {html($t(L.TheFollowingDiplomaticTreatiesAreAboutToExpire$1$2, "6", treaties.join(", ")))}
          </div>
       );
    },
@@ -710,7 +712,7 @@ const PendingGameEvent: ITodo = {
       for (const [event, data] of state.events) {
          return (
             <div className="m10">
-               {$t(L.PendingGameEventAutoDecideInXMonths, formatNumber(PendingGameEventTimeoutMonths))}
+               {$t(L.PendingGameEventAutoDecideIn$1Months, formatNumber(PendingGameEventTimeoutMonths))}
             </div>
          );
       }

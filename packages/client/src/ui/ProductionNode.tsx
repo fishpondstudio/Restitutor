@@ -45,7 +45,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                <>
                   {insufficientInput.size > 0 && (
                      <div className="m10 text-red">
-                        {html($t(L.XProductionIsHaltedBecauseTheFollowingGoodsAreInsufficient, config.name()))}{" "}
+                        {html($t(L.$1ProductionIsHaltedBecauseTheFollowingGoodsAreInsufficient, config.name()))}{" "}
                         <i>
                            {Array.from(insufficientInput)
                               .map(([g, amount]) => `${Goods[g].name()} (${formatNumber(amount)})`)
@@ -54,7 +54,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                         .
                      </div>
                   )}
-                  <div className="h2">{$t(L.XProduction, config.name())}</div>
+                  <div className="h2">{$t(L.$1Production, config.name())}</div>
                   <div className="h5"></div>
                   {sizeOf(Goods[data.goods].input) > 0 && (
                      <>
@@ -84,7 +84,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                   <div className="h5"></div>
                   <div className="h2">{$t(L.GoodsTax)}</div>
                   <div className="row mx10 my5">
-                     <div className="f1">{$t(L.PriceOfX, config.name())}</div>
+                     <div className="f1">{$t(L.PriceOf$1, config.name())}</div>
                      <div>
                         {formatNumber(Price[data.goods])} {$t(L.Gold)}
                      </div>
@@ -113,7 +113,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                         <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
                      </div>
                   </div>
-                  <div className="h2">{$t(L.XStorage, config.name())}</div>
+                  <div className="h2">{$t(L.$1Storage, config.name())}</div>
                   <div className="row mx10 my5">
                      <div className="f1">{$t(L.Storage)}</div>
                      <div>{formatNumber(getProvinceResource(data.goods, G.save.state.playerProvince, G.save))}</div>
@@ -158,7 +158,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                <FloatingTip
                   w={300}
                   label={
-                     <>{html($t(L.UnlockXProductionByResearchingY, config.name(), tech ? Tech[tech].name() : ""))}</>
+                     <>{html($t(L.Unlock$1ProductionByResearching$2, config.name(), tech ? Tech[tech].name() : ""))}</>
                   }
                >
                   <div className="mi cc" style={{ margin: 4 }}>

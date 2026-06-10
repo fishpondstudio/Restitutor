@@ -140,7 +140,7 @@ export function InternalAffairsPage(): React.ReactNode {
          </BreakdownTooltip>
          <div className="divider" />
          <div className="m10">
-            <FloatingTip label={html($t(L.SettleUnrestAutomaticallyEveryMonth, "0"))}>
+            <FloatingTip label={html($t(L.SettleUnrestAutomaticallyEveryMonth$1, "0"))}>
                <div className="row my5">
                   <div className="f1">{$t(L.AutomaticallySettleUnrest)}</div>
                   <Switch
@@ -168,7 +168,7 @@ export function InternalAffairsPage(): React.ReactNode {
                   <div className="m10">
                      {html(
                         $t(
-                           L.EveryXTilesAnnexedAndCoredGrant1RestorationEachRestorationGrantsYGoverningCapacity,
+                           L.EveryTilesAnnexedAndCoredGrantRestoration$1$2,
                            TilesPerRestoration,
                            governingCapacityPerRestoration.value,
                         ),
@@ -343,7 +343,7 @@ export function InternalAffairsPage(): React.ReactNode {
                   <div className="row mx10 my5">
                      <div className="f1">{$t(L.Autonomy)}</div>
                      <div className="row g5">
-                        <FloatingTip label={$t(L.SetTileAutonomyToX, "0")}>
+                        <FloatingTip label={$t(L.SetTileAutonomyTo$1, "0")}>
                            <button
                               className="btn text-xs"
                               onClick={() => {
@@ -355,7 +355,7 @@ export function InternalAffairsPage(): React.ReactNode {
                               {$t(L.Reset)}
                            </button>
                         </FloatingTip>
-                        <FloatingTip label={$t(L.SettlingUnrestAdjustsAutonomySoThatTileUnrestIsAtMostX, "0")}>
+                        <FloatingTip label={$t(L.SettlingUnrestAdjustsAutonomySoThatTileUnrestIsAtMost$1, "0")}>
                            <button
                               className="btn text-xs"
                               onClick={() => {

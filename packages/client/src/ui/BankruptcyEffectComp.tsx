@@ -14,7 +14,7 @@ export function BankruptcyEffectComp({ province }: { province: Province }): Reac
       <>
          <div className="m10">
             {$t(
-               L.OurBankruptcyHasXMonthsLeftWithTheFollowingEffects,
+               L.OurBankruptcyHas$1MonthsLeftWithTheFollowingEffects,
                getTimedActionTimeLeft("Bankruptcy", province, G.save),
             )}
          </div>

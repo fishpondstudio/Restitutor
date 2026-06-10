@@ -18,19 +18,19 @@ export function getDeathChance(governor: IPerson, province: Province, save: Save
    const age = governor.age;
    const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
    breakdown.add.push({
-      name: $t(L.AgeAboveX, "30"),
+      name: $t(L.AgeAbove$1, "30"),
       value: 0.5 * clamp(age - 30, 0, 100),
-      desc: $t(L.XPerAgeAboveY, "0.5", "30"),
+      desc: $t(L.$1PerAgeAbove$2, "0.5", "30"),
    });
    breakdown.add.push({
-      name: $t(L.AgeAboveX, "40"),
+      name: $t(L.AgeAbove$1, "40"),
       value: 1 * clamp(age - 40, 0, 100),
-      desc: $t(L.XPerAgeAboveY, "1", "40"),
+      desc: $t(L.$1PerAgeAbove$2, "1", "40"),
    });
    breakdown.add.push({
-      name: $t(L.AgeAboveX, "50"),
+      name: $t(L.AgeAbove$1, "50"),
       value: 1.5 * clamp(age - 50, 0, 100),
-      desc: $t(L.XPerAgeAboveY, "1.5", "50"),
+      desc: $t(L.$1PerAgeAbove$2, "1.5", "50"),
    });
 
    if (hasFlag(governor.flag, PersonFlags.IsGeneral)) {
@@ -49,39 +49,39 @@ export function getOffspringChance(family: IFamily, province: Province, save: Sa
       return finalizeBreakdown(breakdown);
    }
    if (family.male.age < MinimumOffspringAge) {
-      breakdown.add.push({ name: $t(L.HusbandsAgeBelowX, "15"), value: 0 });
+      breakdown.add.push({ name: $t(L.HusbandsAgeBelow$1, "15"), value: 0 });
       return finalizeBreakdown(breakdown);
    }
    if (family.female.age < MinimumOffspringAge) {
-      breakdown.add.push({ name: $t(L.WifesAgeBelowX, "15"), value: 0 });
+      breakdown.add.push({ name: $t(L.WifesAgeBelow$1, "15"), value: 0 });
       return finalizeBreakdown(breakdown);
    }
    // Only apply Fertile trait of the governor!
    if (family.male === save.state.provinces[province]?.governor.male && family.male.traits.has("Fertile")) {
-      breakdown.add.push({ name: $t(L.GovernorsTraitX, PersonTrait.Fertile.name()), value: 2 });
+      breakdown.add.push({ name: $t(L.GovernorsTrait$1, PersonTrait.Fertile.name()), value: 2 });
    }
    const age = family.female.age;
    if (age >= 15 && age <= 35) {
       breakdown.add.push({
-         name: $t(L.WifesAgeFromXToY, "15", "35"),
+         name: $t(L.WifesAgeFrom$1To$2, "15", "35"),
          value: 10,
-         desc: $t(L.XWhenAgeIsInThisAgeRange, "10"),
+         desc: $t(L.$1WhenAgeIsInThisAgeRange, "10"),
       });
       return finalizeBreakdown(breakdown);
    }
    if (age >= 36 && age <= 45) {
       breakdown.add.push({
-         name: $t(L.WifesAgeFromXToY, "36", "45"),
+         name: $t(L.WifesAgeFrom$1To$2, "36", "45"),
          value: 5,
-         desc: $t(L.XWhenAgeIsInThisAgeRange, "5"),
+         desc: $t(L.$1WhenAgeIsInThisAgeRange, "5"),
       });
       return finalizeBreakdown(breakdown);
    }
    if (age > 45) {
       breakdown.add.push({
-         name: $t(L.WifesAgeAboveX, "45"),
+         name: $t(L.WifesAgeAbove$1, "45"),
          value: 1,
-         desc: $t(L.XWhenAgeIsInThisAgeRange, "1"),
+         desc: $t(L.$1WhenAgeIsInThisAgeRange, "1"),
       });
       return finalizeBreakdown(breakdown);
    }

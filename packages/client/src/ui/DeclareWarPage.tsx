@@ -36,7 +36,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
    }
    const casusBelli: ComboboxItem[] = [
       ...Array.from(relation.casusBelli).map(([cb, data]) => ({
-         label: $t(L.XYMonthsLeft, CasusBelli[cb].name(), formatNumber(data.monthsLeft)),
+         label: $t(L.$1$2MonthsLeft, CasusBelli[cb].name(), formatNumber(data.monthsLeft)),
          value: cb,
       })),
    ];
@@ -138,7 +138,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
                   {successChance - failChance <= 0 ? (
                      <span className="text-red">{$t(L.Never)}</span>
                   ) : (
-                     $t(L.XMonths, formatNumber(Math.ceil(warScore.value / (successChance - failChance))))
+                     $t(L.$1Months, formatNumber(Math.ceil(warScore.value / (successChance - failChance))))
                   )}
                </div>
             </div>
@@ -216,7 +216,7 @@ export function WarChanceTooltip({
    return (
       <>
          {$t(
-            L.WarChanceTooltip,
+            L.WarChanceTooltip$1$2$3$4$5,
             formatPercent(successChance),
             "1",
             formatPercent(failChance),

@@ -29,7 +29,7 @@ export function getMonthlyInterestRate(province: Province, save: SaveGame): IVal
    if (bankruptcy > 0) {
       breakdown.multiply.push({
          name: $t(L.Bankruptcy),
-         desc: $t(L.XMonthsLeft, formatNumber(bankruptcy)),
+         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
          value: BankruptcyExpenseIncreasePct,
       });
    }
@@ -60,7 +60,7 @@ export function canTakeLoan(province: Province, save: SaveGame): IConditionBreak
       breakdown: [
          {
             name: $t(L.WeHaveEnoughRevenueToCoverTheInterestCost),
-            desc: $t(L.RevenueXInterestCostY, formatNumber(revenue), formatNumber(totalInterest)),
+            desc: $t(L.Revenue$1InterestCost$2, formatNumber(revenue), formatNumber(totalInterest)),
             value: revenue >= totalInterest,
          },
       ],

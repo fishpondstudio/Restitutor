@@ -22,7 +22,7 @@ export function attachModifiers(
       for (const modifier of modifiers) {
          breakdown[modifier.type].push({
             name: modifier.name,
-            desc: Number.isFinite(modifier.duration) ? $t(L.XMonthsLeft, formatNumber(modifier.duration)) : undefined,
+            desc: Number.isFinite(modifier.duration) ? $t(L.$1MonthsLeft, formatNumber(modifier.duration)) : undefined,
             value: modifier.value,
          });
       }
@@ -58,7 +58,7 @@ export function attachTileModifiers(modifiers: IModifier[] | undefined, breakdow
       for (const modifier of modifiers) {
          breakdown[modifier.type].push({
             name: modifier.name,
-            desc: Number.isFinite(modifier.duration) ? $t(L.XMonthsLeft, formatNumber(modifier.duration)) : undefined,
+            desc: Number.isFinite(modifier.duration) ? $t(L.$1MonthsLeft, formatNumber(modifier.duration)) : undefined,
             value: modifier.value,
          });
       }

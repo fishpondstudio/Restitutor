@@ -51,7 +51,7 @@ export function getGameEffectDesc(button: IGameEffect, province: Province, save:
    return (
       <>
          {button.provinceUpgrades?.map((upgrade) => (
-            <div key={upgrade}>{$t(L.EnactX, ProvinceUpgrades[upgrade].name())}</div>
+            <div key={upgrade}>{$t(L.Enact$1, ProvinceUpgrades[upgrade].name())}</div>
          ))}
          {button.resources &&
             mapOf(button.resources, (resource, amount) => (
@@ -71,7 +71,7 @@ export function getGameEffectDesc(button: IGameEffect, province: Province, save:
             mapOf(filterProvinces(button.attitudes, province, save), (fromProvince, modifier) => (
                <div key={fromProvince}>
                   {$t(
-                     L.XYAttitudeTowardsUsForZ,
+                     L.$1$2AttitudeTowardsUsFor$3,
                      modifierValueToString(modifier),
                      getProvinceName(fromProvince, save),
                      modifierDurationToString(modifier.duration),
@@ -81,14 +81,14 @@ export function getGameEffectDesc(button: IGameEffect, province: Province, save:
          {button.infiltration &&
             mapOf(filterProvinces(button.infiltration, province, save), (fromProvince, amount) => (
                <div key={fromProvince}>
-                  {$t(L.XInfiltrationToY, formatDelta(amount), getProvinceName(fromProvince, save))}
+                  {$t(L.$1InfiltrationTo$2, formatDelta(amount), getProvinceName(fromProvince, save))}
                </div>
             ))}
          {button.casusBelli &&
             mapOf(filterProvinces(button.casusBelli, province, save), (fromProvince, data) => (
                <div key={fromProvince}>
                   {$t(
-                     L.GainXCasusBelliAgainstYForZ,
+                     L.Gain$1CasusBelliAgainst$2For$3,
                      CasusBelli[data.casusBelli].name(),
                      getProvinceName(fromProvince, save),
                      modifierDurationToString(data.duration),
@@ -101,7 +101,7 @@ export function getGameEffectDesc(button: IGameEffect, province: Province, save:
                return (
                   <div key={fromProvince}>
                      {$t(
-                        L.ATradeWithXWeOfferYTheyOfferZIsArranged,
+                        L.ATradeWith$1WeOffer$2$3TheyOffer$4$5IsArranged$6,
                         getProvinceName(fromProvince, save),
                         formatNumber(trade.weOfferAmount),
                         offer.weOffer === "gold" ? ProvinceResourceNames.gold() : Goods[offer.weOffer].name(),

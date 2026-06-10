@@ -53,11 +53,14 @@ export function DemandTribute({ province }: { province: Province }): React.React
       <ModalComp
          size="sm"
          title={
-            <ModalTitleBar title={$t(L.DemandTributeFromX, getProvinceName(province, G.save))} dismiss={!rollStarted} />
+            <ModalTitleBar
+               title={$t(L.DemandTributeFrom$1, getProvinceName(province, G.save))}
+               dismiss={!rollStarted}
+            />
          }
       >
          <div className="m10 text-sm">{html($t(L.AsAGreatPowerWeCanDemandATributeFromAnotherProvince))}</div>
-         <div className="box p10 m10 text-xl text-center">{$t(L.XGold, formatNumber(tributeAmount))}</div>
+         <div className="box p10 m10 text-xl text-center">{$t(L.$1Gold, formatNumber(tributeAmount))}</div>
          <DiceRollComp
             chance={acceptChance}
             chanceTooltip={
@@ -106,7 +109,7 @@ export function DemandTribute({ province }: { province: Province }): React.React
                      province,
                      G.save.state.playerProvince,
                      {
-                        name: $t(L.XDemandedATribute, getProvinceName(G.save.state.playerProvince, G.save)),
+                        name: $t(L.$1DemandedATribute, getProvinceName(G.save.state.playerProvince, G.save)),
                         value: -20,
                         duration: TimedActions.DemandTribute.duration,
                         type: "add",
@@ -117,10 +120,10 @@ export function DemandTribute({ province }: { province: Province }): React.React
             }}
             acceptTooltip={
                <ul className="m10">
-                  <li>{$t(L.XGold, formatNumber(tributeAmount))}</li>
+                  <li>{$t(L.$1Gold, formatNumber(tributeAmount))}</li>
                   <li>
                      {$t(
-                        L.XsAttitudeTowardsYIsDecreasedByZForPMonths,
+                        L.$1sAttitudeTowards$2IsDecreasedBy$3For$4Months,
                         getProvinceName(province, G.save),
                         getProvinceName(G.save.state.playerProvince, G.save),
                         "20",
@@ -137,10 +140,10 @@ export function DemandTribute({ province }: { province: Province }): React.React
             }}
             rejectTooltip={
                <ul className="m10">
-                  <li>{$t(L.XPrestigeForYMonths, "-10%", formatNumber(TimedActions.DemandTribute.duration))}</li>
+                  <li>{$t(L.$1PrestigeFor$2Months, "-10%", formatNumber(TimedActions.DemandTribute.duration))}</li>
                   <li>
                      {$t(
-                        L.XsAttitudeTowardsYIsDecreasedByZForPMonths,
+                        L.$1sAttitudeTowards$2IsDecreasedBy$3For$4Months,
                         getProvinceName(province, G.save),
                         getProvinceName(G.save.state.playerProvince, G.save),
                         "20",
@@ -154,7 +157,7 @@ export function DemandTribute({ province }: { province: Province }): React.React
                addModifier({
                   modifier: "Prestige",
                   type: "multiply",
-                  name: $t(L.DemandRejectedByX, getProvinceName(province, G.save)),
+                  name: $t(L.DemandRejectedBy$1, getProvinceName(province, G.save)),
                   value: -0.1,
                   duration: TimedActions.DemandTribute.duration,
                   province: G.save.state.playerProvince,

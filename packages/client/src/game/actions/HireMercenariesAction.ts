@@ -23,7 +23,7 @@ export function HireMercenariesAction(war: IWar, province: Province, save: SaveG
                name: $t(L.TargetConscriptionIsGreaterThanActualConscription),
                value: actualConscription < targetConscription,
                desc: $t(
-                  L.TargetConscriptionXActualConscriptionYReinforceSizeZ,
+                  L.TargetConscription$1ActualConscription$2ReinforceSize$3,
                   targetConscription,
                   actualConscription,
                   formatNumber(reinforceSize),

@@ -37,7 +37,7 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
                <div className="m10">{getGameEventButtonDesc(button, G.save.state.playerProvince, G.save)}</div>
                <div className="divider" />
                <div className="text-xs text-dimmed m10">
-                  {$t(L.GameEventDecisionTimeoutWarning, formatNumber(PendingGameEventTimeoutMonths))}
+                  {$t(L.GameEventDecisionTimeoutWarning$1, formatNumber(PendingGameEventTimeoutMonths))}
                </div>
             </>
          }
@@ -48,7 +48,7 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
                return;
             }
             if (state.events.has(event)) {
-               applyGameEventButton(button, $t(L.XEvent, data.name()), G.save.state.playerProvince, G.save);
+               applyGameEventButton(button, $t(L.$1Event, data.name()), G.save.state.playerProvince, G.save);
                state.events.delete(event);
                GameStateUpdated.emit();
             }

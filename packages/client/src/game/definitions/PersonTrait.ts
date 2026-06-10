@@ -13,48 +13,48 @@ export type PersonTrait = keyof typeof PersonTrait;
 export const PersonTrait = {
    Diligent: {
       name: () => $t(L.PersonTraitDiligent),
-      desc: () => $t(L.XLandTax, "+2%"),
+      desc: () => $t(L.$1LandTax, "+2%"),
    },
    Methodical: {
       name: () => $t(L.PersonTraitMethodical),
-      desc: () => $t(L.XTileOutput, "+2%"),
+      desc: () => $t(L.$1TileOutput, "+2%"),
    },
    Robust: {
       name: () => $t(L.PersonTraitRobust),
-      desc: () => $t(L.XManpower, "+2%"),
+      desc: () => $t(L.$1Manpower, "+2%"),
    },
    Steadfast: {
       name: () => $t(L.PersonTraitSteadfast),
-      desc: () => $t(L.XTileDefense, "+2%"),
+      desc: () => $t(L.$1TileDefense, "+2%"),
    },
    Prudent: {
       name: () => $t(L.PersonTraitPrudent),
-      desc: () => $t(L.XArmyMaintenanceCost, "-2%"),
+      desc: () => $t(L.$1ArmyMaintenanceCost, "-2%"),
    },
    Efficient: {
       name: () => $t(L.PersonTraitEfficient),
-      desc: () => $t(L.XTileMaintenanceCost, "-2%"),
+      desc: () => $t(L.$1TileMaintenanceCost, "-2%"),
    },
    Bold: {
       name: () => $t(L.PersonTraitBold),
-      desc: () => $t(L.XWarPower, "+2%"),
+      desc: () => $t(L.$1WarPower, "+2%"),
    },
    Distinguished: {
       name: () => $t(L.PersonTraitDistinguished),
-      desc: () => $t(L.XPrestige, "+2%"),
+      desc: () => $t(L.$1Prestige, "+2%"),
    },
    Calm: {
       name: () => $t(L.PersonTraitCalm),
-      desc: () => $t(L.XStability, "+2"),
+      desc: () => $t(L.$1Stability, "+2"),
    },
    // Governor-only traits
    Thrifty: {
       name: () => $t(L.PersonTraitThrifty),
-      desc: () => $t(L.XMonthlyAdvisorCost, "-2%"),
+      desc: () => $t(L.$1MonthlyAdvisorCost, "-2%"),
    },
    Fertile: {
       name: () => $t(L.PersonTraitFertile),
-      desc: () => $t(L.XOffspringChance, "+2%"),
+      desc: () => $t(L.$1OffspringChance, "+2%"),
    },
 } as const satisfies Record<string, IPersonTrait>;
 
@@ -75,7 +75,7 @@ export function getProvinceTraits(
    governor.traits.forEach((t) => {
       if (trait === t) {
          result.push({
-            name: $t(L.GovernorsTraitX, PersonTrait[t].name()),
+            name: $t(L.GovernorsTrait$1, PersonTrait[t].name()),
             desc: governor.name.join(" "),
          });
       }
@@ -86,7 +86,7 @@ export function getProvinceTraits(
          selected.traits.forEach((t) => {
             if (trait === t) {
                result.push({
-                  name: $t(L.AdvisorsTraitX, PersonTrait[t].name()),
+                  name: $t(L.AdvisorsTrait$1, PersonTrait[t].name()),
                   desc: selected.name,
                });
             }

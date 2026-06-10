@@ -11,7 +11,7 @@ export function WarTooltip({ war }: { war: IWar }): React.ReactNode {
    const estimatedTimeLeft = Math.ceil((war.requiredWarScore - war.actualWarScore) / (successChance - failChance));
    return (
       <>
-         <div className="h2">{$t(L.XYWar, war.attacker, war.defender)}</div>
+         <div className="h2">{$t(L.$1$2War, war.attacker, war.defender)}</div>
          <div className="row mx10 my5">
             <div className="f1">{$t(L.Attacker)}</div>
             <div>
@@ -54,7 +54,7 @@ export function WarTooltip({ war }: { war: IWar }): React.ReactNode {
          <div className="divider my10" />
          <div className="row mx10 my5">
             <div className="f1">{$t(L.LengthOfTheWar)}</div>
-            <div>{$t(L.XMonths, formatNumber(war.log.length))}</div>
+            <div>{$t(L.$1Months, formatNumber(war.log.length))}</div>
          </div>
          <div className="row mx10 my5">
             <div className="f1">{$t(L.EstTimeLeft)}</div>
@@ -62,23 +62,23 @@ export function WarTooltip({ war }: { war: IWar }): React.ReactNode {
                {successChance - failChance <= 0 ? (
                   <span className="text-red">{$t(L.Never)}</span>
                ) : (
-                  <>{$t(L.XMonths, formatNumber(estimatedTimeLeft))}</>
+                  <>{$t(L.$1Months, formatNumber(estimatedTimeLeft))}</>
                )}
             </div>
          </div>
          {war.actualWarScore >= war.requiredWarScore && (
             <div className="mx10 my5 text-green">
-               {$t(L.XHasWonTheWarAfterYMonths, war.attacker, formatNumber(war.log.length))}
+               {$t(L.$1HasWonTheWarAfter$2Months, war.attacker, formatNumber(war.log.length))}
             </div>
          )}
          {successChance < 0.5 && (
             <div className="mx10 my5 text-red">
-               {$t(L.XIsNotExpectedToWinDueToLessThanA50ChanceOfASuccessfulAttack, war.attacker)}
+               {$t(L.$1IsNotExpectedToWinDueToLessThanA50ChanceOfASuccessfulAttack, war.attacker)}
             </div>
          )}
          {isWarStalled(war, G.save) && (
             <div className="mx10 my5 text-yellow">
-               {$t(L.WarIsStalledDueToInsufficientMilitaryPointsFromX, war.attacker)}
+               {$t(L.WarIsStalledDueToInsufficientMilitaryPointsFrom$1, war.attacker)}
             </div>
          )}
       </>

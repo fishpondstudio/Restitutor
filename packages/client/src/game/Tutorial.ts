@@ -102,7 +102,7 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "ReachDiplomaticPoint",
-      name: () => $t(L.ReachXDiplomaticPoints, "50"),
+      name: () => $t(L.Reach$1DiplomaticPoints, "50"),
       desc: () => $t(L.Reach50DiplomaticPointsDesc),
       progress: (save) => {
          return [getProvinceResource("diplomatic", save.state.playerProvince, save), 50];
@@ -256,7 +256,7 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "ReachMilitaryPoints",
-      name: () => $t(L.ReachXMilitaryPoints, "300"),
+      name: () => $t(L.Reach$1MilitaryPoints, "300"),
       desc: () => $t(L.Reach300MilitaryPointsDesc),
       progress: (save) => {
          return [getProvinceResource("military", save.state.playerProvince, save), 300];

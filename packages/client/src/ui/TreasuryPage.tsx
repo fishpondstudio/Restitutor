@@ -91,7 +91,7 @@ export function TreasuryPage(): React.ReactNode {
                   },
                }}
             >
-               {$t(L.TakeALoanXGold, formatNumber(getLoanAmount(province, G.save)))}
+               {$t(L.TakeALoan$1Gold, formatNumber(getLoanAmount(province, G.save)))}
             </ActionButton>
          </div>
          {state.loans.map((loan, index) => (

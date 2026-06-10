@@ -41,7 +41,7 @@ export function getAttitudeTowards(fromProvince: Province, toProvince: Province,
    const sharedRivals = fromProvinceData.rivals.filter((r) => r !== null && toProvinceData.rivals.includes(r));
    if (sharedRivals.length > 0) {
       breakdown.add.push({
-         name: $t(L.XSharedRivals, formatNumber(sharedRivals.length)),
+         name: $t(L.$1SharedRivals, formatNumber(sharedRivals.length)),
          value: sharedRivals.length * 10,
       });
    }
@@ -50,7 +50,7 @@ export function getAttitudeTowards(fromProvince: Province, toProvince: Province,
       breakdown.add.push({
          name: $t(L.MarriageAlliance),
          desc: $t(
-            L.XYAndZP,
+            L.$1$2And$3$4,
             family.male.name.join(" "),
             getProvinceName(family.male.province, save),
             family.female.name.join(" "),
@@ -71,7 +71,7 @@ export function getAttitudeTowards(fromProvince: Province, toProvince: Province,
    getAttitudeModifier(fromProvince, toProvince, save).forEach((modifier) => {
       breakdown[modifier.type].push({
          name: modifier.name,
-         desc: $t(L.XMonthsLeft, formatNumber(modifier.duration)),
+         desc: $t(L.$1MonthsLeft, formatNumber(modifier.duration)),
          value: modifier.value,
       });
    });
@@ -186,7 +186,7 @@ export function getDiplomats(province: Province, save: SaveGame): IValueBreakdow
 export function availableDiplomatCondition(fromProvince: Province, toProvince: Province, save: SaveGame): ICondition {
    const currentRelations = getCurrentRelations(fromProvince, save);
    return {
-      name: $t(L.XHasAnAvailableDiplomat, getProvinceName(fromProvince, save)),
+      name: $t(L.$1HasAnAvailableDiplomat, getProvinceName(fromProvince, save)),
       value: currentRelations.has(toProvince) || currentRelations.size < getDiplomats(fromProvince, save).value,
    };
 }
@@ -272,10 +272,10 @@ export function requireInfiltration(
 ): ICondition {
    const infiltration = getRelation(fromProvince, toProvince, save)?.infiltrate?.value ?? 0;
    return {
-      name: $t(L.AtLeastXInfiltrationToY, formatNumber(value), getProvinceName(toProvince, save)),
+      name: $t(L.AtLeast$1InfiltrationTo$2, formatNumber(value), getProvinceName(toProvince, save)),
       desc: consume
-         ? $t(L.XInfiltrationWillBeConsumedCurrentInfiltrationY, formatNumber(value), formatNumber(infiltration))
-         : $t(L.NoInfiltrationWillBeConsumedCurrentInfiltrationX, formatNumber(infiltration)),
+         ? $t(L.$1InfiltrationWillBeConsumedCurrentInfiltration$2, formatNumber(value), formatNumber(infiltration))
+         : $t(L.NoInfiltrationWillBeConsumedCurrentInfiltration$1, formatNumber(infiltration)),
       value: infiltration >= value,
    };
 }
@@ -342,9 +342,9 @@ export function isWithinDiplomaticRange(ourProvince: Province, theirProvince: Pr
    const diplomaticDistance = getDiplomaticDistance(ourProvince, theirProvince, save);
    const diplomaticRange = getDiplomaticRange(ourProvince, save);
    return {
-      name: $t(L.XIsWithinOurDiplomaticRange, getProvinceName(theirProvince, save)),
+      name: $t(L.$1IsWithinOurDiplomaticRange, getProvinceName(theirProvince, save)),
       value: diplomaticDistance <= diplomaticRange.value,
-      desc: $t(L.DiplomaticDistanceXRangeY, formatNumber(diplomaticDistance), formatNumber(diplomaticRange.value)),
+      desc: $t(L.DiplomaticDistance$1Range$2, formatNumber(diplomaticDistance), formatNumber(diplomaticRange.value)),
    };
 }
 

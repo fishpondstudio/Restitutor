@@ -108,7 +108,7 @@ export function TopLeftPanel(): React.ReactNode {
                </div>
                <FloatingTip
                   label={$t(
-                     L.XIsOurProvinceClickToHighlightItOnTheMap,
+                     L.$1IsOurProvinceClickToHighlightItOnTheMap,
                      getProvinceName(G.save.state.playerProvince, G.save),
                   )}
                >
@@ -381,7 +381,7 @@ function DiplomatsMerchantsTooltip(): React.ReactNode {
    const totalDiplomats = getDiplomats(G.save.state.playerProvince, G.save);
    return (
       <>
-         <div className="m10">{$t(L.WeCurrentlyHaveXDiplomats, formatNumber(totalDiplomats.value))}</div>
+         <div className="m10">{$t(L.WeCurrentlyHave$1Diplomats, formatNumber(totalDiplomats.value))}</div>
          {range(0, totalDiplomats.value).map((i) => {
             return (
                <div className="row mx10 my5" key={i}>

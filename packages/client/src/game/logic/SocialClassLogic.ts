@@ -84,7 +84,7 @@ export function getSocialClassBonusName(upgrade: ProvinceUpgrade): { name: strin
          desc: $t(L.CheckSocialClassBonusesDefinition),
       };
    }
-   return { name: bonus.name(), desc: $t(L.XClassPrivilege, SocialClassNames[bonus.socialClass]()) };
+   return { name: bonus.name(), desc: $t(L.$1ClassPrivilege, SocialClassNames[bonus.socialClass]()) };
 }
 
 export function isSocialClassDissent(socialClass: SocialClass, province: Province, save: SaveGame): boolean {

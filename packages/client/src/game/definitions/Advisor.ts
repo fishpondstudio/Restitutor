@@ -31,7 +31,7 @@ export function getAdvisorMonthlyCost(level: number, province: Province, save: S
    }
    breakdown.add.push({
       name: $t(L.BaseCost),
-      desc: $t(L.ForLevelXAdvisor, formatNumber(level)),
+      desc: $t(L.ForLevel$1Advisor, formatNumber(level)),
       value: 4 ** (level - 1) * 10,
    });
    attachModifiers("AdvisorCost", breakdown, province, save);
@@ -49,7 +49,7 @@ export function getAdvisorInitialCost(level: number, province: Province, save: S
    }
    breakdown.add.push({
       name: $t(L.BaseCost),
-      desc: $t(L.ForLevelXAdvisor, formatNumber(level)),
+      desc: $t(L.ForLevel$1Advisor, formatNumber(level)),
       value: 6 * getAdvisorMonthlyCost(level, province, save).value,
    });
    return finalizeBreakdown(breakdown);

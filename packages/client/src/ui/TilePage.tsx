@@ -149,7 +149,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   w={300}
                   label={
                      <>
-                        <div className="m10">{$t(L.XIsCurrentlyContestedInAnOngoingWar, getTileName(tile))}</div>
+                        <div className="m10">{$t(L.$1IsCurrentlyContestedInAnOngoingWar, getTileName(tile))}</div>
                         <WarTooltip war={war} />
                      </>
                   }
@@ -157,7 +157,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   <div className="row my5 text-red">
                      <div className="f1">{$t(L.OngoingWar)}</div>
                      <div>
-                        {$t(L.XYWar, getProvinceName(war.attacker, G.save), getProvinceName(war.defender, G.save))}
+                        {$t(L.$1$2War, getProvinceName(war.attacker, G.save), getProvinceName(war.defender, G.save))}
                      </div>
                   </div>
                </FloatingTip>
@@ -211,7 +211,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                         </div>
                      </div>
                      <div className="row my5">
-                        <div className="f1">{$t(L.XPrice, Goods[tileData.goods].name())}</div>
+                        <div className="f1">{$t(L.$1Price, Goods[tileData.goods].name())}</div>
                         <div>
                            {formatNumber(Price[tileData.goods])} {$t(L.Gold)}
                         </div>
@@ -300,7 +300,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   {isMyProvince && (
                      <>
                         <div className="h2">{$t(L.SettleUnrest)}</div>
-                        <div className="m10">{$t(L.SettlingUnrestAdjustsAutonomySoThatTileUnrestIsAtMostX, "0")}</div>
+                        <div className="m10">{$t(L.SettlingUnrestAdjustsAutonomySoThatTileUnrestIsAtMost$1, "0")}</div>
                      </>
                   )}
                </>
@@ -326,7 +326,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
          </FloatingTip>
          <div className="h1 my10">{$t(L.Rebellion)}</div>
          {tileData.rebellion >= 10 && (
-            <div className="mx10 my5 text-red">{$t(L.XIsInCurrentRebellion, getTileName(tile))}</div>
+            <div className="mx10 my5 text-red">{$t(L.$1IsInCurrentRebellion, getTileName(tile))}</div>
          )}
          <div className="mx10">
             <BreakdownRow
@@ -337,7 +337,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                      <div className="m10">
                         {html($t(L.UnrestDescription))}
                         <div className="text-dimmed text-italic">
-                           {html($t(L.ExampleAutonomyAtXYReducesTileOutputByZP, "25", "25%", "-15", "15%"))}
+                           {html($t(L.ExampleAutonomyAt$1$2ReducesTileOutputBy$3$4, "25", "25%", "-15", "15%"))}
                         </div>
                      </div>
                      <div className="divider my10"></div>

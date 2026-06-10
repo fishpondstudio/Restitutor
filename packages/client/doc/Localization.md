@@ -8,6 +8,7 @@ This document describes how to extract hardcoded user-facing strings in the Rest
 |------|----------|
 | Source files to localize | `packages/client/src/**/*.ts` and `packages/client/src/**/*.tsx` |
 | English language file | `packages/client/src/languages/en.ts` |
+| Other language files | `packages/client/src/languages/*.ts` (synced from `en.ts`) |
 | Translation runtime | `packages/client/src/utils/i18n.ts` |
 | HTML rendering helper | `packages/client/src/ui/components/RenderHTMLComp.tsx` |
 | Chronicle markup parser | `packages/client/src/ui/ParseMarkup.tsx` |
@@ -54,8 +55,8 @@ import { $t, L } from "../utils/i18n";
 
 **After**:
 
-1. Add to `en.ts`: `RebellionIsAtLeastX: "Rebellion is at least %%",`
-2. Replace: `$t(L.RebellionIsAtLeastX, "5")`
+1. Add to `en.ts`: `RebellionIsAtLeast$1: "Rebellion is at least $1",`
+2. Replace: `$t(L.RebellionIsAtLeast$1, "5")`
 
 ## Scope
 
@@ -71,7 +72,7 @@ import { $t, L } from "../utils/i18n";
 - Debug output: `console.log`, `console.warn`, `console.error`.
 - Developer errors: `throw new Error(...)`.
 - Code identifiers: enum keys, property names, file paths, CSS class names, React component names.
-- Keys starting with `$` in `en.ts` (e.g. `$Language`) — these are language metadata, not translatable UI strings.
+- Keys starting with `$$` in `en.ts` (e.g. `$$Language`, `$$Credits`) — these are language metadata, not translatable UI strings.
 - Strings in `packages/shared/`, `packages/server/`, or other packages (the client localization system does not cover them).
 
 When not sure whether a string is user-facing, **do not touch it** and **flag it** for human review.
@@ -85,25 +86,38 @@ import { $t, L } from "../utils/i18n"; // adjust relative path
 ```
 
 - `L` is a clone of the `EN` object from `en.ts`. At runtime, `Object.assign(L, Languages[lang])` swaps in the active language.
-- `$t(L.SomeKey)` looks up the translated string and returns it.
-- `$t(L.SomeKey, arg1, arg2, ...)` substitutes `%%` placeholders left-to-right with the arguments.
+- `$t(L.SomeKey)` looks up the translated string and returns it. `L.SomeKey` evaluates to the string value for the active language.
+- `$t(L.SomeKey, arg1, arg2, ...)` substitutes `$1`, `$2`, `$3`, ... tokens with the arguments (by token number, not by position in the string).
 - `$t` always receives `L.KeyName` (which evaluates to the string value), never a bare string literal.
-- Missing translations render as `⚠️<key value>`; missing arguments render as `⚠️<index>`.
+- Missing translations render as `⚠️<key value>`.
+- Missing arguments render as `⚠️<token number>` (1-based; e.g. missing `$1` → `⚠️1`, missing `$10` → `⚠️10`).
 
 ### Placeholders
 
-Use `%%` for every runtime substitution. Placeholders are replaced **by position** (left to right), not by name.
+Use `$1`, `$2`, `$3`, ... for every runtime substitution. Tokens are **numbered** (1-indexed) and may appear in **any order** in the string. The same token number can be reused to repeat a value without passing the argument twice. Tokens must start from `$1` and be consecutive with no gaps (e.g. `$1 $2 $3` ✓, `$1 $3 $4` ✗, `$2 $3 $4` ✗).
 
 ```ts
 // en.ts
-ItCostsXAndWillGiveYouYGold: "It costs %% %% and will give you %% Gold",
+ItCosts$1And$2WillGiveYou$3Gold: "It costs $1 $2 and will give you $3 Gold",
 
 // usage
-$t(L.ItCostsXAndWillGiveYouYGold, formatNumber(2000), "Lumber", formatNumber(3000))
+$t(L.ItCosts$1And$2WillGiveYou$3Gold, formatNumber(2000), "Lumber", formatNumber(3000))
 // → "It costs 2K Lumber and will give you 2K Gold"
 ```
 
-**Pluralization is not supported.** Always use the plural form in the English string (e.g. "%% months", not "%% month(s)").
+Reusing a token (example only — not a real key):
+
+```ts
+// en.ts
+$1MarchesOn$1Again: "$1 marches on $1 again",
+
+// usage — only one argument needed, even though $1 appears twice
+$t(L.$1MarchesOn$1Again, getProvinceName(province, save))
+```
+
+Translators may reorder tokens in non-English strings when grammar requires it (see [Translating to Other Languages](#translating-to-other-languages)).
+
+**Pluralization is not supported.** Always use the plural form in the English string (e.g. "$1 months", not "$1 month(s)").
 
 ### `html()` for Inline HTML in UI
 
@@ -112,8 +126,8 @@ When localized text contains inline HTML (`<i>`, `<b>`, `<br>`, etc.) and is ren
 ```tsx
 import { html } from "../ui/components/RenderHTMLComp";
 
-// en.ts: ExampleOfXTagInYFile: "This is an example of <i>%%</i> tag in <b>%%</b> file"
-html($t(L.ExampleOfXTagInYFile, var1, var2))
+// en.ts: Make$1OurCoreTile: "Make <i>$1</i> our core tile."
+html($t(L.Make$1OurCoreTile, getTileName(tile)))
 ```
 
 Use `html()` only when the string contains HTML tags. Plain text does not need it.
@@ -122,12 +136,12 @@ Use `html()` only when the string contains HTML tags. Plain text does not need i
 
 ### Curly-Brace Hints
 
-When the raw string uses `{curly brace}` hints, the wrapped substring **must** become a `%%` parameter:
+When the raw string uses `{curly brace}` hints, the wrapped substring **must** become a `$1`, `$2`, ... parameter:
 
 | Raw string | Replacement |
 |------------|-------------|
-| `"{Belgica} nullifies all negative attitudes towards {Lugdunensis}"` | `$t(L.XNullifiesAllNegativeAttitudesTowardsY, Province.Belgica.name(), Province.Lugdunensis.name())` |
-| `"{Belgica} gets {+10%} Prestige"` | `$t(L.XGetsYPrestige, Province.Belgica.name(), "+10%")` |
+| `"{Belgica} nullifies all negative attitudes towards {Lugdunensis}"` | `$t(L.$1NullifiesAllNegativeAttitudesTowards$2, Province.Belgica.name(), Province.Lugdunensis.name())` |
+| `"{Belgica} gets {+10%} Prestige"` | `$t(L.$1Gets$2Prestige, Province.Belgica.name(), "+10%")` |
 
 Even without `{}` hints, extract variable parts into parameters when it improves reusability.
 
@@ -137,8 +151,8 @@ Extract numbers, signs, and units into parameters to increase key reuse.
 
 | Original | Don't | Do |
 |----------|-------|-----|
-| `Rebellion is at least 5` | `"Rebellion is at least 5"` (no param) | `"Rebellion is at least %%"` with `"5"` |
-| `-20 Tile Unrest` | `"-20 Tile Unrest"` (no param) | `"%% Tile Unrest"` with `"-20"` |
+| `Rebellion is at least 5` | `"Rebellion is at least 5"` (no param) | `"Rebellion is at least $1"` with `"5"` |
+| `-20 Tile Unrest` | `"-20 Tile Unrest"` (no param) | `"$1 Tile Unrest"` with `"-20"` |
 
 **Sign and percent rules:**
 
@@ -148,15 +162,15 @@ Extract numbers, signs, and units into parameters to increase key reuse.
 
 | Original | Correct |
 |----------|---------|
-| `+10% War Power` | `"%% War Power"` with `"+10%"` (literal) or `formatPercentDelta(var)` (variable) |
-| `+10 Stability` | `"%% Stability"` with `"+10"` (literal) or `formatDelta(var)` (variable) |
+| `+10% War Power` | `"$1 War Power"` with `"+10%"` (literal) or `formatPercentDelta(var)` (variable) |
+| `+10 Stability` | `"$1 Stability"` with `"+10"` (literal) or `formatDelta(var)` (variable) |
 
 | Original | Incorrect |
 |----------|-----------|
-| `+10% War Power` | `"+%%% War Power"` with `10` |
-| `+10% War Power` | `"%%% War Power"` with `"+10"` |
-| `+10 Stability` | `"+%% Stability"` with `10` |
-| `+10 Stability` | `"%% Stability"` with `formatDelta(10)` for a literal |
+| `+10% War Power` | `"+$1% War Power"` with `10` |
+| `+10% War Power` | `"$1% War Power"` with `"+10"` |
+| `+10 Stability` | `"+$1 Stability"` with `10` |
+| `+10 Stability` | `"$1 Stability"` with `formatDelta(10)` for a literal |
 
 ## Entity Names
 
@@ -208,10 +222,10 @@ Chronicle text uses special XML-like tags parsed by `renderMarkup()` in `ParseMa
 
 ```ts
 // en.ts
-XAndYFormedAnAlliance: "<Province>%%</Province> and <Province>%%</Province> formed an alliance.",
+$1And$2FormedAnAlliance: "<Province>$1</Province> and <Province>$2</Province> formed an alliance.",
 
 // call site — pass the Province enum value, NOT getProvinceName()
-$t(L.XAndYFormedAnAlliance, fromProvince, toProvince)
+$t(L.$1And$2FormedAnAlliance, fromProvince, toProvince)
 ```
 
 The parser reads the enum key from inside `<Province>...</Province>` and renders the localized, clickable province name.
@@ -220,11 +234,11 @@ The parser reads the enum key from inside `<Province>...</Province>` and renders
 
 ```ts
 // en.ts
-XDeclaredWarOnYWithTheGoalOfOccupyingZ: "<Province>%%</Province> declared war on <Province>%%</Province> with the goal of occupying %%.",
+$1DeclaredWarOn$2WithTheGoalOfOccupying$3: "<Province>$1</Province> declared war on <Province>$2</Province> with the goal of occupying $3.",
 
 // call site — wrap each tile ID in <Tile> tags
 $t(
-   L.XDeclaredWarOnYWithTheGoalOfOccupyingZ,
+   L.$1DeclaredWarOn$2WithTheGoalOfOccupying$3,
    attacker,
    defender,
    Array.from(war.tiles).map((tile) => `<Tile>${tile}</Tile>`).join(", "),
@@ -243,12 +257,20 @@ Chronicle content is rendered via `renderMarkup()`, not `html()`. Do not strip o
 
 ### Token Placeholders in Key Names
 
-Replace each `%%` in the content with `X`, `Y`, `Z`, `P`, `Q`, `R`, `S`, `T`, `U`, `V`, `W` by position (left to right):
+Embed `$1`, `$2`, `$3`, ... directly in the key name at the position where the value should appear in the English content. Tokens in the key name must match the tokens in the content in the same order.
 
 | Content | Key |
 |---------|-----|
-| `%% Tile Unrest for %% months` | `XTileUnrestForYMonths` |
-| `%% nullifies all negative attitudes towards %%` | `XNullifiesAllNegativeAttitudesTowardsY` |
+| `$1 Tile Unrest for $2 months` | `$1TileUnrestFor$2Months` |
+| `$1 nullifies all negative attitudes towards $2` | `$1NullifiesAllNegativeAttitudesTowards$2` |
+
+When a key would exceed **64 characters**, omit tokens from the name and append them at the end:
+
+| Content | Key |
+|---------|------|
+| `"A long description with $1 and $2 and $3"` | `LongDescription$1$2$3` (instead of `$1LongDescriptionWith$2And$3`) |
+| `"<Province>$1</Province> negotiated a white peace with <Province>$2</Province>. … $3-month truce …"` | `ChronicleWhitePeace$1$2$3` |
+| `"The heir of the old governor $1 ($2 Administrative, … $6 offspring) is appointed."` | `OldGovernorHeir$1$2$3$4$5$6` |
 
 ### Merging Non-Entity Keys
 
@@ -256,11 +278,11 @@ When multiple **non-entity** keys share identical content, merge them into one g
 
 ```ts
 // Before
-BuildingEffect1: "%% Tile Unrest",
-EventEffect2: "%% Tile Unrest",
+BuildingEffect1: "$1 Tile Unrest",
+EventEffect2: "$1 Tile Unrest",
 
 // After
-XTileUnrest: "%% Tile Unrest",
+$1TileUnrest: "$1 Tile Unrest",
 ```
 
 Entity name keys are **never** merged, even if the text is identical. Entity prefix rules take precedence.
@@ -268,6 +290,49 @@ Entity name keys are **never** merged, even if the text is identical. Entity pre
 ### Reusing Existing Keys
 
 Before adding a new key, search `en.ts` for an existing entry with the same English text and reuse it. This takes priority over creating duplicates.
+
+## Translating to Other Languages
+
+This section is for agents and contributors translating `en.ts` into other language files under `packages/client/src/languages/`.
+
+### Overview
+
+- **English (`en.ts`) is the source of truth** for all keys and for validation.
+- Each language file exports a constant (e.g. `export const DE = { ... }`) with the same keys as `en.ts`.
+- Register new languages in `packages/client/src/game/Languages.ts`.
+- At runtime, `setLanguage()` copies the selected language object into `L`; `$t` then interpolates tokens from that translation.
+
+### What to Translate
+
+- Translate only the **string values** (the text in double quotes).
+- **Do not rename keys.** Key names are code identifiers shared across all languages.
+- **Do not translate or remove `$1`, `$2`, … tokens.** These are placeholders filled in at runtime.
+- **Do not translate** `$$Language`, `$$Credits`, or other `$$` metadata values unless you are setting the display name for that language (e.g. `$$Language: "Deutsch"` in a German file).
+- **Preserve HTML and Chronicle tags** (`<i>`, `<b>`, `<Province>`, `<Tile>`, etc.) and keep their structure intact.
+
+### Reordering Tokens
+
+Because tokens are numbered (`$1`, `$2`, …) rather than positional (`%%`), **you may rearrange tokens** in a translation when word order in your language differs from English.
+
+| Language | String |
+|----------|--------|
+| English | `"$1 declared war on $2"` |
+| Example reorder | `"$2 wurde von $1 den Krieg erklärt"` |
+
+Rules when reordering:
+
+- **Keep every token number** that appears in the English string (`$1` … `$N`, consecutive, no gaps).
+- **Do not renumber tokens** (e.g. do not turn English `$2` into `$1` in your translation).
+- **Do not add or remove tokens.**
+- The caller still passes arguments in the same order (`arg1` → `$1`, `arg2` → `$2`, …) regardless of where those tokens appear in your sentence.
+
+Reusing a token to repeat a value is also allowed in translations (e.g. repeat `$1` where English does).
+
+### After Translation
+
+Run the same checks in [Verification](#verification). `pnpm run translate` validates token rules against **English only**; still follow the same `$1`…`$N` rules in your language file.
+
+To initialize or fully reset a non-English file to English placeholders: `pnpm run translate --reset`.
 
 ## Person Perspective
 
@@ -301,7 +366,7 @@ When reviewing localization, **list** the following for human review. **Do NOT i
 - Inconsistent casing or wording for the same concept.
 - Ambiguous or unclear phrasing.
 - Opportunities for conciseness and clarity.
-- Keys whose content is only tokens (`%%`), symbols, and numbers with no real text (e.g. `"%% Gold"`) → suggest inlining in source instead of localizing.
+- Keys whose content is only tokens (`$1`, `$2`, ...), symbols, and numbers with no real text (e.g. `"$1 Gold"`) → suggest inlining in source instead of localizing.
 
 ## Verification
 
@@ -310,18 +375,20 @@ Run these commands from the **repository root** (`E:/Restitutor`), in order, aft
 ```sh
 pnpm run build      # TypeScript compile check
 pnpm run check      # Formatting, linting, import sorting (biome)
-pnpm run translate  # Validate %% arg counts, remove unused keys, sync other language files, format
+pnpm run translate  # Validate token consecutiveness, arg counts, key-name match, remove unused keys, sync other language files, format
 ```
 
 ### What `pnpm run translate` Does
 
 1. Scans all `.ts`/`.tsx` files under `packages/` (excluding `languages/`) for `L.KeyName` references and `$t(L.KeyName, ...)` calls.
-2. Validates that the number of `%%` in each key's value matches the number of arguments passed to `$t`.
-3. Removes unused keys from `en.ts` (keys starting with `$` are never removed).
-4. Syncs non-English language files under `packages/client/src/languages/` to match `en.ts` keys.
-5. Formats language files with biome.
+2. **Validates token consecutiveness** (English) — checks every key's value for `$N` tokens: they must start from `$1` and be consecutive with no gaps (e.g. `$1 $2 $3` ✓, `$1 $3 $4` ✗, `$2 $3 $4` ✗). Skips `$$` metadata keys.
+3. **Validates key-content token match** (English) — verifies that the `$1`, `$2`, ... tokens in the key name appear in the same order as in the content value.
+4. **Validates argument counts** — checks that the highest `$N` index in each key's value matches the number of arguments passed to `$t` (reusing the same token number does not require duplicate arguments).
+5. Removes unused keys from `en.ts` (keys starting with `$` are never removed).
+6. Syncs non-English language files under `packages/client/src/languages/` to match `en.ts` keys.
+7. Formats language files with biome.
 
-If argument counts mismatch, the script prints file, line, key, and expected vs. actual arg count, then exits with code 1.
+If any validation fails, the script prints details (file, line, key, expected vs. actual) and exits with code 1.
 
 ### After Changing Localization Content
 

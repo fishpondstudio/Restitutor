@@ -44,7 +44,7 @@ export function ChronicleModal({ years }: { years: [number, number] }): React.Re
             </button>
             <FloatingTip label="Image Credit: Das Forum Romanum, J. Bühlmann (1901)">
                <div className="text-display text-xl" style={{ position: "absolute", bottom: 10, left: 10 }}>
-                  {$t(L.ChronicleOfXAd, startYear === endYear ? startYear : `${startYear} ~ ${endYear}`)}
+                  {$t(L.ChronicleOf$1Ad, startYear === endYear ? startYear : `${startYear} ~ ${endYear}`)}
                </div>
             </FloatingTip>
             <div

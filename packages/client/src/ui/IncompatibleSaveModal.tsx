@@ -19,7 +19,7 @@ export function IncompatibleSaveModal({
    return (
       <ModalComp size="sm" title={<ModalTitleBar title={$t(L.IncompatibleSave)} />}>
          <div className="m10">
-            <div>{html($t(L.YourSaveFileIsNotSupportedByTheGameX, getVersion()))}</div>
+            <div>{html($t(L.YourSaveFileIsNotSupportedByTheGame$1, getVersion()))}</div>
             <div className="h10" />
             <div className="box">
                <div className="row mx10 my5">

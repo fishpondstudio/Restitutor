@@ -183,7 +183,7 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                            </td>
                            <td>
                               {$t(
-                                 L.XYMonths,
+                                 L.$1$2Months,
                                  formatNumber(offer.monthsLeft),
                                  formatNumber(TimedActions.TradeGoods.duration),
                               )}
@@ -246,7 +246,7 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                               </td>
                               <td>{weOffer}</td>
                               <td>{theyOffer}</td>
-                              <td>{$t(L.XMonths, formatNumber(TimedActions.TradeGoods.duration))}</td>
+                              <td>{$t(L.$1Months, formatNumber(TimedActions.TradeGoods.duration))}</td>
                               <td className="text-right">
                                  <ActionButton
                                     action={action}
@@ -263,7 +263,7 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                                              </div>
                                              {offer.weOffer !== "gold" && (
                                                 <div className="text-xs text-dimmed text-right">
-                                                   {$t(L.XProduction, Goods[offer.weOffer].name())}:{" "}
+                                                   {$t(L.$1Production, Goods[offer.weOffer].name())}:{" "}
                                                    {formatDelta(production[offer.weOffer].capacity)}, {$t(L.Storage)}:{" "}
                                                    {formatNumber(
                                                       getProvinceResource(
@@ -287,7 +287,7 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                                              <div className="row my5">
                                                 <div className="f1">{$t(L.Duration)}</div>
                                                 <div>
-                                                   {$t(L.XMonths, formatNumber(TimedActions.TradeGoods.duration))}
+                                                   {$t(L.$1Months, formatNumber(TimedActions.TradeGoods.duration))}
                                                 </div>
                                              </div>
                                           </div>
@@ -338,12 +338,12 @@ function WeOfferWarning({ offer, month }: { offer: TradeOffer; month: number }):
                {isWarning ? (
                   <div className="m10">
                      {html(
-                        $t(L.OurStorageIsRunningLowOnXNotEnoughForTheWholeTradeDuration, Goods[offer.weOffer].name()),
+                        $t(L.OurStorageIsRunningLowOn$1NotEnoughForTheWholeTradeDuration, Goods[offer.weOffer].name()),
                      )}
                   </div>
                ) : (
                   <div className="m10 text-red">
-                     {html($t(L.WeDoNotHaveEnoughXInStorageForThisTrade, Goods[offer.weOffer].name()))}
+                     {html($t(L.WeDoNotHaveEnough$1InStorageForThisTrade, Goods[offer.weOffer].name()))}
                   </div>
                )}
                <div className="h3">

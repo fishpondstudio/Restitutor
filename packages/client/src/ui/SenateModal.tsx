@@ -34,7 +34,7 @@ export function SenateModal(): React.ReactNode {
    return (
       <ModalComp size="lg" title={<ModalTitleBar title={$t(L.SenateAndConsuls)} dismiss />}>
          <FloatingTip
-            label={$t(L.ConsulPointsWillExpireWhenTheNextConsulsAreElectedInXMonths, monthToNextYear(G.save))}
+            label={$t(L.ConsulPointsWillExpireWhenTheNextConsulsAreElectedIn$1Months, monthToNextYear(G.save))}
          >
             <div className="h1 row">
                <div className="f1">{$t(L.SenateDecrees)}</div>
@@ -55,7 +55,7 @@ export function SenateModal(): React.ReactNode {
                {TimedActions.DissolveTreaty.name()}
             </button>
          </div>
-         <div className="h1">{$t(L.ElectedConsulsOfXAd, thisYear)}</div>
+         <div className="h1">{$t(L.ElectedConsulsOf$1Ad, thisYear)}</div>
          <div style={Grid2} className="m10">
             {Array.from(G.save.state.senate.electedConsuls).map(([name, provinces], i) => {
                return (
@@ -63,7 +63,7 @@ export function SenateModal(): React.ReactNode {
                      key={i}
                      label={html(
                         $t(
-                           L.ThisConsulIsSupportedByTheFollowingProvincesX,
+                           L.ThisConsulIsSupportedByTheFollowingProvinces$1,
                            provinces.map((p) => getProvinceName(p, G.save)).join(", "),
                         ),
                      )}
@@ -90,7 +90,7 @@ export function SenateModal(): React.ReactNode {
                </div>
             </FloatingTip>
          </div>
-         <div className="h1">{$t(L.ConsulElectionOfXAd, thisYear + Math.ceil(ConsulElectionMonths / 12))}</div>
+         <div className="h1">{$t(L.ConsulElectionOf$1Ad, thisYear + Math.ceil(ConsulElectionMonths / 12))}</div>
          <FloatingTip label={$t(L.DefaultPledgeSupportTooltip)}>
             <div className="m10 row">
                <div className="f1">{$t(L.ProvincialBacking)}</div>
@@ -138,7 +138,7 @@ export function SenateModal(): React.ReactNode {
                            label={
                               supportedProvinces.length > 0
                                  ? $t(
-                                      L.AccordingToOurIntelligenceThisCandidateIsSupportedByX,
+                                      L.AccordingToOurIntelligenceThisCandidateIsSupportedBy$1,
                                       supportedProvinces.join(", "),
                                    )
                                  : $t(L.WeDontHaveIntelligenceOnThisCandidatesProvincialSupport)

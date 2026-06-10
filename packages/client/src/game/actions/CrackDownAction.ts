@@ -26,7 +26,7 @@ export function CrackDownAction(tile: Tile, province: Province, save: SaveGame):
          tileData.rebellion = 0;
          tileData.modifiers.Unrest.push({
             type: "add",
-            name: $t(L.CrackdownX, getGameDate(save.state.month).toLocaleDateString()),
+            name: $t(L.Crackdown$1, getGameDate(save.state.month).toLocaleDateString()),
             value: 10,
             duration: 5 * 12,
          });

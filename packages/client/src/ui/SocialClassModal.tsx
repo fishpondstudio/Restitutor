@@ -49,7 +49,7 @@ export function SocialClassModal(): React.ReactNode {
                         breakdown={targetLoyalty}
                         tooltip={(element) => (
                            <>
-                              <div className="m10">{$t(L.LoyaltyMovesTowardsEquilibrium, "1")}</div>
+                              <div className="m10">{$t(L.LoyaltyMovesTowardsEquilibrium$1, "1")}</div>
                               {element}
                            </>
                         )}
@@ -73,13 +73,13 @@ export function SocialClassModal(): React.ReactNode {
                                  {Number.isFinite(estimatedDissentTime) &&
                                     estimatedDissentTime > 0 &&
                                     $t(
-                                       L.XIsEstimatedToDissentInYMonths,
+                                       L.$1IsEstimatedToDissentIn$2Months,
                                        SocialClassNames[socialClass](),
                                        formatNumber(estimatedDissentTime),
                                     )}
                                  {estimatedDissentTime === 0 && (
                                     <span className="text-red">
-                                       {$t(L.XIsCurrentlyInDissent, SocialClassNames[socialClass]())}
+                                       {$t(L.$1IsCurrentlyInDissent, SocialClassNames[socialClass]())}
                                     </span>
                                  )}
                                  {$t(L.DissentRangesFrom100To100)}
@@ -172,7 +172,7 @@ export function SocialClassModal(): React.ReactNode {
                                                    name: $t(L.HasEnoughLoyalty),
                                                    value: data.loyalty >= bonus.loyalty,
                                                    desc: $t(
-                                                      L.XWillLoseYLoyaltyAvailableZ,
+                                                      L.$1WillLose$2LoyaltyAvailable$3,
                                                       SocialClassNames[socialClass](),
                                                       formatNumber(bonus.loyalty),
                                                       formatNumber(data.loyalty),
@@ -182,7 +182,7 @@ export function SocialClassModal(): React.ReactNode {
                                                    name: $t(L.HasEnoughInfluence),
                                                    value: data.influence >= bonus.influence,
                                                    desc: $t(
-                                                      L.XWillLoseYInfluenceAvailableZ,
+                                                      L.$1WillLose$2InfluenceAvailable$3,
                                                       SocialClassNames[socialClass](),
                                                       formatNumber(bonus.influence),
                                                       formatNumber(data.influence),
@@ -200,7 +200,7 @@ export function SocialClassModal(): React.ReactNode {
                                           <>
                                              <div className="m10">
                                                 {$t(
-                                                   L.RevokingThisPrivilegeWillHaveTheFollowingEffectsOnX,
+                                                   L.RevokingThisPrivilegeWillHaveTheFollowingEffectsOn$1,
                                                    SocialClassNames[socialClass](),
                                                 )}
                                              </div>
@@ -228,7 +228,7 @@ export function SocialClassModal(): React.ReactNode {
                                                    name: $t(L.NotExceedMaxInfluence),
                                                    value: data.influence + bonus.influence <= 100,
                                                    desc: $t(
-                                                      L.XWillGainYInfluenceHeadroomZ,
+                                                      L.$1WillGain$2InfluenceHeadroom$3,
                                                       SocialClassNames[socialClass](),
                                                       formatNumber(bonus.influence),
                                                       formatNumber(100 - data.influence),
@@ -246,7 +246,7 @@ export function SocialClassModal(): React.ReactNode {
                                           <>
                                              <div className="m10">
                                                 {$t(
-                                                   L.GrantingThisPrivilegeWillHaveTheFollowingEffectsOnX,
+                                                   L.GrantingThisPrivilegeWillHaveTheFollowingEffectsOn$1,
                                                    SocialClassNames[socialClass](),
                                                 )}
                                              </div>

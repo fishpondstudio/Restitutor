@@ -21,7 +21,7 @@ export function TileBuildingsModal({ tile }: { tile: Tile }): React.ReactNode {
    }
    const buildingSlots = getBuildingSlot(tile, G.save);
    return (
-      <ModalComp size="lg" title={<ModalTitleBar title={$t(L.BuildingsInX, getTileName(tile))} dismiss />}>
+      <ModalComp size="lg" title={<ModalTitleBar title={$t(L.BuildingsIn$1, getTileName(tile))} dismiss />}>
          <BreakdownTooltip
             breakdown={buildingSlots}
             tooltip={(element) => (

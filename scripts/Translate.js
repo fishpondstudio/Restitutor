@@ -19,9 +19,52 @@ const enContent = readFileSync(EN_FILE_PATH, { encoding: "utf8" })
 // biome-ignore lint/security/noGlobalEval: <explanation>
 const sourceTranslations = eval(`(${enContent})`);
 
+let tokenError = false;
+
+// Validation 1: Token consecutiveness (min=1, no gaps) and key-content token match
+console.log("🟡 Validate Token Consecutiveness and Key-Content Token Match");
+for (const [key, value] of Object.entries(sourceTranslations)) {
+   if (key.startsWith("$$")) continue;
+
+   const contentTokens = extractTokens(value);
+   const keyTokens = extractTokens(key);
+
+   if (contentTokens.length === 0) continue;
+
+   // Check min=1
+   const min = Math.min(...contentTokens);
+   if (min !== 1) {
+      console.log(`❌ Tokens must start from \$1: ${key} = "${value}"`);
+      tokenError = true;
+   }
+
+   // Check no gaps
+   const unique = new Set(contentTokens);
+   const max = Math.max(...contentTokens);
+   if (unique.size !== max) {
+      for (let i = 1; i <= max; i++) {
+         if (!unique.has(i)) {
+            console.log(`❌ Missing token \$${i} in: ${key} = "${value}"`);
+            tokenError = true;
+         }
+      }
+   }
+
+   // Check key name tokens match content tokens in order
+   const keyContentOrderMatch = keyTokens.length === contentTokens.length &&
+      keyTokens.every((t, i) => t === contentTokens[i]);
+   if (!keyContentOrderMatch) {
+      console.log(`❌ Key name token order does not match content: ${key}`);
+      console.log(`   Key tokens: \$${keyTokens.join(",\$")}`);
+      console.log(`   Content tokens: \$${contentTokens.join(",\$")}`);
+      tokenError = true;
+   }
+}
+
 const expectedArgCounts = {};
 Object.keys(sourceTranslations).forEach((key) => {
-   expectedArgCounts[key] = (sourceTranslations[key].match(/%%/g) || []).length;
+   const tokens = extractTokens(sourceTranslations[key]);
+   expectedArgCounts[key] = tokens.length === 0 ? 0 : Math.max(...tokens);
 });
 
 let argMismatch = false;
@@ -31,7 +74,8 @@ sourceFilePaths.forEach((filePath, fileIndex) => {
    const content = sourceFileContents[fileIndex];
    const lineStarts = getLineStarts(content);
 
-   const lRefRe = /L\.(\w+)/g;
+   // Match L.KeyName where key names can contain $ (e.g., L.After$1AD)
+   const lRefRe = /L\.([\w$]+)/g;
    for (const match of content.matchAll(lRefRe)) {
       usedKeys.add(match[1]);
    }
@@ -41,7 +85,7 @@ sourceFilePaths.forEach((filePath, fileIndex) => {
    while ((match = re.exec(content)) !== null) {
       const args = parseCallArgs(content, match.index + 3);
       if (args.length === 0) continue;
-      const keyResult = args[0].match(/^L\.(\w+)$/);
+      const keyResult = args[0].match(/^L\.([\w$]+)$/);
       if (!keyResult) continue;
       const key = keyResult[1];
       const expected = expectedArgCounts[key];
@@ -142,7 +186,7 @@ execSync(`biome format --write ${LANG_PATH}/`, {
 
 console.log("🟢 Translation has successfully updated");
 
-if (argMismatch) {
+if (argMismatch || tokenError) {
    process.exit(1);
 }
 
@@ -253,4 +297,14 @@ function getLineText(content, lineStarts, lineNum) {
    const nextStart = lineStarts[index + 1];
    const end = nextStart === undefined ? content.length : nextStart - 1;
    return content.slice(start, end);
+}
+
+function extractTokens(str) {
+   const tokens = [];
+   const re = /\$(\d+)/g;
+   let match;
+   while ((match = re.exec(str)) !== null) {
+      tokens.push(parseInt(match[1], 10));
+   }
+   return tokens;
 }

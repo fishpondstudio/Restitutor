@@ -133,7 +133,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
    const consulVotes = G.save.state.senate.votes.get(province) ?? new Set<number>();
    return (
       <SidebarComp
-         title={$t(L.DiplomacyWithX, getProvinceName(province, G.save))}
+         title={$t(L.DiplomacyWith$1, getProvinceName(province, G.save))}
          width={isMe ? SidebarWidth : SidebarWidth + ActionWidth}
       >
          <div className="row g0 fstart">
@@ -194,11 +194,11 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                            <div className="divider" />
                            {diplomaticDistance > diplomaticRange.value ? (
                               <div className="m10 text-red">
-                                 {$t(L.XIsNotWithinOurDiplomaticRange, getProvinceName(province, G.save))}
+                                 {$t(L.$1IsNotWithinOurDiplomaticRange, getProvinceName(province, G.save))}
                               </div>
                            ) : (
                               <div className="m10 text-green">
-                                 {$t(L.XIsWithinOurDiplomaticRange, getProvinceName(province, G.save))}
+                                 {$t(L.$1IsWithinOurDiplomaticRange, getProvinceName(province, G.save))}
                               </div>
                            )}
                         </>
@@ -214,28 +214,28 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                {treatySabotaged > 0 && (
                   <FloatingTip
                      label={$t(
-                        L.XsTreatyHasBeenSabotagedForYMonths,
+                        L.$1sTreatyHasBeenSabotagedFor$2Months,
                         getProvinceName(province, G.save),
                         formatNumber(TimedActions.TreatySabotaged.duration),
                      )}
                   >
                      <div className="row mx10 my5 text-yellow">
                         <div className="f1">{$t(L.TreatySabotaged)}</div>
-                        <div>{$t(L.XMonthsLeft, formatNumber(treatySabotaged))}</div>
+                        <div>{$t(L.$1MonthsLeft, formatNumber(treatySabotaged))}</div>
                      </div>
                   </FloatingTip>
                )}
                {truceMonthsLeft > 0 && (
                   <FloatingTip
                      label={$t(
-                        L.WeAreInATruceWithXForYMonths,
+                        L.WeAreInATruceWith$1For$2Months,
                         getProvinceName(province, G.save),
                         formatNumber(truceMonthsLeft),
                      )}
                   >
                      <div className="row mx10 my5 text-yellow">
                         <div className="f1">{$t(L.Truce)}</div>
-                        <div>{$t(L.XMonthsLeft, formatNumber(truceMonthsLeft))}</div>
+                        <div>{$t(L.$1MonthsLeft, formatNumber(truceMonthsLeft))}</div>
                      </div>
                   </FloatingTip>
                )}
@@ -257,7 +257,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                            >
                               <div className="row mx10 my5 text-sm text-red">
                                  <div className="f1">{CasusBelli[cb].name()}</div>
-                                 <div className="text-italic">{$t(L.XMonthsLeft, formatNumber(data.monthsLeft))}</div>
+                                 <div className="text-italic">{$t(L.$1MonthsLeft, formatNumber(data.monthsLeft))}</div>
                               </div>
                            </FloatingTip>
                         );
@@ -273,7 +273,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                            <FloatingTip className="p0" w={300} key={idx} label={<WarTooltip war={war} />}>
                               <div className="mx10 my5 text-sm text-red">
                                  {$t(
-                                    L.XYWar,
+                                    L.$1$2War,
                                     getProvinceName(war.attacker, G.save),
                                     getProvinceName(war.defender, G.save),
                                  )}
@@ -288,7 +288,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      <ul>
                         <li>
                            {$t(
-                              L.OurRivalWillHaveXAttitudeForYMonths,
+                              L.OurRivalWillHave$1AttitudeFor$2Months,
                               formatDelta(RivalAttitudeModifier),
                               formatNumber(RivalAttitudeDuration),
                            )}
@@ -296,18 +296,18 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         <li>
                            {html(
                               $t(
-                                 L.OurRivalWillGetXCasusBelliForYMonths,
+                                 L.OurRivalWillGet$1CasusBelliFor$2Months,
                                  CasusBelli.HumiliateRival.name(),
                                  formatNumber(HumiliateRivalCasusBelliMonths),
                               ),
                            )}
                         </li>
-                        <li>{html($t(L.WinningAWarAgainstOurRivalGivesXPrestigeForYMonths, "25", "120"))}</li>
-                        <li>{$t(L.DenouncingARivalGainsXPrestigeInsteadOfY, "20", "10")}</li>
-                        <li>{$t(L.DeterringARivalsAggressionIncreasesPrestigeByXInsteadOfY, "20", "10")}</li>
+                        <li>{html($t(L.WinningAWarAgainstOurRivalGives$1PrestigeFor$2Months, "25", "120"))}</li>
+                        <li>{$t(L.DenouncingARivalGains$1PrestigeInsteadOf$2, "20", "10")}</li>
+                        <li>{$t(L.DeterringARivalsAggressionIncreasesPrestigeBy$1InsteadOf$2, "20", "10")}</li>
                         <li>
                            {$t(
-                              L.ChangingRivalCanOnlyBeDoneOnceEveryXMonths,
+                              L.ChangingRivalCanOnlyBeDoneOnceEvery$1Months,
                               formatNumber(TimedActions.ChangeRival.cooldown),
                            )}
                         </li>
@@ -465,7 +465,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         tooltip={(element) => (
                            <>
                               <div className="m10">
-                                 {$t(L.ImprovingRelationsIncreasesAttitudeByXPerMonthMaxY, "1", MaxImprovedRelations)}
+                                 {$t(L.ImprovingRelationsIncreasesAttitudeBy$1PerMonthMax$2, "1", MaxImprovedRelations)}
                               </div>
                               {element}
                            </>
@@ -523,7 +523,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                  {
                                     type: "add",
                                     name: $t(
-                                       L.GuaranteedDefenseByX,
+                                       L.GuaranteedDefenseBy$1,
                                        getProvinceName(G.save.state.playerProvince, G.save),
                                     ),
                                     value: 50,
@@ -570,7 +570,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                               addModifier({
                                  modifier: "Prestige",
                                  type: "multiply",
-                                 name: $t(L.DeterredXsAggression, getProvinceName(province, G.save)),
+                                 name: $t(L.Deterred$1sAggression, getProvinceName(province, G.save)),
                                  value: ourState.rivals.includes(province) ? 0.2 : 0.1,
                                  duration: TimedActions.DeterAggression.duration,
                                  province: G.save.state.playerProvince,
@@ -604,7 +604,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                  {
                                     type: "add",
                                     name: $t(
-                                       L.ReceivedAGiftFromX,
+                                       L.ReceivedAGiftFrom$1,
                                        getProvinceName(G.save.state.playerProvince, G.save),
                                     ),
                                     value: 25,
@@ -692,7 +692,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                        modifier: "Prestige",
                                        type: "multiply",
                                        name: $t(
-                                          L.XSummonedYsGovernor,
+                                          L.$1Summoned$2sGovernor,
                                           getProvinceName(G.save.state.playerProvince, G.save),
                                           getProvinceName(province, G.save),
                                        ),
@@ -705,7 +705,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                        modifier: "Prestige",
                                        type: "multiply",
                                        name: $t(
-                                          L.XSummonedYsGovernor,
+                                          L.$1Summoned$2sGovernor,
                                           getProvinceName(province, G.save),
                                           getProvinceName(G.save.state.playerProvince, G.save),
                                        ),
@@ -753,7 +753,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                        modifier: "WarPower",
                                        type: "multiply",
                                        name: $t(
-                                          L.XRequestedMilitaryAidFromY,
+                                          L.$1RequestedMilitaryAidFrom$2,
                                           getProvinceName(G.save.state.playerProvince, G.save),
                                           getProvinceName(province, G.save),
                                        ),
@@ -766,7 +766,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                        modifier: "WarPower",
                                        type: "multiply",
                                        name: $t(
-                                          L.XRequestedMilitaryAidFromY,
+                                          L.$1RequestedMilitaryAidFrom$2,
                                           getProvinceName(G.save.state.playerProvince, G.save),
                                           getProvinceName(province, G.save),
                                        ),
@@ -841,7 +841,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         tooltip={(element) => (
                            <>
                               <div className="m10">
-                                 {html($t(L.InfiltratingProvinceIncreasesInfiltrationByXPerMonth, "1"))}
+                                 {html($t(L.InfiltratingProvinceIncreasesInfiltrationBy$1PerMonth, "1"))}
                               </div>
                               {element}
                            </>
@@ -927,7 +927,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                               addModifier({
                                  modifier: "WarPower",
                                  type: "multiply",
-                                 name: $t(L.UnderminedByX, getProvinceName(G.save.state.playerProvince, G.save)),
+                                 name: $t(L.UnderminedBy$1, getProvinceName(G.save.state.playerProvince, G.save)),
                                  value: -0.1,
                                  duration: TimedActions.UndermineTheirArmy.duration,
                                  province: province,
@@ -1015,7 +1015,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                  ) {
                                     tileData.modifiers.Defense.push({
                                        type: "multiply",
-                                       name: $t(L.SubvertedByX, getProvinceName(G.save.state.playerProvince, G.save)),
+                                       name: $t(L.SubvertedBy$1, getProvinceName(G.save.state.playerProvince, G.save)),
                                        value: -0.2,
                                        duration: TimedActions.SubvertGarrison.duration,
                                     });
@@ -1069,7 +1069,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                  ) {
                                     tileData.modifiers.Unrest.push({
                                        type: "add",
-                                       name: $t(L.IncitedByX, getProvinceName(G.save.state.playerProvince, G.save)),
+                                       name: $t(L.IncitedBy$1, getProvinceName(G.save.state.playerProvince, G.save)),
                                        value: 20,
                                        duration: TimedActions.InciteUnrest.duration,
                                     });
@@ -1173,7 +1173,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                  isNorGreatPowerCondition(province, G.save),
                                  {
                                     name: $t(
-                                       L.XHasNotAlreadyPledgedWithOtherProvinces,
+                                       L.$1HasNotAlreadyPledgedWithOtherProvinces,
                                        getProvinceName(province, G.save),
                                     ),
                                     value: getProvinceStat("consulVotes", province, G.save) >= 1,
@@ -1214,7 +1214,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                  {
                                     type: "add",
                                     name: $t(
-                                       L.XDenouncedY,
+                                       L.$1Denounced$2,
                                        getProvinceName(G.save.state.playerProvince, G.save),
                                        getProvinceName(province, G.save),
                                     ),
@@ -1227,7 +1227,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                  modifier: "Prestige",
                                  type: "multiply",
                                  name: $t(
-                                    L.XDenouncedY,
+                                    L.$1Denounced$2,
                                     getProvinceName(G.save.state.playerProvince, G.save),
                                     getProvinceName(province, G.save),
                                  ),
@@ -1283,7 +1283,7 @@ function SelectRival({ province, index }: { province: Province; index: number })
             }
             const cooldown = getTimedActionCooldownLeft("ChangeRival", province, G.save);
             if (state.rivals[index] !== null && cooldown > 0) {
-               showError($t(L.WeCannotChangeRivalForAnotherXMonths, formatNumber(cooldown)));
+               showError($t(L.WeCannotChangeRivalForAnother$1Months, formatNumber(cooldown)));
                return;
             }
             playClick();
@@ -1292,7 +1292,7 @@ function SelectRival({ province, index }: { province: Province; index: number })
                province,
                {
                   type: "add",
-                  name: $t(L.XConsidersYARival, getProvinceName(province, G.save), getProvinceName(selected, G.save)),
+                  name: $t(L.$1Considers$2ARival, getProvinceName(province, G.save), getProvinceName(selected, G.save)),
                   value: RivalAttitudeModifier,
                   duration: RivalAttitudeDuration,
                },
@@ -1478,7 +1478,7 @@ function SabotageButton({
                <div className="m10">
                   {html(
                      $t(
-                        L.SabotageDescription,
+                        L.SabotageDescription$1$2$3$4,
                         getProvinceName(fromProvince, G.save),
                         getProvinceName(toProvince, G.save),
                         getProvinceName(fromProvince, G.save),

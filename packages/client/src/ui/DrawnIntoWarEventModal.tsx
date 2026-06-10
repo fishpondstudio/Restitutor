@@ -12,9 +12,9 @@ export function DrawnIntoWarModal({ war }: { war: IWar }): React.ReactNode {
    const ourAlly = war.coAttackers.has(G.save.state.playerProvince) ? war.attacker : war.defender;
    return (
       <GenericEventModal
-         title={$t(L.XYWar, getProvinceName(war.attacker, G.save), getProvinceName(war.defender, G.save))}
+         title={$t(L.$1$2War, getProvinceName(war.attacker, G.save), getProvinceName(war.defender, G.save))}
          content={$t(
-            L.DrawnIntoWarDesc,
+            L.DrawnIntoWarDesc$1$2$3,
             getProvinceName(war.attacker, G.save),
             getProvinceName(war.defender, G.save),
             getProvinceName(ourAlly, G.save),

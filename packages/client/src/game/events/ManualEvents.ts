@@ -23,7 +23,7 @@ export const ManualEvents = {
                         return EmptyString;
                      }
                      return $t(
-                        L.OldGovernorHeirXAdministrativeYDiplomaticZMilitaryPYearsOldAndQ,
+                        L.OldGovernorHeir$1$2$3$4$5$6,
                         governor.male.name.join(" "),
                         formatNumber(governor.male.administrative),
                         formatNumber(governor.male.diplomatic),
@@ -57,7 +57,7 @@ export const ManualEvents = {
                         return EmptyString;
                      }
                      return $t(
-                        L.SenateGovernorXAdministrativeYDiplomaticZMilitaryPYearsOldAndQ,
+                        L.SenateGovernor$1$2$3$4$5$6,
                         governor.male.name.join(" "),
                         formatNumber(governor.male.administrative),
                         formatNumber(governor.male.diplomatic),
