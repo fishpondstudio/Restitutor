@@ -15,6 +15,7 @@ import { Goods } from "./definitions/Goods";
 import type { Province } from "./definitions/Province";
 import { type IProvince, Provinces } from "./definitions/Province";
 import { type ITileData, initTiles } from "./definitions/Tile";
+import { Tiles } from "./definitions/TileConstants";
 import { GameStateUpdated } from "./Events";
 import { GameOption } from "./GameOption";
 import { addAttitudeModifier, getProvincesWithinDiplomaticRange, getRelation } from "./logic/DiplomacyLogic";
@@ -24,6 +25,7 @@ import {
    getProvinceOverextension,
    getProvinceTileCount,
    initProvince,
+   provinceResourceOf,
    resetProvinceResource,
    rollTradeOffers,
 } from "./logic/ProvinceLogic";
@@ -57,7 +59,7 @@ export class GameState {
       consulCandidates: range(0, 9).map(() => randomMaleName().join(" ")),
       votes: new Map(),
    };
-   completedTutorials: Set<number> = new Set();
+   completedTutorials: Set<string> = new Set();
    tiles: Map<Tile, ITileData> = initTiles();
    wars: IWar[] = [];
    chronicle: IChronicleEntry[] = [];
@@ -80,6 +82,17 @@ export function initSaveGame(save: SaveGame): SaveGame {
    initTileProductions(save);
    initPlayerProvince(save);
    initAttitudes(save);
+   return save;
+}
+
+export function initNewPlayerSaveGame(save: SaveGame): SaveGame {
+   provinceResourceOf("gold", save.state.playerProvince, save)[0] = 1453;
+   save.state.tiles.get(Tiles.Durocortorum)?.modifiers.Defense.push({
+      type: "multiply",
+      name: $t(L.Tutorial),
+      value: -0.5,
+      duration: 12 * 10,
+   });
    return save;
 }
 
@@ -140,26 +153,28 @@ function initTileUpgrades(save: SaveGame): void {
    for (const [province, data] of entriesOf(save.state.provinces)) {
       const tileCount = getProvinceTileCount(province, save);
       let total = Math.min(maxTileCount * 3, 20 * 3 * tileCount);
+      const capital = data.capital;
       while (true) {
          if (total <= 0) break;
          for (const [tile, data] of save.state.tiles) {
             if (data.province !== province) {
                continue;
             }
-            ++data.infrastructure;
-            --total;
+            const amount = tile === capital ? 2 : 1;
+            data.infrastructure += amount;
+            total -= amount;
             if (total <= 0) break;
 
-            ++data.population;
-            --total;
+            data.production += amount;
+            total -= amount;
             if (total <= 0) break;
 
-            ++data.production;
-            --total;
+            data.population += amount;
+            total -= amount;
             if (total <= 0) break;
          }
       }
-      const incomeTarget = 45;
+      const incomeTarget = 40;
       let maxIteration = 1000;
       while (true) {
          if (--maxIteration <= 0) {

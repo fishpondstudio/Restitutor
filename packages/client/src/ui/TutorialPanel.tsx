@@ -2,7 +2,7 @@ import { Progress } from "@mantine/core";
 import { formatNumber, hasFlag, toggleFlag } from "@project/shared/src/utils/Helper";
 import { GameOptionUpdated, GameStateUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
-import { getCurrentTutorial } from "../game/Tutorial";
+import { getCurrentTutorial } from "../game/TutorialLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";

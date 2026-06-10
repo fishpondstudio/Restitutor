@@ -140,7 +140,11 @@ export function PersonNode({
                </div>
             ) : (
                <div className="f1">
-                  <button onClick={() => showModal(<LookForSpouseModal family={family} />)} className="btn">
+                  <button
+                     onClick={() => showModal(<LookForSpouseModal family={family} />)}
+                     className="btn"
+                     id={family.male === state.governor.male ? "FamilyNode_LookForSpouse_Governor" : undefined}
+                  >
                      {$t(L.LookForSpouse)}
                   </button>
                </div>

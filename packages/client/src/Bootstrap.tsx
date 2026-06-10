@@ -9,7 +9,7 @@ import { addDebugFunctions } from "./game/AddDebugFunctions";
 import { SentryDSN, SupportedSaveVersion } from "./game/definitions/Constant";
 import { Province } from "./game/definitions/Province";
 import Rome from "./game/definitions/Rome.json?raw";
-import { GameStateFlags, initSaveGame, SaveGame } from "./game/GameState";
+import { GameStateFlags, initNewPlayerSaveGame, initSaveGame, SaveGame } from "./game/GameState";
 import { loadGame, saveGame } from "./game/LoadSave";
 import { validateConfig } from "./game/logic/ValidateConfig";
 import { showBootstrapModal } from "./game/ShowBootstrapModal";
@@ -118,6 +118,7 @@ export async function bootstrap(): Promise<void> {
    if (isNewPlayer) {
       G.save = new SaveGame();
       initSaveGame(G.save);
+      initNewPlayerSaveGame(G.save);
       G.save.state.flags = setFlag(G.save.state.flags, GameStateFlags.ShowTutorial);
    }
 

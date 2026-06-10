@@ -1,5 +1,5 @@
 import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
-import { createTile, fromEntries, pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
+import { fromEntries, pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
 import { makeNoise2D } from "open-simplex-noise";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
@@ -11,11 +11,6 @@ import type { IModifier } from "./Modifier";
 import { Province, Provinces } from "./Province";
 import type { Religion } from "./Religion";
 import type { Terrain } from "./Terrain";
-
-export const Tiles = {
-   Constantinople: createTile(158, 79),
-   Rome: createTile(145, 77),
-} as const satisfies Record<string, Tile>;
 
 export const MapColorsH: Record<Province, number> = fromEntries(
    Provinces.map((province, index, array) => {

@@ -178,6 +178,7 @@ export function LookForSpouseModal({ family, province }: { family?: IFamily; pro
 function LocalSpouseButton({ family, socialClass }: { family: IFamily; socialClass: SocialClass }): React.ReactNode {
    return (
       <ActionButton
+         id={`LookForSpouse_${socialClass}`}
          tooltip={(element) => (
             <>
                <div className="m10">

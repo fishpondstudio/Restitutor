@@ -20,6 +20,7 @@ import {
 } from "../game/logic/ProvinceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
+   ArmyMoraleMonthlyIncrease,
    dismissGeneral,
    getCavalryUnitWarPower,
    getCurrentGeneral,
@@ -28,7 +29,6 @@ import {
    hasGeneralCondition,
    MaxConscription,
    MinConscription,
-   MonthlyMoraleIncrease,
 } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -251,9 +251,9 @@ export function ArmyModal(): React.ReactNode {
             </FloatingTip>
          </div>
          <div className="m10" style={Grid3}>
-            <UpgradeSkillButton skill="infantrySkill" />
-            <UpgradeSkillButton skill="rangedSkill" />
-            <UpgradeSkillButton skill="cavalrySkill" />
+            <UpgradeSkillButton skill="infantrySkill" id="ArmyModal_UpgradeInfantrySkill" />
+            <UpgradeSkillButton skill="rangedSkill" id="ArmyModal_UpgradeRangedSkill" />
+            <UpgradeSkillButton skill="cavalrySkill" id="ArmyModal_UpgradeCavalrySkill" />
          </div>
          <div className="h1">{$t(L.Actions)}</div>
          <div className="m10" style={Grid3}>
@@ -262,7 +262,9 @@ export function ArmyModal(): React.ReactNode {
             <TimedActionButton timedAction="ServiceWeapons" />
          </div>
          <div className="h1">{$t(L.MaintenanceAndMorale)}</div>
-         <div className="mx10 my5">{$t(L.ArmyMaintenance)}</div>
+         <div className="mx10 my5" id="ArmyModal_ArmyMaintenance">
+            {$t(L.ArmyMaintenance)}
+         </div>
          <Slider
             className="m10"
             value={armyMaintenance}
@@ -292,7 +294,7 @@ export function ArmyModal(): React.ReactNode {
                <FloatingTip
                   label={$t(
                      L.MoraleIsIncreasingAtXPerMonthToReachArmyMaintenance,
-                     formatPercent(MonthlyMoraleIncrease / 100),
+                     formatPercent(ArmyMoraleMonthlyIncrease / 100),
                   )}
                >
                   <div className="mi sm text-green">trending_up</div>
@@ -311,9 +313,16 @@ export function ArmyModal(): React.ReactNode {
    );
 }
 
-function UpgradeSkillButton({ skill }: { skill: "infantrySkill" | "rangedSkill" | "cavalrySkill" }): React.ReactNode {
+function UpgradeSkillButton({
+   skill,
+   id,
+}: {
+   skill: "infantrySkill" | "rangedSkill" | "cavalrySkill";
+   id?: string;
+}): React.ReactNode {
    return (
       <ActionButton
+         id={id}
          action={UpgradeGeneralSkillAction(skill, G.save.state.playerProvince, G.save)}
          tooltip={(element) => (
             <>

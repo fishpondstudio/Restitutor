@@ -337,7 +337,11 @@ export function TopLeftPanel(): React.ReactNode {
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Trade)}>
-                  <div className="pointer" onClick={() => showModal(<TradeModal provinces={new Set([])} />)}>
+                  <div
+                     className="pointer"
+                     id="TopPanel_Trade"
+                     onClick={() => showModal(<TradeModal provinces={new Set([])} />)}
+                  >
                      <img src={Trade} width={IconWidth} />
                   </div>
                </FloatingTip>

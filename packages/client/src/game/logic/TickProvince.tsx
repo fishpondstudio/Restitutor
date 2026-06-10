@@ -33,7 +33,7 @@ import { tickSocialClasses } from "./SocialClassLogic";
 import { getGameDate } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
-import { getCurrentGeneral, MonthlyMoraleIncrease, resetGeneralUpgrades } from "./WarLogic";
+import { ArmyMoraleMonthlyIncrease, getCurrentGeneral, resetGeneralUpgrades } from "./WarLogic";
 
 export const PendingGameEventTimeoutMonths = 3;
 
@@ -219,7 +219,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
    const morale = getProvinceStat("armyMorale", province, save);
    const maintenance = getProvinceStat("armyMaintenance", province, save);
    if (maintenance > morale) {
-      setProvinceStat("armyMorale", clamp(morale + MonthlyMoraleIncrease, 0, maintenance), province, save);
+      setProvinceStat("armyMorale", clamp(morale + ArmyMoraleMonthlyIncrease, 0, maintenance), province, save);
    }
 
    const income = getProvinceIncome(province, save).income;

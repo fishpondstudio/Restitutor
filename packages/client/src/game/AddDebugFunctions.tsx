@@ -60,11 +60,6 @@ export function addDebugFunctions(): void {
       GameStateUpdated.emit();
    };
    // @ts-expect-error
-   globalThis.completeMissions = () => {
-      // TODO: Implement
-      GameStateUpdated.emit();
-   };
-   // @ts-expect-error
    globalThis.showChronicle = () => {
       showModal(
          <ChronicleModal
@@ -139,8 +134,8 @@ export function addDebugFunctions(): void {
       showModal(<WarEndedModal war={wasAsCoalition} />);
    };
    // @ts-expect-error
-   globalThis.undoTutorial = () => {
-      G.save.state.completedTutorials = new Set(Array.from(G.save.state.completedTutorials).slice(0, -1));
+   globalThis.undoTutorial = (number = 1) => {
+      G.save.state.completedTutorials = new Set(Array.from(G.save.state.completedTutorials).slice(0, -number));
       GameStateUpdated.emit();
    };
    // @ts-expect-error

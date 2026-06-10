@@ -1,5 +1,5 @@
 import { getDefaultZIndex } from "@mantine/core";
-import { getCurrentTutorial } from "../game/Tutorial";
+import { getCurrentTutorial } from "../game/TutorialLogic";
 import { G } from "../utils/Global";
 
 const highlighter = document.body.appendChild(document.createElement("div"));

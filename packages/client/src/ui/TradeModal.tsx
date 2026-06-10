@@ -250,6 +250,7 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                               <td className="text-right">
                                  <ActionButton
                                     action={action}
+                                    id={`TradeModal_Trade_${province}_${idx}`}
                                     tooltip={(element) => (
                                        <>
                                           <div className="m10">

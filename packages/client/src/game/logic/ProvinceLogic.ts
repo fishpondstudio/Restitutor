@@ -885,7 +885,7 @@ export function rollTradeOffers(save: SaveGame): void {
    });
 }
 
-function fillOfferAmount(offer: TradeOfferBase): TradeOffer {
+export function fillOfferAmount(offer: TradeOfferBase): TradeOffer {
    const result: TradeOffer = { ...offer, theyOfferAmount: 0, weOfferAmount: 0 };
    if (result.theyOffer !== "gold" && result.weOffer !== "gold") {
       if (Price[result.weOffer] > Price[result.theyOffer]) {

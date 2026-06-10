@@ -1,4 +1,4 @@
-import { keysOf } from "@project/shared/src/utils/Helper";
+import { createTile, keysOf, type Tile } from "@project/shared/src/utils/Helper";
 import { Province } from "./Province";
 
 export const GallicEmpireProvinces: Province[] = [
@@ -44,3 +44,10 @@ export const PalmyreneEmpireProvinces: Province[] = [
    "Galatia",
    "Lycia",
 ] as const;
+
+export const Tiles = {
+   Constantinople: createTile(158, 79),
+   Rome: createTile(145, 77),
+   Durocortorum: createTile(138, 67),
+   Lutetia: createTile(137, 68),
+} as const satisfies Record<string, Tile>;

@@ -113,6 +113,7 @@ export function SenateModal(): React.ReactNode {
                      </FloatingTip>
                      <div className="row g5">
                         <button
+                           id={`SenateModal_Candidate_${i}_${votes.has(i) ? "Revoke" : "Pledge"}`}
                            className="btn f1"
                            onClick={() => {
                               if (votes.has(i)) {
