@@ -15,7 +15,6 @@ export const RefreshTiles = new TypedEvent<{
    options: { indicator?: boolean; visual?: boolean };
 }>();
 export const RefreshTechTree = new TypedEvent<void>();
-export const OnLanguageChanged = new TypedEvent<void>();
 export const OnSceneSwitched = new TypedEvent<void>();
 export const OnResize = new TypedEvent<{ width: number; height: number }>();
 export const ShowModal = new TypedEvent<React.ReactElement>();

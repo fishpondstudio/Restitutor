@@ -11,6 +11,7 @@ import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar, showModal } from "../utils/ModalManager";
+import { ChangeLanguageComp } from "./ChangeLanguageComp";
 import { ConfirmModal } from "./ConfirmModal";
 import { FloatingTip } from "./components/FloatingTip";
 import { Grid2 } from "./UIConstant";
@@ -19,6 +20,9 @@ export function SettingsModal(): React.ReactNode {
    refreshOnTypedEvent(GameOptionUpdated);
    return (
       <ModalComp title={<ModalTitleBar title={$t(L.Settings)} dismiss />}>
+         <div className="m10">
+            <ChangeLanguageComp />
+         </div>
          <div className="h1">{$t(L.Gameplay)}</div>
          <div className="m10">
             <div className="row my5">

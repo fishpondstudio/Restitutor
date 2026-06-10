@@ -6,6 +6,7 @@ import { getCurrentTutorial } from "../game/TutorialLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
+import { ChangeLanguageComp } from "./ChangeLanguageComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 
@@ -42,6 +43,14 @@ export function TutorialPanel(): React.ReactNode {
          {!minimizeTutorial && (
             <>
                <div className="divider" />
+               {tutorial.id === "Welcome" && (
+                  <>
+                     <div className="m10">
+                        <ChangeLanguageComp />
+                     </div>
+                     <div className="divider" />
+                  </>
+               )}
                <div className="m10">{html(tutorial.desc())}</div>
             </>
          )}

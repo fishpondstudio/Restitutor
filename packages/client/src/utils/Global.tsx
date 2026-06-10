@@ -1,7 +1,7 @@
 import type { Tile, ValueOf } from "@project/shared/src/utils/Helper";
 import type { Application, Texture } from "pixi.js";
 import type { ITileConfig } from "../game/definitions/Tile";
-import { GameSpeedChanged, OnLanguageChanged } from "../game/Events";
+import { GameSpeedChanged } from "../game/Events";
 import type { SaveGame } from "../game/GameState";
 import { Languages } from "../game/Languages";
 import { L } from "../utils/i18n";
@@ -56,8 +56,16 @@ export function isPaused(): boolean {
    return G.speed <= 0;
 }
 
+let languageChanged = false;
+
 export function setLanguage(lang: keyof typeof Languages) {
+   if (G.save.options.language !== lang) {
+      languageChanged = true;
+   }
    G.save.options.language = lang;
    Object.assign(L, Languages[lang]);
-   OnLanguageChanged.emit();
+}
+
+export function isLanguageChanged(): boolean {
+   return languageChanged;
 }

@@ -1,30 +1,54 @@
 import { Select } from "@mantine/core";
-import type { Language } from "@project/shared/src/rpc/ServerMessageTypes";
-import { mapOf } from "@project/shared/src/utils/Helper";
+import { SupportedLanguages } from "@project/shared/src/rpc/ServerMessageTypes";
+import { TranslationUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated } from "../game/Events";
 import { Languages } from "../game/Languages";
-import { showWarning } from "../game/logic/AlertLogic";
-import { G, setLanguage } from "../utils/Global";
+import { saveGame } from "../game/LoadSave";
+import { openUrl } from "../rpc/SteamClient";
+import { G, isLanguageChanged, setLanguage } from "../utils/Global";
+import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 
 export function ChangeLanguageComp(): React.ReactNode {
+   refreshOnTypedEvent(GameOptionUpdated);
    return (
-      <Select
-         checkIconPosition="right"
-         leftSection={<div className="mi">translate</div>}
-         className="f1"
-         value={G.save.options.language}
-         data={mapOf(Languages as Record<Language, Record<string, string>>, (lang, content) => ({
-            label: content.$Language,
-            value: lang,
-         }))}
-         onChange={(lang) => {
-            if (lang) {
-               setLanguage(lang as keyof typeof Languages);
-               showWarning($t(L.SomeInGameTextsRequireAGameRestartToDisplayInTheNewLanguage));
-               GameOptionUpdated.emit();
-            }
-         }}
-      />
+      <>
+         <Select
+            className="f1"
+            leftSection={<div className="mi sm">translate</div>}
+            checkIconPosition="right"
+            data={SupportedLanguages.map((language) => ({
+               label: Languages[language].$Language,
+               value: language,
+            }))}
+            value={G.save.options.language}
+            onChange={(value) => {
+               if (value) {
+                  setLanguage(value);
+                  GameOptionUpdated.emit();
+               }
+            }}
+         />
+         {(G.save.options.language !== "en" || isLanguageChanged()) && <div className="h5" />}
+         {G.save.options.language !== "en" && (
+            <div className="row text-sm text-dimmed my5 pointer" onClick={() => openUrl(TranslationUrl)}>
+               <div className="f1">{$t(L.HelpImproveThisTranslationOnGithub)}</div>
+               <div className="mi sm pointer">open_in_new</div>
+            </div>
+         )}
+         {isLanguageChanged() && (
+            <div className="row my5 text-sm">
+               <div className="f1 text-yellow">{$t(L.SomeInGameTextsRequireAGameReloadToDisplayInTheNewLanguage)}</div>
+               <button
+                  className="btn"
+                  onClick={() => {
+                     saveGame(G.save).then(() => window.location.reload());
+                  }}
+               >
+                  {$t(L.Reload)}
+               </button>
+            </div>
+         )}
+      </>
    );
 }
