@@ -15,7 +15,7 @@ import {
 import { Fonts } from "../assets";
 import Land from "../data/Land.json";
 import type { Province } from "../game/definitions/Province";
-import { MapForegroundColors } from "../game/definitions/Tile";
+import { MapForegroundColors, MapTextColors } from "../game/definitions/Tile";
 import { Tiles } from "../game/definitions/TileConstants";
 import { RefreshTiles } from "../game/Events";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
@@ -457,7 +457,7 @@ export class WorldScene extends Scene {
                new UnicodeText(getProvinceName(province, G.save), {
                   fontName: Fonts.TitleFont,
                   fontSize: 36,
-                  tint: 0x444444,
+                  tint: MapTextColors[province],
                }),
             );
             text.anchor.set(0.5, 0.5);

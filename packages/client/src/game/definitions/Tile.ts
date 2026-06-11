@@ -37,6 +37,15 @@ export const MapForegroundColors: Record<Province, number> = fromEntries(
    }),
 );
 
+export const MapTextColors: Record<Province, number> = fromEntries(
+   Provinces.map((province, index, array) => {
+      const h = (360 * index) / (array.length - 1);
+      const s = 30;
+      const l = 30;
+      return [province, hslToRgb(h, s, l)];
+   }),
+);
+
 export interface ITileConfig {
    terrain?: Terrain;
    province?: Province;
