@@ -63,7 +63,7 @@ export interface IChat {
    channel: Language;
 }
 
-export const SupportedLanguages = ["en", "zh-CN"] as const;
+export const SupportedLanguages = ["en", "zh-CN", "ru"] as const;
 export type Language = (typeof SupportedLanguages)[number];
 
 export const ChatFlag = {
