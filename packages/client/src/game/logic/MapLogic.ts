@@ -36,6 +36,11 @@ export const MapTextColors: Record<Province, number> = fromEntries(
    }),
 );
 
+function addAdjacency(province1: Province, province2: Province, adjacency: Record<Province, Set<Province>>) {
+   adjacency[province1].add(province2);
+   adjacency[province2].add(province1);
+}
+
 function buildAdjacentProvinces(): Record<Province, Set<Province>> {
    const adjacency = fromEntries(Provinces.map((province) => [province, new Set<Province>()]));
    for (const [tile, data] of RomeMap) {
@@ -51,6 +56,13 @@ function buildAdjacentProvinces(): Record<Province, Set<Province>> {
          }
       }
    }
+
+   addAdjacency("Corsica", "Sardinia", adjacency);
+   addAdjacency("Corsica", "Italia", adjacency);
+   addAdjacency("Sardinia", "Italia", adjacency);
+   addAdjacency("Britannia", "Lugdunensis", adjacency);
+   addAdjacency("Britannia", "Belgica", adjacency);
+
    return adjacency;
 }
 
