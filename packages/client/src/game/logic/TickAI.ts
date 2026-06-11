@@ -79,6 +79,7 @@ import { getTreatyCount } from "./TreatyLogic";
 import {
    calculateWarLengthForStability,
    getCurrentWars,
+   getWarEstimatedTime,
    getWarMonthlyMilitaryPoint,
    getWarParticipants,
    getWarScore,
@@ -657,9 +658,7 @@ function findWarGoal(province: Province, save: SaveGame): { tile: Tile; estimate
          continue;
       }
       const successChance = getWarSuccessChance(province, coAttackers, otherProvince, coDefenders, save);
-      const failChance = 1 - successChance;
-      const denominator = successChance - failChance;
-      if (denominator <= 0) {
+      if (successChance <= 0.5) {
          continue;
       }
       for (const otherTile of shuffle(otherTiles)) {
@@ -668,7 +667,7 @@ function findWarGoal(province: Province, save: SaveGame): { tile: Tile; estimate
          }
          const otherTileData = save.state.tiles.get(otherTile);
          const warScore = getWarScore(province, otherProvince, new Set([otherTile]), "ConquestMission", save).value;
-         const estimatedTime = Math.ceil(warScore / denominator);
+         const estimatedTime = getWarEstimatedTime(warScore, successChance);
          const isOriginalTile = otherTileData?.originalProvince === province;
          if (estimatedTime < bestEstimatedTime && (!bestIsOriginalTile || isOriginalTile)) {
             bestEstimatedTime = estimatedTime;

@@ -25,6 +25,7 @@ import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from 
 import {
    getCurrentWars,
    getTruceLength,
+   getWarEstimatedTime,
    getWarPlunder,
    getWarSuccessChance,
    type IWar,
@@ -32,6 +33,7 @@ import {
    isWarStalled,
    WarFlag,
    WarLogFlag,
+   WarResultNames,
    WarResultScore,
    WhitePeaceCostPerTile,
 } from "../game/logic/WarLogic";
@@ -47,17 +49,17 @@ import { showSidebar } from "./common/Sidebar";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
-import { WarChanceTooltip } from "./DeclareWarPage";
 import { TilePage } from "./TilePage";
+import { Grid3 } from "./UIConstant";
+import { WarChanceTooltip } from "./WarChanceTooltip";
 import { WarMonthlyConsequences } from "./WarMonthlyConsequences";
 import { WarPowerComp } from "./WarPowerComp";
 
 export function WarModal({ war }: { war: IWar }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const successChance = getWarSuccessChance(war.attacker, war.coAttackers, war.defender, war.coDefenders, G.save);
-   const failChance = 1 - successChance;
    const isWon = war.actualWarScore >= war.requiredWarScore;
-   const estimatedTimeLeft = Math.ceil((war.requiredWarScore - war.actualWarScore) / (successChance - failChance));
+   const estimatedTimeLeft = getWarEstimatedTime(war.requiredWarScore - war.actualWarScore, successChance);
    const forceAttack = getTimedActionTimeLeft("ForceAttack", war.attacker, G.save);
    return (
       <ModalComp size="lg" title={<ModalTitleBar title={$t(L.$1$2War, war.attacker, war.defender)} dismiss />}>
@@ -83,19 +85,13 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
             </div>
          </div>
          <FloatingTip
-            label={
-               <WarChanceTooltip
-                  successChance={successChance}
-                  failChance={failChance}
-                  requiredWarScore={war.requiredWarScore}
-               />
-            }
+            label={<WarChanceTooltip successChance={successChance} requiredWarScore={war.requiredWarScore} />}
          >
             <div className="row mx10 my5">
                <div className="f1">{$t(L.LengthOfTheWarEstTimeLeft)}</div>
                <div>
                   {formatNumber(war.log.length)}/
-                  {successChance - failChance <= 0 ? (
+                  {successChance <= 0.5 ? (
                      <span className="text-red">{$t(L.Never)}</span>
                   ) : (
                      <>{$t(L.$1Months, formatNumber(estimatedTimeLeft))}</>
@@ -126,8 +122,8 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                   <thead>
                      <tr>
                         <th>{$t(L.Date)}</th>
-                        <th>{$t(L.Roll)}</th>
                         <th>{$t(L.Chance)}</th>
+                        <th>{$t(L.Attacks)}</th>
                         <th>{$t(L.Result)}</th>
                         <th>{$t(L.Score)}</th>
                      </tr>
@@ -136,9 +132,59 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                      {war.log.slice(0, 20).map((log) => (
                         <tr key={log.month}>
                            <td>{monthToDate(log.month).toLocaleDateString()}</td>
-                           <td>{log.roll >= 0 ? formatPercent(log.roll) : "-"}</td>
                            <td>{formatPercent(log.successChance)}</td>
-                           <td>{log.result}</td>
+                           <td>
+                              <FloatingTip
+                                 disabled={log.rolls.length === 0}
+                                 className="p0"
+                                 w={300}
+                                 label={
+                                    <>
+                                       <div className="m10">
+                                          {$t(L.WarMonthlyAttackExplanation$1$2, "3", formatPercent(log.successChance))}
+                                       </div>
+                                       <div className="m10" style={Grid3}>
+                                          {log.rolls.map((roll, i) => {
+                                             return (
+                                                <div key={i} className="box text-center">
+                                                   <div className="h2">
+                                                      <div className="mi sm">timer_{i + 1}</div>
+                                                   </div>
+                                                   <div className="h10" />
+                                                   <div className="mi lg">
+                                                      {roll < log.successChance ? "swords" : "security"}
+                                                   </div>
+                                                   <div className="h5" />
+                                                   <div>{formatPercent(roll)}</div>
+                                                   <div>
+                                                      {WarResultNames[
+                                                         roll < log.successChance ? "Success" : "Repelled"
+                                                      ]()}
+                                                   </div>
+                                                   <div className="h10" />
+                                                </div>
+                                             );
+                                          })}
+                                       </div>
+                                       <div className="box row m10 p10">
+                                          <div className="f1">{$t(L.FinalResult)}</div>
+                                          <div>{WarResultNames[log.result]()}</div>
+                                       </div>
+                                    </>
+                                 }
+                              >
+                                 <div className="row g0">
+                                    {log.rolls.map((roll, i) => {
+                                       return (
+                                          <div key={i} className="mi xs">
+                                             {roll < log.successChance ? "swords" : "security"}
+                                          </div>
+                                       );
+                                    })}
+                                 </div>
+                              </FloatingTip>
+                           </td>
+                           <td>{WarResultNames[log.result]()}</td>
                            <td className="text-right">
                               <WarLogScoreComp log={log} />
                            </td>

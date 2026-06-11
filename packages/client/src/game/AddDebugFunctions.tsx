@@ -83,7 +83,7 @@ export function addDebugFunctions(): void {
       log: range(1, 23).map((i) => {
          return {
             month: i,
-            roll: 0.5,
+            rolls: [0.5, 0.5, 0.5],
             successChance: 0.5,
             result: "Success",
             flag: WarLogFlag.None,
@@ -104,7 +104,7 @@ export function addDebugFunctions(): void {
       log: range(1, 23).map((i) => {
          return {
             month: i,
-            roll: 0.5,
+            rolls: [0.5, 0.5, 0.5],
             successChance: 0.5,
             result: "Success",
             flag: WarLogFlag.None,

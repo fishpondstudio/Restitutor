@@ -888,7 +888,6 @@ export const EN = {
    RevokingThisPrivilegeWillHaveTheFollowingEffectsOn$1: "Revoking this privilege will have the following effects on $1",
    Rewards: "Rewards",
    Rivals: "Rivals",
-   Roll: "Roll",
    RomeFollowsWhereTheEmperorLeads: "Rome follows where the emperor leads",
    RomeOnlyNeedsOneEmperor: "Rome only needs one emperor",
    Sabotage: "Sabotage",
@@ -932,7 +931,7 @@ export const EN = {
    ShowTutorial: "Show tutorial",
    SignPeaceTreaty: "Sign Peace Treaty",
    SignPeaceTreatyDesc:
-      "Every month, a die is rolled, and depending on war power, our attack is either successful (+1 war score) or repelled (-1 war score).<br>While the war is going on, we can adjust the game speed on the <i>top right panel</i>, or explore the game a bit.<br>Once we have achieved the required war score, the ongoing war icon on the left will bounce. Click that icon and follow on-screen instructions to sign a peace treaty that allows us to occupy <i>Durocortorum</i>.",
+      "Every month, 3 attacks are attempted and the result is the best of 3 attacks (BO3). If the result is successful, we gain 1 war score; otherwise we lose 1 war score.<br>While the war is going on, we can adjust the game speed on the <i>top right panel</i>, or explore the game a bit.<br>Once we have achieved the required war score, the ongoing war icon on the left will bounce. Click that icon and follow on-screen instructions to sign a peace treaty that allows us to occupy <i>Durocortorum</i>.",
    SlashMonth: "/Month",
    SocialClass: "Social Class",
    SocialClassesInDissent: "Social Classes in Dissent",
@@ -1674,7 +1673,6 @@ export const EN = {
    VoteForConsulElectionDesc:
       "Every other year, two consuls are elected from a pool of nine candidates. We may support two of them, and if the candidates we back are elected, we earn consul points, which can be spent on various Senate decrees. Through diplomacy and intelligence, we can improve our chances of supporting the winning candidates. For now, let's back two random candidates - follow the on-screen instructions.",
    WarChanceEstimateOnly: "This is only an estimate as the war power of each participant can change every month and the chances of gaining or losing war score will change accordingly.",
-   WarChanceTooltip$1$2$3$4$5: "Every month, there is a $1 chance of gaining $2 war score and a $3 chance of losing $4 war score. We will win the war when we have at least $5 war score.",
    WarEndedDesc$1$2$3$4$5: "News from far away, governor! After a $1-month fight, the $2-$3 war has come to an end. $4 has emerged victorious and our treaty duty to $5 has been fulfilled.",
    WarGoal: "War Goal",
    WarHasBeenGoingOnForAtLeastAYear: "War has been going on for at least a year",
@@ -1931,4 +1929,11 @@ export const EN = {
    Years: "Years",
    YouCanOnlyLoadSaveFilesThatMatchTheSupportedSaveVersion: "You can only load save files that match the supported save version",
    YourSaveFileIsNotSupportedByTheGame$1: "Your save file is <i>not</i> supported by the game ($1).",
+   Success: "Success",
+   Repelled: "Repelled",
+   Stalled: "Stalled",
+   Attacks: "Attacks",
+   FinalResult: "Final Result",
+   WarMonthlyAttackExplanation$1$2: "Every month, $1 attacks are attempted. Each attack has a success chance of $2 and the final result is determined by the best of three (BO3).",
+   WarScoreGainExplanation$1$1$2: "If the final result is a success, we gain $1 war score. If the final result is repelled, we lose $1 war score. The war is won when we have at least $2 war score.",
 };

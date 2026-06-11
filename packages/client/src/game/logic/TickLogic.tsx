@@ -142,8 +142,8 @@ export function tickWar(war: IWar, save: SaveGame): void {
    const militaryPoints = getWarMonthlyMilitaryPoint(war);
    const successChance = getWarSuccessChance(war.attacker, war.coAttackers, war.defender, war.coDefenders, save);
    if (trySpendProvinceResources({ military: militaryPoints }, war.attacker, save)) {
-      const roll = Math.random();
-      const success = roll < successChance;
+      const rolls = [Math.random(), Math.random(), Math.random()];
+      const success = rolls.filter((roll) => roll < successChance).length >= Math.ceil(rolls.length / 2);
       let flag: WarLogFlag = WarLogFlag.None;
       if (success) {
          ++war.actualWarScore;
@@ -163,7 +163,7 @@ export function tickWar(war: IWar, save: SaveGame): void {
       }
       war.log.unshift({
          month: save.state.month,
-         roll,
+         rolls,
          successChance,
          result: success ? "Success" : "Repelled",
          flag: flag,
@@ -172,7 +172,7 @@ export function tickWar(war: IWar, save: SaveGame): void {
    } else {
       war.log.unshift({
          month: save.state.month,
-         roll: -1,
+         rolls: [],
          successChance,
          result: "Stalled",
          flag: WarLogFlag.None,

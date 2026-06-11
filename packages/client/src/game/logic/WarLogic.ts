@@ -62,7 +62,7 @@ export type WarLogFlag = ValueOf<typeof WarLogFlag>;
 
 export interface IWarLog {
    month: number;
-   roll: number;
+   rolls: number[];
    successChance: number;
    result: WarResult;
    flag: WarLogFlag;
@@ -73,6 +73,12 @@ export const WarResultScore = {
    Repelled: -1,
    Stalled: 0,
 } as const satisfies Record<WarResult, number>;
+
+export const WarResultNames: Record<WarResult, () => string> = {
+   Success: () => $t(L.Success),
+   Repelled: () => $t(L.Repelled),
+   Stalled: () => $t(L.Stalled),
+} as const;
 
 export const MaxConscription = 50;
 export const MinConscription = 5;
@@ -446,6 +452,13 @@ export function getWarSuccessChance(
          0,
       );
    return attackerPowers / (attackerPowers + defenderPowers);
+}
+
+export function getWarEstimatedTime(warScore: number, successChance: number): number {
+   const p = successChance;
+   const eSuccess = p ** 2 * (3 - 2 * p);
+   const eFail = 1 - eSuccess;
+   return Math.ceil(warScore / (eSuccess - eFail));
 }
 
 export function isWarStalled(war: IWar, save: SaveGame): boolean {

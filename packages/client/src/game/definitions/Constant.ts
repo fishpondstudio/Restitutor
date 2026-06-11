@@ -1,5 +1,5 @@
 export const Version = "0.8";
-export const SupportedSaveVersion = 9;
+export const SupportedSaveVersion = 10;
 export const GoldenRatio = (1 + Math.sqrt(5)) / 2;
 
 export const DiscordUrl = "https://discord.gg/hANhARJFac";

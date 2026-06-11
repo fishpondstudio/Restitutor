@@ -1,14 +1,13 @@
 import { Progress } from "@mantine/core";
 import { formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
-import { getWarSuccessChance, type IWar, isWarStalled } from "../game/logic/WarLogic";
+import { getWarEstimatedTime, getWarSuccessChance, type IWar, isWarStalled } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { WarChanceComp } from "./WarPowerComp";
 
 export function WarTooltip({ war }: { war: IWar }): React.ReactNode {
    const successChance = getWarSuccessChance(war.attacker, war.coAttackers, war.defender, war.coDefenders, G.save);
-   const failChance = 1 - successChance;
-   const estimatedTimeLeft = Math.ceil((war.requiredWarScore - war.actualWarScore) / (successChance - failChance));
+   const estimatedTimeLeft = getWarEstimatedTime(war.requiredWarScore - war.actualWarScore, successChance);
    return (
       <>
          <div className="h2">{$t(L.$1$2War, war.attacker, war.defender)}</div>
@@ -59,10 +58,10 @@ export function WarTooltip({ war }: { war: IWar }): React.ReactNode {
          <div className="row mx10 my5">
             <div className="f1">{$t(L.EstTimeLeft)}</div>
             <div>
-               {successChance - failChance <= 0 ? (
+               {successChance <= 0.5 ? (
                   <span className="text-red">{$t(L.Never)}</span>
                ) : (
-                  <>{$t(L.$1Months, formatNumber(estimatedTimeLeft))}</>
+                  $t(L.$1Months, formatNumber(estimatedTimeLeft))
                )}
             </div>
          </div>

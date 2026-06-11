@@ -1,5 +1,5 @@
 import { type ComboboxItem, Select } from "@mantine/core";
-import { cls, formatNumber, formatPercent, type Tile } from "@project/shared/src/utils/Helper";
+import { cls, formatNumber, type Tile } from "@project/shared/src/utils/Helper";
 import { useEffect, useState } from "react";
 import { DeclareWarAction, getOneTimeConsequences } from "../game/actions/DeclareWarAction";
 import { CasusBelli } from "../game/definitions/CasusBelli";
@@ -7,7 +7,13 @@ import type { Province } from "../game/definitions/Province";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
 import { getRelation } from "../game/logic/DiplomacyLogic";
-import { getWarParticipants, getWarScore, getWarSuccessChance, getWarTiles } from "../game/logic/WarLogic";
+import {
+   getWarEstimatedTime,
+   getWarParticipants,
+   getWarScore,
+   getWarSuccessChance,
+   getWarTiles,
+} from "../game/logic/WarLogic";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -19,6 +25,7 @@ import { SidebarComp, SidebarWidth } from "./common/SidebarComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { playError } from "./Sound";
+import { WarChanceTooltip } from "./WarChanceTooltip";
 import { WarMonthlyConsequences } from "./WarMonthlyConsequences";
 import { WarPowerComp } from "./WarPowerComp";
 
@@ -28,7 +35,6 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
    const defenderState = G.save.state.provinces[province];
    const { coAttackers, coDefenders } = getWarParticipants(G.save.state.playerProvince, province, G.save);
    const successChance = getWarSuccessChance(G.save.state.playerProvince, coAttackers, province, coDefenders, G.save);
-   const failChance = 1 - successChance;
    const warTiles = getWarTiles(G.save);
    const relation = getRelation(G.save.state.playerProvince, province, G.save);
    if (!relation) {
@@ -123,22 +129,14 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
          />
          <div className="divider my10" />
          <BreakdownRow className="mx10 my5" name={$t(L.WarScore)} breakdown={warScore} formatFunc={formatNumber} />
-         <FloatingTip
-            label={
-               <WarChanceTooltip
-                  successChance={successChance}
-                  failChance={failChance}
-                  requiredWarScore={warScore.value}
-               />
-            }
-         >
+         <FloatingTip label={<WarChanceTooltip successChance={successChance} requiredWarScore={warScore.value} />}>
             <div className="row mx10 my5">
                <div className="f1">{$t(L.EstTimeToWin)}</div>
                <div>
-                  {successChance - failChance <= 0 ? (
+                  {successChance <= 0.5 ? (
                      <span className="text-red">{$t(L.Never)}</span>
                   ) : (
-                     $t(L.$1Months, formatNumber(Math.ceil(warScore.value / (successChance - failChance))))
+                     $t(L.$1Months, formatNumber(getWarEstimatedTime(warScore.value, successChance)))
                   )}
                </div>
             </div>
@@ -201,30 +199,5 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
             </ActionButton>
          </div>
       </SidebarComp>
-   );
-}
-
-export function WarChanceTooltip({
-   successChance,
-   failChance,
-   requiredWarScore,
-}: {
-   successChance: number;
-   failChance: number;
-   requiredWarScore: number;
-}): React.ReactNode {
-   return (
-      <>
-         {$t(
-            L.WarChanceTooltip$1$2$3$4$5,
-            formatPercent(successChance),
-            "1",
-            formatPercent(failChance),
-            "1",
-            formatNumber(requiredWarScore),
-         )}
-         <div className="h10" />
-         {$t(L.WarChanceEstimateOnly)}
-      </>
    );
 }
