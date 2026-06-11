@@ -26,7 +26,9 @@ export function TopRightPanel(): React.ReactNode {
    );
 }
 
-const Speed = import.meta.env.DEV ? [0, 1, 2, 3, 4, 7, 14, 30, 360] : [0, 1, 2, 3, 4, 7, 14];
+// const isDev = import.meta.env.DEV;
+const isDev = false;
+const Speed = isDev ? [0, 1, 2, 3, 4, 7, 14, 30, 360] : [0, 1, 2, 3, 4, 7, 14];
 // const Speed = [0, 1, 2, 3, 4, 7, 14];
 
 function SteamDiscordComp(): React.ReactNode {
