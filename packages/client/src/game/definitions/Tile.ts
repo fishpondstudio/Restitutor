@@ -1,5 +1,4 @@
-import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
-import { fromEntries, pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
+import { pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
 import { makeNoise2D } from "open-simplex-noise";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
@@ -8,43 +7,9 @@ import type { Building } from "./Building";
 import type { Culture } from "./Culture";
 import type { Goods } from "./Goods";
 import type { IModifier } from "./Modifier";
-import { Province, Provinces } from "./Province";
+import { Province } from "./Province";
 import type { Religion } from "./Religion";
 import type { Terrain } from "./Terrain";
-
-export const MapColorsH: Record<Province, number> = fromEntries(
-   Provinces.map((province, index, array) => {
-      const h = (360 * index) / (array.length - 1);
-      return [province, h];
-   }),
-);
-
-export const MapBackgroundColors: Record<Province, number> = fromEntries(
-   Provinces.map((province, index, array) => {
-      const h = (360 * index) / (array.length - 1);
-      const s = 90;
-      const l = 85;
-      return [province, hslToRgb(h, s, l)];
-   }),
-);
-
-export const MapForegroundColors: Record<Province, number> = fromEntries(
-   Provinces.map((province, index, array) => {
-      const h = (360 * index) / (array.length - 1);
-      const s = 30;
-      const l = 50;
-      return [province, hslToRgb(h, s, l)];
-   }),
-);
-
-export const MapTextColors: Record<Province, number> = fromEntries(
-   Provinces.map((province, index, array) => {
-      const h = (360 * index) / (array.length - 1);
-      const s = 30;
-      const l = 30;
-      return [province, hslToRgb(h, s, l)];
-   }),
-);
 
 export interface ITileConfig {
    terrain?: Terrain;

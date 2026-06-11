@@ -15,9 +15,9 @@ import {
 import { Fonts } from "../assets";
 import Land from "../data/Land.json";
 import type { Province } from "../game/definitions/Province";
-import { MapForegroundColors, MapTextColors } from "../game/definitions/Tile";
 import { Tiles } from "../game/definitions/TileConstants";
 import { RefreshTiles } from "../game/Events";
+import { MapForegroundColors, MapTextColors } from "../game/logic/MapLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { getTileWar } from "../game/logic/TileLogic";
 import { MapGrid, TileHeight } from "../game/MapGrid";

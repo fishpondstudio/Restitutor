@@ -19,9 +19,9 @@ import Stability from "../assets/images/Stability.svg";
 import Trade from "../assets/images/Trade.svg";
 import { Modifiers } from "../game/definitions/Modifier";
 import { ProvinceResourceNames } from "../game/definitions/Province";
-import { MapBackgroundColors } from "../game/definitions/Tile";
 import { GameStateUpdated } from "../game/Events";
 import { getCurrentRelations, getDiplomats } from "../game/logic/DiplomacyLogic";
+import { MapBackgroundColors } from "../game/logic/MapLogic";
 import {
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,

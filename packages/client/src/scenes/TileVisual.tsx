@@ -1,7 +1,7 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { Container, Sprite, Texture } from "pixi.js";
 import type { Terrain } from "../game/definitions/Terrain";
-import { MapBackgroundColors, MapForegroundColors } from "../game/definitions/Tile";
+import { MapBackgroundColors, MapForegroundColors } from "../game/logic/MapLogic";
 import { isCapital } from "../game/logic/TileLogic";
 import { TileHeight } from "../game/MapGrid";
 import { G } from "../utils/Global";
