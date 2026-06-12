@@ -571,7 +571,8 @@ export const EN = {
    MakeCore: "Make Core",
    MakeCoreCost: "Make Core Cost",
    MakeDurocortorumOurCore: "Make Durocortorum our core",
-   MakeDurocortorumOurCoreDesc: "A newly conquered tile is not our core yet - non-core tiles contribute to overextension, which negatively affects our province. We need to spend <i>administrative</i> points to integrate the tile and make it our core - follow the on-screen instructions.",
+   MakeDurocortorumOurCoreDesc:
+      "A newly annexed tile is not our core yet - non-core tiles pay less taxes and require higher governing cost. When our governing cost exceeds capacity, overextension occurs, which negatively affects our province. We need to spend <i>administrative</i> points to integrate the tile and make it our core - follow the on-screen instructions.",
    MakeGovernorGeneral: "Make Governor General",
    MakeWarSpeech: "Make War Speech",
    Make$1OurCoreTile: "Make <i>$1</i> our core tile.",
@@ -823,7 +824,7 @@ export const EN = {
    Rebirth: "Rebirth",
    RebirthAndStartANewRun: "Rebirth and start a new run",
    RebirthAndStartANewRunDesc:
-      "Restitutor is an <i>incremental</i> grand strategy game - each run grants permanent bonuses that allow the next run to progress faster and push further. This system is called <i>rebirth</i>.<br>When we rebirth, the tiles we <i>acquired and cored</i> are converted into legacy points - they carry over into future runs and grant powerful bonuses.<br>We may choose a different province for the next run - follow the on-screen instructions to rebirth.<br>After rebirth, the tutorial will be complete. With our newly gained knowledge, we are ready to shape our own strategy and forge our own path - the course of history is now ours to decide.",
+      "Restitutor is an <i>incremental</i> grand strategy game - each run grants permanent bonuses that allow the next run to progress faster and push further. This system is called <i>rebirth</i>.<br>When we rebirth, the tiles we <i>annexed and cored</i> are converted into legacy points - they carry over into future runs and grant powerful bonuses.<br>We may choose a different province for the next run - follow the on-screen instructions to rebirth.<br>After rebirth, the tutorial will be complete. With our newly gained knowledge, we are ready to shape our own strategy and forge our own path - the course of history is now ours to decide.",
    RebirthEndsCurrentRunTooltip: "Rebirth will end our current run, and grant us 1 legacy point for each tile that we've acquired and cored.",
    ReceivedAGiftFrom$1: "Received a gift from $1",
    Reconquista: "Reconquista",
