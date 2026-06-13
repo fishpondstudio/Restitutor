@@ -12,7 +12,7 @@ const MapColorsH: Record<Province, number> = assignProvinceHues(AdjacentProvince
 export const MapBackgroundColors: Record<Province, number> = fromEntries(
    Provinces.map((province) => {
       const h = MapColorsH[province];
-      const s = 90;
+      const s = 65;
       const l = 85;
       return [province, hslToRgb(h, s, l)];
    }),
@@ -21,8 +21,8 @@ export const MapBackgroundColors: Record<Province, number> = fromEntries(
 export const MapForegroundColors: Record<Province, number> = fromEntries(
    Provinces.map((province) => {
       const h = MapColorsH[province];
-      const s = 30;
-      const l = 50;
+      const s = 40;
+      const l = 60;
       return [province, hslToRgb(h, s, l)];
    }),
 );
@@ -30,8 +30,8 @@ export const MapForegroundColors: Record<Province, number> = fromEntries(
 export const MapTextColors: Record<Province, number> = fromEntries(
    Provinces.map((province) => {
       const h = MapColorsH[province];
-      const s = 30;
-      const l = 30;
+      const s = 25;
+      const l = 35;
       return [province, hslToRgb(h, s, l)];
    }),
 );

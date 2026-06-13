@@ -20,7 +20,7 @@ export class TileVisual extends Container {
 
       this._background = this.addChild(new Sprite(G.textures.get("Tile/Background")));
       this._background.anchor.set(0.5, 0.5);
-      this._background.alpha = 0.75;
+      this._background.alpha = 1;
 
       const tileData = G.save.state.tiles.get(tile);
       const province = tileData?.province;
