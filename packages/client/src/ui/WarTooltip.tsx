@@ -70,7 +70,7 @@ export function WarTooltip({ war }: { war: IWar }): React.ReactNode {
                {$t(L.$1HasWonTheWarAfter$2Months, war.attacker, formatNumber(war.log.length))}
             </div>
          )}
-         {successChance < 0.5 && (
+         {successChance <= 0.5 && (
             <div className="mx10 my5 text-red">
                {$t(L.$1IsNotExpectedToWinDueToLessThanA50ChanceOfASuccessfulAttack, war.attacker)}
             </div>

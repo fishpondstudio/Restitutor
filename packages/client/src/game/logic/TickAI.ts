@@ -328,7 +328,7 @@ function doWar(province: Province, save: SaveGame): void {
                currentWar.defender,
                currentWar.coDefenders,
                save,
-            ) < 0.5
+            ) <= 0.5
          ) {
             const action = NegotiateWhitePeaceAction(currentWar, province, save);
             logAI(`${province} negotiates white peace with ${currentWar.defender} due to low success chance`);

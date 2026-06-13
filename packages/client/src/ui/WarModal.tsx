@@ -110,7 +110,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                {$t(L.After$1Months$2HasWonTheWar, formatNumber(war.log.length), war.attacker)}
             </div>
          )}
-         {war.attacker === G.save.state.playerProvince && !isWon && successChance < 0.5 && (
+         {war.attacker === G.save.state.playerProvince && !isWon && successChance <= 0.5 && (
             <div className="mx10 my5 text-red">{$t(L.WarIsNotExpectedToWin)}</div>
          )}
          {war.attacker === G.save.state.playerProvince && !isWon && isWarStalled(war, G.save) && (

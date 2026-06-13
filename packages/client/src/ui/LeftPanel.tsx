@@ -130,7 +130,7 @@ function WarTodo(war: IWar, index: number): ITodo {
             if (war.actualWarScore >= war.requiredWarScore) {
                return WarOngoing;
             }
-            if (successChance < 0.5) {
+            if (successChance <= 0.5) {
                return WarWarning;
             }
             if (isWarStalled(war, save)) {
@@ -154,7 +154,7 @@ function WarTodo(war: IWar, index: number): ITodo {
             if (isWarStalled(war, save)) {
                return "yellow animate-pulse";
             }
-            if (successChance < 0.5) {
+            if (successChance <= 0.5) {
                return "red animate-pulse";
             }
          }
