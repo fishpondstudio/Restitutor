@@ -509,8 +509,8 @@ class TimedActionDefinitions {
    FabricateCasusBelli: ITimedAction = {
       name: () => $t(L.FabricateCasusBelli),
       desc: () => $t(L.TimedActionFabricateCasusBelliDesc),
-      duration: 12 * 5,
-      cooldown: 12 * 10,
+      duration: 12 * 2,
+      cooldown: 12 * 4,
    };
    ProclaimCrusade: ITimedAction = {
       name: () => $t(L.ProclaimCrusade),
