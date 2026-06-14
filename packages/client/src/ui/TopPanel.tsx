@@ -50,7 +50,7 @@ import { FamilyTreeModal } from "./FamilyModal";
 import { GovernmentModal } from "./GovernmentModal";
 import { InternalAffairsPage } from "./InternalAffairsPage";
 import { LeftPanel } from "./LeftPanel";
-import { LegacyUpgradePage } from "./LegacyUpgradePage";
+import { LegacyUpgradeModal } from "./LegacyUpgradeModal";
 import { MissionPage } from "./MissionPage";
 import { PausePanel } from "./PausePanel";
 import { ProductionModal } from "./ProductionModal";
@@ -360,7 +360,11 @@ export function TopLeftPanel(): React.ReactNode {
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.LegacyUpgrade)}>
-                  <div className="pointer" id="TopPanel_LegacyUpgrade" onClick={() => showPanel(<LegacyUpgradePage />)}>
+                  <div
+                     className="pointer"
+                     id="TopPanel_LegacyUpgrade"
+                     onClick={() => showPanel(<LegacyUpgradeModal />)}
+                  >
                      <img src={Legacy} width={IconWidth} />
                   </div>
                </FloatingTip>

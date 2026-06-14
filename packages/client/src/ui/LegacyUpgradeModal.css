@@ -1,0 +1,27 @@
+.legacy-upgrade-node {
+   color: var(--mantine-color-dark-1);
+   border: 2px solid var(--mantine-color-dark-2);
+   border-radius: 5px;
+   width: var(--legacy-upgrade-node-width);
+   height: var(--legacy-upgrade-node-height);
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   position: relative;
+   font-family: "TitleFont", serif;
+   padding: 0 10px;
+   overflow: hidden;
+   .upgrade-id {
+      font-size: 75%;
+      color: rgba(255, 255, 255, 0.4);
+      font-family: "MainFont", serif;
+      position: absolute;
+      top: 2px;
+      right: 5px;
+   }
+}
+
+.legacy-upgrade-node-handle {
+   visibility: hidden;
+}

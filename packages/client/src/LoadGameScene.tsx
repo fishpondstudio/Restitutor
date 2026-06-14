@@ -3,6 +3,8 @@ import { type Province, Provinces } from "./game/definitions/Province";
 import { GameOptionFlag } from "./game/GameOption";
 import { TechTreeScene } from "./scenes/TechTreeScene";
 import { WorldScene } from "./scenes/WorldScene";
+import { showPanel } from "./ui/common/ShowPanel";
+import { LegacyUpgradeModal } from "./ui/LegacyUpgradeModal";
 import { G, GameFlags, setSpeed } from "./utils/Global";
 
 export function loadGameScene() {
@@ -22,6 +24,10 @@ export function loadGameScene() {
 
    if (params.has("speed")) {
       G.flags = setFlag(G.flags, GameFlags.FasterSpeed);
+   }
+
+   if (params.has("legacy")) {
+      showPanel(<LegacyUpgradeModal />);
    }
 
    const scene = params.get("scene")?.toLowerCase();
