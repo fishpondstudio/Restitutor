@@ -9,7 +9,7 @@ import { GameOptionFlag } from "../game/GameOption";
 import { getGameDate } from "../game/logic/TickLogic";
 import { useShortcut } from "../game/Shortcut";
 import { openUrl } from "../rpc/SteamClient";
-import { G, setSpeed } from "../utils/Global";
+import { G, GameFlags, setSpeed } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { FloatingTip } from "./components/FloatingTip";
@@ -27,9 +27,8 @@ export function TopRightPanel(): React.ReactNode {
 }
 
 // const isDev = import.meta.env.DEV;
-const isDev = true;
-const Speed = isDev ? [0, 1, 2, 3, 4, 7, 14, 30, 360] : [0, 1, 2, 3, 4, 7, 14];
-// const Speed = [0, 1, 2, 3, 4, 7, 14];
+const Speed = [0, 1, 2, 3, 4, 7, 14];
+const FasterSpeed = [0, 1, 7, 14, 30, 120, 360];
 
 function SteamDiscordComp(): React.ReactNode {
    refreshOnTypedEvent(GameOptionUpdated);
@@ -50,11 +49,12 @@ function SteamDiscordComp(): React.ReactNode {
 
 function SpeedComp(): React.ReactNode {
    refreshOnTypedEvent(GameSpeedChanged);
+   const speed = hasFlag(G.flags, GameFlags.FasterSpeed) ? FasterSpeed : Speed;
    useShortcut("IncreaseGameSpeed", () => {
-      setSpeed(Speed[clamp(Speed.indexOf(G.speed) + 1, 0, Speed.length - 1)]);
+      setSpeed(speed[clamp(speed.indexOf(G.speed) + 1, 0, speed.length - 1)]);
    }, []);
    useShortcut("DecreaseGameSpeed", () => {
-      setSpeed(Speed[clamp(Speed.indexOf(G.speed) - 1, 0, Speed.length - 1)]);
+      setSpeed(speed[clamp(speed.indexOf(G.speed) - 1, 0, speed.length - 1)]);
    }, []);
    return (
       <Menu position="bottom-end">
@@ -62,7 +62,7 @@ function SpeedComp(): React.ReactNode {
             <div className="px15 pointer">{G.speed}x</div>
          </Menu.Target>
          <Menu.Dropdown>
-            {Speed.map((speed) => (
+            {speed.map((speed) => (
                <Menu.Item
                   key={speed}
                   onClick={() => {

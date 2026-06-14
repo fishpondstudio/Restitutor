@@ -3,9 +3,7 @@ import { type Province, Provinces } from "./game/definitions/Province";
 import { GameOptionFlag } from "./game/GameOption";
 import { TechTreeScene } from "./scenes/TechTreeScene";
 import { WorldScene } from "./scenes/WorldScene";
-import { ProductionModal } from "./ui/ProductionModal";
 import { G, GameFlags, setSpeed } from "./utils/Global";
-import { showModal } from "./utils/ModalManager";
 
 export function loadGameScene() {
    const params = new URLSearchParams(location.href.split("?")[1]);
@@ -22,8 +20,8 @@ export function loadGameScene() {
       setSpeed(0);
    }
 
-   if (params.has("production")) {
-      showModal(<ProductionModal />);
+   if (params.has("speed")) {
+      G.flags = setFlag(G.flags, GameFlags.FasterSpeed);
    }
 
    const scene = params.get("scene")?.toLowerCase();

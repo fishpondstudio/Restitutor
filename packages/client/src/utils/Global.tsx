@@ -10,6 +10,7 @@ import type { SceneManager } from "./SceneManager";
 export const GameFlags = {
    None: 0,
    Sandbox: 1 << 0,
+   FasterSpeed: 1 << 1,
 } as const;
 
 export type GameFlags = ValueOf<typeof GameFlags>;
