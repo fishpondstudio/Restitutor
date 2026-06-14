@@ -27,12 +27,11 @@ import { getWarForTile } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { showModal } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { AppeaseButton } from "./AppeaseButton";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
 import { CrackDownButton } from "./CrackDownButton";
-import { showSidebar } from "./common/Sidebar";
+import { showPanel } from "./common/ShowPanel";
 import { SidebarComp } from "./common/SidebarComp";
 import { colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
@@ -70,7 +69,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             <div className="row my5">
                <div className="f1">{$t(L.Province)}</div>
                <button
-                  onClick={() => showSidebar(<DiplomacyPage province={tileData.province} />)}
+                  onClick={() => showPanel(<DiplomacyPage province={tileData.province} />)}
                   className="btn text-sm"
                >
                   {$t(L.Diplomacy)}
@@ -268,7 +267,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                disabled={!isMyProvince}
                className="btn"
                style={{ width: "100%", aspectRatio: "1 / 1" }}
-               onClick={() => showModal(<TileBuildingsModal tile={tile} />)}
+               onClick={() => showPanel(<TileBuildingsModal tile={tile} />)}
             >
                <div className="mi lg">add</div>
             </button>

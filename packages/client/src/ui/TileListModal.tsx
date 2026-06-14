@@ -10,7 +10,7 @@ import { refreshOnTypedEvent, refreshOnTypedEventWhen } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { BuildingConstructionButton, DemolishBuildingButton } from "./BuildingConstructionButton";
-import { showSidebar } from "./common/Sidebar";
+import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { TilePage } from "./TilePage";
@@ -97,7 +97,7 @@ function _TileListRow({ tile }: { tile: Tile }): React.ReactNode {
             <button
                className="btn"
                onClick={() => {
-                  showSidebar(<TilePage tile={tile} />);
+                  showPanel(<TilePage tile={tile} />);
                   G.scene.getCurrent(WorldScene)?.drawSelectors(new Set([tile]));
                   hideModal();
                }}

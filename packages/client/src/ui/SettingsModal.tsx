@@ -10,9 +10,10 @@ import { openUrl } from "../rpc/SteamClient";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { ModalComp, ModalTitleBar, showModal } from "../utils/ModalManager";
+import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ChangeLanguageComp } from "./ChangeLanguageComp";
 import { ConfirmModal } from "./ConfirmModal";
+import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { Grid2 } from "./UIConstant";
 
@@ -151,7 +152,7 @@ export function SettingsModal(): React.ReactNode {
             <button
                className="btn text-red"
                onClick={() => {
-                  showModal(
+                  showPanel(
                      <ConfirmModal
                         title={$t(L.HardReset)}
                         message={$t(L.AreYouSureYouWantToHardResetTheGameThisCannotBeUndone)}

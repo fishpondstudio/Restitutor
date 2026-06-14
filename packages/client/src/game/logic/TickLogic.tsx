@@ -1,7 +1,7 @@
 import { clamp, forEach, hasFlag, mapSafeAdd, monthsBetween, range, setFlag } from "@project/shared/src/utils/Helper";
 import { ChronicleModal } from "../../ui/ChronicleModal";
+import { showPanel } from "../../ui/common/ShowPanel";
 import { G, GameFlags } from "../../utils/Global";
-import { showModal } from "../../utils/ModalManager";
 import type { Province } from "../definitions/Province";
 import { GameStateUpdated, GameTimeUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
@@ -37,6 +37,13 @@ export function tickLogic(save: SaveGame, dt: number, unscaled: number): void {
    }
 }
 
+// 1 Jan
+export const GameEventMonth = 0;
+// 1 Apr
+export const TickChronicleMonth = 3;
+// 1 Jul
+export const TickFamilyMonth = 6;
+
 export function tickMonth(save: SaveGame): void {
    forEach(save.state.provinces, (province) => {
       tickProvince(province, save);
@@ -44,14 +51,17 @@ export function tickMonth(save: SaveGame): void {
    save.state.wars.forEach((war) => {
       tickWar(war, save);
    });
-   if (save.state.month % 12 === 0) {
+   const currentMonth = getGameDate(save.state.tick).getMonth();
+   if (currentMonth === 0) {
       tickYear(save);
+   }
+   if (currentMonth === TickChronicleMonth) {
+      tickChroniclePopup(save);
    }
    tickAI(save);
 }
 
 export function tickYear(save: SaveGame): void {
-   tickChroniclePopup(save);
    rollTradeOffers(save);
    clearProvincePrestigeRankingCache();
    tickConsulElection(save);
@@ -65,16 +75,17 @@ function tickChroniclePopup(save: SaveGame): void {
    if (hasFlag(G.flags, GameFlags.Sandbox)) {
       return;
    }
-   if (save.options.chroniclePopupFrequency > 0 && save.state.month % save.options.chroniclePopupFrequency === 0) {
+   const frequency = save.options.chroniclePopupFrequency;
+   if (frequency > 0 && tickToYear(save.state.tick) % frequency === 0) {
       const currentYear = monthToDate(save.state.month).getFullYear();
-      const startYear = currentYear - save.options.chroniclePopupFrequency;
+      const startYear = currentYear - frequency;
       const endYear = currentYear - 1;
       const entries = save.state.chronicle.filter((entry) => {
          const year = monthToDate(entry.month).getFullYear();
          return year >= startYear && year <= endYear;
       });
       if (entries.length > 0) {
-         showModal(<ChronicleModal years={[startYear, endYear]} />);
+         showPanel(<ChronicleModal years={[startYear, endYear]} />);
       }
    }
 }
@@ -188,6 +199,10 @@ export function getGameDate(tick: number): Date {
 
 export function tickToMonth(tick: number): number {
    return monthsBetween(StartDate, getGameDate(tick));
+}
+
+export function tickToYear(tick: number): number {
+   return getGameDate(tick).getFullYear() - StartDate.getFullYear();
 }
 
 export function monthToDate(month: number): Date {

@@ -1,12 +1,12 @@
 import { randInt, range, uuid4 } from "@project/shared/src/utils/Helper";
 import { ChronicleModal } from "../ui/ChronicleModal";
+import { showPanel } from "../ui/common/ShowPanel";
 import { DeclareWarOnUsModal } from "../ui/DeclareWarOnUsEventModal";
 import { DrawnIntoWarModal } from "../ui/DrawnIntoWarEventModal";
 import { InvaderConqueredWarGoalModal } from "../ui/InvaderConqueredWarGoalModal";
 import { InvaderSueForWhitePeaceModal } from "../ui/InvaderSueForWhitePeaceModal";
 import { WarEndedModal } from "../ui/WarEndedModal";
 import { G } from "../utils/Global";
-import { showModal } from "../utils/ModalManager";
 import { PersonFlags } from "./definitions/Family";
 import { GameStateUpdated } from "./Events";
 import { resetGame, saveGame } from "./LoadSave";
@@ -61,7 +61,7 @@ export function addDebugFunctions(): void {
    };
    // @ts-expect-error
    globalThis.showChronicle = () => {
-      showModal(
+      showPanel(
          <ChronicleModal
             years={[
                monthToDate(G.save.state.month).getFullYear() - 1,
@@ -115,23 +115,23 @@ export function addDebugFunctions(): void {
 
    // @ts-expect-error
    globalThis.declareWarOnUs = () => {
-      showModal(<DeclareWarOnUsModal war={warOnUs} />);
+      showPanel(<DeclareWarOnUsModal war={warOnUs} />);
    };
    // @ts-expect-error
    globalThis.drawnIntoWar = () => {
-      showModal(<DrawnIntoWarModal war={wasAsCoalition} />);
+      showPanel(<DrawnIntoWarModal war={wasAsCoalition} />);
    };
    // @ts-expect-error
    globalThis.invaderSueForWhitePeace = () => {
-      showModal(<InvaderSueForWhitePeaceModal war={warOnUs} />);
+      showPanel(<InvaderSueForWhitePeaceModal war={warOnUs} />);
    };
    // @ts-expect-error
    globalThis.invaderConqueredWarGoal = () => {
-      showModal(<InvaderConqueredWarGoalModal war={warOnUs} />);
+      showPanel(<InvaderConqueredWarGoalModal war={warOnUs} />);
    };
    // @ts-expect-error
    globalThis.warEnded = () => {
-      showModal(<WarEndedModal war={wasAsCoalition} />);
+      showPanel(<WarEndedModal war={wasAsCoalition} />);
    };
    // @ts-expect-error
    globalThis.undoTutorial = (number = 1) => {

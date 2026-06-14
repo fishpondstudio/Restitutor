@@ -1,9 +1,9 @@
 import { clamp } from "@mantine/hooks";
 import { entriesOf, filterInPlace, forEach, hasFlag, randOne } from "@project/shared/src/utils/Helper";
+import { showPanel } from "../../ui/common/ShowPanel";
 import { GameEventModal } from "../../ui/GameEventModal";
 import { G, GameFlags } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
-import { showModal } from "../../utils/ModalManager";
 import { addProvinceUpgrade, removeProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import type { IGovernorFamily } from "../definitions/Family";
 import { type Province, ProvinceFlags } from "../definitions/Province";
@@ -30,7 +30,7 @@ import {
    spendProvinceResource,
 } from "./ProvinceLogic";
 import { tickSocialClasses } from "./SocialClassLogic";
-import { getGameDate } from "./TickLogic";
+import { getGameDate, TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
 import { ArmyMoraleMonthlyIncrease, getCurrentGeneral, resetGeneralUpgrades } from "./WarLogic";
@@ -107,7 +107,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
    }
 
    const month = getGameDate(save.state.tick).getMonth();
-   if (month === 6) {
+   if (month === TickFamilyMonth) {
       const oldOffspringCount = state.governor.children.length;
       const result = tickFamily(state.governor, province, save);
       const newOffspringCount = state.governor.children.length;
@@ -293,6 +293,6 @@ export function addGameEvent(event: GameEvent, province: Province, save: SaveGam
 
 export function showGameEventModal(modal: React.ReactElement): void {
    if (!hasFlag(G.flags, GameFlags.Sandbox)) {
-      showModal(modal);
+      showPanel(modal);
    }
 }

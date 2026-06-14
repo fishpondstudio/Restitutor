@@ -21,9 +21,10 @@ import { startTimedAction, timedActionConditions } from "../game/logic/TimedActi
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { ModalComp, ModalTitleBar, showModal } from "../utils/ModalManager";
+import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownTooltip } from "./BreakdownRow";
+import { showPanel } from "./common/ShowPanel";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { FamilyTreeModal } from "./FamilyModal";
@@ -57,7 +58,7 @@ export function GovernmentModal(): React.ReactNode {
          <div className="h1 row">
             <div className="f1">{$t(L.Governor)}</div>
             <FloatingTip label={$t(L.ViewFamilyTree)}>
-               <div className="row g5 pointer" onClick={() => showModal(<FamilyTreeModal />)}>
+               <div className="row g5 pointer" onClick={() => showPanel(<FamilyTreeModal />)}>
                   {state.governor.male.name.join(" ")}
                   <img src={FamilyTree} style={{ height: 21 }} />
                </div>

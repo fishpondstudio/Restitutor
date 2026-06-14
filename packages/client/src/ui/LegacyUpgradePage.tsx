@@ -13,9 +13,9 @@ import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { showModal } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { ConfirmModal } from "./ConfirmModal";
+import { showPanel } from "./common/ShowPanel";
 import { SidebarComp } from "./common/SidebarComp";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
@@ -132,7 +132,7 @@ export function LegacyUpgradePage(): React.ReactNode {
                id="LegacyUpgradePage_Rebirth"
                className={cls("btn py2 w100")}
                onClick={() => {
-                  showModal(
+                  showPanel(
                      <ConfirmModal
                         title={$t(L.ConfirmRebirth)}
                         message={$t(L.AreYouSureYouWantToRebirthAsTheGovernorOf$1, getProvinceName(province, G.save))}

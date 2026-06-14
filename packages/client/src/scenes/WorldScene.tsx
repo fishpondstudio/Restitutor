@@ -21,7 +21,7 @@ import { MapForegroundColors, MapTextColors } from "../game/logic/MapLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { getTileWar } from "../game/logic/TileLogic";
 import { MapGrid, TileHeight } from "../game/MapGrid";
-import { showSidebar } from "../ui/common/Sidebar";
+import { showPanel } from "../ui/common/ShowPanel";
 import { SidebarWidth } from "../ui/common/SidebarComp";
 import { DiplomacyPage } from "../ui/DiplomacyPage";
 import { EditTilePage } from "../ui/EditTilePage";
@@ -191,7 +191,7 @@ export class WorldScene extends Scene {
             this._selectedTiles.add(tile);
          }
          this.drawSelectors(this._selectedTiles);
-         showSidebar(<EditTilePage tiles={this._selectedTiles} />);
+         showPanel(<EditTilePage tiles={this._selectedTiles} />);
       } else {
          this._selectedTiles.clear();
          if (e.button === 0) {
@@ -199,12 +199,12 @@ export class WorldScene extends Scene {
                console.log(tile, tileToPoint(tile), G.save.state.tiles.get(tile));
             }
             this._selectedTiles.add(tile);
-            showSidebar(<TilePage tile={tile} />);
+            showPanel(<TilePage tile={tile} />);
          }
          if (e.button === 2) {
             const tileData = G.save.state.tiles.get(tile);
             if (tileData) {
-               showSidebar(<DiplomacyPage province={tileData.province} />);
+               showPanel(<DiplomacyPage province={tileData.province} />);
             }
          }
          this.drawSelectors(this._selectedTiles);

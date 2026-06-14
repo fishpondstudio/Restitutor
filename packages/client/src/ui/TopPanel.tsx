@@ -38,12 +38,11 @@ import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { showModal } from "../utils/ModalManager";
 import { ArmyModal } from "./ArmyModal";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { ChroniclePage } from "./ChroniclePage";
-import { showSidebar } from "./common/Sidebar";
+import { showPanel } from "./common/ShowPanel";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { DiplomacyPage } from "./DiplomacyPage";
@@ -103,7 +102,7 @@ export function TopLeftPanel(): React.ReactNode {
                   width: FirstColumnWidth,
                }}
             >
-               <div className="pointer" onClick={() => showModal(<SettingsModal />)}>
+               <div className="pointer" onClick={() => showPanel(<SettingsModal />)}>
                   <img src={MenuIcon} width={IconWidth} />
                </div>
                <FloatingTip
@@ -141,7 +140,7 @@ export function TopLeftPanel(): React.ReactNode {
                   id="TopPanel_AdministrativePoint"
                   className="row g0 pointer"
                   style={{ width: ColumnWidth }}
-                  onClick={() => showModal(<GovernmentModal />)}
+                  onClick={() => showPanel(<GovernmentModal />)}
                >
                   <img src={Administrative} width={IconWidth} />
                   <div className="f1" />
@@ -164,7 +163,7 @@ export function TopLeftPanel(): React.ReactNode {
                <div
                   className="row g0 pointer"
                   style={{ width: ColumnWidth }}
-                  onClick={() => showModal(<GovernmentModal />)}
+                  onClick={() => showPanel(<GovernmentModal />)}
                >
                   <img src={Diplomatic} width={IconWidth} />
                   <div className="f1" />
@@ -187,7 +186,7 @@ export function TopLeftPanel(): React.ReactNode {
                <div
                   className="row g0 pointer"
                   style={{ width: ColumnWidth }}
-                  onClick={() => showModal(<GovernmentModal />)}
+                  onClick={() => showPanel(<GovernmentModal />)}
                >
                   <img src={Military} width={IconWidth} />
                   <div className="f1" />
@@ -211,7 +210,7 @@ export function TopLeftPanel(): React.ReactNode {
                   className="row g0 pointer"
                   style={{ width: ColumnWidth }}
                   onClick={() => {
-                     showModal(<ArmyModal />);
+                     showPanel(<ArmyModal />);
                   }}
                   id="TopPanel_WarPower"
                >
@@ -228,7 +227,7 @@ export function TopLeftPanel(): React.ReactNode {
                   id="TopPanel_Gold"
                   className="row g0 pointer"
                   style={{ width: FirstColumnWidth }}
-                  onClick={() => showSidebar(<TreasuryPage />)}
+                  onClick={() => showPanel(<TreasuryPage />)}
                >
                   <div>
                      <img src={Gold} width={IconWidth} />
@@ -254,7 +253,7 @@ export function TopLeftPanel(): React.ReactNode {
                   className="row g0 pointer"
                   style={{ width: ColumnWidth }}
                   onClick={() => {
-                     showModal(<ProvinceListModal />);
+                     showPanel(<ProvinceListModal />);
                   }}
                >
                   <img src={Prestige} width={IconWidth} />
@@ -265,7 +264,7 @@ export function TopLeftPanel(): React.ReactNode {
             <div className="divider vertical" />
             <div style={IconRowStyle}>
                <FloatingTip label={$t(L.FamilyTree)}>
-                  <div className="pointer" id="TopPanel_FamilyTree" onClick={() => showModal(<FamilyTreeModal />)}>
+                  <div className="pointer" id="TopPanel_FamilyTree" onClick={() => showPanel(<FamilyTreeModal />)}>
                      <img src={FamilyTree} width={IconWidth} />
                   </div>
                </FloatingTip>
@@ -274,7 +273,7 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_TileCount"
                      className="pointer"
                      onClick={() => {
-                        showModal(<TileListModal />);
+                        showPanel(<TileListModal />);
                      }}
                   >
                      <img src={ProvinceImage} width={IconWidth} />
@@ -309,14 +308,14 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_InternalAffairs"
                      className="pointer"
                      onClick={() => {
-                        showSidebar(<InternalAffairsPage />);
+                        showPanel(<InternalAffairsPage />);
                      }}
                   >
                      <img src={Stability} width={IconWidth} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.SocialClass)}>
-                  <div className="pointer" onClick={() => showModal(<SocialClassModal />)}>
+                  <div className="pointer" onClick={() => showPanel(<SocialClassModal />)}>
                      <img src={SocialClass} width={IconWidth} />
                   </div>
                </FloatingTip>
@@ -325,14 +324,14 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_Diplomats"
                      className="pointer"
                      onClick={() => {
-                        showSidebar(<DiplomacyPage province={G.save.state.playerProvince} />);
+                        showPanel(<DiplomacyPage province={G.save.state.playerProvince} />);
                      }}
                   >
                      <img src={Diplomat} width={IconWidth} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Production)}>
-                  <div className="pointer" id="TopPanel_Production" onClick={() => showModal(<ProductionModal />)}>
+                  <div className="pointer" id="TopPanel_Production" onClick={() => showPanel(<ProductionModal />)}>
                      <img src={Production} width={IconWidth} />
                   </div>
                </FloatingTip>
@@ -340,32 +339,28 @@ export function TopLeftPanel(): React.ReactNode {
                   <div
                      className="pointer"
                      id="TopPanel_Trade"
-                     onClick={() => showModal(<TradeModal provinces={new Set([])} />)}
+                     onClick={() => showPanel(<TradeModal provinces={new Set([])} />)}
                   >
                      <img src={Trade} width={IconWidth} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.SenateAndConsuls)}>
-                  <div className="pointer" id="TopPanel_Senate" onClick={() => showModal(<SenateModal />)}>
+                  <div className="pointer" id="TopPanel_Senate" onClick={() => showPanel(<SenateModal />)}>
                      <img src={Senate} width={IconWidth} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Missions)}>
-                  <div className="pointer" id="TopPanel_Mission" onClick={() => showSidebar(<MissionPage />)}>
+                  <div className="pointer" id="TopPanel_Mission" onClick={() => showPanel(<MissionPage />)}>
                      <img src={Mission} width={IconWidth} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Chronicle)}>
-                  <div className="pointer" id="TopPanel_Chronicle" onClick={() => showSidebar(<ChroniclePage />)}>
+                  <div className="pointer" id="TopPanel_Chronicle" onClick={() => showPanel(<ChroniclePage />)}>
                      <img src={Chronicle} width={IconWidth} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.LegacyUpgrade)}>
-                  <div
-                     className="pointer"
-                     id="TopPanel_LegacyUpgrade"
-                     onClick={() => showSidebar(<LegacyUpgradePage />)}
-                  >
+                  <div className="pointer" id="TopPanel_LegacyUpgrade" onClick={() => showPanel(<LegacyUpgradePage />)}>
                      <img src={Legacy} width={IconWidth} />
                   </div>
                </FloatingTip>

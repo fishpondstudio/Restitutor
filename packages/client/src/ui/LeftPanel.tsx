@@ -62,10 +62,9 @@ import {
 import { TechTreeScene } from "../scenes/TechTreeScene";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
-import { showModal } from "../utils/ModalManager";
 import { ArmyModal } from "./ArmyModal";
 import { BankruptcyEffectComp } from "./BankruptcyEffectComp";
-import { showSidebar } from "./common/Sidebar";
+import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { DiplomacyPage } from "./DiplomacyPage";
@@ -164,7 +163,7 @@ function WarTodo(war: IWar, index: number): ITodo {
          return <WarTooltip war={war} />;
       },
       onClick: (save) => {
-         showModal(<WarModal war={war} />);
+         showPanel(<WarModal war={war} />);
       },
    } as const;
 }
@@ -206,7 +205,7 @@ const Rebellions: ITodo = {
       );
    },
    onClick: (save) => {
-      showSidebar(<InternalAffairsPage />);
+      showPanel(<InternalAffairsPage />);
    },
 };
 
@@ -222,7 +221,7 @@ const ProvinceBankrupt: ITodo = {
       return <BankruptcyEffectComp province={save.state.playerProvince} />;
    },
    onClick: (save) => {
-      showSidebar(<TreasuryPage />);
+      showPanel(<TreasuryPage />);
    },
 };
 
@@ -244,7 +243,7 @@ const EligibleForMarriage: ITodo = {
       );
    },
    onClick: (save) => {
-      showModal(<FamilyTreeModal />);
+      showPanel(<FamilyTreeModal />);
    },
 };
 
@@ -295,7 +294,7 @@ const SocialClassDissent: ITodo = {
       );
    },
    onClick: (save) => {
-      showModal(<SocialClassModal />);
+      showPanel(<SocialClassModal />);
    },
 };
 
@@ -311,7 +310,7 @@ const PledgeSupportToConsulCandidates: ITodo = {
       return null;
    },
    onClick: (save) => {
-      showModal(<SenateModal />);
+      showPanel(<SenateModal />);
    },
 };
 
@@ -339,7 +338,7 @@ const ExpiringConsulPoints: ITodo = {
       return null;
    },
    onClick: (save) => {
-      showModal(<SenateModal />);
+      showPanel(<SenateModal />);
    },
 };
 
@@ -355,7 +354,7 @@ const VacantArmyGeneral: ITodo = {
       return null;
    },
    onClick: (save) => {
-      showModal(<ArmyModal />);
+      showPanel(<ArmyModal />);
    },
 };
 
@@ -377,7 +376,7 @@ const UpgradeArmyGeneral: ITodo = {
       return null;
    },
    onClick: (save) => {
-      showModal(<ArmyModal />);
+      showPanel(<ArmyModal />);
    },
 };
 
@@ -396,7 +395,7 @@ const TooFewRivals: ITodo = {
       return <div className="m10">{$t(L.WeHaveTooFewRivalsClickToSelectMoreRivals)}</div>;
    },
    onClick: (save) => {
-      showSidebar(<DiplomacyPage province={save.state.playerProvince} />);
+      showPanel(<DiplomacyPage province={save.state.playerProvince} />);
    },
 };
 
@@ -430,7 +429,7 @@ const EnactedTruce: ITodo = {
       for (const [province, _] of entriesOf(save.state.provinces)) {
          const truceMonthsLeft = getTruceMonthsLeft(save.state.playerProvince, province, save);
          if (truceMonthsLeft > 0) {
-            showSidebar(<DiplomacyPage province={province} />);
+            showPanel(<DiplomacyPage province={province} />);
             return;
          }
       }
@@ -468,7 +467,7 @@ const OutstandingLoans: ITodo = {
       return <div className="m10">{$t(L.OutstandingLoansTooltip$1, data.loans.length)}</div>;
    },
    onClick: (save) => {
-      showSidebar(<TreasuryPage />);
+      showPanel(<TreasuryPage />);
    },
 };
 
@@ -488,7 +487,7 @@ const OverextensionWarning: ITodo = {
       return null;
    },
    onClick: (save) => {
-      showSidebar(<InternalAffairsPage />);
+      showPanel(<InternalAffairsPage />);
    },
 };
 
@@ -546,7 +545,7 @@ const CanAppointPontiff: ITodo = {
       return <div className="m10">{$t(L.$1CanBeAppointedClickToViewDetails, result.join(", "))}</div>;
    },
    onClick: (save) => {
-      showModal(<GovernmentModal />);
+      showPanel(<GovernmentModal />);
    },
 };
 
@@ -566,7 +565,7 @@ const EmptyAdvisorSlots: ITodo = {
       }
    },
    onClick: (save) => {
-      showModal(<GovernmentModal />);
+      showPanel(<GovernmentModal />);
    },
 };
 
@@ -590,7 +589,7 @@ const CanMakeCore: ITodo = {
       );
    },
    onClick: (save) => {
-      showSidebar(<InternalAffairsPage />);
+      showPanel(<InternalAffairsPage />);
    },
 };
 
@@ -622,7 +621,7 @@ const AvailableProductionCapacity: ITodo = {
       );
    },
    onClick: (save) => {
-      showModal(<ProductionModal />);
+      showPanel(<ProductionModal />);
    },
 };
 
@@ -642,7 +641,7 @@ const CanMakeTrade: ITodo = {
       return null;
    },
    onClick: (save) => {
-      showModal(<TradeModal provinces={new Set([])} />);
+      showPanel(<TradeModal provinces={new Set([])} />);
    },
 };
 
@@ -660,7 +659,7 @@ const CanUpgradeLegacy: ITodo = {
       return null;
    },
    onClick: (save) => {
-      showSidebar(<LegacyUpgradePage />);
+      showPanel(<LegacyUpgradePage />);
    },
 };
 
@@ -693,7 +692,7 @@ const TreatiesAboutToExpire: ITodo = {
       }
       for (const [otherProvince, data] of relations) {
          if (data.treaty && data.treaty.month + TimedActions.DiplomaticTreaty.duration - save.state.month < 6) {
-            showSidebar(<DiplomacyPage province={otherProvince} />);
+            showPanel(<DiplomacyPage province={otherProvince} />);
             return;
          }
       }
@@ -724,7 +723,7 @@ const PendingGameEvent: ITodo = {
          return;
       }
       for (const [event, data] of state.events) {
-         showModal(<GameEventModal event={event} />);
+         showPanel(<GameEventModal event={event} />);
          return;
       }
    },

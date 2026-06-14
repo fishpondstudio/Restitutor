@@ -1,10 +1,10 @@
 import { forEach } from "@project/shared/src/utils/Helper";
 import { type DependencyList, useEffect, useState } from "react";
+import { showPanel } from "../ui/common/ShowPanel";
 import { SettingsModal } from "../ui/SettingsModal";
 import { CloseButtonClass } from "../ui/UIConstant";
 import { G, revertSpeed, setSpeed } from "../utils/Global";
 import { useTypedEvent } from "../utils/Hook";
-import { showModal } from "../utils/ModalManager";
 import { CurrentShortcuts, OnKeydown, OnKeyup } from "./Events";
 import type { IShortcutConfig, Shortcut } from "./ShortcutDefinition";
 
@@ -72,7 +72,7 @@ CurrentShortcuts.set("Pause", () => {
 CurrentShortcuts.set("CloseOpenModal", () => {
    const buttons = document.getElementsByClassName(CloseButtonClass);
    if (buttons.length === 0) {
-      showModal(<SettingsModal />);
+      showPanel(<SettingsModal />);
       return;
    }
    const button = buttons[buttons.length - 1] as HTMLElement;

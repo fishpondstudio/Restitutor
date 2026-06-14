@@ -15,7 +15,7 @@ import { Fonts } from "../assets";
 import { Tech } from "../game/definitions/Tech";
 import { RefreshTechTree } from "../game/Events";
 import { getTechPosition } from "../game/logic/TechLogic";
-import { showSidebar } from "../ui/common/Sidebar";
+import { showPanel } from "../ui/common/ShowPanel";
 import { SidebarWidth } from "../ui/common/SidebarComp";
 import { playClick } from "../ui/Sound";
 import { TechPage } from "../ui/TechPage";
@@ -221,7 +221,7 @@ export class TechTreeScene extends Scene {
             this._selectedTechFrame,
             !G.save.state.provinces[G.save.state.playerProvince]?.unlockedTech.has(this._selectedTech),
          );
-         showSidebar(<TechPage tech={this._selectedTech} />);
+         showPanel(<TechPage tech={this._selectedTech} />);
       }
    }
 

@@ -44,7 +44,7 @@ import { AppeaseButton } from "./AppeaseButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { CrackDownButton } from "./CrackDownButton";
-import { showSidebar } from "./common/Sidebar";
+import { showPanel } from "./common/ShowPanel";
 import { SidebarComp } from "./common/SidebarComp";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
@@ -328,7 +328,7 @@ export function InternalAffairsPage(): React.ReactNode {
                                  scene.drawSelectors(new Set([tile]));
                                  scene.drawProvinceOutline(tileData.province);
                               });
-                           showSidebar(<TilePage tile={tile} />);
+                           showPanel(<TilePage tile={tile} />);
                         }}
                      >
                         open_in_new

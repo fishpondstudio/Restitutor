@@ -16,12 +16,12 @@ import { showBootstrapModal } from "./game/ShowBootstrapModal";
 import { getVersion } from "./game/Version";
 import { loadGameScene } from "./LoadGameScene";
 import { migrateSave } from "./MigrateSave";
+import { showPanel } from "./ui/common/ShowPanel";
 import { hideLoading } from "./ui/components/LoadingComp";
 import { initHighlighter } from "./ui/Highlighter";
 import { IncompatibleSaveModal } from "./ui/IncompatibleSaveModal";
 import { loadSounds } from "./ui/Sound";
 import { G, setLanguage } from "./utils/Global";
-import { showModal } from "./utils/ModalManager";
 import { SceneManager } from "./utils/SceneManager";
 import { isSteam } from "./utils/Steam";
 
@@ -74,7 +74,7 @@ export async function bootstrap(): Promise<void> {
       migrateSave(G.save);
       if (G.save.options.version !== SupportedSaveVersion) {
          hideLoading();
-         showModal(
+         showPanel(
             <IncompatibleSaveModal supportedVersion={SupportedSaveVersion} saveVersion={G.save.options.version} />,
          );
          return;

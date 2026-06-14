@@ -9,7 +9,7 @@ import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
 import { ChronicleEntryComp } from "./ChronicleEntryComp";
 import { ChroniclePage } from "./ChroniclePage";
-import { showSidebar } from "./common/Sidebar";
+import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { CloseButtonClass } from "./UIConstant";
 
@@ -36,7 +36,7 @@ export function ChronicleModal({ years }: { years: [number, number] }): React.Re
                className="btn text-sm"
                style={{ position: "absolute", right: 10, bottom: 10 }}
                onClick={() => {
-                  showSidebar(<ChroniclePage />);
+                  showPanel(<ChroniclePage />);
                   hideModal();
                }}
             >

@@ -14,7 +14,8 @@ import { monthToDate, monthToNextYear } from "../game/logic/TickLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { ModalComp, ModalTitleBar, showModal } from "../utils/ModalManager";
+import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { DissolveTreatyModal } from "./DissolveTreatyModal";
@@ -48,10 +49,10 @@ export function SenateModal(): React.ReactNode {
             <TimedActionButton timedAction="EnactSenateOversight" />
             <TimedActionButton timedAction="AffirmCivicUnity" />
             <TimedActionButton timedAction="DeclareMobilization" />
-            <button className="btn" onClick={() => showModal(<NamePublicEnemyModal />)}>
+            <button className="btn" onClick={() => showPanel(<NamePublicEnemyModal />)}>
                {TimedActions.PublicEnemy.name()}
             </button>
-            <button className="btn" onClick={() => showModal(<DissolveTreatyModal />)}>
+            <button className="btn" onClick={() => showPanel(<DissolveTreatyModal />)}>
                {TimedActions.DissolveTreaty.name()}
             </button>
          </div>

@@ -45,7 +45,7 @@ import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
-import { showSidebar } from "./common/Sidebar";
+import { showPanel } from "./common/ShowPanel";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
@@ -226,7 +226,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                                     .then((scene) => {
                                        scene.drawSelectors(new Set([tile]));
                                        scene.drawProvinceOutline(tileData.province);
-                                       showSidebar(<TilePage tile={tile} />);
+                                       showPanel(<TilePage tile={tile} />);
                                     });
                               }}
                            >

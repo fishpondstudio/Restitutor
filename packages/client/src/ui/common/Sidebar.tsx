@@ -1,16 +1,9 @@
 import { Transition } from "@mantine/core";
-import { TypedEvent } from "@project/shared/src/utils/TypedEvent";
 import { useState } from "react";
+import { ToggleSidebar, UpdateSidebar } from "../../game/Events";
 import { useTypedEvent } from "../../utils/Hook";
 
-const UpdateSidebar = new TypedEvent<React.ReactNode>();
-const ToggleSidebar = new TypedEvent<boolean>();
-
-export function showSidebar(content: React.ReactNode) {
-   UpdateSidebar.emit(content);
-}
-
-export function hideSidebar() {
+export function hideSidebar(): void {
    ToggleSidebar.emit(false);
 }
 

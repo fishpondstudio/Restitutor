@@ -6,8 +6,8 @@ import { getDeathChance, getOffspringChance, getOffspringSkillRangeIncl } from "
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
-import { showModal } from "../utils/ModalManager";
 import { BreakdownComp } from "./BreakdownComp";
+import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { LookForSpouseModal } from "./LookForSpouseModal";
 
@@ -145,7 +145,7 @@ export function PersonNode({
             ) : (
                <div className="f1">
                   <button
-                     onClick={() => showModal(<LookForSpouseModal family={family} />)}
+                     onClick={() => showPanel(<LookForSpouseModal family={family} />)}
                      className="btn"
                      id={family.male === state.governor.male ? "FamilyNode_LookForSpouse_Governor" : undefined}
                   >
