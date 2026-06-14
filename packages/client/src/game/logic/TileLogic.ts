@@ -89,6 +89,9 @@ export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    getProvinceTraits("Robust", data.province, save).forEach((trait) => {
       breakdown.multiply.push({ ...trait, value: 0.02 });
    });
+   if (!data.coreProvinces.has(data.province)) {
+      breakdown.multiply.push({ name: $t(L.NotCore), value: -0.5 });
+   }
    if (data.autonomy > 0) {
       breakdown.multiply.push({ name: $t(L.Autonomy), value: -data.autonomy * 0.01 });
    }
