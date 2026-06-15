@@ -1,20 +1,65 @@
-import { fib } from "@project/shared/src/utils/Helper";
+import { entriesOf, forEach } from "@project/shared/src/utils/Helper";
+import { type Edge, MarkerType, type Node } from "@xyflow/react";
+import { finalizeCondition, type IConditionBreakdown } from "../actions/GameAction";
 import { type LegacyUpgrade, LegacyUpgrades } from "../definitions/LegacyUpgrade";
-import type { Province } from "../definitions/Province";
+import { Modifiers, modifierValueToString } from "../definitions/Modifier";
+import { type Province, ProvinceResourceNames } from "../definitions/Province";
 import { initSaveGame, SaveGame } from "../GameState";
-import { addProvinceResource, getTilesAnnexedAndCored, provinceResourceOf } from "./ProvinceLogic";
+import { addProvinceResource, getProvinceResource, getTilesAnnexedAndCored, provinceResourceOf } from "./ProvinceLogic";
 
-export function getLegacyUpgradeLevel(upgrade: LegacyUpgrade, province: Province, save: SaveGame): number {
-   return save.state.provinces[province]?.legacyUpgrades.get(upgrade) ?? 0;
-}
+export const LegacyUpgradeNodeWidth = 160;
+export const LegacyUpgradeNodeHeight = 90;
+export const LegacyUpgradeNodeSpacingX = 90;
+export const LegacyUpgradeNodeSpacingY = 90;
 
-export function getLegacyUpgradeValue(upgrade: LegacyUpgrade, province: Province, save: SaveGame): number {
-   const { modifierValue } = LegacyUpgrades[upgrade];
-   return modifierValue * getLegacyUpgradeLevel(upgrade, province, save);
-}
+export function makeLegacyUpgradeNodes(province: Province, save: SaveGame): { nodes: Node[]; edges: Edge[] } {
+   const nodes: Node[] = [];
+   const edges: Edge[] = [];
 
-export function getLegacyUpgradeCost(level: number): number {
-   return fib(level);
+   const state = save.state.provinces[province];
+   if (!state) {
+      return { nodes, edges };
+   }
+
+   forEach(LegacyUpgrades, (upgrade, def) => {
+      nodes.push({
+         id: upgrade,
+         data: { legacyUpgrade: upgrade },
+         type: "LegacyUpgradeNode",
+         position: {
+            x: def.position.x * (LegacyUpgradeNodeWidth + LegacyUpgradeNodeSpacingX),
+            y: def.position.y * (LegacyUpgradeNodeHeight + LegacyUpgradeNodeSpacingY),
+         },
+      });
+
+      def.requires.forEach((required) => {
+         let opacity = 0.3;
+         let color = "var(--mantine-color-dark-2)";
+         if (state.legacyUpgrades.has(required) && state.legacyUpgrades.has(upgrade)) {
+            color = "var(--mantine-primary-color-4)";
+            opacity = 1;
+         } else if (canUpgradeLegacyUpgrade(upgrade, province, save) && state.legacyUpgrades.has(required)) {
+            opacity = 1;
+         }
+         edges.push({
+            id: `${required}->${upgrade}`,
+            source: required,
+            target: upgrade,
+            markerEnd: {
+               type: MarkerType.ArrowClosed,
+               width: 12,
+               height: 12,
+               color,
+            },
+            style: {
+               strokeWidth: 2,
+               stroke: color,
+               opacity,
+            },
+         });
+      });
+   });
+   return { nodes, edges };
 }
 
 export function rebirth(province: Province, save: SaveGame): void {
@@ -29,4 +74,54 @@ export function rebirth(province: Province, save: SaveGame): void {
       newSave,
    );
    save.state = newSave.state;
+}
+
+export function getLegacyUpgradeCost(province: Province, save: SaveGame): number {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return 0;
+   }
+   return 1 + state.legacyUpgrades.size;
+}
+
+export function canUpgradeLegacyUpgrade(
+   upgrade: LegacyUpgrade,
+   province: Province,
+   save: SaveGame,
+): IConditionBreakdown {
+   const result: IConditionBreakdown = { value: false, breakdown: [] };
+   const state = save.state.provinces[province];
+   if (!state) {
+      return finalizeCondition(result);
+   }
+   if (state.legacyUpgrades.has(upgrade)) {
+      return finalizeCondition(result);
+   }
+   const cost = getLegacyUpgradeCost(province, save);
+   const available = getProvinceResource("legacy", province, save);
+   const def = LegacyUpgrades[upgrade];
+
+   result.breakdown.push({
+      name: ProvinceResourceNames.legacy(),
+      value: available >= cost,
+      progress: [available, cost],
+   });
+
+   result.breakdown.push({
+      name: "Prerequisites",
+      value: def.requires.length === 0 || def.requires.some((upgrade) => state?.legacyUpgrades.has(upgrade)),
+   });
+
+   return finalizeCondition(result);
+}
+
+export function getLegacyUpgradeName(upgrade: LegacyUpgrade): string {
+   const def = LegacyUpgrades[upgrade];
+   const result: string[] = [];
+   if (def.modifiers) {
+      entriesOf(def.modifiers).forEach(([modifier, data]) => {
+         result.push(`${modifierValueToString(data)} ${Modifiers[modifier].name()}`);
+      });
+   }
+   return result.join(", ");
 }

@@ -193,12 +193,17 @@ GameStateUpdated.on(() => {
          }
       });
       state.legacyUpgrades.forEach((level, upgrade) => {
-         const { modifierType, modifierValue } = LegacyUpgrades[upgrade];
-         safePush(state.dynamicModifiers, upgrade, {
-            type: modifierType,
-            value: modifierValue * level,
-            name: $t(L.LegacyUpgrade),
-         });
+         const { modifiers } = LegacyUpgrades[upgrade];
+         if (modifiers) {
+            forEach(modifiers, (modifier, data) => {
+               const { type, value } = data;
+               safePush(state.dynamicModifiers, modifier, {
+                  type,
+                  value,
+                  name: $t(L.LegacyUpgrade),
+               });
+            });
+         }
       });
    });
 });

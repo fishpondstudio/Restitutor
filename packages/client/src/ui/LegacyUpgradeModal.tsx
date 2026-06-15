@@ -1,19 +1,35 @@
-import { Controls, ReactFlow, SmoothStepEdge } from "@xyflow/react";
+import { Controls, ReactFlow } from "@xyflow/react";
 import {
+   getLegacyUpgradeCost,
    LegacyUpgradeNodeHeight,
    LegacyUpgradeNodeWidth,
    makeLegacyUpgradeNodes,
-} from "../game/logic/LegacyUpgradeLogicV2";
+} from "../game/logic/LegacyUpgradeLogic";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
-import { LegacyUpgradeNode } from "./LegacyUpgradeNode";
+import { FloatingEdge, LegacyUpgradeNode } from "./LegacyUpgradeNode";
 import "./LegacyUpgradeModal.css";
+import { formatNumber } from "@project/shared/src/utils/Helper";
 import { GameStateUpdated } from "../game/Events";
+import { getProvinceResource } from "../game/logic/ProvinceLogic";
+import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
+import { $t, L } from "../utils/i18n";
+import { showPanel } from "./common/ShowPanel";
+import { FloatingTip } from "./components/FloatingTip";
+import { RebirthModal } from "./RebirthModal";
 
-const { nodes, edges } = makeLegacyUpgradeNodes();
+const NodeTypes = { LegacyUpgradeNode };
+const EdgeTypes = { default: FloatingEdge };
 
 export function LegacyUpgradeModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
+   const state = G.save.state.provinces[G.save.state.playerProvince];
+   if (!state) {
+      return null;
+   }
+   const { nodes, edges } = makeLegacyUpgradeNodes(G.save.state.playerProvince, G.save);
+   const cost = getLegacyUpgradeCost(G.save.state.playerProvince, G.save);
+   const legacyPoints = getProvinceResource("legacy", G.save.state.playerProvince, G.save);
    return (
       <ModalComp size="xl" title={<ModalTitleBar title="Legacy Upgrades" dismiss />}>
          <div style={{ width: "100%", height: "calc(80vh - 50px)" }}>
@@ -26,12 +42,52 @@ export function LegacyUpgradeModal(): React.ReactNode {
                edgesReconnectable={false}
                nodes={nodes}
                edges={edges}
-               nodeTypes={{ LegacyUpgradeNode }}
-               edgeTypes={{ default: SmoothStepEdge }}
+               nodeTypes={NodeTypes}
+               edgeTypes={EdgeTypes}
                proOptions={{ hideAttribution: true }}
                fitView
             >
-               <Controls showInteractive={false} showZoom={false} showFitView={true} />
+               <Controls
+                  orientation="horizontal"
+                  showInteractive={false}
+                  showZoom={false}
+                  showFitView={true}
+                  position="top-left"
+               >
+                  <FloatingTip
+                     w={300}
+                     className="p0"
+                     label={
+                        <>
+                           <div className="m10">
+                              <div className="row my5">
+                                 <div className="f1">Available Legacy Points</div>
+                                 <div>{formatNumber(legacyPoints)}</div>
+                              </div>
+                              <div className="row my5">
+                                 <div className="f1">Next Legacy Upgrade Cost</div>
+                                 <div>{formatNumber(cost)}</div>
+                              </div>
+                              <div className="row my5">
+                                 <div className="f1">Unlocked Legacy Upgrades</div>
+                                 <div>{formatNumber(state.legacyUpgrades.size)}</div>
+                              </div>
+                           </div>
+                           <div className="divider" />
+                           <div className="m10 text-dimmed">
+                              Each unlocked legacy upgrade increases the cost of the next upgrade by 1 Legacy Point.
+                           </div>
+                        </>
+                     }
+                  >
+                     <button className="btn">
+                        {formatNumber(legacyPoints)}/{formatNumber(cost)}
+                     </button>
+                  </FloatingTip>
+                  <button className="btn" id="LegacyUpgradeModal_Rebirth" onClick={() => showPanel(<RebirthModal />)}>
+                     {$t(L.Rebirth)}
+                  </button>
+               </Controls>
             </ReactFlow>
          </div>
       </ModalComp>

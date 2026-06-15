@@ -304,7 +304,7 @@ export const Tutorial: ITutorial[] = [
       progress: (save) => {
          return [0, 1];
       },
-      selectors: ["#TopPanel_LegacyUpgrade", "#LegacyUpgradePage_Rebirth"],
+      selectors: ["#TopPanel_LegacyUpgrade", "#LegacyUpgradeModal_Rebirth"],
    },
 ] as const;
 

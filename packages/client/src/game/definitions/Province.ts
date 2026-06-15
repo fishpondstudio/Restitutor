@@ -125,7 +125,7 @@ export interface IProvince {
    blackboard: IBlackboard;
    completedMissions: Set<string>;
    socialClasses: Record<SocialClass, ISocialClassData>;
-   legacyUpgrades: Map<LegacyUpgrade, number>;
+   legacyUpgrades: Set<LegacyUpgrade>;
    provinceUpgrades: Set<ProvinceUpgrade>;
    tradeOffers: TradeOffer[];
    flags: ProvinceFlags;

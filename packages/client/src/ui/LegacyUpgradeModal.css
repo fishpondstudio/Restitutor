@@ -13,12 +13,26 @@
    padding: 0 10px;
    overflow: hidden;
    .upgrade-id {
+      text-align: right;
       font-size: 75%;
       color: rgba(255, 255, 255, 0.4);
       font-family: "MainFont", serif;
       position: absolute;
       top: 2px;
-      right: 5px;
+      right: 2px;
+   }
+   opacity: 0.3;
+   &.upgraded {
+      opacity: 1;
+      color: var(--mantine-primary-color-3);
+      border: 2px solid var(--mantine-primary-color-4);
+   }
+   &.can-upgrade {
+      opacity: 1;
+      &:hover {
+         color: var(--mantine-primary-color-2);
+         border: 2px solid var(--mantine-primary-color-3);
+      }
    }
 }
 

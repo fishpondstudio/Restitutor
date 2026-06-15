@@ -8,7 +8,6 @@ import { PersonTrait } from "../game/definitions/PersonTrait";
 import { type GovernorPower, ProvinceResourceNames } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
 import { showError } from "../game/logic/AlertLogic";
-import { getLegacyUpgradeValue } from "../game/logic/LegacyUpgradeLogic";
 import {
    getProvinceGovernmentPoint,
    getProvinceName,
@@ -70,39 +69,17 @@ export function GovernmentModal(): React.ReactNode {
                   <div className="f1">{$t(L.Administrative)}</div>
                   <div>{colorNumber(state.governor.male.administrative)}</div>
                </div>
-               <div className="row g5">
-                  <div>{$t(L.LegacyUpgrade)}</div>
-                  <img src={ProvinceResourceImages.legacy} alt={$t(L.LegacyPoint)} height={17} />
-                  <div className="f1" />
-                  <div>
-                     {colorNumber(getLegacyUpgradeValue("AdministrativePoint", G.save.state.playerProvince, G.save))}
-                  </div>
-               </div>
             </div>
             <div className="box p5 text-sm">
                <div className="row">
                   <div className="f1">{$t(L.Diplomatic)}</div>
                   <div>{colorNumber(state.governor.male.diplomatic)}</div>
                </div>
-               <div className="row g5">
-                  <div>{$t(L.LegacyUpgrade)}</div>
-                  <img src={ProvinceResourceImages.legacy} alt={$t(L.LegacyPoint)} height={17} />
-                  <div className="f1" />
-                  <div>
-                     {colorNumber(getLegacyUpgradeValue("DiplomaticPoint", G.save.state.playerProvince, G.save))}
-                  </div>
-               </div>
             </div>
             <div className="box p5 text-sm">
                <div className="row">
                   <div className="f1">{$t(L.Military)}</div>
                   <div>{colorNumber(state.governor.male.military)}</div>
-               </div>
-               <div className="row g5">
-                  <div>{$t(L.LegacyUpgrade)}</div>
-                  <img src={ProvinceResourceImages.legacy} alt={$t(L.LegacyPoint)} height={17} />
-                  <div className="f1" />
-                  <div>{colorNumber(getLegacyUpgradeValue("MilitaryPoint", G.save.state.playerProvince, G.save))}</div>
                </div>
             </div>
          </div>

@@ -1,10 +1,8 @@
 import { entriesOf, forEach, sizeOf } from "@project/shared/src/utils/Helper";
 import { type Building, Buildings } from "../definitions/Building";
 import { Goods } from "../definitions/Goods";
-import { LegacyUpgrades } from "../definitions/LegacyUpgradeV2";
 import { Tech } from "../definitions/Tech";
 import { type IBaseTimedAction, type TimedAction, TimedActions } from "../definitions/TimedAction";
-import { getHandles } from "./LegacyUpgradeLogicV2";
 
 export function validateConfig(): void {
    const buildings = new Set<Building>();
@@ -55,11 +53,4 @@ export function validateConfig(): void {
          })
          .join("\n")}`,
    );
-   forEach(LegacyUpgrades, (upgrade, def) => {
-      def.requires.forEach((required) => {
-         if (!getHandles(LegacyUpgrades[required], def)) {
-            throw new Error(`Invalid position for edge ${required}->${upgrade}. Check the position of both nodes!`);
-         }
-      });
-   });
 }

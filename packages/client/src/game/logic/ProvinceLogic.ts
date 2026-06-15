@@ -544,7 +544,7 @@ export function initProvince(province: Province): IProvince {
       dynamicModifiers: {},
       events: new Map(),
       usedEvents: new Set(),
-      legacyUpgrades: new Map(),
+      legacyUpgrades: new Set(),
       provinceUpgrades: new Set(),
       blackboard: {
          resources: {},

@@ -1,4 +1,4 @@
-import { cls, EmptyString, entriesOf, formatNumber, keysOf } from "@project/shared/src/utils/Helper";
+import { cls, EmptyString, entriesOf, formatNumber } from "@project/shared/src/utils/Helper";
 import Bankruptcy from "../assets/images/Bankruptcy.svg";
 import Core from "../assets/images/Core.svg";
 import Decree from "../assets/images/Decree.svg";
@@ -28,7 +28,6 @@ import { UpgradeGeneralSkillAction } from "../game/actions/ArmyGeneralAction";
 import { canDoAction } from "../game/actions/GameAction";
 import { CanTradeCostCondition } from "../game/actions/TradeActions";
 import { Goods } from "../game/definitions/Goods";
-import { LegacyUpgrades } from "../game/definitions/LegacyUpgrade";
 import { type Province, TreatyNames } from "../game/definitions/Province";
 import { SocialClassNames } from "../game/definitions/SocialClass";
 import { Tech } from "../game/definitions/Tech";
@@ -37,7 +36,7 @@ import { TimedActions } from "../game/definitions/TimedAction";
 import type { SaveGame } from "../game/GameState";
 import { getCurrentRelations, getDiplomats, getRelations } from "../game/logic/DiplomacyLogic";
 import { getEligibleForMarriage } from "../game/logic/GovernorLogic";
-import { getLegacyUpgradeCost, getLegacyUpgradeLevel } from "../game/logic/LegacyUpgradeLogic";
+import { getLegacyUpgradeCost } from "../game/logic/LegacyUpgradeLogic";
 import {
    getProvinceName,
    getProvinceOverextension,
@@ -72,7 +71,7 @@ import { FamilyTreeModal } from "./FamilyModal";
 import { GameEventModal } from "./GameEventModal";
 import { GovernmentModal } from "./GovernmentModal";
 import { InternalAffairsPage } from "./InternalAffairsPage";
-import { LegacyUpgradePage } from "./LegacyUpgradePage";
+import { LegacyUpgradeModal } from "./LegacyUpgradeModal";
 import { ProductionModal } from "./ProductionModal";
 import { SenateModal } from "./SenateModal";
 import { SocialClassModal } from "./SocialClassModal";
@@ -650,16 +649,15 @@ const CanUpgradeLegacy: ITodo = {
    icon: (save) => Legacy,
    className: (save) => "yellow",
    tooltip: (save) => {
-      for (const upgrade of keysOf(LegacyUpgrades)) {
-         const level = getLegacyUpgradeLevel(upgrade, save.state.playerProvince, save);
-         if (getProvinceResource("legacy", save.state.playerProvince, save) >= getLegacyUpgradeCost(level + 1)) {
-            return <div className="m10">{$t(L.WeHaveAvailableLegacyUpgradesClickToViewDetails)}</div>;
-         }
+      const cost = getLegacyUpgradeCost(save.state.playerProvince, save);
+      const available = getProvinceResource("legacy", save.state.playerProvince, save);
+      if (available >= cost) {
+         return <div className="m10">{$t(L.WeHaveAvailableLegacyUpgradesClickToViewDetails)}</div>;
       }
       return null;
    },
    onClick: (save) => {
-      showPanel(<LegacyUpgradePage />);
+      showPanel(<LegacyUpgradeModal />);
    },
 };
 
