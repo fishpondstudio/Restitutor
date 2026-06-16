@@ -62,7 +62,7 @@ const _ProvinceUpgrades = {
       name: () => EmptyString,
    },
    InfiltrationOnDeclaringWar: {
-      name: () => "+25 Infiltration When Declaring War",
+      name: () => $t(L.$1InfiltrationWhenDeclaringWar, "+25"),
    },
 } as const satisfies Record<string, IProvinceUpgrade>;
 

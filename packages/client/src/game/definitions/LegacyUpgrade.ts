@@ -1,3 +1,4 @@
+import { $t, L } from "../../utils/i18n";
 import type { IBaseModifier, Modifier } from "./Modifier";
 
 interface IBaseLegacyUpgradeDefinition {
@@ -100,8 +101,8 @@ export class LegacyUpgradeDefinitions {
       },
    } as const;
    InfiltrationOnDeclaringWar: ILegacyUpgradeDefinition = {
-      name: () => "+25 Infiltration When Declaring War",
-      desc: () => "When declaring war on a province, gain +25 Infiltration to that province.",
+      name: () => $t(L.$1InfiltrationWhenDeclaringWar, "+25"),
+      desc: () => $t(L.InfiltrationOnDeclaringWarDesc$1, "+25"),
       requires: ["ProductionUpgrade1"],
       position: [3, 1],
    } as const;
@@ -155,9 +156,8 @@ export class LegacyUpgradeDefinitions {
       },
    } as const;
    TradeProfitForAttitude: ILegacyUpgradeDefinition = {
-      name: () => "+1% Trade Profit Per Positive Attitude",
-      desc: () =>
-         "Each point of a province's positive attitude towards us increases our Trade Profit with that province by 1%.",
+      name: () => $t(L.$1TradeProfitPerPositiveAttitude, "+1%"),
+      desc: () => $t(L.AttitudeTradeProfit$1, "1%"),
       requires: ["TradeProfit1"],
       position: [-2, -3],
    } as const;

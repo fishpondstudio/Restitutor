@@ -1,5 +1,6 @@
 import { entriesOf, forEach } from "@project/shared/src/utils/Helper";
 import { type Edge, MarkerType, type Node } from "@xyflow/react";
+import { $t, L } from "../../utils/i18n";
 import { finalizeCondition, type IConditionBreakdown } from "../actions/GameAction";
 import { type LegacyUpgrade, LegacyUpgrades } from "../definitions/LegacyUpgrade";
 import { Modifiers, modifierValueToString } from "../definitions/Modifier";
@@ -109,7 +110,7 @@ export function canUpgradeLegacyUpgrade(
    });
 
    result.breakdown.push({
-      name: "Prerequisites",
+      name: $t(L.Prerequisites),
       value: def.requires.length === 0 || def.requires.some((upgrade) => state?.legacyUpgrades.has(upgrade)),
    });
 

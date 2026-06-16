@@ -31,7 +31,7 @@ export function LegacyUpgradeModal(): React.ReactNode {
    const cost = getLegacyUpgradeCost(G.save.state.playerProvince, G.save);
    const legacyPoints = getProvinceResource("legacy", G.save.state.playerProvince, G.save);
    return (
-      <ModalComp size="xl" title={<ModalTitleBar title="Legacy Upgrades" dismiss />}>
+      <ModalComp size="xl" title={<ModalTitleBar title={$t(L.LegacyUpgrades)} dismiss />}>
          <div style={{ width: "100%", height: "calc(80vh - 50px)" }}>
             <ReactFlow
                colorMode="dark"
@@ -61,22 +61,20 @@ export function LegacyUpgradeModal(): React.ReactNode {
                         <>
                            <div className="m10">
                               <div className="row my5">
-                                 <div className="f1">Available Legacy Points</div>
+                                 <div className="f1">{$t(L.AvailableLegacyPoints)}</div>
                                  <div>{formatNumber(legacyPoints)}</div>
                               </div>
                               <div className="row my5">
-                                 <div className="f1">Next Legacy Upgrade Cost</div>
+                                 <div className="f1">{$t(L.NextLegacyUpgradeCost)}</div>
                                  <div>{formatNumber(cost)}</div>
                               </div>
                               <div className="row my5">
-                                 <div className="f1">Unlocked Legacy Upgrades</div>
+                                 <div className="f1">{$t(L.UnlockedLegacyUpgrades)}</div>
                                  <div>{formatNumber(state.legacyUpgrades.size)}</div>
                               </div>
                            </div>
                            <div className="divider" />
-                           <div className="m10 text-dimmed">
-                              Each unlocked legacy upgrade increases the cost of the next upgrade by 1 Legacy Point.
-                           </div>
+                           <div className="m10 text-dimmed">{$t(L.LegacyUpgradeCostIncrementDesc$1, "1")}</div>
                         </>
                      }
                   >

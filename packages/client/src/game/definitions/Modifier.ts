@@ -44,7 +44,7 @@ export const Modifiers = {
    },
    WarScore: {
       name: () => $t(L.WarScore),
-      desc: () => "Required War Score to win a war depends on the defense of the war goal tiles.",
+      desc: () => $t(L.ModifierWarScoreDesc),
    },
    Stability: {
       name: () => $t(L.Stability),
@@ -151,12 +151,12 @@ export const Modifiers = {
       desc: () => $t(L.ModifierMonthlyInterestRateDesc),
    },
    InfiltrationRate: {
-      name: () => "Infiltration Rate",
-      desc: () => "Monthly infiltration gained while infiltrating a province",
+      name: () => $t(L.InfiltrationRate),
+      desc: () => $t(L.ModifierInfiltrationRateDesc),
    },
    ImproveRelationsRate: {
-      name: () => "Improve Relations Rate",
-      desc: () => "Monthly attitude gained when improving relations with a province",
+      name: () => $t(L.ImproveRelationsRate),
+      desc: () => $t(L.ModifierImproveRelationsRateDesc),
    },
 } as const satisfies Record<string, IModifierDefinition>;
 
