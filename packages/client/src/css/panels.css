@@ -26,7 +26,7 @@
 .panel {
    background-image:
       url("../assets/images/Background9.png"),
-      linear-gradient(to bottom, var(--mantine-color-violet-5), var(--mantine-color-violet-9));
+      linear-gradient(to bottom, var(--mantine-primary-color-5), var(--mantine-primary-color-9));
    background-origin: border-box;
    background-clip: padding-box, border-box;
    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -35,11 +35,12 @@
    overflow: hidden;
 
    .header {
-      background-image: url("../assets/images/H1Dark.svg");
-      background-color: var(--mantine-primary-color-filled-hover);
+      background-image:
+         url("../assets/images/H1Dark.svg"),
+         linear-gradient(to bottom, var(--mantine-primary-color-7), var(--mantine-primary-color-9));
       color: var(--mantine-color-gray-0);
       text-shadow: 1px 1px 0 var(--mantine-color-dark-5);
-      border-bottom: 1px solid var(--mantine-color-violet-5);
+      border-bottom: 1px solid var(--mantine-primary-color-5);
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -49,10 +50,11 @@
 
    .h1,
    .h2 {
-      background-image: url("../assets/images/H1Dark.svg");
-      background-color: rgba(255, 255, 255, 0.03);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+      background-image:
+         url("../assets/images/H1Dark.svg"),
+         linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.6);
       padding: 5px 10px;
       color: var(--mantine-color-gray-0);
       text-shadow: 1px 1px 0 var(--mantine-color-dark-5);

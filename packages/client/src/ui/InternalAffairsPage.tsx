@@ -307,7 +307,6 @@ export function InternalAffairsPage(): React.ReactNode {
          </FloatingTip>
          <Progress value={100 * religiousCohesion} className="mx10" />
          <div className="h10" />
-         <div className="divider" />
          <div className="h1">{$t(L.AutonomyAndRebellion)}</div>
          {tiles.map(([tile, tileData]) => {
             const unrest = getTileUnrest(tile, G.save);

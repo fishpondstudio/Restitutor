@@ -32,6 +32,7 @@ import { G, GameFlags, isDev } from "../utils/Global";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
 import { TileVisual } from "./TileVisual";
+import { ExternalBorder, InternalBorder } from "./WorldSceneConstants";
 
 const marginX = 2000;
 const textureHeight = 256;
@@ -387,7 +388,6 @@ export class WorldScene extends Scene {
          const p = tileToPoint(tile);
          for (let dir = 0; dir < 6; dir++) {
             const neighborPoint = MapGrid.getNeighbor(p, dir);
-            if (!neighborPoint) continue;
             const neighborTile = pointToTile(neighborPoint);
             if (tileData.province !== G.save.state.tiles.get(neighborTile)?.province) {
                const hash =
@@ -401,6 +401,7 @@ export class WorldScene extends Scene {
                   const offset2 = MapGrid.layout.hexCornerOffset((dir + 1) % 6);
                   const c1 = { x: center.x + offset1.x, y: center.y + offset1.y };
                   const c2 = { x: center.x + offset2.x, y: center.y + offset2.y };
+                  this._staticOutline.lineStyle(G.save.state.tiles.has(neighborTile) ? InternalBorder : ExternalBorder);
                   this._staticOutline.moveTo(c1.x, c1.y);
                   this._staticOutline.lineTo(c2.x, c2.y);
                }
