@@ -11,7 +11,7 @@ import { getRelation } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { addProvinceResource, ensureProvinceCapital } from "../logic/ProvinceLogic";
 import { showGameEventModal } from "../logic/TickProvince";
-import { getCurrentGeneral, getTruceLength, type IWar, WarFlag } from "../logic/WarLogic";
+import { getCurrentGeneral, getTruceDuration, type IWar, WarFlag } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
 export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveGame): IGameAction {
@@ -43,15 +43,16 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
          if (getCurrentGeneral(war.attacker, save)) {
             addProvinceResource("generalSkillPoint", war.tiles.size, war.attacker, save);
          }
+         const truceDuration = getTruceDuration(war, save);
          ensureProvinceCapital(war.defender, save);
          filterInPlace(save.state.wars, (w) => w !== war);
          const attackerToDefender = getRelation(war.attacker, war.defender, save);
          const defenderToAttacker = getRelation(war.defender, war.attacker, save);
          if (attackerToDefender) {
-            attackerToDefender.truceUntil = save.state.month + getTruceLength(war);
+            attackerToDefender.truceUntil = save.state.month + truceDuration.value;
          }
          if (defenderToAttacker) {
-            defenderToAttacker.truceUntil = save.state.month + getTruceLength(war);
+            defenderToAttacker.truceUntil = save.state.month + truceDuration.value;
             defenderToAttacker.casusBelli.set("Reconquista", {
                monthsLeft: 10 * 12,
             });
@@ -91,7 +92,7 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
                      .map((tile) => `<Tile>${tile}</Tile>`)
                      .join(", "),
                   war.attacker,
-                  getTruceLength(war),
+                  truceDuration.value,
                ),
             },
             save,

@@ -17,11 +17,7 @@ export function InvaderSueForWhitePeaceModal({ war }: { war: IWar }): React.Reac
          buttons={[
             <GameEventButton
                key="0"
-               tooltip={
-                  <div className="m10">
-                     <WhitePeaceTooltip war={war} />
-                  </div>
-               }
+               tooltip={<WhitePeaceTooltip war={war} />}
                label={$t(L.WeHopeTheyveLearnedTheirLesson)}
                onClick={() => {
                   playClick();

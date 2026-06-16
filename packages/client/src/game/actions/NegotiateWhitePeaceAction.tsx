@@ -9,7 +9,7 @@ import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getRelation } from "../logic/DiplomacyLogic";
 import { showGameEventModal } from "../logic/TickProvince";
-import { getTruceLength, type IWar, WhitePeaceCostPerTile } from "../logic/WarLogic";
+import { getTruceDuration, type IWar, WhitePeaceCostPerTile } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
 export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: SaveGame): IGameAction {
@@ -31,12 +31,13 @@ export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: S
       effect: ({ headless }) => {
          filterInPlace(save.state.wars, (w) => w !== war);
          const attackerToDefender = getRelation(war.attacker, war.defender, save);
+         const truceDuration = getTruceDuration(war, save);
          if (attackerToDefender) {
-            attackerToDefender.truceUntil = save.state.month + getTruceLength(war);
+            attackerToDefender.truceUntil = save.state.month + truceDuration.value;
          }
          const defenderToAttacker = getRelation(war.defender, war.attacker, save);
          if (defenderToAttacker) {
-            defenderToAttacker.truceUntil = save.state.month + getTruceLength(war);
+            defenderToAttacker.truceUntil = save.state.month + truceDuration.value;
          }
          RefreshTiles.emit({ tiles: war.tiles, options: { indicator: true } });
          if (headless) {
@@ -52,7 +53,7 @@ export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: S
          addChronicleEntry(
             {
                type: "WarEnded",
-               content: $t(L.ChronicleWhitePeace$1$2$3, war.attacker, war.defender, getTruceLength(war)),
+               content: $t(L.ChronicleWhitePeace$1$2$3, war.attacker, war.defender, truceDuration.value),
             },
             save,
          );

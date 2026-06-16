@@ -110,7 +110,7 @@ export class LegacyUpgradeDefinitions {
       requires: ["ProductionUpgrade1"],
       position: [3, 2],
       modifiers: {
-         InfiltrationRate: { type: "add", value: 0.1 },
+         InfiltrationRate: { type: "multiply", value: 0.5 },
       },
    } as const;
    Diplomatic2: ILegacyUpgradeModifier = {
@@ -245,11 +245,18 @@ export class LegacyUpgradeDefinitions {
          CavalryUnitPower: { type: "add", value: 1 },
       },
    } as const;
-   WarScore: ILegacyUpgradeModifier = {
+   WarScore1: ILegacyUpgradeModifier = {
       requires: ["PopulationUpgrade1"],
       position: [-3, -2],
       modifiers: {
          WarScore: { type: "multiply", value: -0.1 },
+      },
+   } as const;
+   TruceDuration1: ILegacyUpgradeModifier = {
+      requires: ["WarScore1"],
+      position: [-3, -3],
+      modifiers: {
+         TruceDuration: { type: "multiply", value: -0.2 },
       },
    } as const;
    PopulationUpgrade1: ILegacyUpgradeModifier = {

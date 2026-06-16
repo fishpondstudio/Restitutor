@@ -158,6 +158,10 @@ export const Modifiers = {
       name: () => $t(L.ImproveRelationsRate),
       desc: () => $t(L.ModifierImproveRelationsRateDesc),
    },
+   TruceDuration: {
+      name: () => $t(L.TruceDuration),
+      desc: () => $t(L.ModifierTruceDurationDesc),
+   },
 } as const satisfies Record<string, IModifierDefinition>;
 
 export type Modifier = keyof typeof Modifiers;

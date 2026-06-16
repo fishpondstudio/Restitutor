@@ -315,8 +315,21 @@ export function getTruceMonthsLeft(fromProvince: Province, toProvince: Province,
    return clamp(truceUntil - save.state.month, 0, Number.POSITIVE_INFINITY);
 }
 
-export function getTruceLength(war: IWar): number {
-   return clamp(war.log.length, MinimumTruceMonths, Number.POSITIVE_INFINITY);
+export function getTruceDuration(war: IWar, save: SaveGame): IValueBreakdown {
+   const result = makeValueBreakdown();
+   result.add.push({
+      name: $t(L.MinimumTruceDuration),
+      value: MinimumTruceMonths,
+   });
+   const extraTruceMonths = war.log.length - MinimumTruceMonths;
+   if (extraTruceMonths > 0) {
+      result.add.push({
+         name: $t(L.FromDurationOfTheWar),
+         value: extraTruceMonths,
+      });
+   }
+   attachModifiers("TruceDuration", result, war.attacker, save);
+   return finalizeBreakdown(result, Math.ceil);
 }
 
 const MonthlyStabilityCostWithCB = 0.1;

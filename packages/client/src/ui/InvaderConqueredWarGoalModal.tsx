@@ -22,11 +22,7 @@ export function InvaderConqueredWarGoalModal({ war }: { war: IWar }): React.Reac
          buttons={[
             <GameEventButton
                key="0"
-               tooltip={
-                  <div className="m10">
-                     <PeaceTreatyTooltip war={war} />
-                  </div>
-               }
+               tooltip={<PeaceTreatyTooltip war={war} />}
                label={$t(L.ATerribleLossIndeed)}
                onClick={() => {
                   playClick();

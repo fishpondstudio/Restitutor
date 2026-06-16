@@ -13,7 +13,7 @@ This document describes how to extract hardcoded user-facing strings in the Rest
 | HTML rendering helper | `packages/client/src/ui/components/RenderHTMLComp.tsx` |
 | Chronicle markup parser | `packages/client/src/ui/ParseMarkup.tsx` |
 | Format helpers | `@project/shared/src/utils/Helper` (`formatNumber`, `formatDelta`, `formatPercent`, `formatPercentDelta`) |
-| Translate & sync script | `scripts/Translate.js` (run via `pnpm run translate` at repo root; auto-sorts keys, syncs to other languages, and validates) |
+| Translate & sync script | `scripts/Translate.js` (run via `pnpm run translate` at repo root; syncs to other languages, removes unused keys, and validates) |
 
 ## Workflow
 
@@ -21,7 +21,7 @@ For each hardcoded user-facing string:
 
 1. **Decide** whether the string should be localized (see [Scope](#scope) below). If unsure, flag it and skip.
 2. **Search** `packages/client/src/languages/en.ts` for an existing key with the same content. Reuse it if found.
-3. **Add** a new entry to `en.ts` (or reuse an existing key). **Append new keys at the end of the file** — do not manually interleave them alphabetically. `pnpm run translate` will sort all keys automatically.
+3. **Add** a new entry to `en.ts` (or reuse an existing key). **Always append new keys at the end of the file** — do not manually interleave them alphabetically. This keeps review diffs clean and focused on the actual additions.
 4. **Replace** the hardcoded string in source with `$t(L.KeyName, ...args)`.
 5. **Add imports** if the file does not already import `$t` and `L` from `../utils/i18n` (adjust relative path as needed).
 6. **Run `pnpm run translate`** (see [Verification](#verification)). This syncs new keys to all other language files (`packages/client/src/languages/*.ts`), adding them with their English values as placeholders.
@@ -388,8 +388,7 @@ pnpm run translate  # Validate token consecutiveness, arg counts, key-name match
 4. **Validates argument counts** — checks that the highest `$N` index in each key's value matches the number of arguments passed to `$t` (reusing the same token number does not require duplicate arguments).
 5. Removes unused keys from `en.ts` (keys starting with `$` are never removed).
 6. Syncs non-English language files under `packages/client/src/languages/` to match `en.ts` keys.
-7. **Sorts keys alphabetically** in `en.ts` (and other language files that were synced).
-8. Formats language files with biome.
+7. Formats language files with biome.
 
 If any validation fails, the script prints details (file, line, key, expected vs. actual) and exits with code 1.
 

@@ -24,7 +24,7 @@ import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import {
    getCurrentWars,
-   getTruceLength,
+   getTruceDuration,
    getWarEstimatedTime,
    getWarPlunder,
    getWarSuccessChance,
@@ -287,10 +287,8 @@ function SignPeaceTreatyButton({ war, province }: { war: IWar; province: Provinc
          action={SignPeaceTreatyAction(war, province, G.save)}
          tooltip={(element) => (
             <>
-               <div className="h2">{$t(L.PeaceTreatyHasTheFollowingEffects)}</div>
-               <div className="m10">
-                  <PeaceTreatyTooltip war={war} />
-               </div>
+               <div className="h2">{$t(L.SignPeaceTreaty)}</div>
+               <PeaceTreatyTooltip war={war} />
                {element}
             </>
          )}
@@ -312,9 +310,8 @@ function NegotiateWhitePeaceButton({ war, province }: { war: IWar; province: Pro
          className="btn py2"
          tooltip={(element) => (
             <>
-               <div className="m10">
-                  <WhitePeaceTooltip war={war} />
-               </div>
+               <div className="h2">{$t(L.NegotiateWhitePeace)}</div>
+               <WhitePeaceTooltip war={war} />
                {element}
             </>
          )}
@@ -348,7 +345,12 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
          tooltip={(element) => (
             <>
                <div className="m10">
-                  {$t(L.LeavingWarCoalitionTooltip$1$2$3, coalitionLeader, "50", formatNumber(getTruceLength(war)))}
+                  {$t(
+                     L.LeavingWarCoalitionTooltip$1$2$3,
+                     coalitionLeader,
+                     "50",
+                     formatNumber(getTruceDuration(war, G.save).value),
+                  )}
                </div>
                {element}
             </>
@@ -383,7 +385,7 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
                         getProvinceName(war.defender, G.save),
                      ),
                      value: -50,
-                     duration: getTruceLength(war),
+                     duration: getTruceDuration(war, G.save).value,
                   },
                   G.save,
                );
@@ -639,35 +641,49 @@ function DecimateOurArmyButton({ war, province }: { war: IWar; province: Provinc
 }
 
 export function WhitePeaceTooltip({ war }: { war: IWar }): React.ReactNode {
-   return <>{$t(L.WhitePeaceTooltip$1$2$3, formatNumber(getTruceLength(war)), war.attacker, war.defender)}</>;
+   const duration = getTruceDuration(war, G.save);
+   return (
+      <>
+         <div className="m10">
+            {$t(L.WhitePeaceTooltip$1$2$3, formatNumber(duration.value), war.attacker, war.defender)}
+         </div>
+         <div className="h2">{$t(L.TruceDuration)}</div>
+         <BreakdownComp breakdown={duration} />
+      </>
+   );
 }
 
 export function PeaceTreatyTooltip({ war }: { war: IWar }): React.ReactNode {
    const tileNames = Array.from(war.tiles)
       .map((tile) => getTileName(tile))
       .join(", ");
+   const truceDuration = getTruceDuration(war, G.save);
    return (
-      <ul>
-         <li>{html($t(L.$1ShallCede$2To$3, war.defender, tileNames, war.attacker))}</li>
-         <li>
-            {$t(
-               L.A$1MonthTruceShallBeEnactedBetween$2And$3,
-               formatNumber(getTruceLength(war)),
-               war.attacker,
-               war.defender,
-            )}
-         </li>
-         <li>
-            {html(
-               $t(
-                  L.$1GetsA$2CasusBelliAgainst$3For$4Years,
-                  war.defender,
-                  CasusBelli.Reconquista.name(),
+      <>
+         <ul className="m10">
+            <li>{html($t(L.$1ShallCede$2To$3, war.defender, tileNames, war.attacker))}</li>
+            <li>
+               {$t(
+                  L.A$1MonthTruceShallBeEnactedBetween$2And$3,
+                  formatNumber(truceDuration.value),
                   war.attacker,
-                  "10",
-               ),
-            )}
-         </li>
-      </ul>
+                  war.defender,
+               )}
+            </li>
+            <li>
+               {html(
+                  $t(
+                     L.$1GetsA$2CasusBelliAgainst$3For$4Years,
+                     war.defender,
+                     CasusBelli.Reconquista.name(),
+                     war.attacker,
+                     "10",
+                  ),
+               )}
+            </li>
+         </ul>
+         <div className="h2">{$t(L.TruceDuration)}</div>
+         <BreakdownComp breakdown={truceDuration} />
+      </>
    );
 }

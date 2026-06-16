@@ -121,7 +121,7 @@ export function makeValueBreakdown({
    };
 }
 
-export function finalizeBreakdown(breakdown: IValueBreakdown): IValueBreakdown {
+export function finalizeBreakdown(breakdown: IValueBreakdown, round?: (value: number) => number): IValueBreakdown {
    let totalAdd = 0;
    for (const item of breakdown.add) {
       totalAdd += item.value;
@@ -131,9 +131,12 @@ export function finalizeBreakdown(breakdown: IValueBreakdown): IValueBreakdown {
       totalMultiply += item.value;
    }
    totalMultiply = clamp(totalMultiply, 0, Number.POSITIVE_INFINITY);
-   breakdown.value = totalAdd * totalMultiply;
    breakdown.totalAdd = totalAdd;
    breakdown.totalMultiply = totalMultiply;
+   breakdown.value = totalAdd * totalMultiply;
+   if (round) {
+      breakdown.value = round(breakdown.value);
+   }
    return breakdown;
 }
 

@@ -14,7 +14,7 @@ import { addModifier } from "../game/logic/ModifierLogic";
 import { getProvinceName, getProvincePrestige } from "../game/logic/ProvinceLogic";
 import { isCapital } from "../game/logic/TileLogic";
 import { startTimedAction } from "../game/logic/TimedActionLogic";
-import { getWarParticipants } from "../game/logic/WarLogic";
+import { getWarForTile, getWarParticipants } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
@@ -142,7 +142,17 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
             </>
          }
          action={{
-            ...DemandTileCostCondition(G.save.state.playerProvince, tileData.province, G.save),
+            ...DemandTileCostCondition(
+               G.save.state.playerProvince,
+               tileData.province,
+               [
+                  {
+                     name: $t(L.$1IsNotContestedInAWar, getTileName(tile)),
+                     value: getWarForTile(tile, G.save) === undefined,
+                  },
+               ],
+               G.save,
+            ),
             effect: () => {
                onRollStart();
                startTimedAction("DemandTile", G.save.state.playerProvince, G.save);

@@ -1164,7 +1164,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      <ActionButton
                         className="btn py2"
                         action={{
-                           ...DemandTileCostCondition(G.save.state.playerProvince, province, G.save),
+                           ...DemandTileCostCondition(G.save.state.playerProvince, province, [], G.save),
                            effect: () => showPanel(<DemandTileModal province={province} />),
                         }}
                      >

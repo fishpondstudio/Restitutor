@@ -5,11 +5,12 @@ import { getRelation, isWithinDiplomaticRange } from "../logic/DiplomacyLogic";
 import { isGreatPowerCondition, isNorGreatPowerCondition } from "../logic/ProvinceLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
 import { getTruceMonthsLeft, getWarsBetween } from "../logic/WarLogic";
-import { finalizeCondition, type IGameCostCondition } from "./GameAction";
+import { finalizeCondition, type ICondition, type IGameCostCondition } from "./GameAction";
 
 export function DemandTileCostCondition(
    ourProvince: Province,
    theirProvince: Province,
+   additionalConditions: ICondition[],
    save: SaveGame,
 ): IGameCostCondition {
    return {
@@ -36,6 +37,7 @@ export function DemandTileCostCondition(
                name: $t(L.WeAreNotInATruceWithThem),
                value: getTruceMonthsLeft(ourProvince, theirProvince, save) <= 0,
             },
+            ...additionalConditions,
          ],
       }),
    };
