@@ -537,7 +537,6 @@ export const EN = {
    LegacyPoint: "Legacy Point",
    LegacyUpgrade: "Legacy Upgrade",
    LegacyUpgradeCostIncrementDesc$1: "Each unlocked legacy upgrade increases the cost of the next upgrade by $1 Legacy Point.",
-   LegacyUpgrades: "Legacy Upgrades",
    LengthOfTheWar: "Length of the War",
    LengthOfTheWarEstTimeLeft: "Length of the War/Est. Time Left",
    LetCommerceFlowThroughOurPorts: "Let commerce flow through our ports",

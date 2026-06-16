@@ -31,7 +31,7 @@ export function LegacyUpgradeModal(): React.ReactNode {
    const cost = getLegacyUpgradeCost(G.save.state.playerProvince, G.save);
    const legacyPoints = getProvinceResource("legacy", G.save.state.playerProvince, G.save);
    return (
-      <ModalComp size="xl" title={<ModalTitleBar title={$t(L.LegacyUpgrades)} dismiss />}>
+      <ModalComp size="xl" title={<ModalTitleBar title={$t(L.LegacyUpgrade)} dismiss />}>
          <div style={{ width: "100%", height: "calc(80vh - 50px)" }}>
             <ReactFlow
                colorMode="dark"
