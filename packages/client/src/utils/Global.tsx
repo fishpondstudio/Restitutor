@@ -1,4 +1,4 @@
-import type { Tile, ValueOf } from "@project/shared/src/utils/Helper";
+import { hasFlag, type Tile, type ValueOf } from "@project/shared/src/utils/Helper";
 import type { Application, Texture } from "pixi.js";
 import type { ITileConfig } from "../game/definitions/Tile";
 import { GameSpeedChanged } from "../game/Events";
@@ -10,7 +10,7 @@ import type { SceneManager } from "./SceneManager";
 export const GameFlags = {
    None: 0,
    Sandbox: 1 << 0,
-   FasterSpeed: 1 << 1,
+   NoDev: 1 << 1,
 } as const;
 
 export type GameFlags = ValueOf<typeof GameFlags>;
@@ -69,4 +69,14 @@ export function setLanguage(lang: keyof typeof Languages) {
 
 export function isLanguageChanged(): boolean {
    return languageChanged;
+}
+
+export function isDev(): boolean {
+   if (!import.meta.env.DEV) {
+      return false;
+   }
+   if (hasFlag(G.flags, GameFlags.NoDev)) {
+      return false;
+   }
+   return true;
 }

@@ -61,6 +61,9 @@ const _ProvinceUpgrades = {
    LowerClassManpowerRelief: {
       name: () => EmptyString,
    },
+   InfiltrationOnDeclaringWar: {
+      name: () => "+25 Infiltration When Declaring War",
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

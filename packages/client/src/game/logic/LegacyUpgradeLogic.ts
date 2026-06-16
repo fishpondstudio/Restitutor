@@ -22,13 +22,14 @@ export function makeLegacyUpgradeNodes(province: Province, save: SaveGame): { no
    }
 
    forEach(LegacyUpgrades, (upgrade, def) => {
+      const [x, y] = def.position;
       nodes.push({
          id: upgrade,
          data: { legacyUpgrade: upgrade },
          type: "LegacyUpgradeNode",
          position: {
-            x: def.position.x * (LegacyUpgradeNodeWidth + LegacyUpgradeNodeSpacingX),
-            y: def.position.y * (LegacyUpgradeNodeHeight + LegacyUpgradeNodeSpacingY),
+            x: x * (LegacyUpgradeNodeWidth + LegacyUpgradeNodeSpacingX),
+            y: y * (LegacyUpgradeNodeHeight + LegacyUpgradeNodeSpacingY),
          },
       });
 
@@ -117,11 +118,23 @@ export function canUpgradeLegacyUpgrade(
 
 export function getLegacyUpgradeName(upgrade: LegacyUpgrade): string {
    const def = LegacyUpgrades[upgrade];
-   const result: string[] = [];
-   if (def.modifiers) {
-      entriesOf(def.modifiers).forEach(([modifier, data]) => {
-         result.push(`${modifierValueToString(data)} ${Modifiers[modifier].name()}`);
-      });
+   if ("modifiers" in def) {
+      return entriesOf(def.modifiers)
+         .map(([modifier, data]) => {
+            return `${modifierValueToString(data)} ${Modifiers[modifier].name()}`;
+         })
+         .join(", ");
    }
-   return result.join(", ");
+   if ("name" in def) {
+      return def.name();
+   }
+   return upgrade;
+}
+
+export function hasLegacyUpgrade(upgrade: LegacyUpgrade, province: Province, save: SaveGame): boolean {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return false;
+   }
+   return state.legacyUpgrades.has(upgrade);
 }

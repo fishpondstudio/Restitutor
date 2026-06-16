@@ -6,7 +6,7 @@ import { DrawnIntoWarModal } from "../ui/DrawnIntoWarEventModal";
 import { InvaderConqueredWarGoalModal } from "../ui/InvaderConqueredWarGoalModal";
 import { InvaderSueForWhitePeaceModal } from "../ui/InvaderSueForWhitePeaceModal";
 import { WarEndedModal } from "../ui/WarEndedModal";
-import { G } from "../utils/Global";
+import { G, isDev } from "../utils/Global";
 import { PersonFlags } from "./definitions/Family";
 import { GameStateUpdated } from "./Events";
 import { resetGame, saveGame } from "./LoadSave";
@@ -19,7 +19,7 @@ import { randomFemaleName, randomMaleName } from "./RomanNames";
 import { DefaultShortcuts } from "./ShortcutDefinition";
 
 export function addDebugFunctions(): void {
-   if (!import.meta.env.DEV) return;
+   if (!isDev()) return;
    // @ts-expect-error
    globalThis.G = G;
    // @ts-expect-error

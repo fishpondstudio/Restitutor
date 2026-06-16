@@ -24,7 +24,7 @@ import {
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { timedActionConditions } from "../game/logic/TimedActionLogic";
 import { getWarForTile } from "../game/logic/WarLogic";
-import { G } from "../utils/Global";
+import { G, isDev } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
@@ -60,7 +60,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
    const tileProduction = getTileOutput(tile, G.save);
    const goodsTaxRate = getProvinceStat("goodsTaxRate", tileData.province, G.save) / 100;
    const goodsTax = goodsTaxRate * tileProduction.value * Price[tileData.goods];
-   if (import.meta.env.DEV) {
+   if (isDev()) {
       console.assert(goodsTax === getTileGoodsTax(tile, G.save), "Goods tax calculation is correct");
    }
    return (

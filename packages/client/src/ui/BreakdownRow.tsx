@@ -31,10 +31,12 @@ export function BreakdownTooltip({
    tooltip,
    children,
    formatFunc = formatDelta,
+   hideAdditive = false,
 }: React.PropsWithChildren<{
    breakdown: IValueBreakdown;
    tooltip?: (element: React.ReactNode) => React.ReactNode;
    formatFunc?: (value: number) => React.ReactNode;
+   hideAdditive?: boolean;
 }>): React.ReactNode {
    let formatDeltaFunc = formatFunc;
    if (formatFunc === formatPercent) {
@@ -47,9 +49,9 @@ export function BreakdownTooltip({
       <FloatingTip
          label={
             tooltip ? (
-               tooltip(<BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} />)
+               tooltip(<BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} hideAdditive={hideAdditive} />)
             ) : (
-               <BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} />
+               <BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} hideAdditive={hideAdditive} />
             )
          }
          w={300}

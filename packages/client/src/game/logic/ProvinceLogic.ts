@@ -21,6 +21,8 @@ import { hasProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import { Buildings } from "../definitions/Building";
 import { Goods, Price } from "../definitions/Goods";
+import { LegacyUpgrades } from "../definitions/LegacyUpgrade";
+import { makeModifierGetter } from "../definitions/Modifier";
 import { getProvinceTraits } from "../definitions/PersonTrait";
 import {
    type ActiveTrade,
@@ -45,8 +47,9 @@ import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
 import { makeCached } from "./CacheLogic";
-import { getRelations } from "./DiplomacyLogic";
+import { getAttitudeTowards, getRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
+import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
 import { attachModifiers } from "./ModifierLogic";
 import { getSocialClassBonusName, isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
 import {
@@ -957,6 +960,21 @@ export function getProvinceTradeProfit(province: Province, save: SaveGame): IVal
    return finalizeBreakdown(result);
 }
 
+export function getTradeProfit(ourProvince: Province, theirProvince: Province, save: SaveGame): IValueBreakdown {
+   const tradeProfit = getProvinceTradeProfit(ourProvince, save);
+   if (hasLegacyUpgrade("TradeProfitForAttitude", ourProvince, save)) {
+      const attitude = getAttitudeTowards(theirProvince, ourProvince, save);
+      if (attitude.value > 0) {
+         tradeProfit.multiply.push({
+            name: $t(L.LegacyUpgrade),
+            desc: LegacyUpgrades.TradeProfitForAttitude.name(),
+            value: attitude.value * 0.01,
+         });
+      }
+   }
+   return finalizeBreakdown(tradeProfit);
+}
+
 export function generateTrade(
    offer: TradeOfferBase,
    extraProfit: number,
@@ -1064,12 +1082,7 @@ export function getGoverningCapacityPerRestoration(province: Province, save: Sav
    return finalizeBreakdown(result);
 }
 
-export function getChristianityYearly(province: Province, save: SaveGame): IValueBreakdown {
-   const result = makeValueBreakdown();
-   result.add.push({ name: $t(L.BaseValue), value: 1 });
-   attachModifiers("ChristianityYearly", result, province, save);
-   return finalizeBreakdown(result);
-}
+export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1);
 
 export function getReligiousCohesion(province: Province, save: SaveGame): number {
    let sameReligion = 0;

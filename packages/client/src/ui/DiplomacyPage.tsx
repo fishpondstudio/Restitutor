@@ -27,6 +27,8 @@ import {
    getDiplomaticAnnexationCost,
    getDiplomaticDistance,
    getDiplomaticRange,
+   getImproveRelationsRate,
+   getInfiltrationRate,
    getProvincesThatDeterAggressionOf,
    getProvincesThatGuaranteeDefenseOf,
    getRelation,
@@ -82,6 +84,7 @@ import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
+import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
 import { showPanel } from "./common/ShowPanel";
 import { SidebarComp, SidebarWidth } from "./common/SidebarComp";
@@ -461,14 +464,23 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      <RelationsActionButton
                         province={province}
                         isDoingTooltip={html($t(L.CancellingImproveRelationsFreesADiplomat))}
-                        tooltip={(element) => (
-                           <>
-                              <div className="m10">
-                                 {$t(L.ImprovingRelationsIncreasesAttitudeBy$1PerMonthMax$2, "1", MaxImprovedRelations)}
-                              </div>
-                              {element}
-                           </>
-                        )}
+                        tooltip={(element) => {
+                           const rate = getImproveRelationsRate(province, G.save);
+                           return (
+                              <>
+                                 <div className="m10">
+                                    {$t(
+                                       L.ImprovingRelationsIncreasesAttitudeBy$1PerMonthMax$2,
+                                       formatNumber(rate.value),
+                                       MaxImprovedRelations,
+                                    )}
+                                 </div>
+                                 <div className="h2">{Modifiers.ImproveRelationsRate.name()}</div>
+                                 <BreakdownComp breakdown={rate} />
+                                 {element}
+                              </>
+                           );
+                        }}
                         isDoingFunc={isImprovingRelations}
                         cancelFunc={cancelImproveRelations}
                         canDoFunc={canImproveRelations}
@@ -837,14 +849,24 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      <RelationsActionButton
                         province={province}
                         isDoingTooltip={html($t(L.CancellingInfiltrateFreesADiplomat))}
-                        tooltip={(element) => (
-                           <>
-                              <div className="m10">
-                                 {html($t(L.InfiltratingProvinceIncreasesInfiltrationBy$1PerMonth, "1"))}
-                              </div>
-                              {element}
-                           </>
-                        )}
+                        tooltip={(element) => {
+                           const rate = getInfiltrationRate(province, G.save);
+                           return (
+                              <>
+                                 <div className="m10">
+                                    {html(
+                                       $t(
+                                          L.InfiltratingProvinceIncreasesInfiltrationBy$1PerMonth,
+                                          formatNumber(rate.value),
+                                       ),
+                                    )}
+                                 </div>
+                                 <div className="h2">{Modifiers.InfiltrationRate.name()}</div>
+                                 <BreakdownComp breakdown={rate} />
+                                 {element}
+                              </>
+                           );
+                        }}
                         isDoingFunc={isInfiltrating}
                         cancelFunc={cancelInfiltration}
                         canDoFunc={canInfiltrate}

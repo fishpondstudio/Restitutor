@@ -28,7 +28,7 @@ import { EditTilePage } from "../ui/EditTilePage";
 import { TilePage } from "../ui/TilePage";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
-import { G, GameFlags } from "../utils/Global";
+import { G, GameFlags, isDev } from "../utils/Global";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
 import { TileVisual } from "./TileVisual";
@@ -195,7 +195,7 @@ export class WorldScene extends Scene {
       } else {
          this._selectedTiles.clear();
          if (e.button === 0) {
-            if (import.meta.env.DEV) {
+            if (isDev()) {
                console.log(tile, tileToPoint(tile), G.save.state.tiles.get(tile));
             }
             this._selectedTiles.add(tile);

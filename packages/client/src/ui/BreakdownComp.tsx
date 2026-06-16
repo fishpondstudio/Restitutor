@@ -10,26 +10,35 @@ export const BreakdownComp = memo(_BreakdownComp, (prev, next) => {
 function _BreakdownComp({
    breakdown,
    formatFunc = formatDelta,
+   hideAdditive = false,
 }: {
    breakdown: IValueBreakdown;
    formatFunc?: (value: number) => React.ReactNode;
+   hideAdditive?: boolean;
 }): React.ReactNode {
    const hasMultiply = breakdown.multiply.length > 0 || breakdown.multiplyBase.value !== 1;
+   hideAdditive = hideAdditive && breakdown.totalAdd === 1;
    return (
       <>
-         {hasMultiply && (
-            <div className="h3 row g0">
-               <div className="f1">{$t(L.Additive)}</div>
-               <div>{formatFunc(breakdown.totalAdd)}</div>
-            </div>
+         {!hideAdditive && (
+            <>
+               {hasMultiply && (
+                  <div className="h3 row g0">
+                     <div className="f1">{$t(L.Additive)}</div>
+                     <div>{formatFunc(breakdown.totalAdd)}</div>
+                  </div>
+               )}
+               <ValueListComp items={breakdown.add} reverse={breakdown.reverse} formatFunc={formatFunc} />
+            </>
          )}
-         <ValueListComp items={breakdown.add} reverse={breakdown.reverse} formatFunc={formatFunc} />
          {hasMultiply && (
             <>
-               <div className="h3 row g0">
-                  <div className="f1">{$t(L.Multiplicative)}</div>
-                  <div>{formatPercent(breakdown.totalMultiply)}</div>
-               </div>
+               {!hideAdditive && (
+                  <div className="h3 row g0">
+                     <div className="f1">{$t(L.Multiplicative)}</div>
+                     <div>{formatPercent(breakdown.totalMultiply)}</div>
+                  </div>
+               )}
                <div className="row mx10 my5">
                   <div className="f1">{breakdown.multiplyBase.name}</div>
                   <div>{formatPercent(breakdown.multiplyBase.value)}</div>

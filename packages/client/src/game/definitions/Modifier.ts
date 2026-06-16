@@ -1,9 +1,13 @@
 import { forEach, formatDelta, formatNumber, formatPercentDelta, safePush } from "@project/shared/src/utils/Helper";
 import { G } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
+import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { ProvinceUpgrades } from "../actions/ProvinceUpgrades";
 import { GameStateUpdated } from "../Events";
+import type { SaveGame } from "../GameState";
+import { attachModifiers } from "../logic/ModifierLogic";
 import { LegacyUpgrades } from "./LegacyUpgrade";
+import type { Province } from "./Province";
 import { Tech } from "./Tech";
 
 export interface IBaseModifier {
@@ -37,6 +41,10 @@ export const Modifiers = {
    WarPower: {
       name: () => $t(L.WarPower),
       desc: () => $t(L.WarPowerMeasuresHowWellOurProvincePerformsInWars),
+   },
+   WarScore: {
+      name: () => $t(L.WarScore),
+      desc: () => "Required War Score to win a war depends on the defense of the war goal tiles.",
    },
    Stability: {
       name: () => $t(L.Stability),
@@ -142,6 +150,14 @@ export const Modifiers = {
       name: () => $t(L.MonthlyInterestRate),
       desc: () => $t(L.ModifierMonthlyInterestRateDesc),
    },
+   InfiltrationRate: {
+      name: () => "Infiltration Rate",
+      desc: () => "Monthly infiltration gained while infiltrating a province",
+   },
+   ImproveRelationsRate: {
+      name: () => "Improve Relations Rate",
+      desc: () => "Monthly attitude gained when improving relations with a province",
+   },
 } as const satisfies Record<string, IModifierDefinition>;
 
 export type Modifier = keyof typeof Modifiers;
@@ -164,6 +180,18 @@ export function modifierDurationToString(duration: number): string {
       return $t(L.$1Years, formatNumber(years));
    }
    return $t(L.$1Months, formatNumber(duration));
+}
+
+export function makeModifierGetter(
+   modifier: Modifier,
+   baseValue: number,
+): (province: Province, save: SaveGame) => IValueBreakdown {
+   return (province: Province, save: SaveGame) => {
+      const result = makeValueBreakdown();
+      result.add.push({ name: $t(L.BaseValue), value: baseValue });
+      attachModifiers(modifier, result, province, save);
+      return finalizeBreakdown(result);
+   };
 }
 
 GameStateUpdated.on(() => {
@@ -193,9 +221,9 @@ GameStateUpdated.on(() => {
          }
       });
       state.legacyUpgrades.forEach((level, upgrade) => {
-         const { modifiers } = LegacyUpgrades[upgrade];
-         if (modifiers) {
-            forEach(modifiers, (modifier, data) => {
+         const def = LegacyUpgrades[upgrade];
+         if ("modifiers" in def) {
+            forEach(def.modifiers, (modifier, data) => {
                const { type, value } = data;
                safePush(state.dynamicModifiers, modifier, {
                   type,

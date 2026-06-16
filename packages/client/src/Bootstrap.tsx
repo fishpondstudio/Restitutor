@@ -21,7 +21,7 @@ import { hideLoading } from "./ui/components/LoadingComp";
 import { initHighlighter } from "./ui/Highlighter";
 import { IncompatibleSaveModal } from "./ui/IncompatibleSaveModal";
 import { loadSounds } from "./ui/Sound";
-import { G, setLanguage } from "./utils/Global";
+import { G, isDev, setLanguage } from "./utils/Global";
 import { SceneManager } from "./utils/SceneManager";
 import { isSteam } from "./utils/Steam";
 
@@ -83,7 +83,7 @@ export async function bootstrap(): Promise<void> {
       isNewPlayer = true;
    }
 
-   if (import.meta.env.DEV) {
+   if (isDev()) {
       G.tileEditor = jsonDecode(Rome);
       G.tileEditor.forEach((data, tile) => {
          if (!data.province) {
@@ -143,7 +143,7 @@ export async function bootstrap(): Promise<void> {
 }
 
 function initErrorTracking(): void {
-   if (import.meta.env.DEV) {
+   if (isDev()) {
       return;
    }
    Sentry.init({

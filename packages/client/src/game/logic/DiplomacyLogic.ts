@@ -9,7 +9,7 @@ import {
    makeValueBreakdown,
 } from "../actions/GameAction";
 import type { IFullFamily } from "../definitions/Family";
-import type { IModifier } from "../definitions/Modifier";
+import { type IModifier, makeModifierGetter } from "../definitions/Modifier";
 import type { IRelation, Province, ProvinceResourceCosts } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
@@ -399,3 +399,6 @@ export function getRevealedConsulVotes(province: Province, save: SaveGame): Map<
    }
    return result;
 }
+
+export const getImproveRelationsRate = makeModifierGetter("ImproveRelationsRate", 1);
+export const getInfiltrationRate = makeModifierGetter("InfiltrationRate", 1);

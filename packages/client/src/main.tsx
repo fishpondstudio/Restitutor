@@ -15,7 +15,7 @@ import { Sidebar } from "./ui/common/Sidebar";
 import { LoadingComp } from "./ui/components/LoadingComp";
 import { TopPanel } from "./ui/TopPanel";
 import { TutorialPanel } from "./ui/TutorialPanel";
-import { G } from "./utils/Global";
+import { G, isDev } from "./utils/Global";
 import { ModalManager } from "./utils/ModalManager";
 
 const theme = createTheme({
@@ -45,7 +45,7 @@ const theme = createTheme({
    defaultRadius: "sm",
 });
 
-if (import.meta.env.DEV) {
+if (isDev()) {
    document.body.classList.add("dev");
 }
 
@@ -75,7 +75,7 @@ const app = new Application({
 
 app.ticker.maxFPS = 60;
 
-if (import.meta.env.DEV) {
+if (isDev()) {
    initDevtools({ app });
 }
 

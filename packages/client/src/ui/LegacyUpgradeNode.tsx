@@ -18,14 +18,11 @@ import {
    LegacyUpgradeNodeWidth,
 } from "../game/logic/LegacyUpgradeLogic";
 import { trySpendProvinceResources } from "../game/logic/ProvinceLogic";
-import { G } from "../utils/Global";
+import { G, isDev } from "../utils/Global";
 import { ConditionBreakdownComp } from "./ConditionBreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";
 
 export type LegacyUpgradeNode = Node<{ legacyUpgrade: LegacyUpgrade }, "LegacyUpgradeNode">;
-
-const showDebug = import.meta.env.DEV;
-// const showDebug = false;
 
 export function LegacyUpgradeNode({ data }: NodeProps<LegacyUpgradeNode>): React.ReactNode {
    const state = G.save.state.provinces[G.save.state.playerProvince];
@@ -48,7 +45,11 @@ export function LegacyUpgradeNode({ data }: NodeProps<LegacyUpgradeNode>): React
          disabled={state.legacyUpgrades.has(data.legacyUpgrade)}
          label={
             <>
-               <div className="m10">{getLegacyUpgradeName(data.legacyUpgrade)}</div>
+               <div className="m10">
+                  {getLegacyUpgradeName(data.legacyUpgrade)}
+                  {"desc" in def && <div className="text-sm text-dimmed">{def.desc()}</div>}
+               </div>
+
                <div className="divider" />
                <div className="my10">
                   <ConditionBreakdownComp condition={upgradeCondition} />
@@ -78,9 +79,9 @@ export function LegacyUpgradeNode({ data }: NodeProps<LegacyUpgradeNode>): React
             }}
          >
             {getLegacyUpgradeName(data.legacyUpgrade)}
-            {showDebug && (
+            {isDev() && (
                <div className="upgrade-id">
-                  {data.legacyUpgrade} ({def.position.x},{def.position.y})
+                  {data.legacyUpgrade} ({def.position.join(",")})
                </div>
             )}
             <Handle

@@ -22,8 +22,8 @@ export function loadGameScene() {
       setSpeed(0);
    }
 
-   if (params.has("speed")) {
-      G.flags = setFlag(G.flags, GameFlags.FasterSpeed);
+   if (params.has("nodev")) {
+      G.flags = setFlag(G.flags, GameFlags.NoDev);
    }
 
    if (params.has("legacy")) {

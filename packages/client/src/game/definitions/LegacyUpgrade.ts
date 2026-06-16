@@ -1,200 +1,274 @@
-import type { IHaveXY } from "@project/shared/src/utils/Vector2";
-import type { ProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import type { IBaseModifier, Modifier } from "./Modifier";
 
-export interface ILegacyUpgradeDefinition {
+interface IBaseLegacyUpgradeDefinition {
    requires: LegacyUpgrade[];
-   position: IHaveXY;
-   modifiers?: Partial<Record<Modifier, IBaseModifier>>;
-   provinceUpgrades?: ProvinceUpgrade[];
+   position: [number, number];
+}
+
+export interface ILegacyUpgradeModifier extends IBaseLegacyUpgradeDefinition {
+   modifiers: Partial<Record<Modifier, IBaseModifier>>;
+}
+
+export interface ILegacyUpgradeDefinition extends IBaseLegacyUpgradeDefinition {
+   name: () => string;
+   desc: () => string;
 }
 
 export class LegacyUpgradeDefinitions {
-   Administrative1: ILegacyUpgradeDefinition = {
+   Administrative1: ILegacyUpgradeModifier = {
       requires: [],
-      position: { x: 0, y: 0 },
+      position: [0, 0],
       modifiers: {
          AdministrativePoint: { type: "add", value: 1 },
       },
    } as const;
-   Diplomatic1: ILegacyUpgradeDefinition = {
+   Diplomatic1: ILegacyUpgradeModifier = {
       requires: ["Administrative1"],
-      position: { x: 1, y: 0 },
+      position: [1, 0],
       modifiers: {
          DiplomaticPoint: { type: "add", value: 1 },
       },
    } as const;
-   Military1: ILegacyUpgradeDefinition = {
+   Military1: ILegacyUpgradeModifier = {
       requires: ["Administrative1"],
-      position: { x: -1, y: 0 },
+      position: [-1, 0],
       modifiers: {
          MilitaryPoint: { type: "add", value: 1 },
       },
    } as const;
-   Administrative2: ILegacyUpgradeDefinition = {
+   Administrative2: ILegacyUpgradeModifier = {
       requires: ["Administrative1"],
-      position: { x: 0, y: 1 },
+      position: [0, 1],
       modifiers: {
          AdministrativePoint: { type: "add", value: 1 },
       },
    } as const;
-   Administrative3: ILegacyUpgradeDefinition = {
+   Administrative3: ILegacyUpgradeModifier = {
       requires: ["Administrative2"],
-      position: { x: 0, y: 2 },
+      position: [0, 2],
       modifiers: {
          AdministrativePoint: { type: "add", value: 1 },
       },
    } as const;
-   GoverningCapacity1: ILegacyUpgradeDefinition = {
+   Administrative4: ILegacyUpgradeModifier = {
+      requires: ["Administrative3"],
+      position: [0, 3],
+      modifiers: {
+         AdministrativePoint: { type: "add", value: 1 },
+      },
+   } as const;
+   GoverningCapacity1: ILegacyUpgradeModifier = {
       requires: ["Administrative2"],
-      position: { x: 1, y: 2 },
+      position: [1, 2],
       modifiers: {
          GoverningCapacity: { type: "add", value: 100 },
       },
    } as const;
-   Prestige1: ILegacyUpgradeDefinition = {
+   GoverningCapacity2: ILegacyUpgradeModifier = {
+      requires: ["GoverningCapacity1"],
+      position: [2, 3],
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
+      },
+   } as const;
+   Prestige1: ILegacyUpgradeModifier = {
       requires: ["Diplomatic1"],
-      position: { x: 2, y: -1 },
+      position: [2, -1],
       modifiers: {
          Prestige: { type: "add", value: 10 },
       },
    } as const;
-   ProductionUpgrade1: ILegacyUpgradeDefinition = {
+   DiplomaticRange1: ILegacyUpgradeModifier = {
+      requires: ["Prestige1"],
+      position: [3, -1],
+      modifiers: {
+         DiplomaticRange: { type: "add", value: 5 },
+      },
+   } as const;
+   ImproveRelationsRate1: ILegacyUpgradeModifier = {
+      requires: ["Prestige1"],
+      position: [3, -2],
+      modifiers: {
+         ImproveRelationsRate: { type: "multiply", value: 0.5 },
+      },
+   } as const;
+   ProductionUpgrade1: ILegacyUpgradeModifier = {
       requires: ["Diplomatic1"],
-      position: { x: 2, y: 1 },
+      position: [2, 1],
       modifiers: {
          ProductionUpgradeCost: { type: "multiply", value: -0.1 },
       },
    } as const;
-   Diplomatic2: ILegacyUpgradeDefinition = {
+   InfiltrationOnDeclaringWar: ILegacyUpgradeDefinition = {
+      name: () => "+25 Infiltration When Declaring War",
+      desc: () => "When declaring war on a province, gain +25 Infiltration to that province.",
+      requires: ["ProductionUpgrade1"],
+      position: [3, 1],
+   } as const;
+   InfiltrationRate1: ILegacyUpgradeModifier = {
+      requires: ["ProductionUpgrade1"],
+      position: [3, 2],
+      modifiers: {
+         InfiltrationRate: { type: "add", value: 0.1 },
+      },
+   } as const;
+   Diplomatic2: ILegacyUpgradeModifier = {
       requires: ["Diplomatic1"],
-      position: { x: 2, y: 0 },
+      position: [2, 0],
       modifiers: {
          DiplomaticPoint: { type: "add", value: 1 },
       },
    } as const;
-   Diplomatic3: ILegacyUpgradeDefinition = {
+   Diplomatic3: ILegacyUpgradeModifier = {
       requires: ["Diplomatic2"],
-      position: { x: 3, y: 0 },
+      position: [3, 0],
       modifiers: {
          DiplomaticPoint: { type: "add", value: 1 },
       },
    } as const;
-   TradeCapacity1: ILegacyUpgradeDefinition = {
+   TradeCapacity1: ILegacyUpgradeModifier = {
       requires: ["ProductionCapacity1"],
-      position: { x: 0, y: -2 },
+      position: [0, -2],
       modifiers: {
          TradeCapacity: { type: "add", value: 1 },
       },
    } as const;
-   TileOutput1: ILegacyUpgradeDefinition = {
+   TradeCapacity2: ILegacyUpgradeModifier = {
       requires: ["TradeCapacity1"],
-      position: { x: 0, y: -3 },
+      position: [0, -3],
+      modifiers: {
+         TradeCapacity: { type: "add", value: 1 },
+      },
+   } as const;
+   TileOutput1: ILegacyUpgradeModifier = {
+      requires: ["ResearchCost1"],
+      position: [2, -3],
       modifiers: {
          TileOutput: { type: "multiply", value: 0.1 },
       },
    } as const;
-   LandTax1: ILegacyUpgradeDefinition = {
+   LandTax1: ILegacyUpgradeModifier = {
       requires: ["TradeCapacity1", "TradeProfit1"],
-      position: { x: -1, y: -3 },
+      position: [-1, -3],
       modifiers: {
          LandTax: { type: "multiply", value: 0.1 },
       },
    } as const;
-   ResearchCost1: ILegacyUpgradeDefinition = {
+   TradeProfitForAttitude: ILegacyUpgradeDefinition = {
+      name: () => "+1% Trade Profit Per Positive Attitude",
+      desc: () =>
+         "Each point of a province's positive attitude towards us increases our Trade Profit with that province by 1%.",
+      requires: ["TradeProfit1"],
+      position: [-2, -3],
+   } as const;
+   ResearchCost1: ILegacyUpgradeModifier = {
       requires: ["ProductionCapacity1"],
-      position: { x: 1, y: -2 },
+      position: [1, -2],
       modifiers: {
          ResearchCost: { type: "multiply", value: -0.1 },
       },
    } as const;
-   BuildingSlot1: ILegacyUpgradeDefinition = {
+   BuildingSlot1: ILegacyUpgradeModifier = {
       requires: ["ResearchCost1", "TradeCapacity1"],
-      position: { x: 1, y: -3 },
+      position: [1, -3],
       modifiers: {
          BuildingSlot: { type: "add", value: 1 },
       },
    } as const;
-   MakeCore1: ILegacyUpgradeDefinition = {
+   MakeCore1: ILegacyUpgradeModifier = {
       requires: ["Administrative3", "GoverningCapacity1"],
-      position: { x: 1, y: 3 },
+      position: [1, 3],
       modifiers: {
          MakeCoreCost: { type: "multiply", value: -0.1 },
       },
    } as const;
-   InfrastructureUpgrade1: ILegacyUpgradeDefinition = {
-      requires: ["Administrative2"],
-      position: { x: -1, y: 2 },
+   InfrastructureUpgrade1: ILegacyUpgradeModifier = {
+      requires: ["Stability1", "Administrative3"],
+      position: [-1, 3],
       modifiers: {
          InfrastructureUpgradeCost: { type: "multiply", value: -0.1 },
       },
    } as const;
-   AdvisorCost1: ILegacyUpgradeDefinition = {
-      requires: ["InfrastructureUpgrade1", "Administrative3"],
-      position: { x: -1, y: 3 },
+   Stability1: ILegacyUpgradeModifier = {
+      requires: ["Administrative2"],
+      position: [-1, 2],
       modifiers: {
-         AdvisorCost: { type: "multiply", value: -0.1 },
+         Stability: { type: "add", value: 10 },
       },
    } as const;
-   ProductionCapacity1: ILegacyUpgradeDefinition = {
+   Stability2: ILegacyUpgradeModifier = {
+      requires: ["Stability1"],
+      position: [-2, 3],
+      modifiers: {
+         Stability: { type: "add", value: 10 },
+      },
+   } as const;
+   ProductionCapacity1: ILegacyUpgradeModifier = {
       requires: ["Administrative1"],
-      position: { x: 0, y: -1 },
+      position: [0, -1],
       modifiers: {
          ProductionCapacity: { type: "add", value: 5 },
       },
    } as const;
-   TradeProfit1: ILegacyUpgradeDefinition = {
+   TradeProfit1: ILegacyUpgradeModifier = {
       requires: ["ProductionCapacity1"],
-      position: { x: -1, y: -2 },
+      position: [-1, -2],
       modifiers: {
          TradeProfit: { type: "multiply", value: 0.1 },
       },
    } as const;
-   ArmyMaintenance1: ILegacyUpgradeDefinition = {
+   ArmyMaintenance1: ILegacyUpgradeModifier = {
       requires: ["Military1"],
-      position: { x: -2, y: 1 },
+      position: [-2, 1],
       modifiers: {
          ArmyMaintenance: { type: "multiply", value: -0.1 },
       },
    } as const;
-   InfantryUnitPower1: ILegacyUpgradeDefinition = {
+   InfantryUnitPower1: ILegacyUpgradeModifier = {
       requires: ["ArmyMaintenance1", "Military2"],
-      position: { x: -3, y: 1 },
+      position: [-3, 1],
       modifiers: {
          InfantryUnitPower: { type: "add", value: 1 },
       },
    } as const;
-   RangedUnitPower1: ILegacyUpgradeDefinition = {
+   RangedUnitPower1: ILegacyUpgradeModifier = {
       requires: ["ArmyMaintenance1"],
-      position: { x: -3, y: 2 },
+      position: [-3, 2],
       modifiers: {
          RangedUnitPower: { type: "add", value: 1 },
       },
    } as const;
-   CavalryUnitPower1: ILegacyUpgradeDefinition = {
+   CavalryUnitPower1: ILegacyUpgradeModifier = {
       requires: ["Military2", "PopulationUpgrade1"],
-      position: { x: -3, y: -1 },
+      position: [-3, -1],
       modifiers: {
          CavalryUnitPower: { type: "add", value: 1 },
       },
    } as const;
-   PopulationUpgrade1: ILegacyUpgradeDefinition = {
+   WarScore: ILegacyUpgradeModifier = {
+      requires: ["PopulationUpgrade1"],
+      position: [-3, -2],
+      modifiers: {
+         WarScore: { type: "multiply", value: -0.1 },
+      },
+   } as const;
+   PopulationUpgrade1: ILegacyUpgradeModifier = {
       requires: ["Military1"],
-      position: { x: -2, y: -1 },
+      position: [-2, -1],
       modifiers: {
          PopulationUpgradeCost: { type: "multiply", value: -0.1 },
       },
    } as const;
-   Military2: ILegacyUpgradeDefinition = {
+   Military2: ILegacyUpgradeModifier = {
       requires: ["Military1"],
-      position: { x: -2, y: 0 },
+      position: [-2, 0],
       modifiers: {
          MilitaryPoint: { type: "add", value: 1 },
       },
    } as const;
-   Military3: ILegacyUpgradeDefinition = {
+   Military3: ILegacyUpgradeModifier = {
       requires: ["Military2"],
-      position: { x: -3, y: 0 },
+      position: [-3, 0],
       modifiers: {
          MilitaryPoint: { type: "add", value: 1 },
       },

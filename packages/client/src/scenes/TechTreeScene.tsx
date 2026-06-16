@@ -20,7 +20,7 @@ import { SidebarWidth } from "../ui/common/SidebarComp";
 import { playClick } from "../ui/Sound";
 import { TechPage } from "../ui/TechPage";
 import { WheelMode } from "../utils/Camera";
-import { G } from "../utils/Global";
+import { G, isDev } from "../utils/Global";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
 
@@ -100,7 +100,7 @@ export class TechTreeScene extends Scene {
          frame.tint = 0x000000;
          frame.alpha = 0.35;
 
-         if (import.meta.env.DEV) {
+         if (isDev()) {
             const id = container.addChild(
                new UnicodeText(tech, {
                   fontName: Fonts.MainFont,

@@ -15,12 +15,14 @@ import {
    getProvinceTradeCapacity,
    getProvinceTradeProfit,
    getProvinceTrades,
+   getTradeProfit,
 } from "../game/logic/ProvinceLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
+import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
@@ -65,6 +67,7 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                      {element}
                   </>
                )}
+               hideAdditive
             >
                <div className="f1 row mx10 my5">
                   <div className="f1">{Modifiers.TradeProfit.name()}</div>
@@ -211,10 +214,11 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                      if (province === G.save.state.playerProvince) return null;
                      if (selectedProvinces.size > 0 && !selectedProvinces.has(province)) return null;
                      return data.tradeOffers.map((offer_, idx) => {
+                        const profit = getTradeProfit(G.save.state.playerProvince, province, G.save);
                         const offer = {
                            ...offer_,
                            weOfferAmount: offer_.weOfferAmount * tradeCapacity.value,
-                           theyOfferAmount: offer_.theyOfferAmount * tradeCapacity.value * (1 + tradeProfit.value),
+                           theyOfferAmount: offer_.theyOfferAmount * tradeCapacity.value * (1 + profit.value),
                         };
                         const action = TradeWithAction(G.save.state.playerProvince, province, offer, G.save);
                         if (showAvailable && !canDoAction(action, G.save.state.playerProvince, G.save)) return null;
@@ -258,7 +262,7 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                                                 <div className="f1">{$t(L.WeOffer)}</div>
                                                 <div>
                                                    {weOffer}
-                                                   <span className="text-dimmed text-xs">{$t(L.PerMonth)}</span>
+                                                   <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
                                                 </div>
                                              </div>
                                              {offer.weOffer !== "gold" && (
@@ -281,7 +285,7 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                                                 <div className="f1">{$t(L.TheyOffer)}</div>
                                                 <div>
                                                    {theyOffer}
-                                                   <span className="text-dimmed text-xs">{$t(L.PerMonth)}</span>
+                                                   <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
                                                 </div>
                                              </div>
                                              <div className="row my5">
@@ -291,6 +295,9 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                                                 </div>
                                              </div>
                                           </div>
+                                          <div className="h2">{$t(L.TradeProfit)}</div>
+                                          <BreakdownComp breakdown={profit} formatFunc={formatPercent} hideAdditive />
+                                          {element}
                                           <div className="divider" />
                                           <div className="text-display mx10 my5">{$t(L.FinePrint)}</div>
                                           <ul className="m5 text-dimmed text-xs">
@@ -299,7 +306,6 @@ export function TradeModal({ provinces }: { provinces: Set<Province> }): React.R
                                              <li>{$t(L.IfWeDontHaveEnoughGoodsTradeWillBeSkipped)}</li>
                                              <li>{$t(L.TradeWillBeCancelledIfAStateOfWarExistsBetweenUsAndThem)}</li>
                                           </ul>
-                                          {element}
                                        </>
                                     )}
                                  >

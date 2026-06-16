@@ -3,7 +3,7 @@ import { type DependencyList, useEffect, useState } from "react";
 import { showPanel } from "../ui/common/ShowPanel";
 import { SettingsModal } from "../ui/SettingsModal";
 import { CloseButtonClass } from "../ui/UIConstant";
-import { G, revertSpeed, setSpeed } from "../utils/Global";
+import { G, isDev, revertSpeed, setSpeed } from "../utils/Global";
 import { useTypedEvent } from "../utils/Hook";
 import { CurrentShortcuts, OnKeydown, OnKeyup } from "./Events";
 import type { IShortcutConfig, Shortcut } from "./ShortcutDefinition";
@@ -129,7 +129,7 @@ export function initShortcut(): void {
 export function useDebugKey(): boolean {
    const [isDebug, setIsDebug] = useState(false);
    useTypedEvent(OnKeydown, (e) => {
-      if (import.meta.env.DEV && e.key.toLowerCase() === "d") {
+      if (isDev() && e.key.toLowerCase() === "d") {
          setIsDebug(true);
       }
    });

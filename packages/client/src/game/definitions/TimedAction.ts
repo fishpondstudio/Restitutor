@@ -473,7 +473,7 @@ class TimedActionDefinitions {
    ForceAttack: ITimedAction = {
       name: () => $t(L.LaunchForcefulAttack),
       desc: () => $t(L.TimedActionForceAttackDesc$1$2, "10%", "1"),
-      duration: 6,
+      duration: 12,
       cooldown: 24,
    };
    AnnexClient: ITimedAction = {

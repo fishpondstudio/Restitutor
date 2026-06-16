@@ -297,6 +297,8 @@ export function getWarScore(
       });
    }
 
+   attachModifiers("WarScore", result, attacker, save);
+
    return finalizeBreakdown(result);
 }
 

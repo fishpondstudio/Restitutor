@@ -12,7 +12,7 @@ import { RefreshTiles } from "../Events";
 import { applyGameEventButton, getEventButtons, getGameEventCondition } from "../events/GameEventLogic";
 import { type GameEvent, GameEvents } from "../events/GameEvents";
 import type { SaveGame } from "../GameState";
-import { getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
+import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor, tickFamily } from "./GovernorLogic";
 import { canTakeLoan, getLoanAmount, getMonthlyInterestRate, takeLoan } from "./LoanLogic";
 import { tickProduction } from "./ProductionLogic";
@@ -169,13 +169,17 @@ export function tickProvince(province: Province, save: SaveGame): void {
       });
 
       if (relation.infiltrate.active) {
-         ++relation.infiltrate.value;
+         relation.infiltrate.value += getInfiltrationRate(province, save).value;
       } else {
          relation.infiltrate.value = clamp(relation.infiltrate.value - 1, 0, Number.POSITIVE_INFINITY);
       }
 
       if (relation.improveRelations.active) {
-         relation.improveRelations.value = clamp(relation.improveRelations.value + 1, 0, MaxImprovedRelations);
+         relation.improveRelations.value = clamp(
+            relation.improveRelations.value + getImproveRelationsRate(province, save).value,
+            0,
+            MaxImprovedRelations,
+         );
       } else {
          relation.improveRelations.value = clamp(relation.improveRelations.value - 1, 0, MaxImprovedRelations);
       }

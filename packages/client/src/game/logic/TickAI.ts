@@ -9,7 +9,7 @@ import {
    shuffle,
    type Tile,
 } from "@project/shared/src/utils/Helper";
-import { G, GameFlags } from "../../utils/Global";
+import { G, GameFlags, isDev } from "../../utils/Global";
 import { RecruitGeneralAction, UpgradeGeneralSkillAction } from "../actions/ArmyGeneralAction";
 import { ConstructBuildingAction } from "../actions/BuildingActions";
 import { ConvertToChristianityAction } from "../actions/ConvertToChristianityAction";
@@ -90,7 +90,6 @@ import {
 
 const AIDeclareWarChance = 0.2;
 const AIWarMaxUnrest = 20;
-const EnableAILogging = import.meta.env.DEV;
 const MaxYear = 400;
 
 export function tickAI(save: SaveGame): void {
@@ -704,7 +703,7 @@ function getMaxWarMonths(province: Province, save: SaveGame): number {
 }
 
 function logAI(message?: any, ...optionalParams: any[]): void {
-   if (!EnableAILogging) {
+   if (!isDev()) {
       return;
    }
    console.log(message, ...optionalParams);
