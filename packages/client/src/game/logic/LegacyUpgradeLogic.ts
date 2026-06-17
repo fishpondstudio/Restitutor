@@ -59,7 +59,7 @@ export function makeLegacyUpgradeNodes(province: Province, save: SaveGame): { no
                strokeWidth: 2,
                stroke: color,
                opacity,
-               filter: "drop-shadow(0 0 5px rgba(0, 0, 0, 0.7))",
+               filter: "drop-shadow(0 0 0.3125rem rgba(0, 0, 0, 0.7))",
             },
          });
       });

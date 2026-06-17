@@ -61,7 +61,7 @@ export function makeProductionTree(province: Province, save: SaveGame): { nodes:
             style: {
                strokeWidth: 2,
                stroke: "var(--mantine-color-dark-3)",
-               filter: "drop-shadow(0 0 5px rgba(0, 0, 0, 0.7))",
+               filter: "drop-shadow(0 0 0.3125rem rgba(0, 0, 0, 0.7))",
             },
             label: `${amount * production[goods].capacity}`,
             labelStyle: {

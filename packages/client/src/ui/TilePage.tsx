@@ -245,7 +245,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
          <div className="h1 my10">{$t(L.Buildings)}</div>
          <div
             className="mx10"
-            style={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: "10px" }}
+            style={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: "0.625rem" }}
          >
             {Array.from(tileData.buildings).map((building) => (
                <FloatingTip

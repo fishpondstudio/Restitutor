@@ -90,7 +90,7 @@ function TimeComp(): React.ReactNode {
 function _DiscordComp(): React.ReactNode {
    return (
       <FloatingTip label={$t(L.JoinOurDiscordServer)}>
-         <img src={Discord} style={{ display: "block", height: 18 }} onClick={() => openUrl(DiscordUrl)} />
+         <img src={Discord} style={{ display: "block", height: "1.125rem" }} onClick={() => openUrl(DiscordUrl)} />
       </FloatingTip>
    );
 }
@@ -100,7 +100,7 @@ export const DiscordComp = memo(_DiscordComp);
 function _SteamComp(): React.ReactNode {
    return (
       <FloatingTip label={$t(L.WishlistTheFullGameOnSteam)}>
-         <img src={Steam} style={{ display: "block", height: 20 }} onClick={() => openUrl(SteamUrl)} />
+         <img src={Steam} style={{ display: "block", height: "1.25rem" }} onClick={() => openUrl(SteamUrl)} />
       </FloatingTip>
    );
 }

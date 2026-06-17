@@ -161,7 +161,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                      <>{html($t(L.Unlock$1ProductionByResearching$2, config.name(), tech ? Tech[tech].name() : ""))}</>
                   }
                >
-                  <div className="mi cc" style={{ margin: 4 }}>
+                  <div className="mi cc" style={{ margin: "0.25rem" }}>
                      lock
                   </div>
                </FloatingTip>

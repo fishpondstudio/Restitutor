@@ -34,7 +34,7 @@ export function ChronicleModal({ years }: { years: [number, number] }): React.Re
             ></div>
             <button
                className="btn text-sm"
-               style={{ position: "absolute", right: 10, bottom: 10 }}
+               style={{ position: "absolute", right: "0.625rem", bottom: "0.625rem" }}
                onClick={() => {
                   showPanel(<ChroniclePage />);
                   hideModal();
@@ -43,21 +43,24 @@ export function ChronicleModal({ years }: { years: [number, number] }): React.Re
                {$t(L.FullChronicle)}
             </button>
             <FloatingTip label="Image Credit: Das Forum Romanum, J. Bühlmann (1901)">
-               <div className="text-display text-xl" style={{ position: "absolute", bottom: 10, left: 10 }}>
+               <div
+                  className="text-display text-xl"
+                  style={{ position: "absolute", bottom: "0.625rem", left: "0.625rem" }}
+               >
                   {$t(L.ChronicleOf$1Ad, startYear === endYear ? startYear : `${startYear} ~ ${endYear}`)}
                </div>
             </FloatingTip>
             <div
                className={`mi pointer ${CloseButtonClass}`}
                onClick={hideModal}
-               style={{ position: "absolute", top: 5, right: 5 }}
+               style={{ position: "absolute", top: "0.3125rem", right: "0.3125rem" }}
             >
                close
             </div>
             <img className="display-block w100" src={ChronicleHeader} />
          </div>
          <div className="divider" />
-         <ScrollArea.Autosize scrollbars="y" type="hover" style={{ maxHeight: "calc(80vh - 200px)" }}>
+         <ScrollArea.Autosize scrollbars="y" type="hover" style={{ maxHeight: "calc(80vh - 12.5rem)" }}>
             {filteredChronicle.map((entry) => (
                <ChronicleEntryComp key={entry.id} entry={entry} />
             ))}
