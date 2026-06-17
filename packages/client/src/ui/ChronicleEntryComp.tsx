@@ -15,7 +15,10 @@ function _ChronicleEntryComp({ entry }: { entry: IChronicleEntry }): React.React
       <Fragment>
          <div className="m10 row">
             <FloatingTip label={date.toLocaleDateString()}>
-               <div className="box text-sm text-center col stretch" style={{ width: 50, height: 50 }}>
+               <div
+                  className="frame frame-thin text-sm text-center col stretch"
+                  style={{ width: "3.125rem", height: "3.125rem" }}
+               >
                   <div>{date.getFullYear()}</div>
                   <div className="divider" />
                   <div className="f1 cc text-lg">{date.getMonth() + 1}</div>

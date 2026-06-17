@@ -145,7 +145,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             {war && (
                <FloatingTip
                   className="p0"
-                  w={300}
+                  fixedWidth
                   label={
                      <>
                         <div className="m10">{$t(L.$1IsCurrentlyContestedInAnOngoingWar, getTileName(tile))}</div>
@@ -199,7 +199,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
          <div className="mx10">
             <BreakdownRow className="my5" name={$t(L.LandTax)} breakdown={getTileLandTax(tile, G.save)} />
             <FloatingTip
-               w={300}
+               fixedWidth
                className="p0"
                label={
                   <div className="m10">
@@ -290,7 +290,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             </>
          )}
          <FloatingTip
-            w={300}
+            fixedWidth
             className="p0"
             label={
                <>

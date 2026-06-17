@@ -6,13 +6,7 @@ import { cls, formatNumber, formatPercent } from "@project/shared/src/utils/Help
 import { Controls, ReactFlow, SmoothStepEdge } from "@xyflow/react";
 import { Modifiers } from "../game/definitions/Modifier";
 import { GameStateUpdated } from "../game/Events";
-import {
-   makeProductionTree,
-   optimizeProduction,
-   ProductionNodeHeight,
-   ProductionNodeWidth,
-   resetProduction,
-} from "../game/logic/ProductionLogic";
+import { makeProductionTree, optimizeProduction, resetProduction } from "../game/logic/ProductionLogic";
 import {
    getProvinceProductionCapacity,
    getProvinceStat,
@@ -26,13 +20,14 @@ import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { GoodsTaxRateComp } from "./GoodsTaxRateComp";
 import { ProductionNode } from "./ProductionNode";
+import { ModalFullHeight } from "./UIConstant";
 
 export function ProductionModal(): React.ReactNode {
    const containerRef = useRef<HTMLDivElement>(null);
    const { nodes, edges } = makeProductionTree(G.save.state.playerProvince, G.save);
    return (
       <ModalComp size="xl" title={<ModalTitleBar title={$t(L.Production)} dismiss />}>
-         <div style={{ width: "100%", height: "calc(80vh - 50px)" }} ref={containerRef}>
+         <div style={{ width: "100%", height: ModalFullHeight }} ref={containerRef}>
             <ReactFlow
                colorMode="dark"
                nodesConnectable={false}
@@ -87,16 +82,13 @@ export function ProductionModal(): React.ReactNode {
    );
 }
 
-document.documentElement.style.setProperty("--production-node-width", `${ProductionNodeWidth}px`);
-document.documentElement.style.setProperty("--production-node-height", `${ProductionNodeHeight}px`);
-
 function ProductionCapacityButton(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const totalCapacity = getProvinceProductionCapacity(G.save.state.playerProvince, G.save);
    const usedCapacity = getProvinceUsedProductionCapacity(G.save.state.playerProvince, G.save);
    return (
       <FloatingTip
-         w={300}
+         fixedWidth
          className="p0"
          label={
             <>

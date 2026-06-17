@@ -157,7 +157,7 @@ export function InternalAffairsPage(): React.ReactNode {
          <div className="divider" />
          <FloatingTip
             className="p0"
-            w={300}
+            fixedWidth
             label={
                <>
                   <div className="m10 row">
@@ -226,7 +226,7 @@ export function InternalAffairsPage(): React.ReactNode {
          <div className="divider" />
          <FloatingTip
             className="p0"
-            w={300}
+            fixedWidth
             label={
                <>
                   <div className="m10">

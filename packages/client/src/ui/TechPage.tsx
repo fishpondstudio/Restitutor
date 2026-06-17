@@ -113,7 +113,7 @@ export function TechPage({ tech }: { tech: Tech }): React.ReactNode {
                   const def = TimedActions[timedAction];
                   return (
                      <Fragment key={index}>
-                        <FloatingTip className="p0" w={300} label={<TimedActionDescComp action={timedAction} />}>
+                        <FloatingTip className="p0" fixedWidth label={<TimedActionDescComp action={timedAction} />}>
                            <div className="m10">
                               <div>{def.name()}</div>
                               <div className="text-sm text-dimmed">

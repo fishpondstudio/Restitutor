@@ -35,7 +35,7 @@ export function GenericEventModal({
    return (
       <ModalComp size="lg">
          <div className="modal-transparent-header row">
-            <FloatingTip className="p0" w={300} label={titleTooltip}>
+            <FloatingTip className="p0" fixedWidth label={titleTooltip}>
                <div className="f1 text-display text-lg">{title}</div>
             </FloatingTip>
             {dismiss && (

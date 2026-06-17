@@ -1,10 +1,5 @@
 import { Controls, ReactFlow } from "@xyflow/react";
-import {
-   getLegacyUpgradeCost,
-   LegacyUpgradeNodeHeight,
-   LegacyUpgradeNodeWidth,
-   makeLegacyUpgradeNodes,
-} from "../game/logic/LegacyUpgradeLogic";
+import { getLegacyUpgradeCost, makeLegacyUpgradeNodes } from "../game/logic/LegacyUpgradeLogic";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { FloatingEdge, LegacyUpgradeNode } from "./LegacyUpgradeNode";
 import "./LegacyUpgradeModal.css";
@@ -17,6 +12,7 @@ import { $t, L } from "../utils/i18n";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { RebirthModal } from "./RebirthModal";
+import { ModalFullHeight } from "./UIConstant";
 
 const NodeTypes = { LegacyUpgradeNode };
 const EdgeTypes = { default: FloatingEdge };
@@ -32,7 +28,7 @@ export function LegacyUpgradeModal(): React.ReactNode {
    const legacyPoints = getProvinceResource("legacy", G.save.state.playerProvince, G.save);
    return (
       <ModalComp size="xl" title={<ModalTitleBar title={$t(L.LegacyUpgrade)} dismiss />}>
-         <div style={{ width: "100%", height: "calc(80vh - 50px)" }}>
+         <div style={{ width: "100%", height: ModalFullHeight }}>
             <ReactFlow
                colorMode="dark"
                nodesConnectable={false}
@@ -55,7 +51,7 @@ export function LegacyUpgradeModal(): React.ReactNode {
                   position="top-left"
                >
                   <FloatingTip
-                     w={300}
+                     fixedWidth
                      className="p0"
                      label={
                         <>
@@ -91,6 +87,3 @@ export function LegacyUpgradeModal(): React.ReactNode {
       </ModalComp>
    );
 }
-
-document.documentElement.style.setProperty("--legacy-upgrade-node-width", `${LegacyUpgradeNodeWidth}px`);
-document.documentElement.style.setProperty("--legacy-upgrade-node-height", `${LegacyUpgradeNodeHeight}px`);

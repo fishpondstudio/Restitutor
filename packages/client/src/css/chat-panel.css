@@ -1,13 +1,13 @@
 .chat-panel {
    position: absolute;
-   bottom: 10px;
-   left: 10px;
-   width: 300px;
+   bottom: 0.625rem;
+   left: 0.625rem;
+   width: 18.75rem;
    &.off {
       width: auto;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 5px;
-      padding: 5px;
+      border: 0.125rem solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.3125rem;
+      padding: 0.3125rem;
    }
 }
 
@@ -19,11 +19,11 @@
 .chat-input {
    display: flex;
    align-items: center;
-   gap: 5px;
+   gap: 0.3125rem;
    flex-direction: row;
-   backdrop-filter: blur(5px);
-   padding: 5px;
-   width: calc(100% - 2px);
+   backdrop-filter: blur(0.3125rem);
+   padding: 0.3125rem;
+   width: calc(100% - 0.125rem);
    input {
       background-color: transparent;
       border: none;
@@ -40,16 +40,16 @@
 }
 
 .chat-input:focus {
-   border: 2px solid rgba(255, 255, 255, 0.5);
+   border: 0.125rem solid rgba(255, 255, 255, 0.5);
 }
 
 .chat-message-viewport {
    max-height: 50vh;
-   text-shadow: 1px 1px 0 #000;
+   text-shadow: 0.0625rem 0.0625rem 0 #000;
    font-size: var(--mantine-font-size-sm);
    mask-image: linear-gradient(rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 1) 100%);
    mask-mode: alpha;
-   backdrop-filter: blur(5px);
+   backdrop-filter: blur(0.3125rem);
    transition:
       opacity 0.25s ease-in-out,
       content-visibility 0.25s ease-in-out;
@@ -63,7 +63,7 @@
       opacity: 0;
    }
    .message {
-      padding: 5px 0;
+      padding: 0.3125rem 0;
       user-select: text;
       -webkit-user-select: text;
       word-break: break-word;
@@ -83,10 +83,10 @@
       }
       .chat-image {
          max-width: 100%;
-         max-height: 200px;
+         max-height: 12.5rem;
          object-fit: contain;
          display: block;
-         border-radius: 5px;
+         border-radius: 0.3125rem;
          cursor: var(--hand-cursor);
       }
    }

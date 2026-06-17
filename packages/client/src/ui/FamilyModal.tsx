@@ -9,6 +9,7 @@ import "./FamilyModal.css";
 import type React from "react";
 import { $t, L } from "../utils/i18n";
 import { FamilyNode } from "./FamilyNode";
+import { ModalFullHeight } from "./UIConstant";
 
 export function FamilyTreeModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -19,7 +20,7 @@ export function FamilyTreeModal(): React.ReactNode {
    const { nodes, edges } = makeFamilyTree(state.governor);
    return (
       <ModalComp size="xl" title={<ModalTitleBar title={$t(L.FamilyTree)} dismiss />}>
-         <div style={{ width: "100%", height: "calc(80vh - 50px)" }}>
+         <div style={{ width: "100%", height: ModalFullHeight }}>
             <ReactFlow
                colorMode="dark"
                nodesConnectable={false}

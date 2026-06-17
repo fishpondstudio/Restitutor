@@ -935,7 +935,6 @@ export const EN = {
    SocialClass: "Social Class",
    SocialClassesInDissent: "Social Classes in Dissent",
    SomeInGameTextsRequireAGameReloadToDisplayInTheNewLanguage: "Some in-game texts require a game reload to display in the new language",
-   Sound: "Sound",
    Stability: "Stability",
    StandingArmy: "Standing Army",
    Storage: "Storage",
@@ -1944,4 +1943,6 @@ export const EN = {
    FinalResult: "Final Result",
    WarMonthlyAttackExplanation$1$2: "Every month, $1 attacks are attempted. Each attack has a success chance of $2 and the final result is determined by the best of three (BO3).",
    WarScoreGainExplanation$1$1$2: "If the final result is a success, we gain $1 war score. If the final result is repelled, we lose $1 war score. The war is won when we have at least $2 war score.",
+   UiScale: "UI Scale",
+   Misc: "Misc",
 };

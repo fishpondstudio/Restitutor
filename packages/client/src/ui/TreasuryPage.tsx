@@ -67,7 +67,7 @@ export function TreasuryPage(): React.ReactNode {
          </div>
          <div className="h1">{$t(L.Loans)}</div>
          {isBankrupt && (
-            <FloatingTip w={300} className="p0" label={<BankruptcyEffectComp province={province} />}>
+            <FloatingTip fixedWidth className="p0" label={<BankruptcyEffectComp province={province} />}>
                <div className="row g5 mx10 my5 text-red">
                   <div className="f1">{$t(L.CurrentlyBankrupt)}</div>
                   <div className="mi sm">warning</div>

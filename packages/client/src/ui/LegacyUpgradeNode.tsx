@@ -10,17 +10,13 @@ import {
 } from "@xyflow/react";
 import { type LegacyUpgrade, LegacyUpgrades } from "../game/definitions/LegacyUpgrade";
 import { GameStateUpdated } from "../game/Events";
-import {
-   canUpgradeLegacyUpgrade,
-   getLegacyUpgradeCost,
-   getLegacyUpgradeName,
-   LegacyUpgradeNodeHeight,
-   LegacyUpgradeNodeWidth,
-} from "../game/logic/LegacyUpgradeLogic";
+import { canUpgradeLegacyUpgrade, getLegacyUpgradeCost, getLegacyUpgradeName } from "../game/logic/LegacyUpgradeLogic";
 import { trySpendProvinceResources } from "../game/logic/ProvinceLogic";
 import { G, isDev } from "../utils/Global";
 import { ConditionBreakdownComp } from "./ConditionBreakdownComp";
+import { remToPx } from "./common/UIScaling";
 import { FloatingTip } from "./components/FloatingTip";
+import { LegacyUpgradeNodeHeight, LegacyUpgradeNodeWidth } from "./UIConstant";
 
 export type LegacyUpgradeNode = Node<{ legacyUpgrade: LegacyUpgrade }, "LegacyUpgradeNode">;
 
@@ -40,7 +36,7 @@ export function LegacyUpgradeNode({ data }: NodeProps<LegacyUpgradeNode>): React
 
    return (
       <FloatingTip
-         w={300}
+         fixedWidth
          className="p0"
          disabled={state.legacyUpgrades.has(data.legacyUpgrade)}
          label={
@@ -58,7 +54,7 @@ export function LegacyUpgradeNode({ data }: NodeProps<LegacyUpgradeNode>): React
          }
       >
          <div
-            className={cls("legacy-upgrade-node frame px10", cssClass)}
+            className={cls("legacy-upgrade-node frame frame-hover px10", cssClass)}
             onClick={() => {
                if (state.legacyUpgrades.has(data.legacyUpgrade)) {
                   return;
@@ -111,13 +107,13 @@ export function FloatingEdge({ id, source, target, markerEnd, style }: EdgeProps
 
    const sourceLeft = sourceNode.position.x;
    const sourceTop = sourceNode.position.y;
-   const sourceRight = sourceLeft + LegacyUpgradeNodeWidth;
-   const sourceBottom = sourceTop + LegacyUpgradeNodeHeight;
+   const sourceRight = sourceLeft + remToPx(LegacyUpgradeNodeWidth);
+   const sourceBottom = sourceTop + remToPx(LegacyUpgradeNodeHeight);
 
    const targetLeft = targetNode.position.x;
    const targetTop = targetNode.position.y;
-   const targetRight = targetLeft + LegacyUpgradeNodeWidth;
-   const targetBottom = targetTop + LegacyUpgradeNodeHeight;
+   const targetRight = targetLeft + remToPx(LegacyUpgradeNodeWidth);
+   const targetBottom = targetTop + remToPx(LegacyUpgradeNodeHeight);
 
    const overlapX = Math.max(0, Math.min(sourceRight, targetRight) - Math.max(sourceLeft, targetLeft));
    const overlapY = Math.max(0, Math.min(sourceBottom, targetBottom) - Math.max(sourceTop, targetTop));

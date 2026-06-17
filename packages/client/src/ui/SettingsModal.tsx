@@ -1,5 +1,5 @@
 import { Select, Slider, Switch } from "@mantine/core";
-import { hasFlag, safeParseInt, toggleFlag } from "@project/shared/src/utils/Helper";
+import { hasFlag, range, safeParseFloat, safeParseInt, toggleFlag } from "@project/shared/src/utils/Helper";
 import { DiscordUrl, PatchNotesUrl, SteamUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
@@ -53,7 +53,7 @@ export function SettingsModal(): React.ReactNode {
                <div className="f1">{$t(L.ShowChroniclePopup)}</div>
                <div>{$t(L.Every)}</div>
                <Select
-                  w={65}
+                  w="5rem"
                   data={["1", "2", "5", "10"]}
                   value={G.save.options.chroniclePopupFrequency.toString()}
                   onChange={(value) => {
@@ -91,7 +91,7 @@ export function SettingsModal(): React.ReactNode {
                />
             </div>
          </div>
-         <div className="h1">{$t(L.Sound)}</div>
+         <div className="h1">{$t(L.Misc)}</div>
          <div className="row m10">
             <div>{$t(L.Volume)}</div>
             <Slider
@@ -103,6 +103,23 @@ export function SettingsModal(): React.ReactNode {
                onChange={(value) => {
                   G.save.options.volume = value;
                   GameOptionUpdated.emit();
+               }}
+            />
+         </div>
+         <div className="row m10">
+            <div>{$t(L.UiScale)}</div>
+            <div className="f1" />
+            <Select
+               w="5rem"
+               checkIconPosition="right"
+               data={range(5, 20 + 1).map((v) => `${v / 10}`)}
+               value={G.save.options.uiScale.toString()}
+               onChange={(value) => {
+                  if (value) {
+                     G.save.options.uiScale = safeParseFloat(value, 1);
+                     document.documentElement.style.setProperty("font-size", `${G.save.options.uiScale}rem`);
+                     GameOptionUpdated.emit();
+                  }
                }}
             />
          </div>

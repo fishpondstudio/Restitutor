@@ -7,11 +7,11 @@
    text-align: center;
    position: relative;
    font-family: "TitleFont", serif;
-   text-shadow: 1px 1px 0 var(--mantine-color-dark-9);
+   text-shadow: 0.0625rem 0.0625rem 0 var(--mantine-color-dark-9);
    overflow: hidden;
    font-family: "RomanFont", serif;
    font-weight: bold;
-   font-size: 14px;
+   font-size: 0.875rem;
    .upgrade-id {
       text-align: right;
       font-size: 75%;
@@ -19,8 +19,8 @@
       font-family: "MainFont", serif;
       font-weight: normal;
       position: absolute;
-      top: 2px;
-      right: 2px;
+      top: 0.125rem;
+      right: 0.125rem;
    }
    opacity: 0.3;
    &.upgraded {

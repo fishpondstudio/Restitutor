@@ -26,7 +26,7 @@ export function WarMonthlyConsequences({
    return (
       <>
          <FloatingTip
-            w={300}
+            fixedWidth
             className="p0"
             label={
                <>
@@ -76,7 +76,7 @@ export function WarMonthlyConsequences({
             </div>
          </FloatingTip>
          <FloatingTip
-            w={300}
+            fixedWidth
             className="p0"
             label={
                <>

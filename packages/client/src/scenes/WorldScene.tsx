@@ -22,10 +22,11 @@ import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { getTileWar } from "../game/logic/TileLogic";
 import { MapGrid, TileHeight } from "../game/MapGrid";
 import { showPanel } from "../ui/common/ShowPanel";
-import { SidebarWidth } from "../ui/common/SidebarComp";
+import { remToPx } from "../ui/common/UIScaling";
 import { DiplomacyPage } from "../ui/DiplomacyPage";
 import { EditTilePage } from "../ui/EditTilePage";
 import { TilePage } from "../ui/TilePage";
+import { SidebarWidth } from "../ui/UIConstant";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
 import { G, GameFlags, isDev } from "../utils/Global";
@@ -219,7 +220,7 @@ export class WorldScene extends Scene {
    public lookAt(tile: Tile, { time }: { time: number }): Promise<WorldScene> {
       return new Promise((resolve) => {
          const position = MapGrid.gridToPosition(tileToPoint(tile));
-         position.x += marginX + SidebarWidth / 2 / this.viewport.zoom;
+         position.x += marginX + remToPx(SidebarWidth) / 2 / this.viewport.zoom;
          if (time > 0) {
             sequence(
                CustomAction.createPoint(

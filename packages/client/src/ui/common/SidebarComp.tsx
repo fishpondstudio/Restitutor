@@ -1,16 +1,12 @@
 import { ScrollArea } from "@mantine/core";
-import { CloseButtonClass } from "../UIConstant";
+import { CloseButtonClass, SidebarMargin, SidebarTopMargin, SidebarWidth } from "../UIConstant";
 import { hideSidebar } from "./Sidebar";
-
-export const SidebarWidth = 400;
-const TopMargin = 55;
-const BottomMargin = 10;
 
 export function SidebarComp({
    title,
    children,
    width = SidebarWidth,
-}: React.PropsWithChildren<{ title: React.ReactNode; width?: number }>): React.ReactElement {
+}: React.PropsWithChildren<{ title: React.ReactNode; width?: string }>): React.ReactElement {
    return (
       <SidebarContainer title={title} width={width}>
          <ScrollArea scrollbars="y" className="f1">
@@ -25,14 +21,14 @@ export function SidebarContainer({
    title,
    children,
    width = SidebarWidth,
-}: React.PropsWithChildren<{ title: React.ReactNode; width?: number }>): React.ReactElement {
+}: React.PropsWithChildren<{ title: React.ReactNode; width?: string }>): React.ReactElement {
    return (
       <div
          className="panel"
          style={{
             width,
-            margin: `${TopMargin}px 10px ${BottomMargin}px 0`,
-            height: `calc(100vh - ${TopMargin + BottomMargin}px)`,
+            margin: `${SidebarTopMargin} ${SidebarMargin} ${SidebarMargin} 0`,
+            height: `calc(100vh - calc(${SidebarTopMargin} + ${SidebarMargin}))`,
             display: "flex",
             flexDirection: "column",
          }}

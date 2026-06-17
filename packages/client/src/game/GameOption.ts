@@ -28,5 +28,6 @@ export class GameOption {
    version = SupportedSaveVersion;
    build = 0;
    chroniclePopupFrequency = 5;
+   uiScale = 1;
    id = uuid4();
 }

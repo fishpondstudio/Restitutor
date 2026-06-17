@@ -75,9 +75,9 @@ export function TopPanel(): React.ReactNode {
    );
 }
 
-const FirstColumnWidth = 140;
-const ColumnWidth = 90;
-const IconWidth = 20;
+const FirstColumnWidth = 8.75;
+const ColumnWidth = 5.625;
+const IconWidth = 1.25;
 const IconRowStyle = { flex: "1", display: "flex", justifyContent: "space-between", alignItems: "center" };
 
 export function TopLeftPanel(): React.ReactNode {
@@ -95,9 +95,9 @@ export function TopLeftPanel(): React.ReactNode {
    return (
       <div className="resource-panel panel col fstart">
          <div className="f1 row mx10 stretch">
-            <div className="row g5" style={{ width: FirstColumnWidth }}>
+            <div className="row g5" style={{ width: `${FirstColumnWidth}rem` }}>
                <div className="pointer" onClick={() => showPanel(<SettingsModal />)}>
-                  <img src={MenuIcon} width={IconWidth} />
+                  <img src={MenuIcon} style={{ width: `${IconWidth}rem` }} />
                </div>
                <FloatingTip
                   label={$t(
@@ -134,10 +134,10 @@ export function TopLeftPanel(): React.ReactNode {
                <div
                   id="TopPanel_AdministrativePoint"
                   className="row g0 pointer"
-                  style={{ width: ColumnWidth }}
+                  style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => showPanel(<GovernmentModal />)}
                >
-                  <img src={Administrative} width={IconWidth} />
+                  <img src={Administrative} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
                   <div>
                      {formatNumber(getProvinceResource("administrative", G.save.state.playerProvince, G.save))}
@@ -157,10 +157,10 @@ export function TopLeftPanel(): React.ReactNode {
             >
                <div
                   className="row g0 pointer"
-                  style={{ width: ColumnWidth }}
+                  style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => showPanel(<GovernmentModal />)}
                >
-                  <img src={Diplomatic} width={IconWidth} />
+                  <img src={Diplomatic} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
                   <div>
                      {formatNumber(getProvinceResource("diplomatic", G.save.state.playerProvince, G.save))}
@@ -180,10 +180,10 @@ export function TopLeftPanel(): React.ReactNode {
             >
                <div
                   className="row g0 pointer"
-                  style={{ width: ColumnWidth }}
+                  style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => showPanel(<GovernmentModal />)}
                >
-                  <img src={Military} width={IconWidth} />
+                  <img src={Military} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
                   <div>
                      {formatNumber(getProvinceResource("military", G.save.state.playerProvince, G.save))}
@@ -203,13 +203,13 @@ export function TopLeftPanel(): React.ReactNode {
             >
                <div
                   className="row g0 pointer"
-                  style={{ width: ColumnWidth }}
+                  style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => {
                      showPanel(<ArmyModal />);
                   }}
                   id="TopPanel_WarPower"
                >
-                  <img src={Army} width={IconWidth} />
+                  <img src={Army} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
                   {formatNumber(warPower.value)}
                </div>
@@ -221,11 +221,11 @@ export function TopLeftPanel(): React.ReactNode {
                <div
                   id="TopPanel_Gold"
                   className="row g0 pointer"
-                  style={{ width: FirstColumnWidth }}
+                  style={{ width: `${FirstColumnWidth}rem` }}
                   onClick={() => showPanel(<TreasuryPage />)}
                >
                   <div>
-                     <img src={Gold} width={IconWidth} />
+                     <img src={Gold} style={{ width: `${IconWidth}rem` }} />
                   </div>
                   <div className="f1" />
                   <div>
@@ -246,12 +246,12 @@ export function TopLeftPanel(): React.ReactNode {
             >
                <div
                   className="row g0 pointer"
-                  style={{ width: ColumnWidth }}
+                  style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => {
                      showPanel(<ProvinceListModal />);
                   }}
                >
-                  <img src={Prestige} width={IconWidth} />
+                  <img src={Prestige} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
                   <div>{formatNumber(prestige.value)}</div>
                </div>
@@ -260,7 +260,7 @@ export function TopLeftPanel(): React.ReactNode {
             <div style={IconRowStyle}>
                <FloatingTip label={$t(L.FamilyTree)}>
                   <div className="pointer" id="TopPanel_FamilyTree" onClick={() => showPanel(<FamilyTreeModal />)}>
-                     <img src={FamilyTree} width={IconWidth} />
+                     <img src={FamilyTree} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.TilesAndUpgrades)}>
@@ -271,11 +271,11 @@ export function TopLeftPanel(): React.ReactNode {
                         showPanel(<TileListModal />);
                      }}
                   >
-                     <img src={ProvinceImage} width={IconWidth} />
+                     <img src={ProvinceImage} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip
-                  w={300}
+                  fixedWidth
                   className="p0"
                   label={
                      <div className="m10">
@@ -306,15 +306,15 @@ export function TopLeftPanel(): React.ReactNode {
                         showPanel(<InternalAffairsPage />);
                      }}
                   >
-                     <img src={Stability} width={IconWidth} />
+                     <img src={Stability} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.SocialClass)}>
                   <div className="pointer" onClick={() => showPanel(<SocialClassModal />)}>
-                     <img src={SocialClass} width={IconWidth} />
+                     <img src={SocialClass} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip w={300} className="p0" label={<DiplomatsMerchantsTooltip />}>
+               <FloatingTip fixedWidth className="p0" label={<DiplomatsTooltip />}>
                   <div
                      id="TopPanel_Diplomats"
                      className="pointer"
@@ -322,12 +322,12 @@ export function TopLeftPanel(): React.ReactNode {
                         showPanel(<DiplomacyPage province={G.save.state.playerProvince} />);
                      }}
                   >
-                     <img src={Diplomat} width={IconWidth} />
+                     <img src={Diplomat} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Production)}>
                   <div className="pointer" id="TopPanel_Production" onClick={() => showPanel(<ProductionModal />)}>
-                     <img src={Production} width={IconWidth} />
+                     <img src={Production} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Trade)}>
@@ -336,22 +336,22 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_Trade"
                      onClick={() => showPanel(<TradeModal provinces={new Set([])} />)}
                   >
-                     <img src={Trade} width={IconWidth} />
+                     <img src={Trade} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.SenateAndConsuls)}>
                   <div className="pointer" id="TopPanel_Senate" onClick={() => showPanel(<SenateModal />)}>
-                     <img src={Senate} width={IconWidth} />
+                     <img src={Senate} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Missions)}>
                   <div className="pointer" id="TopPanel_Mission" onClick={() => showPanel(<MissionPage />)}>
-                     <img src={Mission} width={IconWidth} />
+                     <img src={Mission} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Chronicle)}>
                   <div className="pointer" id="TopPanel_Chronicle" onClick={() => showPanel(<ChroniclePage />)}>
-                     <img src={Chronicle} width={IconWidth} />
+                     <img src={Chronicle} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.LegacyUpgrade)}>
@@ -360,7 +360,7 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_LegacyUpgrade"
                      onClick={() => showPanel(<LegacyUpgradeModal />)}
                   >
-                     <img src={Legacy} width={IconWidth} />
+                     <img src={Legacy} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
             </div>
@@ -369,7 +369,7 @@ export function TopLeftPanel(): React.ReactNode {
    );
 }
 
-function DiplomatsMerchantsTooltip(): React.ReactNode {
+function DiplomatsTooltip(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const currentRelations = Array.from(getCurrentRelations(G.save.state.playerProvince, G.save));
    const totalDiplomats = getDiplomats(G.save.state.playerProvince, G.save);
@@ -380,7 +380,7 @@ function DiplomatsMerchantsTooltip(): React.ReactNode {
             return (
                <div className="row mx10 my5" key={i}>
                   <div>
-                     <img src={Diplomat} width={IconWidth * 0.8} />
+                     <img src={Diplomat} style={{ width: `${IconWidth * 0.8}rem` }} />
                   </div>
                   <div className="f1" />
                   <div>{currentRelations[i] ?? $t(L.Idle)}</div>

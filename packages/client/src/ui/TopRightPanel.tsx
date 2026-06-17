@@ -60,7 +60,7 @@ function SpeedComp(): React.ReactNode {
          <Menu.Target>
             <div className="px15 pointer">{G.speed}x</div>
          </Menu.Target>
-         <Menu.Dropdown>
+         <Menu.Dropdown className="panel">
             {speed.map((speed) => (
                <Menu.Item
                   key={speed}
@@ -81,7 +81,7 @@ function TimeComp(): React.ReactNode {
    refreshOnTypedEvent(GameTimeUpdated);
    const currentDate = getGameDate(G.save.state.tick);
    return (
-      <div className="text-sm text text-center" style={{ width: 120 }}>
+      <div className="text-sm text text-center" style={{ width: "7.5rem" }}>
          {currentDate.toLocaleDateString()} ({G.save.state.month})
       </div>
    );

@@ -2,7 +2,9 @@ import dagre from "@dagrejs/dagre";
 import { clamp } from "@mantine/hooks";
 import { entriesOf, filterInPlace, hasFlag, randInt, shuffle, uuid4 } from "@project/shared/src/utils/Helper";
 import { type Edge, MarkerType, type Node, Position } from "@xyflow/react";
+import { remToPx } from "../../ui/common/UIScaling";
 import type { FamilyNode } from "../../ui/FamilyNode";
+import { FamilyNodeHeight, FamilyNodeWidth } from "../../ui/UIConstant";
 import { $t, L } from "../../utils/i18n";
 import type { IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
@@ -188,12 +190,6 @@ export function getOffspringSkillRangeIncl(father: number, mother: number): [num
    ];
 }
 
-const FamilyNodeWidth = 250;
-const FamilyNodeHeight = 100;
-
-document.documentElement.style.setProperty("--family-node-width", `${FamilyNodeWidth}px`);
-document.documentElement.style.setProperty("--family-node-height", `${FamilyNodeHeight}px`);
-
 function makeFamilyNode(family: IFamily, nodes: FamilyNode[], edges: Edge[]): void {
    nodes.push({
       id: family.id,
@@ -230,7 +226,12 @@ export function makeFamilyTree(family: IFamily): { nodes: Node[]; edges: Edge[] 
    for (const child of family.children) {
       makeFamilyNode(child, nodes, edges);
    }
-   return getLayoutElements({ nodes, edges, nodeWidth: FamilyNodeWidth, nodeHeight: FamilyNodeHeight });
+   return getLayoutElements({
+      nodes,
+      edges,
+      nodeWidth: remToPx(FamilyNodeWidth),
+      nodeHeight: remToPx(FamilyNodeHeight),
+   });
 }
 
 export function getLayoutElements({

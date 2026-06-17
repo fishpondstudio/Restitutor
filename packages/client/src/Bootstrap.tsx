@@ -126,6 +126,7 @@ export async function bootstrap(): Promise<void> {
       G.save.state.flags = setFlag(G.save.state.flags, GameStateFlags.ShowTutorial);
    }
 
+   document.documentElement.style.setProperty("font-size", `${G.save.options.uiScale}rem`);
    setLanguage(G.save.options.language);
    loadSounds();
    addDebugFunctions();

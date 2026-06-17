@@ -338,7 +338,7 @@ function WeOfferWarning({ offer, month }: { offer: TradeOffer; month: number }):
    return (
       <FloatingTip
          className="p0"
-         w={300}
+         fixedWidth
          label={
             <>
                {isWarning ? (

@@ -1,5 +1,12 @@
 import { entriesOf, forEach } from "@project/shared/src/utils/Helper";
 import { type Edge, MarkerType, type Node } from "@xyflow/react";
+import { remToPx } from "../../ui/common/UIScaling";
+import {
+   LegacyUpgradeNodeHeight,
+   LegacyUpgradeNodeSpacingX,
+   LegacyUpgradeNodeSpacingY,
+   LegacyUpgradeNodeWidth,
+} from "../../ui/UIConstant";
 import { $t, L } from "../../utils/i18n";
 import { finalizeCondition, type IConditionBreakdown } from "../actions/GameAction";
 import { type LegacyUpgrade, LegacyUpgrades } from "../definitions/LegacyUpgrade";
@@ -7,11 +14,6 @@ import { Modifiers, modifierValueToString } from "../definitions/Modifier";
 import { type Province, ProvinceResourceNames } from "../definitions/Province";
 import { initSaveGame, SaveGame } from "../GameState";
 import { addProvinceResource, getProvinceResource, getTilesAnnexedAndCored, provinceResourceOf } from "./ProvinceLogic";
-
-export const LegacyUpgradeNodeWidth = 160;
-export const LegacyUpgradeNodeHeight = 90;
-export const LegacyUpgradeNodeSpacingX = 90;
-export const LegacyUpgradeNodeSpacingY = 90;
 
 export function makeLegacyUpgradeNodes(province: Province, save: SaveGame): { nodes: Node[]; edges: Edge[] } {
    const nodes: Node[] = [];
@@ -29,8 +31,8 @@ export function makeLegacyUpgradeNodes(province: Province, save: SaveGame): { no
          data: { legacyUpgrade: upgrade },
          type: "LegacyUpgradeNode",
          position: {
-            x: x * (LegacyUpgradeNodeWidth + LegacyUpgradeNodeSpacingX),
-            y: y * (LegacyUpgradeNodeHeight + LegacyUpgradeNodeSpacingY),
+            x: x * (remToPx(LegacyUpgradeNodeWidth) + remToPx(LegacyUpgradeNodeSpacingX)),
+            y: y * (remToPx(LegacyUpgradeNodeHeight) + remToPx(LegacyUpgradeNodeSpacingY)),
          },
       });
 

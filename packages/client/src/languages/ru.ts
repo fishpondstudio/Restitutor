@@ -537,7 +537,6 @@ export const RU = {
    LegacyPoint: "Очки наследия",
    LegacyUpgrade: "Улучшение наследия",
    LegacyUpgradeCostIncrementDesc$1: "Каждое разблокированное улучшение наследия увеличивает стоимость следующего улучшения на $1 очко наследия.",
-   LegacyUpgrades: "Улучшения наследия",
    LengthOfTheWar: "Продолжительность войны",
    LengthOfTheWarEstTimeLeft: "Продолжительность войны/Ост. время",
    LetCommerceFlowThroughOurPorts: "Пусть торговля течёт через наши порты",
@@ -936,7 +935,6 @@ export const RU = {
    SocialClass: "Сословие",
    SocialClassesInDissent: "Сословия в недовольстве",
    SomeInGameTextsRequireAGameReloadToDisplayInTheNewLanguage: "Некоторые игровые тексты требуют перезагрузки игры для отображения на новом языке",
-   Sound: "Звук",
    Stability: "Стабильность",
    StandingArmy: "Постоянная армия",
    Storage: "Хранилище",
@@ -1945,4 +1943,6 @@ export const RU = {
    FinalResult: "Окончательный результат",
    WarMonthlyAttackExplanation$1$2: "Каждый месяц совершается $1 атаки. Каждая атака имеет шанс успеха $2, и окончательный результат определяется по лучшему из трёх (BO3).",
    WarScoreGainExplanation$1$1$2: "Если окончательный результат — успех, мы получаем $1 очко войны. Если окончательный результат — отражение, мы теряем $1 очко войны. Война выигрывается, когда у нас есть как минимум $2 очков войны.",
+   UiScale: "Масштаб интерфейса",
+   Misc: "Прочее",
 };

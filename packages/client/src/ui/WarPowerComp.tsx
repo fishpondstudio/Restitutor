@@ -85,7 +85,7 @@ function WarPowerColComp({
                return (
                   <FloatingTip
                      key={province.toString()}
-                     w={300}
+                     fixedWidth
                      className="p0"
                      label={
                         <>

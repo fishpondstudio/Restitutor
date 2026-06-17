@@ -37,9 +37,9 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
    const goodsTaxRate = getProvinceStat("goodsTaxRate", G.save.state.playerProvince, G.save) / 100;
    const goodsTax = goodsTaxRate * capacity * Price[data.goods];
    return (
-      <div className="production-node frame col stretch">
+      <div className="production-node frame frame-hover col stretch">
          <FloatingTip
-            w={300}
+            fixedWidth
             className="p0"
             label={
                <>
@@ -156,7 +156,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
             {isRawGoods && <div className="m5 text-center text-lg">{+formatNumber(capacity * (1 - goodsTaxRate))}</div>}
             {!isRawGoods && !isUnlocked && (
                <FloatingTip
-                  w={300}
+                  fixedWidth
                   label={
                      <>{html($t(L.Unlock$1ProductionByResearching$2, config.name(), tech ? Tech[tech].name() : ""))}</>
                   }

@@ -77,11 +77,11 @@ export const FloatingTip = factory<
          children: React.ReactNode;
          position?: Placement;
          disabled?: boolean;
-         w?: string | number;
+         fixedWidth?: boolean;
          style?: React.CSSProperties;
       };
    }>
->(({ label, children, disabled, w, style, className, position = "bottom", ref }) => {
+>(({ label, children, disabled, fixedWidth, style, className, position = "bottom", ref }) => {
    const { handleMouseMove, x, y, opened, boundaryRef, floating, setOpened } = useFloatingTooltip({ position });
 
    if (!isElement(children)) {
@@ -122,8 +122,8 @@ export const FloatingTip = factory<
                      ...style,
                      top: (y && Math.round(y)) ?? "",
                      left: (x && Math.round(x)) ?? "",
-                     width: w,
-                     maxWidth: w,
+                     width: fixedWidth ? "18.75rem" : undefined,
+                     maxWidth: fixedWidth ? "18.75rem" : undefined,
                   }}
                   ref={floating}
                >

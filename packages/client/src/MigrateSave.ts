@@ -15,4 +15,7 @@ export function migrateSave(save: SaveGame): void {
          legacyPoints[1] = 0;
       }
    });
+   if (!save.options.uiScale) {
+      save.options.uiScale = 1;
+   }
 }

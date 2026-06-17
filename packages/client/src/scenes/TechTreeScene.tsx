@@ -16,9 +16,10 @@ import { Tech } from "../game/definitions/Tech";
 import { RefreshTechTree } from "../game/Events";
 import { getTechPosition } from "../game/logic/TechLogic";
 import { showPanel } from "../ui/common/ShowPanel";
-import { SidebarWidth } from "../ui/common/SidebarComp";
+import { remToPx } from "../ui/common/UIScaling";
 import { playClick } from "../ui/Sound";
 import { TechPage } from "../ui/TechPage";
+import { SidebarWidth } from "../ui/UIConstant";
 import { WheelMode } from "../utils/Camera";
 import { G, isDev } from "../utils/Global";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
@@ -61,7 +62,7 @@ export class TechTreeScene extends Scene {
       });
 
       const zoom = app.screen.height / PageHeight;
-      const width = rowCount.size * ColumnWidth + SidebarWidth / zoom;
+      const width = rowCount.size * ColumnWidth + remToPx(SidebarWidth) / zoom;
       const height = PageHeight;
 
       this.viewport.setWorldSize(width, PageHeight);

@@ -137,7 +137,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                               <FloatingTip
                                  disabled={log.rolls.length === 0}
                                  className="p0"
-                                 w={300}
+                                 fixedWidth
                                  label={
                                     <>
                                        <div className="m10">

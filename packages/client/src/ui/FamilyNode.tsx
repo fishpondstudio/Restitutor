@@ -15,7 +15,7 @@ export type FamilyNode = Node<{ family: IFamily }, "FamilyNode">;
 
 export function FamilyNode({ data }: NodeProps<FamilyNode>): React.ReactNode {
    return (
-      <div className="family-node frame">
+      <div className="family-node frame frame-hover">
          <PersonNode person={data.family.male} family={data.family} male={true} />
          <div className="divider" />
          <PersonNode person={data.family.female} family={data.family} male={false} />
@@ -40,7 +40,7 @@ export function PersonNode({
    }
    return (
       <FloatingTip
-         w={300}
+         fixedWidth
          className="p0"
          disabled={!person}
          label={

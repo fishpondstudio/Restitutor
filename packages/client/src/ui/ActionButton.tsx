@@ -115,7 +115,7 @@ function _ActionButtonContent({
 }>): React.ReactNode {
    const tooltipContent = <ActionButtonTooltip condition={condition} cost={cost} />;
    return (
-      <FloatingTip label={tooltip ? tooltip(tooltipContent) : tooltipContent} w={300} className="p0">
+      <FloatingTip label={tooltip ? tooltip(tooltipContent) : tooltipContent} fixedWidth className="p0">
          <div>{children}</div>
       </FloatingTip>
    );

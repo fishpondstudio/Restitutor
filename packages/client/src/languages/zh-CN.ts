@@ -532,7 +532,6 @@ export const ZH_CN = {
    LegacyPoint: "传承点数",
    LegacyUpgrade: "传承升级",
    LegacyUpgradeCostIncrementDesc$1: "每个已解锁的传承升级会使下一个升级的花费增加 $1 传承点数。",
-   LegacyUpgrades: "传承升级",
    LengthOfTheWar: "战争时长",
    LengthOfTheWarEstTimeLeft: "战争时长/预计剩余时间",
    LetCommerceFlowThroughOurPorts: "让商贸经我们的港口流通",
@@ -924,7 +923,6 @@ export const ZH_CN = {
    SocialClass: "社会阶层",
    SocialClassesInDissent: "处于不满状态的社会阶层",
    SomeInGameTextsRequireAGameReloadToDisplayInTheNewLanguage: "部分游戏文本需要重新加载游戏才能以新语言显示",
-   Sound: "音效",
    Stability: "稳定度",
    StandingArmy: "常备军",
    Storage: "储备",
@@ -1930,4 +1928,6 @@ export const ZH_CN = {
    FinalResult: "最终结果",
    WarMonthlyAttackExplanation$1$2: "每月尝试$1次攻击。每次攻击的成功几率为$2，最终结果由三局两胜（BO3）决定。",
    WarScoreGainExplanation$1$1$2: "若最终结果为成功，我们获得$1战争分数。若最终结果为击退，我们失去$1战争分数。当我们拥有至少$2战争分数时赢得战争。",
+   UiScale: "界面缩放",
+   Misc: "其他",
 };

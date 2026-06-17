@@ -54,7 +54,7 @@ export function BreakdownTooltip({
                <BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} hideAdditive={hideAdditive} />
             )
          }
-         w={300}
+         fixedWidth
          className="p0"
       >
          {children}

@@ -1,6 +1,13 @@
 import { entriesOf, forEach, mapSafeAdd, sizeOf } from "@project/shared/src/utils/Helper";
 import { type Edge, MarkerType, type Node } from "@xyflow/react";
+import { remToPx } from "../../ui/common/UIScaling";
 import type { ProductionNode } from "../../ui/ProductionNode";
+import {
+   ProductionNodeHeight,
+   ProductionNodeSpacingX,
+   ProductionNodeSpacingY,
+   ProductionNodeWidth,
+} from "../../ui/UIConstant";
 import { Goods, Price } from "../definitions/Goods";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
@@ -16,11 +23,6 @@ import {
 import { hasResearched } from "./TechLogic";
 import { getTileOutput } from "./TileLogic";
 
-export const ProductionNodeWidth = 150;
-export const ProductionNodeHeight = 150;
-export const ProductionNodeSpacingX = 20;
-export const ProductionNodeSpacingY = 100;
-
 export function makeProductionTree(province: Province, save: SaveGame): { nodes: Node[]; edges: Edge[] } {
    const nodes: ProductionNode[] = [];
    const edges: Edge[] = [];
@@ -34,8 +36,8 @@ export function makeProductionTree(province: Province, save: SaveGame): { nodes:
          data: { goods },
          type: "ProductionNode",
          position: {
-            x: def.position.x * (ProductionNodeWidth + ProductionNodeSpacingX),
-            y: def.position.y * (ProductionNodeHeight + ProductionNodeSpacingY),
+            x: def.position.x * (remToPx(ProductionNodeWidth) + remToPx(ProductionNodeSpacingX)),
+            y: def.position.y * (remToPx(ProductionNodeHeight) + remToPx(ProductionNodeSpacingY)),
          },
       });
       for (const [input, amount] of entriesOf(def.input)) {

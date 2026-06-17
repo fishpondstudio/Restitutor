@@ -37,7 +37,7 @@ const theme = createTheme({
       Tooltip: Tooltip.extend({
          defaultProps: {
             color: "gray",
-            maw: "350px",
+            maw: "22rem",
             multiline: true,
          },
       }),

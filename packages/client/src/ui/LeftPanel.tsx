@@ -88,7 +88,7 @@ export function LeftPanel(): React.ReactNode {
             const tooltip = todo.tooltip(G.save);
             if (!tooltip) return null;
             return (
-               <FloatingTip key={todo.name(G.save)} w={300} className="p0" label={tooltip}>
+               <FloatingTip key={todo.name(G.save)} fixedWidth className="p0" label={tooltip}>
                   <div
                      id={todo.id}
                      className={cls("item", todo.className(G.save))}

@@ -10,46 +10,8 @@
    src: url("../assets/fonts/MaterialSymbolsRounded.woff2") format("woff");
 }
 
-.mi {
-   font-family: "IconFont";
-   font-weight: normal;
-   font-style: normal;
-   font-size: 24px;
-   line-height: 1;
-   text-transform: none;
-   letter-spacing: normal;
-   word-wrap: normal;
-   white-space: nowrap;
-   direction: ltr;
-}
-
-.mi.inline {
-   display: inline-block;
-   vertical-align: middle;
-}
-
-.mi.xs {
-   font-size: 17px;
-}
-
-.mi.sm {
-   font-size: 20px;
-}
-
-.mi.lg {
-   font-size: 32px;
-}
-
-.mi.xl {
-   font-size: 48px;
-}
-
 html {
    font-variant-numeric: tabular-nums;
-}
-
-.font-display {
-   font-family: "TitleFont", serif;
 }
 
 :root {
@@ -75,6 +37,44 @@ body {
    }
 }
 
+.mi {
+   font-family: "IconFont";
+   font-weight: normal;
+   font-style: normal;
+   font-size: 1.5rem;
+   line-height: 1;
+   text-transform: none;
+   letter-spacing: normal;
+   word-wrap: normal;
+   white-space: nowrap;
+   direction: ltr;
+}
+
+.mi.inline {
+   display: inline-block;
+   vertical-align: middle;
+}
+
+.mi.xs {
+   font-size: 1.0625rem;
+}
+
+.mi.sm {
+   font-size: 1.25rem;
+}
+
+.mi.lg {
+   font-size: 2rem;
+}
+
+.mi.xl {
+   font-size: 3rem;
+}
+
+.font-display {
+   font-family: "TitleFont", serif;
+}
+
 em {
    font-family: "TitleFont", serif;
    font-style: normal;
@@ -89,7 +89,7 @@ em {
          rgba(0, 0, 0, 0.7) 80%,
          rgba(0, 0, 0, 0.5) 100%
       )
-      top / 100% 1px no-repeat,
+      top / 100% 0.0625rem no-repeat,
       linear-gradient(
          to right,
          rgba(255, 255, 255, 0.05) 0%,
@@ -97,13 +97,13 @@ em {
          rgba(255, 255, 255, 0.2) 80%,
          rgba(255, 255, 255, 0.05) 100%
       )
-      bottom / 100% 1px no-repeat;
-   height: 2px;
+      bottom / 100% 0.0625rem no-repeat;
+   height: 0.125rem;
    align-self: stretch;
-   flex: 0 0 2px;
+   flex: 0 0 0.125rem;
    &.vertical {
       height: auto;
-      width: 2px;
+      width: 0.125rem;
       background:
          linear-gradient(
             to right,
@@ -112,7 +112,7 @@ em {
             rgba(0, 0, 0, 0.7) 80%,
             rgba(0, 0, 0, 0.5) 100%
          )
-         left / 1px 100% no-repeat,
+         left / 0.0625rem 100% no-repeat,
          linear-gradient(
             to bottom,
             rgba(255, 255, 255, 0.05) 0%,
@@ -120,7 +120,7 @@ em {
             rgba(255, 255, 255, 0.2) 80%,
             rgba(255, 255, 255, 0.05) 100%
          )
-         right / 1px 100% no-repeat;
+         right / 0.0625rem 100% no-repeat;
    }
    &.dimmed {
       opacity: 0.5;
@@ -130,9 +130,9 @@ em {
 .tooltip {
    color: var(--mantine-color-dark-text);
    background: var(--mantine-color-dark-2);
-   border: 1px solid var(--mantine-color-light-7);
-   border-radius: 5px;
-   padding: 5px 10px;
+   border: 0.0625rem solid var(--mantine-color-light-7);
+   border-radius: 0.3125rem;
+   padding: 0.3125rem 0.625rem;
    font-size: var(--mantine-font-size-sm);
    max-width: 30vw;
    z-index: calc(var(--mantine-z-index-popover) + 1);
@@ -167,26 +167,26 @@ em {
 .subtitle::before {
    content: "";
    flex: 1;
-   border-top: 1px dashed var(--mantine-color-dark-4);
-   margin-right: 10px;
+   border-top: 0.0625rem dashed var(--mantine-color-dark-4);
+   margin-right: 0.625rem;
 }
 
 .subtitle:after {
    content: "";
    flex: 1;
-   border-top: 1px dashed var(--mantine-color-dark-4);
-   margin-left: 10px;
+   border-top: 0.0625rem dashed var(--mantine-color-dark-4);
+   margin-left: 0.625rem;
 }
 
 .subtitle.dotted::before,
 .subtitle.dotted::after {
-   border-top: 3px dotted var(--mantine-color-dark-4);
+   border-top: 0.1875rem dotted var(--mantine-color-dark-4);
 }
 
 .floating-tip {
    position: absolute;
-   max-width: 300px;
-   padding: 10px;
+   max-width: 18.75rem;
+   padding: 0.625rem;
    font-size: var(--mantine-font-size-sm);
    z-index: calc(var(--mantine-z-index-popover) + 1);
    &.p0 {
@@ -215,7 +215,7 @@ table {
 
 u {
    text-underline-position: under;
-   text-decoration-thickness: 2px;
+   text-decoration-thickness: 0.125rem;
    text-decoration-color: currentcolor;
 }
 
@@ -225,7 +225,7 @@ u {
    border-spacing: 0;
    font-size: var(--mantine-font-size-sm);
    line-height: 1.25;
-   box-shadow: 0 0 0 1px var(--mantine-color-dark-3);
+   box-shadow: 0 0 0 0.0625rem var(--mantine-color-dark-3);
    border-radius: var(--mantine-radius-default);
    overflow: hidden;
 
@@ -248,7 +248,7 @@ u {
    }
 
    td {
-      border-top: 1px solid var(--mantine-color-dark-3);
+      border-top: 0.0625rem solid var(--mantine-color-dark-3);
    }
 
    tbody tr:hover {
@@ -257,7 +257,7 @@ u {
 
    td,
    th {
-      padding: 5px 5px;
+      padding: 0.3125rem 0.3125rem;
 
       &.condensed {
          padding: 0;
@@ -267,7 +267,7 @@ u {
 }
 
 .mantine-ScrollArea-scrollbar {
-   --scrollarea-scrollbar-size: 8px;
+   --scrollarea-scrollbar-size: 0.5rem;
    background-color: transparent;
 
    &:hover {
@@ -279,7 +279,7 @@ u {
    position: absolute;
    background-color: var(--mantine-color-yellow-3);
    opacity: 0.5;
-   border-radius: 5px;
+   border-radius: 0.3125rem;
    pointer-events: none;
    transition:
       top 0.5s ease-in-out,
@@ -289,18 +289,18 @@ u {
 }
 
 .img-border {
-   border: 2px solid rgba(255, 255, 255, 0.6);
+   border: 0.125rem solid rgba(255, 255, 255, 0.6);
    border-radius: var(--mantine-radius-default);
    overflow: hidden;
    display: block;
    &:hover {
-      border: 2px solid rgba(255, 255, 255, 0.8);
+      border: 0.125rem solid rgba(255, 255, 255, 0.8);
    }
 
    &.thin {
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      border: 0.0625rem solid rgba(255, 255, 255, 0.6);
       &:hover {
-         border: 1px solid rgba(255, 255, 255, 0.8);
+         border: 0.0625rem solid rgba(255, 255, 255, 0.8);
       }
    }
 }
@@ -310,13 +310,13 @@ u {
    flex-direction: row;
    align-items: center;
    justify-content: center;
-   gap: 5px;
+   gap: 0.3125rem;
    .dice-roll-display-digit {
-      font-size: 30px;
-      border: 1px solid var(--mantine-color-dark-3);
-      border-radius: 5px;
-      width: 50px;
-      height: 50px;
+      font-size: 1.875rem;
+      border: 0.0625rem solid var(--mantine-color-dark-3);
+      border-radius: 0.3125rem;
+      width: 3.125rem;
+      height: 3.125rem;
       display: flex;
       align-items: center;
       justify-content: center;

@@ -32,7 +32,7 @@ export function DiceRollComp({
    };
    return (
       <>
-         <FloatingTip w={300} className="p0" label={chanceTooltip}>
+         <FloatingTip fixedWidth className="p0" label={chanceTooltip}>
             <div className="box p10 m10">
                <Progress value={chance * 100} />
                <div className="h5" />
@@ -84,13 +84,13 @@ export function DiceRollComp({
          {rollComplete && diceRoll && (
             <div className="m10">
                {diceRoll < chance * 100 ? (
-                  <FloatingTip className="p0" w={300} label={acceptTooltip}>
+                  <FloatingTip className="p0" fixedWidth label={acceptTooltip}>
                      <button className="btn w100 py2 text-green" onClick={onAccept}>
                         {$t(L.OurDemandWasAccepted)}
                      </button>
                   </FloatingTip>
                ) : (
-                  <FloatingTip className="p0" w={300} label={rejectTooltip}>
+                  <FloatingTip className="p0" fixedWidth label={rejectTooltip}>
                      <button className="btn w100 py2 text-red" onClick={onReject}>
                         {$t(L.OurDemandWasRejected)}
                      </button>

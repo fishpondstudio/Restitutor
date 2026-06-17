@@ -87,7 +87,7 @@ import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
 import { showPanel } from "./common/ShowPanel";
-import { SidebarComp, SidebarWidth } from "./common/SidebarComp";
+import { SidebarComp } from "./common/SidebarComp";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
@@ -98,9 +98,8 @@ import { LookForSpouseModal } from "./LookForSpouseModal";
 import { playClick } from "./Sound";
 import { TradeModal } from "./TradeModal";
 import { TreatyActionButton } from "./TreatyActionButton";
+import { DiplomacyActionWidth, DiplomacyWidth, SidebarWidth } from "./UIConstant";
 import { WarTooltip } from "./WarTooltip";
-
-const ActionWidth = 250;
 
 export function DiplomacyPage({ province }: { province: Province }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -136,7 +135,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
    return (
       <SidebarComp
          title={$t(L.DiplomacyWith$1, getProvinceName(province, G.save))}
-         width={isMe ? SidebarWidth : SidebarWidth + ActionWidth}
+         width={isMe ? SidebarWidth : DiplomacyWidth}
       >
          <div className="row g0 fstart">
             <div className={cls("f1", isMe ? "" : "box m10")}>
@@ -272,7 +271,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      <div className="mx10 my5 text-display">{$t(L.OngoingWars)}</div>
                      {wars.map((war, idx) => {
                         return (
-                           <FloatingTip className="p0" w={300} key={idx} label={<WarTooltip war={war} />}>
+                           <FloatingTip className="p0" fixedWidth key={idx} label={<WarTooltip war={war} />}>
                               <div className="mx10 my5 text-sm text-red">
                                  {$t(
                                     L.$1$2War,
@@ -413,7 +412,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                )}
             </div>
             {!isMe && (
-               <div className="box m10" style={{ width: ActionWidth, marginLeft: 0 }}>
+               <div className="box m10" style={{ width: DiplomacyActionWidth, marginLeft: 0 }}>
                   <div className="m10 col stretch g5">
                      <FloatingTip label={$t(L.WeWillConfirmDeclaringWarInTheNextScreen)}>
                         <button
@@ -430,7 +429,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                   <div className="h1 row">
                      <div className="f1">{$t(L.Treaties)}</div>
                      <FloatingTip
-                        w={400}
+                        fixedWidth
                         label={
                            <>
                               <div className="text-sm">{$t(L.ObligationOfOtherPartyInCaseOfWar)}</div>
