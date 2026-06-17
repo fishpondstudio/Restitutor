@@ -84,21 +84,23 @@ export function LeftPanel(): React.ReactNode {
    if (!G.save) return null;
    return (
       <div className="left-panel">
-         {[...getCurrentWars(G.save.state.playerProvince, G.save).map(WarTodo), ...Todos].map((todo) => {
-            const tooltip = todo.tooltip(G.save);
-            if (!tooltip) return null;
-            return (
-               <FloatingTip key={todo.name(G.save)} fixedWidth className="p0" label={tooltip}>
-                  <div
-                     id={todo.id}
-                     className={cls("item", todo.className(G.save))}
-                     onClick={todo.onClick.bind(null, G.save)}
-                  >
-                     <img src={todo.icon(G.save)} />
-                  </div>
-               </FloatingTip>
-            );
-         })}
+         {[...getCurrentWars(G.save.state.playerProvince, G.save).map(WarTodo), ...entriesOf(Todos)].map(
+            ([id, todo]) => {
+               const tooltip = todo.tooltip(G.save);
+               if (!tooltip) return null;
+               return (
+                  <FloatingTip key={id} fixedWidth className="p0" label={tooltip}>
+                     <div
+                        id={todo.id}
+                        className={cls("item", todo.className(G.save))}
+                        onClick={todo.onClick.bind(null, G.save)}
+                     >
+                        <img src={todo.icon(G.save)} />
+                     </div>
+                  </FloatingTip>
+               );
+            },
+         )}
       </div>
    );
 }
@@ -112,8 +114,8 @@ export interface ITodo {
    onClick: (save: SaveGame) => void;
 }
 
-function WarTodo(war: IWar, index: number): ITodo {
-   return {
+function WarTodo(war: IWar, index: number): [string, ITodo] {
+   const todo: ITodo = {
       id: `LeftPanel_OngoingWar_${index}`,
       name: (save) => $t(L.$1$2War, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
       icon: (save) => {
@@ -165,6 +167,8 @@ function WarTodo(war: IWar, index: number): ITodo {
          showPanel(<WarModal war={war} />);
       },
    } as const;
+
+   return [`OngoingWar${index}`, todo];
 }
 
 const Rebellions: ITodo = {
@@ -727,7 +731,7 @@ const PendingGameEvent: ITodo = {
    },
 };
 
-const Todos = [
+const _Todos = {
    Rebellions,
    SocialClassDissent,
    ProvinceBankrupt,
@@ -750,4 +754,7 @@ const Todos = [
    TechCanBeResearched,
    CanAppointPontiff,
    PendingGameEvent,
-] as const satisfies ITodo[];
+} as const satisfies Record<string, ITodo>;
+
+export type Todo = keyof typeof _Todos;
+export const Todos = _Todos as Record<Todo, ITodo>;

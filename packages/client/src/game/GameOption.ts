@@ -1,5 +1,6 @@
 import type { CountryCode } from "@project/shared/src/utils/CountryCode";
 import { uuid4, type ValueOf } from "@project/shared/src/utils/Helper";
+import type { Todo } from "../ui/LeftPanel";
 import type { ChronicleEntryType } from "./definitions/Chronicle";
 import { SupportedSaveVersion } from "./definitions/Constant";
 import type { Languages } from "./Languages";
@@ -29,5 +30,6 @@ export class GameOption {
    build = 0;
    chroniclePopupFrequency = 5;
    uiScale = 1;
+   disabledTodos = new Set<Todo>();
    id = uuid4();
 }

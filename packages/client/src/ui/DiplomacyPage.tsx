@@ -99,6 +99,7 @@ import { playClick } from "./Sound";
 import { TradeModal } from "./TradeModal";
 import { TreatyActionButton } from "./TreatyActionButton";
 import { DiplomacyActionWidth, DiplomacyWidth, SidebarWidth } from "./UIConstant";
+import { WarModal } from "./WarModal";
 import { WarTooltip } from "./WarTooltip";
 
 export function DiplomacyPage({ province }: { province: Province }): React.ReactNode {
@@ -272,12 +273,22 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      {wars.map((war, idx) => {
                         return (
                            <FloatingTip className="p0" fixedWidth key={idx} label={<WarTooltip war={war} />}>
-                              <div className="mx10 my5 text-sm text-red">
-                                 {$t(
-                                    L.$1$2War,
-                                    getProvinceName(war.attacker, G.save),
-                                    getProvinceName(war.defender, G.save),
-                                 )}
+                              <div
+                                 className={cls("row mx10 my5 text-sm", isMe ? "pointer" : null)}
+                                 onClick={() => {
+                                    if (isMe) {
+                                       showPanel(<WarModal war={war} />);
+                                    }
+                                 }}
+                              >
+                                 <div className="f1 text-red">
+                                    {$t(
+                                       L.$1$2War,
+                                       getProvinceName(war.attacker, G.save),
+                                       getProvinceName(war.defender, G.save),
+                                    )}
+                                 </div>
+                                 {isMe && <div className="mi xs">open_in_new</div>}
                               </div>
                            </FloatingTip>
                         );

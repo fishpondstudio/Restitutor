@@ -1945,4 +1945,7 @@ export const EN = {
    WarScoreGainExplanation$1$1$2: "If the final result is a success, we gain $1 war score. If the final result is repelled, we lose $1 war score. The war is won when we have at least $2 war score.",
    UiScale: "UI Scale",
    Misc: "Misc",
+   General: "General",
+   Todo: "Todo",
+   ManageTodoIconsLeftSide: "Manage Todo Icons (Left Side)",
 };

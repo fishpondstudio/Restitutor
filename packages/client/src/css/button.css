@@ -24,6 +24,11 @@
       top: 50%;
       transform: translateY(-50%);
    }
+   &.transparent {
+      box-shadow: none;
+      border-color: transparent;
+      background: transparent;
+   }
 }
 
 .btn.primary {

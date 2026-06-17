@@ -1,5 +1,14 @@
 import { Select, Slider, Switch } from "@mantine/core";
-import { hasFlag, range, safeParseFloat, safeParseInt, toggleFlag } from "@project/shared/src/utils/Helper";
+import {
+   cls,
+   entriesOf,
+   hasFlag,
+   range,
+   safeParseFloat,
+   safeParseInt,
+   toggleFlag,
+} from "@project/shared/src/utils/Helper";
+import { Fragment, useState } from "react";
 import { DiscordUrl, PatchNotesUrl, SteamUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
@@ -15,12 +24,75 @@ import { ChangeLanguageComp } from "./ChangeLanguageComp";
 import { ConfirmModal } from "./ConfirmModal";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
+import { Todos } from "./LeftPanel";
 import { Grid2 } from "./UIConstant";
+
+type SettingsTab = "general" | "tabs";
 
 export function SettingsModal(): React.ReactNode {
    refreshOnTypedEvent(GameOptionUpdated);
+   const [tab, setTab] = useState<SettingsTab>("general");
    return (
-      <ModalComp title={<ModalTitleBar title={$t(L.Settings)} dismiss />}>
+      <ModalComp size="lg" title={<ModalTitleBar title={$t(L.Settings)} dismiss />}>
+         <div className="row g0">
+            <div className="col fstart stretch p10 text-display" style={{ width: "10rem" }}>
+               <div
+                  className={cls("btn px10 py5 w100 text-lg", tab !== "general" ? "transparent" : null)}
+                  onClick={() => setTab("general")}
+               >
+                  {$t(L.General)}
+               </div>
+               <div
+                  className={cls("btn px10 py5 w100 text-lg", tab !== "tabs" ? "transparent" : null)}
+                  onClick={() => setTab("tabs")}
+               >
+                  {$t(L.Todo)}
+               </div>
+            </div>
+            <div className="divider vertical" />
+            <div className="f1">
+               {tab === "general" && <SettingsGeneralTab />}
+               {tab === "tabs" && <SettingsTodoTab />}
+            </div>
+         </div>
+      </ModalComp>
+   );
+}
+
+function SettingsTodoTab(): React.ReactNode {
+   refreshOnTypedEvent(GameOptionUpdated);
+   return (
+      <>
+         <div className="h1">{$t(L.ManageTodoIconsLeftSide)}</div>
+         {entriesOf(Todos).map(([id, todo]) => (
+            <Fragment key={id}>
+               <div key={id} className="row m10">
+                  <img src={todo.icon(G.save)} style={{ width: "1.5rem" }} />
+                  <div className="f1">
+                     <div key={todo.name(G.save)}>{todo.name(G.save)}</div>
+                  </div>
+                  <Switch
+                     checked={!G.save.options.disabledTodos.has(id)}
+                     onChange={() => {
+                        if (G.save.options.disabledTodos.has(id)) {
+                           G.save.options.disabledTodos.delete(id);
+                        } else {
+                           G.save.options.disabledTodos.add(id);
+                        }
+                        GameOptionUpdated.emit();
+                     }}
+                  />
+               </div>
+               <div className="divider" />
+            </Fragment>
+         ))}
+      </>
+   );
+}
+
+function SettingsGeneralTab(): React.ReactNode {
+   return (
+      <>
          <div className="m10">
             <ChangeLanguageComp />
          </div>
@@ -47,26 +119,24 @@ export function SettingsModal(): React.ReactNode {
                />
             </div>
          </div>
-         <div className="h1">{$t(L.Chronicle)}</div>
-         <div className="m10">
-            <div className="row my5">
-               <div className="f1">{$t(L.ShowChroniclePopup)}</div>
-               <div>{$t(L.Every)}</div>
-               <Select
-                  w="5rem"
-                  data={["1", "2", "5", "10"]}
-                  value={G.save.options.chroniclePopupFrequency.toString()}
-                  onChange={(value) => {
-                     if (value) {
-                        G.save.options.chroniclePopupFrequency = safeParseInt(value, 1);
-                        GameOptionUpdated.emit();
-                     }
-                  }}
-                  allowDeselect={false}
-                  checkIconPosition="right"
-               />
-               <div>{$t(L.Year)}</div>
-            </div>
+         <div className="divider" />
+         <div className="row mx10 my5">
+            <div className="f1">{$t(L.ShowChroniclePopup)}</div>
+            <div>{$t(L.Every)}</div>
+            <Select
+               w="5rem"
+               data={["1", "2", "5", "10"]}
+               value={G.save.options.chroniclePopupFrequency.toString()}
+               onChange={(value) => {
+                  if (value) {
+                     G.save.options.chroniclePopupFrequency = safeParseInt(value, 1);
+                     GameOptionUpdated.emit();
+                  }
+               }}
+               allowDeselect={false}
+               checkIconPosition="right"
+            />
+            <div>{$t(L.Year)}</div>
          </div>
          <div className="h1">{$t(L.Tutorial)}</div>
          <div className="m10">
@@ -188,6 +258,6 @@ export function SettingsModal(): React.ReactNode {
                {$t(L.HardReset)}
             </button>
          </div>
-      </ModalComp>
+      </>
    );
 }

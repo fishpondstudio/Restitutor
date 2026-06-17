@@ -1930,4 +1930,7 @@ export const ZH_CN = {
    WarScoreGainExplanation$1$1$2: "若最终结果为成功，我们获得$1战争分数。若最终结果为击退，我们失去$1战争分数。当我们拥有至少$2战争分数时赢得战争。",
    UiScale: "界面缩放",
    Misc: "其他",
+   General: "通用",
+   Todo: "待办事项",
+   ManageTodoIconsLeftSide: "管理待办事项图标（左侧）",
 };
