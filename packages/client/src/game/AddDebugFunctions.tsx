@@ -7,7 +7,7 @@ import { InvaderConqueredWarGoalModal } from "../ui/InvaderConqueredWarGoalModal
 import { InvaderSueForWhitePeaceModal } from "../ui/InvaderSueForWhitePeaceModal";
 import { WarEndedModal } from "../ui/WarEndedModal";
 import { G, isDev } from "../utils/Global";
-import { PersonFlags } from "./definitions/Family";
+import { type IFamily, PersonFlags } from "./definitions/Family";
 import { GameStateUpdated } from "./Events";
 import { resetGame, saveGame } from "./LoadSave";
 import { rebirth } from "./logic/LegacyUpgradeLogic";
@@ -144,13 +144,20 @@ export function addDebugFunctions(): void {
       if (!governor) {
          return;
       }
+      doAddChild(governor, female);
+   };
+
+   function doAddChild(family: IFamily, female: boolean): void {
+      if (!family.male || !family.female) {
+         return;
+      }
       if (female) {
-         governor.children.push({
+         family.children.push({
             id: uuid4(),
             male: null,
             female: {
                traits: new Set(),
-               name: randomFemaleName(governor.male.name[1]),
+               name: randomFemaleName(family.male.name[1]),
                age: 0,
                administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
                diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
@@ -161,11 +168,11 @@ export function addDebugFunctions(): void {
             children: [],
          });
       } else {
-         governor.children.push({
+         family.children.push({
             id: uuid4(),
             male: {
                traits: new Set(),
-               name: randomMaleName(governor.male.name[1]),
+               name: randomMaleName(family.male.name[1]),
                age: 0,
                administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
                diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
@@ -177,5 +184,8 @@ export function addDebugFunctions(): void {
             children: [],
          });
       }
-   };
+      family.children.forEach((child) => {
+         doAddChild(child, female);
+      });
+   }
 }
