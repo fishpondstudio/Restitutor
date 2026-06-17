@@ -114,8 +114,8 @@ export class TechTreeScene extends Scene {
 
          const text = container.addChild(
             new UnicodeText(def.name(), {
-               fontName: Fonts.TitleFont,
-               fontSize: 30,
+               fontName: Fonts.RomanFont,
+               fontSize: 25,
                tint: 0x333333,
             }),
          );

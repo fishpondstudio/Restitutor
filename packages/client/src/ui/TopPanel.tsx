@@ -95,13 +95,7 @@ export function TopLeftPanel(): React.ReactNode {
    return (
       <div className="resource-panel panel col fstart">
          <div className="f1 row mx10 stretch">
-            <div
-               className="row g5"
-               style={{
-                  color: `#${MapBackgroundColors[G.save.state.playerProvince].toString(16)}`,
-                  width: FirstColumnWidth,
-               }}
-            >
+            <div className="row g5" style={{ width: FirstColumnWidth }}>
                <div className="pointer" onClick={() => showPanel(<SettingsModal />)}>
                   <img src={MenuIcon} width={IconWidth} />
                </div>
@@ -113,6 +107,7 @@ export function TopLeftPanel(): React.ReactNode {
                >
                   <div
                      className="f1 pointer text-md text-display text-right text-ellipsis"
+                     style={{ color: `#${MapBackgroundColors[G.save.state.playerProvince].toString(16)}` }}
                      onClick={() => {
                         const scene = G.scene.getCurrent(WorldScene);
                         if (scene) {

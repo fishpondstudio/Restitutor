@@ -217,6 +217,7 @@ function makeFamilyNode(family: IFamily, nodes: FamilyNode[], edges: Edge[]): vo
          style: {
             strokeWidth: 2,
             stroke: "var(--mantine-color-dark-3)",
+            filter: "drop-shadow(0 0 5px rgba(0, 0, 0, 0.7))",
          },
       });
    }

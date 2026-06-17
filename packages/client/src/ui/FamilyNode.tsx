@@ -15,7 +15,7 @@ export type FamilyNode = Node<{ family: IFamily }, "FamilyNode">;
 
 export function FamilyNode({ data }: NodeProps<FamilyNode>): React.ReactNode {
    return (
-      <div className="family-node">
+      <div className="family-node frame">
          <PersonNode person={data.family.male} family={data.family} male={true} />
          <div className="divider" />
          <PersonNode person={data.family.female} family={data.family} male={false} />
@@ -67,7 +67,6 @@ export function PersonNode({
                      <div className="f1">{$t(L.OriginallyFrom)}</div>
                      <div>{getProvinceName(person.province, G.save)}</div>
                   </div>
-                  <div className="divider" />
                   <div className="h2 row">
                      <div className="f1">{$t(L.Traits)}</div>
                      {person === state.governor.male ? (
@@ -89,15 +88,12 @@ export function PersonNode({
                   ) : (
                      <div className="mx10 my5 text-red text-italic">{$t(L.OnlyGovernorsTraitsHaveActiveEffects)}</div>
                   )}
-                  <div className="divider" />
                   <div className="h2">{$t(L.DeathChance)}</div>
                   <BreakdownComp breakdown={getDeathChance(person, G.save.state.playerProvince, G.save)} />
                   {family.male && family.female ? (
                      <>
-                        <div className="divider" />
                         <div className="h2">{$t(L.OffspringChance)}</div>
                         <BreakdownComp breakdown={getOffspringChance(family, G.save.state.playerProvince, G.save)} />
-                        <div className="divider" />
                         <div className="h2">{$t(L.OffspringSkillRange)}</div>
                         <div className="row mx10 my5">
                            <div className="f1">{$t(L.Administrative)}</div>

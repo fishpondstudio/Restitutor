@@ -30,12 +30,12 @@ export function LegacyUpgradeNode({ data }: NodeProps<LegacyUpgradeNode>): React
       return null;
    }
    const def = LegacyUpgrades[data.legacyUpgrade];
-   let status = "";
+   let cssClass = "";
    const upgradeCondition = canUpgradeLegacyUpgrade(data.legacyUpgrade, G.save.state.playerProvince, G.save);
    if (state.legacyUpgrades.has(data.legacyUpgrade)) {
-      status = "upgraded";
+      cssClass = "upgraded active";
    } else if (upgradeCondition.value) {
-      status = "can-upgrade";
+      cssClass = "can-upgrade";
    }
 
    return (
@@ -58,7 +58,7 @@ export function LegacyUpgradeNode({ data }: NodeProps<LegacyUpgradeNode>): React
          }
       >
          <div
-            className={cls("legacy-upgrade-node", status)}
+            className={cls("legacy-upgrade-node frame px10", cssClass)}
             onClick={() => {
                if (state.legacyUpgrades.has(data.legacyUpgrade)) {
                   return;

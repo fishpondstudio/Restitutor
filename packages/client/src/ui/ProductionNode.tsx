@@ -37,7 +37,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
    const goodsTaxRate = getProvinceStat("goodsTaxRate", G.save.state.playerProvince, G.save) / 100;
    const goodsTax = goodsTaxRate * capacity * Price[data.goods];
    return (
-      <div className="production-node col stretch">
+      <div className="production-node frame col stretch">
          <FloatingTip
             w={300}
             className="p0"

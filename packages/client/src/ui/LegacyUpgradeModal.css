@@ -1,22 +1,23 @@
 .legacy-upgrade-node {
-   color: var(--mantine-color-dark-1);
-   border: 2px solid var(--mantine-color-dark-2);
-   border-radius: 5px;
    width: var(--legacy-upgrade-node-width);
    height: var(--legacy-upgrade-node-height);
-   text-align: center;
    display: flex;
-   flex-direction: column;
+   align-items: center;
    justify-content: center;
+   text-align: center;
    position: relative;
    font-family: "TitleFont", serif;
-   padding: 0 10px;
+   text-shadow: 1px 1px 0 var(--mantine-color-dark-9);
    overflow: hidden;
+   font-family: "RomanFont", serif;
+   font-weight: bold;
+   font-size: 14px;
    .upgrade-id {
       text-align: right;
       font-size: 75%;
       color: rgba(255, 255, 255, 0.4);
       font-family: "MainFont", serif;
+      font-weight: normal;
       position: absolute;
       top: 2px;
       right: 2px;
@@ -25,13 +26,12 @@
    &.upgraded {
       opacity: 1;
       color: var(--mantine-primary-color-3);
-      border: 2px solid var(--mantine-primary-color-4);
    }
    &.can-upgrade {
+      cursor: var(--hand-cursor);
       opacity: 1;
       &:hover {
-         color: var(--mantine-primary-color-2);
-         border: 2px solid var(--mantine-primary-color-3);
+         color: var(--mantine-primary-color-3);
       }
    }
 }

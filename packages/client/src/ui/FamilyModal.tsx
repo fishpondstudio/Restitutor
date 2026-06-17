@@ -33,8 +33,11 @@ export function FamilyTreeModal(): React.ReactNode {
                edgeTypes={{ default: SmoothStepEdge }}
                proOptions={{ hideAttribution: true }}
                fitView
+               fitViewOptions={{
+                  maxZoom: 1,
+               }}
             >
-               <Controls showInteractive={false} showZoom={false} showFitView={true} />
+               <Controls showInteractive={false} showZoom={false} showFitView={true} fitViewOptions={{ maxZoom: 1 }} />
             </ReactFlow>
          </div>
       </ModalComp>

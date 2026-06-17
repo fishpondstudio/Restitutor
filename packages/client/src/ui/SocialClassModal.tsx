@@ -146,129 +146,127 @@ export function SocialClassModal(): React.ReactNode {
                            {TimedActions.CurryFavor.name()}
                         </ActionButton>
                      </div>
-                     <div className="divider" />
                      <div className="h3">{$t(L.Privileges)}</div>
-                     {entriesOf(SocialClassBonuses).map(([action, bonus]) => {
-                        if (bonus.socialClass !== socialClass) {
-                           return null;
-                        }
-                        return (
-                           <Fragment key={action}>
-                              <div className="divider" />
-                              <div className="mx10 my5" key={action}>
-                                 <div className="text-display">{bonus.name()}</div>
-                                 <div className="text-sm text-dimmed">
-                                    {bonus.desc()} (+{bonus.influence} {$t(L.Influence)}, +{bonus.loyalty}{" "}
-                                    {$t(L.Loyalty)})
+                     {entriesOf(SocialClassBonuses)
+                        .filter(([action, bonus]) => bonus.socialClass === socialClass)
+                        .map(([action, bonus], idx) => {
+                           return (
+                              <Fragment key={action}>
+                                 {idx > 0 && <div className="divider" />}
+                                 <div className="mx10 my5" key={action}>
+                                    <div className="text-display">{bonus.name()}</div>
+                                    <div className="text-sm text-dimmed">
+                                       {bonus.desc()} (+{bonus.influence} {$t(L.Influence)}, +{bonus.loyalty}{" "}
+                                       {$t(L.Loyalty)})
+                                    </div>
+                                    {hasProvinceUpgrade(action, G.save.state.playerProvince, G.save) ? (
+                                       <ActionButton
+                                          className="text-red my5"
+                                          action={{
+                                             cost: { administrative: 10 },
+                                             condition: finalizeCondition({
+                                                breakdown: [
+                                                   {
+                                                      name: $t(L.HasEnoughLoyalty),
+                                                      value: data.loyalty >= bonus.loyalty,
+                                                      desc: $t(
+                                                         L.$1WillLose$2LoyaltyAvailable$3,
+                                                         SocialClassNames[socialClass](),
+                                                         formatNumber(bonus.loyalty),
+                                                         formatNumber(data.loyalty),
+                                                      ),
+                                                   },
+                                                   {
+                                                      name: $t(L.HasEnoughInfluence),
+                                                      value: data.influence >= bonus.influence,
+                                                      desc: $t(
+                                                         L.$1WillLose$2InfluenceAvailable$3,
+                                                         SocialClassNames[socialClass](),
+                                                         formatNumber(bonus.influence),
+                                                         formatNumber(data.influence),
+                                                      ),
+                                                   },
+                                                ],
+                                             }),
+                                             effect: () => {
+                                                removeProvinceUpgrade(action, G.save.state.playerProvince, G.save);
+                                                data.influence -= bonus.influence;
+                                                data.loyalty -= bonus.loyalty;
+                                             },
+                                          }}
+                                          tooltip={(element) => (
+                                             <>
+                                                <div className="m10">
+                                                   {$t(
+                                                      L.RevokingThisPrivilegeWillHaveTheFollowingEffectsOn$1,
+                                                      SocialClassNames[socialClass](),
+                                                   )}
+                                                </div>
+                                                <div className="row mx10 my5">
+                                                   <div className="f1">{$t(L.Influence)}</div>
+                                                   <div className="text-green">-{bonus.influence}</div>
+                                                </div>
+                                                <div className="row mx10 my5">
+                                                   <div className="f1">{$t(L.Loyalty)}</div>
+                                                   <div className="text-red">-{bonus.loyalty}</div>
+                                                </div>
+                                                {element}
+                                             </>
+                                          )}
+                                       >
+                                          {$t(L.Revoke)}
+                                       </ActionButton>
+                                    ) : (
+                                       <ActionButton
+                                          className="my5"
+                                          action={{
+                                             condition: finalizeCondition({
+                                                breakdown: [
+                                                   {
+                                                      name: $t(L.NotExceedMaxInfluence),
+                                                      value: data.influence + bonus.influence <= 100,
+                                                      desc: $t(
+                                                         L.$1WillGain$2InfluenceHeadroom$3,
+                                                         SocialClassNames[socialClass](),
+                                                         formatNumber(bonus.influence),
+                                                         formatNumber(100 - data.influence),
+                                                      ),
+                                                   },
+                                                ],
+                                             }),
+                                             effect: () => {
+                                                addProvinceUpgrade(action, G.save.state.playerProvince, G.save);
+                                                data.influence += bonus.influence;
+                                                data.loyalty += bonus.loyalty;
+                                             },
+                                          }}
+                                          tooltip={(element) => (
+                                             <>
+                                                <div className="m10">
+                                                   {$t(
+                                                      L.GrantingThisPrivilegeWillHaveTheFollowingEffectsOn$1,
+                                                      SocialClassNames[socialClass](),
+                                                   )}
+                                                </div>
+                                                <div className="row mx10 my5">
+                                                   <div className="f1">{$t(L.Influence)}</div>
+                                                   <div className="text-red">+{bonus.influence}</div>
+                                                </div>
+                                                <div className="row mx10 my5">
+                                                   <div className="f1">{$t(L.Loyalty)}</div>
+                                                   <div className="text-green">+{bonus.loyalty}</div>
+                                                </div>
+                                                {element}
+                                             </>
+                                          )}
+                                       >
+                                          {$t(L.Grant)}
+                                       </ActionButton>
+                                    )}
                                  </div>
-                                 {hasProvinceUpgrade(action, G.save.state.playerProvince, G.save) ? (
-                                    <ActionButton
-                                       className="text-red my5"
-                                       action={{
-                                          cost: { administrative: 10 },
-                                          condition: finalizeCondition({
-                                             breakdown: [
-                                                {
-                                                   name: $t(L.HasEnoughLoyalty),
-                                                   value: data.loyalty >= bonus.loyalty,
-                                                   desc: $t(
-                                                      L.$1WillLose$2LoyaltyAvailable$3,
-                                                      SocialClassNames[socialClass](),
-                                                      formatNumber(bonus.loyalty),
-                                                      formatNumber(data.loyalty),
-                                                   ),
-                                                },
-                                                {
-                                                   name: $t(L.HasEnoughInfluence),
-                                                   value: data.influence >= bonus.influence,
-                                                   desc: $t(
-                                                      L.$1WillLose$2InfluenceAvailable$3,
-                                                      SocialClassNames[socialClass](),
-                                                      formatNumber(bonus.influence),
-                                                      formatNumber(data.influence),
-                                                   ),
-                                                },
-                                             ],
-                                          }),
-                                          effect: () => {
-                                             removeProvinceUpgrade(action, G.save.state.playerProvince, G.save);
-                                             data.influence -= bonus.influence;
-                                             data.loyalty -= bonus.loyalty;
-                                          },
-                                       }}
-                                       tooltip={(element) => (
-                                          <>
-                                             <div className="m10">
-                                                {$t(
-                                                   L.RevokingThisPrivilegeWillHaveTheFollowingEffectsOn$1,
-                                                   SocialClassNames[socialClass](),
-                                                )}
-                                             </div>
-                                             <div className="row mx10 my5">
-                                                <div className="f1">{$t(L.Influence)}</div>
-                                                <div className="text-green">-{bonus.influence}</div>
-                                             </div>
-                                             <div className="row mx10 my5">
-                                                <div className="f1">{$t(L.Loyalty)}</div>
-                                                <div className="text-red">-{bonus.loyalty}</div>
-                                             </div>
-                                             {element}
-                                          </>
-                                       )}
-                                    >
-                                       {$t(L.Revoke)}
-                                    </ActionButton>
-                                 ) : (
-                                    <ActionButton
-                                       className="my5"
-                                       action={{
-                                          condition: finalizeCondition({
-                                             breakdown: [
-                                                {
-                                                   name: $t(L.NotExceedMaxInfluence),
-                                                   value: data.influence + bonus.influence <= 100,
-                                                   desc: $t(
-                                                      L.$1WillGain$2InfluenceHeadroom$3,
-                                                      SocialClassNames[socialClass](),
-                                                      formatNumber(bonus.influence),
-                                                      formatNumber(100 - data.influence),
-                                                   ),
-                                                },
-                                             ],
-                                          }),
-                                          effect: () => {
-                                             addProvinceUpgrade(action, G.save.state.playerProvince, G.save);
-                                             data.influence += bonus.influence;
-                                             data.loyalty += bonus.loyalty;
-                                          },
-                                       }}
-                                       tooltip={(element) => (
-                                          <>
-                                             <div className="m10">
-                                                {$t(
-                                                   L.GrantingThisPrivilegeWillHaveTheFollowingEffectsOn$1,
-                                                   SocialClassNames[socialClass](),
-                                                )}
-                                             </div>
-                                             <div className="row mx10 my5">
-                                                <div className="f1">{$t(L.Influence)}</div>
-                                                <div className="text-red">+{bonus.influence}</div>
-                                             </div>
-                                             <div className="row mx10 my5">
-                                                <div className="f1">{$t(L.Loyalty)}</div>
-                                                <div className="text-green">+{bonus.loyalty}</div>
-                                             </div>
-                                             {element}
-                                          </>
-                                       )}
-                                    >
-                                       {$t(L.Grant)}
-                                    </ActionButton>
-                                 )}
-                              </div>
-                           </Fragment>
-                        );
-                     })}
+                              </Fragment>
+                           );
+                        })}
                   </div>
                );
             })}

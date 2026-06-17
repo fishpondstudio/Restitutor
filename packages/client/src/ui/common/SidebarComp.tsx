@@ -1,5 +1,4 @@
 import { ScrollArea } from "@mantine/core";
-import { Fonts } from "../../assets";
 import { CloseButtonClass } from "../UIConstant";
 import { hideSidebar } from "./Sidebar";
 
@@ -39,9 +38,7 @@ export function SidebarContainer({
          }}
       >
          <div className="header">
-            <div className="f1" style={{ fontFamily: Fonts.TitleFont }}>
-               {title}
-            </div>
+            <div className="f1">{title}</div>
             <div className={`mi pointer ${CloseButtonClass}`} onClick={hideSidebar}>
                close
             </div>

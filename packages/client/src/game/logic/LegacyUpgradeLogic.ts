@@ -38,7 +38,7 @@ export function makeLegacyUpgradeNodes(province: Province, save: SaveGame): { no
          let opacity = 0.3;
          let color = "var(--mantine-color-dark-2)";
          if (state.legacyUpgrades.has(required) && state.legacyUpgrades.has(upgrade)) {
-            color = "var(--mantine-primary-color-4)";
+            color = "var(--mantine-primary-color-5)";
             opacity = 1;
          } else if (canUpgradeLegacyUpgrade(upgrade, province, save) && state.legacyUpgrades.has(required)) {
             opacity = 1;
@@ -57,6 +57,7 @@ export function makeLegacyUpgradeNodes(province: Province, save: SaveGame): { no
                strokeWidth: 2,
                stroke: color,
                opacity,
+               filter: "drop-shadow(0 0 5px rgba(0, 0, 0, 0.7))",
             },
          });
       });

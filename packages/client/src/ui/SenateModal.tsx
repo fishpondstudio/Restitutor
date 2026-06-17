@@ -98,7 +98,6 @@ export function SenateModal(): React.ReactNode {
                <div>{getProvinceStat("consulVotes", G.save.state.playerProvince, G.save)}</div>
             </div>
          </FloatingTip>
-         <div className="divider" />
          <div style={Grid3} className="m10">
             {G.save.state.senate.consulCandidates.map((name, i) => {
                const supportedProvinces = revealedVotes.get(i) ?? [];

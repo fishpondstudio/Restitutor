@@ -456,7 +456,7 @@ export class WorldScene extends Scene {
             const endPos = MapGrid.gridToPosition(tileToPoint(bestChain[bestChain.length - 1]));
             const text = this._labelContainer.addChild(
                new UnicodeText(getProvinceName(province, G.save), {
-                  fontName: Fonts.TitleFont,
+                  fontName: Fonts.RomanFont,
                   fontSize: 36,
                   tint: MapTextColors[province],
                }),

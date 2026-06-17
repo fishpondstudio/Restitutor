@@ -4,9 +4,6 @@
 }
 
 .family-node {
-   border: 1px solid var(--mantine-color-dark-3);
-   color: var(--mantine-color-dark-1);
-   border-radius: 5px;
    width: var(--family-node-width);
    height: var(--family-node-height);
    display: flex;
@@ -29,6 +26,10 @@
 
 .react-flow__controls {
    gap: 5px;
+}
+
+.react-flow__node.selectable {
+   cursor: var(--default-cursor);
 }
 
 .react-flow__controls button {

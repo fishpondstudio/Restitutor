@@ -2,7 +2,6 @@ import { type MantineSize, Overlay, ScrollArea, Transition } from "@mantine/core
 import { cls } from "@project/shared/src/utils/Helper";
 import type { TypedEvent } from "@project/shared/src/utils/TypedEvent";
 import { useCallback, useEffect, useState } from "react";
-import { Fonts } from "../assets";
 import { CloseModal, ShowModal } from "../game/Events";
 import { CloseButtonClass } from "../ui/UIConstant";
 import { useTypedEvent } from "./Hook";
@@ -97,9 +96,7 @@ export function ModalTitleBar({
 }: React.PropsWithChildren<{ title: React.ReactNode; dismiss?: boolean }>): React.ReactNode {
    return (
       <div className="header">
-         <div className="f1" style={{ fontFamily: Fonts.TitleFont }}>
-            {title}
-         </div>
+         <div className="f1">{title}</div>
          {dismiss && (
             <div className={`mi pointer ${CloseButtonClass}`} onClick={hideModal}>
                close

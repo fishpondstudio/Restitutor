@@ -19,18 +19,43 @@
    }
    > .h1:first-child,
    > .h2:first-child {
-      border-top: none;
+      background:
+         linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.3) 100%) bottom / 100%
+         2px no-repeat,
+         url("../assets/images/H1Dark.svg"),
+         linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+   }
+}
+
+.frame {
+   color: var(--mantine-color-dark-1);
+   border-radius: 5px;
+   background:
+      linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent) top / 100% 2px no-repeat,
+      linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent) bottom / 100% 2px no-repeat,
+      linear-gradient(to top, transparent, rgba(255, 255, 255, 0.2), transparent) left / 2px 100% no-repeat,
+      linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2), transparent) right / 2px 100% no-repeat,
+      url("../assets/images/Background10.webp");
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+   padding: 0 2px;
+   &:hover,
+   &.active {
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+      background:
+         linear-gradient(to right, transparent, var(--mantine-primary-color-5), transparent) top / 100% 2px no-repeat,
+         linear-gradient(to left, transparent, var(--mantine-primary-color-5), transparent) bottom / 100% 2px no-repeat,
+         linear-gradient(to top, transparent, var(--mantine-primary-color-5), transparent) left / 2px 100% no-repeat,
+         linear-gradient(to bottom, transparent, var(--mantine-primary-color-5), transparent) right / 2px 100% no-repeat,
+         url("../assets/images/Background10.webp");
    }
 }
 
 .panel {
-   background-image:
-      url("../assets/images/Background9.png"),
-      linear-gradient(to bottom, var(--mantine-primary-color-5), var(--mantine-primary-color-9));
-   background-origin: border-box;
-   background-clip: padding-box, border-box;
+   background:
+      url("../assets/images/Background9.png") padding-box,
+      linear-gradient(to bottom, var(--mantine-primary-color-5), var(--mantine-primary-color-9)) border-box;
    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-   border: double 2px transparent;
+   border: 2px solid transparent;
    border-radius: var(--mantine-radius-default);
    overflow: hidden;
 
@@ -45,16 +70,25 @@
       flex-direction: row;
       align-items: center;
       padding: 6px 10px;
-      font-size: 19px;
+      font-size: 16px;
+      font-family: "RomanFont", serif;
+      font-weight: bold;
    }
 
    .h1,
    .h2 {
-      background-image:
+      background:
+         linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0.1) 100%
+         )
+         top / 100% 1px no-repeat,
+         linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.3) 100%) bottom / 100%
+         2px no-repeat,
          url("../assets/images/H1Dark.svg"),
          linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.6);
       padding: 5px 10px;
       color: var(--mantine-color-gray-0);
       text-shadow: 1px 1px 0 var(--mantine-color-dark-5);
@@ -69,7 +103,17 @@
    .h3 {
       padding: 5px 10px;
       font-size: 15px;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.05));
+      background:
+         linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0.1) 100%
+         )
+         top / 100% 1px no-repeat,
+         linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.3) 100%) bottom / 100%
+         1px no-repeat,
+         linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
       color: var(--mantine-color-gray-0);
       text-shadow: 1px 1px 0 var(--mantine-color-dark-5);
       font-family: "TitleFont", serif;
@@ -183,8 +227,9 @@
    background-size: 100% 100%;
    padding: 5px 0 0 0;
    color: var(--mantine-primary-color-7);
-   font-family: "TitleFont", serif;
-   font-size: 22px;
+   font-family: "RomanFont", serif;
+   font-weight: bold;
+   font-size: 19px;
    line-height: 1;
    display: flex;
    flex-direction: row;

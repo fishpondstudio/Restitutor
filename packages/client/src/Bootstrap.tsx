@@ -2,7 +2,7 @@ import { forEach, setFlag } from "@project/shared/src/utils/Helper";
 import { jsonDecode } from "@project/shared/src/utils/Serialization";
 import * as Sentry from "@sentry/browser";
 import { Assets, BitmapFont, type Spritesheet, type TextStyleFontWeight, type Texture } from "pixi.js";
-import { FontFaces } from "./assets";
+import { FontFaces, Fonts } from "./assets";
 import { checkTextures } from "./CheckTextures";
 import { startGameLoop } from "./GameLoop";
 import { addDebugFunctions } from "./game/AddDebugFunctions";
@@ -38,13 +38,17 @@ export async function bootstrap(): Promise<void> {
       if (f.weight !== "normal" || f.style !== "normal") {
          return;
       }
+      let weight = f.weight as TextStyleFontWeight;
+      if (f.family === Fonts.RomanFont) {
+         weight = "bold";
+      }
       BitmapFont.from(
          f.family,
          {
             fill: "#ffffff",
             fontSize: 64,
             fontFamily: f.family,
-            fontWeight: f.weight as TextStyleFontWeight,
+            fontWeight: weight,
          },
          { chars: BitmapFont.ASCII, resolution: 2, padding: 8 },
       );
