@@ -60,7 +60,6 @@ export function TreasuryPage(): React.ReactNode {
          <BreakdownComp breakdown={revenue} />
          <div className="h1">{$t(L.MonthlyExpense)}</div>
          <BreakdownComp breakdown={expense} />
-         <div className="divider"></div>
          <div className="row mx10 my5 text-display text-lg">
             <div className="f1">{$t(L.NetIncome)}</div>
             <div>{colorNumber(income)}</div>

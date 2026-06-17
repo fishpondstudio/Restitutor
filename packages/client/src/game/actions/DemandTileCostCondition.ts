@@ -1,10 +1,13 @@
+import type { Tile } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
+import { isTileBorderingProvince } from "../definitions/Tile";
+import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { getRelation, isWithinDiplomaticRange } from "../logic/DiplomacyLogic";
 import { isGreatPowerCondition, isNorGreatPowerCondition } from "../logic/ProvinceLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
-import { getTruceMonthsLeft, getWarsBetween } from "../logic/WarLogic";
+import { getTruceMonthsLeft, getWarForTile, getWarsBetween } from "../logic/WarLogic";
 import { finalizeCondition, type ICondition, type IGameCostCondition } from "./GameAction";
 
 export function DemandTileCostCondition(
@@ -41,4 +44,25 @@ export function DemandTileCostCondition(
          ],
       }),
    };
+}
+
+export function canDemandTile(tile: Tile, ourProvince: Province, save: SaveGame): ICondition[] {
+   const tileData = save.state.tiles.get(tile);
+   if (!tileData) {
+      return [];
+   }
+   return [
+      {
+         name: $t(L.$1IsNotContestedInAWar, getTileName(tile)),
+         value: getWarForTile(tile, save) === undefined,
+      },
+      {
+         name: $t(L.$1IsNotTheirCapital, getTileName(tile)),
+         value: save.state.provinces[tileData.province]?.capital !== tile,
+      },
+      {
+         name: $t(L.$1BordersOurProvince, getTileName(tile)),
+         value: isTileBorderingProvince(tile, ourProvince, save),
+      },
+   ];
 }

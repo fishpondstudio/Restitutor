@@ -701,7 +701,7 @@ export function getProvinceIncome(
       if (value > 0) {
          revenue.add.push({ name: $t(L.TradeWith$1, getProvinceName(otherProvince, save)), value: value });
       } else {
-         expense.add.push({ name: $t(L.TradeWith$1, getProvinceName(otherProvince, save)), value: -value });
+         expense.add.push({ name: $t(L.TradeWith$1, getProvinceName(otherProvince, save)), value: value });
       }
    });
 

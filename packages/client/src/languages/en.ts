@@ -1948,4 +1948,6 @@ export const EN = {
    General: "General",
    Todo: "Todo",
    ManageTodoIconsLeftSide: "Manage Todo Icons (Left Side)",
+   $1IsNotTheirCapital: "$1 is not their capital",
+   $1BordersOurProvince: "$1 borders our province",
 };

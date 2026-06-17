@@ -1948,4 +1948,6 @@ export const RU = {
    General: "Общие",
    Todo: "Задачи",
    ManageTodoIconsLeftSide: "Управление иконками задач (слева)",
+   $1IsNotTheirCapital: "$1 не является их столицей",
+   $1BordersOurProvince: "$1 граничит с нашей провинцией",
 };

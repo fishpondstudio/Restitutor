@@ -1,20 +1,18 @@
 import { Select } from "@mantine/core";
 import { formatNumber, safeParseInt, type Tile } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
-import { DemandTileCostCondition } from "../game/actions/DemandTileCostCondition";
-import type { IConditionBreakdown, IValueBreakdown } from "../game/actions/GameAction";
+import { canDemandTile, DemandTileCostCondition } from "../game/actions/DemandTileCostCondition";
+import { finalizeCondition, type IConditionBreakdown, type IValueBreakdown } from "../game/actions/GameAction";
 import { CasusBelli } from "../game/definitions/CasusBelli";
 import type { Province } from "../game/definitions/Province";
-import { isTileBorderingProvince } from "../game/definitions/Tile";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "../game/Events";
 import { addAttitudeModifier, getRelation } from "../game/logic/DiplomacyLogic";
 import { addModifier } from "../game/logic/ModifierLogic";
 import { getProvinceName, getProvincePrestige } from "../game/logic/ProvinceLogic";
-import { isCapital } from "../game/logic/TileLogic";
 import { startTimedAction } from "../game/logic/TimedActionLogic";
-import { getWarForTile, getWarParticipants } from "../game/logic/WarLogic";
+import { getWarParticipants } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
@@ -43,8 +41,9 @@ export function DemandTileModal({ province }: { province: Province }): React.Rea
                .filter(
                   ([tile, data]) =>
                      data.province === province &&
-                     !isCapital(tile, G.save) &&
-                     isTileBorderingProvince(tile, G.save.state.playerProvince, G.save),
+                     finalizeCondition({
+                        breakdown: canDemandTile(tile, G.save.state.playerProvince, G.save),
+                     }).value,
                )
                .map(([tile, data]) => {
                   return {
@@ -145,12 +144,7 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
             ...DemandTileCostCondition(
                G.save.state.playerProvince,
                tileData.province,
-               [
-                  {
-                     name: $t(L.$1IsNotContestedInAWar, getTileName(tile)),
-                     value: getWarForTile(tile, G.save) === undefined,
-                  },
-               ],
+               canDemandTile(tile, G.save.state.playerProvince, G.save),
                G.save,
             ),
             effect: () => {

@@ -160,7 +160,7 @@ readdirSync(LANG_PATH).forEach((fileName) => {
    const langResult = {};
    const untranslated = {};
    for (const k of Object.keys(translations)) {
-      if (k.startsWith("$")) {
+      if (k.startsWith("$$")) {
          langResult[k] = language[k];
          continue;
       }

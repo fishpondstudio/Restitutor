@@ -1933,4 +1933,6 @@ export const ZH_CN = {
    General: "通用",
    Todo: "待办事项",
    ManageTodoIconsLeftSide: "管理待办事项图标（左侧）",
+   $1IsNotTheirCapital: "$1不是他们的首都",
+   $1BordersOurProvince: "$1与我们的行省接壤",
 };
