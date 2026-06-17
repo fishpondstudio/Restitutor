@@ -8,7 +8,7 @@ import {
    LegacyUpgradeNodeWidth,
 } from "../../ui/UIConstant";
 import { $t, L } from "../../utils/i18n";
-import { finalizeCondition, type IConditionBreakdown } from "../actions/GameAction";
+import { finalizeCondition, type ICondition, type IConditionBreakdown } from "../actions/GameAction";
 import { type LegacyUpgrade, LegacyUpgrades } from "../definitions/LegacyUpgrade";
 import { Modifiers, modifierValueToString } from "../definitions/Modifier";
 import { type Province, ProvinceResourceNames } from "../definitions/Province";
@@ -94,7 +94,7 @@ export function canUpgradeLegacyUpgrade(
    province: Province,
    save: SaveGame,
 ): IConditionBreakdown {
-   const result: IConditionBreakdown = { value: false, breakdown: [] };
+   const result: ICondition[] = [];
    const state = save.state.provinces[province];
    if (!state) {
       return finalizeCondition(result);
@@ -106,13 +106,13 @@ export function canUpgradeLegacyUpgrade(
    const available = getProvinceResource("legacy", province, save);
    const def = LegacyUpgrades[upgrade];
 
-   result.breakdown.push({
+   result.push({
       name: ProvinceResourceNames.legacy(),
       value: available >= cost,
       progress: [available, cost],
    });
 
-   result.breakdown.push({
+   result.push({
       name: $t(L.Prerequisites),
       value: def.requires.length === 0 || def.requires.some((upgrade) => state?.legacyUpgrades.has(upgrade)),
    });

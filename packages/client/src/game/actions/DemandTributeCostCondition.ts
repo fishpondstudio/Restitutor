@@ -10,12 +10,10 @@ export function DemandTributeCostCondition(
    save: SaveGame,
 ): IGameCostCondition {
    return {
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "DemandTribute" }, ourProvince, save),
-            isGreatPowerCondition(ourProvince, save),
-            isNorGreatPowerCondition(theirProvince, save),
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "DemandTribute" }, ourProvince, save),
+         isGreatPowerCondition(ourProvince, save),
+         isNorGreatPowerCondition(theirProvince, save),
+      ]),
    };
 }

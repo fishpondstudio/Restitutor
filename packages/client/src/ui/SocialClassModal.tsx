@@ -121,15 +121,13 @@ export function SocialClassModal(): React.ReactNode {
                            className="w100 mb10"
                            action={{
                               cost: { gold: totalUpgrades * 3 },
-                              condition: finalizeCondition({
-                                 breakdown: [
-                                    ...timedActionConditions(
-                                       { action: "CurryFavor" },
-                                       G.save.state.playerProvince,
-                                       G.save,
-                                    ),
-                                 ],
-                              }),
+                              condition: finalizeCondition([
+                                 ...timedActionConditions(
+                                    { action: "CurryFavor" },
+                                    G.save.state.playerProvince,
+                                    G.save,
+                                 ),
+                              ]),
                               effect: () => {
                                  startTimedAction("CurryFavor", G.save.state.playerProvince, G.save);
                                  data.loyalty += 20;
@@ -164,30 +162,28 @@ export function SocialClassModal(): React.ReactNode {
                                           className="text-red my5"
                                           action={{
                                              cost: { administrative: 10 },
-                                             condition: finalizeCondition({
-                                                breakdown: [
-                                                   {
-                                                      name: $t(L.HasEnoughLoyalty),
-                                                      value: data.loyalty >= bonus.loyalty,
-                                                      desc: $t(
-                                                         L.$1WillLose$2LoyaltyAvailable$3,
-                                                         SocialClassNames[socialClass](),
-                                                         formatNumber(bonus.loyalty),
-                                                         formatNumber(data.loyalty),
-                                                      ),
-                                                   },
-                                                   {
-                                                      name: $t(L.HasEnoughInfluence),
-                                                      value: data.influence >= bonus.influence,
-                                                      desc: $t(
-                                                         L.$1WillLose$2InfluenceAvailable$3,
-                                                         SocialClassNames[socialClass](),
-                                                         formatNumber(bonus.influence),
-                                                         formatNumber(data.influence),
-                                                      ),
-                                                   },
-                                                ],
-                                             }),
+                                             condition: finalizeCondition([
+                                                {
+                                                   name: $t(L.HasEnoughLoyalty),
+                                                   value: data.loyalty >= bonus.loyalty,
+                                                   desc: $t(
+                                                      L.$1WillLose$2LoyaltyAvailable$3,
+                                                      SocialClassNames[socialClass](),
+                                                      formatNumber(bonus.loyalty),
+                                                      formatNumber(data.loyalty),
+                                                   ),
+                                                },
+                                                {
+                                                   name: $t(L.HasEnoughInfluence),
+                                                   value: data.influence >= bonus.influence,
+                                                   desc: $t(
+                                                      L.$1WillLose$2InfluenceAvailable$3,
+                                                      SocialClassNames[socialClass](),
+                                                      formatNumber(bonus.influence),
+                                                      formatNumber(data.influence),
+                                                   ),
+                                                },
+                                             ]),
                                              effect: () => {
                                                 removeProvinceUpgrade(action, G.save.state.playerProvince, G.save);
                                                 data.influence -= bonus.influence;
@@ -220,20 +216,18 @@ export function SocialClassModal(): React.ReactNode {
                                        <ActionButton
                                           className="my5"
                                           action={{
-                                             condition: finalizeCondition({
-                                                breakdown: [
-                                                   {
-                                                      name: $t(L.NotExceedMaxInfluence),
-                                                      value: data.influence + bonus.influence <= 100,
-                                                      desc: $t(
-                                                         L.$1WillGain$2InfluenceHeadroom$3,
-                                                         SocialClassNames[socialClass](),
-                                                         formatNumber(bonus.influence),
-                                                         formatNumber(100 - data.influence),
-                                                      ),
-                                                   },
-                                                ],
-                                             }),
+                                             condition: finalizeCondition([
+                                                {
+                                                   name: $t(L.NotExceedMaxInfluence),
+                                                   value: data.influence + bonus.influence <= 100,
+                                                   desc: $t(
+                                                      L.$1WillGain$2InfluenceHeadroom$3,
+                                                      SocialClassNames[socialClass](),
+                                                      formatNumber(bonus.influence),
+                                                      formatNumber(100 - data.influence),
+                                                   ),
+                                                },
+                                             ]),
                                              effect: () => {
                                                 addProvinceUpgrade(action, G.save.state.playerProvince, G.save);
                                                 data.influence += bonus.influence;

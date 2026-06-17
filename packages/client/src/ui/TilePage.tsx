@@ -107,24 +107,18 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   <ActionButton
                      action={{
                         cost: { administrative: 10 * totalUpgrades },
-                        condition: finalizeCondition({
-                           breakdown: [
-                              ...timedActionConditions(
-                                 { action: "EvangelizeTile" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              tileIsOurCoreCondition(tile, G.save.state.playerProvince, G.save),
-                              {
-                                 name: $t(L.OurProvinceReligionIsChristianity),
-                                 value: state.religion === "Christianity",
-                              },
-                              {
-                                 name: $t(L.TileReligionIsNotChristianity),
-                                 value: tileData.religion !== "Christianity",
-                              },
-                           ],
-                        }),
+                        condition: finalizeCondition([
+                           ...timedActionConditions({ action: "EvangelizeTile" }, G.save.state.playerProvince, G.save),
+                           tileIsOurCoreCondition(tile, G.save.state.playerProvince, G.save),
+                           {
+                              name: $t(L.OurProvinceReligionIsChristianity),
+                              value: state.religion === "Christianity",
+                           },
+                           {
+                              name: $t(L.TileReligionIsNotChristianity),
+                              value: tileData.religion !== "Christianity",
+                           },
+                        ]),
                         effect: () => {
                            tileData.religion = "Christianity";
                         },

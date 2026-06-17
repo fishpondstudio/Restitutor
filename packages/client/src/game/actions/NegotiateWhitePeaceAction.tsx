@@ -15,19 +15,17 @@ import { finalizeCondition, type IGameAction } from "./GameAction";
 export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: SaveGame): IGameAction {
    return {
       cost: { diplomatic: WhitePeaceCostPerTile * war.tiles.size },
-      condition: finalizeCondition({
-         breakdown: [
-            {
-               name: $t(L.WeAreTheLeadAttackerOfTheWar),
-               value: war.attacker === province,
-            },
-            {
-               name: $t(L.WeHaventWonTheWar),
-               value: war.actualWarScore < war.requiredWarScore,
-            },
-            { name: $t(L.WarHasBeenGoingOnForAtLeastAYear), value: war.log.length >= 12 },
-         ],
-      }),
+      condition: finalizeCondition([
+         {
+            name: $t(L.WeAreTheLeadAttackerOfTheWar),
+            value: war.attacker === province,
+         },
+         {
+            name: $t(L.WeHaventWonTheWar),
+            value: war.actualWarScore < war.requiredWarScore,
+         },
+         { name: $t(L.WarHasBeenGoingOnForAtLeastAYear), value: war.log.length >= 12 },
+      ]),
       effect: ({ headless }) => {
          filterInPlace(save.state.wars, (w) => w !== war);
          const attackerToDefender = getRelation(war.attacker, war.defender, save);

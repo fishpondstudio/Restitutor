@@ -21,14 +21,12 @@ export function LookForLocalSpouseAction(
    save: SaveGame,
 ): IGameAction {
    return {
-      condition: finalizeCondition({
-         breakdown: [
-            {
-               name: $t(L.IsEligibleForSpouse),
-               value: !family.male || !family.female,
-            },
-         ],
-      }),
+      condition: finalizeCondition([
+         {
+            name: $t(L.IsEligibleForSpouse),
+            value: !family.male || !family.female,
+         },
+      ]),
       effect: ({ headless }) => {
          if (!family.male && family.female) {
             const daughter = family.female;
@@ -75,9 +73,7 @@ export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Pr
    }
 
    return {
-      condition: finalizeCondition({
-         breakdown: conditions,
-      }),
+      condition: finalizeCondition(conditions),
       effect: ({ headless }) => {
          if (ours.male && theirs.female) {
             ours.female = theirs.female;

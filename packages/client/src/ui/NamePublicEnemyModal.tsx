@@ -34,18 +34,16 @@ export function NamePublicEnemyModal(): React.ReactNode {
                className="py2 mt10 w100"
                action={{
                   cost: { consulPoint: 1 },
-                  condition: finalizeCondition({
-                     breakdown: [
-                        ...timedActionConditions(
-                           {
-                              action: "PublicEnemy",
-                              label: $t(L.$1IsNotAlreadyNamedAsPublicEnemy, getProvinceName(selectedProvince, G.save)),
-                           },
-                           selectedProvince,
-                           G.save,
-                        ),
-                     ],
-                  }),
+                  condition: finalizeCondition([
+                     ...timedActionConditions(
+                        {
+                           action: "PublicEnemy",
+                           label: $t(L.$1IsNotAlreadyNamedAsPublicEnemy, getProvinceName(selectedProvince, G.save)),
+                        },
+                        selectedProvince,
+                        G.save,
+                     ),
+                  ]),
                   effect: () => {
                      startTimedAction("PublicEnemy", selectedProvince, G.save);
                      addModifier({

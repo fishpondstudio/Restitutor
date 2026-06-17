@@ -29,19 +29,17 @@ export function TreatyActionButton({
       return (
          <ActionButton
             action={{
-               condition: finalizeCondition({
-                  breakdown: [
-                     {
-                        name: $t(
-                           L.$1HasAnActive$2With$3,
-                           getProvinceName(ourProvince, G.save),
-                           TreatyNames[treaty](),
-                           getProvinceName(theirProvince, G.save),
-                        ),
-                        value: true,
-                     },
-                  ],
-               }),
+               condition: finalizeCondition([
+                  {
+                     name: $t(
+                        L.$1HasAnActive$2With$3,
+                        getProvinceName(ourProvince, G.save),
+                        TreatyNames[treaty](),
+                        getProvinceName(theirProvince, G.save),
+                     ),
+                     value: true,
+                  },
+               ]),
                effect: () => {
                   cancelTreaty(treaty, ourProvince, theirProvince, G.save);
                },

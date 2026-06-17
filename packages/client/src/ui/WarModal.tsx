@@ -357,19 +357,17 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
          )}
          action={{
             cost: { diplomatic: WhitePeaceCostPerTile * war.tiles.size },
-            condition: finalizeCondition({
-               breakdown: [
-                  {
-                     name: $t(L.WeAreACoAttackerOrCoDefenderOfTheWar),
-                     value: war.coAttackers.has(province) || war.coDefenders.has(province),
-                  },
-                  {
-                     name: $t(L.WarHasNotEndedYet),
-                     value: war.actualWarScore < war.requiredWarScore,
-                  },
-                  { name: $t(L.WarHasBeenGoingOnForAtLeastAYear), value: war.log.length >= 12 },
-               ],
-            }),
+            condition: finalizeCondition([
+               {
+                  name: $t(L.WeAreACoAttackerOrCoDefenderOfTheWar),
+                  value: war.coAttackers.has(province) || war.coDefenders.has(province),
+               },
+               {
+                  name: $t(L.WarHasNotEndedYet),
+                  value: war.actualWarScore < war.requiredWarScore,
+               },
+               { name: $t(L.WarHasBeenGoingOnForAtLeastAYear), value: war.log.length >= 12 },
+            ]),
             effect: ({ headless }) => {
                war.coAttackers.delete(province);
                war.coDefenders.delete(province);
@@ -413,23 +411,21 @@ function MakeWarSpeechButton({ war, province }: { war: IWar; province: Province 
          className="btn py2"
          action={{
             cost: { administrative: 50 },
-            condition: finalizeCondition({
-               breakdown: [
-                  ...timedActionConditions({ action: "MakeWarSpeech" }, province, G.save),
-                  {
-                     name: $t(L.WeAreTheLeadAttackerOrDefenderOfTheWar),
-                     value: war.attacker === province || war.defender === province,
-                  },
-                  {
-                     name: $t(L.WeAreWithinTheFirstYearOfWar),
-                     value: war.log.length <= 12,
-                  },
-                  {
-                     name: $t(L.WeHaventWonTheWar),
-                     value: war.actualWarScore < war.requiredWarScore,
-                  },
-               ],
-            }),
+            condition: finalizeCondition([
+               ...timedActionConditions({ action: "MakeWarSpeech" }, province, G.save),
+               {
+                  name: $t(L.WeAreTheLeadAttackerOrDefenderOfTheWar),
+                  value: war.attacker === province || war.defender === province,
+               },
+               {
+                  name: $t(L.WeAreWithinTheFirstYearOfWar),
+                  value: war.log.length <= 12,
+               },
+               {
+                  name: $t(L.WeHaventWonTheWar),
+                  value: war.actualWarScore < war.requiredWarScore,
+               },
+            ]),
             effect: () => {
                startTimedAction("MakeWarSpeech", province, G.save);
             },
@@ -458,20 +454,18 @@ function FortifyOurBordersButton({ war, province }: { war: IWar; province: Provi
          className="btn py2"
          action={{
             cost: { administrative: 50 },
-            condition: finalizeCondition({
-               breakdown: [
-                  ...timedActionConditions({ action: "FortifyBorders" }, province, G.save),
-                  { name: $t(L.$1$2WarIsOngoing, war.attacker, war.defender), value: true },
-                  {
-                     name: $t(L.WeAreTheLeadAttackerOrDefenderOfTheWar),
-                     value: war.attacker === province || war.defender === province,
-                  },
-                  {
-                     name: $t(L.WeHaventWonTheWar),
-                     value: war.actualWarScore < war.requiredWarScore,
-                  },
-               ],
-            }),
+            condition: finalizeCondition([
+               ...timedActionConditions({ action: "FortifyBorders" }, province, G.save),
+               { name: $t(L.$1$2WarIsOngoing, war.attacker, war.defender), value: true },
+               {
+                  name: $t(L.WeAreTheLeadAttackerOrDefenderOfTheWar),
+                  value: war.attacker === province || war.defender === province,
+               },
+               {
+                  name: $t(L.WeHaventWonTheWar),
+                  value: war.actualWarScore < war.requiredWarScore,
+               },
+            ]),
             effect: () => {
                startTimedAction("FortifyBorders", province, G.save);
             },
@@ -524,20 +518,18 @@ function PlunderWarTilesButton({ war, province }: { war: IWar; province: Provinc
    return (
       <ActionButton
          action={{
-            condition: finalizeCondition({
-               breakdown: [
-                  ...timedActionConditions({ action: "PlunderWarTile" }, province, G.save),
-                  {
-                     name: $t(L.WeHaveNotPlunderedWarTilesYet),
-                     value: !hasFlag(war.flag, WarFlag.Plunder),
-                  },
-                  {
-                     name: $t(L.WeAreTheLeadAttackerOfTheWar),
-                     value: war.attacker === province,
-                  },
-                  { name: $t(L.WeHaventWonTheWar), value: war.actualWarScore < war.requiredWarScore },
-               ],
-            }),
+            condition: finalizeCondition([
+               ...timedActionConditions({ action: "PlunderWarTile" }, province, G.save),
+               {
+                  name: $t(L.WeHaveNotPlunderedWarTilesYet),
+                  value: !hasFlag(war.flag, WarFlag.Plunder),
+               },
+               {
+                  name: $t(L.WeAreTheLeadAttackerOfTheWar),
+                  value: war.attacker === province,
+               },
+               { name: $t(L.WeHaventWonTheWar), value: war.actualWarScore < war.requiredWarScore },
+            ]),
             effect: () => {
                war.flag = setFlag(war.flag, WarFlag.Plunder);
                war.requiredWarScore += plunder.warScore.value;
@@ -570,16 +562,14 @@ function ForceAttackButton({ war, province }: { war: IWar; province: Province })
    return (
       <ActionButton
          action={{
-            condition: finalizeCondition({
-               breakdown: [
-                  ...timedActionConditions({ action: "ForceAttack" }, province, G.save),
-                  {
-                     name: $t(L.WeAreTheLeadAttackerOfTheWar),
-                     value: war.attacker === province,
-                  },
-                  { name: $t(L.WeHaventWonTheWar), value: war.actualWarScore < war.requiredWarScore },
-               ],
-            }),
+            condition: finalizeCondition([
+               ...timedActionConditions({ action: "ForceAttack" }, province, G.save),
+               {
+                  name: $t(L.WeAreTheLeadAttackerOfTheWar),
+                  value: war.attacker === province,
+               },
+               { name: $t(L.WeHaventWonTheWar), value: war.actualWarScore < war.requiredWarScore },
+            ]),
             effect: () => {
                startTimedAction("ForceAttack", province, G.save);
             },
@@ -610,13 +600,11 @@ function DecimateOurArmyButton({ war, province }: { war: IWar; province: Provinc
             cost: {
                gold: getArmyMaintenanceCost(province, G.save).value,
             },
-            condition: finalizeCondition({
-               breakdown: [
-                  ...timedActionConditions({ action: "DecimateOurArmy" }, province, G.save),
-                  { name: $t(L.WeAreTheLeadAttackerOfTheWar), value: war.attacker === province },
-                  { name: $t(L.WeHaventWonTheWar), value: war.actualWarScore < war.requiredWarScore },
-               ],
-            }),
+            condition: finalizeCondition([
+               ...timedActionConditions({ action: "DecimateOurArmy" }, province, G.save),
+               { name: $t(L.WeAreTheLeadAttackerOfTheWar), value: war.attacker === province },
+               { name: $t(L.WeHaventWonTheWar), value: war.actualWarScore < war.requiredWarScore },
+            ]),
             effect: () => {
                startTimedAction("DecimateOurArmy", province, G.save);
                war.actualWarScore += 1;

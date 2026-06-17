@@ -13,12 +13,10 @@ export function UpgradePopulationAction(tile: Tile, province: Province, save: Sa
    }
    const upgradeCost = getTileUpgradeCost(tile, "military", save);
    return {
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "UpgradePopulation" }, province, save),
-            tileIsOurCoreCondition(tile, province, save),
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "UpgradePopulation" }, province, save),
+         tileIsOurCoreCondition(tile, province, save),
+      ]),
       cost: { military: upgradeCost.value },
       effect: () => {
          ++tileData.upgradeCount;
@@ -35,12 +33,10 @@ export function UpgradeProductionAction(tile: Tile, province: Province, save: Sa
    const upgradeCost = getTileUpgradeCost(tile, "diplomatic", save);
    return {
       cost: { diplomatic: upgradeCost.value },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "UpgradeProduction" }, province, save),
-            tileIsOurCoreCondition(tile, province, save),
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "UpgradeProduction" }, province, save),
+         tileIsOurCoreCondition(tile, province, save),
+      ]),
       effect: () => {
          ++tileData.upgradeCount;
          ++tileData.production;
@@ -56,12 +52,10 @@ export function UpgradeInfrastructureAction(tile: Tile, province: Province, save
    const upgradeCost = getTileUpgradeCost(tile, "administrative", save);
    return {
       cost: { administrative: upgradeCost.value },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "UpgradeInfrastructure" }, province, save),
-            tileIsOurCoreCondition(tile, province, save),
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "UpgradeInfrastructure" }, province, save),
+         tileIsOurCoreCondition(tile, province, save),
+      ]),
       effect: () => {
          ++tileData.upgradeCount;
          ++tileData.infrastructure;

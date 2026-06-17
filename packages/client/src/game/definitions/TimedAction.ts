@@ -172,24 +172,22 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { administrative: 12 },
-            condition: finalizeCondition({
-               breakdown: [
-                  ...timedActionConditions(
-                     { action: "AppointEnvoy", label: $t(L.AppointingAnEnvoyIsNotOnCooldown), ignoreTech: true },
-                     province,
-                     save,
-                  ),
-                  ...timedActionConditions(
-                     {
-                        action: "AppointArmyStaff",
-                        label: $t(L.AppointingArmyStaffIsNotOnCooldown),
-                        ignoreTech: true,
-                     },
-                     province,
-                     save,
-                  ),
-               ],
-            }),
+            condition: finalizeCondition([
+               ...timedActionConditions(
+                  { action: "AppointEnvoy", label: $t(L.AppointingAnEnvoyIsNotOnCooldown), ignoreTech: true },
+                  province,
+                  save,
+               ),
+               ...timedActionConditions(
+                  {
+                     action: "AppointArmyStaff",
+                     label: $t(L.AppointingArmyStaffIsNotOnCooldown),
+                     ignoreTech: true,
+                  },
+                  province,
+                  save,
+               ),
+            ]),
          };
       },
       effect: {
@@ -204,24 +202,22 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { diplomatic: 12 },
-            condition: finalizeCondition({
-               breakdown: [
-                  ...timedActionConditions(
-                     { action: "AppointPontiff", label: $t(L.AppointingAPontiffIsNotOnCooldown), ignoreTech: true },
-                     province,
-                     save,
-                  ),
-                  ...timedActionConditions(
-                     {
-                        action: "AppointArmyStaff",
-                        label: $t(L.AppointingArmyStaffIsNotOnCooldown),
-                        ignoreTech: true,
-                     },
-                     province,
-                     save,
-                  ),
-               ],
-            }),
+            condition: finalizeCondition([
+               ...timedActionConditions(
+                  { action: "AppointPontiff", label: $t(L.AppointingAPontiffIsNotOnCooldown), ignoreTech: true },
+                  province,
+                  save,
+               ),
+               ...timedActionConditions(
+                  {
+                     action: "AppointArmyStaff",
+                     label: $t(L.AppointingArmyStaffIsNotOnCooldown),
+                     ignoreTech: true,
+                  },
+                  province,
+                  save,
+               ),
+            ]),
          };
       },
       effect: {
@@ -236,20 +232,18 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { military: 12 },
-            condition: finalizeCondition({
-               breakdown: [
-                  ...timedActionConditions(
-                     { action: "AppointPontiff", label: $t(L.AppointingAPontiffIsNotOnCooldown), ignoreTech: true },
-                     province,
-                     save,
-                  ),
-                  ...timedActionConditions(
-                     { action: "AppointEnvoy", label: $t(L.AppointingAnEnvoyIsNotOnCooldown), ignoreTech: true },
-                     province,
-                     save,
-                  ),
-               ],
-            }),
+            condition: finalizeCondition([
+               ...timedActionConditions(
+                  { action: "AppointPontiff", label: $t(L.AppointingAPontiffIsNotOnCooldown), ignoreTech: true },
+                  province,
+                  save,
+               ),
+               ...timedActionConditions(
+                  { action: "AppointEnvoy", label: $t(L.AppointingAnEnvoyIsNotOnCooldown), ignoreTech: true },
+                  province,
+                  save,
+               ),
+            ]),
          };
       },
       effect: {

@@ -18,31 +18,29 @@ export function DemandTileCostCondition(
 ): IGameCostCondition {
    return {
       cost: { diplomatic: 50 },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "DemandTile" }, ourProvince, save),
-            isGreatPowerCondition(ourProvince, save),
-            isNorGreatPowerCondition(theirProvince, save),
-            isWithinDiplomaticRange(ourProvince, theirProvince, save),
-            {
-               name: $t(L.WeHaveNoTreatyWithThem),
-               value: getRelation(ourProvince, theirProvince, save)?.treaty === undefined,
-            },
-            {
-               name: $t(L.WeHaventGuaranteedTheirDefense),
-               value: getRelation(ourProvince, theirProvince, save)?.guaranteeDefense === undefined,
-            },
-            {
-               name: $t(L.WeAreNotAlreadyAtWarWithThem),
-               value: getWarsBetween(ourProvince, theirProvince, save).length === 0,
-            },
-            {
-               name: $t(L.WeAreNotInATruceWithThem),
-               value: getTruceMonthsLeft(ourProvince, theirProvince, save) <= 0,
-            },
-            ...additionalConditions,
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "DemandTile" }, ourProvince, save),
+         isGreatPowerCondition(ourProvince, save),
+         isNorGreatPowerCondition(theirProvince, save),
+         isWithinDiplomaticRange(ourProvince, theirProvince, save),
+         {
+            name: $t(L.WeHaveNoTreatyWithThem),
+            value: getRelation(ourProvince, theirProvince, save)?.treaty === undefined,
+         },
+         {
+            name: $t(L.WeHaventGuaranteedTheirDefense),
+            value: getRelation(ourProvince, theirProvince, save)?.guaranteeDefense === undefined,
+         },
+         {
+            name: $t(L.WeAreNotAlreadyAtWarWithThem),
+            value: getWarsBetween(ourProvince, theirProvince, save).length === 0,
+         },
+         {
+            name: $t(L.WeAreNotInATruceWithThem),
+            value: getTruceMonthsLeft(ourProvince, theirProvince, save) <= 0,
+         },
+         ...additionalConditions,
+      ]),
    };
 }
 

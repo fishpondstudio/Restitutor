@@ -51,12 +51,10 @@ export function DissolveTreatyModal(): React.ReactNode {
                      <ActionButton
                         action={{
                            cost: { consulPoint: 1 },
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions({ action: "DissolveTreaty" }, selectedProvince, G.save),
-                                 requireDefensePactAllyOrPatronCount(selectedProvince, 2, G.save),
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions({ action: "DissolveTreaty" }, selectedProvince, G.save),
+                              requireDefensePactAllyOrPatronCount(selectedProvince, 2, G.save),
+                           ]),
                            effect: () => {
                               startTimedAction("DissolveTreaty", G.save.state.playerProvince, G.save);
                               dissolveTreaty(selectedProvince, otherProvince, G.save);

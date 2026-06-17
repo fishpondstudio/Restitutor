@@ -513,29 +513,27 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      <ActionButton
                         className="py2"
                         action={{
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions(
-                                    { action: "GuaranteeDefense" },
-                                    G.save.state.playerProvince,
-                                    G.save,
-                                 ),
-                                 isWithinDiplomaticRange(G.save.state.playerProvince, province, G.save),
-                                 {
-                                    name: $t(L.WeAreNotAtWarWithThem),
-                                    value: getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
-                                 },
-                                 {
-                                    name: $t(L.WeHaventGuaranteedTheirDefense),
-                                    value: usToThem.guaranteeDefense === undefined,
-                                 },
-                                 {
-                                    name: $t(L.WeHaveNoTreatyWithThem),
-                                    value: usToThem.treaty === undefined,
-                                 },
-                                 requireHigherPrestige(G.save.state.playerProvince, province, 1, G.save),
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions(
+                                 { action: "GuaranteeDefense" },
+                                 G.save.state.playerProvince,
+                                 G.save,
+                              ),
+                              isWithinDiplomaticRange(G.save.state.playerProvince, province, G.save),
+                              {
+                                 name: $t(L.WeAreNotAtWarWithThem),
+                                 value: getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
+                              },
+                              {
+                                 name: $t(L.WeHaventGuaranteedTheirDefense),
+                                 value: usToThem.guaranteeDefense === undefined,
+                              },
+                              {
+                                 name: $t(L.WeHaveNoTreatyWithThem),
+                                 value: usToThem.treaty === undefined,
+                              },
+                              requireHigherPrestige(G.save.state.playerProvince, province, 1, G.save),
+                           ]),
                            effect: () => {
                               startTimedAction("GuaranteeDefense", G.save.state.playerProvince, G.save);
                               addAttitudeModifier(
@@ -566,25 +564,23 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      <ActionButton
                         className="py2"
                         action={{
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions(
-                                    { action: "DeterAggression" },
-                                    G.save.state.playerProvince,
-                                    G.save,
-                                 ),
-                                 isWithinDiplomaticRange(G.save.state.playerProvince, province, G.save),
-                                 {
-                                    name: $t(L.WeHaventAlreadyDeterredTheirAggression),
-                                    value: usToThem.deterAggression === undefined,
-                                 },
-                                 requireHigherPrestige(G.save.state.playerProvince, province, 1, G.save),
-                                 {
-                                    name: $t(L.TheyAreNotAClientOfAnotherProvince),
-                                    value: !isClientOfAnyProvince(province, G.save),
-                                 },
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions(
+                                 { action: "DeterAggression" },
+                                 G.save.state.playerProvince,
+                                 G.save,
+                              ),
+                              isWithinDiplomaticRange(G.save.state.playerProvince, province, G.save),
+                              {
+                                 name: $t(L.WeHaventAlreadyDeterredTheirAggression),
+                                 value: usToThem.deterAggression === undefined,
+                              },
+                              requireHigherPrestige(G.save.state.playerProvince, province, 1, G.save),
+                              {
+                                 name: $t(L.TheyAreNotAClientOfAnotherProvince),
+                                 value: !isClientOfAnyProvince(province, G.save),
+                              },
+                           ]),
                            effect: () => {
                               startTimedAction("DeterAggression", G.save.state.playerProvince, G.save);
                               usToThem.deterAggression = G.save.state.month;
@@ -612,11 +608,9 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         className="py2"
                         action={{
                            cost: { gold: getProvinceUpgrade(province, G.save) * TimedActions.SendAGift.duration },
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions({ action: "SendAGift" }, G.save.state.playerProvince, G.save),
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions({ action: "SendAGift" }, G.save.state.playerProvince, G.save),
+                           ]),
                            effect: () => {
                               startTimedAction("SendAGift", G.save.state.playerProvince, G.save);
                               addAttitudeModifier(
@@ -647,23 +641,21 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      <ActionButton
                         className="py2"
                         action={{
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions(
-                                    { action: "ProclaimCrusade" },
-                                    G.save.state.playerProvince,
-                                    G.save,
-                                 ),
-                                 {
-                                    name: $t(L.OurReligionIsChristianity),
-                                    value: ourState.religion === "Christianity",
-                                 },
-                                 {
-                                    name: $t(L.TheirReligionIsNotChristianity),
-                                    value: theirState.religion !== "Christianity",
-                                 },
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions(
+                                 { action: "ProclaimCrusade" },
+                                 G.save.state.playerProvince,
+                                 G.save,
+                              ),
+                              {
+                                 name: $t(L.OurReligionIsChristianity),
+                                 value: ourState.religion === "Christianity",
+                              },
+                              {
+                                 name: $t(L.TheirReligionIsNotChristianity),
+                                 value: theirState.religion !== "Christianity",
+                              },
+                           ]),
                            effect: () => {
                               startTimedAction("ProclaimCrusade", G.save.state.playerProvince, G.save);
                            },
@@ -685,28 +677,26 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                            <ActionButton
                               className="py2"
                               action={{
-                                 condition: finalizeCondition({
-                                    breakdown: [
-                                       ...timedActionConditions(
-                                          { action: "SummonGovernor" },
-                                          G.save.state.playerProvince,
-                                          G.save,
-                                       ),
-                                       {
-                                          name: $t(L.TheyAreOurClient),
-                                          value:
-                                             getRelation(G.save.state.playerProvince, province, G.save)?.treaty
-                                                ?.type === "Patron" &&
-                                             getRelation(province, G.save.state.playerProvince, G.save)?.treaty
-                                                ?.type === "Client",
-                                       },
-                                       {
-                                          name: $t(L.WeAreNotAtWarWithThem),
-                                          value:
-                                             getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
-                                       },
-                                    ],
-                                 }),
+                                 condition: finalizeCondition([
+                                    ...timedActionConditions(
+                                       { action: "SummonGovernor" },
+                                       G.save.state.playerProvince,
+                                       G.save,
+                                    ),
+                                    {
+                                       name: $t(L.TheyAreOurClient),
+                                       value:
+                                          getRelation(G.save.state.playerProvince, province, G.save)?.treaty?.type ===
+                                             "Patron" &&
+                                          getRelation(province, G.save.state.playerProvince, G.save)?.treaty?.type ===
+                                             "Client",
+                                    },
+                                    {
+                                       name: $t(L.WeAreNotAtWarWithThem),
+                                       value:
+                                          getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
+                                    },
+                                 ]),
                                  effect: () => {
                                     startTimedAction("SummonGovernor", G.save.state.playerProvince, G.save);
                                     addModifier({
@@ -749,25 +739,22 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                            <ActionButton
                               className="py2"
                               action={{
-                                 condition: finalizeCondition({
-                                    breakdown: [
-                                       ...timedActionConditions(
-                                          { action: "RequestMilitaryAid" },
-                                          G.save.state.playerProvince,
-                                          G.save,
-                                       ),
-                                       {
-                                          name: $t(L.TheyAreOurClient),
-                                          value:
-                                             usToThem.treaty?.type === "Patron" && themToUs.treaty?.type === "Client",
-                                       },
-                                       {
-                                          name: $t(L.WeAreNotAtWarWithThem),
-                                          value:
-                                             getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
-                                       },
-                                    ],
-                                 }),
+                                 condition: finalizeCondition([
+                                    ...timedActionConditions(
+                                       { action: "RequestMilitaryAid" },
+                                       G.save.state.playerProvince,
+                                       G.save,
+                                    ),
+                                    {
+                                       name: $t(L.TheyAreOurClient),
+                                       value: usToThem.treaty?.type === "Patron" && themToUs.treaty?.type === "Client",
+                                    },
+                                    {
+                                       name: $t(L.WeAreNotAtWarWithThem),
+                                       value:
+                                          getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
+                                    },
+                                 ]),
                                  effect: () => {
                                     startTimedAction("RequestMilitaryAid", G.save.state.playerProvince, G.save);
                                     addModifier({
@@ -811,25 +798,22 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                               className="py2"
                               action={{
                                  cost: getDiplomaticAnnexationCost(province, G.save),
-                                 condition: finalizeCondition({
-                                    breakdown: [
-                                       ...timedActionConditions(
-                                          { action: "AnnexClient" },
-                                          G.save.state.playerProvince,
-                                          G.save,
-                                       ),
-                                       {
-                                          name: $t(L.TheyAreOurClient),
-                                          value:
-                                             usToThem.treaty?.type === "Patron" && themToUs.treaty?.type === "Client",
-                                       },
-                                       {
-                                          name: $t(L.WeAreNotAtWarWithThem),
-                                          value:
-                                             getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
-                                       },
-                                    ],
-                                 }),
+                                 condition: finalizeCondition([
+                                    ...timedActionConditions(
+                                       { action: "AnnexClient" },
+                                       G.save.state.playerProvince,
+                                       G.save,
+                                    ),
+                                    {
+                                       name: $t(L.TheyAreOurClient),
+                                       value: usToThem.treaty?.type === "Patron" && themToUs.treaty?.type === "Client",
+                                    },
+                                    {
+                                       name: $t(L.WeAreNotAtWarWithThem),
+                                       value:
+                                          getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
+                                    },
+                                 ]),
                                  effect: () => {
                                     startTimedAction("AnnexClient", G.save.state.playerProvince, G.save);
                                     const tiles = new Set<Tile>();
@@ -889,26 +873,24 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         className="py2"
                         action={{
                            cost: { gold: getProvinceUpgrade(province, G.save) * 3 },
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions(
-                                    { action: "FabricateCasusBelli" },
-                                    G.save.state.playerProvince,
-                                    G.save,
-                                 ),
-                                 requireInfiltration(
-                                    FabricateCasusBelliCost,
-                                    { consume: true },
-                                    G.save.state.playerProvince,
-                                    province,
-                                    G.save,
-                                 ),
-                                 {
-                                    name: $t(L.NoDiplomaticDisputeCasusBelliYet),
-                                    value: !usToThem.casusBelli.has("DiplomaticDispute"),
-                                 },
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions(
+                                 { action: "FabricateCasusBelli" },
+                                 G.save.state.playerProvince,
+                                 G.save,
+                              ),
+                              requireInfiltration(
+                                 FabricateCasusBelliCost,
+                                 { consume: true },
+                                 G.save.state.playerProvince,
+                                 province,
+                                 G.save,
+                              ),
+                              {
+                                 name: $t(L.NoDiplomaticDisputeCasusBelliYet),
+                                 value: !usToThem.casusBelli.has("DiplomaticDispute"),
+                              },
+                           ]),
                            effect: () => {
                               if (
                                  tryUseInfiltration(
@@ -938,22 +920,20 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         className="py2"
                         action={{
                            cost: { gold: getProvinceUpgrade(province, G.save) * 6 },
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions(
-                                    { action: "UndermineTheirArmy" },
-                                    G.save.state.playerProvince,
-                                    G.save,
-                                 ),
-                                 requireInfiltration(
-                                    UndermineArmyCost,
-                                    { consume: true },
-                                    G.save.state.playerProvince,
-                                    province,
-                                    G.save,
-                                 ),
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions(
+                                 { action: "UndermineTheirArmy" },
+                                 G.save.state.playerProvince,
+                                 G.save,
+                              ),
+                              requireInfiltration(
+                                 UndermineArmyCost,
+                                 { consume: true },
+                                 G.save.state.playerProvince,
+                                 province,
+                                 G.save,
+                              ),
+                           ]),
                            effect: () => {
                               addModifier({
                                  modifier: "WarPower",
@@ -984,22 +964,20 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         className="py2"
                         action={{
                            cost: { gold: getProvinceUpgrade(province, G.save) * 12 },
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions(
-                                    { action: "CorruptOfficials" },
-                                    G.save.state.playerProvince,
-                                    G.save,
-                                 ),
-                                 requireInfiltration(
-                                    25,
-                                    { consume: false },
-                                    G.save.state.playerProvince,
-                                    province,
-                                    G.save,
-                                 ),
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions(
+                                 { action: "CorruptOfficials" },
+                                 G.save.state.playerProvince,
+                                 G.save,
+                              ),
+                              requireInfiltration(
+                                 25,
+                                 { consume: false },
+                                 G.save.state.playerProvince,
+                                 province,
+                                 G.save,
+                              ),
+                           ]),
                            effect: () => {
                               startTimedAction("CorruptOfficials", G.save.state.playerProvince, G.save);
                               usToThem.infiltrate.value += 50;
@@ -1018,26 +996,24 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         className="py2"
                         action={{
                            cost: { gold: getProvinceUpgrade(province, G.save) * 6 },
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions(
-                                    { action: "SubvertGarrison" },
-                                    G.save.state.playerProvince,
-                                    G.save,
-                                 ),
-                                 requireInfiltration(
-                                    SubvertGarrisonCost,
-                                    { consume: true },
-                                    G.save.state.playerProvince,
-                                    province,
-                                    G.save,
-                                 ),
-                                 {
-                                    name: $t(L.WeShareALandBorderWithThem),
-                                    value: getProvincesInRange(1, G.save.state.playerProvince, G.save).has(province),
-                                 },
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions(
+                                 { action: "SubvertGarrison" },
+                                 G.save.state.playerProvince,
+                                 G.save,
+                              ),
+                              requireInfiltration(
+                                 SubvertGarrisonCost,
+                                 { consume: true },
+                                 G.save.state.playerProvince,
+                                 province,
+                                 G.save,
+                              ),
+                              {
+                                 name: $t(L.WeShareALandBorderWithThem),
+                                 value: getProvincesInRange(1, G.save.state.playerProvince, G.save).has(province),
+                              },
+                           ]),
                            effect: () => {
                               for (const [tile, tileData] of G.save.state.tiles) {
                                  if (
@@ -1072,26 +1048,20 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         className="py2"
                         action={{
                            cost: { gold: getProvinceUpgrade(province, G.save) * 6 },
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions(
-                                    { action: "InciteUnrest" },
-                                    G.save.state.playerProvince,
-                                    G.save,
-                                 ),
-                                 requireInfiltration(
-                                    InciteUnrestCost,
-                                    { consume: true },
-                                    G.save.state.playerProvince,
-                                    province,
-                                    G.save,
-                                 ),
-                                 {
-                                    name: $t(L.WeShareALandBorderWithThem),
-                                    value: getProvincesInRange(1, G.save.state.playerProvince, G.save).has(province),
-                                 },
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions({ action: "InciteUnrest" }, G.save.state.playerProvince, G.save),
+                              requireInfiltration(
+                                 InciteUnrestCost,
+                                 { consume: true },
+                                 G.save.state.playerProvince,
+                                 province,
+                                 G.save,
+                              ),
+                              {
+                                 name: $t(L.WeShareALandBorderWithThem),
+                                 value: getProvincesInRange(1, G.save.state.playerProvince, G.save).has(province),
+                              },
+                           ]),
                            effect: () => {
                               for (const [tile, tileData] of G.save.state.tiles) {
                                  if (
@@ -1125,22 +1095,20 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      <ActionButton
                         className="py2"
                         action={{
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions(
-                                    { action: "RevealElectionBacking" },
-                                    G.save.state.playerProvince,
-                                    G.save,
-                                 ),
-                                 requireInfiltration(
-                                    RevealElectionSupportCost,
-                                    { consume: true },
-                                    G.save.state.playerProvince,
-                                    province,
-                                    G.save,
-                                 ),
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions(
+                                 { action: "RevealElectionBacking" },
+                                 G.save.state.playerProvince,
+                                 G.save,
+                              ),
+                              requireInfiltration(
+                                 RevealElectionSupportCost,
+                                 { consume: true },
+                                 G.save.state.playerProvince,
+                                 province,
+                                 G.save,
+                              ),
+                           ]),
                            effect: () => {
                               startTimedAction("RevealElectionBacking", G.save.state.playerProvince, G.save);
                               usToThem.revealElectionBacking = G.save.state.month;
@@ -1193,24 +1161,22 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         className="btn py2"
                         action={{
                            cost: { diplomatic: 50 },
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions(
-                                    { action: "DemandElectionBacking" },
-                                    G.save.state.playerProvince,
-                                    G.save,
+                           condition: finalizeCondition([
+                              ...timedActionConditions(
+                                 { action: "DemandElectionBacking" },
+                                 G.save.state.playerProvince,
+                                 G.save,
+                              ),
+                              isGreatPowerCondition(G.save.state.playerProvince, G.save),
+                              isNorGreatPowerCondition(province, G.save),
+                              {
+                                 name: $t(
+                                    L.$1HasNotAlreadyPledgedWithOtherProvinces,
+                                    getProvinceName(province, G.save),
                                  ),
-                                 isGreatPowerCondition(G.save.state.playerProvince, G.save),
-                                 isNorGreatPowerCondition(province, G.save),
-                                 {
-                                    name: $t(
-                                       L.$1HasNotAlreadyPledgedWithOtherProvinces,
-                                       getProvinceName(province, G.save),
-                                    ),
-                                    value: getProvinceStat("consulVotes", province, G.save) >= 1,
-                                 },
-                              ],
-                           }),
+                                 value: getProvinceStat("consulVotes", province, G.save) >= 1,
+                              },
+                           ]),
                            effect: () => {
                               addProvinceStat("consulVotes", -1, province, G.save);
                               addProvinceStat("consulVotes", 1, G.save.state.playerProvince, G.save);
@@ -1230,13 +1196,11 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                         className="py2"
                         action={{
                            cost: { diplomatic: 50 },
-                           condition: finalizeCondition({
-                              breakdown: [
-                                 ...timedActionConditions({ action: "Denounce" }, G.save.state.playerProvince, G.save),
-                                 isGreatPowerCondition(G.save.state.playerProvince, G.save),
-                                 isNorGreatPowerCondition(province, G.save),
-                              ],
-                           }),
+                           condition: finalizeCondition([
+                              ...timedActionConditions({ action: "Denounce" }, G.save.state.playerProvince, G.save),
+                              isGreatPowerCondition(G.save.state.playerProvince, G.save),
+                              isNorGreatPowerCondition(province, G.save),
+                           ]),
                            effect: () => {
                               startTimedAction("Denounce", G.save.state.playerProvince, G.save);
                               addAttitudeModifier(

@@ -654,7 +654,7 @@ export function getTileBuildingCondition(
          value: hasResearched(tech, province, save),
       });
    }
-   return finalizeCondition({ breakdown: breakdown });
+   return finalizeCondition(breakdown);
 }
 
 export function tileIsOurCoreCondition(tile: Tile, province: Province, save: SaveGame): ICondition {

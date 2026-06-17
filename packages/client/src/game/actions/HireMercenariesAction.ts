@@ -16,29 +16,27 @@ export function HireMercenariesAction(war: IWar, province: Province, save: SaveG
       cost: {
          gold: getMercenaryCost(province, save).value,
       },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "HireMercenaries" }, province, save),
-            {
-               name: $t(L.TargetConscriptionIsGreaterThanActualConscription),
-               value: actualConscription < targetConscription,
-               desc: $t(
-                  L.TargetConscription$1ActualConscription$2ReinforceSize$3,
-                  targetConscription,
-                  actualConscription,
-                  formatNumber(reinforceSize),
-               ),
-            },
-            {
-               name: $t(L.WeAreTheLeadAttackerOrDefenderOfTheWar),
-               value: war.attacker === province || war.defender === province,
-            },
-            {
-               name: $t(L.WeHaventWonTheWar),
-               value: war.actualWarScore < war.requiredWarScore,
-            },
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "HireMercenaries" }, province, save),
+         {
+            name: $t(L.TargetConscriptionIsGreaterThanActualConscription),
+            value: actualConscription < targetConscription,
+            desc: $t(
+               L.TargetConscription$1ActualConscription$2ReinforceSize$3,
+               targetConscription,
+               actualConscription,
+               formatNumber(reinforceSize),
+            ),
+         },
+         {
+            name: $t(L.WeAreTheLeadAttackerOrDefenderOfTheWar),
+            value: war.attacker === province || war.defender === province,
+         },
+         {
+            name: $t(L.WeHaventWonTheWar),
+            value: war.actualWarScore < war.requiredWarScore,
+         },
+      ]),
       effect: () => {
          startTimedAction("HireMercenaries", province, save);
          setProvinceStat("actualConscription", getProvinceStat("targetConscription", province, save), province, save);

@@ -15,21 +15,19 @@ export function CanTradeCostCondition(
 ): IGameCostCondition {
    return {
       cost: { diplomatic: 10 },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "TradeGoods" }, ourProvince, save),
-            isWithinDiplomaticRange(ourProvince, theirProvince, save),
-            {
-               name: $t(L.WeAreNotAtWarWithThem),
-               value: getWarsBetween(ourProvince, theirProvince, save).length === 0,
-            },
-            requireMinimumAttitude(theirProvince, ourProvince, -10, save),
-            {
-               name: $t(L.WeDontAlreadyHaveAnActiveTradeWithThem),
-               value: getRelation(ourProvince, theirProvince, save)?.trade === undefined,
-            },
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "TradeGoods" }, ourProvince, save),
+         isWithinDiplomaticRange(ourProvince, theirProvince, save),
+         {
+            name: $t(L.WeAreNotAtWarWithThem),
+            value: getWarsBetween(ourProvince, theirProvince, save).length === 0,
+         },
+         requireMinimumAttitude(theirProvince, ourProvince, -10, save),
+         {
+            name: $t(L.WeDontAlreadyHaveAnActiveTradeWithThem),
+            value: getRelation(ourProvince, theirProvince, save)?.trade === undefined,
+         },
+      ]),
    };
 }
 

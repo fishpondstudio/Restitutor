@@ -254,12 +254,10 @@ function FocusComp({ type }: { type: GovernorPower }): React.ReactNode {
          <ActionButton
             className="w100"
             action={{
-               condition: finalizeCondition({
-                  breakdown: [
-                     ...timedActionConditions({ action: "SetGovernmentFocus" }, G.save.state.playerProvince, G.save),
-                     { name: $t(L.NotCurrentFocus), value: state.focus !== type },
-                  ],
-               }),
+               condition: finalizeCondition([
+                  ...timedActionConditions({ action: "SetGovernmentFocus" }, G.save.state.playerProvince, G.save),
+                  { name: $t(L.NotCurrentFocus), value: state.focus !== type },
+               ]),
                effect: () => {
                   startTimedAction("SetGovernmentFocus", G.save.state.playerProvince, G.save);
                   state.focus = type;

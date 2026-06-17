@@ -192,9 +192,7 @@ export function availableDiplomatCondition(fromProvince: Province, toProvince: P
 }
 
 export function canImproveRelations(fromProvince: Province, toProvince: Province, save: SaveGame): IConditionBreakdown {
-   return finalizeCondition({
-      breakdown: [availableDiplomatCondition(fromProvince, toProvince, save)],
-   });
+   return finalizeCondition([availableDiplomatCondition(fromProvince, toProvince, save)]);
 }
 
 export function isImprovingRelations(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {
@@ -235,9 +233,7 @@ export function infiltrate(fromProvince: Province, toProvince: Province, save: S
 }
 
 export function canInfiltrate(fromProvince: Province, toProvince: Province, save: SaveGame): IConditionBreakdown {
-   return finalizeCondition({
-      breakdown: [availableDiplomatCondition(fromProvince, toProvince, save)],
-   });
+   return finalizeCondition([availableDiplomatCondition(fromProvince, toProvince, save)]);
 }
 
 export function cancelInfiltration(fromProvince: Province, toProvince: Province, save: SaveGame): void {

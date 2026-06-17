@@ -41,9 +41,7 @@ export function DemandTileModal({ province }: { province: Province }): React.Rea
                .filter(
                   ([tile, data]) =>
                      data.province === province &&
-                     finalizeCondition({
-                        breakdown: canDemandTile(tile, G.save.state.playerProvince, G.save),
-                     }).value,
+                     finalizeCondition(canDemandTile(tile, G.save.state.playerProvince, G.save)).value,
                )
                .map(([tile, data]) => {
                   return {

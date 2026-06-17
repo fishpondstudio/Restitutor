@@ -45,55 +45,53 @@ export function DeclareWarAction(
       cost: {
          diplomatic: WarOneTimeDiplomaticPoint,
       },
-      condition: finalizeCondition({
-         breakdown: [
-            {
-               name: $t(L.WeHaveNoTreatyWithThem),
-               value: getRelation(attacker, defender, save)?.treaty === undefined,
-            },
-            {
-               name: $t(L.WeAreNotAClientOfAnotherProvince),
-               value: !isClientOfAnyProvince(attacker, save),
-            },
-            {
-               name: $t(L.WeHaveSelectedAtLeastOneTileAsWarGoal),
-               value: tiles.size > 0,
-            },
-            {
-               name: $t(L.WeHaveNotSelectedAnyTilesThatAreAlreadyInAWar),
-               value: Array.from(tiles).every((tile) => !warTiles.has(tile)),
-            },
-            {
-               name: $t(L.WeHaventAttackedThemYet),
-               value: !save.state.wars.some((war) => war.attacker === attacker && war.defender === defender),
-            },
-            {
-               name: $t(L.WeHaventGuaranteedTheirDefense),
-               value: getRelation(attacker, defender, save)?.guaranteeDefense === undefined,
-            },
-            {
-               name: $t(L.WeAreNotInTheSameWarCoalition),
-               value: warCoalitions.length === 0,
-               desc:
-                  warCoalitions.length > 0
-                     ? $t(
-                          L.WeAreInTheFollowingWarCoalitions$1,
-                          warCoalitions
-                             .map((w) =>
-                                $t(L.$1$2War, getProvinceName(w.attacker, save), getProvinceName(w.defender, save)),
-                             )
-                             .join(", "),
-                       )
-                     : undefined,
-            },
-            {
-               name: $t(L.WeAreNotInATruceWithThem),
-               value: truceMonthsLeft <= 0,
-               desc: truceMonthsLeft > 0 ? $t(L.TruceWillEndIn$1Months, truceMonthsLeft) : undefined,
-            },
-            isWithinDiplomaticRange(attacker, defender, save),
-         ],
-      }),
+      condition: finalizeCondition([
+         {
+            name: $t(L.WeHaveNoTreatyWithThem),
+            value: getRelation(attacker, defender, save)?.treaty === undefined,
+         },
+         {
+            name: $t(L.WeAreNotAClientOfAnotherProvince),
+            value: !isClientOfAnyProvince(attacker, save),
+         },
+         {
+            name: $t(L.WeHaveSelectedAtLeastOneTileAsWarGoal),
+            value: tiles.size > 0,
+         },
+         {
+            name: $t(L.WeHaveNotSelectedAnyTilesThatAreAlreadyInAWar),
+            value: Array.from(tiles).every((tile) => !warTiles.has(tile)),
+         },
+         {
+            name: $t(L.WeHaventAttackedThemYet),
+            value: !save.state.wars.some((war) => war.attacker === attacker && war.defender === defender),
+         },
+         {
+            name: $t(L.WeHaventGuaranteedTheirDefense),
+            value: getRelation(attacker, defender, save)?.guaranteeDefense === undefined,
+         },
+         {
+            name: $t(L.WeAreNotInTheSameWarCoalition),
+            value: warCoalitions.length === 0,
+            desc:
+               warCoalitions.length > 0
+                  ? $t(
+                       L.WeAreInTheFollowingWarCoalitions$1,
+                       warCoalitions
+                          .map((w) =>
+                             $t(L.$1$2War, getProvinceName(w.attacker, save), getProvinceName(w.defender, save)),
+                          )
+                          .join(", "),
+                    )
+                  : undefined,
+         },
+         {
+            name: $t(L.WeAreNotInATruceWithThem),
+            value: truceMonthsLeft <= 0,
+            desc: truceMonthsLeft > 0 ? $t(L.TruceWillEndIn$1Months, truceMonthsLeft) : undefined,
+         },
+         isWithinDiplomaticRange(attacker, defender, save),
+      ]),
       effect: ({ headless }: { headless: boolean }) => {
          if (casusBelli !== "None" && !getRelation(attacker, defender, save)?.casusBelli.has(casusBelli)) {
             if (!headless) {

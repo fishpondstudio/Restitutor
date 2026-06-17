@@ -33,15 +33,13 @@ export function DemolishBuildingAction(
    save: SaveGame,
 ): IGameAction {
    return {
-      condition: finalizeCondition({
-         breakdown: [
-            tileIsOurCoreCondition(tile, province, save),
-            {
-               name: $t(L.$1IsBuilt, Buildings[building].name()),
-               value: save.state.tiles.get(tile)?.buildings.has(building) ?? false,
-            },
-         ],
-      }),
+      condition: finalizeCondition([
+         tileIsOurCoreCondition(tile, province, save),
+         {
+            name: $t(L.$1IsBuilt, Buildings[building].name()),
+            value: save.state.tiles.get(tile)?.buildings.has(building) ?? false,
+         },
+      ]),
       effect: () => {
          const tileData = save.state.tiles.get(tile);
          if (tileData) {

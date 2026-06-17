@@ -224,9 +224,7 @@ export function ArmyModal(): React.ReactNode {
             </ActionButton>
             <ActionButton
                action={{
-                  condition: finalizeCondition({
-                     breakdown: [hasGeneralCondition(G.save.state.playerProvince, G.save)],
-                  }),
+                  condition: finalizeCondition([hasGeneralCondition(G.save.state.playerProvince, G.save)]),
                   effect: () => {
                      dismissGeneral(G.save.state.playerProvince, G.save);
                   },

@@ -15,13 +15,11 @@ export function AppeaseAction(tile: Tile, province: Province, save: SaveGame): I
    const totalUpgrades = tileData.infrastructure + tileData.production + tileData.population;
    return {
       cost: { administrative: totalUpgrades * 3, diplomatic: totalUpgrades * 3, gold: totalUpgrades * 3 * 6 },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "Appease" }, province, save),
-            { name: $t(L.CurrentlyNotInRebellion), value: tileData.rebellion < 10 },
-            { name: $t(L.RebellionIsAtLeast$1, "5"), value: tileData.rebellion >= 5 },
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "Appease" }, province, save),
+         { name: $t(L.CurrentlyNotInRebellion), value: tileData.rebellion < 10 },
+         { name: $t(L.RebellionIsAtLeast$1, "5"), value: tileData.rebellion >= 5 },
+      ]),
       effect: () => {
          tileData.rebellion = clamp(tileData.rebellion - 5, 0, 10);
          RefreshTiles.emit({ tiles: [tile], options: { indicator: true } });

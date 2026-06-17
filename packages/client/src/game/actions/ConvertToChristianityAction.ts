@@ -12,19 +12,17 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
    const governingCost = getProvinceGoverningCost(province, save);
    const christianity = getProvinceResource("christianity", province, save);
    return {
-      condition: finalizeCondition({
-         breakdown: [
-            {
-               name: "Christianity Influence >= Governing Cost",
-               value: christianity > governingCost.value,
-               progress: [christianity, governingCost.value],
-            },
-            {
-               name: "Our religion is not Christianity",
-               value: state.religion !== "Christianity",
-            },
-         ],
-      }),
+      condition: finalizeCondition([
+         {
+            name: "Christianity Influence >= Governing Cost",
+            value: christianity > governingCost.value,
+            progress: [christianity, governingCost.value],
+         },
+         {
+            name: "Our religion is not Christianity",
+            value: state.religion !== "Christianity",
+         },
+      ]),
       effect: () => {
          state.religion = "Christianity";
          for (const [tile, tileData] of save.state.tiles) {

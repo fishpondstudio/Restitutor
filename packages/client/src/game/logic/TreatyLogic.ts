@@ -240,12 +240,10 @@ export function requireDefensePactAllyOrPatronCount(province: Province, count: n
 }
 
 export function canSabotage(fromProvince: Province, toProvince: Province, save: SaveGame): IConditionBreakdown {
-   return finalizeCondition({
-      breakdown: [
-         requireDefensePactAllyOrPatronCount(fromProvince, 2, save),
-         requireInfiltration(SabotageCost, { consume: true }, save.state.playerProvince, fromProvince, save),
-      ],
-   });
+   return finalizeCondition([
+      requireDefensePactAllyOrPatronCount(fromProvince, 2, save),
+      requireInfiltration(SabotageCost, { consume: true }, save.state.playerProvince, fromProvince, save),
+   ]);
 }
 
 export function trySabotage(fromProvince: Province, toProvince: Province, save: SaveGame): boolean {

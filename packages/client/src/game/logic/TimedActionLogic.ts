@@ -116,12 +116,10 @@ export function makeGameAction(timedAction: TimedActionWithEffect, province: Pro
    const condition = config.costCondition?.(province, save);
    return {
       cost: condition?.cost,
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: timedAction }, province, save),
-            ...(condition?.condition?.breakdown ?? []),
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: timedAction }, province, save),
+         ...(condition?.condition?.breakdown ?? []),
+      ]),
       effect: () => {
          startTimedAction(timedAction, province, save);
          applyGameEffect(config.effect, config.name(), province, save);

@@ -15,18 +15,16 @@ export function MakeGovernorGeneralAction(province: Province, save: SaveGame): I
       return EmptyGameAction;
    }
    return {
-      condition: finalizeCondition({
-         breakdown: [
-            {
-               name: $t(L.DoesNotHaveAGeneral),
-               value: getCurrentGeneral(province, save) === undefined,
-            },
-            {
-               name: $t(L.OurGovernorIsAtLeast$1YearsOld, "16"),
-               value: state.governor.male.age >= 16,
-            },
-         ],
-      }),
+      condition: finalizeCondition([
+         {
+            name: $t(L.DoesNotHaveAGeneral),
+            value: getCurrentGeneral(province, save) === undefined,
+         },
+         {
+            name: $t(L.OurGovernorIsAtLeast$1YearsOld, "16"),
+            value: state.governor.male.age >= 16,
+         },
+      ]),
       effect: () => {
          const governor = state.governor.male;
          governor.flag = setFlag(governor.flag, PersonFlags.IsGeneral);
@@ -39,14 +37,12 @@ export function MakeGovernorGeneralAction(province: Province, save: SaveGame): I
 
 export function RecruitGeneralAction(province: Province, save: SaveGame): IGameAction {
    return {
-      condition: finalizeCondition({
-         breakdown: [
-            {
-               name: $t(L.DoesNotHaveAGeneral),
-               value: getCurrentGeneral(province, save) === undefined,
-            },
-         ],
-      }),
+      condition: finalizeCondition([
+         {
+            name: $t(L.DoesNotHaveAGeneral),
+            value: getCurrentGeneral(province, save) === undefined,
+         },
+      ]),
       effect: () => {
          startTimedAction("RecruitAGeneral", province, save);
          setProvinceStat("infantrySkill", 1, province, save);
@@ -62,14 +58,12 @@ export function UpgradeGeneralSkillAction(
    save: SaveGame,
 ): IGameAction {
    return {
-      condition: finalizeCondition({
-         breakdown: [
-            {
-               name: $t(L.WeHaveAppointedAGeneral),
-               value: getCurrentGeneral(province, save) !== undefined,
-            },
-         ],
-      }),
+      condition: finalizeCondition([
+         {
+            name: $t(L.WeHaveAppointedAGeneral),
+            value: getCurrentGeneral(province, save) !== undefined,
+         },
+      ]),
       effect: () => {
          addProvinceStat(skill, 1, province, save);
       },

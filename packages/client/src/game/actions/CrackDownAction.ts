@@ -16,12 +16,10 @@ export function CrackDownAction(tile: Tile, province: Province, save: SaveGame):
    const totalUpgrades = tileData.infrastructure + tileData.production + tileData.population;
    return {
       cost: { military: totalUpgrades * 6 },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "Crackdown" }, province, save),
-            { name: $t(L.CurrentlyInRebellion), value: tileData.rebellion >= 10 },
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "Crackdown" }, province, save),
+         { name: $t(L.CurrentlyInRebellion), value: tileData.rebellion >= 10 },
+      ]),
       effect: () => {
          tileData.rebellion = 0;
          tileData.modifiers.Unrest.push({

@@ -56,15 +56,13 @@ export function getLoanBreakdown(loan: ILoan, province: Province, save: SaveGame
 export function canTakeLoan(province: Province, save: SaveGame): IConditionBreakdown {
    const revenue = getProvinceIncome(province, save).revenue.value;
    const totalInterest = getMonthlyInterestCost(province, save);
-   return finalizeCondition({
-      breakdown: [
-         {
-            name: $t(L.WeHaveEnoughRevenueToCoverTheInterestCost),
-            desc: $t(L.Revenue$1InterestCost$2, formatNumber(revenue), formatNumber(totalInterest)),
-            value: revenue >= totalInterest,
-         },
-      ],
-   });
+   return finalizeCondition([
+      {
+         name: $t(L.WeHaveEnoughRevenueToCoverTheInterestCost),
+         desc: $t(L.Revenue$1InterestCost$2, formatNumber(revenue), formatNumber(totalInterest)),
+         value: revenue >= totalInterest,
+      },
+   ]);
 }
 
 export function getMonthlyInterestCost(province: Province, save: SaveGame): number {

@@ -32,15 +32,15 @@ export interface IConditionBreakdown {
    breakdown: ICondition[];
 }
 
-export function finalizeCondition(condition: Omit<IConditionBreakdown, "value">): IConditionBreakdown {
+export function finalizeCondition(condition: ICondition[]): IConditionBreakdown {
    let value = true;
-   for (const item of condition.breakdown) {
+   for (const item of condition) {
       if (!item.value) {
          value = false;
          break;
       }
    }
-   return { value, breakdown: condition.breakdown };
+   return { value, breakdown: condition };
 }
 
 export function areConditionBreakdownsEqual(

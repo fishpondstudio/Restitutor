@@ -16,18 +16,16 @@ import { finalizeCondition, type IGameAction } from "./GameAction";
 
 export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveGame): IGameAction {
    return {
-      condition: finalizeCondition({
-         breakdown: [
-            {
-               name: $t(L.WeAreTheLeadAttackerOfTheWar),
-               value: war.attacker === province,
-            },
-            {
-               name: $t(L.WeHaveWonTheWar),
-               value: war.actualWarScore >= war.requiredWarScore,
-            },
-         ],
-      }),
+      condition: finalizeCondition([
+         {
+            name: $t(L.WeAreTheLeadAttackerOfTheWar),
+            value: war.attacker === province,
+         },
+         {
+            name: $t(L.WeHaveWonTheWar),
+            value: war.actualWarScore >= war.requiredWarScore,
+         },
+      ]),
       effect: ({ headless }) => {
          for (const tile of war.tiles) {
             const data = save.state.tiles.get(tile);

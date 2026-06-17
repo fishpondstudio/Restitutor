@@ -21,21 +21,19 @@ import { finalizeCondition, type IGameAction } from "./GameAction";
 export function OfferDefensePactAction(fromProvince: Province, toProvince: Province, save: SaveGame): IGameAction {
    return {
       cost: { diplomatic: 50 },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "DiplomaticTreaty" }, fromProvince, save),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "DiplomaticTreaty" }, fromProvince, save),
 
-            requireNoTreatyBetween(["DefensePact", "Alliance", "Patron"], fromProvince, toProvince, save),
+         requireNoTreatyBetween(["DefensePact", "Alliance", "Patron"], fromProvince, toProvince, save),
 
-            requirePeaceBetween(fromProvince, toProvince, save),
-            requireHigherPrestige(fromProvince, toProvince, 1, save),
-            availableDiplomatCondition(fromProvince, toProvince, save),
-            isWithinDiplomaticRange(fromProvince, toProvince, save),
+         requirePeaceBetween(fromProvince, toProvince, save),
+         requireHigherPrestige(fromProvince, toProvince, 1, save),
+         availableDiplomatCondition(fromProvince, toProvince, save),
+         isWithinDiplomaticRange(fromProvince, toProvince, save),
 
-            requireMinimumAttitudeV2(toProvince, fromProvince, 0, save),
-            availableDiplomatCondition(toProvince, fromProvince, save),
-         ],
-      }),
+         requireMinimumAttitudeV2(toProvince, fromProvince, 0, save),
+         availableDiplomatCondition(toProvince, fromProvince, save),
+      ]),
       effect: () => {
          const fromTo = getRelation(fromProvince, toProvince, save);
          const toFrom = getRelation(toProvince, fromProvince, save);
@@ -59,21 +57,19 @@ export function OfferDefensePactAction(fromProvince: Province, toProvince: Provi
 export function OfferAllianceAction(fromProvince: Province, toProvince: Province, save: SaveGame): IGameAction {
    return {
       cost: { diplomatic: 50 },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "DiplomaticTreaty" }, fromProvince, save),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "DiplomaticTreaty" }, fromProvince, save),
 
-            requireNoTreatyBetween(["Alliance", "Patron"], fromProvince, toProvince, save),
+         requireNoTreatyBetween(["Alliance", "Patron"], fromProvince, toProvince, save),
 
-            requirePeaceBetween(fromProvince, toProvince, save),
-            requireHigherPrestige(fromProvince, toProvince, 1.25, save),
-            availableDiplomatCondition(fromProvince, toProvince, save),
-            isWithinDiplomaticRange(fromProvince, toProvince, save),
+         requirePeaceBetween(fromProvince, toProvince, save),
+         requireHigherPrestige(fromProvince, toProvince, 1.25, save),
+         availableDiplomatCondition(fromProvince, toProvince, save),
+         isWithinDiplomaticRange(fromProvince, toProvince, save),
 
-            requireMinimumAttitudeV2(toProvince, fromProvince, 50, save),
-            availableDiplomatCondition(toProvince, fromProvince, save),
-         ],
-      }),
+         requireMinimumAttitudeV2(toProvince, fromProvince, 50, save),
+         availableDiplomatCondition(toProvince, fromProvince, save),
+      ]),
       effect: () => {
          const fromTo = getRelation(fromProvince, toProvince, save);
          const toFrom = getRelation(toProvince, fromProvince, save);
@@ -97,32 +93,30 @@ export function OfferAllianceAction(fromProvince: Province, toProvince: Province
 export function OfferPatronageAction(fromProvince: Province, toProvince: Province, save: SaveGame): IGameAction {
    return {
       cost: { diplomatic: 50 },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "DiplomaticTreaty" }, fromProvince, save),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "DiplomaticTreaty" }, fromProvince, save),
 
-            requireNoTreatyBetween(["Patron"], fromProvince, toProvince, save),
+         requireNoTreatyBetween(["Patron"], fromProvince, toProvince, save),
 
-            requirePeaceBetween(fromProvince, toProvince, save),
-            requireHigherPrestige(fromProvince, toProvince, 5, save),
-            availableDiplomatCondition(fromProvince, toProvince, save),
-            isWithinDiplomaticRange(fromProvince, toProvince, save),
-            {
-               name: $t(
-                  L.$1SharesALandBorderWith$2,
-                  getProvinceName(fromProvince, save),
-                  getProvinceName(toProvince, save),
-               ),
-               value: getProvincesInRange(1, fromProvince, save).has(toProvince),
-            },
-            {
-               name: $t(L.$1IsNotAClientOfAnyProvince, getProvinceName(toProvince, save)),
-               value: !isClientOfAnyProvince(toProvince, save),
-            },
-            requireMinimumAttitudeV2(toProvince, fromProvince, 100, save),
-            availableDiplomatCondition(toProvince, fromProvince, save),
-         ],
-      }),
+         requirePeaceBetween(fromProvince, toProvince, save),
+         requireHigherPrestige(fromProvince, toProvince, 5, save),
+         availableDiplomatCondition(fromProvince, toProvince, save),
+         isWithinDiplomaticRange(fromProvince, toProvince, save),
+         {
+            name: $t(
+               L.$1SharesALandBorderWith$2,
+               getProvinceName(fromProvince, save),
+               getProvinceName(toProvince, save),
+            ),
+            value: getProvincesInRange(1, fromProvince, save).has(toProvince),
+         },
+         {
+            name: $t(L.$1IsNotAClientOfAnyProvince, getProvinceName(toProvince, save)),
+            value: !isClientOfAnyProvince(toProvince, save),
+         },
+         requireMinimumAttitudeV2(toProvince, fromProvince, 100, save),
+         availableDiplomatCondition(toProvince, fromProvince, save),
+      ]),
       effect: () => {
          const fromTo = getRelation(fromProvince, toProvince, save);
          const toFrom = getRelation(toProvince, fromProvince, save);

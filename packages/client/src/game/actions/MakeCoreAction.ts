@@ -16,19 +16,17 @@ export function MakeCoreAction(tile: Tile, province: Province, save: SaveGame): 
    const cost = getTileMakeCoreCost(tile, save);
    return {
       cost: { administrative: cost.value },
-      condition: finalizeCondition({
-         breakdown: [
-            ...timedActionConditions({ action: "MakeCore" }, province, save),
-            {
-               name: $t(L.TileIsOurs),
-               value: tileData.province === province,
-            },
-            {
-               name: $t(L.TileIsNotYetOurCore),
-               value: !tileData.coreProvinces.has(province),
-            },
-         ],
-      }),
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "MakeCore" }, province, save),
+         {
+            name: $t(L.TileIsOurs),
+            value: tileData.province === province,
+         },
+         {
+            name: $t(L.TileIsNotYetOurCore),
+            value: !tileData.coreProvinces.has(province),
+         },
+      ]),
       effect: () => {
          tileData.coreProvinces.add(province);
          addProvinceStat("makeCoreCount", 1, province, save);

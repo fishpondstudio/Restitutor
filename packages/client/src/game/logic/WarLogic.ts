@@ -97,30 +97,19 @@ function getCoDefenders(attacker: Province, defender: Province, save: SaveGame):
       const treaty = relation.treaty?.type;
       switch (treaty) {
          case "Alliance":
-            result.set(
-               coDefender,
-               finalizeCondition({ breakdown: [{ name: $t(L.TheyAreDefendersAlly), value: true }] }),
-            );
+            result.set(coDefender, finalizeCondition([{ name: $t(L.TheyAreDefendersAlly), value: true }]));
             break;
          case "DefensePact":
             result.set(
                coDefender,
-               finalizeCondition({
-                  breakdown: [{ name: $t(L.TheyHaveADefensePactWithTheDefender), value: true }],
-               }),
+               finalizeCondition([{ name: $t(L.TheyHaveADefensePactWithTheDefender), value: true }]),
             );
             break;
          case "Client":
-            result.set(
-               coDefender,
-               finalizeCondition({ breakdown: [{ name: $t(L.TheyAreDefendersPatron), value: true }] }),
-            );
+            result.set(coDefender, finalizeCondition([{ name: $t(L.TheyAreDefendersPatron), value: true }]));
             break;
          case "Patron":
-            result.set(
-               coDefender,
-               finalizeCondition({ breakdown: [{ name: $t(L.TheyAreDefendersClient), value: true }] }),
-            );
+            result.set(coDefender, finalizeCondition([{ name: $t(L.TheyAreDefendersClient), value: true }]));
             break;
          case undefined:
             break;
@@ -131,18 +120,12 @@ function getCoDefenders(attacker: Province, defender: Province, save: SaveGame):
    });
    getProvincesThatGuaranteeDefenseOf(defender, save).forEach((province) => {
       if (province !== attacker && !result.has(province)) {
-         result.set(
-            province,
-            finalizeCondition({ breakdown: [{ name: $t(L.TheyHaveGuaranteedDefendersDefense), value: true }] }),
-         );
+         result.set(province, finalizeCondition([{ name: $t(L.TheyHaveGuaranteedDefendersDefense), value: true }]));
       }
    });
    getProvincesThatDeterAggressionOf(attacker, save).forEach((province) => {
       if (province !== defender && !result.has(province)) {
-         result.set(
-            province,
-            finalizeCondition({ breakdown: [{ name: $t(L.TheyHaveDeterredAttackersAggression), value: true }] }),
-         );
+         result.set(province, finalizeCondition([{ name: $t(L.TheyHaveDeterredAttackersAggression), value: true }]));
       }
    });
    return result;
@@ -163,39 +146,35 @@ function getCoAttackers(attacker: Province, defender: Province, save: SaveGame):
             const attackerTowardsDefender = getAttitudeTowards(coAttacker, defender, save);
             result.set(
                coAttacker,
-               finalizeCondition({
-                  breakdown: [
-                     { name: $t(L.TheyAreAttackersAlly), value: true },
-                     {
-                        name: $t(L.TheyAreNotADefenderOrCoDefender),
-                        value: coAttacker !== defender && !coDefenders.has(coAttacker),
-                     },
-                     {
-                        name: $t(L.TheirAttitudeTowardsUsIsHigherThanTheDefenders),
-                        value: attitudeTowardsAttacker.value > attackerTowardsDefender.value,
-                        desc: $t(
-                           L.AttitudeTowardsUs$1AttitudeTowardsDefender$2,
-                           formatNumber(attitudeTowardsAttacker.value),
-                           formatNumber(attackerTowardsDefender.value),
-                        ),
-                     },
-                  ],
-               }),
+               finalizeCondition([
+                  { name: $t(L.TheyAreAttackersAlly), value: true },
+                  {
+                     name: $t(L.TheyAreNotADefenderOrCoDefender),
+                     value: coAttacker !== defender && !coDefenders.has(coAttacker),
+                  },
+                  {
+                     name: $t(L.TheirAttitudeTowardsUsIsHigherThanTheDefenders),
+                     value: attitudeTowardsAttacker.value > attackerTowardsDefender.value,
+                     desc: $t(
+                        L.AttitudeTowardsUs$1AttitudeTowardsDefender$2,
+                        formatNumber(attitudeTowardsAttacker.value),
+                        formatNumber(attackerTowardsDefender.value),
+                     ),
+                  },
+               ]),
             );
             break;
          }
          case "Patron":
             result.set(
                coAttacker,
-               finalizeCondition({
-                  breakdown: [
-                     { name: $t(L.TheyAreAttackersClient), value: true },
-                     {
-                        name: $t(L.TheyAreNotADefenderOrCoDefender),
-                        value: coAttacker !== defender && !coDefenders.has(coAttacker),
-                     },
-                  ],
-               }),
+               finalizeCondition([
+                  { name: $t(L.TheyAreAttackersClient), value: true },
+                  {
+                     name: $t(L.TheyAreNotADefenderOrCoDefender),
+                     value: coAttacker !== defender && !coDefenders.has(coAttacker),
+                  },
+               ]),
             );
             break;
          case "DefensePact":
