@@ -11,6 +11,7 @@
 - Demand Tile now checks that the tile is not contested in an active war
 - Force Attack duration increased from 6 to 12 months
 - Capital defense bonus decreased from 100% to 40%
+- General skill upgrade cost is now linear: 1/2/3/4/5 (before it was fibonacci, 1/2/3/5/8)
 - 50% of Skill Points earned by the current general is carried forward to the next one. All skill upgrades are reset (same as before)
 
 # Bugfixes

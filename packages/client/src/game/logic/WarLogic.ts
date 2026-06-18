@@ -1,7 +1,6 @@
 import {
    clamp,
    clearFlag,
-   fib,
    formatNumber,
    hasFlag,
    pointToTile,
@@ -559,7 +558,7 @@ export function dismissGeneral(province: Province, save: SaveGame): void {
 }
 
 export function getGeneralSkillUpgradeCost(level: number): number {
-   return fib(level);
+   return level;
 }
 
 export function getWarCoalitions(provinces: Province[], save: SaveGame): IWar[] {
