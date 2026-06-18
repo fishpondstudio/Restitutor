@@ -1,6 +1,6 @@
 import { RingBuffer } from "@project/shared/src/utils/RingBuffer";
 import { BitmapText } from "pixi.js";
-import { Fonts } from "./assets";
+import { Fonts } from "./Fonts";
 import { OnResize } from "./game/Events";
 import { getVersion } from "./game/Version";
 import { G } from "./utils/Global";

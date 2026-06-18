@@ -87,7 +87,7 @@ import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
 import { showPanel } from "./common/ShowPanel";
-import { SidebarComp } from "./common/SidebarComp";
+import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
@@ -135,7 +135,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
    const consulVotes = G.save.state.senate.votes.get(province) ?? new Set<number>();
    return (
       <SidebarComp
-         title={$t(L.DiplomacyWith$1, getProvinceName(province, G.save))}
+         header={<SidebarHeader title={$t(L.DiplomacyWith$1, getProvinceName(province, G.save))} />}
          width={isMe ? SidebarWidth : DiplomacyWidth}
       >
          <div className="row g0 fstart">

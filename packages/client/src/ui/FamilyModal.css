@@ -15,9 +15,7 @@
 }
 
 .react-flow__renderer {
-   background-image:
-      url("../assets/images/Background9.png"),
-      linear-gradient(to bottom, var(--mantine-color-violet-5), var(--mantine-color-violet-9));
+   background-image: url("../assets/images/Background9.png");
 }
 
 .react-flow.dark {

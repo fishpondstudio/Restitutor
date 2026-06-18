@@ -33,7 +33,7 @@ import { tickSocialClasses } from "./SocialClassLogic";
 import { getGameDate, TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
-import { ArmyMoraleMonthlyIncrease, getCurrentGeneral, resetGeneralUpgrades } from "./WarLogic";
+import { ArmyMoraleMonthlyIncrease } from "./WarLogic";
 
 export const PendingGameEventTimeoutMonths = 3;
 
@@ -128,10 +128,6 @@ export function tickProvince(province: Province, save: SaveGame): void {
       } else if (oldOffspringCount === 0 && newOffspringCount > 0) {
          addGameEvent("Manual3", province, save);
       }
-   }
-
-   if (!getCurrentGeneral(province, save)) {
-      resetGeneralUpgrades(province, save);
    }
 
    for (const [event, data] of state.events) {

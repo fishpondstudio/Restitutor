@@ -21,13 +21,8 @@ import {
 import { hasResearched } from "../logic/TechLogic";
 import { getGameDate } from "../logic/TickLogic";
 import { getAllies } from "../logic/TreatyLogic";
-import {
-   type GameEvent,
-   GameEvents,
-   type IGameEventButton,
-   type IGameEventCondition,
-   type IGameEventImage,
-} from "./GameEvents";
+import { type GameEvent, GameEvents, type IGameEventButton, type IGameEventCondition } from "./GameEvents";
+import type { ImageWithCredit } from "./ImageWithCredit";
 
 export function getGameEventButtonDesc(button: IGameEventButton, province: Province, save: SaveGame): React.ReactNode {
    return (
@@ -290,8 +285,8 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
    return result;
 }
 
-export function getGameEventImages(): IGameEventImage[] {
-   const result: IGameEventImage[] = [];
+export function getGameEventImages(): ImageWithCredit[] {
+   const result: ImageWithCredit[] = [];
    forEach(GameEvents, (_key, config) => {
       if (config.image) {
          result.push(config.image);

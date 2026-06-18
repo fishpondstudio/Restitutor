@@ -16,7 +16,7 @@ import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
-import { SidebarComp } from "./common/SidebarComp";
+import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { ResourceCostComp } from "./ResourceCostComp";
@@ -31,7 +31,7 @@ export function TechPage({ tech }: { tech: Tech }): React.ReactNode {
    const unlockCost = makeResearchCost(tech, breakdown.value);
    const config = Tech[tech];
    return (
-      <SidebarComp title={config.name()}>
+      <SidebarComp header={<SidebarHeader title={config.name()} />}>
          {config.requires.length > 0 && <div className="h1">{$t(L.Prerequisites)}</div>}
          {config.requires.map((t) => (
             <div className="mx10 my5 row" key={t}>

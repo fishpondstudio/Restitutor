@@ -1,6 +1,6 @@
 import { Select, Switch, TextInput } from "@mantine/core";
 import { useForceUpdate } from "@mantine/hooks";
-import { iFirstOf, mapSafePush, type Tile, tileToString } from "@project/shared/src/utils/Helper";
+import { iFirstOf, keysOf, mapSafePush, type Tile, tileToString } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
 import { Cultures } from "../game/definitions/Culture";
 import { Provinces } from "../game/definitions/Province";
@@ -11,7 +11,7 @@ import { RefreshTiles } from "../game/Events";
 import { WorldScene } from "../scenes/WorldScene";
 import { idbSet } from "../utils/BrowserStorage";
 import { G } from "../utils/Global";
-import { SidebarComp } from "./common/SidebarComp";
+import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 
 export function EditTilePage({ tiles }: { tiles: Set<Tile> }): React.ReactNode {
    const [checkName, setCheckName] = useState<Map<string, Tile[]>>(new Map());
@@ -83,11 +83,11 @@ export function EditTilePage({ tiles }: { tiles: Set<Tile> }): React.ReactNode {
 
    const forceUpdate = useForceUpdate();
    return (
-      <SidebarComp title={`Edit ${tiles.size} Tile`}>
+      <SidebarComp header={<SidebarHeader title={`Edit ${tiles.size} Tile`} />}>
          <div className="m10">
             <SelectComp
                value={data.terrain}
-               data={Array.from(Terrains)}
+               data={keysOf(Terrains)}
                onChange={(value) => {
                   tiles.forEach((tile) => {
                      let oldData = G.tileEditor.get(tile);

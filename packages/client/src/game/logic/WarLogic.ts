@@ -27,7 +27,7 @@ import {
    getRelations,
 } from "./DiplomacyLogic";
 import { attachModifiers } from "./ModifierLogic";
-import { getProvinceStat, getWarPower, resetProvinceResource, setProvinceStat } from "./ProvinceLogic";
+import { getProvinceStat, getWarPower, provinceResourceOf, setProvinceStat } from "./ProvinceLogic";
 import { getTileDefense } from "./TileLogic";
 import { endTimedAction, getTimedActionTimeLeft } from "./TimedActionLogic";
 
@@ -531,8 +531,10 @@ export function getCurrentGeneral(province: Province, save: SaveGame): GeneralTy
    return undefined;
 }
 
-export function resetGeneralUpgrades(province: Province, save: SaveGame): void {
-   resetProvinceResource("generalSkillPoint", province, save);
+export function onGeneralEnded(province: Province, save: SaveGame): void {
+   const sp = provinceResourceOf("generalSkillPoint", province, save);
+   sp[0] = Math.floor(sp[0] / 2);
+   sp[1] = 0;
    setProvinceStat("infantrySkill", 0, province, save);
    setProvinceStat("rangedSkill", 0, province, save);
    setProvinceStat("cavalrySkill", 0, province, save);
@@ -553,6 +555,7 @@ export function dismissGeneral(province: Province, save: SaveGame): void {
    const governor = state.governor.male;
    governor.flag = clearFlag(governor.flag, PersonFlags.IsGeneral);
    endTimedAction("RecruitAGeneral", province, save);
+   onGeneralEnded(province, save);
 }
 
 export function getGeneralSkillUpgradeCost(level: number): number {

@@ -1,5 +1,5 @@
 import { forEach, round, type Tile } from "@project/shared/src/utils/Helper";
-import { hideSidebar } from "../../ui/common/Sidebar";
+import { hideSidebar } from "../../ui/common/SidebarManager";
 import { DeclareWarOnUsModal } from "../../ui/DeclareWarOnUsEventModal";
 import { DrawnIntoWarModal } from "../../ui/DrawnIntoWarEventModal";
 import { $t, L } from "../../utils/i18n";

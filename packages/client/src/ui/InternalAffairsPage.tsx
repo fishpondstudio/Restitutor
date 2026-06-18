@@ -45,7 +45,7 @@ import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { CrackDownButton } from "./CrackDownButton";
 import { showPanel } from "./common/ShowPanel";
-import { SidebarComp } from "./common/SidebarComp";
+import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
@@ -86,7 +86,7 @@ export function InternalAffairsPage(): React.ReactNode {
    const overExtension = getProvinceOverextension(G.save.state.playerProvince, G.save);
    const stability = getProvinceStability(G.save.state.playerProvince, G.save);
    return (
-      <SidebarComp title={$t(L.InternalAffairs)}>
+      <SidebarComp header={<SidebarHeader title={$t(L.InternalAffairs)} />}>
          <div className="h1">{$t(L.GoverningAndStability)}</div>
          <BreakdownTooltip
             breakdown={governingCost}

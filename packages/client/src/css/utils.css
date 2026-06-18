@@ -394,6 +394,10 @@
    border-radius: 0.625rem;
 }
 
+.text-white {
+   color: #fff;
+}
+
 .text-mono {
    font-family: monospace;
 }
@@ -416,6 +420,11 @@
 
 .text-display {
    font-family: "TitleFont", serif;
+}
+
+.text-roman {
+   font-family: "RomanFont", serif;
+   font-weight: bold;
 }
 
 .text-body {

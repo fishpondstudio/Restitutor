@@ -67,7 +67,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "RecruitGeneral",
       name: () => $t(L.RecruitAGeneralTutorial),
-      desc: () => $t(L.RecruitAGeneralDesc),
+      desc: () => $t(L.RecruitAGeneralDescV2),
       progress: (save) => {
          if (getCurrentGeneral(save.state.playerProvince, save) !== undefined) {
             return [1, 1];

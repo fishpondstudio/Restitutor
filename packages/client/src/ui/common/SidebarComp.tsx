@@ -1,27 +1,12 @@
 import { ScrollArea } from "@mantine/core";
 import { CloseButtonClass, SidebarMargin, SidebarTopMargin, SidebarWidth } from "../UIConstant";
-import { hideSidebar } from "./Sidebar";
+import { hideSidebar } from "./SidebarManager";
 
 export function SidebarComp({
-   title,
+   header,
    children,
    width = SidebarWidth,
-}: React.PropsWithChildren<{ title: React.ReactNode; width?: string }>): React.ReactElement {
-   return (
-      <SidebarContainer title={title} width={width}>
-         <ScrollArea scrollbars="y" className="f1">
-            {children}
-            <div className="h10" />
-         </ScrollArea>
-      </SidebarContainer>
-   );
-}
-
-export function SidebarContainer({
-   title,
-   children,
-   width = SidebarWidth,
-}: React.PropsWithChildren<{ title: React.ReactNode; width?: string }>): React.ReactElement {
+}: React.PropsWithChildren<{ header: React.ReactNode; width?: string }>): React.ReactElement {
    return (
       <div
          className="panel"
@@ -33,13 +18,22 @@ export function SidebarContainer({
             flexDirection: "column",
          }}
       >
-         <div className="header">
-            <div className="f1">{title}</div>
-            <div className={`mi pointer ${CloseButtonClass}`} onClick={hideSidebar}>
-               close
-            </div>
+         {header}
+         <ScrollArea scrollbars="y" className="f1">
+            {children}
+            <div className="h10" />
+         </ScrollArea>
+      </div>
+   );
+}
+
+export function SidebarHeader({ title }: { title: React.ReactNode }): React.ReactElement {
+   return (
+      <div className="header">
+         <div className="f1">{title}</div>
+         <div className={`mi pointer ${CloseButtonClass}`} onClick={hideSidebar}>
+            close
          </div>
-         {children}
       </div>
    );
 }

@@ -7,16 +7,12 @@ import type { ICustomEffect, IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { GallicEmpireEvents } from "./GallicEmpireEvents";
 import { HistoricalEvents } from "./HistoricalEvents";
+import type { ImageWithCredit } from "./ImageWithCredit";
 import { LugdunensisEvent } from "./LugdunensisEvent";
 import { ManualEvents } from "./ManualEvents";
 import { MissionEvents } from "./MissionEvents";
 import { RandomEvents } from "./RandomEvents";
 import { WesternRomanEmpireEvents } from "./WesternRomanEmpireEvents";
-
-export interface IGameEventImage {
-   url: string;
-   credit: string;
-}
 
 export interface IGameEventButton extends IGameEffect {
    label: () => string;
@@ -27,7 +23,7 @@ export interface IGameEventConfig {
    name: () => string;
    desc: () => string;
    type?: GameEventType;
-   image: IGameEventImage;
+   image: ImageWithCredit;
    condition?: IGameEventCondition;
    buttons: IGameEventButton[];
 }

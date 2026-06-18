@@ -12,8 +12,8 @@ import {
    Sprite,
    type Texture,
 } from "pixi.js";
-import { Fonts } from "../assets";
 import Land from "../data/Land.json";
+import { Fonts } from "../Fonts";
 import type { Province } from "../game/definitions/Province";
 import { Tiles } from "../game/definitions/TileConstants";
 import { RefreshTiles } from "../game/Events";

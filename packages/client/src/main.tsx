@@ -1,4 +1,4 @@
-import { createTheme, MantineProvider, Portal, Tooltip } from "@mantine/core";
+import { createTheme, type MantineColorsTuple, MantineProvider, Portal, Tooltip } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
@@ -7,16 +7,29 @@ import { Application } from "pixi.js";
 import { createRoot } from "react-dom/client";
 import { bootstrap } from "./Bootstrap";
 import "./css/main.css";
-import { Fonts } from "./assets";
+import { Fonts } from "./Fonts";
 import { getVersion } from "./game/Version";
 import { BottomPanel } from "./ui/BottomPanel";
 import { Popover } from "./ui/common/Popover";
-import { Sidebar } from "./ui/common/Sidebar";
+import { Sidebar } from "./ui/common/SidebarManager";
 import { LoadingComp } from "./ui/components/LoadingComp";
 import { TopPanel } from "./ui/TopPanel";
 import { TutorialPanel } from "./ui/TutorialPanel";
 import { G, isDev } from "./utils/Global";
 import { ModalManager } from "./utils/ModalManager";
+
+const RomanColors: MantineColorsTuple = [
+   "#fff3e9",
+   "#f4e6da",
+   "#e3cbb7",
+   "#d3af91",
+   "#c59770",
+   "#bd885b",
+   "#b9804f",
+   "#a97142",
+   "#926036",
+   "#80522a",
+];
 
 const theme = createTheme({
    fontFamily: `${Fonts.MainFont}, sans-serif`,
@@ -27,7 +40,10 @@ const theme = createTheme({
       lg: "1.5",
       xl: "1.75",
    },
-   primaryColor: "violet",
+   colors: {
+      roman: RomanColors,
+   },
+   primaryColor: "roman",
    components: {
       Portal: Portal.extend({
          defaultProps: {

@@ -15,6 +15,7 @@ import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { randomFemaleName, randomMaleName } from "../RomanNames";
 import { GovernorMaxExcl, GovernorMaxIncl, GovernorMinIncl } from "./ProvinceLogic";
+import { onGeneralEnded } from "./WarLogic";
 
 export function getDeathChance(governor: IPerson, province: Province, save: SaveGame): IValueBreakdown {
    const age = governor.age;
@@ -126,6 +127,9 @@ export function tickFamily(governor: IFamily, province: Province, save: SaveGame
       ensureTraits(governor.male);
       const deathChance = getDeathChance(governor.male, province, save).value;
       if (Math.random() < deathChance / 100) {
+         if (hasFlag(governor.male.flag, PersonFlags.IsGeneral)) {
+            onGeneralEnded(province, save);
+         }
          governor.male = null;
       }
    }

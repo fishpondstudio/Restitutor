@@ -8,7 +8,7 @@ import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ChronicleEntryComp } from "./ChronicleEntryComp";
-import { SidebarContainer } from "./common/SidebarComp";
+import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 
 export function ChroniclePage(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -20,7 +20,7 @@ export function ChroniclePage(): React.ReactNode {
       return true;
    });
    return (
-      <SidebarContainer title={$t(L.Chronicle)}>
+      <SidebarComp header={<SidebarHeader title={$t(L.Chronicle)} />}>
          <div className="m10">
             <MultiSelect
                placeholder={$t(L.Years)}
@@ -40,6 +40,6 @@ export function ChroniclePage(): React.ReactNode {
                <div className="box m10 p10 text-dimmed text-center">{$t(L.NoEntriesFound)}</div>
             )}
          </ScrollArea>
-      </SidebarContainer>
+      </SidebarComp>
    );
 }

@@ -31,6 +31,7 @@
    color: var(--mantine-color-dark-1);
    border-radius: 0.3125rem;
    --frame-border-size: 0.125rem;
+   --background-image: url("../assets/images/Background10.webp");
    background:
       linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent) top / 100% var(--frame-border-size)
       no-repeat,
@@ -40,12 +41,17 @@
       no-repeat,
       linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2), transparent) right / var(--frame-border-size)
       100% no-repeat,
-      url("../assets/images/Background10.webp");
+      var(--background-image);
    box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.5);
    padding: 0 0.125rem;
 
    &.frame-thin {
       --frame-border-size: 0.0625rem;
+   }
+
+   &.frame-btn {
+      --background-image: url("../assets/images/ButtonDark.svg");
+      background-color: var(--mantine-color-dark-5);
    }
 
    &.frame-hover:hover,
@@ -64,22 +70,25 @@
    }
 }
 
+:root {
+   --header-background:
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.35)),
+      url("../assets/images/Header.webp") center / contain repeat;
+}
+
 .panel {
    background:
       url("../assets/images/Background9.png") padding-box,
-      linear-gradient(to bottom, var(--mantine-primary-color-5), var(--mantine-primary-color-9)) border-box;
+      linear-gradient(to bottom, var(--mantine-primary-color-5), var(--mantine-primary-color-8)) border-box;
    box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.5);
    border: 0.125rem solid transparent;
    border-radius: var(--mantine-radius-default);
    overflow: hidden;
 
    .header {
-      background-image:
-         url("../assets/images/H1Dark.svg"),
-         linear-gradient(to bottom, var(--mantine-primary-color-7), var(--mantine-primary-color-9));
+      background: var(--header-background);
       color: var(--mantine-color-gray-0);
       text-shadow: 0.0625rem 0.0625rem 0 var(--mantine-color-dark-5);
-      border-bottom: 0.0625rem solid var(--mantine-primary-color-5);
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -233,23 +242,31 @@
 
 .pause-panel {
    position: absolute;
-   top: 0.375rem;
+   top: 0.625rem;
    left: 50%;
    transform: translateX(-50%);
-   height: 3.875rem;
-   width: 8.875rem;
-   background-image: url("../assets/images/PaperScroll.png");
-   background-size: 100% 100%;
-   padding: 0.3125rem 0 0 0;
-   color: var(--mantine-primary-color-7);
+   height: 3rem;
+   width: 8rem;
+
+   background: var(--header-background);
+   border: 0.125rem solid transparent;
+
+   box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.5);
+   border-radius: var(--mantine-radius-default);
+
+   color: var(--mantine-color-gray-0);
+   text-shadow: 0.0625rem 0.0625rem 0 var(--mantine-color-dark-5);
+
    font-family: "RomanFont", serif;
    font-weight: bold;
    font-size: 1.1875rem;
    line-height: 1;
+
    display: flex;
    flex-direction: row;
    align-items: center;
    justify-content: center;
+
    gap: 0.3125rem;
    cursor: var(--hand-cursor);
 }

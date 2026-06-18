@@ -1,13 +1,5 @@
-import { Select, Slider, Switch } from "@mantine/core";
-import {
-   cls,
-   entriesOf,
-   hasFlag,
-   range,
-   safeParseFloat,
-   safeParseInt,
-   toggleFlag,
-} from "@project/shared/src/utils/Helper";
+import { SegmentedControl, Select, Slider, Switch } from "@mantine/core";
+import { entriesOf, hasFlag, range, safeParseFloat, safeParseInt, toggleFlag } from "@project/shared/src/utils/Helper";
 import { Fragment, useState } from "react";
 import { DiscordUrl, PatchNotesUrl, SteamUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated } from "../game/Events";
@@ -35,19 +27,31 @@ export function SettingsModal(): React.ReactNode {
    return (
       <ModalComp size="lg" title={<ModalTitleBar title={$t(L.Settings)} dismiss />}>
          <div className="row g0">
-            <div className="col fstart stretch p10 text-display" style={{ width: "10rem" }}>
-               <div
-                  className={cls("btn px10 py5 w100 text-lg", tab !== "general" ? "transparent" : null)}
-                  onClick={() => setTab("general")}
-               >
-                  {$t(L.General)}
-               </div>
-               <div
-                  className={cls("btn px10 py5 w100 text-lg", tab !== "tabs" ? "transparent" : null)}
-                  onClick={() => setTab("tabs")}
-               >
-                  {$t(L.Todo)}
-               </div>
+            <div className="fstart" style={{ width: "10rem" }}>
+               <SegmentedControl
+                  fullWidth
+                  className="text-display p10"
+                  classNames={{
+                     indicator: "frame frame-thin frame-btn",
+                  }}
+                  styles={{
+                     root: {
+                        background: "none",
+                        "--sc-font-size": "var(--mantine-font-size-lg)",
+                     },
+                     label: {
+                        padding: "0.5rem 0.625rem",
+                        textAlign: "left",
+                     },
+                  }}
+                  orientation="vertical"
+                  data={[
+                     { label: $t(L.General), value: "general" },
+                     { label: $t(L.Todo), value: "tabs" },
+                  ]}
+                  value={tab}
+                  onChange={(value) => setTab(value as SettingsTab)}
+               />
             </div>
             <div className="divider vertical" />
             <div className="f1">

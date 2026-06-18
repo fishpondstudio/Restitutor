@@ -25,13 +25,13 @@ export function ChronicleModal({ years }: { years: [number, number] }): React.Re
             <div
                style={{
                   position: "absolute",
-                  top: 0,
+                  top: "50%",
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: "linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%)",
+                  background: "linear-gradient(to bottom, transparent, rgba(40, 40, 40, 1))",
                }}
-            ></div>
+            />
             <button
                className="btn text-sm"
                style={{ position: "absolute", right: "0.625rem", bottom: "0.625rem" }}
@@ -51,7 +51,7 @@ export function ChronicleModal({ years }: { years: [number, number] }): React.Re
                </div>
             </FloatingTip>
             <div
-               className={`mi pointer ${CloseButtonClass}`}
+               className={`mi pointer text-white ${CloseButtonClass}`}
                onClick={hideModal}
                style={{ position: "absolute", top: "0.3125rem", right: "0.3125rem" }}
             >

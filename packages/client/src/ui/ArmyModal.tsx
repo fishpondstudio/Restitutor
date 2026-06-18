@@ -16,6 +16,7 @@ import {
    getProvinceResource,
    getProvinceStat,
    getWarPower,
+   provinceResourceOf,
    setProvinceStat,
 } from "../game/logic/ProvinceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
@@ -190,7 +191,21 @@ export function ArmyModal(): React.ReactNode {
                </div>
             </div>
          </div>
-         <div className="h1">{$t(L.ArmyGeneral)}</div>
+         <div className="h1 row g5">
+            <div>{$t(L.ArmyGeneral)}</div>
+            {getCurrentGeneral(G.save.state.playerProvince, G.save) === undefined && (
+               <FloatingTip label={$t(L.GeneralIsCurrentlyVacantConsiderAppointingAGeneral)}>
+                  <div className="mi sm text-yellow">warning</div>
+               </FloatingTip>
+            )}
+            <div className="f1" />
+            <FloatingTip label={<GeneralSkillPointTooltip />} className="p0" fixedWidth>
+               <div>
+                  {getProvinceResource("generalSkillPoint", G.save.state.playerProvince, G.save)}{" "}
+                  {ProvinceResourceNames.generalSkillPoint()}
+               </div>
+            </FloatingTip>
+         </div>
          <div className="m10" style={Grid3}>
             <ActionButton
                id="ArmyModal_RecruitGeneral"
@@ -231,7 +246,10 @@ export function ArmyModal(): React.ReactNode {
                }}
                tooltip={(element) => (
                   <>
-                     <div className="m10">{$t(L.DismissingOurGeneralWillResetSkillPointsAndCommandUpgrades)}</div>
+                     <div className="m10">
+                        {$t(L.DismissingGeneralWillRemoveFromCommand)} <div className="h10" />
+                        {$t(L.GeneralSkillPointsCarryover)}
+                     </div>
                      {element}
                   </>
                )}
@@ -239,17 +257,7 @@ export function ArmyModal(): React.ReactNode {
                {$t(L.DismissGeneral)}
             </ActionButton>
          </div>
-         <div className="m10">
-            {getCurrentGeneral(G.save.state.playerProvince, G.save) === undefined && (
-               <div className="text-yellow mb5">{$t(L.GeneralIsCurrentlyVacantConsiderAppointingAGeneral)}</div>
-            )}
-            <FloatingTip label={html($t(L.OurGeneralWillAccumulateSkillPoints$1, "1"))}>
-               <div className="row">
-                  <div className="f1">{ProvinceResourceNames.generalSkillPoint()}</div>
-                  <div>{getProvinceResource("generalSkillPoint", G.save.state.playerProvince, G.save)}</div>
-               </div>
-            </FloatingTip>
-         </div>
+         <div className="m10"></div>
          <div className="m10" style={Grid3}>
             <UpgradeSkillButton skill="infantrySkill" id="ArmyModal_UpgradeInfantrySkill" />
             <UpgradeSkillButton skill="rangedSkill" id="ArmyModal_UpgradeRangedSkill" />
@@ -335,5 +343,24 @@ function UpgradeSkillButton({
          <div className="text-xl">{getProvinceStat(skill, G.save.state.playerProvince, G.save)}</div>
          <div className="text-sm">{ProvinceStatNames[skill]()}</div>
       </ActionButton>
+   );
+}
+
+function GeneralSkillPointTooltip(): React.ReactNode {
+   const skillPoints = provinceResourceOf("generalSkillPoint", G.save.state.playerProvince, G.save);
+   return (
+      <>
+         <div className="h2">{ProvinceResourceNames.generalSkillPoint()}</div>
+         <div className="row mx10 my5">
+            <div className="f1">{$t(L.AvailableEarned)}</div>
+            <div>
+               {skillPoints[0] - skillPoints[1]}/{skillPoints[0]}
+            </div>
+         </div>
+         <div className="divider" />
+         <div className="mx10 my5">{html($t(L.GeneralSkillPointsFromWar))}</div>
+         <div className="divider" />
+         <div className="mx10 my5">{$t(L.GeneralSkillPointsCarryover)}</div>
+      </>
    );
 }

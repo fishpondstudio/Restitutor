@@ -11,7 +11,7 @@ import {
    Sprite,
    TilingSprite,
 } from "pixi.js";
-import { Fonts } from "../assets";
+import { Fonts } from "../Fonts";
 import { Tech } from "../game/definitions/Tech";
 import { RefreshTechTree } from "../game/Events";
 import { getTechPosition } from "../game/logic/TechLogic";
@@ -33,6 +33,7 @@ const HeaderHeight = 0;
 const TopMargin = 200;
 const BottomMargin = 200;
 const BottomPadding = 0;
+const SelectedColor = 0xa97142;
 
 let time = 0;
 
@@ -209,14 +210,14 @@ export class TechTreeScene extends Scene {
       destroyAllChildren(this._selectedBoxContainer);
       G.save.state.provinces[G.save.state.playerProvince]?.unlockedTech.forEach((t) => {
          const frame = this._selectedBoxContainer.addChild(new Sprite(G.textures.get("Misc/TechFrameUnlocked")));
-         frame.tint = 0x845ef7;
+         frame.tint = SelectedColor;
          this.drawSelectedTech(t, frame, true);
       });
       if (this._selectedTech) {
          this._selectedTechFrame = this._selectedBoxContainer.addChild(
             new Sprite(G.textures.get("Misc/TechFrameSelected")),
          );
-         this._selectedTechFrame.tint = 0x845ef7;
+         this._selectedTechFrame.tint = SelectedColor;
          this.drawSelectedTech(
             this._selectedTech,
             this._selectedTechFrame,

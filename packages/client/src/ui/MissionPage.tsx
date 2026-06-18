@@ -13,7 +13,7 @@ import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ConditionBreakdownComp } from "./ConditionBreakdownComp";
-import { SidebarComp } from "./common/SidebarComp";
+import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { FloatingTip } from "./components/FloatingTip";
 
 export function MissionPage(): React.ReactNode {
@@ -25,7 +25,7 @@ export function MissionPage(): React.ReactNode {
       G.save,
    );
    return (
-      <SidebarComp title={$t(L.Missions)}>
+      <SidebarComp header={<SidebarHeader title={$t(L.Missions)} />}>
          <div className="box m10 p10 row text-sm">
             <div className="f1 text-display">{$t(L.CurrentlyAvailableEventsOnly)}</div>
             <Switch

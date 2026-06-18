@@ -21,7 +21,7 @@ import { ActionButton } from "./ActionButton";
 import { BankruptcyEffectComp } from "./BankruptcyEffectComp";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
-import { SidebarComp } from "./common/SidebarComp";
+import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { colorNumber } from "./components/ColorNumber";
 import { DevOnly } from "./components/DevOnly";
 import { FloatingTip } from "./components/FloatingTip";
@@ -36,7 +36,7 @@ export function TreasuryPage(): React.ReactNode {
    const { revenue, expense, income } = getProvinceIncome(province, G.save);
    const isBankrupt = getTimedActionTimeLeft("Bankruptcy", province, G.save) > 0;
    return (
-      <SidebarComp title={$t(L.Treasury)}>
+      <SidebarComp header={<SidebarHeader title={$t(L.Treasury)} />}>
          <DevOnly>
             <Select
                className="m10"

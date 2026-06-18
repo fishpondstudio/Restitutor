@@ -52,7 +52,7 @@ import Y395 from "../../assets/images/events/Y395.webp";
 import Y400 from "../../assets/images/events/Y400.webp";
 import Y401 from "../../assets/images/events/Y401.webp";
 
-import type { IGameEventImage } from "./GameEvents";
+import type { ImageWithCredit } from "./ImageWithCredit";
 
 export const EventImage = {
    Y193: { url: Y193, credit: "The Death of Commodus, Fernand Pelez (c. 1899)" },
@@ -157,4 +157,4 @@ export const EventImage = {
       url: Flood,
       credit: "The Flood in the Darling, William Charles Piguenit (1895)",
    },
-} as const satisfies Record<string, IGameEventImage>;
+} as const satisfies Record<string, ImageWithCredit>;

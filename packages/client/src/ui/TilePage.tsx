@@ -5,6 +5,7 @@ import { Buildings } from "../game/definitions/Building";
 import { Culture } from "../game/definitions/Culture";
 import { Goods, Price } from "../game/definitions/Goods";
 import { Religion } from "../game/definitions/Religion";
+import { Terrains } from "../game/definitions/Terrain";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
@@ -33,6 +34,7 @@ import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
 import { CrackDownButton } from "./CrackDownButton";
 import { showPanel } from "./common/ShowPanel";
 import { SidebarComp } from "./common/SidebarComp";
+import { hideSidebar } from "./common/SidebarManager";
 import { colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
@@ -40,7 +42,7 @@ import { DiplomacyPage } from "./DiplomacyPage";
 import { MakeCoreButton } from "./MakeCoreButton";
 import { playClick } from "./Sound";
 import { TileBuildingsModal } from "./TileBuildingsModal";
-import { Grid2 } from "./UIConstant";
+import { CloseButtonClass, Grid2 } from "./UIConstant";
 import { UpgradeInfrastructureButton, UpgradePopulationButton, UpgradeProductionButton } from "./UpgradeButtons";
 import { WarTooltip } from "./WarTooltip";
 
@@ -64,7 +66,38 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
       console.assert(goodsTax === getTileGoodsTax(tile, G.save), "Goods tax calculation is correct");
    }
    return (
-      <SidebarComp title={getTileName(tile)}>
+      <SidebarComp
+         header={
+            <div className="text-shadow" style={{ position: "relative" }}>
+               <img src={Terrains[tileData.terrain].image.url} className="w100 display-block" />
+               <div
+                  style={{
+                     position: "absolute",
+                     top: "50%",
+                     left: 0,
+                     right: 0,
+                     bottom: 0,
+                     background: "linear-gradient(to bottom, transparent, rgba(40, 40, 40, 1))",
+                  }}
+               />
+               <div
+                  style={{ position: "absolute", top: "0.3125rem", right: "0.3125rem" }}
+                  className={`mi pointer text-white ${CloseButtonClass}`}
+                  onClick={hideSidebar}
+               >
+                  close
+               </div>
+               <FloatingTip label={Terrains[tileData.terrain].image.credit}>
+                  <div
+                     className="text-roman text-xl"
+                     style={{ position: "absolute", bottom: "0.625rem", left: "0.625rem" }}
+                  >
+                     {getTileName(tile)}
+                  </div>
+               </FloatingTip>
+            </div>
+         }
+      >
          <div className="m10">
             <div className="row my5">
                <div className="f1">{$t(L.Province)}</div>

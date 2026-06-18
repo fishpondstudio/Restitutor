@@ -1,6 +1,6 @@
 import { RingBuffer } from "@project/shared/src/utils/RingBuffer";
 import { BitmapText, Container, Geometry, type IDestroyOptions, Mesh, Shader } from "pixi.js";
-import { Fonts } from "../assets";
+import { Fonts } from "../Fonts";
 import { getVersion } from "../game/Version";
 import { G } from "../utils/Global";
 import vert from "./shader.vert?raw";

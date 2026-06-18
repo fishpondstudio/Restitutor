@@ -303,7 +303,6 @@ export const EN = {
    DiscontiguousTiles: "Discontiguous Tiles",
    DiscreetlyDiscourageThisFervor: "Discreetly discourage this fervor",
    DismissGeneral: "Dismiss General",
-   DismissingOurGeneralWillResetSkillPointsAndCommandUpgrades: "Dismissing our general will reset skill points and command upgrades.",
    Dissent: "Dissent",
    DissentIsRisingAmongTheFollowingSocialClasses: "Dissent is rising among the following social classes:",
    DissentRangesFrom100To100: "Dissent ranges from -100 to 100. Monthly dissent change is calculated as follows:",
@@ -689,7 +688,6 @@ export const EN = {
    OurDaughter$1HasJoinedHerHusbandsFamily: "Our daughter $1 has joined her husband's family.",
    OurDemandWasAccepted: "Our Demand Was Accepted",
    OurDemandWasRejected: "Our Demand Was Rejected",
-   OurGeneralWillAccumulateSkillPoints$1: "Our general will accumulate <i>skill points</i> after winning a war - each tile conquered will give $1 skill points, which can be used to upgrade infantry, ranged, and cavalry command. These upgrades <i>do not</i> carry over to our next general.",
    OurGovernorIsAtLeast$1YearsOld: "Our governor is at least $1 years old",
    OurGovernorsFamilyGetsAMaleChild: "Our governor's family gets a male child.",
    OurPrestige: "Our Prestige",
@@ -828,8 +826,8 @@ export const EN = {
    Reconquista: "Reconquista",
    Reconquista$1: "Reconquista ($1)",
    RecruitAGeneral: "Recruit a General",
-   RecruitAGeneralDesc:
-      "A general will improve our army's war power. We can recruit one, which increases our army maintenance, or make our governor a general, which increases his death chance. Follow the on-screen instructions to recruit a general.<br>Our general will accumulate skill points after winning a war, which can be used to further improve our war power. Skill points and upgrades do not carry over to our next general.",
+   RecruitAGeneralDescV2:
+      "A general will improve our army's war power. We can recruit one, which increases our army maintenance, or make our governor a general, which increases his death chance. Follow the on-screen instructions to recruit a general.<br>Our general will earn skill points after winning a war, which can be used to further improve our war power. 50% skill points earned are carried over and all skill upgrades are reset.",
    RecruitAGeneralTutorial: "Recruit a general",
    RecruitingAGeneralCostsGoldEveryMonthAGeneralHasABaseSkillOf$1: "Recruiting a general costs gold <i>every month</i>. A general has a base skill of $1.",
    RecruitTalents: "Recruit Talents",
@@ -1950,4 +1948,8 @@ export const EN = {
    ManageTodoIconsLeftSide: "Manage Todo Icons (Left Side)",
    $1IsNotTheirCapital: "$1 is not their capital",
    $1BordersOurProvince: "$1 borders our province",
+   AvailableEarned: "Available/Earned",
+   DismissingGeneralWillRemoveFromCommand: "Dismissing general will remove our current general from command.",
+   GeneralSkillPointsCarryover: "50% of general skill points earned by the current general are carried over to the next general and all skill upgrades are reset",
+   GeneralSkillPointsFromWar: "Our general will earn <i>skill points</i> after winning a war - each tile annexed will give 1 skill point, which can be used to upgrade infantry, ranged, and cavalry skills.",
 };

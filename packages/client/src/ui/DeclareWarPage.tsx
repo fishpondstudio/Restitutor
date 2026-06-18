@@ -21,7 +21,7 @@ import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { ValueListComp } from "./BreakdownComp";
 import { BreakdownRow } from "./BreakdownRow";
-import { SidebarComp } from "./common/SidebarComp";
+import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { playError } from "./Sound";
@@ -88,7 +88,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
 
    const effect = CasusBelli[selectedCasusBelli].effect?.();
    return (
-      <SidebarComp title={$t(L.DeclareWar)} width={SidebarWiderWidth}>
+      <SidebarComp header={<SidebarHeader title={$t(L.DeclareWar)} />} width={SidebarWiderWidth}>
          <div className="h1">{$t(L.WarGoal)}</div>
          <div
             className="m10 text-sm"

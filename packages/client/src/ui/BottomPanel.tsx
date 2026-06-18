@@ -7,7 +7,7 @@ import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { hideSidebar } from "./common/Sidebar";
+import { hideSidebar } from "./common/SidebarManager";
 import { FloatingTip } from "./components/FloatingTip";
 
 export function BottomPanel(): React.ReactNode {

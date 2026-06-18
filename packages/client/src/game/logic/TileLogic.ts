@@ -201,7 +201,7 @@ export function getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
       breakdown.multiply.push({ name: $t(L.TerrainForest), value: +0.05 });
    }
    if (isCapital(tile, save)) {
-      breakdown.multiply.push({ name: $t(L.IsCurrentCapital), value: 1 });
+      breakdown.multiply.push({ name: $t(L.IsCurrentCapital), value: 0.4 });
    }
    if (data.coreProvinces.has(data.province)) {
       breakdown.multiply.push({ name: $t(L.IsCore), value: +0.2 });
