@@ -14,7 +14,7 @@ import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
 import { getProvinceOverextension, getProvinceStability, getProvinceStat } from "./ProvinceLogic";
-import { getSocialClassBonusName, isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
+import { isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
 import { getBuildingTech, hasResearched } from "./TechLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
 import { getCurrentWars, type IWar } from "./WarLogic";
@@ -104,18 +104,6 @@ export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (data.buildings.has("Barracks")) {
       breakdown.multiply.push({ name: Buildings.Barracks.name(), value: 0.4 });
-   }
-   if (hasProvinceUpgrade("LowerClassManpower", data.province, save)) {
-      breakdown.multiply.push({
-         ...getSocialClassBonusName("LowerClassManpower"),
-         value: 0.1,
-      });
-   }
-   if (hasProvinceUpgrade("LowerClassManpowerRelief", data.province, save)) {
-      breakdown.multiply.push({
-         ...getSocialClassBonusName("LowerClassManpowerRelief"),
-         value: -0.05,
-      });
    }
    if (isSocialClassDissent("UpperClass", data.province, save)) {
       breakdown.multiply.push({
@@ -320,18 +308,6 @@ export function getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
          value: BankruptcyRevenueReduction,
       });
    }
-   if (hasProvinceUpgrade("UpperClassLandTax", data.province, save)) {
-      breakdown.multiply.push({
-         ...getSocialClassBonusName("UpperClassLandTax"),
-         value: 0.1,
-      });
-   }
-   if (hasProvinceUpgrade("UpperClassLandTaxRelief", data.province, save)) {
-      breakdown.multiply.push({
-         ...getSocialClassBonusName("UpperClassLandTaxRelief"),
-         value: -0.05,
-      });
-   }
    if (isSocialClassDissent("UpperClass", data.province, save)) {
       breakdown.multiply.push({
          name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
@@ -404,18 +380,6 @@ export function getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
          name: $t(L.Bankruptcy),
          desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
          value: BankruptcyRevenueReduction,
-      });
-   }
-   if (hasProvinceUpgrade("MiddleClassGoodsTax", data.province, save)) {
-      breakdown.multiply.push({
-         ...getSocialClassBonusName("MiddleClassGoodsTax"),
-         value: 0.1,
-      });
-   }
-   if (hasProvinceUpgrade("MiddleClassGoodsTaxRelief", data.province, save)) {
-      breakdown.multiply.push({
-         ...getSocialClassBonusName("MiddleClassGoodsTaxRelief"),
-         value: -0.05,
       });
    }
    if (isSocialClassDissent("UpperClass", data.province, save)) {

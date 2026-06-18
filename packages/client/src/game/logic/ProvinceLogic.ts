@@ -17,7 +17,6 @@ import { $t, L } from "../../utils/i18n";
 import type { ICondition, IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { NegotiateWhitePeaceAction } from "../actions/NegotiateWhitePeaceAction";
-import { hasProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import { Buildings } from "../definitions/Building";
 import { Goods, Price } from "../definitions/Goods";
@@ -51,7 +50,7 @@ import { getAttitudeTowards, getRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
 import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
 import { attachModifiers } from "./ModifierLogic";
-import { getSocialClassBonusName, isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
+import { isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
 import {
    BankruptcyStabilityReduction,
    getTileGoodsTax,
@@ -254,12 +253,6 @@ export function getProvinceUpgrade(province: Province, save: SaveGame): number {
 export function getProvincePrestige(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.TileUpgrades), value: getProvinceUpgrade(province, save) });
-   if (hasProvinceUpgrade("MiddleClassPrestige", province, save)) {
-      breakdown.multiply.push({
-         ...getSocialClassBonusName("MiddleClassPrestige"),
-         value: 0.1,
-      });
-   }
    attachModifiers("Prestige", breakdown, province, save);
    getProvinceTraits("Distinguished", province, save).forEach((trait) => {
       breakdown.multiply.push({ ...trait, value: 0.02 });
@@ -269,12 +262,6 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
 
 export function getProvinceStability(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
-   if (hasProvinceUpgrade("UpperClassStability", province, save)) {
-      breakdown.add.push({
-         ...getSocialClassBonusName("UpperClassStability"),
-         value: 10,
-      });
-   }
    if (isSocialClassDissent("UpperClass", province, save)) {
       breakdown.add.push({
          name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
@@ -597,29 +584,11 @@ export function getProvinceGovernmentPoint(type: GovernorPower, province: Provin
    if (type === "administrative") {
       attachModifiers("AdministrativePoint", breakdown, province, save);
    }
-   if (type === "administrative" && hasProvinceUpgrade("UpperClassAdministrativePoint", province, save)) {
-      breakdown.add.push({
-         ...getSocialClassBonusName("UpperClassAdministrativePoint"),
-         value: 1,
-      });
-   }
    if (type === "diplomatic") {
       attachModifiers("DiplomaticPoint", breakdown, province, save);
    }
-   if (type === "diplomatic" && hasProvinceUpgrade("MiddleClassDiplomaticPoint", province, save)) {
-      breakdown.add.push({
-         ...getSocialClassBonusName("MiddleClassDiplomaticPoint"),
-         value: 1,
-      });
-   }
    if (type === "military") {
       attachModifiers("MilitaryPoint", breakdown, province, save);
-   }
-   if (type === "military" && hasProvinceUpgrade("LowerClassMilitaryPoint", province, save)) {
-      breakdown.add.push({
-         ...getSocialClassBonusName("LowerClassMilitaryPoint"),
-         value: 1,
-      });
    }
    return finalizeBreakdown(breakdown);
 }
@@ -763,12 +732,6 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
       result.multiply.push({
          name: $t(L.MakeWarSpeech),
          desc: $t(L.$1MonthsLeft, formatNumber(makeWarSpeech)),
-         value: 0.1,
-      });
-   }
-   if (hasProvinceUpgrade("LowerClassWarPower", province, save)) {
-      result.multiply.push({
-         ...getSocialClassBonusName("LowerClassWarPower"),
          value: 0.1,
       });
    }

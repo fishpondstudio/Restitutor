@@ -1,7 +1,8 @@
-import { clamp, forEach } from "@project/shared/src/utils/Helper";
+import { clamp, entriesOf, forEach } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
-import type { ProvinceUpgrade } from "../actions/ProvinceUpgrades";
+import { type ProvinceUpgrade, ProvinceUpgrades } from "../actions/ProvinceUpgrades";
+import { modifierToString } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
 import { type SocialClass, SocialClassBonuses, SocialClassNames } from "../definitions/SocialClass";
 import type { SaveGame } from "../GameState";
@@ -84,9 +85,23 @@ export function getSocialClassBonusName(upgrade: ProvinceUpgrade): { name: strin
          desc: $t(L.CheckSocialClassBonusesDefinition),
       };
    }
-   return { name: bonus.name(), desc: $t(L.$1ClassPrivilege, SocialClassNames[bonus.socialClass]()) };
+   return {
+      name: ProvinceUpgrades[upgrade].name(),
+      desc: $t(L.$1ClassPrivilege, SocialClassNames[bonus.socialClass]()),
+   };
 }
 
+export function getSocialClassBonusDesc(upgrade: ProvinceUpgrade): string {
+   const modifiers = ProvinceUpgrades[upgrade].modifiers;
+   if (modifiers) {
+      return entriesOf(modifiers)
+         .map(([modifier, data]) => {
+            return modifierToString(modifier, data);
+         })
+         .join(", ");
+   }
+   return "";
+}
 export function isSocialClassDissent(socialClass: SocialClass, province: Province, save: SaveGame): boolean {
    const state = save.state.provinces[province];
    if (!state) {

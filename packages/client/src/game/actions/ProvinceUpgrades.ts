@@ -1,4 +1,3 @@
-import { EmptyString } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { IBaseModifier, Modifier } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
@@ -26,40 +25,76 @@ const _ProvinceUpgrades = {
       },
    },
    UpperClassAdministrativePoint: {
-      name: () => EmptyString,
+      name: () => $t(L.MagisterialExtensions),
+      modifiers: {
+         AdministrativePoint: { type: "add", value: 1 },
+      },
    },
    UpperClassStability: {
-      name: () => EmptyString,
+      name: () => $t(L.CensorialOversight),
+      modifiers: {
+         Stability: { type: "add", value: 10 },
+      },
    },
    UpperClassLandTax: {
-      name: () => EmptyString,
+      name: () => $t(L.PatricianLandRegistries),
+      modifiers: {
+         LandTax: { type: "multiply", value: 0.1 },
+      },
    },
    UpperClassLandTaxRelief: {
-      name: () => EmptyString,
+      name: () => $t(L.SenateTaxRelief),
+      modifiers: {
+         LandTax: { type: "multiply", value: -0.05 },
+      },
    },
    MiddleClassDiplomaticPoint: {
-      name: () => EmptyString,
+      name: () => $t(L.OverseasTradeMissions),
+      modifiers: {
+         DiplomaticPoint: { type: "add", value: 1 },
+      },
    },
    MiddleClassPrestige: {
-      name: () => EmptyString,
+      name: () => $t(L.ForeignArbitrationRights),
+      modifiers: {
+         Prestige: { type: "multiply", value: 0.1 },
+      },
    },
    MiddleClassGoodsTax: {
-      name: () => EmptyString,
+      name: () => $t(L.NegotiatedTariffTreaties),
+      modifiers: {
+         TileOutput: { type: "multiply", value: 0.1 },
+      },
    },
    MiddleClassGoodsTaxRelief: {
-      name: () => EmptyString,
+      name: () => $t(L.GoodsTariffRelief),
+      modifiers: {
+         TileOutput: { type: "multiply", value: -0.05 },
+      },
    },
    LowerClassMilitaryPoint: {
-      name: () => EmptyString,
+      name: () => $t(L.CitizenSoldierStipends),
+      modifiers: {
+         MilitaryPoint: { type: "add", value: 1 },
+      },
    },
    LowerClassWarPower: {
-      name: () => EmptyString,
+      name: () => $t(L.MilitiaTrainingAssemblies),
+      modifiers: {
+         WarPower: { type: "multiply", value: 0.1 },
+      },
    },
    LowerClassManpower: {
-      name: () => EmptyString,
+      name: () => $t(L.FrontierSettlementIncentives),
+      modifiers: {
+         Manpower: { type: "multiply", value: 0.1 },
+      },
    },
    LowerClassManpowerRelief: {
-      name: () => EmptyString,
+      name: () => $t(L.WarLevyExemptions),
+      modifiers: {
+         Manpower: { type: "multiply", value: -0.05 },
+      },
    },
    InfiltrationOnDeclaringWar: {
       name: () => $t(L.$1InfiltrationWhenDeclaringWar, "+25"),

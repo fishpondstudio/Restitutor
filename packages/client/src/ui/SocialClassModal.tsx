@@ -1,7 +1,12 @@
 import { clamp, cls, entriesOf, formatDelta, formatNumber, formatPercentDelta } from "@project/shared/src/utils/Helper";
 import { Fragment } from "react/jsx-runtime";
 import { finalizeCondition } from "../game/actions/GameAction";
-import { addProvinceUpgrade, hasProvinceUpgrade, removeProvinceUpgrade } from "../game/actions/ProvinceUpgrades";
+import {
+   addProvinceUpgrade,
+   hasProvinceUpgrade,
+   ProvinceUpgrades,
+   removeProvinceUpgrade,
+} from "../game/actions/ProvinceUpgrades";
 import { SocialClassBonuses, SocialClassNames } from "../game/definitions/SocialClass";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
@@ -10,6 +15,7 @@ import {
    getDissentChange,
    getEstimatedDissentTime,
    getLoyaltyEquilibrium,
+   getSocialClassBonusDesc,
    SocialClassDissentEffectPct,
 } from "../game/logic/SocialClassLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
@@ -152,10 +158,10 @@ export function SocialClassModal(): React.ReactNode {
                               <Fragment key={action}>
                                  {idx > 0 && <div className="divider" />}
                                  <div className="mx10 my5" key={action}>
-                                    <div className="text-display">{bonus.name()}</div>
+                                    <div className="text-display">{ProvinceUpgrades[action].name()}</div>
                                     <div className="text-sm text-dimmed">
-                                       {bonus.desc()} (+{bonus.influence} {$t(L.Influence)}, +{bonus.loyalty}{" "}
-                                       {$t(L.Loyalty)})
+                                       {getSocialClassBonusDesc(action)} (+{bonus.influence} {$t(L.Influence)}, +
+                                       {bonus.loyalty} {$t(L.Loyalty)})
                                     </div>
                                     {hasProvinceUpgrade(action, G.save.state.playerProvince, G.save) ? (
                                        <ActionButton
