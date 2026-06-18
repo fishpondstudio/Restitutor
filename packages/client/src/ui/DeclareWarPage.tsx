@@ -54,15 +54,28 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
    }
 
    const warScore = getWarScore(G.save.state.playerProvince, province, selectedTiles, selectedCasusBelli, G.save);
-   const warGoalTiles = Array.from(G.save.state.tiles).filter(
-      ([tile, data]) => data.province === province && !warTiles.has(tile),
+   const warGoalTiles = new Set(
+      Array.from(G.save.state.tiles)
+         .filter(([tile, data]) => data.province === province && !warTiles.has(tile))
+         .map(([tile]) => tile),
    );
-
-   const warGoalTilesSet = new Set(warGoalTiles.map(([tile]) => tile));
    useEffect(() => {
-      G.scene.getCurrent(WorldScene)?.drawSelectors(selectedTiles);
+      let selectedTilesValid = true;
+      const updatedSelectedTiles = new Set<Tile>();
+      for (const tile of selectedTiles) {
+         if (warGoalTiles.has(tile)) {
+            updatedSelectedTiles.add(tile);
+         } else {
+            selectedTilesValid = false;
+            break;
+         }
+      }
+      if (!selectedTilesValid) {
+         setSelectedTiles(updatedSelectedTiles);
+      }
+      G.scene.getCurrent(WorldScene)?.drawSelectors(updatedSelectedTiles);
       G.scene.getCurrent(WorldScene)?.setClickTileHandler((tile, e) => {
-         if (!warGoalTilesSet.has(tile)) {
+         if (!warGoalTiles.has(tile)) {
             G.scene.getCurrent(WorldScene)?.drawProvinceOutline(province);
             playError();
             return;
@@ -84,8 +97,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
             scene.clearClickTileHandler();
          });
       };
-   }, [province, selectedTiles, warGoalTilesSet]);
-
+   }, [province, selectedTiles, warGoalTiles]);
    const effect = CasusBelli[selectedCasusBelli].effect?.();
    return (
       <SidebarComp header={<SidebarHeader title={$t(L.DeclareWar)} />} width={SidebarWiderWidth}>
@@ -94,7 +106,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
             className="m10 text-sm"
             style={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-start", gap: "0.3125rem" }}
          >
-            {warGoalTiles.map(([tile, data]) => (
+            {Array.from(warGoalTiles).map((tile) => (
                <div
                   className={cls(
                      "box row py2 px2 pr5 g5 pointer",
