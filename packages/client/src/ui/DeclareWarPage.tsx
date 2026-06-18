@@ -38,21 +38,17 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
    const successChance = getWarSuccessChance(G.save.state.playerProvince, coAttackers, province, coDefenders, G.save);
    const warTiles = getWarTiles(G.save);
    const relation = getRelation(G.save.state.playerProvince, province, G.save);
-   if (!relation) {
-      return null;
-   }
    const casusBelli: ComboboxItem[] = [
-      ...Array.from(relation.casusBelli).map(([cb, data]) => ({
+      ...Array.from(relation?.casusBelli ?? []).map(([cb, data]) => ({
          label: $t(L.$1$2MonthsLeft, CasusBelli[cb].name(), formatNumber(data.monthsLeft)),
          value: cb,
       })),
+      { label: CasusBelli.None.name(), value: "None" },
    ];
-   casusBelli.push({ label: CasusBelli.None.name(), value: "None" });
    const [selectedCasusBelli, setSelectedCasusBelli] = useState(casusBelli[0].value as CasusBelli);
-   if (selectedCasusBelli !== "None" && !relation.casusBelli.has(selectedCasusBelli)) {
+   if (selectedCasusBelli !== "None" && !relation?.casusBelli.has(selectedCasusBelli)) {
       setSelectedCasusBelli(casusBelli[0].value as CasusBelli);
    }
-
    const warScore = getWarScore(G.save.state.playerProvince, province, selectedTiles, selectedCasusBelli, G.save);
    const warGoalTiles = new Set(
       Array.from(G.save.state.tiles)
@@ -60,21 +56,20 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
          .map(([tile]) => tile),
    );
    useEffect(() => {
-      let selectedTilesValid = true;
+      let dirty = false;
       const updatedSelectedTiles = new Set<Tile>();
       for (const tile of selectedTiles) {
          if (warGoalTiles.has(tile)) {
             updatedSelectedTiles.add(tile);
          } else {
-            selectedTilesValid = false;
-            break;
+            dirty = true;
          }
       }
-      if (!selectedTilesValid) {
+      if (dirty) {
          setSelectedTiles(updatedSelectedTiles);
       }
       G.scene.getCurrent(WorldScene)?.drawSelectors(updatedSelectedTiles);
-      G.scene.getCurrent(WorldScene)?.setClickTileHandler((tile, e) => {
+      G.scene.getCurrent(WorldScene)?.setClickTileHandler((tile) => {
          if (!warGoalTiles.has(tile)) {
             G.scene.getCurrent(WorldScene)?.drawProvinceOutline(province);
             playError();
@@ -99,6 +94,9 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
       };
    }, [province, selectedTiles, warGoalTiles]);
    const effect = CasusBelli[selectedCasusBelli].effect?.();
+   if (!relation) {
+      return null;
+   }
    return (
       <SidebarComp header={<SidebarHeader title={$t(L.DeclareWar)} />} width={SidebarWiderWidth}>
          <div className="h1">{$t(L.WarGoal)}</div>
