@@ -322,3 +322,7 @@ u {
       justify-content: center;
    }
 }
+
+.mantine-Progress-section {
+   background: linear-gradient(to right, var(--mantine-color-roman-9), var(--mantine-color-roman-7));
+}
