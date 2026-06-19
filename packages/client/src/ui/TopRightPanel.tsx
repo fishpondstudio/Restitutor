@@ -9,7 +9,7 @@ import { GameOptionFlag } from "../game/GameOption";
 import { getGameDate } from "../game/logic/TickLogic";
 import { useShortcut } from "../game/Shortcut";
 import { openUrl } from "../rpc/SteamClient";
-import { G, GameFlags, setSpeed } from "../utils/Global";
+import { G, isDev, setSpeed } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { FloatingTip } from "./components/FloatingTip";
@@ -48,7 +48,7 @@ function SteamDiscordComp(): React.ReactNode {
 
 function SpeedComp(): React.ReactNode {
    refreshOnTypedEvent(GameSpeedChanged);
-   const speed = hasFlag(G.flags, GameFlags.NoDev) ? Speed : FasterSpeed;
+   const speed = isDev() ? Speed : FasterSpeed;
    useShortcut("IncreaseGameSpeed", () => {
       setSpeed(speed[clamp(speed.indexOf(G.speed) + 1, 0, speed.length - 1)]);
    }, []);
