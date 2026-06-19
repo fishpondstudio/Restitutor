@@ -35,7 +35,23 @@ export function RestorationBonusModal(): React.ReactNode {
 function ModifierComp({ bonus }: { bonus: RestorationBonus }): React.ReactNode {
    const def = RestorationBonus[bonus];
    return (
-      <div className="panel panel-hover" style={{ position: "relative", overflow: "hidden", maxHeight: "70vh" }}>
+      <div
+         className="panel panel-hover pointer"
+         style={{ position: "relative", overflow: "hidden", maxHeight: "70vh" }}
+         onClick={() => {
+            hideModal();
+            playClick();
+            addProvinceStat("usedRestoration", 1, G.save.state.playerProvince, G.save);
+            const currentUsed = getProvinceStat("usedRestoration", G.save.state.playerProvince, G.save);
+            applyGameEffect(
+               def.effect,
+               $t(L.Restoration$1, numberToRoman(currentUsed)),
+               G.save.state.playerProvince,
+               G.save,
+            );
+            GameStateUpdated.emit();
+         }}
+      >
          <img src={def.image.url} className="display-block w100" />
          <div
             style={{
@@ -57,20 +73,7 @@ function ModifierComp({ bonus }: { bonus: RestorationBonus }): React.ReactNode {
          </FloatingTip>
          <div
             style={{ position: "absolute", bottom: "1em", left: "0.625rem", right: "0.625rem" }}
-            className="text-center text-roman pointer text-hover"
-            onClick={() => {
-               hideModal();
-               playClick();
-               addProvinceStat("usedRestoration", 1, G.save.state.playerProvince, G.save);
-               const currentUsed = getProvinceStat("usedRestoration", G.save.state.playerProvince, G.save);
-               applyGameEffect(
-                  def.effect,
-                  $t(L.Restoration$1, numberToRoman(currentUsed)),
-                  G.save.state.playerProvince,
-                  G.save,
-               );
-               GameStateUpdated.emit();
-            }}
+            className="text-center text-roman"
          >
             {getGameEffectDesc(def.effect, G.save.state.playerProvince, G.save)}
          </div>
