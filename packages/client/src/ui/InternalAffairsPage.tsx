@@ -21,7 +21,6 @@ import { GameStateUpdated } from "../game/Events";
 import {
    getChristianityYearly,
    getCulturalCohesion,
-   getGoverningCapacityPerRestoration,
    getProgressToNextRestoration,
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,
@@ -67,7 +66,6 @@ export function InternalAffairsPage(): React.ReactNode {
    const christianityYearly = getChristianityYearly(G.save.state.playerProvince, G.save);
    const tileAnnexedAndCored = getTilesAnnexedAndCored(G.save.state.playerProvince, G.save);
    const progressToNextRestoration = getProgressToNextRestoration(G.save.state.playerProvince, G.save);
-   const governingCapacityPerRestoration = getGoverningCapacityPerRestoration(G.save.state.playerProvince, G.save);
    const tiles = Array.from(G.save.state.tiles)
       .filter(
          ([tile, tileData]) =>
@@ -166,17 +164,8 @@ export function InternalAffairsPage(): React.ReactNode {
                   </div>
                   <div className="divider" />
                   <div className="m10">
-                     {html(
-                        $t(
-                           L.EveryTilesAnnexedAndCoredGrantRestoration$1$2,
-                           TilesPerRestoration,
-                           governingCapacityPerRestoration.value,
-                        ),
-                     )}
+                     {html($t(L.EveryTilesGrantRestorationWithBonusChoice$1, TilesPerRestoration))}
                   </div>
-                  <div className="divider" />
-                  <div className="m10">{$t(L.GoverningCapacityPerRestorationIsDeterminedAsFollows)}</div>
-                  <BreakdownComp breakdown={governingCapacityPerRestoration} />
                </>
             }
          >

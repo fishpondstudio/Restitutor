@@ -1,16 +1,27 @@
 import { clamp } from "@mantine/hooks";
-import { entriesOf, filterInPlace, forEach, hasFlag, randOne } from "@project/shared/src/utils/Helper";
+import {
+   entriesOf,
+   filterInPlace,
+   forEach,
+   hasFlag,
+   keysOf,
+   numberToRoman,
+   randOne,
+} from "@project/shared/src/utils/Helper";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { GameEventModal } from "../../ui/GameEventModal";
+import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
 import { G, GameFlags } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
 import { addProvinceUpgrade, removeProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import type { IGovernorFamily } from "../definitions/Family";
 import { type Province, ProvinceFlags } from "../definitions/Province";
+import { RestorationBonus } from "../definitions/RestorationBonus";
 import { TimedActions } from "../definitions/TimedAction";
 import { RefreshTiles } from "../Events";
 import { applyGameEventButton, getEventButtons, getGameEventCondition } from "../events/GameEventLogic";
 import { type GameEvent, GameEvents } from "../events/GameEvents";
+import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor, tickFamily } from "./GovernorLogic";
@@ -18,6 +29,7 @@ import { canTakeLoan, getLoanAmount, getMonthlyInterestRate, takeLoan } from "./
 import { tickProduction } from "./ProductionLogic";
 import {
    addProvinceResource,
+   addProvinceStat,
    cleanUpProvince,
    getProvinceGoverningCost,
    getProvinceGovernmentPoint,
@@ -25,6 +37,7 @@ import {
    getProvinceResource,
    getProvinceStat,
    getProvinceTileCount,
+   getRestoration,
    pledgeProvinceConsulVotes,
    setProvinceStat,
    spendProvinceResource,
@@ -277,6 +290,8 @@ export function tickProvince(province: Province, save: SaveGame): void {
    if (hasFlag(state.flags, ProvinceFlags.AutomaticallyPledgeSupport)) {
       pledgeProvinceConsulVotes(province, save);
    }
+
+   tickRestoration(province, save);
 }
 
 export function addGameEvent(event: GameEvent, province: Province, save: SaveGame): void {
@@ -294,5 +309,30 @@ export function addGameEvent(event: GameEvent, province: Province, save: SaveGam
 export function showGameEventModal(modal: React.ReactElement): void {
    if (!hasFlag(G.flags, GameFlags.Sandbox)) {
       showPanel(modal);
+   }
+}
+
+const _restorationShown = new Set<number>();
+
+function tickRestoration(province: Province, save: SaveGame): void {
+   const restoration = getRestoration(province, save);
+   let used = getProvinceStat("usedRestoration", province, save);
+   // In sandbox mode, a random restoration bonus is rolled for everyone, including the player.
+   if (!hasFlag(G.flags, GameFlags.Sandbox) && province === save.state.playerProvince) {
+      if (restoration > used && !_restorationShown.has(used)) {
+         showPanel(<RestorationBonusModal />);
+         _restorationShown.add(used);
+      }
+   } else {
+      while (restoration > used) {
+         ++used;
+         addProvinceStat("usedRestoration", 1, province, save);
+         applyGameEffect(
+            RestorationBonus[randOne(keysOf(RestorationBonus))].effect,
+            $t(L.Restoration$1, numberToRoman(getProvinceStat("usedRestoration", province, save))),
+            province,
+            save,
+         );
+      }
    }
 }

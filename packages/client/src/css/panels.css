@@ -85,6 +85,14 @@
    border-radius: var(--mantine-radius-default);
    overflow: hidden;
 
+   &.panel-hover {
+      transition: transform 0.2s ease-in-out;
+      will-change: transform;
+   }
+   &.panel-hover:hover {
+      transform: scale(1.025);
+   }
+
    .header {
       background: var(--header-background);
       color: var(--mantine-color-gray-0);

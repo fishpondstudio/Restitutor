@@ -5,6 +5,7 @@ import { DeclareWarOnUsModal } from "../ui/DeclareWarOnUsEventModal";
 import { DrawnIntoWarModal } from "../ui/DrawnIntoWarEventModal";
 import { InvaderConqueredWarGoalModal } from "../ui/InvaderConqueredWarGoalModal";
 import { InvaderSueForWhitePeaceModal } from "../ui/InvaderSueForWhitePeaceModal";
+import { RestorationBonusModal } from "../ui/RestorationBonusModal";
 import { WarEndedModal } from "../ui/WarEndedModal";
 import { G, isDev } from "../utils/Global";
 import { type IFamily, PersonFlags } from "./definitions/Family";
@@ -69,6 +70,11 @@ export function addDebugFunctions(): void {
             ]}
          />,
       );
+   };
+
+   // @ts-expect-error
+   globalThis.showRestorationBonus = () => {
+      showPanel(<RestorationBonusModal />);
    };
 
    const warOnUs: IWar = {

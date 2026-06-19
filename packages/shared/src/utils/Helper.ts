@@ -603,8 +603,8 @@ export function isEmpty<K, V>(obj: Map<K, V> | Set<K> | object | null | undefine
    return true;
 }
 
-export function numberToRoman(num: number): string | null {
-   if (!+num) return null;
+export function numberToRoman(num: number): string {
+   if (!+num) return "";
    const digits = String(+num).split("");
    // biome-ignore format: false
    const key = [

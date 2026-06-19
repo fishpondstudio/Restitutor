@@ -469,13 +469,6 @@ export function getProvinceGoverningCapacity(province: Province, save: SaveGame)
    if (extraCapacity > 0) {
       breakdown.add.push({ name: getProvinceName(province, save), value: extraCapacity });
    }
-   const restoration = getRestoration(province, save);
-   if (restoration > 0) {
-      breakdown.add.push({
-         name: $t(L.Restoration),
-         value: restoration * getGoverningCapacityPerRestoration(province, save).value,
-      });
-   }
    attachModifiers("GoverningCapacity", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
@@ -1037,13 +1030,6 @@ export function getProgressToNextRestoration(province: Province, save: SaveGame)
 }
 
 export const TilesPerRestoration = 5;
-export const BaseGoverningCapacityPerRestoration = 10;
-
-export function getGoverningCapacityPerRestoration(province: Province, save: SaveGame): IValueBreakdown {
-   const result = makeValueBreakdown();
-   result.add.push({ name: $t(L.BaseValue), value: BaseGoverningCapacityPerRestoration });
-   return finalizeBreakdown(result);
-}
 
 export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1);
 

@@ -47,28 +47,28 @@ export type IEventTrade = {
    extraProfit: number;
 };
 
-export function getGameEffectDesc(button: IGameEffect, province: Province, save: SaveGame): React.ReactNode {
+export function getGameEffectDesc(effect: IGameEffect, province: Province, save: SaveGame): React.ReactNode {
    return (
       <>
-         {button.provinceUpgrades?.map((upgrade) => (
+         {effect.provinceUpgrades?.map((upgrade) => (
             <div key={upgrade}>{$t(L.Enact$1, ProvinceUpgrades[upgrade].name())}</div>
          ))}
-         {button.resources &&
-            mapOf(button.resources, (resource, amount) => (
+         {effect.resources &&
+            mapOf(effect.resources, (resource, amount) => (
                <div key={resource}>
                   {formatDelta(amount)} {ProvinceResourceNames[resource]()}
                </div>
             ))}
-         {button.stats &&
-            mapOf(button.stats, (stat, amount) => (
+         {effect.stats &&
+            mapOf(effect.stats, (stat, amount) => (
                <div key={stat}>
                   {formatDelta(amount)} {ProvinceStatNames[stat]()}
                </div>
             ))}
-         {button.modifiers &&
-            mapOf(button.modifiers, (modifier, data) => <div key={modifier}>{modifierToString(modifier, data)}</div>)}
-         {button.attitudes &&
-            mapOf(filterProvinces(button.attitudes, province, save), (fromProvince, modifier) => (
+         {effect.modifiers &&
+            mapOf(effect.modifiers, (modifier, data) => <div key={modifier}>{modifierToString(modifier, data)}</div>)}
+         {effect.attitudes &&
+            mapOf(filterProvinces(effect.attitudes, province, save), (fromProvince, modifier) => (
                <div key={fromProvince}>
                   {$t(
                      L.$1$2AttitudeTowardsUsFor$3,
@@ -78,14 +78,14 @@ export function getGameEffectDesc(button: IGameEffect, province: Province, save:
                   )}
                </div>
             ))}
-         {button.infiltration &&
-            mapOf(filterProvinces(button.infiltration, province, save), (fromProvince, amount) => (
+         {effect.infiltration &&
+            mapOf(filterProvinces(effect.infiltration, province, save), (fromProvince, amount) => (
                <div key={fromProvince}>
                   {$t(L.$1InfiltrationTo$2, formatDelta(amount), getProvinceName(fromProvince, save))}
                </div>
             ))}
-         {button.casusBelli &&
-            mapOf(filterProvinces(button.casusBelli, province, save), (fromProvince, data) => (
+         {effect.casusBelli &&
+            mapOf(filterProvinces(effect.casusBelli, province, save), (fromProvince, data) => (
                <div key={fromProvince}>
                   {$t(
                      L.Gain$1CasusBelliAgainst$2For$3,
@@ -95,8 +95,8 @@ export function getGameEffectDesc(button: IGameEffect, province: Province, save:
                   )}
                </div>
             ))}
-         {button.trades &&
-            mapOf(filterProvinces(button.trades, province, save), (fromProvince, { offer, extraProfit }) => {
+         {effect.trades &&
+            mapOf(filterProvinces(effect.trades, province, save), (fromProvince, { offer, extraProfit }) => {
                const { trade, profit } = generateTrade(offer, extraProfit, province, save);
                return (
                   <div key={fromProvince}>
