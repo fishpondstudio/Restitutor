@@ -13,7 +13,8 @@ You can open language translations from above, click the **Edit** icon on the to
 ![image](https://user-images.githubusercontent.com/608221/113917327-c13b5f80-97e9-11eb-82fa-dc6fc0aa65fa.png)
 
 - Translate texts within double quote `"`.
-- Do not translate variable names like `%{amount}`
+- Do not translate placeholder tokens like `$1`, `$2`, etc.
+- Preserve HTML and Chronicle tags (`<i>`, `<b>`, `<Province>`, `<Tile>`, etc.)
 
 After you are happy with your changes, click **Propose changes**
 

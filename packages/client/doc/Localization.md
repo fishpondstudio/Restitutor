@@ -323,22 +323,6 @@ For example, when translating a key containing "tiles annexed and cored":
 1. Search the target language file for keys like `TilesAnnexedAndCored`, `OccupyAndCore`, `MakeCore`, etc.
 2. Reuse the same translation for "tiles", "annexed", "cored", "restoration", etc.
 
-Common gameplay terms to keep consistent:
-
-| English | Check keys like |
-|---------|----------------|
-| tiles | `Tiles`, `TileMaintenance`, `TileOutput`, `FromAllTiles` |
-| annexed | `TilesAnnexedAndCored`, `OccupyAndCore` |
-| core / cored | `MakeCore`, `IsCore`, `NotCore`, `TilesAnnexedAndCored` |
-| restoration | `Restoration`, `ProgressToNextRestoration` |
-| war power | `WarPower`, `$1WarPower` |
-| prestige | `Prestige`, `OurPrestige` |
-| stability | `Stability`, `$1Stability` |
-| unrest | `Unrest`, `$1TileUnrest` |
-| rebellion | `Rebellion`, `RebellionIsAtLeast$1` |
-| governing capacity | `GoverningCapacity`, `GoverningCost` |
-| bonus | `SocialClassBonus`, `Rewards` |
-
 **Never translate the same English term differently in different keys.** If `TilesAnnexedAndCored` uses "владения" for "tiles", do not use "участки" in another key.
 
 ### Reordering Tokens
