@@ -10,6 +10,7 @@ This document describes how to extract hardcoded user-facing strings in the Rest
 | English language file | `packages/client/src/languages/en.ts` |
 | Other language files | `packages/client/src/languages/*.ts` (synced from `en.ts`) |
 | Translation runtime | `packages/client/src/utils/i18n.ts` |
+| Language switching | `packages/client/src/utils/Global.tsx` (`setLanguage`) |
 | HTML rendering helper | `packages/client/src/ui/components/RenderHTMLComp.tsx` |
 | Chronicle markup parser | `packages/client/src/ui/ParseMarkup.tsx` |
 | Format helpers | `@project/shared/src/utils/Helper` (`formatNumber`, `formatDelta`, `formatPercent`, `formatPercentDelta`) |
@@ -69,7 +70,7 @@ import { $t, L } from "../utils/i18n";
 
 ### Do NOT Localize
 
-- `imageCredit` fields (image attribution text in building/definition data).
+- `imageCredit` field values in building/definition data (the raw attribution text). The UI label is localized separately (e.g. `$t(L.ImageCredit$1, config.imageCredit)`).
 - Icon names inside `<div className="mi">icon_name</div>` — these are Material icon identifiers, not display text.
 - Debug output: `console.log`, `console.warn`, `console.error`.
 - Developer errors: `throw new Error(...)`.
@@ -87,11 +88,11 @@ When not sure whether a string is user-facing, **do not touch it** and **flag it
 import { $t, L } from "../utils/i18n"; // adjust relative path
 ```
 
-- `L` is a clone of the `EN` object from `en.ts`. At runtime, `Object.assign(L, Languages[lang])` swaps in the active language.
+- `L` is a clone of the `EN` object from `en.ts`. At runtime, `setLanguage()` in `Global.tsx` calls `Object.assign(L, Languages[lang])` to swap in the active language.
 - `$t(L.SomeKey)` looks up the translated string and returns it. `L.SomeKey` evaluates to the string value for the active language.
 - `$t(L.SomeKey, arg1, arg2, ...)` substitutes `$1`, `$2`, `$3`, ... tokens with the arguments (by token number, not by position in the string).
 - `$t` always receives `L.KeyName` (which evaluates to the string value), never a bare string literal.
-- Missing translations render as `⚠️<key value>`.
+- Falsy translation values (e.g. `undefined` or `""`) render as `⚠️` followed by that value (e.g. `⚠️undefined`).
 - Missing arguments render as `⚠️<token number>` (1-based; e.g. missing `$1` → `⚠️1`, missing `$10` → `⚠️10`).
 
 ### Placeholders
@@ -302,9 +303,8 @@ This section is for agents and contributors translating `en.ts` into other langu
 ### Overview
 
 - **English (`en.ts`) is the source of truth** for all keys and for validation.
-- Each language file exports a constant (e.g. `export const DE = { ... }`) with the same keys as `en.ts`.
-- Register new languages in `packages/client/src/game/Languages.ts`.
-- At runtime, `setLanguage()` copies the selected language object into `L`; `$t` then interpolates tokens from that translation.
+- Each language file exports a constant with the same keys as `en.ts`. The export name is derived from the filename: `de.ts` → `export const DE`, `zh-CN.ts` → `export const ZH_CN`.
+- At runtime, `setLanguage()` in `Global.tsx` copies the selected language object into `L`; `$t` then interpolates tokens from that translation.
 
 ### What to Translate
 
@@ -349,6 +349,8 @@ Run the same checks in [Verification](#verification). `pnpm run translate` valid
 
 To initialize or fully reset a non-English file to English placeholders: `pnpm run translate --reset`.
 
+To alphabetically sort keys in `en.ts`: `pnpm run translate --sort` (optional; not used in normal workflow).
+
 ## Person Perspective
 
 Game narration uses **first-person** ("we", "our"), not second-person ("you", "your").
@@ -361,7 +363,7 @@ Game narration uses **first-person** ("we", "our"), not second-person ("you", "y
 
 **Exceptions — keep second-person:**
 
-- Functional confirmation dialogs (e.g. `Are you sure you want to hard reset the game?`)
+- Functional confirmation dialogs (e.g. `AreYouSureYouWantToHardResetTheGameThisCannotBeUndone`: "Are you sure you want to hard reset the game? This cannot be undone.")
 - Quotes (e.g. `In This Sign, You Shall Conquer`)
 - The button text `I'm ready to restore the empire`
 
@@ -385,7 +387,7 @@ When reviewing localization, **list** the following for human review. **Do NOT i
 
 ## Verification
 
-Run these commands from the **repository root** (`E:/Restitutor`), in order, after making changes:
+Run these commands from the **repository root**, in order, after making changes:
 
 ```sh
 pnpm run build      # TypeScript compile check
