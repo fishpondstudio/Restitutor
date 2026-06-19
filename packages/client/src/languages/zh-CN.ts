@@ -1939,4 +1939,5 @@ export const ZH_CN = {
    PickYourRestorationBonus: "选择您的复兴加成",
    EveryTilesGrantRestorationWithBonusChoice$1: "每$1个<i>吞并并核心化</i>的地块可获得1次复兴。每次复兴可从三个可用选项中选择一项加成。",
    Restoration$1: "复兴 $1",
+   ImageCredit$1: "图片来源: $1",
 };

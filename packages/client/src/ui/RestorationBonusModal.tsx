@@ -47,7 +47,7 @@ function ModifierComp({ bonus }: { bonus: RestorationBonus }): React.ReactNode {
                background: "linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.75))",
             }}
          />
-         <FloatingTip label={def.image.credit}>
+         <FloatingTip label={$t(L.ImageCredit$1, def.image.credit)}>
             <div
                className="mi text-white sm"
                style={{ position: "absolute", top: "0.3125rem", right: "0.3125rem", opacity: 0.5 }}

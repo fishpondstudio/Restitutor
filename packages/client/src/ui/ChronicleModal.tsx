@@ -42,7 +42,7 @@ export function ChronicleModal({ years }: { years: [number, number] }): React.Re
             >
                {$t(L.FullChronicle)}
             </button>
-            <FloatingTip label="Image Credit: Das Forum Romanum, J. Bühlmann (1901)">
+            <FloatingTip label={$t(L.ImageCredit$1, "Das Forum Romanum, J. Bühlmann (1901)")}>
                <div
                   className="text-display text-xl"
                   style={{ position: "absolute", bottom: "0.625rem", left: "0.625rem" }}

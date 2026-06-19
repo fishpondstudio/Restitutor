@@ -20,7 +20,7 @@ export function DeclareWarOnUsModal({ war }: { war: IWar }): React.ReactNode {
             $t(L.GovernorDeclaredWarOnUsDesc$1$2$3, war.attacker, CasusBelli[war.casusBelli].name(), warGoal),
          )}
          image={EventImage.DeclareWar.url}
-         titleTooltip={<div className="m10">Image Credit: {EventImage.DeclareWar.credit}</div>}
+         titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.DeclareWar.credit)}</div>}
          buttons={[
             <GameEventButton
                key="0"

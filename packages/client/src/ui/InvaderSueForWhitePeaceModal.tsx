@@ -13,7 +13,7 @@ export function InvaderSueForWhitePeaceModal({ war }: { war: IWar }): React.Reac
          title={$t(L.$1SuedForWhitePeace, war.attacker)}
          content={$t(L.InvaderSuedForWhitePeaceDesc$1$2, war.log.length, war.attacker)}
          image={EventImage.InvaderSueForWhitePeace.url}
-         titleTooltip={<div className="m10">Image Credit: {EventImage.InvaderSueForWhitePeace.credit}</div>}
+         titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.InvaderSueForWhitePeace.credit)}</div>}
          buttons={[
             <GameEventButton
                key="0"

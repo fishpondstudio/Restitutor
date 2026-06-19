@@ -1954,4 +1954,5 @@ export const EN = {
    PickYourRestorationBonus: "Pick Your Restoration Bonus",
    EveryTilesGrantRestorationWithBonusChoice$1: "Every $1 tiles <i>annexed and cored</i> grant 1 restoration. Each restoration provides a choice of one bonus from three available options.",
    Restoration$1: "Restoration $1",
+   ImageCredit$1: "Image Credit: $1",
 };

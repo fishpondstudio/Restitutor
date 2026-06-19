@@ -42,7 +42,7 @@ export function TileBuildingsModal({ tile }: { tile: Tile }): React.ReactNode {
             {entriesOf(Buildings).map(([building, config], index) => {
                return (
                   <div key={building} className="box row p10">
-                     <FloatingTip label={config.imageCredit}>
+                     <FloatingTip label={$t(L.ImageCredit$1, config.imageCredit)}>
                         <div>
                            <img key={building} src={Buildings[building].image} height={50} className="img-border" />
                         </div>

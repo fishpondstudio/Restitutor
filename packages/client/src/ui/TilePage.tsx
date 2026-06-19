@@ -87,7 +87,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                >
                   close
                </div>
-               <FloatingTip label={Terrains[tileData.terrain].image.credit}>
+               <FloatingTip label={$t(L.ImageCredit$1, Terrains[tileData.terrain].image.credit)}>
                   <div
                      className="text-roman text-xl"
                      style={{ position: "absolute", bottom: "0.625rem", left: "0.625rem" }}

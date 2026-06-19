@@ -18,7 +18,7 @@ export function InvaderConqueredWarGoalModal({ war }: { war: IWar }): React.Reac
          title={$t(L.$1DefeatedUs, war.attacker)}
          content={html($t(L.InvaderConqueredWarGoalDesc$1$2$3, war.log.length, war.attacker, warGoal))}
          image={EventImage.InvaderConqueredWarGoal.url}
-         titleTooltip={<div className="m10">Image Credit: {EventImage.InvaderConqueredWarGoal.credit}</div>}
+         titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.InvaderConqueredWarGoal.credit)}</div>}
          buttons={[
             <GameEventButton
                key="0"

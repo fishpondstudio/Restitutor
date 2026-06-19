@@ -8,25 +8,25 @@ export const Terrains = {
    Plain: {
       image: {
          url: Plain,
-         credit: "Image Credit: Field of Cabbage, Jan Stanisławski (1895~1897)",
+         credit: "The plain of Gennevilliers, yellow fields, Gustave Caillebotte (c.1800s)",
       },
    },
    Hill: {
       image: {
          url: Hill,
-         credit: "Image Credit: Vermont Hill, Theodore Robinson (c.1894)",
+         credit: "Vermont Hill, Theodore Robinson (c.1894)",
       },
    },
    Forest: {
       image: {
          url: Forest,
-         credit: "Image Credit: A look at the Black Forest, Karl Julius Wilhelm Heilmann",
+         credit: "A look at the Black Forest, Karl Julius Wilhelm Heilmann",
       },
    },
    Mountain: {
       image: {
          url: Mountain,
-         credit: "Image Credit: A Panorama from the Mangart in the Julian Alps 4, Markus Pernhart",
+         credit: "A Panorama from the Mangart in the Julian Alps 4, Markus Pernhart",
       },
    },
 } as const satisfies Record<

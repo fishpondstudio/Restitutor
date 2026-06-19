@@ -24,7 +24,7 @@ export const RestorationBonus = {
       },
       image: {
          url: GoverningCapacity,
-         credit: "Image Credit: Cicero's tale about Catiline, Hans Werner Schmidt (1912)",
+         credit: "Cicero's tale about Catiline, Hans Werner Schmidt (1912)",
       },
    } as IRestorationBonus,
    Stability: {
@@ -35,7 +35,7 @@ export const RestorationBonus = {
       },
       image: {
          url: Stability,
-         credit: "Image Credit: Das Forum Romanum, J. Bühlmann (1901)",
+         credit: "Das Forum Romanum, J. Bühlmann (1901)",
       },
    } as IRestorationBonus,
    WarPower: {
@@ -46,7 +46,7 @@ export const RestorationBonus = {
       },
       image: {
          url: WarPower,
-         credit: "Image Credit: Julius Caesar's triumphal procession, Weimar (c.1800s)",
+         credit: "Julius Caesar's triumphal procession, Weimar (c.1800s)",
       },
    } as IRestorationBonus,
    Prestige: {
@@ -57,7 +57,7 @@ export const RestorationBonus = {
       },
       image: {
          url: Prestige,
-         credit: "Image Credit: The Age of Augustus, the Birth of Christ, Jean-Léon Gérôme (1852)",
+         credit: "The Age of Augustus, the Birth of Christ, Jean-Léon Gérôme (1852)",
       },
    } as IRestorationBonus,
    LandTax: {
@@ -68,7 +68,7 @@ export const RestorationBonus = {
       },
       image: {
          url: LandTax,
-         credit: "Image Credit: Cincinnatus behind the plow, Anton Hoffmann (1920)",
+         credit: "Cincinnatus behind the plow, Anton Hoffmann (1920)",
       },
    } as IRestorationBonus,
    TileOutput: {
@@ -79,7 +79,7 @@ export const RestorationBonus = {
       },
       image: {
          url: TileOutput,
-         credit: "Image Credit: A Forge, Antonio Zucchi (c.1700s)",
+         credit: "A Forge, Antonio Zucchi (c.1700s)",
       },
    } as IRestorationBonus,
    Manpower: {
@@ -91,7 +91,7 @@ export const RestorationBonus = {
       image: {
          url: Manpower,
          credit:
-            "Image Credit: Inneres eines römischen Hauses. Haus des Cornelius Rufus in Pompeji (Rekonstruktion), Adolf Lehmann (1906)",
+            "Inneres eines römischen Hauses. Haus des Cornelius Rufus in Pompeji (Rekonstruktion), Adolf Lehmann (1906)",
       },
    } as IRestorationBonus,
    TradeProfit: {
@@ -102,7 +102,7 @@ export const RestorationBonus = {
       },
       image: {
          url: TradeProfit,
-         credit: "Image Credit: In der Wüste, Adolf Lehmann (c.1900s)",
+         credit: "In der Wüste, Adolf Lehmann (c.1900s)",
       },
    } as IRestorationBonus,
    GeneralSkillPoint: {
@@ -113,7 +113,7 @@ export const RestorationBonus = {
       },
       image: {
          url: GeneralSkillPoint,
-         credit: "Image Credit: Gaius Mucius Scaevola, Hans Werner Schmidt (1920)",
+         credit: "Gaius Mucius Scaevola, Hans Werner Schmidt (1920)",
       },
    } as IRestorationBonus,
 } as const satisfies Record<string, IRestorationBonus>;

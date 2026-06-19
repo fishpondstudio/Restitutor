@@ -20,7 +20,7 @@ export function DrawnIntoWarModal({ war }: { war: IWar }): React.ReactNode {
             getProvinceName(ourAlly, G.save),
          )}
          image={EventImage.DrawnIntoWar.url}
-         titleTooltip={<div className="m10">Image Credit: {EventImage.DrawnIntoWar.credit}</div>}
+         titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.DrawnIntoWar.credit)}</div>}
          buttons={[
             <GameEventButton
                key="0"
