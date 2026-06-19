@@ -123,7 +123,7 @@ Translators may reorder tokens in non-English strings when grammar requires it (
 
 ### `html()` for Inline HTML in UI
 
-When localized text contains inline HTML (`<i>`, `<b>`, `<br>`, etc.) and is rendered in React UI:
+When localized text contains inline HTML (`<i>`, `<b>`, `<q>`, `<br>`) and is rendered in React UI:
 
 ```tsx
 import { html } from "../ui/components/RenderHTMLComp";
@@ -133,6 +133,8 @@ html($t(L.Make$1OurCoreTile, getTileName(tile)))
 ```
 
 Use `html()` only when the string contains HTML tags. Plain text does not need it.
+
+**This is validated automatically** by `pnpm run translate` — if a key's content contains `<i>`, `<b>`, `<q>`, or `<br>` and the call site in a `.tsx` file is not wrapped in `html()`, the script reports an error. Chronicle tags (`<Province>`, `<Tile>`) are excluded. Use `html` imported from `RenderHTMLComp` (not an alias); keys used only in `.ts` files are exempt because callers wrap the result.
 
 ## Parameter Extraction
 
@@ -312,6 +314,33 @@ This section is for agents and contributors translating `en.ts` into other langu
 - **Do not translate** `$$Language`, `$$Credits`, or other `$$` metadata values unless you are setting the display name for that language (e.g. `$$Language: "Deutsch"` in a German file).
 - **Preserve HTML and Chronicle tags** (`<i>`, `<b>`, `<Province>`, `<Tile>`, etc.) and keep their structure intact.
 
+### Ensuring Consistent Terminology
+
+Before translating a new key, **search the target language file for existing translations of the same gameplay terms**. This ensures consistency across the entire UI.
+
+For example, when translating a key containing "tiles annexed and cored":
+
+1. Search the target language file for keys like `TilesAnnexedAndCored`, `OccupyAndCore`, `MakeCore`, etc.
+2. Reuse the same translation for "tiles", "annexed", "cored", "restoration", etc.
+
+Common gameplay terms to keep consistent:
+
+| English | Check keys like |
+|---------|----------------|
+| tiles | `Tiles`, `TileMaintenance`, `TileOutput`, `FromAllTiles` |
+| annexed | `TilesAnnexedAndCored`, `OccupyAndCore` |
+| core / cored | `MakeCore`, `IsCore`, `NotCore`, `TilesAnnexedAndCored` |
+| restoration | `Restoration`, `ProgressToNextRestoration` |
+| war power | `WarPower`, `$1WarPower` |
+| prestige | `Prestige`, `OurPrestige` |
+| stability | `Stability`, `$1Stability` |
+| unrest | `Unrest`, `$1TileUnrest` |
+| rebellion | `Rebellion`, `RebellionIsAtLeast$1` |
+| governing capacity | `GoverningCapacity`, `GoverningCost` |
+| bonus | `SocialClassBonus`, `Rewards` |
+
+**Never translate the same English term differently in different keys.** If `TilesAnnexedAndCored` uses "владения" for "tiles", do not use "участки" in another key.
+
 ### Reordering Tokens
 
 Because tokens are numbered (`$1`, `$2`, …) rather than positional (`%%`), **you may rearrange tokens** in a translation when word order in your language differs from English.
@@ -386,11 +415,12 @@ pnpm run translate  # Validate token consecutiveness, arg counts, key-name match
 2. **Validates token consecutiveness** (English) — checks every key's value for `$N` tokens: they must start from `$1` and be consecutive with no gaps (e.g. `$1 $2 $3` ✓, `$1 $3 $4` ✗, `$2 $3 $4` ✗). Skips `$$` metadata keys.
 3. **Validates key-content token match** (English) — verifies that the `$1`, `$2`, ... tokens in the key name appear in the same order as in the content value.
 4. **Validates argument counts** — checks that the highest `$N` index in each key's value matches the number of arguments passed to `$t` (reusing the same token number does not require duplicate arguments).
-5. Removes unused keys from `en.ts` (keys starting with `$` are never removed).
-6. Syncs non-English language files under `packages/client/src/languages/` to match `en.ts` keys.
-7. Formats language files with biome.
+5. **Validates `html()` wrapper** — if a key's content contains `<i>`, `<b>`, `<q>`, or `<br>`, the `$t()` call site in `.tsx` files must be wrapped in `html()` from `RenderHTMLComp`. Chronicle tags (`<Province>`, `<Tile>`) are excluded. Keys used only in `.ts` files are exempt because callers wrap the result. Add new tag names to `HTML_TAGS` in `scripts/Translate.js` when introducing other inline HTML in `en.ts`.
+6. Removes unused keys from `en.ts` (keys starting with `$` are never removed).
+7. Syncs non-English language files under `packages/client/src/languages/` to match `en.ts` keys.
+8. Formats language files with biome.
 
-If any validation fails, the script prints details (file, line, key, expected vs. actual) and exits with code 1.
+If any validation fails, the script prints details (file, line, key, expected vs. actual), exits with code 1, and **does not** modify language files.
 
 ### After Changing Localization Content
 

@@ -1,128 +1,241 @@
 const { readFileSync, readdirSync, writeFileSync } = require("node:fs");
 const { execSync } = require("node:child_process");
-const { resolve, join, sep } = require("node:path");
+const { resolve, sep } = require("node:path");
 
 const LANG_PATH = "./packages/client/src/languages";
 const EN_FILE_PATH = `${LANG_PATH}/en.ts`;
 const SOURCE_PATH = "./packages/";
 
-const sourceFilePaths = getAllFiles(SOURCE_PATH)
-   .filter((f) => (f.endsWith(".ts") || f.endsWith(".tsx")) && !f.endsWith(".d.ts") && !f.split(sep).includes("languages"));
+// HTML tags that require html() wrapper at call sites (add new tags here when used in en.ts)
+const HTML_TAGS = ["i", "b", "q", "br"];
+// Chronicle markup tags (excluded from html() validation)
+const CHRONICLE_TAGS = ["Province", "Tile"];
 
-const sourceFileContents = sourceFilePaths.map((f) => readFileSync(f, { encoding: "utf8" }));
+const htmlTagPattern = new RegExp(`<(${HTML_TAGS.join("|")})(\\s[^>]*)?>`, "i");
+const chronicleTagPattern = new RegExp(
+   `<(${CHRONICLE_TAGS.join("|")})(\\s[^>]*)?>|</(${CHRONICLE_TAGS.join("|")})>`,
+   "gi",
+);
 
-console.log("🟡 Check Localization Argument Count");
+function findKeysWithHtml(translations) {
+   const keysWithHtml = new Set();
 
-const enContent = readFileSync(EN_FILE_PATH, { encoding: "utf8" })
-   .replace("export const EN =", "")
-   .replace("};", "}");
-// biome-ignore lint/security/noGlobalEval: <explanation>
-const sourceTranslations = eval(`(${enContent})`);
+   for (const [key, value] of Object.entries(translations)) {
+      if (key.startsWith("$$")) continue;
+      if (!htmlTagPattern.test(value)) continue;
 
-let tokenError = false;
-
-// Validation 1: Token consecutiveness (min=1, no gaps) and key-content token match
-console.log("🟡 Validate Token Consecutiveness and Key-Content Token Match");
-for (const [key, value] of Object.entries(sourceTranslations)) {
-   if (key.startsWith("$$")) continue;
-
-   const contentTokens = extractTokens(value);
-   const keyTokens = extractTokens(key);
-
-   if (contentTokens.length === 0) continue;
-
-   // Check min=1
-   const min = Math.min(...contentTokens);
-   if (min !== 1) {
-      console.log(`❌ Tokens must start from \$1: ${key} = "${value}"`);
-      tokenError = true;
+      const valueWithoutChronicle = value.replace(chronicleTagPattern, "");
+      if (htmlTagPattern.test(valueWithoutChronicle)) {
+         keysWithHtml.add(key);
+      }
    }
 
-   // Check no gaps
-   const unique = new Set(contentTokens);
-   const max = Math.max(...contentTokens);
-   if (unique.size !== max) {
-      for (let i = 1; i <= max; i++) {
-         if (!unique.has(i)) {
-            console.log(`❌ Missing token \$${i} in: ${key} = "${value}"`);
-            tokenError = true;
+   return keysWithHtml;
+}
+
+function collectWrappedTCallPositions(content) {
+   const wrappedTCallPositions = new Set();
+   const htmlRe = /\bhtml\(/g;
+   let htmlMatch;
+
+   while ((htmlMatch = htmlRe.exec(content)) !== null) {
+      const htmlArgs = parseCallArgs(content, htmlMatch.index + 5);
+      for (const arg of htmlArgs) {
+         const tRe = /\$t\(/g;
+         let tMatch;
+         while ((tMatch = tRe.exec(arg.text)) !== null) {
+            wrappedTCallPositions.add(arg.start + tMatch.index);
          }
       }
    }
 
-   // Check key name tokens match content tokens in order
-   const keyContentOrderMatch = keyTokens.length === contentTokens.length &&
-      keyTokens.every((t, i) => t === contentTokens[i]);
-   if (!keyContentOrderMatch) {
-      console.log(`❌ Key name token order does not match content: ${key}`);
-      console.log(`   Key tokens: \$${keyTokens.join(",\$")}`);
-      console.log(`   Content tokens: \$${contentTokens.join(",\$")}`);
-      tokenError = true;
-   }
+   return wrappedTCallPositions;
 }
 
-const expectedArgCounts = {};
-Object.keys(sourceTranslations).forEach((key) => {
-   const tokens = extractTokens(sourceTranslations[key]);
-   expectedArgCounts[key] = tokens.length === 0 ? 0 : Math.max(...tokens);
-});
+function main() {
+   const sourceFilePaths = getAllFiles(SOURCE_PATH)
+      .filter((f) => (f.endsWith(".ts") || f.endsWith(".tsx")) && !f.endsWith(".d.ts") && !f.split(sep).includes("languages"));
 
-let argMismatch = false;
-const usedKeys = new Set();
+   const sourceFileContents = sourceFilePaths.map((f) => readFileSync(f, { encoding: "utf8" }));
 
-sourceFilePaths.forEach((filePath, fileIndex) => {
-   const content = sourceFileContents[fileIndex];
-   const lineStarts = getLineStarts(content);
+   const enContent = readFileSync(EN_FILE_PATH, { encoding: "utf8" })
+      .replace("export const EN =", "")
+      .replace("};", "}");
+   // biome-ignore lint/security/noGlobalEval: <explanation>
+   const sourceTranslations = eval(`(${enContent})`);
 
-   // Match L.KeyName where key names can contain $ (e.g., L.After$1AD)
-   const lRefRe = /L\.([\w$]+)/g;
-   for (const match of content.matchAll(lRefRe)) {
-      usedKeys.add(match[1]);
-   }
+   let tokenError = false;
 
-   const re = /\$t\(/g;
-   let match;
-   while ((match = re.exec(content)) !== null) {
-      const args = parseCallArgs(content, match.index + 3);
-      if (args.length === 0) continue;
-      const keyResult = args[0].match(/^L\.([\w$]+)$/);
-      if (!keyResult) continue;
-      const key = keyResult[1];
-      const expected = expectedArgCounts[key];
-      if (expected === undefined) continue;
-      const actual = args.length - 1;
-      if (actual !== expected) {
-         const lineNum = getLineNumber(lineStarts, match.index);
-         console.log(`❌ ${filePath}:${lineNum}`);
-         console.log(`   Key: L.${key}`);
-         console.log(`   Value: "${sourceTranslations[key]}"`);
-         console.log(`   Expected: ${expected} arg(s), Got: ${actual} arg(s)`);
-         const line = getLineText(content, lineStarts, lineNum).trim();
-         console.log(`   Call: ${line}`);
-         argMismatch = true;
+   console.log("🟡 Validate Token Consecutiveness and Key-Content Token Match");
+   for (const [key, value] of Object.entries(sourceTranslations)) {
+      if (key.startsWith("$$")) continue;
+
+      const contentTokens = extractTokens(value);
+      const keyTokens = extractTokens(key);
+
+      if (contentTokens.length === 0) continue;
+
+      // Check min=1
+      const min = Math.min(...contentTokens);
+      if (min !== 1) {
+         console.log(`❌ Tokens must start from \$1: ${key} = "${value}"`);
+         tokenError = true;
+      }
+
+      // Check no gaps
+      const unique = new Set(contentTokens);
+      const max = Math.max(...contentTokens);
+      if (unique.size !== max) {
+         for (let i = 1; i <= max; i++) {
+            if (!unique.has(i)) {
+               console.log(`❌ Missing token \$${i} in: ${key} = "${value}"`);
+               tokenError = true;
+            }
+         }
+      }
+
+      // Check key name tokens match content tokens in order
+      const keyContentOrderMatch = keyTokens.length === contentTokens.length &&
+         keyTokens.every((t, i) => t === contentTokens[i]);
+      if (!keyContentOrderMatch) {
+         console.log(`❌ Key name token order does not match content: ${key}`);
+         console.log(`   Key tokens: \$${keyTokens.join(",\$")}`);
+         console.log(`   Content tokens: \$${contentTokens.join(",\$")}`);
+         tokenError = true;
       }
    }
-});
 
-console.log("🟡 Remove Unused English Translation");
-let translations = { ...sourceTranslations };
+   console.log("🟡 Check Localization Argument Count and HTML Wrappers");
+   const expectedArgCounts = {};
+   Object.keys(sourceTranslations).forEach((key) => {
+      const tokens = extractTokens(sourceTranslations[key]);
+      expectedArgCounts[key] = tokens.length === 0 ? 0 : Math.max(...tokens);
+   });
 
-for (const key of Object.keys(translations)) {
-   if (!key.startsWith("$") && !usedKeys.has(key)) {
-      console.log(`Translation not used: ${key}`);
-      delete translations[key];
+   let argMismatch = false;
+   let htmlWrapperMissing = false;
+   const usedKeys = new Set();
+   const keysWithHtml = findKeysWithHtml(sourceTranslations);
+
+   sourceFilePaths.forEach((filePath, fileIndex) => {
+      const content = sourceFileContents[fileIndex];
+      const lineStarts = getLineStarts(content);
+
+      // Match L.KeyName where key names can contain $ (e.g., L.After$1AD)
+      const lRefRe = /L\.([\w$]+)/g;
+      for (const match of content.matchAll(lRefRe)) {
+         usedKeys.add(match[1]);
+      }
+
+      const wrappedTCallPositions = filePath.endsWith(".tsx") ? collectWrappedTCallPositions(content) : new Set();
+
+      const re = /\$t\(/g;
+      let match;
+      while ((match = re.exec(content)) !== null) {
+         const args = parseCallArgs(content, match.index + 3);
+         if (args.length === 0) continue;
+         const keyResult = args[0].text.match(/^L\.([\w$]+)$/);
+         if (!keyResult) continue;
+         const key = keyResult[1];
+
+         // Check argument count
+         const expected = expectedArgCounts[key];
+         if (expected !== undefined) {
+            const actual = args.length - 1;
+            if (actual !== expected) {
+               const lineNum = getLineNumber(lineStarts, match.index);
+               console.log(`❌ ${filePath}:${lineNum}`);
+               console.log(`   Key: L.${key}`);
+               console.log(`   Value: "${sourceTranslations[key]}"`);
+               console.log(`   Expected: ${expected} arg(s), Got: ${actual} arg(s)`);
+               const line = getLineText(content, lineStarts, lineNum).trim();
+               console.log(`   Call: ${line}`);
+               argMismatch = true;
+            }
+         }
+
+         // Check html() wrapper (only in .tsx files; must use `html` from RenderHTMLComp, not an alias)
+         if (filePath.endsWith(".tsx") && keysWithHtml.has(key)) {
+            if (!wrappedTCallPositions.has(match.index)) {
+               const lineNum = getLineNumber(lineStarts, match.index);
+               console.log(`❌ ${filePath}:${lineNum}`);
+               console.log(`   Key: L.${key}`);
+               console.log(`   Value: "${sourceTranslations[key]}"`);
+               console.log(`   HTML tags in content require html() wrapper`);
+               const line = getLineText(content, lineStarts, lineNum).trim();
+               console.log(`   Call: ${line}`);
+               htmlWrapperMissing = true;
+            }
+         }
+      }
+   });
+
+   if (argMismatch || tokenError || htmlWrapperMissing) {
+      process.exit(1);
    }
+
+   console.log("🟡 Remove Unused English Translation");
+   let translations = { ...sourceTranslations };
+
+   for (const key of Object.keys(translations)) {
+      if (!key.startsWith("$") && !usedKeys.has(key)) {
+         console.log(`Translation not used: ${key}`);
+         delete translations[key];
+      }
+   }
+
+   if (process.argv.includes("--sort")) {
+      translations = Object.fromEntries(
+         Object.entries(translations).sort(([a], [b]) => a.localeCompare(b))
+      );
+   }
+
+   writeFileSync(EN_FILE_PATH, `export const EN = ${JSON.stringify(translations)};`);
+
+   console.log("🟡 Adjust Other Translation Based On English");
+
+   const reset = process.argv.includes("--reset");
+
+   readdirSync(LANG_PATH).forEach((fileName) => {
+      if (!fileName.endsWith(".ts") || fileName.startsWith("en.ts")) {
+         return;
+      }
+      const variableName = fileName.replace(".ts", "").replace("-", "_").toUpperCase();
+      const filePath = `${LANG_PATH}/${fileName}`;
+      const fileContent = readFileSync(filePath, { encoding: "utf8" })
+         .replace(`export const ${variableName} =`, "")
+         .replace("};", "}");
+      // biome-ignore lint/security/noGlobalEval: <explanation>
+      const language = eval(`(${fileContent})`);
+      const langResult = {};
+      const untranslated = {};
+      for (const k of Object.keys(translations)) {
+         if (k.startsWith("$$")) {
+            langResult[k] = language[k];
+            continue;
+         }
+         if (reset) {
+            langResult[k] = translations[k];
+            continue;
+         }
+         if (language[k]) {
+            langResult[k] = language[k];
+            continue;
+         }
+         untranslated[k] = translations[k];
+      }
+      Object.assign(langResult, untranslated);
+      writeFileSync(filePath, `export const ${variableName} = ${JSON.stringify(langResult)};`);
+   });
+
+   console.log("🟡 Format Translation Files");
+
+   execSync(`biome format --write ${LANG_PATH}/`, {
+      encoding: "utf8",
+   });
+
+   console.log("🟢 Translation has successfully updated");
 }
-
-if (process.argv.includes("--sort")) {
-   translations = Object.fromEntries(
-      Object.entries(translations).sort(([a], [b]) => a.localeCompare(b))
-   );
-}
-
-writeFileSync(EN_FILE_PATH, `export const EN = ${JSON.stringify(translations)};`);
-
-console.log("🟡 Adjust Other Translation Based On English");
 
 function getAllFiles(dir) {
    const files = [];
@@ -144,61 +257,22 @@ function getAllFiles(dir) {
    return files;
 }
 
-const reset = process.argv.includes("--reset");
-
-readdirSync(LANG_PATH).forEach((fileName) => {
-   if (!fileName.endsWith(".ts") || fileName.startsWith("en.ts")) {
-      return;
-   }
-   const variableName = fileName.replace(".ts", "").replace("-", "_").toUpperCase();
-   const filePath = `${LANG_PATH}/${fileName}`;
-   const fileContent = readFileSync(filePath, { encoding: "utf8" })
-      .replace(`export const ${variableName} =`, "")
-      .replace("};", "}");
-   // biome-ignore lint/security/noGlobalEval: <explanation>
-   const language = eval(`(${fileContent})`);
-   const langResult = {};
-   const untranslated = {};
-   for (const k of Object.keys(translations)) {
-      if (k.startsWith("$$")) {
-         langResult[k] = language[k];
-         continue;
-      }
-      if (reset) {
-         langResult[k] = translations[k];
-         continue;
-      }
-      if (language[k]) {
-         langResult[k] = language[k];
-         continue;
-      }
-      untranslated[k] = translations[k];
-   }
-   Object.assign(langResult, untranslated);
-   writeFileSync(filePath, `export const ${variableName} = ${JSON.stringify(langResult)};`);
-});
-
-console.log("🟡 Format Translation Files");
-
-execSync(`biome format --write ${LANG_PATH}/`, {
-   encoding: "utf8",
-});
-
-console.log("🟢 Translation has successfully updated");
-
-if (argMismatch || tokenError) {
-   process.exit(1);
-}
-
 function parseCallArgs(content, start) {
    const args = [];
    let current = "";
+   let argStart = -1;
    let depth = 0;
    let inSingle = false;
    let inDouble = false;
    let inTemplate = false;
    let escape = false;
    let templateExprDepth = 0;
+
+   function pushArg() {
+      const text = current.trim();
+      if (!text) return;
+      args.push({ text, start: argStart });
+   }
 
    for (let i = start; i < content.length; i++) {
       const ch = content[i];
@@ -245,15 +319,19 @@ function parseCallArgs(content, start) {
             current += ch;
          } else if (ch === ")") {
             if (depth === 0) {
-               if (current.trim()) args.push(current.trim());
+               pushArg();
                break;
             }
             depth--;
             current += ch;
          } else if (ch === "," && depth === 0) {
-            args.push(current.trim());
+            pushArg();
             current = "";
+            argStart = -1;
          } else {
+            if (argStart === -1 && !/\s/.test(ch)) {
+               argStart = i;
+            }
             current += ch;
          }
       } else {
@@ -308,3 +386,13 @@ function extractTokens(str) {
    }
    return tokens;
 }
+
+if (require.main === module) {
+   main();
+}
+
+module.exports = {
+   parseCallArgs,
+   findKeysWithHtml,
+   collectWrappedTCallPositions,
+};
