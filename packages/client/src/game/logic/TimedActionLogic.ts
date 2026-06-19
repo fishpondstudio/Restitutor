@@ -27,6 +27,19 @@ export function getTimedActionCooldownLeft(timedAction: TimedAction, province: P
    return clamp(lastPerformed + config.cooldown - save.state.month, 0, Number.POSITIVE_INFINITY);
 }
 
+function isTimedActionWithPositiveDuration(action: TimedAction): action is TimedActionWithDuration {
+   const def = TimedActions[action];
+   return "duration" in def && def.duration > 0;
+}
+
+export function isTimedActionEndingThisMonth(
+   action: TimedAction,
+   lastPerformed: number,
+   month: number,
+): action is TimedActionWithDuration {
+   return isTimedActionWithPositiveDuration(action) && lastPerformed + TimedActions[action].duration === month;
+}
+
 export function getTimedActionTimeLeft(
    timedAction: TimedActionWithDuration,
    province: Province,
@@ -86,16 +99,16 @@ export function startTimedAction(action: TimedAction, province: Province, save: 
    state.timedActions.set(action, save.state.month);
 }
 
-export function endTimedAction(action: TimedActionWithDuration, province: Province, save: SaveGame): void {
+export function endTimedActionAndResetCooldown(
+   action: TimedActionWithDuration,
+   province: Province,
+   save: SaveGame,
+): void {
    const state = save.state.provinces[province];
    if (!state) {
       return;
    }
-   const config = TimedActions[action];
-   const timeLeft = getTimedActionTimeLeft(action, province, save);
-   if (timeLeft > 0) {
-      state.timedActions.set(action, save.state.month - config.duration);
-   }
+   state.timedActions.delete(action);
 }
 
 export function getTimedActionDesc(action: TimedAction, province: Province, save: SaveGame): React.ReactNode {

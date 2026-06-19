@@ -28,7 +28,7 @@ import {
 import { attachModifiers } from "./ModifierLogic";
 import { getProvinceStat, getWarPower, provinceResourceOf, setProvinceStat } from "./ProvinceLogic";
 import { getTileDefense } from "./TileLogic";
-import { endTimedAction, getTimedActionTimeLeft } from "./TimedActionLogic";
+import { endTimedActionAndResetCooldown, getTimedActionTimeLeft } from "./TimedActionLogic";
 
 export const WarFlag = {
    None: 0,
@@ -553,7 +553,7 @@ export function dismissGeneral(province: Province, save: SaveGame): void {
    }
    const governor = state.governor.male;
    governor.flag = clearFlag(governor.flag, PersonFlags.IsGeneral);
-   endTimedAction("RecruitAGeneral", province, save);
+   endTimedActionAndResetCooldown("RecruitAGeneral", province, save);
    onGeneralEnded(province, save);
 }
 

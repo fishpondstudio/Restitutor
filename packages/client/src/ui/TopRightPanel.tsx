@@ -26,7 +26,7 @@ export function TopRightPanel(): React.ReactNode {
    );
 }
 
-const Speed = [0, 1, 2, 4, 7, 14, 30];
+const Speed = [0, 1, 2, 3, 4, 7, 14];
 const FasterSpeed = [0, 1, 7, 14, 30, 120, 360];
 
 function SteamDiscordComp(): React.ReactNode {
@@ -48,7 +48,7 @@ function SteamDiscordComp(): React.ReactNode {
 
 function SpeedComp(): React.ReactNode {
    refreshOnTypedEvent(GameSpeedChanged);
-   const speed = isDev() ? Speed : FasterSpeed;
+   const speed = isDev() ? FasterSpeed : Speed;
    useShortcut("IncreaseGameSpeed", () => {
       setSpeed(speed[clamp(speed.indexOf(G.speed) + 1, 0, speed.length - 1)]);
    }, []);

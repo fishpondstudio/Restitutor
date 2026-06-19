@@ -26,6 +26,7 @@ import type { SaveGame } from "../GameState";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor, tickFamily } from "./GovernorLogic";
 import { canTakeLoan, getLoanAmount, getMonthlyInterestRate, takeLoan } from "./LoanLogic";
+import { onTimedActionEnded } from "./OnTimedActionEnded";
 import { tickProduction } from "./ProductionLogic";
 import {
    addProvinceResource,
@@ -45,7 +46,7 @@ import {
 import { tickSocialClasses } from "./SocialClassLogic";
 import { getGameDate, TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
-import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
+import { getTimedActionCooldownLeft, isTimedActionEndingThisMonth, startTimedAction } from "./TimedActionLogic";
 import { ArmyMoraleMonthlyIncrease } from "./WarLogic";
 
 export const PendingGameEventTimeoutMonths = 3;
@@ -91,6 +92,12 @@ export function tickProvince(province: Province, save: SaveGame): void {
          state.usedEvents.add(key);
       }
    }
+
+   state.timedActions.forEach((lastPerformed, action) => {
+      if (isTimedActionEndingThisMonth(action, lastPerformed, save.state.month)) {
+         onTimedActionEnded(action, province, save);
+      }
+   });
 
    if (getTimedActionCooldownLeft("GameEventTimer", province, save) <= 0) {
       const candidates: GameEvent[] = [];
