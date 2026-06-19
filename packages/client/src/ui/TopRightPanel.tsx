@@ -26,7 +26,7 @@ export function TopRightPanel(): React.ReactNode {
    );
 }
 
-const Speed = [0, 1, 2, 3, 4, 7, 14];
+const Speed = [0, 1, 2, 4, 7, 14, 30];
 const FasterSpeed = [0, 1, 7, 14, 30, 120, 360];
 
 function SteamDiscordComp(): React.ReactNode {
