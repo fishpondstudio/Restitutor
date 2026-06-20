@@ -117,7 +117,7 @@ export class WorldScene extends Scene {
          }
       });
 
-      this._drawProvinceStaticOutlineAndLabel();
+      this._drawStaticOutlineAndLabel();
 
       RefreshTiles.on(({ tiles, options }) => {
          for (const tile of tiles) {
@@ -135,7 +135,7 @@ export class WorldScene extends Scene {
             }
          }
          if (options.visual) {
-            this._drawProvinceStaticOutlineAndLabel();
+            this._drawStaticOutlineAndLabel();
             this.drawProvinceOutline(this._selectedProvince);
          }
       });
@@ -373,7 +373,7 @@ export class WorldScene extends Scene {
       });
    }
 
-   private _drawProvinceStaticOutlineAndLabel(): void {
+   private _drawStaticOutlineAndLabel(): void {
       this._staticOutline.clear();
       this._staticOutline.lineStyle({
          width: 2,

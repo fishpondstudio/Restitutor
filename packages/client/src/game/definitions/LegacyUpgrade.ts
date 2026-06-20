@@ -23,20 +23,6 @@ export class LegacyUpgradeDefinitions {
          AdministrativePoint: { type: "add", value: 1 },
       },
    } as const;
-   Diplomatic1: ILegacyUpgradeModifier = {
-      requires: ["Administrative1"],
-      position: [1, 0],
-      modifiers: {
-         DiplomaticPoint: { type: "add", value: 1 },
-      },
-   } as const;
-   Military1: ILegacyUpgradeModifier = {
-      requires: ["Administrative1"],
-      position: [-1, 0],
-      modifiers: {
-         MilitaryPoint: { type: "add", value: 1 },
-      },
-   } as const;
    Administrative2: ILegacyUpgradeModifier = {
       requires: ["Administrative1"],
       position: [0, 1],
@@ -56,6 +42,105 @@ export class LegacyUpgradeDefinitions {
       position: [0, 3],
       modifiers: {
          AdministrativePoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Administrative5: ILegacyUpgradeModifier = {
+      requires: ["Administrative4"],
+      position: [0, 4],
+      modifiers: {
+         AdministrativePoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Administrative6: ILegacyUpgradeModifier = {
+      requires: ["Administrative5"],
+      position: [0, 5],
+      modifiers: {
+         AdministrativePoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Diplomatic1: ILegacyUpgradeModifier = {
+      requires: ["Administrative1"],
+      position: [1, 0],
+      modifiers: {
+         DiplomaticPoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Diplomatic2: ILegacyUpgradeModifier = {
+      requires: ["Diplomatic1"],
+      position: [2, 0],
+      modifiers: {
+         DiplomaticPoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Diplomatic3: ILegacyUpgradeModifier = {
+      requires: ["Diplomatic2"],
+      position: [3, 0],
+      modifiers: {
+         DiplomaticPoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Diplomatic4: ILegacyUpgradeModifier = {
+      requires: ["Diplomatic3"],
+      position: [4, 0],
+      modifiers: {
+         DiplomaticPoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Diplomatic5: ILegacyUpgradeModifier = {
+      requires: ["Diplomatic4"],
+      position: [5, 0],
+      modifiers: {
+         DiplomaticPoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Diplomatic6: ILegacyUpgradeModifier = {
+      requires: ["Diplomatic5"],
+      position: [6, 0],
+      modifiers: {
+         DiplomaticPoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Military1: ILegacyUpgradeModifier = {
+      requires: ["Administrative1"],
+      position: [-1, 0],
+      modifiers: {
+         MilitaryPoint: { type: "add", value: 1 },
+      },
+   } as const;
+
+   Military2: ILegacyUpgradeModifier = {
+      requires: ["Military1"],
+      position: [-2, 0],
+      modifiers: {
+         MilitaryPoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Military3: ILegacyUpgradeModifier = {
+      requires: ["Military2"],
+      position: [-3, 0],
+      modifiers: {
+         MilitaryPoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Military4: ILegacyUpgradeModifier = {
+      requires: ["Military3"],
+      position: [-4, 0],
+      modifiers: {
+         MilitaryPoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Military5: ILegacyUpgradeModifier = {
+      requires: ["Military4"],
+      position: [-5, 0],
+      modifiers: {
+         MilitaryPoint: { type: "add", value: 1 },
+      },
+   } as const;
+   Military6: ILegacyUpgradeModifier = {
+      requires: ["Military5"],
+      position: [-6, 0],
+      modifiers: {
+         MilitaryPoint: { type: "add", value: 1 },
       },
    } as const;
    GoverningCapacity1: ILegacyUpgradeModifier = {
@@ -113,30 +198,16 @@ export class LegacyUpgradeDefinitions {
          InfiltrationRate: { type: "multiply", value: 0.5 },
       },
    } as const;
-   Diplomatic2: ILegacyUpgradeModifier = {
-      requires: ["Diplomatic1"],
-      position: [2, 0],
-      modifiers: {
-         DiplomaticPoint: { type: "add", value: 1 },
-      },
-   } as const;
-   Diplomatic3: ILegacyUpgradeModifier = {
-      requires: ["Diplomatic2"],
-      position: [3, 0],
-      modifiers: {
-         DiplomaticPoint: { type: "add", value: 1 },
-      },
-   } as const;
    TradeCapacity1: ILegacyUpgradeModifier = {
       requires: ["ProductionCapacity1"],
-      position: [0, -2],
+      position: [-1, -2],
       modifiers: {
          TradeCapacity: { type: "add", value: 1 },
       },
    } as const;
    TradeCapacity2: ILegacyUpgradeModifier = {
       requires: ["TradeCapacity1"],
-      position: [0, -3],
+      position: [-1, -3],
       modifiers: {
          TradeCapacity: { type: "add", value: 1 },
       },
@@ -149,8 +220,8 @@ export class LegacyUpgradeDefinitions {
       },
    } as const;
    LandTax1: ILegacyUpgradeModifier = {
-      requires: ["TradeCapacity1", "TradeProfit1"],
-      position: [-1, -3],
+      requires: ["ResearchCost1"],
+      position: [1, -3],
       modifiers: {
          LandTax: { type: "multiply", value: 0.1 },
       },
@@ -159,7 +230,7 @@ export class LegacyUpgradeDefinitions {
       name: () => $t(L.$1TradeProfitPerPositiveAttitude, "+1%"),
       desc: () => $t(L.AttitudeTradeProfit$1, "1%"),
       requires: ["TradeProfit1"],
-      position: [-2, -3],
+      position: [-2, -4],
    } as const;
    ResearchCost1: ILegacyUpgradeModifier = {
       requires: ["ProductionCapacity1"],
@@ -169,8 +240,8 @@ export class LegacyUpgradeDefinitions {
       },
    } as const;
    BuildingSlot1: ILegacyUpgradeModifier = {
-      requires: ["ResearchCost1", "TradeCapacity1"],
-      position: [1, -3],
+      requires: ["LandTax1"],
+      position: [1, -4],
       modifiers: {
          BuildingSlot: { type: "add", value: 1 },
       },
@@ -210,9 +281,30 @@ export class LegacyUpgradeDefinitions {
          ProductionCapacity: { type: "add", value: 5 },
       },
    } as const;
-   TradeProfit1: ILegacyUpgradeModifier = {
+   ProductionCapacity2: ILegacyUpgradeModifier = {
       requires: ["ProductionCapacity1"],
-      position: [-1, -2],
+      position: [0, -2],
+      modifiers: {
+         ProductionCapacity: { type: "add", value: 5 },
+      },
+   } as const;
+   ProductionCapacity3: ILegacyUpgradeModifier = {
+      requires: ["ProductionCapacity2"],
+      position: [0, -3],
+      modifiers: {
+         ProductionCapacity: { type: "add", value: 5 },
+      },
+   } as const;
+   ProductionCapacity4: ILegacyUpgradeModifier = {
+      requires: ["ProductionCapacity3"],
+      position: [0, -4],
+      modifiers: {
+         ProductionCapacity: { type: "add", value: 5 },
+      },
+   } as const;
+   TradeProfit1: ILegacyUpgradeModifier = {
+      requires: ["TradeCapacity1"],
+      position: [-2, -3],
       modifiers: {
          TradeProfit: { type: "multiply", value: 0.1 },
       },
@@ -245,6 +337,13 @@ export class LegacyUpgradeDefinitions {
          CavalryUnitPower: { type: "add", value: 1 },
       },
    } as const;
+   CavalryUnitPower2: ILegacyUpgradeModifier = {
+      requires: ["CavalryUnitPower1"],
+      position: [-4, -1],
+      modifiers: {
+         CavalryUnitPower: { type: "add", value: 1 },
+      },
+   } as const;
    WarScore1: ILegacyUpgradeModifier = {
       requires: ["PopulationUpgrade1"],
       position: [-3, -2],
@@ -254,7 +353,7 @@ export class LegacyUpgradeDefinitions {
    } as const;
    TruceDuration1: ILegacyUpgradeModifier = {
       requires: ["WarScore1"],
-      position: [-3, -3],
+      position: [-4, -2],
       modifiers: {
          TruceDuration: { type: "multiply", value: -0.2 },
       },
@@ -264,20 +363,6 @@ export class LegacyUpgradeDefinitions {
       position: [-2, -1],
       modifiers: {
          PopulationUpgradeCost: { type: "multiply", value: -0.1 },
-      },
-   } as const;
-   Military2: ILegacyUpgradeModifier = {
-      requires: ["Military1"],
-      position: [-2, 0],
-      modifiers: {
-         MilitaryPoint: { type: "add", value: 1 },
-      },
-   } as const;
-   Military3: ILegacyUpgradeModifier = {
-      requires: ["Military2"],
-      position: [-3, 0],
-      modifiers: {
-         MilitaryPoint: { type: "add", value: 1 },
       },
    } as const;
 }
