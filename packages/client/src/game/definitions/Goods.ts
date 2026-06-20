@@ -1,4 +1,18 @@
 import { entriesOf, forEach, sizeOf } from "@project/shared/src/utils/Helper";
+import Armor from "../../assets/images/goods/Armor.png";
+import Bread from "../../assets/images/goods/Bread.png";
+import Cheese from "../../assets/images/goods/Cheese.png";
+import Flour from "../../assets/images/goods/Flour.png";
+import Garments from "../../assets/images/goods/Garments.png";
+import Grain from "../../assets/images/goods/Grain.png";
+import IronIngots from "../../assets/images/goods/IronIngots.png";
+import IronOre from "../../assets/images/goods/IronOre.png";
+import Leather from "../../assets/images/goods/Leather.png";
+import Livestock from "../../assets/images/goods/Livestock.png";
+import Lumber from "../../assets/images/goods/Lumber.png";
+import Milk from "../../assets/images/goods/Milk.png";
+import Weapon from "../../assets/images/goods/Weapon.png";
+import Wood from "../../assets/images/goods/Wood.png";
 import { $t, L } from "../../utils/i18n";
 import type { Tech } from "./Tech";
 
@@ -6,6 +20,7 @@ export interface IGoodsDefinition {
    name: () => string;
    input: Partial<Record<Goods, number>>;
    position: { x: number; y: number };
+   icon: string;
    tech?: Tech;
 }
 
@@ -14,21 +29,25 @@ export class GoodsDefinitions {
       name: () => $t(L.GoodsGrain),
       input: {},
       position: { x: 0, y: 0 },
+      icon: Grain,
    };
    livestock: IGoodsDefinition = {
       name: () => $t(L.GoodsLivestock),
       input: {},
       position: { x: 1, y: 0 },
+      icon: Livestock,
    };
    wood: IGoodsDefinition = {
       name: () => $t(L.GoodsWood),
       input: {},
       position: { x: 4, y: 0 },
+      icon: Wood,
    };
    ironOre: IGoodsDefinition = {
       name: () => $t(L.GoodsIronOre),
       input: {},
       position: { x: 3, y: 0 },
+      icon: IronOre,
    };
    flour: IGoodsDefinition = {
       name: () => $t(L.GoodsFlour),
@@ -36,6 +55,7 @@ export class GoodsDefinitions {
          grain: 2,
       },
       position: { x: 0, y: 1 },
+      icon: Flour,
    };
    leather: IGoodsDefinition = {
       name: () => $t(L.GoodsLeather),
@@ -43,6 +63,7 @@ export class GoodsDefinitions {
          livestock: 2,
       },
       position: { x: 2, y: 1 },
+      icon: Leather,
    };
    milk: IGoodsDefinition = {
       name: () => $t(L.GoodsMilk),
@@ -50,6 +71,7 @@ export class GoodsDefinitions {
          livestock: 2,
       },
       position: { x: 1, y: 1 },
+      icon: Milk,
    };
    lumber: IGoodsDefinition = {
       name: () => $t(L.GoodsLumber),
@@ -57,6 +79,7 @@ export class GoodsDefinitions {
          wood: 2,
       },
       position: { x: 4, y: 1 },
+      icon: Lumber,
    };
    ironIngots: IGoodsDefinition = {
       name: () => $t(L.GoodsIronIngots),
@@ -64,6 +87,7 @@ export class GoodsDefinitions {
          ironOre: 2,
       },
       position: { x: 3, y: 1 },
+      icon: IronIngots,
    };
    bread: IGoodsDefinition = {
       name: () => $t(L.GoodsBread),
@@ -71,6 +95,7 @@ export class GoodsDefinitions {
          flour: 2,
       },
       position: { x: 0, y: 2 },
+      icon: Bread,
    };
    cheese: IGoodsDefinition = {
       name: () => $t(L.GoodsCheese),
@@ -78,6 +103,7 @@ export class GoodsDefinitions {
          milk: 2,
       },
       position: { x: 1, y: 2 },
+      icon: Cheese,
    };
    garments: IGoodsDefinition = {
       name: () => $t(L.GoodsGarments),
@@ -85,6 +111,7 @@ export class GoodsDefinitions {
          leather: 2,
       },
       position: { x: 2, y: 2 },
+      icon: Garments,
    };
    weapon: IGoodsDefinition = {
       name: () => $t(L.GoodsWeapon),
@@ -93,6 +120,7 @@ export class GoodsDefinitions {
          ironIngots: 1,
       },
       position: { x: 4, y: 2 },
+      icon: Weapon,
    };
    armor: IGoodsDefinition = {
       name: () => $t(L.GoodsArmor),
@@ -101,6 +129,7 @@ export class GoodsDefinitions {
          ironIngots: 1,
       },
       position: { x: 3, y: 2 },
+      icon: Armor,
    };
 }
 
