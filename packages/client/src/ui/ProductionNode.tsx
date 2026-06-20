@@ -61,6 +61,13 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                         <div className="box mx10 my5">
                            {entriesOf(Goods[data.goods].input).map(([g, amount]) => (
                               <div key={g} className="row mx10 my5">
+                                 <div>
+                                    <img
+                                       src={Goods[g].icon}
+                                       style={{ width: "2rem", height: "2rem", margin: "-0.25rem" }}
+                                       className="display-block"
+                                    />
+                                 </div>
                                  <div className="f1">{Goods[g].name()}</div>
                                  <div>
                                     {formatDelta(-amount * capacity)}
@@ -74,6 +81,13 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                   )}
                   <div className="box mx10 my5">
                      <div className="row mx10 my5">
+                        <div>
+                           <img
+                              src={config.icon}
+                              style={{ width: "2rem", height: "2rem", margin: "-0.25rem" }}
+                              className="display-block"
+                           />
+                        </div>
                         <div className="f1">{config.name()}</div>
                         <div>
                            {formatDelta(capacity)}
