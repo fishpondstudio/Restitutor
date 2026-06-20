@@ -94,7 +94,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                   {successChance <= 0.5 ? (
                      <span className="text-red">{$t(L.Never)}</span>
                   ) : (
-                     <>{$t(L.$1Months, formatNumber(estimatedTimeLeft))}</>
+                     $t(L.$1Months, formatNumber(estimatedTimeLeft))
                   )}
                </div>
             </div>

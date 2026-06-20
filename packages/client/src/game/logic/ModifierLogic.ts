@@ -33,6 +33,7 @@ export function attachModifiers(
          breakdown[modifier.type].push({
             name: modifier.name,
             value: modifier.value,
+            desc: modifier.timeLeft ? $t(L.$1MonthsLeft, formatNumber(modifier.timeLeft)) : undefined,
          });
       }
    }

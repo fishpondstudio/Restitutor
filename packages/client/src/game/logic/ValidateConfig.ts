@@ -2,7 +2,7 @@ import { entriesOf, forEach, sizeOf } from "@project/shared/src/utils/Helper";
 import { type Building, Buildings } from "../definitions/Building";
 import { Goods } from "../definitions/Goods";
 import { Tech } from "../definitions/Tech";
-import { type IBaseTimedAction, type TimedAction, TimedActions } from "../definitions/TimedAction";
+import { TimedActions } from "../definitions/TimedAction";
 
 export function validateConfig(): void {
    const buildings = new Set<Building>();
@@ -43,8 +43,13 @@ export function validateConfig(): void {
          console.error(`Raw goods ${g} should not be locked by any tech`);
       }
    });
+   forEach(TimedActions, (timedAction, config) => {
+      if (config.duration > config.cooldown) {
+         console.error(`Timed action ${timedAction} has a duration > cooldown`);
+      }
+   });
    console.log(
-      `⚠️TimedActions not unlocked by tech:\n${entriesOf(TimedActions as Partial<Record<TimedAction, IBaseTimedAction>>)
+      `⚠️TimedActions not unlocked by tech:\n${entriesOf(TimedActions)
          .flatMap(([timedAction, config]) => {
             if (config.tech === undefined && "desc" in config && config.desc !== undefined) {
                return `- ${config.name()} (${timedAction})`;

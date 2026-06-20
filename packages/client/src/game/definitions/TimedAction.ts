@@ -1,28 +1,25 @@
 import { EmptyString } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { finalizeCondition, type IGameCostCondition } from "../actions/GameAction";
-import type { IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { getProvinceUpgrade } from "../logic/ProvinceLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
 import { Price } from "./Goods";
+import type { IBaseModifier, Modifier } from "./Modifier";
 import type { Province } from "./Province";
 import type { Tech } from "./Tech";
 
-export interface IBaseTimedAction {
+export interface ITimedAction {
    name: () => string;
+   desc?: () => string;
    cooldown: number;
+   duration: number;
    tech?: Tech;
 }
 
-export interface ITimedAction extends IBaseTimedAction {
-   desc?: () => string;
-   duration: number;
-}
-
-export interface IGameEffectAction extends IBaseTimedAction {
+export interface ITimedEffectAction extends ITimedAction {
    costCondition: (province: Province, save: SaveGame) => IGameCostCondition;
-   effect: IGameEffect;
+   modifiers: Partial<Record<Modifier, Omit<IBaseModifier, "name">>>;
 }
 
 class TimedActionDefinitions {
@@ -56,74 +53,69 @@ class TimedActionDefinitions {
       duration: 0,
       cooldown: 0,
    };
-   HoldGames: IGameEffectAction = {
+   HoldGames: ITimedEffectAction = {
       name: () => $t(L.HoldGames),
+      duration: 12,
       cooldown: 24,
       costCondition: (province, save) => {
          return {
             cost: { gold: getProvinceUpgrade(province, save) * 12 },
          };
       },
-      effect: {
-         modifiers: {
-            Stability: { type: "add", value: 10, duration: 12 },
-         },
+      modifiers: {
+         Stability: { type: "add", value: 10 },
       },
    };
-   ExpandGrainDole: IGameEffectAction = {
+   ExpandGrainDole: ITimedEffectAction = {
       name: () => $t(L.ExpandGrainDole),
       cooldown: 24,
+      duration: 12,
       costCondition: (province, save) => {
          return {
             cost: { bread: (getProvinceUpgrade(province, save) * 12) / Price.bread },
          };
       },
-      effect: {
-         modifiers: {
-            Stability: { type: "add", value: 10, duration: 12 },
-         },
+      modifiers: {
+         Stability: { type: "add", value: 10 },
       },
    };
-   UpgradeRations: IGameEffectAction = {
+   UpgradeRations: ITimedEffectAction = {
       name: () => $t(L.UpgradeRations),
+      duration: 12,
       cooldown: 24,
       costCondition: (province, save) => {
          return {
             cost: { cheese: (getProvinceUpgrade(province, save) * 12) / Price.cheese },
          };
       },
-      effect: {
-         modifiers: {
-            WarPower: { type: "multiply", value: 0.1, duration: 12 },
-         },
+      modifiers: {
+         WarPower: { type: "multiply", value: 0.1 },
       },
    };
-   RefitArmor: IGameEffectAction = {
+   RefitArmor: ITimedEffectAction = {
       name: () => $t(L.RefitArmor),
+      duration: 12,
       cooldown: 24,
       costCondition: (province, save) => {
          return {
             cost: { armor: (getProvinceUpgrade(province, save) * 12) / Price.armor },
          };
       },
-      effect: {
-         modifiers: {
-            WarPower: { type: "multiply", value: 0.1, duration: 12 },
-         },
+      modifiers: {
+         WarPower: { type: "multiply", value: 0.1 },
       },
    };
-   ServiceWeapons: IGameEffectAction = {
+   ServiceWeapons: ITimedEffectAction = {
       name: () => $t(L.ServiceWeapons),
+      duration: 12,
       cooldown: 24,
       costCondition: (province, save) => {
          return {
             cost: { weapon: (getProvinceUpgrade(province, save) * 12) / Price.weapon },
          };
       },
-      effect: {
-         modifiers: {
-            WarPower: { type: "multiply", value: 0.1, duration: 12 },
-         },
+      modifiers: {
+         WarPower: { type: "multiply", value: 0.1 },
       },
    };
    MakeWarSpeech: ITimedAction = {
@@ -132,15 +124,14 @@ class TimedActionDefinitions {
       duration: 12,
       cooldown: 36,
    };
-   GrantTaxRelief: IGameEffectAction = {
+   GrantTaxRelief: ITimedEffectAction = {
       name: () => $t(L.GrantTaxRelief),
+      duration: 12,
       cooldown: 24,
       costCondition: (province, save) => ({}),
-      effect: {
-         modifiers: {
-            Stability: { type: "add", value: 10, duration: 12 },
-            LandTax: { type: "multiply", value: -0.2, duration: 12 },
-         },
+      modifiers: {
+         Stability: { type: "add", value: 10 },
+         LandTax: { type: "multiply", value: -0.2 },
       },
    };
    UndermineTheirArmy: ITimedAction = {
@@ -166,8 +157,9 @@ class TimedActionDefinitions {
       duration: 12 * 2,
       cooldown: 12 * 4,
    };
-   AppointPontiff: IGameEffectAction = {
+   AppointPontiff: ITimedEffectAction = {
       name: () => $t(L.AppointAPontiff),
+      duration: 24,
       cooldown: 48,
       costCondition: (province, save) => {
          return {
@@ -190,14 +182,13 @@ class TimedActionDefinitions {
             ]),
          };
       },
-      effect: {
-         modifiers: {
-            AdministrativePoint: { type: "add", value: 1, duration: 24 },
-         },
+      modifiers: {
+         AdministrativePoint: { type: "add", value: 1 },
       },
    };
-   AppointEnvoy: IGameEffectAction = {
+   AppointEnvoy: ITimedEffectAction = {
       name: () => $t(L.AppointAnEnvoy),
+      duration: 24,
       cooldown: 48,
       costCondition: (province, save) => {
          return {
@@ -220,14 +211,13 @@ class TimedActionDefinitions {
             ]),
          };
       },
-      effect: {
-         modifiers: {
-            DiplomaticPoint: { type: "add", value: 1, duration: 24 },
-         },
+      modifiers: {
+         DiplomaticPoint: { type: "add", value: 1 },
       },
    };
-   AppointArmyStaff: IGameEffectAction = {
+   AppointArmyStaff: ITimedEffectAction = {
       name: () => $t(L.AppointArmyStaff),
+      duration: 24,
       cooldown: 48,
       costCondition: (province, save) => {
          return {
@@ -246,10 +236,8 @@ class TimedActionDefinitions {
             ]),
          };
       },
-      effect: {
-         modifiers: {
-            MilitaryPoint: { type: "add", value: 1, duration: 24 },
-         },
+      modifiers: {
+         MilitaryPoint: { type: "add", value: 1 },
       },
    };
    SetGovernmentFocus: ITimedAction = {
@@ -264,10 +252,24 @@ class TimedActionDefinitions {
       duration: 0,
       cooldown: 12 * 5,
    };
-   Bankruptcy: ITimedAction = {
+   Bankruptcy: ITimedEffectAction = {
       name: () => $t(L.Bankruptcy),
       duration: 10 * 12,
       cooldown: 0,
+      costCondition: (province, save) => {
+         return {};
+      },
+      modifiers: {
+         LandTax: { type: "multiply", value: -0.8 },
+         TileOutput: { type: "multiply", value: -0.8 },
+         Manpower: { type: "multiply", value: -0.8 },
+         Stability: { type: "add", value: -10 },
+         InfrastructureUpgradeCost: { type: "multiply", value: 1 },
+         ProductionUpgradeCost: { type: "multiply", value: 1 },
+         PopulationUpgradeCost: { type: "multiply", value: 1 },
+         ResearchCost: { type: "multiply", value: 1 },
+         MonthlyInterestRate: { type: "multiply", value: 1 },
+      },
    };
    ChangeRival: ITimedAction = {
       name: () => $t(L.ChangeRival),
@@ -298,63 +300,59 @@ class TimedActionDefinitions {
       duration: 12 * 5,
       cooldown: 12 * 10,
    };
-   RequestFunding: IGameEffectAction = {
+   RequestFunding: ITimedEffectAction = {
       name: () => $t(L.RequestFunding),
+      duration: 12,
       cooldown: 12,
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
          };
       },
-      effect: {
-         modifiers: {
-            TileOutput: { type: "multiply", value: 0.25, duration: 12 },
-            LandTax: { type: "multiply", value: 0.25, duration: 12 },
-         },
+      modifiers: {
+         TileOutput: { type: "multiply", value: 0.25 },
+         LandTax: { type: "multiply", value: 0.25 },
       },
    };
-   EnactSenateOversight: IGameEffectAction = {
+   EnactSenateOversight: ITimedEffectAction = {
       name: () => $t(L.EnactSenateOversight),
+      duration: 12,
       cooldown: 12,
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
          };
       },
-      effect: {
-         modifiers: {
-            AdministrativePoint: { type: "add", value: 1, duration: 12 },
-            DiplomaticPoint: { type: "add", value: 1, duration: 12 },
-            MilitaryPoint: { type: "add", value: 1, duration: 12 },
-         },
+      modifiers: {
+         AdministrativePoint: { type: "add", value: 1 },
+         DiplomaticPoint: { type: "add", value: 1 },
+         MilitaryPoint: { type: "add", value: 1 },
       },
    };
-   DeclareMobilization: IGameEffectAction = {
+   DeclareMobilization: ITimedEffectAction = {
       name: () => $t(L.DeclareMobilization),
+      duration: 12,
       cooldown: 12,
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
          };
       },
-      effect: {
-         modifiers: {
-            WarPower: { type: "multiply", value: 0.1, duration: 12 },
-         },
+      modifiers: {
+         WarPower: { type: "multiply", value: 0.1 },
       },
    };
-   AffirmCivicUnity: IGameEffectAction = {
+   AffirmCivicUnity: ITimedEffectAction = {
       name: () => $t(L.AffirmCivicUnity),
+      duration: 12,
       cooldown: 12,
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
          };
       },
-      effect: {
-         modifiers: {
-            Stability: { type: "add", value: 10, duration: 12 },
-         },
+      modifiers: {
+         Stability: { type: "add", value: 10 },
       },
    };
    PublicEnemy: ITimedAction = {
@@ -410,46 +408,43 @@ class TimedActionDefinitions {
       duration: 12 * 5,
       cooldown: 0,
    };
-   ReformCuria: IGameEffectAction = {
+   ReformCuria: ITimedEffectAction = {
       name: () => $t(L.ReformCuria),
+      duration: 12,
       cooldown: 24,
       costCondition: (province, save) => {
          return {
             cost: { administrative: getProvinceUpgrade(province, save) },
          };
       },
-      effect: {
-         modifiers: {
-            GoverningCapacity: { type: "add", value: 100, duration: 12 },
-         },
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
       },
    };
-   RenewVestments: IGameEffectAction = {
+   RenewVestments: ITimedEffectAction = {
       name: () => $t(L.RenewVestments),
+      duration: 12,
       cooldown: 24,
       costCondition: (province, save) => {
          return {
             cost: { garments: (getProvinceUpgrade(province, save) * 12) / Price.garments },
          };
       },
-      effect: {
-         modifiers: {
-            GoverningCapacity: { type: "add", value: 100, duration: 12 },
-         },
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
       },
    };
-   RecruitTalents: IGameEffectAction = {
+   RecruitTalents: ITimedEffectAction = {
       name: () => $t(L.RecruitTalents),
+      duration: 12,
       cooldown: 24,
       costCondition: (province, save) => {
          return {
             cost: { gold: getProvinceUpgrade(province, save) * 12 },
          };
       },
-      effect: {
-         modifiers: {
-            GoverningCapacity: { type: "add", value: 100, duration: 12 },
-         },
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
       },
    };
    DecimateOurArmy: ITimedAction = {
@@ -529,18 +524,17 @@ class TimedActionDefinitions {
       duration: 12 * 5,
       cooldown: 12 * 2,
    };
-   AppointBishop: IGameEffectAction = {
+   AppointBishop: ITimedEffectAction = {
       name: () => $t(L.AppointBishop),
+      duration: 12 * 10,
       cooldown: 12 * 10,
       costCondition: (province, save) => {
          return {
             cost: { christianity: 12 * 5 },
          };
       },
-      effect: {
-         modifiers: {
-            ChristianityYearly: { type: "add", value: 1, duration: 12 * 10 },
-         },
+      modifiers: {
+         ChristianityYearly: { type: "add", value: 1 },
       },
    };
    GameEventTimer: ITimedAction = {
@@ -551,10 +545,7 @@ class TimedActionDefinitions {
 }
 
 export type TimedAction = keyof TimedActionDefinitions;
-export type TimedActionWithDuration = {
-   [K in TimedAction]: TimedActionDefinitions[K] extends { duration: number } ? K : never;
-}[TimedAction];
-export type TimedActionWithEffect = {
-   [K in TimedAction]: TimedActionDefinitions[K] extends { effect: IGameEffect } ? K : never;
+export type TimedEffectAction = {
+   [K in TimedAction]: TimedActionDefinitions[K] extends ITimedEffectAction ? K : never;
 }[TimedAction];
 export const TimedActions = new TimedActionDefinitions();

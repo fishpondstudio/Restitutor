@@ -9,12 +9,14 @@ import { RestorationBonusModal } from "../ui/RestorationBonusModal";
 import { WarEndedModal } from "../ui/WarEndedModal";
 import { G, isDev } from "../utils/Global";
 import { type IFamily, PersonFlags } from "./definitions/Family";
+import type { TimedAction } from "./definitions/TimedAction";
 import { GameStateUpdated } from "./Events";
 import { resetGame, saveGame } from "./LoadSave";
 import { rebirth } from "./logic/LegacyUpgradeLogic";
 import { addProvinceResource, GovernorMaxExcl, GovernorMinIncl } from "./logic/ProvinceLogic";
 import { monthToDate } from "./logic/TickLogic";
 import { addGameEvent } from "./logic/TickProvince";
+import { startTimedAction } from "./logic/TimedActionLogic";
 import { type IWar, WarFlag, WarLogFlag } from "./logic/WarLogic";
 import { randomFemaleName, randomMaleName } from "./RomanNames";
 import { DefaultShortcuts } from "./ShortcutDefinition";
@@ -75,6 +77,12 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.showRestorationBonus = () => {
       showPanel(<RestorationBonusModal />);
+   };
+
+   // @ts-expect-error
+   globalThis.startTimedAction = (timedAction: TimedAction) => {
+      startTimedAction(timedAction, G.save.state.playerProvince, G.save);
+      GameStateUpdated.emit();
    };
 
    const warOnUs: IWar = {

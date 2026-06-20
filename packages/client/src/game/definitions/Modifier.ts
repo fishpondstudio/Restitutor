@@ -6,9 +6,11 @@ import { ProvinceUpgrades } from "../actions/ProvinceUpgrades";
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { attachModifiers } from "../logic/ModifierLogic";
+import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
 import { LegacyUpgrades } from "./LegacyUpgrade";
 import type { Province } from "./Province";
 import { Tech } from "./Tech";
+import { TimedActions } from "./TimedAction";
 
 export interface IBaseModifier {
    type: "add" | "multiply";
@@ -165,7 +167,6 @@ export const Modifiers = {
 } as const satisfies Record<string, IModifierDefinition>;
 
 export type Modifier = keyof typeof Modifiers;
-export type Modifiers = Partial<Record<Modifier, IModifier[]>>;
 
 export function modifierToString(mod: Modifier, data: Omit<IModifier, "name">): string {
    if (data.duration) {
@@ -233,6 +234,24 @@ GameStateUpdated.on(() => {
                   type,
                   value,
                   name: $t(L.LegacyUpgrade),
+               });
+            });
+         }
+      });
+      state.timedActions.forEach((_, timedAction) => {
+         const timeLeft = getTimedActionTimeLeft(timedAction, province, G.save);
+         if (timeLeft <= 0) {
+            return;
+         }
+         const config = TimedActions[timedAction];
+         if ("modifiers" in config) {
+            forEach(config.modifiers, (modifier, data) => {
+               const { type, value } = data;
+               safePush(state.dynamicModifiers, modifier, {
+                  type,
+                  value,
+                  name: config.name(),
+                  timeLeft,
                });
             });
          }

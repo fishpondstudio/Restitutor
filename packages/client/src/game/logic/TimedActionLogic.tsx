@@ -1,16 +1,11 @@
-import { clamp, formatNumber } from "@project/shared/src/utils/Helper";
+import { clamp, formatNumber, mapOf } from "@project/shared/src/utils/Helper";
 import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
 import { finalizeCondition, type ICondition, type IGameAction } from "../actions/GameAction";
+import { modifierToString } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
 import { Tech } from "../definitions/Tech";
-import {
-   type TimedAction,
-   TimedActions,
-   type TimedActionWithDuration,
-   type TimedActionWithEffect,
-} from "../definitions/TimedAction";
-import { applyGameEffect, getGameEffectDesc } from "../GameEffect";
+import { type TimedAction, TimedActions, type TimedEffectAction } from "../definitions/TimedAction";
 import type { SaveGame } from "../GameState";
 import { hasResearched } from "./TechLogic";
 
@@ -27,7 +22,7 @@ export function getTimedActionCooldownLeft(timedAction: TimedAction, province: P
    return clamp(lastPerformed + config.cooldown - save.state.month, 0, Number.POSITIVE_INFINITY);
 }
 
-function isTimedActionWithPositiveDuration(action: TimedAction): action is TimedActionWithDuration {
+function isTimedActionWithPositiveDuration(action: TimedAction): action is TimedAction {
    const def = TimedActions[action];
    return "duration" in def && def.duration > 0;
 }
@@ -36,15 +31,11 @@ export function isTimedActionEndingThisMonth(
    action: TimedAction,
    lastPerformed: number,
    month: number,
-): action is TimedActionWithDuration {
+): action is TimedAction {
    return isTimedActionWithPositiveDuration(action) && lastPerformed + TimedActions[action].duration === month;
 }
 
-export function getTimedActionTimeLeft(
-   timedAction: TimedActionWithDuration,
-   province: Province,
-   save: SaveGame,
-): number {
+export function getTimedActionTimeLeft(timedAction: TimedAction, province: Province, save: SaveGame): number {
    const config = TimedActions[timedAction];
    const state = save.state.provinces[province];
    if (!state) {
@@ -99,11 +90,7 @@ export function startTimedAction(action: TimedAction, province: Province, save: 
    state.timedActions.set(action, save.state.month);
 }
 
-export function endTimedActionAndResetCooldown(
-   action: TimedActionWithDuration,
-   province: Province,
-   save: SaveGame,
-): void {
+export function endTimedActionAndResetCooldown(action: TimedAction, province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
    if (!state) {
       return;
@@ -113,18 +100,16 @@ export function endTimedActionAndResetCooldown(
 
 export function getTimedActionDesc(action: TimedAction, province: Province, save: SaveGame): React.ReactNode {
    const config = TimedActions[action];
-   if ("desc" in config) {
-      if (config.desc) {
-         return html(config.desc());
-      }
-      return null;
-   }
-   if ("effect" in config) {
-      return getGameEffectDesc(config.effect, province, save);
-   }
+   return (
+      <>
+         {config.desc && html(config.desc())}
+         {"modifiers" in config &&
+            mapOf(config.modifiers, (modifier, data) => <div key={modifier}>{modifierToString(modifier, data)}</div>)}
+      </>
+   );
 }
 
-export function makeGameAction(timedAction: TimedActionWithEffect, province: Province, save: SaveGame): IGameAction {
+export function makeGameAction(timedAction: TimedEffectAction, province: Province, save: SaveGame): IGameAction {
    const config = TimedActions[timedAction];
    const condition = config.costCondition?.(province, save);
    return {
@@ -135,7 +120,6 @@ export function makeGameAction(timedAction: TimedActionWithEffect, province: Pro
       ]),
       effect: () => {
          startTimedAction(timedAction, province, save);
-         applyGameEffect(config.effect, config.name(), province, save);
       },
    };
 }

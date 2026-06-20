@@ -52,7 +52,6 @@ import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
 import { attachModifiers } from "./ModifierLogic";
 import { isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
 import {
-   BankruptcyStabilityReduction,
    getTileGoodsTax,
    getTileGoverningCost,
    getTileLandTax,
@@ -284,15 +283,6 @@ export function getProvinceStability(province: Province, save: SaveGame): IValue
    const overextension = getProvinceOverextension(province, save).value;
    if (overextension > 0) {
       breakdown.add.push({ name: $t(L.FromOverextension), value: -overextension });
-   }
-
-   const bankruptcy = getTimedActionTimeLeft("Bankruptcy", province, save);
-   if (bankruptcy > 0) {
-      breakdown.add.push({
-         name: $t(L.Bankruptcy),
-         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
-         value: BankruptcyStabilityReduction,
-      });
    }
 
    attachModifiers("Stability", breakdown, province, save);

@@ -69,10 +69,6 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
    return finalizeBreakdown(breakdown);
 }
 
-export const BankruptcyRevenueReduction = -0.8;
-export const BankruptcyStabilityReduction = -10;
-export const BankruptcyExpenseIncreasePct = 1;
-
 export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    const data = save.state.tiles.get(tile);
@@ -138,14 +134,6 @@ export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
             }
          }
       }
-   }
-   const bankruptcy = getTimedActionTimeLeft("Bankruptcy", data.province, save);
-   if (bankruptcy > 0) {
-      breakdown.multiply.push({
-         name: $t(L.Bankruptcy),
-         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
-         value: BankruptcyRevenueReduction,
-      });
    }
    if (data.rebellion >= 10) {
       breakdown.multiply.push({ name: $t(L.Rebellion), value: -1 });
@@ -300,14 +288,6 @@ export function getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    if (overextension > 0) {
       breakdown.multiply.push({ name: $t(L.Overextension), value: -overextension * 0.01 });
    }
-   const bankruptcy = getTimedActionTimeLeft("Bankruptcy", data.province, save);
-   if (bankruptcy > 0) {
-      breakdown.multiply.push({
-         name: $t(L.Bankruptcy),
-         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
-         value: BankruptcyRevenueReduction,
-      });
-   }
    if (isSocialClassDissent("UpperClass", data.province, save)) {
       breakdown.multiply.push({
          name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
@@ -373,14 +353,6 @@ export function getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    const overextension = getProvinceOverextension(data.province, save).value;
    if (overextension > 0) {
       breakdown.multiply.push({ name: $t(L.Overextension), value: -overextension * 0.01 });
-   }
-   const bankruptcy = getTimedActionTimeLeft("Bankruptcy", data.province, save);
-   if (bankruptcy > 0) {
-      breakdown.multiply.push({
-         name: $t(L.Bankruptcy),
-         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
-         value: BankruptcyRevenueReduction,
-      });
    }
    if (isSocialClassDissent("UpperClass", data.province, save)) {
       breakdown.multiply.push({
@@ -566,14 +538,6 @@ export function getTileUpgradeCost(tile: Tile, resource: GovernorPower, save: Sa
       breakdown.multiply.push({ name: $t(L.DominantReligion), value: -0.1 });
    } else if (!hasProvinceUpgrade("EdictOfMilan", data.province, save)) {
       breakdown.multiply.push({ name: $t(L.MinorReligion), value: 0.1 });
-   }
-   const bankruptcy = getTimedActionTimeLeft("Bankruptcy", data.province, save);
-   if (bankruptcy > 0) {
-      breakdown.multiply.push({
-         name: $t(L.Bankruptcy),
-         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
-         value: BankruptcyExpenseIncreasePct,
-      });
    }
    if (resource === "administrative") {
       attachModifiers("InfrastructureUpgradeCost", breakdown, data.province, save);

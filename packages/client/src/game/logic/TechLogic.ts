@@ -9,8 +9,6 @@ import type { SaveGame } from "../GameState";
 import { attachModifiers } from "./ModifierLogic";
 import { hasEnoughProvinceResources } from "./ProvinceLogic";
 import { stringToPosition } from "./StringToPosition";
-import { BankruptcyExpenseIncreasePct } from "./TileLogic";
-import { getTimedActionTimeLeft } from "./TimedActionLogic";
 
 export function getResearchCostBreakdown(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
@@ -25,14 +23,6 @@ export function getResearchCostBreakdown(province: Province, save: SaveGame): IV
       value: 1.1 ** state.unlockedTech.size - 1,
    });
    attachModifiers("ResearchCost", breakdown, province, save);
-   const bankruptcy = getTimedActionTimeLeft("Bankruptcy", province, save);
-   if (bankruptcy > 0) {
-      breakdown.multiply.push({
-         name: $t(L.Bankruptcy),
-         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
-         value: BankruptcyExpenseIncreasePct,
-      });
-   }
    return finalizeBreakdown(breakdown);
 }
 

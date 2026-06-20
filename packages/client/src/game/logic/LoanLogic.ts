@@ -6,8 +6,6 @@ import type { ILoan, Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { attachModifiers } from "./ModifierLogic";
 import { addProvinceResource, getProvinceIncome } from "./ProvinceLogic";
-import { BankruptcyExpenseIncreasePct } from "./TileLogic";
-import { getTimedActionTimeLeft } from "./TimedActionLogic";
 
 export function getLoanAmount(province: Province, save: SaveGame): number {
    let result = 0;
@@ -25,14 +23,6 @@ export function getLoanAmount(province: Province, save: SaveGame): number {
 export function getMonthlyInterestRate(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
    breakdown.add.push({ name: $t(L.BaseValue), value: 0.01 });
-   const bankruptcy = getTimedActionTimeLeft("Bankruptcy", province, save);
-   if (bankruptcy > 0) {
-      breakdown.multiply.push({
-         name: $t(L.Bankruptcy),
-         desc: $t(L.$1MonthsLeft, formatNumber(bankruptcy)),
-         value: BankruptcyExpenseIncreasePct,
-      });
-   }
    attachModifiers("MonthlyInterestRate", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }

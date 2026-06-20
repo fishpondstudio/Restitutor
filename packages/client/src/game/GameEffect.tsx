@@ -27,14 +27,14 @@ import { addModifier } from "./logic/ModifierLogic";
 import { addProvinceResource, addProvinceStat, generateTrade, getProvinceName } from "./logic/ProvinceLogic";
 
 export interface IGameEffect {
-   modifiers?: Partial<Record<Modifier, Omit<IModifier, "name">>>;
    resources?: Partial<Record<ProvinceResource, number>>;
    stats?: Partial<Record<ProvinceStat, number>>;
-   attitudes?: Partial<Record<Province, Omit<IModifier, "name"> & { duration: number }>>;
    infiltration?: Partial<Record<Province, number>>;
-   casusBelli?: Partial<Record<Province, { casusBelli: CasusBelli; duration: number }>>;
    trades?: Partial<Record<Province, IEventTrade>>;
    provinceUpgrades?: ProvinceUpgrade[];
+   modifiers?: Partial<Record<Modifier, Omit<IModifier, "name">>>;
+   attitudes?: Partial<Record<Province, Omit<IModifier, "name"> & { duration: number }>>;
+   casusBelli?: Partial<Record<Province, { casusBelli: CasusBelli; duration: number }>>;
 }
 
 export interface ICustomEffect {

@@ -1,4 +1,4 @@
-import { TimedActions, type TimedActionWithEffect } from "../game/definitions/TimedAction";
+import { TimedActions, type TimedEffectAction } from "../game/definitions/TimedAction";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { makeGameAction } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
@@ -9,7 +9,7 @@ export function TimedActionButton({
    id,
    className,
 }: {
-   timedAction: TimedActionWithEffect;
+   timedAction: TimedEffectAction;
    id?: string;
    className?: string;
 }): React.ReactNode {

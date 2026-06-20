@@ -380,17 +380,16 @@ export function mMapOf<K, V, T>(
 }
 
 export function transformOf<K extends string, V, T>(
-   obj: Partial<Record<K, V>>,
+   obj: Partial<Record<K, V>> | undefined | null,
    func: (key: K, value: V) => T,
-   ifEmpty: () => Partial<Record<K, T>> = () => ({}),
 ): Partial<Record<K, T>> {
    const result: Partial<Record<K, T>> = {};
+   if (!obj) {
+      return result;
+   }
    forEach(obj, (k, v) => {
       result[k] = func(k, v);
    });
-   if (sizeOf(result)) {
-      return ifEmpty();
-   }
    return result;
 }
 
