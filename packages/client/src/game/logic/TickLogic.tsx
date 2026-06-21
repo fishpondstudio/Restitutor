@@ -6,6 +6,7 @@ import type { Province } from "../definitions/Province";
 import { GameStateUpdated, GameTimeUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { randomMaleName } from "../RomanNames";
+import { fixRelations } from "./DiplomacyLogic";
 import {
    addProvinceResource,
    ConsulElectionMonths,
@@ -48,6 +49,7 @@ export function tickMonth(save: SaveGame): void {
    forEach(save.state.provinces, (province) => {
       tickProvince(province, save);
    });
+   fixRelations(save);
    save.state.wars.forEach((war) => {
       tickWar(war, save);
    });

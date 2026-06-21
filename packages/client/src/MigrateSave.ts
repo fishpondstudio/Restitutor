@@ -3,7 +3,7 @@ import { Province } from "./game/definitions/Province";
 import { addProvinceUpgrade } from "./game/definitions/ProvinceUpgrades";
 import { GameOption } from "./game/GameOption";
 import { GameState, type SaveGame } from "./game/GameState";
-import { emptyRelation, getRelations } from "./game/logic/DiplomacyLogic";
+import { emptyRelation, fixRelations, getRelations } from "./game/logic/DiplomacyLogic";
 import { initProvince, provinceResourceOf } from "./game/logic/ProvinceLogic";
 
 export function migrateSave(save: SaveGame): void {
@@ -18,6 +18,7 @@ export function migrateSave(save: SaveGame): void {
          }
       }
    });
+   fixRelations(save);
 
    forEach(save.state.provinces, (province, data) => {
       Province[province].upgrades.forEach((upgrade) => {

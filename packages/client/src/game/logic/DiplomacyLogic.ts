@@ -110,16 +110,11 @@ export function addAttitudeModifier(
 export const HumiliateRivalCasusBelliMonths = 10 * 12;
 
 export function getRelations(province: Province, save: SaveGame): Map<Province, IRelation> | undefined {
-   const relations = save.state.provinces[province]?._relations;
-   if (!relations) {
+   const state = save.state.provinces[province];
+   if (!state) {
       return undefined;
    }
-   for (const [otherProvince] of [...relations]) {
-      if (otherProvince === province || !save.state.provinces[otherProvince]) {
-         relations.delete(otherProvince);
-      }
-   }
-   return relations;
+   return state._relations;
 }
 
 export function emptyRelation(): IRelation {
@@ -136,16 +131,7 @@ export function emptyRelation(): IRelation {
 export function getRelation(fromProvince: Province, toProvince: Province, save: SaveGame): IRelation | undefined {
    const fromState = save.state.provinces[fromProvince];
    const toState = save.state.provinces[toProvince];
-   if (!fromState) {
-      if (toState) {
-         toState._relations.delete(fromProvince);
-      }
-      return undefined;
-   }
-   if (!toState) {
-      if (fromState) {
-         fromState._relations.delete(toProvince);
-      }
+   if (!fromState || !toState || fromProvince === toProvince) {
       return undefined;
    }
    let relations = fromState._relations.get(toProvince);
@@ -399,3 +385,58 @@ export function getRevealedConsulVotes(province: Province, save: SaveGame): Map<
 
 export const getImproveRelationsRate = makeModifierGetter("ImproveRelationsRate", 1, (result, province, save) => {});
 export const getInfiltrationRate = makeModifierGetter("InfiltrationRate", 1, (result, province, save) => {});
+
+export function fixRelations(save: SaveGame): void {
+   forEach(save.state.provinces, (province, state) => {
+      const relations = state._relations;
+      if (relations) {
+         for (const [otherProvince, relation] of relations) {
+            if (otherProvince === province) {
+               relations.delete(province);
+               continue;
+            }
+            const otherState = save.state.provinces[otherProvince];
+            if (!otherState) {
+               relations.delete(otherProvince);
+               continue;
+            }
+            if (relation.treaty) {
+               const otherRelation = otherState._relations.get(province);
+               if (!otherRelation || !otherRelation.treaty) {
+                  relation.treaty = undefined;
+                  continue;
+               }
+               switch (relation.treaty.type) {
+                  case "DefensePact":
+                     if (otherRelation.treaty.type !== "DefensePact") {
+                        relation.treaty = undefined;
+                        otherRelation.treaty = undefined;
+                     }
+                     continue;
+                  case "Alliance":
+                     if (otherRelation.treaty.type !== "Alliance") {
+                        relation.treaty = undefined;
+                        otherRelation.treaty = undefined;
+                     }
+                     continue;
+                  case "Client":
+                     if (otherRelation.treaty.type !== "Patron") {
+                        relation.treaty = undefined;
+                        otherRelation.treaty = undefined;
+                     }
+                     continue;
+                  case "Patron":
+                     if (otherRelation.treaty.type !== "Client") {
+                        relation.treaty = undefined;
+                        otherRelation.treaty = undefined;
+                     }
+                     continue;
+                  default:
+                     relation.treaty.type satisfies never;
+                     continue;
+               }
+            }
+         }
+      }
+   });
+}
