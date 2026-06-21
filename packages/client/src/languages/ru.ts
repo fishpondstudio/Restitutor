@@ -1959,4 +1959,8 @@ export const RU = {
    MercantileSynergyDesc: "+10% торговой прибыли за каждую активную сделку.",
    ProvincialSpirits: "Дух провинции",
    MakeWarSpeechDesc: "Произнесение военной речи даёт нам 1 очко войны и может быть сделано только в течение первого года войны.",
+   AnnexCostDiscount: "Скидка на стоимость аннексии",
+   ModifierAnnexCostDiscountDesc: "Скидка на стоимость аннексии провинции-клиента",
+   PatronageDurationMax50: "Срок покровительства (макс. 50%)",
+   TheyHaveBeenOurClientFor$1Months: "Они являются нашим клиентом в течение $1 месяцев",
 };

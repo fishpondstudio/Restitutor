@@ -1,5 +1,5 @@
 import { Select } from "@mantine/core";
-import { cls, formatDelta, formatNumber, keysOf, type Tile } from "@project/shared/src/utils/Helper";
+import { cls, formatDelta, formatNumber, formatPercent, keysOf, type Tile } from "@project/shared/src/utils/Helper";
 import type React from "react";
 import { memo } from "react";
 import { DemandTileCostCondition } from "../game/actions/DemandTileCostCondition";
@@ -23,8 +23,9 @@ import {
    canImproveRelations,
    canInfiltrate,
    FabricateCasusBelliCost,
+   getAnnexClientCost,
+   getAnnexCostDiscount,
    getAttitudeTowards,
-   getDiplomaticAnnexationCost,
    getDiplomaticDistance,
    getDiplomaticRange,
    getImproveRelationsRate,
@@ -797,7 +798,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                            <ActionButton
                               className="py2"
                               action={{
-                                 cost: getDiplomaticAnnexationCost(province, G.save),
+                                 cost: getAnnexClientCost(G.save.state.playerProvince, province, G.save),
                                  condition: finalizeCondition([
                                     ...timedActionConditions(
                                        { action: "AnnexClient" },
@@ -830,6 +831,11 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                  <>
                                     <TimedActionDescComp action="AnnexClient" />
                                     {element}
+                                    <div className="h2">{Modifiers.AnnexCostDiscount.name()}</div>
+                                    <BreakdownComp
+                                       breakdown={getAnnexCostDiscount(G.save.state.playerProvince, province, G.save)}
+                                       formatFunc={formatPercent}
+                                    />
                                  </>
                               )}
                            >

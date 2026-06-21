@@ -1959,4 +1959,8 @@ export const EN = {
    MercantileSynergyDesc: "+10% Trade Profit for each active trade.",
    ProvincialSpirits: "Provincial Spirits",
    MakeWarSpeechDesc: "Making a war speech grants us 1 war score and can only be done within the first year of war.",
+   AnnexCostDiscount: "Annex Cost Discount",
+   ModifierAnnexCostDiscountDesc: "The discount on the cost of annexing a client province",
+   PatronageDurationMax50: "Patronage Duration (Max. 50%)",
+   TheyHaveBeenOurClientFor$1Months: "They have been our client for $1 months",
 };

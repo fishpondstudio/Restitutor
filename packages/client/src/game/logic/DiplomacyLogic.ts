@@ -1,4 +1,4 @@
-import { forEach, formatNumber, mapSafePush, range } from "@project/shared/src/utils/Helper";
+import { clamp, forEach, formatNumber, mapSafePush, range } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import {
    finalizeBreakdown,
@@ -269,13 +269,17 @@ export const SubvertGarrisonCost = 50;
 export const InciteUnrestCost = 50;
 export const RevealElectionSupportCost = 10;
 
-export function getDiplomaticAnnexationCost(province: Province, save: SaveGame): ProvinceResourceCosts {
+export function getAnnexClientCost(
+   province: Province,
+   clientProvince: Province,
+   save: SaveGame,
+): ProvinceResourceCosts {
    let administrative = 0;
    let diplomatic = 0;
    let military = 0;
    let gold = 0;
    for (const [tile, data] of save.state.tiles) {
-      if (data.province === province) {
+      if (data.province === clientProvince) {
          range(0, data.infrastructure).forEach((i) => {
             administrative += 50 * UpgradeCostGrowthFactor ** i;
          });
@@ -288,12 +292,27 @@ export function getDiplomaticAnnexationCost(province: Province, save: SaveGame):
       }
    }
    gold = (administrative + diplomatic + military) * 3;
+   const factor = clamp(1 - getAnnexCostDiscount(province, clientProvince, save).value, 0, 1);
    return {
-      gold,
-      administrative,
-      diplomatic,
-      military,
+      gold: gold * factor,
+      administrative: administrative * factor,
+      diplomatic: diplomatic * factor,
+      military: military * factor,
    };
+}
+
+export function getAnnexCostDiscount(province: Province, clientProvince: Province, save: SaveGame): IValueBreakdown {
+   const breakdown: IValueBreakdown = makeValueBreakdown();
+   const patronMonths = getRelation(province, clientProvince, save)?.patronMonths ?? 0;
+   if (patronMonths > 0) {
+      breakdown.add.push({
+         name: $t(L.PatronageDurationMax50),
+         desc: $t(L.TheyHaveBeenOurClientFor$1Months, formatNumber(patronMonths)),
+         value: clamp(patronMonths * 0.01, 0, 0.5),
+      });
+   }
+   attachModifiers("AnnexCostDiscount", breakdown, province, save);
+   return finalizeBreakdown(breakdown);
 }
 
 export function getDiplomaticDistance(ourProvince: Province, theirProvince: Province, save: SaveGame): number {

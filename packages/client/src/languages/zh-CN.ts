@@ -1944,4 +1944,8 @@ export const ZH_CN = {
    MercantileSynergyDesc: "每笔进行中的贸易增加10%贸易利润。",
    ProvincialSpirits: "行省精神",
    MakeWarSpeechDesc: "发表战时演说可获得1点战争分数，仅在战争第一年内可用。",
+   AnnexCostDiscount: "吞并费用折扣",
+   ModifierAnnexCostDiscountDesc: "吞并附庸行省费用的折扣",
+   PatronageDurationMax50: "庇护持续时长（最高50%）",
+   TheyHaveBeenOurClientFor$1Months: "他们已作为我们的附庸持续了 $1 个月",
 };
