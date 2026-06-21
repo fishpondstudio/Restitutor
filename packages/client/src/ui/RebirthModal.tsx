@@ -1,7 +1,8 @@
 import { Select } from "@mantine/core";
 import { cls, setFlag } from "@project/shared/src/utils/Helper";
-import { useState } from "react";
-import { type Province, Provinces } from "../game/definitions/Province";
+import { Fragment, useState } from "react";
+import { Province, Provinces } from "../game/definitions/Province";
+import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { GameOptionFlag } from "../game/GameOption";
 import { saveGame } from "../game/LoadSave";
 import { rebirth } from "../game/logic/LegacyUpgradeLogic";
@@ -19,7 +20,7 @@ export function RebirthModal(): React.ReactNode {
    const [province, setProvince] = useState(G.save.state.playerProvince);
    return (
       <ModalComp size="sm" title={<ModalTitleBar title={$t(L.Rebirth)} dismiss />}>
-         <div className="h5" />
+         <div className="h1">{$t(L.LegacyPoint)}</div>
          <div className="mx10 my5 row">
             <div className="f1">{$t(L.TilesAnnexedAndCored)}</div>
             <div>{colorNumber(newTiles)}</div>
@@ -28,10 +29,7 @@ export function RebirthModal(): React.ReactNode {
             <div className="f1">{$t(L.TotalLegacyPointNextRun)}</div>
             <div>{total + newTiles}</div>
          </div>
-         <div className="divider my10" />
-         <div className="mx10 my5">
-            <div className="f1">{$t(L.NextRunProvince)}</div>
-         </div>
+         <div className="h1">{$t(L.NextRunProvince)}</div>
          <FloatingTip label={$t(L.CurrentlyUnderDevelopmentMoreProvincesWillBeAddedSoon)}>
             <div className="mx10 my5">
                <Select
@@ -57,6 +55,18 @@ export function RebirthModal(): React.ReactNode {
                />
             </div>
          </FloatingTip>
+         <div className="box m10">
+            <div className="h3">{$t(L.ProvincialSpirits)}</div>
+            {Province[province].upgrades.map((upgrade, idx) => (
+               <Fragment key={upgrade}>
+                  {idx > 0 && <div className="divider" />}
+                  <div className="mx10 my5">
+                     <div>{ProvinceUpgrades[upgrade].name()}</div>
+                     <div className="text-dimmed text-sm">{getProvinceUpgradeDesc(upgrade)}</div>
+                  </div>
+               </Fragment>
+            ))}
+         </div>
          <div className="m10">
             <button
                className={cls("btn py2 w100")}

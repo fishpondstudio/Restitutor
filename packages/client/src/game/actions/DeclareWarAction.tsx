@@ -15,6 +15,7 @@ import {
    isClientOfAnyProvince,
    isWithinDiplomaticRange,
 } from "../logic/DiplomacyLogic";
+import { hasLegacyUpgrade } from "../logic/LegacyUpgradeLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { addProvinceStat, getProvinceName } from "../logic/ProvinceLogic";
 import { showGameEventModal } from "../logic/TickProvince";
@@ -126,11 +127,15 @@ export function DeclareWarAction(
          const attackerToDefender = getRelation(attacker, defender, save);
          if (attackerToDefender) {
             attackerToDefender.trade = undefined;
+            if (hasLegacyUpgrade("InfiltrationOnDeclaringWar", attacker, save)) {
+               attackerToDefender.infiltrate.value += 25;
+            }
          }
          const defenderToAttacker = getRelation(defender, attacker, save);
          if (defenderToAttacker) {
             defenderToAttacker.trade = undefined;
          }
+
          RefreshTiles.emit({ tiles: tiles, options: { indicator: true } });
          if (headless) {
             if (war.defender === save.state.playerProvince) {

@@ -25,6 +25,12 @@
          url("../assets/images/H1Dark.svg"),
          linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
    }
+   > .h3:first-child {
+      background:
+         linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.3) 100%) bottom / 100%
+         0.0625rem no-repeat,
+         linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+   }
 }
 
 .frame {

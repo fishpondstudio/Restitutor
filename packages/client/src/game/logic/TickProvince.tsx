@@ -13,9 +13,9 @@ import { GameEventModal } from "../../ui/GameEventModal";
 import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
 import { G, GameFlags } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
-import { addProvinceUpgrade, removeProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import type { IGovernorFamily } from "../definitions/Family";
 import { type Province, ProvinceFlags } from "../definitions/Province";
+import { addProvinceUpgrade, removeProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { RestorationBonus } from "../definitions/RestorationBonus";
 import { TimedActions } from "../definitions/TimedAction";
 import { RefreshTiles } from "../Events";
@@ -26,7 +26,6 @@ import type { SaveGame } from "../GameState";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor, tickFamily } from "./GovernorLogic";
 import { canTakeLoan, getLoanAmount, getMonthlyInterestRate, takeLoan } from "./LoanLogic";
-import { onTimedActionEnded } from "./OnTimedActionEnded";
 import { tickProduction } from "./ProductionLogic";
 import {
    addProvinceResource,
@@ -46,7 +45,7 @@ import {
 import { tickSocialClasses } from "./SocialClassLogic";
 import { getGameDate, TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
-import { getTimedActionCooldownLeft, isTimedActionEndingThisMonth, startTimedAction } from "./TimedActionLogic";
+import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
 import { ArmyMoraleMonthlyIncrease } from "./WarLogic";
 
 export const PendingGameEventTimeoutMonths = 3;
@@ -94,8 +93,9 @@ export function tickProvince(province: Province, save: SaveGame): void {
    }
 
    state.timedActions.forEach((lastPerformed, action) => {
-      if (isTimedActionEndingThisMonth(action, lastPerformed, save.state.month)) {
-         onTimedActionEnded(action, province, save);
+      const def = TimedActions[action];
+      if (def.duration > 0 && lastPerformed + def.duration === save.state.month) {
+         def.onEnd?.(province, save);
       }
    });
 
@@ -126,8 +126,8 @@ export function tickProvince(province: Province, save: SaveGame): void {
       }
    }
 
-   const month = getGameDate(save.state.tick).getMonth();
-   if (month === TickFamilyMonth) {
+   const monthOfYear = getGameDate(save.state.tick).getMonth();
+   if (monthOfYear === TickFamilyMonth) {
       const oldOffspringCount = state.governor.children.length;
       const result = tickFamily(state.governor, province, save);
       const newOffspringCount = state.governor.children.length;
@@ -207,6 +207,9 @@ export function tickProvince(province: Province, save: SaveGame): void {
          }
       });
       const treaty = relation.treaty;
+      if (treaty && treaty.type === "Patron") {
+         ++relation.patronMonths;
+      }
       if (treaty && treaty.month + TimedActions.DiplomaticTreaty.duration <= save.state.month) {
          relation.treaty = undefined;
       }

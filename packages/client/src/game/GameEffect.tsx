@@ -1,7 +1,6 @@
 import { forEach, formatDelta, formatNumber, formatPercent, mapOf } from "@project/shared/src/utils/Helper";
 import type React from "react";
 import { $t, L } from "../utils/i18n";
-import { addProvinceUpgrade, type ProvinceUpgrade, ProvinceUpgrades } from "./actions/ProvinceUpgrades";
 import { CasusBelli } from "./definitions/CasusBelli";
 import { Goods } from "./definitions/Goods";
 import {
@@ -19,6 +18,7 @@ import {
    ProvinceStatNames,
    type TradeOfferBase,
 } from "./definitions/Province";
+import { addProvinceUpgrade, type ProvinceUpgrade, ProvinceUpgrades } from "./definitions/ProvinceUpgrades";
 import { TimedActions } from "./definitions/TimedAction";
 import { filterProvinces } from "./events/GameEventLogic";
 import type { SaveGame } from "./GameState";

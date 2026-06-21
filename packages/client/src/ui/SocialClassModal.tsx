@@ -3,10 +3,11 @@ import { Fragment } from "react/jsx-runtime";
 import { finalizeCondition } from "../game/actions/GameAction";
 import {
    addProvinceUpgrade,
+   getProvinceUpgradeDesc,
    hasProvinceUpgrade,
    ProvinceUpgrades,
    removeProvinceUpgrade,
-} from "../game/actions/ProvinceUpgrades";
+} from "../game/definitions/ProvinceUpgrades";
 import { SocialClassBonuses, SocialClassNames } from "../game/definitions/SocialClass";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
@@ -15,7 +16,6 @@ import {
    getDissentChange,
    getEstimatedDissentTime,
    getLoyaltyEquilibrium,
-   getSocialClassBonusDesc,
    SocialClassDissentEffectPct,
 } from "../game/logic/SocialClassLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
@@ -159,9 +159,11 @@ export function SocialClassModal(): React.ReactNode {
                                  {idx > 0 && <div className="divider" />}
                                  <div className="mx10 my5" key={action}>
                                     <div className="text-display">{ProvinceUpgrades[action].name()}</div>
-                                    <div className="text-sm text-dimmed">
-                                       {getSocialClassBonusDesc(action)} (+{bonus.influence} {$t(L.Influence)}, +
-                                       {bonus.loyalty} {$t(L.Loyalty)})
+                                    <div className="text-sm">
+                                       {getProvinceUpgradeDesc(action)}
+                                       <div className="text-dimmed">
+                                          (+{bonus.influence} {$t(L.Influence)}, +{bonus.loyalty} {$t(L.Loyalty)})
+                                       </div>
                                     </div>
                                     {hasProvinceUpgrade(action, G.save.state.playerProvince, G.save) ? (
                                        <ActionButton

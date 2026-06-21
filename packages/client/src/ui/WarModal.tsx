@@ -400,7 +400,7 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
 }
 
 function MakeWarSpeechButton({ war, province }: { war: IWar; province: Province }): React.ReactNode {
-   if (war.attacker !== province && war.defender !== province) {
+   if (war.attacker !== province) {
       return null;
    }
    if (war.actualWarScore >= war.requiredWarScore) {
@@ -414,8 +414,8 @@ function MakeWarSpeechButton({ war, province }: { war: IWar; province: Province 
             condition: finalizeCondition([
                ...timedActionConditions({ action: "MakeWarSpeech" }, province, G.save),
                {
-                  name: $t(L.WeAreTheLeadAttackerOrDefenderOfTheWar),
-                  value: war.attacker === province || war.defender === province,
+                  name: $t(L.WeAreTheLeadAttackerOfTheWar),
+                  value: war.attacker === province,
                },
                {
                   name: $t(L.WeAreWithinTheFirstYearOfWar),
@@ -427,6 +427,7 @@ function MakeWarSpeechButton({ war, province }: { war: IWar; province: Province 
                },
             ]),
             effect: () => {
+               war.actualWarScore += 1;
                startTimedAction("MakeWarSpeech", province, G.save);
             },
          }}

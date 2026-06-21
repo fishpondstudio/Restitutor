@@ -1,10 +1,13 @@
+import { mapOf } from "@project/shared/src/utils/Helper";
+import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
-import type { IBaseModifier, Modifier } from "../definitions/Modifier";
-import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
+import { type IBaseModifier, type Modifier, modifierToString } from "./Modifier";
+import type { Province } from "./Province";
 
 export interface IProvinceUpgrade {
    name: () => string;
+   desc?: () => string;
    modifiers?: Partial<Record<Modifier, IBaseModifier>>;
 }
 
@@ -96,8 +99,17 @@ const _ProvinceUpgrades = {
          Manpower: { type: "multiply", value: -0.05 },
       },
    },
-   InfiltrationOnDeclaringWar: {
-      name: () => $t(L.$1InfiltrationWhenDeclaringWar, "+25"),
+   CavalryWarPower: {
+      name: () => $t(L.CavalryPredominance),
+      desc: () => $t(L.CavalryPredominanceDesc),
+   },
+   TradeProfitForEachTrade: {
+      name: () => $t(L.MercantileSynergy),
+      desc: () => $t(L.MercantileSynergyDesc),
+   },
+   ChristianFervor: {
+      name: () => $t(L.ChristianFervor),
+      desc: () => $t(L.ChristianFervorDesc),
    },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
@@ -126,4 +138,15 @@ export function removeProvinceUpgrade(upgrade: ProvinceUpgrade, province: Provin
       return;
    }
    state.provinceUpgrades.delete(upgrade);
+}
+
+export function getProvinceUpgradeDesc(upgrade: ProvinceUpgrade): React.ReactNode {
+   const def = ProvinceUpgrades[upgrade];
+   return (
+      <>
+         {def.desc && html(def.desc())}{" "}
+         {def.modifiers &&
+            mapOf(def.modifiers, (modifier, data) => <div key={modifier}>{modifierToString(modifier, data)}</div>)}
+      </>
+   );
 }

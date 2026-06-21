@@ -2,13 +2,13 @@ import { forEach, formatDelta, formatNumber, formatPercentDelta, safePush } from
 import { G } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
 import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
-import { ProvinceUpgrades } from "../actions/ProvinceUpgrades";
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { attachModifiers } from "../logic/ModifierLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
 import { LegacyUpgrades } from "./LegacyUpgrade";
 import type { Province } from "./Province";
+import { ProvinceUpgrades } from "./ProvinceUpgrades";
 import { Tech } from "./Tech";
 import { TimedActions } from "./TimedAction";
 
@@ -190,10 +190,12 @@ export function modifierDurationToString(duration: number): string {
 export function makeModifierGetter(
    modifier: Modifier,
    baseValue: number,
+   func: (result: IValueBreakdown, province: Province, save: SaveGame) => void,
 ): (province: Province, save: SaveGame) => IValueBreakdown {
    return (province: Province, save: SaveGame) => {
       const result = makeValueBreakdown();
       result.add.push({ name: $t(L.BaseValue), value: baseValue });
+      func(result, province, save);
       attachModifiers(modifier, result, province, save);
       return finalizeBreakdown(result);
    };

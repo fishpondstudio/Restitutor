@@ -39,6 +39,7 @@ import {
    type TradeOffer,
    type TradeOfferBase,
 } from "../definitions/Province";
+import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { SocialClasses, SocialClassNames } from "../definitions/SocialClass";
 import type { ITileConfig } from "../definitions/Tile";
 import { getTileName } from "../definitions/TileName";
@@ -518,7 +519,7 @@ export function initProvince(province: Province): IProvince {
       events: new Map(),
       usedEvents: new Set(),
       legacyUpgrades: new Set(),
-      provinceUpgrades: new Set(),
+      provinceUpgrades: new Set(Province[province].upgrades),
       blackboard: {
          resources: {},
       },
@@ -709,15 +710,13 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
    getProvinceTraits("Bold", province, save).forEach((trait) => {
       result.multiply.push({ ...trait, value: 0.02 });
    });
-   attachModifiers("WarPower", result, province, save);
-   const makeWarSpeech = getTimedActionTimeLeft("MakeWarSpeech", province, save);
-   if (makeWarSpeech > 0) {
+   if (hasProvinceUpgrade("CavalryWarPower", province, save)) {
       result.multiply.push({
-         name: $t(L.MakeWarSpeech),
-         desc: $t(L.$1MonthsLeft, formatNumber(makeWarSpeech)),
-         value: 0.1,
+         name: ProvinceUpgrades.CavalryWarPower.name(),
+         value: cavalryUnit * 0.01,
       });
    }
+   attachModifiers("WarPower", result, province, save);
    const wars = getCurrentWars(province, save);
    if (wars.length > 1) {
       wars.forEach((war) => {
@@ -902,6 +901,15 @@ export function getProvinceTradeCapacity(province: Province, save: SaveGame): IV
 export function getProvinceTradeProfit(province: Province, save: SaveGame): IValueBreakdown {
    const result = makeValueBreakdown({ multiplyBase: { name: $t(L.BaseValue), value: 0.1 } });
    result.add.push({ name: $t(L.ReferenceValue), value: 1 });
+   if (hasProvinceUpgrade("TradeProfitForEachTrade", province, save)) {
+      const tradeCount = getProvinceTrades(province, save).size;
+      if (tradeCount > 0) {
+         result.multiply.push({
+            name: ProvinceUpgrades.TradeProfitForEachTrade.name(),
+            value: 0.1 * tradeCount,
+         });
+      }
+   }
    attachModifiers("TradeProfit", result, province, save);
    return finalizeBreakdown(result);
 }
@@ -1021,7 +1029,15 @@ export function getProgressToNextRestoration(province: Province, save: SaveGame)
 
 export const TilesPerRestoration = 5;
 
-export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1);
+export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1, (result, province, save) => {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   if (hasProvinceUpgrade("ChristianFervor", province, save) && state.religion === "Christianity") {
+      result.add.push({ name: ProvinceUpgrades.ChristianFervor.name(), value: 1 });
+   }
+});
 
 export function getReligiousCohesion(province: Province, save: SaveGame): number {
    let sameReligion = 0;

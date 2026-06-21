@@ -1,5 +1,5 @@
 import { $t, L } from "../../utils/i18n";
-import type { ProvinceUpgrade } from "../actions/ProvinceUpgrades";
+import type { ProvinceUpgrade } from "./ProvinceUpgrades";
 
 export const SocialClasses = ["UpperClass", "MiddleClass", "LowerClass"] as const;
 export type SocialClass = (typeof SocialClasses)[number];

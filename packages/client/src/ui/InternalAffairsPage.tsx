@@ -10,11 +10,12 @@ import {
    mapOf,
    toggleFlag,
 } from "@project/shared/src/utils/Helper";
+import { Fragment } from "react/jsx-runtime";
 import { ConvertToChristianityAction } from "../game/actions/ConvertToChristianityAction";
-import { hasProvinceUpgrade, ProvinceUpgrades } from "../game/actions/ProvinceUpgrades";
 import { Culture } from "../game/definitions/Culture";
 import { Modifiers, modifierValueToString } from "../game/definitions/Modifier";
-import { ProvinceFlags, ProvinceResourceNames } from "../game/definitions/Province";
+import { Province, ProvinceFlags, ProvinceResourceNames } from "../game/definitions/Province";
+import { getProvinceUpgradeDesc, hasProvinceUpgrade, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { Religion } from "../game/definitions/Religion";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
@@ -191,6 +192,16 @@ export function InternalAffairsPage(): React.ReactNode {
             <TimedActionButton timedAction="RecruitTalents" />
             <TimedActionButton timedAction="RenewVestments" />
          </div>
+         <div className="h1">{$t(L.ProvincialSpirits)}</div>
+         {Province[G.save.state.playerProvince].upgrades.map((upgrade, idx) => (
+            <Fragment key={upgrade}>
+               {idx > 0 && <div className="divider" />}
+               <div className="m10">
+                  <div>{ProvinceUpgrades[upgrade].name()}</div>
+                  <div className="text-dimmed text-sm">{getProvinceUpgradeDesc(upgrade)}</div>
+               </div>
+            </Fragment>
+         ))}
          <div className="h1">{$t(L.Religion)}</div>
          <div className="row mx10 my5">
             <div className="f1">{$t(L.ProvincialReligion)}</div>
@@ -230,7 +241,6 @@ export function InternalAffairsPage(): React.ReactNode {
                   </div>
                   <div className="h2">{$t(L.ChristianityYearly)}</div>
                   <BreakdownComp breakdown={christianityYearly} />
-                  <div className="divider" />
                   <div className="m10">
                      {$t(L.ChristianityConversionEffectsDescription)}
                      <div className="h10" />

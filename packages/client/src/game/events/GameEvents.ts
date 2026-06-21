@@ -1,6 +1,6 @@
 import type { ICondition } from "../actions/GameAction";
-import type { ProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import type { Province, ProvinceNameOverride } from "../definitions/Province";
+import type { ProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import type { Religion } from "../definitions/Religion";
 import type { Tech } from "../definitions/Tech";
 import type { ICustomEffect, IGameEffect } from "../GameEffect";

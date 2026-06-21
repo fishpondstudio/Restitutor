@@ -4,6 +4,7 @@ import { finalizeCondition, type IGameCostCondition } from "../actions/GameActio
 import type { SaveGame } from "../GameState";
 import { getProvinceUpgrade } from "../logic/ProvinceLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
+import { onGeneralEnded } from "../logic/WarLogic";
 import { Price } from "./Goods";
 import type { IBaseModifier, Modifier } from "./Modifier";
 import type { Province } from "./Province";
@@ -15,6 +16,7 @@ export interface ITimedAction {
    cooldown: number;
    duration: number;
    tech?: Tech;
+   onEnd?: (province: Province, save: SaveGame) => void;
 }
 
 export interface ITimedEffectAction extends ITimedAction {
@@ -120,9 +122,9 @@ class TimedActionDefinitions {
    };
    MakeWarSpeech: ITimedAction = {
       name: () => $t(L.MakeWarSpeech),
-      desc: () => $t(L.TimedActionMakeWarSpeechDesc$1, "10%"),
-      duration: 12,
-      cooldown: 36,
+      desc: () => $t(L.MakeWarSpeechDesc),
+      duration: 0,
+      cooldown: 12,
    };
    GrantTaxRelief: ITimedEffectAction = {
       name: () => $t(L.GrantTaxRelief),
@@ -150,6 +152,9 @@ class TimedActionDefinitions {
       desc: () => $t(L.RecruitingAGeneralCostsGoldEveryMonthAGeneralHasABaseSkillOf$1, "1/1/1"),
       duration: 12 * 30,
       cooldown: 12 * 30,
+      onEnd: (province, save) => {
+         onGeneralEnded(province, save);
+      },
    };
    FortifyBorders: ITimedAction = {
       name: () => $t(L.FortifyOurBorders),

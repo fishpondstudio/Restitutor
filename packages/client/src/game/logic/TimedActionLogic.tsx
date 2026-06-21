@@ -22,19 +22,6 @@ export function getTimedActionCooldownLeft(timedAction: TimedAction, province: P
    return clamp(lastPerformed + config.cooldown - save.state.month, 0, Number.POSITIVE_INFINITY);
 }
 
-function isTimedActionWithPositiveDuration(action: TimedAction): action is TimedAction {
-   const def = TimedActions[action];
-   return "duration" in def && def.duration > 0;
-}
-
-export function isTimedActionEndingThisMonth(
-   action: TimedAction,
-   lastPerformed: number,
-   month: number,
-): action is TimedAction {
-   return isTimedActionWithPositiveDuration(action) && lastPerformed + TimedActions[action].duration === month;
-}
-
 export function getTimedActionTimeLeft(timedAction: TimedAction, province: Province, save: SaveGame): number {
    const config = TimedActions[timedAction];
    const state = save.state.provinces[province];

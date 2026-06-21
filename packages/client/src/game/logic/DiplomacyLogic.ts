@@ -1,4 +1,4 @@
-import { forEach, formatNumber, mapSafePush } from "@project/shared/src/utils/Helper";
+import { forEach, formatNumber, mapSafePush, range } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import {
    finalizeBreakdown,
@@ -16,6 +16,7 @@ import { MapGrid } from "../MapGrid";
 import { getFamilyMemberFrom } from "./GovernorLogic";
 import { attachModifiers } from "./ModifierLogic";
 import { getProvinceName } from "./ProvinceLogic";
+import { UpgradeCostGrowthFactor } from "./TileLogic";
 
 export const MaxImprovedRelations = 50;
 export const RivalAttitudeModifier = -20;
@@ -121,6 +122,17 @@ export function getRelations(province: Province, save: SaveGame): Map<Province, 
    return relations;
 }
 
+export function emptyRelation(): IRelation {
+   return {
+      patronMonths: 0,
+      improveRelations: { active: false, value: 0 },
+      infiltrate: { active: false, value: 0 },
+      truceUntil: 0,
+      casusBelli: new Map(),
+      attitudeModifier: [],
+   };
+}
+
 export function getRelation(fromProvince: Province, toProvince: Province, save: SaveGame): IRelation | undefined {
    const fromState = save.state.provinces[fromProvince];
    const toState = save.state.provinces[toProvince];
@@ -138,17 +150,7 @@ export function getRelation(fromProvince: Province, toProvince: Province, save: 
    }
    let relations = fromState._relations.get(toProvince);
    if (!relations) {
-      relations = {
-         guaranteeDefense: undefined,
-         deterAggression: undefined,
-         revealElectionBacking: undefined,
-         improveRelations: { active: false, value: 0 },
-         infiltrate: { active: false, value: 0 },
-         truceUntil: 0,
-         casusBelli: new Map(),
-         attitudeModifier: [],
-         trade: undefined,
-      };
+      relations = emptyRelation();
       fromState._relations.set(toProvince, relations);
    }
    return relations;
@@ -288,19 +290,18 @@ export function getDiplomaticAnnexationCost(province: Province, save: SaveGame):
    let gold = 0;
    for (const [tile, data] of save.state.tiles) {
       if (data.province === province) {
-         administrative += data.infrastructure * 50;
-         diplomatic += data.production * 50;
-         military += data.population * 50;
-         let upgradeCost = 0;
-         for (let i = 0; i < data.upgradeCount; i++) {
-            upgradeCost += 50 * (1.25 ** i - 1);
-         }
-         administrative += upgradeCost / 3;
-         diplomatic += upgradeCost / 3;
-         military += upgradeCost / 3;
+         range(0, data.infrastructure).forEach((i) => {
+            administrative += 50 * UpgradeCostGrowthFactor ** i;
+         });
+         range(0, data.production).forEach((i) => {
+            diplomatic += 50 * UpgradeCostGrowthFactor ** i;
+         });
+         range(0, data.population).forEach((i) => {
+            military += 50 * UpgradeCostGrowthFactor ** i;
+         });
       }
    }
-   gold = (administrative + diplomatic + military) * 5;
+   gold = (administrative + diplomatic + military) * 3;
    return {
       gold,
       administrative,
@@ -396,5 +397,5 @@ export function getRevealedConsulVotes(province: Province, save: SaveGame): Map<
    return result;
 }
 
-export const getImproveRelationsRate = makeModifierGetter("ImproveRelationsRate", 1);
-export const getInfiltrationRate = makeModifierGetter("InfiltrationRate", 1);
+export const getImproveRelationsRate = makeModifierGetter("ImproveRelationsRate", 1, (result, province, save) => {});
+export const getInfiltrationRate = makeModifierGetter("InfiltrationRate", 1, (result, province, save) => {});

@@ -1,6 +1,5 @@
 import { fromEntries, keysOf, mapOf, type Tile, type ValueOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
-import type { ProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import type { GameEvent } from "../events/GameEvents";
 import type { IAdvisor } from "./Advisor";
 import type { CasusBelli } from "./CasusBelli";
@@ -9,6 +8,7 @@ import type { IGovernorFamily } from "./Family";
 import { Goods } from "./Goods";
 import type { LegacyUpgrade } from "./LegacyUpgrade";
 import type { IModifier, Modifier } from "./Modifier";
+import type { ProvinceUpgrade } from "./ProvinceUpgrades";
 import type { Religion } from "./Religion";
 import type { ISocialClassData, SocialClass } from "./SocialClass";
 import type { Tech } from "./Tech";
@@ -189,59 +189,66 @@ export const TreatyNames: Record<Treaty, () => string> = {
 
 export interface IRelation {
    treaty?: { type: Treaty; month: number };
-   guaranteeDefense: number | undefined;
-   deterAggression: number | undefined;
-   revealElectionBacking: number | undefined;
+   patronMonths: number;
+   guaranteeDefense?: number;
+   deterAggression?: number;
+   revealElectionBacking?: number;
    truceUntil: number;
    improveRelations: { active: boolean; value: number };
    infiltrate: { active: boolean; value: number };
    casusBelli: Map<CasusBelli, { monthsLeft: number }>;
    attitudeModifier: IModifier[];
-   trade: ActiveTrade | undefined;
+   trade?: ActiveTrade;
 }
 
 interface IProvinceConfig {
    name: () => string;
    culture: Culture;
    religion: Religion;
+   upgrades: ProvinceUpgrade[];
 }
 
 export const Province = {
-   Achaia: { name: () => $t(L.ProvinceAchaia), culture: "Greek", religion: "GrecoRoman" },
-   Aegyptus: { name: () => $t(L.ProvinceAegyptus), culture: "Egyptian", religion: "Egyptian" },
-   Africa: { name: () => $t(L.ProvinceAfrica), culture: "Punic", religion: "GrecoRoman" },
-   Aquitania: { name: () => $t(L.ProvinceAquitania), culture: "Gallic", religion: "Celtic" },
-   Asia: { name: () => $t(L.ProvinceAsia), culture: "Greek", religion: "GrecoRoman" },
-   Baetica: { name: () => $t(L.ProvinceBaetica), culture: "Iberian", religion: "Iberian" },
-   Belgica: { name: () => $t(L.ProvinceBelgica), culture: "Gallic", religion: "Celtic" },
-   Bithynia: { name: () => $t(L.ProvinceBithynia), culture: "Greek", religion: "GrecoRoman" },
-   Britannia: { name: () => $t(L.ProvinceBritannia), culture: "Brittonic", religion: "Celtic" },
-   Cappadocia: { name: () => $t(L.ProvinceCappadocia), culture: "Cappadocian", religion: "Anatolian" },
-   Cilicia: { name: () => $t(L.ProvinceCilicia), culture: "Anatolian", religion: "Eastern" },
-   Corsica: { name: () => $t(L.ProvinceCorsica), culture: "Corsican", religion: "GrecoRoman" },
-   Cyrenaica: { name: () => $t(L.ProvinceCyrenaica), culture: "Greek", religion: "GrecoRoman" },
-   Dacia: { name: () => $t(L.ProvinceDacia), culture: "Dacian", religion: "GrecoRoman" },
-   Dalmatia: { name: () => $t(L.ProvinceDalmatia), culture: "Illyrian", religion: "GrecoRoman" },
-   Epirus: { name: () => $t(L.ProvinceEpirus), culture: "Greek", religion: "GrecoRoman" },
-   Galatia: { name: () => $t(L.ProvinceGalatia), culture: "Anatolian", religion: "Anatolian" },
-   Germania: { name: () => $t(L.ProvinceGermania), culture: "Germanic", religion: "Germanic" },
-   Italia: { name: () => $t(L.ProvinceItalia), culture: "Italic", religion: "GrecoRoman" },
-   Judea: { name: () => $t(L.ProvinceJudea), culture: "Arab", religion: "Judaism" },
-   Lusitania: { name: () => $t(L.ProvinceLusitania), culture: "Iberian", religion: "Iberian" },
-   Lycia: { name: () => $t(L.ProvinceLycia), culture: "Anatolian", religion: "Anatolian" },
-   Lugdunensis: { name: () => $t(L.ProvinceLugdunensis), culture: "Gallic", religion: "Celtic" },
-   Macedonia: { name: () => $t(L.ProvinceMacedonia), culture: "Greek", religion: "GrecoRoman" },
-   Mauretania: { name: () => $t(L.ProvinceMauretania), culture: "Berber", religion: "Berber" },
-   Moesia: { name: () => $t(L.ProvinceMoesia), culture: "Thracian", religion: "GrecoRoman" },
-   Narbonensis: { name: () => $t(L.ProvinceNarbonensis), culture: "Gallic", religion: "GrecoRoman" },
-   Noricum: { name: () => $t(L.ProvinceNoricum), culture: "Noric", religion: "GrecoRoman" },
-   Pannonia: { name: () => $t(L.ProvincePannonia), culture: "Pannonian", religion: "GrecoRoman" },
-   Raetia: { name: () => $t(L.ProvinceRaetia), culture: "Raetian", religion: "GrecoRoman" },
-   Sardinia: { name: () => $t(L.ProvinceSardinia), culture: "Sardinian", religion: "GrecoRoman" },
-   Sicilia: { name: () => $t(L.ProvinceSicilia), culture: "Greek", religion: "GrecoRoman" },
-   Syria: { name: () => $t(L.ProvinceSyria), culture: "Syrian", religion: "Eastern" },
-   Tarraconensis: { name: () => $t(L.ProvinceTarraconensis), culture: "Iberian", religion: "Iberian" },
-   Thracia: { name: () => $t(L.ProvinceThracia), culture: "Thracian", religion: "GrecoRoman" },
+   Achaia: { name: () => $t(L.ProvinceAchaia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+   Aegyptus: { name: () => $t(L.ProvinceAegyptus), culture: "Egyptian", religion: "Egyptian", upgrades: [] },
+   Africa: { name: () => $t(L.ProvinceAfrica), culture: "Punic", religion: "GrecoRoman", upgrades: [] },
+   Aquitania: { name: () => $t(L.ProvinceAquitania), culture: "Gallic", religion: "Celtic", upgrades: [] },
+   Asia: { name: () => $t(L.ProvinceAsia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+   Baetica: { name: () => $t(L.ProvinceBaetica), culture: "Iberian", religion: "Iberian", upgrades: [] },
+   Belgica: { name: () => $t(L.ProvinceBelgica), culture: "Gallic", religion: "Celtic", upgrades: [] },
+   Bithynia: { name: () => $t(L.ProvinceBithynia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+   Britannia: { name: () => $t(L.ProvinceBritannia), culture: "Brittonic", religion: "Celtic", upgrades: [] },
+   Cappadocia: { name: () => $t(L.ProvinceCappadocia), culture: "Cappadocian", religion: "Anatolian", upgrades: [] },
+   Cilicia: { name: () => $t(L.ProvinceCilicia), culture: "Anatolian", religion: "Eastern", upgrades: [] },
+   Corsica: { name: () => $t(L.ProvinceCorsica), culture: "Corsican", religion: "GrecoRoman", upgrades: [] },
+   Cyrenaica: { name: () => $t(L.ProvinceCyrenaica), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+   Dacia: { name: () => $t(L.ProvinceDacia), culture: "Dacian", religion: "GrecoRoman", upgrades: [] },
+   Dalmatia: { name: () => $t(L.ProvinceDalmatia), culture: "Illyrian", religion: "GrecoRoman", upgrades: [] },
+   Epirus: { name: () => $t(L.ProvinceEpirus), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+   Galatia: { name: () => $t(L.ProvinceGalatia), culture: "Anatolian", religion: "Anatolian", upgrades: [] },
+   Germania: { name: () => $t(L.ProvinceGermania), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Italia: { name: () => $t(L.ProvinceItalia), culture: "Italic", religion: "GrecoRoman", upgrades: [] },
+   Judea: { name: () => $t(L.ProvinceJudea), culture: "Arab", religion: "Judaism", upgrades: [] },
+   Lusitania: { name: () => $t(L.ProvinceLusitania), culture: "Iberian", religion: "Iberian", upgrades: [] },
+   Lycia: { name: () => $t(L.ProvinceLycia), culture: "Anatolian", religion: "Anatolian", upgrades: [] },
+   Lugdunensis: {
+      name: () => $t(L.ProvinceLugdunensis),
+      culture: "Gallic",
+      religion: "Celtic",
+      upgrades: ["CavalryWarPower", "TradeProfitForEachTrade", "ChristianFervor"],
+   },
+   Macedonia: { name: () => $t(L.ProvinceMacedonia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+   Mauretania: { name: () => $t(L.ProvinceMauretania), culture: "Berber", religion: "Berber", upgrades: [] },
+   Moesia: { name: () => $t(L.ProvinceMoesia), culture: "Thracian", religion: "GrecoRoman", upgrades: [] },
+   Narbonensis: { name: () => $t(L.ProvinceNarbonensis), culture: "Gallic", religion: "GrecoRoman", upgrades: [] },
+   Noricum: { name: () => $t(L.ProvinceNoricum), culture: "Noric", religion: "GrecoRoman", upgrades: [] },
+   Pannonia: { name: () => $t(L.ProvincePannonia), culture: "Pannonian", religion: "GrecoRoman", upgrades: [] },
+   Raetia: { name: () => $t(L.ProvinceRaetia), culture: "Raetian", religion: "GrecoRoman", upgrades: [] },
+   Sardinia: { name: () => $t(L.ProvinceSardinia), culture: "Sardinian", religion: "GrecoRoman", upgrades: [] },
+   Sicilia: { name: () => $t(L.ProvinceSicilia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+   Syria: { name: () => $t(L.ProvinceSyria), culture: "Syrian", religion: "Eastern", upgrades: [] },
+   Tarraconensis: { name: () => $t(L.ProvinceTarraconensis), culture: "Iberian", religion: "Iberian", upgrades: [] },
+   Thracia: { name: () => $t(L.ProvinceThracia), culture: "Thracian", religion: "GrecoRoman", upgrades: [] },
 } as const satisfies Record<string, IProvinceConfig>;
 
 export type Province = keyof typeof Province;

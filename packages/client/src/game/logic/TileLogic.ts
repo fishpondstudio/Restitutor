@@ -3,11 +3,11 @@ import Land from "../../data/Land.json";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition, IConditionBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
-import { hasProvinceUpgrade } from "../actions/ProvinceUpgrades";
 import { type Building, Buildings } from "../definitions/Building";
 import { Price } from "../definitions/Goods";
 import { getProvinceTraits } from "../definitions/PersonTrait";
 import type { GovernorPower, Province } from "../definitions/Province";
+import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { SocialClassNames } from "../definitions/SocialClass";
 import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
@@ -513,6 +513,8 @@ export function getTileMakeCoreCost(tile: Tile, save: SaveGame): IValueBreakdown
    return finalizeBreakdown(breakdown);
 }
 
+export const UpgradeCostGrowthFactor = 1.2;
+
 export function getTileUpgradeCost(tile: Tile, resource: GovernorPower, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
    const data = save.state.tiles.get(tile);
@@ -527,7 +529,7 @@ export function getTileUpgradeCost(tile: Tile, resource: GovernorPower, save: Sa
    breakdown.multiply.push({
       name: $t(L.TileUpgrades),
       desc: $t(L.TileUpgradesCostDesc$1, formatNumber(data.upgradeCount)),
-      value: 1.2 ** data.upgradeCount - 1,
+      value: UpgradeCostGrowthFactor ** data.upgradeCount - 1,
    });
    if (data.culture === state.culture) {
       breakdown.multiply.push({ name: $t(L.DominantCulture), value: -0.1 });

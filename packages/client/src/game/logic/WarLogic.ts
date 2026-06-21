@@ -181,7 +181,7 @@ function getCoAttackers(attacker: Province, defender: Province, save: SaveGame):
          case undefined:
             break;
          case "Client":
-            throw new Error("Client cannot declare war");
+            break;
          default:
             treaty satisfies never;
             break;
