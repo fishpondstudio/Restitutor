@@ -410,17 +410,15 @@ export class WorldScene extends Scene {
          }
       }
       destroyAllChildren(this._labelContainer);
-      const provinceToEmptyTiles = new Map<Province, Tile[]>();
+      const provinceToTiles = new Map<Province, Tile[]>();
       G.save.state.tiles.forEach((data, tile) => {
          if (data.province) {
-            if (!data.terrain || data.terrain === "Plain") {
-               const tiles = provinceToEmptyTiles.get(data.province) ?? [];
-               tiles.push(tile);
-               provinceToEmptyTiles.set(data.province, tiles);
-            }
+            const tiles = provinceToTiles.get(data.province) ?? [];
+            tiles.push(tile);
+            provinceToTiles.set(data.province, tiles);
          }
       });
-      for (const [province, tiles] of provinceToEmptyTiles) {
+      for (const [province, tiles] of provinceToTiles) {
          // Group tiles by their y coordinate (row)
          const rows = new Map<number, Tile[]>();
          for (const tile of tiles) {
