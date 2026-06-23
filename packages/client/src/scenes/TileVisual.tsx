@@ -1,7 +1,8 @@
+import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
 import { randOne, type Tile } from "@project/shared/src/utils/Helper";
-import { BLEND_MODES, Container, Sprite, type Texture } from "pixi.js";
+import { Container, Sprite, type Texture } from "pixi.js";
 import type { Terrain } from "../game/definitions/Terrain";
-import { MapBackgroundColors, MapForegroundColors } from "../game/logic/MapLogic";
+import { MapBackgroundColors, MapColorsH, MapForegroundColors } from "../game/logic/MapLogic";
 import { isCapital } from "../game/logic/TileLogic";
 import { TileHeight } from "../game/MapGrid";
 import { G } from "../utils/Global";
@@ -33,32 +34,25 @@ export class TileVisual extends Container {
       if (!TerrainTextures) {
          TerrainTextures = {
             Mountain: [
-               G.textures.get("Tile/ShadedMountain1"),
-               G.textures.get("Tile/ShadedMountain2"),
-               G.textures.get("Tile/ShadedMountain3"),
+               G.textures.get("Shaded/Mountain1"),
+               G.textures.get("Shaded/Mountain2"),
+               G.textures.get("Shaded/Mountain3"),
             ],
-            Hill: [
-               G.textures.get("Tile/ShadedHill1"),
-               G.textures.get("Tile/ShadedHill2"),
-               G.textures.get("Tile/ShadedHill3"),
-            ],
+            Hill: [G.textures.get("Shaded/Hill1"), G.textures.get("Shaded/Hill2"), G.textures.get("Shaded/Hill3")],
             Forest: [
-               G.textures.get("Tile/ShadedForest1"),
-               G.textures.get("Tile/ShadedForest2"),
-               G.textures.get("Tile/ShadedForest3"),
+               G.textures.get("Shaded/Forest1"),
+               G.textures.get("Shaded/Forest2"),
+               G.textures.get("Shaded/Forest3"),
             ],
-            Plain: [
-               G.textures.get("Tile/ShadedPlain1"),
-               G.textures.get("Tile/ShadedPlain2"),
-               G.textures.get("Tile/ShadedPlain3"),
-            ],
+            Plain: [G.textures.get("Shaded/Plain1"), G.textures.get("Shaded/Plain2"), G.textures.get("Shaded/Plain3")],
          };
       }
 
       const textures = TerrainTextures[terrain];
       this._terrain = this.addChild(new Sprite(randOne(textures)));
-      this._terrain.blendMode = BLEND_MODES.MULTIPLY;
-      this._terrain.alpha = 0.7;
+      if (province) {
+         this._terrain.tint = hslToRgb(MapColorsH[province], 30, 40);
+      }
 
       if (isCapital(tile, G.save)) {
          const star = this.addChild(new Sprite(G.textures.get("Misc/Capital")));

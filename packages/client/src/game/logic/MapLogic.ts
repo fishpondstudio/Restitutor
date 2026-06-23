@@ -7,7 +7,7 @@ import { RomeMap } from "../RomeMap";
 const Hues = range(0, Provinces.length).map((i) => (i * 360) / Provinces.length);
 const AdjacentProvinces = buildAdjacentProvinces();
 
-const MapColorsH: Record<Province, number> = assignProvinceHues(AdjacentProvinces);
+export const MapColorsH: Record<Province, number> = assignProvinceHues(AdjacentProvinces);
 
 export const MapBackgroundColors: Record<Province, number> = fromEntries(
    Provinces.map((province) => {
