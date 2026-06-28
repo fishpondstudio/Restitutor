@@ -3,7 +3,7 @@ import { range } from "@project/shared/src/utils/Helper";
 import type React from "react";
 import { useState } from "react";
 import { GameStateUpdated } from "../game/Events";
-import { monthToDate } from "../game/logic/TickLogic";
+import { monthToDate } from "../game/logic/GameDateTime";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -37,7 +37,7 @@ export function ChroniclePage(): React.ReactNode {
                <ChronicleEntryComp key={entry.id} entry={entry} />
             ))}
             {filteredChronicle.length === 0 && (
-               <div className="box m10 p10 text-dimmed text-center">{$t(L.NoEntriesFound)}</div>
+               <div className="m20 text-dimmed text-center">{$t(L.NoEntriesFound)}</div>
             )}
          </ScrollArea>
       </SidebarComp>

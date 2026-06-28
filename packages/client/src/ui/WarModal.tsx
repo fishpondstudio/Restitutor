@@ -11,6 +11,7 @@ import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { showSuccess } from "../game/logic/AlertLogic";
 import { addAttitudeModifier } from "../game/logic/DiplomacyLogic";
+import { monthToDate } from "../game/logic/GameDateTime";
 import {
    getArmyMaintenanceCost,
    getMercenaryCost,
@@ -19,7 +20,6 @@ import {
    getWarPower,
    setProvinceStat,
 } from "../game/logic/ProvinceLogic";
-import { monthToDate } from "../game/logic/TickLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import {

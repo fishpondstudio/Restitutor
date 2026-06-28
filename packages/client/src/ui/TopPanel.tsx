@@ -49,7 +49,6 @@ import { DiplomacyPage } from "./DiplomacyPage";
 import { FamilyTreeModal } from "./FamilyModal";
 import { GovernmentModal } from "./GovernmentModal";
 import { InternalAffairsPage } from "./InternalAffairsPage";
-import { LeftPanel } from "./LeftPanel";
 import { LegacyUpgradeModal } from "./LegacyUpgradeModal";
 import { MissionPage } from "./MissionPage";
 import { PausePanel } from "./PausePanel";
@@ -59,6 +58,7 @@ import { SenateModal } from "./SenateModal";
 import { SettingsModal } from "./SettingsModal";
 import { SocialClassModal } from "./SocialClassModal";
 import { TileListModal } from "./TileListModal";
+import { TodoPanel } from "./TodoPanel";
 import { TopRightPanel } from "./TopRightPanel";
 import { TradeModal } from "./TradeModal";
 import { TreasuryPage } from "./TreasuryPage";
@@ -69,7 +69,7 @@ export function TopPanel(): React.ReactNode {
       <>
          <TopLeftPanel />
          <TopRightPanel />
-         <LeftPanel />
+         <TodoPanel />
          <PausePanel />
       </>
    );

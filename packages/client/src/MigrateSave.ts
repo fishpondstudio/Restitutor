@@ -1,10 +1,12 @@
 import { forEach } from "@project/shared/src/utils/Helper";
-import { Province } from "./game/definitions/Province";
+import { Province, ProvinceStats } from "./game/definitions/Province";
 import { addProvinceUpgrade } from "./game/definitions/ProvinceUpgrades";
+import { SocialClass } from "./game/definitions/SocialClass";
 import { GameOption } from "./game/GameOption";
 import { GameState, type SaveGame } from "./game/GameState";
 import { emptyRelation, fixRelations, getRelations } from "./game/logic/DiplomacyLogic";
-import { initProvince, provinceResourceOf } from "./game/logic/ProvinceLogic";
+import { initProvince, provinceResourceOf, setProvinceStat } from "./game/logic/ProvinceLogic";
+import { socialClassInfluenceStat, socialClassLoyaltyStat } from "./game/logic/SocialClassLogic";
 
 export function migrateSave(save: SaveGame): void {
    save.state = Object.assign(new GameState(), save.state);
@@ -16,6 +18,23 @@ export function migrateSave(save: SaveGame): void {
          for (const [otherProvince, relation] of relations) {
             relations.set(otherProvince, Object.assign(emptyRelation(), relation));
          }
+      }
+      if ("socialClasses" in data) {
+         forEach(SocialClass, (socialClass) => {
+            setProvinceStat(
+               socialClassInfluenceStat(socialClass),
+               ProvinceStats[socialClassInfluenceStat(socialClass)],
+               province,
+               save,
+            );
+            setProvinceStat(
+               socialClassLoyaltyStat(socialClass),
+               ProvinceStats[socialClassLoyaltyStat(socialClass)],
+               province,
+               save,
+            );
+         });
+         delete data.socialClasses;
       }
    });
    fixRelations(save);

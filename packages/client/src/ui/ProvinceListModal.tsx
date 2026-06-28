@@ -1,5 +1,6 @@
 import { formatNumber } from "@project/shared/src/utils/Helper";
 import { GameStateUpdated } from "../game/Events";
+import { monthToDate } from "../game/logic/GameDateTime";
 import {
    getProvinceIncome,
    getProvinceName,
@@ -9,7 +10,6 @@ import {
    getProvinceTileCount,
    getWarPower,
 } from "../game/logic/ProvinceLogic";
-import { monthToDate } from "../game/logic/TickLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";

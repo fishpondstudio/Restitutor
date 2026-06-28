@@ -1,4 +1,4 @@
-import { cls, EmptyString, entriesOf, formatNumber } from "@project/shared/src/utils/Helper";
+import { cls, entriesOf, forEach, formatNumber } from "@project/shared/src/utils/Helper";
 import Bankruptcy from "../assets/images/Bankruptcy.svg";
 import Core from "../assets/images/Core.svg";
 import Decree from "../assets/images/Decree.svg";
@@ -29,12 +29,13 @@ import { canDoAction } from "../game/actions/GameAction";
 import { CanTradeCostCondition } from "../game/actions/TradeActions";
 import { Goods } from "../game/definitions/Goods";
 import { type Province, TreatyNames } from "../game/definitions/Province";
-import { SocialClassNames } from "../game/definitions/SocialClass";
+import { SocialClass } from "../game/definitions/SocialClass";
 import { Tech } from "../game/definitions/Tech";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import type { SaveGame } from "../game/GameState";
 import { getCurrentRelations, getDiplomats, getRelations } from "../game/logic/DiplomacyLogic";
+import { monthToNextYear } from "../game/logic/GameDateTime";
 import { getEligibleForMarriage } from "../game/logic/GovernorLogic";
 import { getLegacyUpgradeCost } from "../game/logic/LegacyUpgradeLogic";
 import {
@@ -44,9 +45,8 @@ import {
    getProvinceResource,
    getProvinceUsedProductionCapacity,
 } from "../game/logic/ProvinceLogic";
-import { getEstimatedDissentTime } from "../game/logic/SocialClassLogic";
+import { isSocialClassDisloyal, isSocialClassDominant } from "../game/logic/SocialClassLogic";
 import { getTechsCanBeResearched, hasResearched } from "../game/logic/TechLogic";
-import { monthToNextYear } from "../game/logic/TickLogic";
 import { PendingGameEventTimeoutMonths } from "../game/logic/TickProvince";
 import { getTileUnrest } from "../game/logic/TileLogic";
 import { getTimedActionTimeLeft, makeGameAction } from "../game/logic/TimedActionLogic";
@@ -80,10 +80,10 @@ import { TreasuryPage } from "./TreasuryPage";
 import { WarModal } from "./WarModal";
 import { WarTooltip } from "./WarTooltip";
 
-export function LeftPanel(): React.ReactNode {
+export function TodoPanel(): React.ReactNode {
    if (!G.save) return null;
    return (
-      <div className="left-panel">
+      <div className="todo-panel">
          {[...getCurrentWars(G.save.state.playerProvince, G.save).map(WarTodo), ...entriesOf(Todos)].map(
             ([id, todo]) => {
                const tooltip = todo.tooltip(G.save);
@@ -251,48 +251,32 @@ const EligibleForMarriage: ITodo = {
 };
 
 const SocialClassDissent: ITodo = {
-   name: (save) => $t(L.SocialClassesInDissent),
+   name: (save) => $t(L.DominantOrDisloyalSocialClasses),
    icon: (save) => Dissent,
-   className: (save) => {
-      const state = save.state.provinces[save.state.playerProvince];
-      if (!state) {
-         return EmptyString;
-      }
-      const isDissent = entriesOf(state.socialClasses).some(([sc, data]) => data.dissent > data.loyalty);
-      return isDissent ? "red" : "yellow";
-   },
+   className: () => "red",
    tooltip: (save) => {
       const state = save.state.provinces[save.state.playerProvince];
       if (!state) {
          return null;
       }
-      const socialClasses = entriesOf(state.socialClasses).filter(([sc, data]) => {
-         const estimatedDissentTime = getEstimatedDissentTime(sc, save.state.playerProvince, save);
-         return Number.isFinite(estimatedDissentTime) && estimatedDissentTime >= 0 && estimatedDissentTime <= 12;
+      const result: string[] = [];
+      forEach(SocialClass, (socialClass, data) => {
+         if (isSocialClassDominant(socialClass, save.state.playerProvince, save)) {
+            result.push($t(L.$1ClassIsDominantTooltip, SocialClass[socialClass].name()));
+         }
+         if (isSocialClassDisloyal(socialClass, save.state.playerProvince, save)) {
+            result.push($t(L.$1ClassIsDisloyalTooltip, SocialClass[socialClass].name()));
+         }
       });
-      if (socialClasses.length === 0) {
+      if (result.length === 0) {
          return null;
       }
       return (
          <div className="m10">
-            {$t(L.DissentIsRisingAmongTheFollowingSocialClasses)}
-            <ul>
-               {socialClasses.map(([sc, data]) => {
-                  const estimatedDissentTime = getEstimatedDissentTime(sc, save.state.playerProvince, save);
-                  const status =
-                     estimatedDissentTime === 0
-                        ? $t(L.InDissent)
-                        : estimatedDissentTime > 0 && Number.isFinite(estimatedDissentTime)
-                          ? $t(L.In$1Months, formatNumber(estimatedDissentTime))
-                          : "";
-                  return (
-                     <li key={sc}>
-                        {SocialClassNames[sc]()} ({status})
-                     </li>
-                  );
-               })}
-            </ul>
-            {$t(L.ClickToViewDetails)}
+            {result.map((r) => (
+               <div key={r}>{r}</div>
+            ))}
+            <div>{$t(L.ClickToViewDetails)}</div>
          </div>
       );
    },

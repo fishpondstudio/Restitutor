@@ -3,11 +3,11 @@
 - Clergy class will have 0 influence in the beginning (because they are now spawned yet)
 - All actions look at relative Influence, which is the percentage of that class' influence: Influence% = Class Influence / All Class Influence.
 - The player can issue edicts. Each edict provides gameplay bonuses and one supporting class and one opposing class.
-- An edict can only be issued if the supporting class has >= 50 Loyalty AND the opposing class has less than 50% Influence.
-- After issuing an edict, supporting classes gain +2 Influence/Year. Opposing classes lose -2 Loyalty/Year.
+- An edict can only be issued if the supporting class has >= 50 Loyalty and >= 50% Influence.
+- After issuing an edict, supporting classes gain +10 Influence. Opposing classes lose -10 Loyalty.
 - An edict lasts for 5 years and can expire early when supporting class has < 50 Loyalty.
 - A new edict can be issued every 3 years. An active edict cannot be issued again. Different edicts can be active at the same time and its effect can stack.
-- If a social class has >= 50% Influence, a negative effect is applied; If a social class has < 50 Loyalty, a negative effect; These two negative effects can stack.
+- If a social class has >= 50% Influence, a negative effect is applied; If a social class has < 50 Loyalty, a negative effect is applied; These two negative effects can stack.
 - "Curry Favor" action: cost gold, increase a class' loyalty, 2-year cooldown
 - "Arrange Marriage" action: marry a family member, increase a class' loyalty, uncommon
 - "Elevate" action: cost admin point, increase a class' influence by 20%, shared 5-year cooldown with "Suppress"

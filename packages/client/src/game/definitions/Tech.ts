@@ -36,7 +36,7 @@ export class TechDefinitions {
    B1: ITechDefinition = {
       requires: ["A1"],
       name: () => $t(L.TechAppeasement),
-      timedActions: ["Appease", "CurryFavor"],
+      timedActions: ["Appease", "SocialClassFavor", "SocialClassCurtail"],
       goods: ["flour"],
    } as const;
 

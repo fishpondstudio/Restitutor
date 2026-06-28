@@ -10,6 +10,7 @@ import type { SaveGame } from "../GameState";
 import { showSuccess } from "../logic/AlertLogic";
 import { ensureTraits, removeEmptyFamily } from "../logic/GovernorLogic";
 import { GovernorMaxExcl, GovernorMinIncl } from "../logic/ProvinceLogic";
+import { addSocialClassLoyalty } from "../logic/SocialClassLogic";
 import { requireHigherPrestige, requireMinimumAttitude } from "../logic/TreatyLogic";
 import { randomFemaleName } from "../RomanNames";
 import { finalizeCondition, type ICondition, type IGameAction } from "./GameAction";
@@ -50,7 +51,7 @@ export function LookForLocalSpouseAction(
          }
          const state = save.state.provinces[province];
          if (state) {
-            state.socialClasses[socialClass].loyalty += 50;
+            addSocialClassLoyalty(socialClass, 50, province, save);
          }
          if (!headless) {
             hideModal();

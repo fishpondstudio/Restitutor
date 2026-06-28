@@ -4,7 +4,7 @@ import { compressToUint8Array, decompressFromUint8Array } from "lz-string";
 import { idbDel, idbGet, idbSet } from "../utils/BrowserStorage";
 import { isSteam, SteamClient } from "../utils/Steam";
 import type { SaveGame } from "./GameState";
-import { getGameDate } from "./logic/TickLogic";
+import { getGameDate } from "./logic/GameDateTime";
 
 const SAVE_KEY = "Restitutor";
 

@@ -16,7 +16,7 @@ import { ChangeLanguageComp } from "./ChangeLanguageComp";
 import { ConfirmModal } from "./ConfirmModal";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
-import { Todos } from "./LeftPanel";
+import { Todos } from "./TodoPanel";
 import { Grid2 } from "./UIConstant";
 
 type SettingsTab = "general" | "tabs";

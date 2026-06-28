@@ -81,49 +81,63 @@ em {
 }
 
 .divider {
-   background:
-      linear-gradient(
-         to right,
-         rgba(0, 0, 0, 0.5) 0%,
-         rgba(0, 0, 0, 0.7) 20%,
-         rgba(0, 0, 0, 0.7) 80%,
-         rgba(0, 0, 0, 0.5) 100%
-      )
-      top / 100% 0.0625rem no-repeat,
-      linear-gradient(
-         to right,
-         rgba(255, 255, 255, 0.05) 0%,
-         rgba(255, 255, 255, 0.2) 20%,
-         rgba(255, 255, 255, 0.2) 80%,
-         rgba(255, 255, 255, 0.05) 100%
-      )
-      bottom / 100% 0.0625rem no-repeat;
-   height: 0.125rem;
+   position: relative;
    align-self: stretch;
-   flex: 0 0 0.125rem;
-   &.vertical {
-      height: auto;
-      width: 0.125rem;
+   height: 0.125rem;
+   background: transparent;
+
+   &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
       background:
          linear-gradient(
             to right,
-            rgba(0, 0, 0, 0.5) 0%,
-            rgba(0, 0, 0, 0.7) 20%,
-            rgba(0, 0, 0, 0.7) 80%,
-            rgba(0, 0, 0, 0.5) 100%
+            rgba(0, 0, 0, 0.7) 0%,
+            rgba(0, 0, 0, 0.8) 20%,
+            rgba(0, 0, 0, 0.8) 80%,
+            rgba(0, 0, 0, 0.7) 100%
+         )
+         top / 100% 0.0625rem no-repeat,
+         linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.2) 20%,
+            rgba(255, 255, 255, 0.2) 80%,
+            rgba(255, 255, 255, 0.1) 100%
+         )
+         bottom / 100% 0.0625rem no-repeat;
+   }
+}
+
+.divider.vertical {
+   width: 0.125rem;
+   height: auto;
+   flex: 0 0 0.125rem;
+
+   &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+         linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.75) 0%,
+            rgba(0, 0, 0, 0.85) 20%,
+            rgba(0, 0, 0, 0.85) 80%,
+            rgba(0, 0, 0, 0.75) 100%
          )
          left / 0.0625rem 100% no-repeat,
          linear-gradient(
             to bottom,
-            rgba(255, 255, 255, 0.05) 0%,
-            rgba(255, 255, 255, 0.2) 20%,
-            rgba(255, 255, 255, 0.2) 80%,
-            rgba(255, 255, 255, 0.05) 100%
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.18) 20%,
+            rgba(255, 255, 255, 0.18) 80%,
+            rgba(255, 255, 255, 0.08) 100%
          )
          right / 0.0625rem 100% no-repeat;
-   }
-   &.dimmed {
-      opacity: 0.5;
    }
 }
 

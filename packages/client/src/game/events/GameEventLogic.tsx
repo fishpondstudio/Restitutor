@@ -9,6 +9,7 @@ import { Religion } from "../definitions/Religion";
 import { Tech } from "../definitions/Tech";
 import { applyGameEffect, getGameEffectDesc } from "../GameEffect";
 import type { SaveGame } from "../GameState";
+import { getGameDate } from "../logic/GameDateTime";
 import {
    getAnnexedTiles,
    getProvinceGoverningCost,
@@ -19,7 +20,6 @@ import {
    getWarPower,
 } from "../logic/ProvinceLogic";
 import { hasResearched } from "../logic/TechLogic";
-import { getGameDate } from "../logic/TickLogic";
 import { getAllies } from "../logic/TreatyLogic";
 import { type GameEvent, GameEvents, type IGameEventButton, type IGameEventCondition } from "./GameEvents";
 import type { ImageWithCredit } from "./ImageWithCredit";

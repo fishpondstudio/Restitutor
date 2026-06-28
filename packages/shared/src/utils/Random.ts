@@ -15,7 +15,7 @@ export function sfc32(a: number, b: number, c: number, d: number) {
    };
 }
 
-export function xmur3(str: string) {
+export function xmur3(str: string): () => number {
    let i: number;
    let h: number;
    for (i = 0, h = 1779033703 ^ str.length; i < str.length; i++)
@@ -30,4 +30,17 @@ export function xmur3(str: string) {
 export function srand(s: string): () => number {
    const seed = xmur3(s);
    return sfc32(seed(), seed(), seed(), seed());
+}
+
+export function splitmix32(a: number): () => number {
+   return () => {
+      a |= 0;
+      a = (a + 0x9e3779b9) | 0;
+      var t = a ^ (a >>> 16);
+      t = Math.imul(t, 0x21f0aaad);
+      t = t ^ (t >>> 15);
+      t = Math.imul(t, 0x735a2d97);
+      // biome-ignore lint/suspicious/noAssignInExpressions: external code
+      return ((t = t ^ (t >>> 15)) >>> 0) / 4294967296;
+   };
 }

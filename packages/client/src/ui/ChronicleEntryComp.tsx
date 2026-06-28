@@ -1,7 +1,7 @@
 import type React from "react";
 import { Fragment, memo } from "react";
 import type { IChronicleEntry } from "../game/definitions/Chronicle";
-import { monthToDate } from "../game/logic/TickLogic";
+import { monthToDate } from "../game/logic/GameDateTime";
 import { FloatingTip } from "./components/FloatingTip";
 import { renderMarkup } from "./ParseMarkup";
 

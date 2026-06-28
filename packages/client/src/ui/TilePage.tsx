@@ -217,64 +217,64 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
          <div className="h1 my10">{$t(L.Revenue)}</div>
          <div className="mx10">
             <BreakdownRow className="my5" name={$t(L.LandTax)} breakdown={getTileLandTax(tile, G.save)} />
-            <div className="divider my10" />
-            <div className="row">
-               <div>
-                  <img
-                     src={Goods[tileData.goods].icon}
-                     style={{ width: "3rem", height: "3rem" }}
-                     className="frame display-block"
-                  />
-               </div>
-               <div className="f1">
-                  <BreakdownTooltip breakdown={tileProduction}>
-                     <div className="row my5">
-                        <div className="f1">{$t(L.TileOutput)}</div>
-                        <div>
-                           {formatNumber(tileProduction.value)} {Goods[tileData.goods].name()}
-                        </div>
+         </div>
+         <div className="divider my10" />
+         <div className="mx10 row">
+            <div>
+               <img
+                  src={Goods[tileData.goods].icon}
+                  style={{ width: "3rem", height: "3rem" }}
+                  className="frame display-block"
+               />
+            </div>
+            <div className="f1">
+               <BreakdownTooltip breakdown={tileProduction}>
+                  <div className="row my5">
+                     <div className="f1">{$t(L.TileOutput)}</div>
+                     <div>
+                        {formatNumber(tileProduction.value)} {Goods[tileData.goods].name()}
                      </div>
-                  </BreakdownTooltip>
-                  <FloatingTip
-                     fixedWidth
-                     className="p0"
-                     label={
-                        <div className="m10">
-                           <div className="row my5">
-                              <div className="f1">{$t(L.TileOutput)}</div>
-                              <div>
-                                 {formatNumber(tileProduction.value)} {Goods[tileData.goods].name()}
-                              </div>
-                           </div>
-                           <div className="row my5">
-                              <div className="f1">{$t(L.$1Price, Goods[tileData.goods].name())}</div>
-                              <div>
-                                 {formatNumber(Price[tileData.goods])} {$t(L.Gold)}
-                              </div>
-                           </div>
-                           <div className="row my5">
-                              <div className="f1">{$t(L.TaxableValue)}</div>
-                              <div>
-                                 {formatNumber(tileProduction.value * Price[tileData.goods])} {$t(L.Gold)}
-                              </div>
-                           </div>
-                           <div className="row my5">
-                              <div className="f1">{$t(L.GoodsTaxRate)}</div>
-                              <div>{formatPercent(goodsTaxRate)}</div>
-                           </div>
-                           <div className="row my5">
-                              <div className="f1">{$t(L.GoodsTax)}</div>
-                              <div>{formatNumber(goodsTax)}</div>
+                  </div>
+               </BreakdownTooltip>
+               <FloatingTip
+                  fixedWidth
+                  className="p0"
+                  label={
+                     <div className="m10">
+                        <div className="row my5">
+                           <div className="f1">{$t(L.TileOutput)}</div>
+                           <div>
+                              {formatNumber(tileProduction.value)} {Goods[tileData.goods].name()}
                            </div>
                         </div>
-                     }
-                  >
-                     <div className="row my5">
-                        <div className="f1">{$t(L.GoodsTax)}</div>
-                        <div>{formatNumber(getTileGoodsTax(tile, G.save))}</div>
+                        <div className="row my5">
+                           <div className="f1">{$t(L.$1Price, Goods[tileData.goods].name())}</div>
+                           <div>
+                              {formatNumber(Price[tileData.goods])} {$t(L.Gold)}
+                           </div>
+                        </div>
+                        <div className="row my5">
+                           <div className="f1">{$t(L.TaxableValue)}</div>
+                           <div>
+                              {formatNumber(tileProduction.value * Price[tileData.goods])} {$t(L.Gold)}
+                           </div>
+                        </div>
+                        <div className="row my5">
+                           <div className="f1">{$t(L.GoodsTaxRate)}</div>
+                           <div>{formatPercent(goodsTaxRate)}</div>
+                        </div>
+                        <div className="row my5">
+                           <div className="f1">{$t(L.GoodsTax)}</div>
+                           <div>{formatNumber(goodsTax)}</div>
+                        </div>
                      </div>
-                  </FloatingTip>
-               </div>
+                  }
+               >
+                  <div className="row my5">
+                     <div className="f1">{$t(L.GoodsTax)}</div>
+                     <div>{formatNumber(getTileGoodsTax(tile, G.save))}</div>
+                  </div>
+               </FloatingTip>
             </div>
          </div>
          <div className="h1 my10">{$t(L.Expense)}</div>

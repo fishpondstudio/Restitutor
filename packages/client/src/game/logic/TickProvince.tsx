@@ -23,14 +23,15 @@ import { applyGameEventButton, getEventButtons, getGameEventCondition } from "..
 import { type GameEvent, GameEvents } from "../events/GameEvents";
 import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
+import { cleanUpProvince } from "./CleanupProvince";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
+import { getGameDate } from "./GameDateTime";
 import { generateRandomGovernor, tickFamily } from "./GovernorLogic";
 import { canTakeLoan, getLoanAmount, getMonthlyInterestRate, takeLoan } from "./LoanLogic";
 import { tickProduction } from "./ProductionLogic";
 import {
    addProvinceResource,
    addProvinceStat,
-   cleanUpProvince,
    getProvinceGoverningCost,
    getProvinceGovernmentPoint,
    getProvinceIncome,
@@ -42,8 +43,7 @@ import {
    setProvinceStat,
    spendProvinceResource,
 } from "./ProvinceLogic";
-import { tickSocialClasses } from "./SocialClassLogic";
-import { getGameDate, TickFamilyMonth } from "./TickLogic";
+import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
 import { ArmyMoraleMonthlyIncrease } from "./WarLogic";
@@ -161,8 +161,6 @@ export function tickProvince(province: Province, save: SaveGame): void {
          state.events.delete(event);
       }
    }
-
-   tickSocialClasses(province, save);
 
    const governingCost = getProvinceGoverningCost(province, save).value;
    const christianity = getProvinceResource("christianity", province, save);

@@ -18,7 +18,7 @@ export function Sidebar(): React.ReactNode {
    return (
       <Transition
          mounted={mounted}
-         transition="fade-left"
+         transition="fade-right"
          onExited={() => {
             setSidebar(null);
          }}
@@ -29,7 +29,7 @@ export function Sidebar(): React.ReactNode {
                   ...styles,
                   position: "absolute",
                   top: 0,
-                  right: 0,
+                  left: 0,
                   bottom: 0,
                }}
             >

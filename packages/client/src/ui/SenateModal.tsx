@@ -4,13 +4,13 @@ import { ProvinceFlags } from "../game/definitions/Province";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { getRevealedConsulVotes } from "../game/logic/DiplomacyLogic";
+import { monthToDate, monthToNextYear } from "../game/logic/GameDateTime";
 import {
    ConsulElectionMonths,
    getProvinceName,
    getProvinceResource,
    getProvinceStat,
 } from "../game/logic/ProvinceLogic";
-import { monthToDate, monthToNextYear } from "../game/logic/TickLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -102,10 +102,10 @@ export function SenateModal(): React.ReactNode {
             {G.save.state.senate.consulCandidates.map((name, i) => {
                const supportedProvinces = revealedVotes.get(i) ?? [];
                return (
-                  <div key={i} className="box p5 col stretch">
+                  <div key={i} className="box p10 col stretch">
                      <FloatingTip label={name}>
                         <div
-                           className="text-display text-center mb5"
+                           className="text-display text-center mb5 mt-5"
                            style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}
                         >
                            {name}

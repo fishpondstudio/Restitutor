@@ -23,6 +23,10 @@ export function hslToRgb(h: number, s: number, l: number): number {
    return (r << 16) + (g << 8) + b;
 }
 
+export function hslToHex(h: number, s: number, l: number): string {
+   return `#${hslToRgb(h, s, l).toString(16).padStart(6, "0")}`;
+}
+
 export function rgbToHsl(color: number): [number, number, number] {
    const r = (color >> 16) & 0xff;
    const g = (color >> 8) & 0xff;

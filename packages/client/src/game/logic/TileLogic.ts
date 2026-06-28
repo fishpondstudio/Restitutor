@@ -8,13 +8,11 @@ import { Price } from "../definitions/Goods";
 import { getProvinceTraits } from "../definitions/PersonTrait";
 import type { GovernorPower, Province } from "../definitions/Province";
 import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
-import { SocialClassNames } from "../definitions/SocialClass";
 import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
 import { getProvinceOverextension, getProvinceStability, getProvinceStat } from "./ProvinceLogic";
-import { isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
 import { getBuildingTech, hasResearched } from "./TechLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
 import { getCurrentWars, type IWar } from "./WarLogic";
@@ -100,24 +98,6 @@ export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (data.buildings.has("Barracks")) {
       breakdown.multiply.push({ name: Buildings.Barracks.name(), value: 0.4 });
-   }
-   if (isSocialClassDissent("UpperClass", data.province, save)) {
-      breakdown.multiply.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
-         value: SocialClassDissentEffectPct,
-      });
-   }
-   if (isSocialClassDissent("MiddleClass", data.province, save)) {
-      breakdown.multiply.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.MiddleClass()),
-         value: SocialClassDissentEffectPct,
-      });
-   }
-   if (isSocialClassDissent("LowerClass", data.province, save)) {
-      breakdown.multiply.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.LowerClass()),
-         value: SocialClassDissentEffectPct,
-      });
    }
    const fortifyBorders = getTimedActionTimeLeft("FortifyBorders", data.province, save);
    if (fortifyBorders > 0) {
@@ -288,24 +268,6 @@ export function getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    if (overextension > 0) {
       breakdown.multiply.push({ name: $t(L.Overextension), value: -overextension * 0.01 });
    }
-   if (isSocialClassDissent("UpperClass", data.province, save)) {
-      breakdown.multiply.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
-         value: SocialClassDissentEffectPct,
-      });
-   }
-   if (isSocialClassDissent("MiddleClass", data.province, save)) {
-      breakdown.multiply.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.MiddleClass()),
-         value: SocialClassDissentEffectPct,
-      });
-   }
-   if (isSocialClassDissent("LowerClass", data.province, save)) {
-      breakdown.multiply.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.LowerClass()),
-         value: SocialClassDissentEffectPct,
-      });
-   }
    if (data.terrain === "Mountain") {
       breakdown.multiply.push({ name: $t(L.TerrainMountain), value: -0.25 });
    }
@@ -353,24 +315,6 @@ export function getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    const overextension = getProvinceOverextension(data.province, save).value;
    if (overextension > 0) {
       breakdown.multiply.push({ name: $t(L.Overextension), value: -overextension * 0.01 });
-   }
-   if (isSocialClassDissent("UpperClass", data.province, save)) {
-      breakdown.multiply.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
-         value: SocialClassDissentEffectPct,
-      });
-   }
-   if (isSocialClassDissent("MiddleClass", data.province, save)) {
-      breakdown.multiply.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.MiddleClass()),
-         value: SocialClassDissentEffectPct,
-      });
-   }
-   if (isSocialClassDissent("LowerClass", data.province, save)) {
-      breakdown.multiply.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.LowerClass()),
-         value: SocialClassDissentEffectPct,
-      });
    }
    if (data.terrain === "Mountain") {
       breakdown.multiply.push({ name: $t(L.TerrainMountain), value: -0.1 });

@@ -3,7 +3,7 @@ import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
 import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
-import { getGameDate } from "../logic/TickLogic";
+import { getGameDate } from "../logic/GameDateTime";
 import { timedActionConditions } from "../logic/TimedActionLogic";
 import type { IGameAction } from "./GameAction";
 import { finalizeCondition } from "./GameAction";
@@ -24,7 +24,7 @@ export function CrackDownAction(tile: Tile, province: Province, save: SaveGame):
          tileData.rebellion = 0;
          tileData.modifiers.Unrest.push({
             type: "add",
-            name: $t(L.Crackdown$1, getGameDate(save.state.month).toLocaleDateString()),
+            name: $t(L.Crackdown$1, getGameDate(save.state.tick).toLocaleDateString()),
             value: 10,
             duration: 5 * 12,
          });

@@ -40,7 +40,7 @@ import {
    type ProvinceResourceCosts,
    Provinces,
 } from "../definitions/Province";
-import { SocialClasses } from "../definitions/SocialClass";
+import { SocialClass } from "../definitions/SocialClass";
 import type { SaveGame } from "../GameState";
 import {
    cancelImproveRelations,
@@ -50,6 +50,7 @@ import {
    HumiliateRivalCasusBelliMonths,
    improveRelations,
 } from "./DiplomacyLogic";
+import { getGameDate } from "./GameDateTime";
 import { optimizeProduction } from "./ProductionLogic";
 import {
    getProvinceGoverningCapacity,
@@ -67,7 +68,6 @@ import {
    trySpendProvinceResources,
 } from "./ProvinceLogic";
 import { getCheapestLockedTech } from "./TechLogic";
-import { getGameDate } from "./TickLogic";
 import { getBuildingSlot, getTileUnrest } from "./TileLogic";
 import {
    getTimedActionCooldownLeft,
@@ -615,7 +615,7 @@ function lookForSpouse(family: IFamily, province: Province, save: SaveGame): voi
       (family.female && family.female.age > 15 && !family.male)
    ) {
       tryDoHeadless(
-         LookForLocalSpouseAction(randOne(SocialClasses.slice(0)), family, province, save),
+         LookForLocalSpouseAction(randOne(keysOf(SocialClass)), family, province, save),
          "LookForSpouse",
          province,
          save,

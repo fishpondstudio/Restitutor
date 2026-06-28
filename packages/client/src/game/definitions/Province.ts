@@ -10,7 +10,6 @@ import type { LegacyUpgrade } from "./LegacyUpgrade";
 import type { IModifier, Modifier } from "./Modifier";
 import type { ProvinceUpgrade } from "./ProvinceUpgrades";
 import type { Religion } from "./Religion";
-import type { ISocialClassData, SocialClass } from "./SocialClass";
 import type { Tech } from "./Tech";
 import type { TimedAction } from "./TimedAction";
 
@@ -34,6 +33,17 @@ export const ProvinceStats = {
    consulVotes: 1,
    goodsTaxRate: MaxGoodsTaxRate,
    usedRestoration: 0,
+   agendaCount: 0,
+   upperClassInfluence: 100,
+   middleClassInfluence: 80,
+   lowerClassInfluence: 60,
+   religiousClassInfluence: 0,
+   militaryClassInfluence: 60,
+   upperClassLoyalty: 100,
+   middleClassLoyalty: 100,
+   lowerClassLoyalty: 100,
+   religiousClassLoyalty: 100,
+   militaryClassLoyalty: 100,
 } as const;
 
 export const ProvinceStatNames: Record<ProvinceStat, () => string> = {
@@ -52,6 +62,17 @@ export const ProvinceStatNames: Record<ProvinceStat, () => string> = {
    consulVotes: () => $t(L.ConsulVotes),
    goodsTaxRate: () => $t(L.GoodsTaxRate),
    usedRestoration: () => $t(L.UsedRestoration),
+   agendaCount: () => $t(L.AgendaCount),
+   upperClassInfluence: () => $t(L.UpperClassInfluenceStat),
+   middleClassInfluence: () => $t(L.MiddleClassInfluenceStat),
+   lowerClassInfluence: () => $t(L.LowerClassInfluenceStat),
+   religiousClassInfluence: () => $t(L.ReligiousClassInfluenceStat),
+   militaryClassInfluence: () => $t(L.MilitaryClassInfluenceStat),
+   upperClassLoyalty: () => $t(L.UpperClassLoyaltyStat),
+   middleClassLoyalty: () => $t(L.MiddleClassLoyaltyStat),
+   lowerClassLoyalty: () => $t(L.LowerClassLoyaltyStat),
+   religiousClassLoyalty: () => $t(L.ReligiousClassLoyaltyStat),
+   militaryClassLoyalty: () => $t(L.MilitaryClassLoyaltyStat),
 } as const;
 
 export type ProvinceStat = keyof typeof ProvinceStats;
@@ -126,7 +147,6 @@ export interface IProvince {
    usedEvents: Set<GameEvent>;
    blackboard: IBlackboard;
    completedMissions: Set<string>;
-   socialClasses: Record<SocialClass, ISocialClassData>;
    legacyUpgrades: Set<LegacyUpgrade>;
    provinceUpgrades: Set<ProvinceUpgrade>;
    tradeOffers: TradeOffer[];

@@ -1,5 +1,6 @@
 import { createTheme, type MantineColorsTuple, MantineProvider, Portal, Tooltip } from "@mantine/core";
 import "@mantine/core/styles.css";
+import "@mantine/charts/styles.css";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
 import { initDevtools } from "@pixi/devtools";

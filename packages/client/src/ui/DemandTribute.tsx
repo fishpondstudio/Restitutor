@@ -11,7 +11,7 @@ import {
    addProvinceResource,
    getProvinceName,
    getProvincePrestige,
-   getProvinceUpgrade,
+   getTotalUpgrades,
 } from "../game/logic/ProvinceLogic";
 import { startTimedAction } from "../game/logic/TimedActionLogic";
 import { getWarParticipants } from "../game/logic/WarLogic";
@@ -48,7 +48,7 @@ export function DemandTribute({ province }: { province: Province }): React.React
       }),
    );
    const acceptChance = ourCoalition / (ourCoalition + theirCoalition);
-   const tributeAmount = getProvinceUpgrade(province, G.save) * TimedActions.DemandTribute.duration;
+   const tributeAmount = getTotalUpgrades(province, G.save) * TimedActions.DemandTribute.duration;
    return (
       <ModalComp
          size="sm"

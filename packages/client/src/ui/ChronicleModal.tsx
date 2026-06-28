@@ -2,7 +2,7 @@ import { ScrollArea } from "@mantine/core";
 import type React from "react";
 import ChronicleHeader from "../assets/images/ChronicleHeader.webp";
 import { GameStateUpdated } from "../game/Events";
-import { monthToDate } from "../game/logic/TickLogic";
+import { monthToDate } from "../game/logic/GameDateTime";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Gold from "../assets/images/Gold.svg";
 import type { Province } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
+import { monthToDate } from "../game/logic/GameDateTime";
 import {
    canTakeLoan,
    getLoanAmount,
@@ -12,7 +13,6 @@ import {
    takeLoan,
 } from "../game/logic/LoanLogic";
 import { getProvinceIncome, getProvinceResource } from "../game/logic/ProvinceLogic";
-import { monthToDate } from "../game/logic/TickLogic";
 import { getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";

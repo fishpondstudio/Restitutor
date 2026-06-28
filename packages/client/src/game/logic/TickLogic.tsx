@@ -1,4 +1,4 @@
-import { clamp, forEach, hasFlag, mapSafeAdd, monthsBetween, range, setFlag } from "@project/shared/src/utils/Helper";
+import { clamp, forEach, hasFlag, mapSafeAdd, range, setFlag } from "@project/shared/src/utils/Helper";
 import { ChronicleModal } from "../../ui/ChronicleModal";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { G, GameFlags } from "../../utils/Global";
@@ -7,6 +7,7 @@ import { GameStateUpdated, GameTimeUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { randomMaleName } from "../RomanNames";
 import { fixRelations } from "./DiplomacyLogic";
+import { getGameDate, monthToDate, tickToMonth, tickToYear } from "./GameDateTime";
 import {
    addProvinceResource,
    ConsulElectionMonths,
@@ -18,6 +19,7 @@ import {
    setProvinceStat,
    trySpendProvinceResources,
 } from "./ProvinceLogic";
+import { addSocialClassInfluence, SocialClassInfluenceYearly } from "./SocialClassLogic";
 import { tickAI } from "./TickAI";
 import { tickProvince } from "./TickProvince";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
@@ -68,8 +70,10 @@ export function tickYear(save: SaveGame): void {
    clearProvincePrestigeRankingCache();
    tickConsulElection(save);
    forEach(save.state.provinces, (province) => {
-      const yearly = getChristianityYearly(province, save).value;
-      addProvinceResource("christianity", yearly, province, save);
+      addProvinceResource("christianity", getChristianityYearly(province, save).value, province, save);
+      forEach(SocialClassInfluenceYearly, (socialClass, func) => {
+         addSocialClassInfluence(socialClass, func(province, save).value, province, save);
+      });
    });
 }
 
@@ -90,10 +94,6 @@ function tickChroniclePopup(save: SaveGame): void {
          showPanel(<ChronicleModal years={[startYear, endYear]} />);
       }
    }
-}
-
-export function monthToNextYear(save: SaveGame): number {
-   return Math.ceil(save.state.month / 12) * 12 - save.state.month;
 }
 
 function tickConsulElection(save: SaveGame) {
@@ -191,22 +191,4 @@ export function tickWar(war: IWar, save: SaveGame): void {
          flag: WarLogFlag.None,
       });
    }
-}
-
-const StartDate = getGameDate(0);
-
-export function getGameDate(tick: number): Date {
-   return new Date(193, 0, tick, 0, 0, 0, 0);
-}
-
-export function tickToMonth(tick: number): number {
-   return monthsBetween(StartDate, getGameDate(tick));
-}
-
-export function tickToYear(tick: number): number {
-   return getGameDate(tick).getFullYear() - StartDate.getFullYear();
-}
-
-export function monthToDate(month: number): Date {
-   return new Date(193, month - 1, 1, 0, 0, 0, 0);
 }

@@ -1,6 +1,7 @@
-import { entriesOf, forEach, sizeOf } from "@project/shared/src/utils/Helper";
+import { forEach, sizeOf } from "@project/shared/src/utils/Helper";
 import { type Building, Buildings } from "../definitions/Building";
 import { Goods } from "../definitions/Goods";
+import { type SocialClass, SocialClassBonuses } from "../definitions/SocialClass";
 import { Tech } from "../definitions/Tech";
 import { TimedActions } from "../definitions/TimedAction";
 
@@ -43,19 +44,40 @@ export function validateConfig(): void {
          console.error(`Raw goods ${g} should not be locked by any tech`);
       }
    });
-   forEach(TimedActions, (timedAction, config) => {
-      if (config.duration > config.cooldown) {
-         console.error(`Timed action ${timedAction} has a duration > cooldown`);
+   forEach(SocialClassBonuses, (bonus, config) => {
+      const socialClasses = new Set<SocialClass>();
+      config.supporting.forEach((socialClass) => {
+         if (socialClasses.has(socialClass)) {
+            console.error(`SocialClassBonus "${bonus}" has duplicate supporting social classes "${socialClass}"`);
+         }
+         socialClasses.add(socialClass);
+      });
+      config.opposing.forEach((socialClass) => {
+         if (socialClasses.has(socialClass)) {
+            console.error(`SocialClassBonus "${bonus}" has duplicate opposing social classes "${socialClass}"`);
+         }
+         socialClasses.add(socialClass);
+      });
+      if (config.supporting.includes("UpperClass") && config.supporting.includes("ReligiousClass")) {
+         console.error(`SocialClassBonus "${bonus}" has conflicting supporting social classes`);
+      }
+      if (config.opposing.includes("UpperClass") && config.opposing.includes("ReligiousClass")) {
+         console.error(`SocialClassBonus "${bonus}" has conflicting opposing social classes`);
       }
    });
-   console.log(
-      `⚠️TimedActions not unlocked by tech:\n${entriesOf(TimedActions)
-         .flatMap(([timedAction, config]) => {
-            if (config.tech === undefined && "desc" in config && config.desc !== undefined) {
-               return `- ${config.name()} (${timedAction})`;
-            }
-            return [];
-         })
-         .join("\n")}`,
-   );
+   // forEach(TimedActions, (timedAction, config) => {
+   //    if (config.duration > config.cooldown) {
+   //       console.warn(`Timed action ${timedAction} has a duration > cooldown`);
+   //    }
+   // });
+   // console.log(
+   //    `⚠️TimedActions not unlocked by tech:\n${entriesOf(TimedActions)
+   //       .flatMap(([timedAction, config]) => {
+   //          if (config.tech === undefined && "desc" in config && config.desc !== undefined) {
+   //             return `- ${config.name()} (${timedAction})`;
+   //          }
+   //          return [];
+   //       })
+   //       .join("\n")}`,
+   // );
 }

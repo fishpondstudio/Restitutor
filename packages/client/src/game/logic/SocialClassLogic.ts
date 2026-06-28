@@ -1,85 +1,160 @@
-import { clamp, forEach } from "@project/shared/src/utils/Helper";
-import { $t, L } from "../../utils/i18n";
-import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
-import type { Province } from "../definitions/Province";
-import type { SocialClass } from "../definitions/SocialClass";
+import { keysOf, reduceOf, shuffle } from "@project/shared/src/utils/Helper";
+import { srand } from "@project/shared/src/utils/Random";
+import { makeModifierGetter } from "../definitions/Modifier";
+import type { Province, ProvinceStat } from "../definitions/Province";
+import { SocialClass, type SocialClassBonus, SocialClassBonuses } from "../definitions/SocialClass";
 import type { SaveGame } from "../GameState";
+import { addProvinceStat, getProvinceStat } from "./ProvinceLogic";
 
-export const SocialClassDissentEffectPct = -0.1;
-
-export function getLoyaltyEquilibrium(socialClass: SocialClass, province: Province, save: SaveGame): IValueBreakdown {
-   const result = makeValueBreakdown();
+export function getSocialClassInfluencePercentage(
+   socialClass: SocialClass,
+   province: Province,
+   save: SaveGame,
+): number {
    const state = save.state.provinces[province];
    if (!state) {
-      return result;
+      return 0;
    }
-   result.add.push({
-      name: $t(L.FromInfluence),
-      value: 100 - state.socialClasses[socialClass].influence,
-      desc: $t(L.HundredMinusInfluenceTheHigherTheInfluenceTheLowerTheEquilibrium),
-   });
-   return finalizeBreakdown(result);
+   const influence = getSocialClassInfluence(socialClass, province, save);
+   const totalInfluence = reduceOf(
+      SocialClass,
+      (prev, key, config) => prev + getSocialClassInfluence(key, province, save),
+      0,
+   );
+   if (totalInfluence === 0) {
+      return 0;
+   }
+   return influence / totalInfluence;
 }
 
-export function tickSocialClasses(province: Province, save: SaveGame): void {
+export function socialClassInfluenceStat(socialClass: SocialClass): ProvinceStat {
+   switch (socialClass) {
+      case "UpperClass":
+         return "upperClassInfluence";
+      case "MiddleClass":
+         return "middleClassInfluence";
+      case "LowerClass":
+         return "lowerClassInfluence";
+      case "ReligiousClass":
+         return "religiousClassInfluence";
+      case "MilitaryClass":
+         return "militaryClassInfluence";
+      default:
+         socialClass satisfies never;
+         throw new Error(`Invalid social class: ${socialClass}`);
+   }
+}
+export function socialClassLoyaltyStat(socialClass: SocialClass): ProvinceStat {
+   switch (socialClass) {
+      case "UpperClass":
+         return "upperClassLoyalty";
+      case "MiddleClass":
+         return "middleClassLoyalty";
+      case "LowerClass":
+         return "lowerClassLoyalty";
+      case "ReligiousClass":
+         return "religiousClassLoyalty";
+      case "MilitaryClass":
+         return "militaryClassLoyalty";
+      default:
+         socialClass satisfies never;
+         throw new Error(`Invalid social class: ${socialClass}`);
+   }
+}
+
+export function getSocialClassInfluence(socialClass: SocialClass, province: Province, save: SaveGame): number {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return 0;
+   }
+   return getProvinceStat(socialClassInfluenceStat(socialClass), province, save);
+}
+
+export function getSocialClassLoyalty(socialClass: SocialClass, province: Province, save: SaveGame): number {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return 0;
+   }
+   return getProvinceStat(socialClassLoyaltyStat(socialClass), province, save);
+}
+
+export function addSocialClassInfluence(
+   socialClass: SocialClass,
+   value: number,
+   province: Province,
+   save: SaveGame,
+): void {
    const state = save.state.provinces[province];
    if (!state) {
       return;
    }
-   forEach(state.socialClasses, (socialClass, data) => {
-      const targetLoyalty = getLoyaltyEquilibrium(socialClass, province, save).value;
-      data.loyalty = data.loyalty + Math.sign(targetLoyalty - data.loyalty);
-      data.dissent = clamp(data.dissent + getDissentChange(socialClass, province, save).value, -100, 100);
-   });
+   addProvinceStat(socialClassInfluenceStat(socialClass), value, province, save);
 }
 
-export function getDissentChange(socialClass: SocialClass, province: Province, save: SaveGame): IValueBreakdown {
-   const result = makeValueBreakdown({ reverse: true });
+export function addSocialClassLoyalty(
+   socialClass: SocialClass,
+   value: number,
+   province: Province,
+   save: SaveGame,
+): void {
    const state = save.state.provinces[province];
    if (!state) {
-      return result;
+      return;
    }
-   const data = state.socialClasses[socialClass];
-   result.add.push({
-      name: $t(L.ExcessInfluenceOverLoyalty),
-      value: (data.influence - data.loyalty) * 0.1,
-      desc: $t(L.InfluenceLoyalty10),
-   });
-   if (data.loyalty === data.influence) {
-      result.add.push({
-         name: $t(L.DriftingTowards0),
-         value: data.dissent === 0 ? 0 : Math.sign(-data.dissent) * Math.min(Math.abs(data.dissent), 1),
-         desc: $t(L.WhenInfluenceIsEqualToLoyaltyDissentWillDriftTowards0),
-      });
-   }
-   return finalizeBreakdown(result);
+   addProvinceStat(socialClassLoyaltyStat(socialClass), value, province, save);
 }
 
-export function getEstimatedDissentTime(socialClass: SocialClass, province: Province, save: SaveGame): number {
+export function getAgendas(count: number, province: Province, save: SaveGame): SocialClassBonus[] {
+   const rand = srand(`agenda${Math.floor(save.state.month / 60)}`);
+   const socialClasses = keysOf(SocialClass);
+   const candidates = shuffle(keysOf(SocialClassBonuses), rand);
+
+   let picksLeft = count;
+   const result: SocialClassBonus[] = [];
+
+   for (const sc of socialClasses) {
+      const picks = Math.round(getSocialClassInfluencePercentage(sc, province, save) * count);
+      for (let i = 0; i < picks; i++) {
+         const agenda = candidates.findIndex((a) => SocialClassBonuses[a].supporting.includes(sc));
+         if (agenda !== -1) {
+            const selected = candidates.splice(agenda, 1);
+            --picksLeft;
+            result.push(selected[0]);
+         }
+      }
+   }
+
+   while (picksLeft > 0 && candidates.length > 0) {
+      const selected = candidates.pop();
+      if (selected) {
+         --picksLeft;
+         result.push(selected);
+      }
+   }
+
+   return result;
+}
+
+export function getAgendasRefreshIn(province: Province, save: SaveGame): number {
    const state = save.state.provinces[province];
    if (!state) {
       return 0;
    }
-   const data = state.socialClasses[socialClass];
-   const delta = data.loyalty - data.dissent;
-   if (delta < 0) {
-      return 0;
-   }
-   if (data.loyalty >= data.influence) {
-      return Number.POSITIVE_INFINITY;
-   }
-   const dissentDelta = getDissentChange(socialClass, province, save).value;
-   if (dissentDelta <= 0) {
-      return Number.POSITIVE_INFINITY;
-   }
-   return delta / dissentDelta;
+   return Math.ceil(save.state.month / 60) * 60 - save.state.month;
 }
 
-export function isSocialClassDissent(socialClass: SocialClass, province: Province, save: SaveGame): boolean {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return false;
-   }
-   const sc = state.socialClasses[socialClass];
-   return sc.dissent > sc.loyalty;
+export const SocialClassInfluenceYearly = {
+   UpperClass: makeModifierGetter("UpperClassInfluenceYearly", 0, (result, province, save) => {}),
+   MiddleClass: makeModifierGetter("MiddleClassInfluenceYearly", 0, (result, province, save) => {}),
+   LowerClass: makeModifierGetter("LowerClassInfluenceYearly", 0, (result, province, save) => {}),
+   ReligiousClass: makeModifierGetter("ReligiousClassInfluenceYearly", 0, (result, province, save) => {}),
+   MilitaryClass: makeModifierGetter("MilitaryClassInfluenceYearly", 0, (result, province, save) => {}),
+} as const satisfies Record<SocialClass, ReturnType<typeof makeModifierGetter>>;
+
+export function isSocialClassDominant(socialClass: SocialClass, province: Province, save: SaveGame): boolean {
+   return getSocialClassInfluencePercentage(socialClass, province, save) > 0.5;
+}
+
+export function isSocialClassDisloyal(socialClass: SocialClass, province: Province, save: SaveGame): boolean {
+   return getSocialClassLoyalty(socialClass, province, save) < 50;
 }

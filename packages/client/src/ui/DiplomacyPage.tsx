@@ -58,7 +58,7 @@ import {
    getProvinceStat,
    getProvincesInRange,
    getProvinceTileCount,
-   getProvinceUpgrade,
+   getTotalUpgrades,
    getWarPower,
    isGreatPowerCondition,
    isNorGreatPowerCondition,
@@ -114,13 +114,6 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
       return null;
    }
    const usToThem = getRelation(G.save.state.playerProvince, province, G.save);
-   if (!usToThem) {
-      return null;
-   }
-   const themToUs = getRelation(province, G.save.state.playerProvince, G.save);
-   if (!themToUs) {
-      return null;
-   }
    const isMe = province === G.save.state.playerProvince;
    const guaranteeDefense = getProvincesThatGuaranteeDefenseOf(province, G.save);
    const deterAggression = getProvincesThatDeterAggressionOf(province, G.save);
@@ -133,7 +126,6 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
    const wars = getCurrentWars(province, G.save);
    const diplomaticRange = getDiplomaticRange(G.save.state.playerProvince, G.save);
    const diplomaticDistance = getDiplomaticDistance(G.save.state.playerProvince, province, G.save);
-   const consulVotes = G.save.state.senate.votes.get(province) ?? new Set<number>();
    return (
       <SidebarComp
          header={<SidebarHeader title={$t(L.DiplomacyWith$1, getProvinceName(province, G.save))} />}
@@ -168,52 +160,6 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                   <div className="f1">{$t(L.Prestige)}</div>
                   <div>{formatNumber(getProvincePrestige(province, G.save).value)}</div>
                </div>
-               {!isMe && (
-                  <BreakdownRow
-                     className="mx10 my5"
-                     name={$t(L.Attitude)}
-                     tooltip={(element) => (
-                        <>
-                           <div className="m10">{$t(L.TheirAttitudeIsDeterminedAsFollows)}</div>
-                           {element}
-                        </>
-                     )}
-                     breakdown={getAttitudeTowards(province, G.save.state.playerProvince, G.save)}
-                     formatFunc={colorNumber}
-                  />
-               )}
-               <div className="row my5 mx10">
-                  <div className="f1">{$t(L.Infiltration)}</div>
-                  <div>{formatNumber(usToThem.infiltrate.value)}</div>
-               </div>
-               {!isMe && (
-                  <BreakdownTooltip
-                     breakdown={diplomaticRange}
-                     tooltip={(element) => (
-                        <>
-                           <div className="m10">{Modifiers.DiplomaticRange.desc()}</div>
-                           <div className="h2">{Modifiers.DiplomaticRange.name()}</div>
-                           {element}
-                           <div className="divider" />
-                           {diplomaticDistance > diplomaticRange.value ? (
-                              <div className="m10 text-red">
-                                 {$t(L.$1IsNotWithinOurDiplomaticRange, getProvinceName(province, G.save))}
-                              </div>
-                           ) : (
-                              <div className="m10 text-green">
-                                 {$t(L.$1IsWithinOurDiplomaticRange, getProvinceName(province, G.save))}
-                              </div>
-                           )}
-                        </>
-                     )}
-                  >
-                     <div className="row my5 mx10 g5">
-                        <div className="f1">{$t(L.DiplomaticDistance)}</div>
-                        {diplomaticDistance > diplomaticRange.value && <div className="mi sm text-red">error</div>}
-                        <div>{formatNumber(diplomaticDistance)}</div>
-                     </div>
-                  </BreakdownTooltip>
-               )}
                {treatySabotaged > 0 && (
                   <FloatingTip
                      label={$t(
@@ -242,31 +188,6 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      </div>
                   </FloatingTip>
                )}
-               {usToThem.casusBelli.size > 0 && (
-                  <>
-                     <div className="divider my5" />
-                     <div className="mx10 my5 text-display">{$t(L.CasusBelli)}</div>
-                     {Array.from(usToThem.casusBelli).map(([cb, data]) => {
-                        const effect = CasusBelli[cb].effect;
-                        return (
-                           <FloatingTip
-                              key={cb}
-                              disabled={!effect}
-                              label={
-                                 <>
-                                    {$t(L.CasusBelliEffect)} {effect?.()}
-                                 </>
-                              }
-                           >
-                              <div className="row mx10 my5 text-sm text-red">
-                                 <div className="f1">{CasusBelli[cb].name()}</div>
-                                 <div className="text-italic">{$t(L.$1MonthsLeft, formatNumber(data.monthsLeft))}</div>
-                              </div>
-                           </FloatingTip>
-                        );
-                     })}
-                  </>
-               )}
                {wars.length > 0 && (
                   <>
                      <div className="divider my5" />
@@ -290,6 +211,73 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                     )}
                                  </div>
                                  {isMe && <div className="mi xs">open_in_new</div>}
+                              </div>
+                           </FloatingTip>
+                        );
+                     })}
+                  </>
+               )}
+               {usToThem && (
+                  <>
+                     <BreakdownRow
+                        className="mx10 my5"
+                        name={$t(L.Attitude)}
+                        tooltip={(element) => (
+                           <>
+                              <div className="m10">{$t(L.TheirAttitudeIsDeterminedAsFollows)}</div>
+                              {element}
+                           </>
+                        )}
+                        breakdown={getAttitudeTowards(province, G.save.state.playerProvince, G.save)}
+                        formatFunc={colorNumber}
+                     />
+                     <div className="row my5 mx10">
+                        <div className="f1">{$t(L.Infiltration)}</div>
+                        <div>{formatNumber(usToThem.infiltrate.value)}</div>
+                     </div>
+                     <BreakdownTooltip
+                        breakdown={diplomaticRange}
+                        tooltip={(element) => (
+                           <>
+                              <div className="m10">{Modifiers.DiplomaticRange.desc()}</div>
+                              <div className="h2">{Modifiers.DiplomaticRange.name()}</div>
+                              {element}
+                              <div className="divider" />
+                              {diplomaticDistance > diplomaticRange.value ? (
+                                 <div className="m10 text-red">
+                                    {$t(L.$1IsNotWithinOurDiplomaticRange, getProvinceName(province, G.save))}
+                                 </div>
+                              ) : (
+                                 <div className="m10 text-green">
+                                    {$t(L.$1IsWithinOurDiplomaticRange, getProvinceName(province, G.save))}
+                                 </div>
+                              )}
+                           </>
+                        )}
+                     >
+                        <div className="row my5 mx10 g5">
+                           <div className="f1">{$t(L.DiplomaticDistance)}</div>
+                           {diplomaticDistance > diplomaticRange.value && <div className="mi sm text-red">error</div>}
+                           <div>{formatNumber(diplomaticDistance)}</div>
+                        </div>
+                     </BreakdownTooltip>
+                     <div className="divider my5" />
+                     <div className="mx10 my5 text-display">{$t(L.CasusBelli)}</div>
+                     {Array.from(usToThem.casusBelli).map(([cb, data]) => {
+                        const effect = CasusBelli[cb].effect;
+                        return (
+                           <FloatingTip
+                              key={cb}
+                              disabled={!effect}
+                              label={
+                                 <>
+                                    {$t(L.CasusBelliEffect)} {effect?.()}
+                                 </>
+                              }
+                           >
+                              <div className="row mx10 my5 text-sm text-red">
+                                 <div className="f1">{CasusBelli[cb].name()}</div>
+                                 <div className="text-italic">{$t(L.$1MonthsLeft, formatNumber(data.monthsLeft))}</div>
                               </div>
                            </FloatingTip>
                         );
@@ -423,836 +411,771 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                   </>
                )}
             </div>
-            {!isMe && (
-               <div className="box m10" style={{ width: DiplomacyActionWidth, marginLeft: 0 }}>
-                  <div className="m10 col stretch g5">
-                     <FloatingTip label={$t(L.WeWillConfirmDeclaringWarInTheNextScreen)}>
-                        <button
-                           id={`DiplomacyPage_DeclareWar_${province}`}
-                           className="btn py2 red"
-                           onClick={() => {
-                              showPanel(<DeclareWarPage province={province} />);
-                           }}
-                        >
-                           {$t(L.DeclareWar)}
-                        </button>
-                     </FloatingTip>
-                  </div>
-                  <div className="h1 row">
-                     <div className="f1">{$t(L.Treaties)}</div>
-                     <FloatingTip
-                        fixedWidth
-                        label={
-                           <>
-                              <div className="text-sm">{$t(L.ObligationOfOtherPartyInCaseOfWar)}</div>
-                              <div className="h10" />
-                              <AllianceTableComp />
-                           </>
-                        }
-                     >
-                        <div className="mi sm">info</div>
-                     </FloatingTip>
-                  </div>
-                  <div className="m10 col stretch g5">
-                     <TreatyActionButton
-                        ourProvince={G.save.state.playerProvince}
-                        theirProvince={province}
-                        treaty="DefensePact"
-                     />
-                     <TreatyActionButton
-                        ourProvince={G.save.state.playerProvince}
-                        theirProvince={province}
-                        treaty="Alliance"
-                     />
-                     <TreatyActionButton
-                        ourProvince={G.save.state.playerProvince}
-                        theirProvince={province}
-                        treaty="Patron"
-                     />
-                  </div>
-                  <div className="h1">{$t(L.RelationsActions)}</div>
-                  <div className="m10 col stretch g5">
-                     <RelationsActionButton
-                        province={province}
-                        isDoingTooltip={html($t(L.CancellingImproveRelationsFreesADiplomat))}
-                        tooltip={(element) => {
-                           const rate = getImproveRelationsRate(province, G.save);
-                           return (
-                              <>
-                                 <div className="m10">
-                                    {$t(
-                                       L.ImprovingRelationsIncreasesAttitudeBy$1PerMonthMax$2,
-                                       formatNumber(rate.value),
-                                       MaxImprovedRelations,
-                                    )}
-                                 </div>
-                                 <div className="h2">{Modifiers.ImproveRelationsRate.name()}</div>
-                                 <BreakdownComp breakdown={rate} />
-                                 {element}
-                              </>
-                           );
-                        }}
-                        isDoingFunc={isImprovingRelations}
-                        cancelFunc={cancelImproveRelations}
-                        canDoFunc={canImproveRelations}
-                        doFunc={improveRelations}
-                        doLabel={$t(L.ImproveRelations)}
-                        cancelLabel={$t(L.CancelImproveRelations)}
-                     />
-                     <button
-                        className="btn py2"
-                        onClick={() => showPanel(<LookForSpouseModal family={ourState.governor} province={province} />)}
-                     >
-                        {$t(L.OfferMarriage)}
-                     </button>
-                     <button
-                        className="btn py2"
-                        onClick={() => showPanel(<TradeModal provinces={new Set([province])} />)}
-                     >
-                        {$t(L.TradeGoods)}
-                     </button>
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           condition: finalizeCondition([
-                              ...timedActionConditions(
-                                 { action: "GuaranteeDefense" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              isWithinDiplomaticRange(G.save.state.playerProvince, province, G.save),
-                              {
-                                 name: $t(L.WeAreNotAtWarWithThem),
-                                 value: getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
-                              },
-                              {
-                                 name: $t(L.WeHaventGuaranteedTheirDefense),
-                                 value: usToThem.guaranteeDefense === undefined,
-                              },
-                              {
-                                 name: $t(L.WeHaveNoTreatyWithThem),
-                                 value: usToThem.treaty === undefined,
-                              },
-                              requireHigherPrestige(G.save.state.playerProvince, province, 1, G.save),
-                           ]),
-                           effect: () => {
-                              startTimedAction("GuaranteeDefense", G.save.state.playerProvince, G.save);
-                              addAttitudeModifier(
-                                 province,
-                                 G.save.state.playerProvince,
-                                 {
-                                    type: "add",
-                                    name: $t(
-                                       L.GuaranteedDefenseBy$1,
-                                       getProvinceName(G.save.state.playerProvince, G.save),
-                                    ),
-                                    value: 50,
-                                    duration: TimedActions.GuaranteeDefense.duration,
-                                 },
-                                 G.save,
-                              );
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="GuaranteeDefense" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {TimedActions.GuaranteeDefense.name()}
-                     </ActionButton>
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           condition: finalizeCondition([
-                              ...timedActionConditions(
-                                 { action: "DeterAggression" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              isWithinDiplomaticRange(G.save.state.playerProvince, province, G.save),
-                              {
-                                 name: $t(L.WeHaventAlreadyDeterredTheirAggression),
-                                 value: usToThem.deterAggression === undefined,
-                              },
-                              requireHigherPrestige(G.save.state.playerProvince, province, 1, G.save),
-                              {
-                                 name: $t(L.TheyAreNotAClientOfAnotherProvince),
-                                 value: !isClientOfAnyProvince(province, G.save),
-                              },
-                           ]),
-                           effect: () => {
-                              startTimedAction("DeterAggression", G.save.state.playerProvince, G.save);
-                              usToThem.deterAggression = G.save.state.month;
-                              addModifier({
-                                 modifier: "Prestige",
-                                 type: "multiply",
-                                 name: $t(L.Deterred$1sAggression, getProvinceName(province, G.save)),
-                                 value: ourState.rivals.includes(province) ? 0.2 : 0.1,
-                                 duration: TimedActions.DeterAggression.duration,
-                                 province: G.save.state.playerProvince,
-                                 save: G.save,
-                              });
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="DeterAggression" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {$t(L.DeterAggression)}
-                     </ActionButton>
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           cost: { gold: getProvinceUpgrade(province, G.save) * TimedActions.SendAGift.duration },
-                           condition: finalizeCondition([
-                              ...timedActionConditions({ action: "SendAGift" }, G.save.state.playerProvince, G.save),
-                           ]),
-                           effect: () => {
-                              startTimedAction("SendAGift", G.save.state.playerProvince, G.save);
-                              addAttitudeModifier(
-                                 province,
-                                 G.save.state.playerProvince,
-                                 {
-                                    type: "add",
-                                    name: $t(
-                                       L.ReceivedAGiftFrom$1,
-                                       getProvinceName(G.save.state.playerProvince, G.save),
-                                    ),
-                                    value: 25,
-                                    duration: TimedActions.SendAGift.duration,
-                                 },
-                                 G.save,
-                              );
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="SendAGift" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {$t(L.SendAGift)}
-                     </ActionButton>
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           condition: finalizeCondition([
-                              ...timedActionConditions(
-                                 { action: "ProclaimCrusade" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              {
-                                 name: $t(L.OurReligionIsChristianity),
-                                 value: ourState.religion === "Christianity",
-                              },
-                              {
-                                 name: $t(L.TheirReligionIsNotChristianity),
-                                 value: theirState.religion !== "Christianity",
-                              },
-                           ]),
-                           effect: () => {
-                              startTimedAction("ProclaimCrusade", G.save.state.playerProvince, G.save);
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="ProclaimCrusade" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {TimedActions.ProclaimCrusade.name()}
-                     </ActionButton>
-                  </div>
-                  {patrons.includes(G.save.state.playerProvince) && (
-                     <>
-                        <div className="h1">{$t(L.ClientActions)}</div>
-                        <div className="m10 col stretch g5">
-                           <ActionButton
-                              className="py2"
-                              action={{
-                                 condition: finalizeCondition([
-                                    ...timedActionConditions(
-                                       { action: "SummonGovernor" },
-                                       G.save.state.playerProvince,
-                                       G.save,
-                                    ),
-                                    {
-                                       name: $t(L.TheyAreOurClient),
-                                       value:
-                                          getRelation(G.save.state.playerProvince, province, G.save)?.treaty?.type ===
-                                             "Patron" &&
-                                          getRelation(province, G.save.state.playerProvince, G.save)?.treaty?.type ===
-                                             "Client",
-                                    },
-                                    {
-                                       name: $t(L.WeAreNotAtWarWithThem),
-                                       value:
-                                          getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
-                                    },
-                                 ]),
-                                 effect: () => {
-                                    startTimedAction("SummonGovernor", G.save.state.playerProvince, G.save);
-                                    addModifier({
-                                       modifier: "Prestige",
-                                       type: "multiply",
-                                       name: $t(
-                                          L.$1Summoned$2sGovernor,
-                                          getProvinceName(G.save.state.playerProvince, G.save),
-                                          getProvinceName(province, G.save),
-                                       ),
-                                       value: 0.1,
-                                       duration: TimedActions.SummonGovernor.duration,
-                                       province: G.save.state.playerProvince,
-                                       save: G.save,
-                                    });
-                                    addModifier({
-                                       modifier: "Prestige",
-                                       type: "multiply",
-                                       name: $t(
-                                          L.$1Summoned$2sGovernor,
-                                          getProvinceName(province, G.save),
-                                          getProvinceName(G.save.state.playerProvince, G.save),
-                                       ),
-                                       value: -0.1,
-                                       duration: TimedActions.SummonGovernor.duration,
-                                       province: province,
-                                       save: G.save,
-                                    });
-                                 },
-                              }}
-                              tooltip={(element) => (
-                                 <>
-                                    <TimedActionDescComp action="SummonGovernor" />
-                                    {element}
-                                 </>
-                              )}
-                           >
-                              {TimedActions.SummonGovernor.name()}
-                           </ActionButton>
-                           <ActionButton
-                              className="py2"
-                              action={{
-                                 condition: finalizeCondition([
-                                    ...timedActionConditions(
-                                       { action: "RequestMilitaryAid" },
-                                       G.save.state.playerProvince,
-                                       G.save,
-                                    ),
-                                    {
-                                       name: $t(L.TheyAreOurClient),
-                                       value: usToThem.treaty?.type === "Patron" && themToUs.treaty?.type === "Client",
-                                    },
-                                    {
-                                       name: $t(L.WeAreNotAtWarWithThem),
-                                       value:
-                                          getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
-                                    },
-                                 ]),
-                                 effect: () => {
-                                    startTimedAction("RequestMilitaryAid", G.save.state.playerProvince, G.save);
-                                    addModifier({
-                                       modifier: "WarPower",
-                                       type: "multiply",
-                                       name: $t(
-                                          L.$1RequestedMilitaryAidFrom$2,
-                                          getProvinceName(G.save.state.playerProvince, G.save),
-                                          getProvinceName(province, G.save),
-                                       ),
-                                       value: 0.1,
-                                       duration: TimedActions.RequestMilitaryAid.duration,
-                                       province: G.save.state.playerProvince,
-                                       save: G.save,
-                                    });
-                                    addModifier({
-                                       modifier: "WarPower",
-                                       type: "multiply",
-                                       name: $t(
-                                          L.$1RequestedMilitaryAidFrom$2,
-                                          getProvinceName(G.save.state.playerProvince, G.save),
-                                          getProvinceName(province, G.save),
-                                       ),
-                                       value: -0.1,
-                                       duration: TimedActions.RequestMilitaryAid.duration,
-                                       province: province,
-                                       save: G.save,
-                                    });
-                                 },
-                              }}
-                              tooltip={(element) => (
-                                 <>
-                                    <TimedActionDescComp action="RequestMilitaryAid" />
-                                    {element}
-                                 </>
-                              )}
-                           >
-                              {TimedActions.RequestMilitaryAid.name()}
-                           </ActionButton>
-                           <ActionButton
-                              className="py2"
-                              action={{
-                                 cost: getAnnexClientCost(G.save.state.playerProvince, province, G.save),
-                                 condition: finalizeCondition([
-                                    ...timedActionConditions(
-                                       { action: "AnnexClient" },
-                                       G.save.state.playerProvince,
-                                       G.save,
-                                    ),
-                                    {
-                                       name: $t(L.TheyAreOurClient),
-                                       value: usToThem.treaty?.type === "Patron" && themToUs.treaty?.type === "Client",
-                                    },
-                                    {
-                                       name: $t(L.WeAreNotAtWarWithThem),
-                                       value:
-                                          getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
-                                    },
-                                 ]),
-                                 effect: () => {
-                                    startTimedAction("AnnexClient", G.save.state.playerProvince, G.save);
-                                    const tiles = new Set<Tile>();
-                                    for (const [tile, data] of G.save.state.tiles) {
-                                       if (data.province === province) {
-                                          data.province = G.save.state.playerProvince;
-                                          tiles.add(tile);
-                                       }
-                                    }
-                                    RefreshTiles.emit({ tiles, options: { indicator: true, visual: true } });
-                                 },
-                              }}
-                              tooltip={(element) => (
-                                 <>
-                                    <TimedActionDescComp action="AnnexClient" />
-                                    {element}
-                                    <div className="h2">{Modifiers.AnnexCostDiscount.name()}</div>
-                                    <BreakdownComp
-                                       breakdown={getAnnexCostDiscount(G.save.state.playerProvince, province, G.save)}
-                                       formatFunc={formatPercent}
-                                    />
-                                 </>
-                              )}
-                           >
-                              {TimedActions.AnnexClient.name()}
-                           </ActionButton>
-                        </div>
-                     </>
-                  )}
-                  <div className="h1">{$t(L.CovertActions)}</div>
-                  <div className="m10 col stretch g5">
-                     <RelationsActionButton
-                        province={province}
-                        isDoingTooltip={html($t(L.CancellingInfiltrateFreesADiplomat))}
-                        tooltip={(element) => {
-                           const rate = getInfiltrationRate(province, G.save);
-                           return (
-                              <>
-                                 <div className="m10">
-                                    {html(
-                                       $t(
-                                          L.InfiltratingProvinceIncreasesInfiltrationBy$1PerMonth,
-                                          formatNumber(rate.value),
-                                       ),
-                                    )}
-                                 </div>
-                                 <div className="h2">{Modifiers.InfiltrationRate.name()}</div>
-                                 <BreakdownComp breakdown={rate} />
-                                 {element}
-                              </>
-                           );
-                        }}
-                        isDoingFunc={isInfiltrating}
-                        cancelFunc={cancelInfiltration}
-                        canDoFunc={canInfiltrate}
-                        doFunc={infiltrate}
-                        doLabel={$t(L.Infiltrate)}
-                        doId={`DiplomacyPage_Infiltrate_${province}`}
-                        cancelLabel={$t(L.CancelInfiltrate)}
-                     />
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           cost: { gold: getProvinceUpgrade(province, G.save) * 3 },
-                           condition: finalizeCondition([
-                              ...timedActionConditions(
-                                 { action: "FabricateCasusBelli" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              requireInfiltration(
-                                 FabricateCasusBelliCost,
-                                 { consume: true },
-                                 G.save.state.playerProvince,
-                                 province,
-                                 G.save,
-                              ),
-                              {
-                                 name: $t(L.NoDiplomaticDisputeCasusBelliYet),
-                                 value: !usToThem.casusBelli.has("DiplomaticDispute"),
-                              },
-                           ]),
-                           effect: () => {
-                              if (
-                                 tryUseInfiltration(
-                                    FabricateCasusBelliCost,
-                                    G.save.state.playerProvince,
-                                    province,
-                                    G.save,
-                                 )
-                              ) {
-                                 startTimedAction("FabricateCasusBelli", G.save.state.playerProvince, G.save);
-                                 usToThem.casusBelli.set("DiplomaticDispute", {
-                                    monthsLeft: TimedActions.FabricateCasusBelli.duration,
-                                 });
-                              }
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="FabricateCasusBelli" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {TimedActions.FabricateCasusBelli.name()}
-                     </ActionButton>
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           cost: { gold: getProvinceUpgrade(province, G.save) * 6 },
-                           condition: finalizeCondition([
-                              ...timedActionConditions(
-                                 { action: "UndermineTheirArmy" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              requireInfiltration(
-                                 UndermineArmyCost,
-                                 { consume: true },
-                                 G.save.state.playerProvince,
-                                 province,
-                                 G.save,
-                              ),
-                           ]),
-                           effect: () => {
-                              addModifier({
-                                 modifier: "WarPower",
-                                 type: "multiply",
-                                 name: $t(L.UnderminedBy$1, getProvinceName(G.save.state.playerProvince, G.save)),
-                                 value: -0.1,
-                                 duration: TimedActions.UndermineTheirArmy.duration,
-                                 province: province,
-                                 save: G.save,
-                              });
-                              startTimedAction("UndermineTheirArmy", G.save.state.playerProvince, G.save);
-                              const infiltrate = usToThem.infiltrate;
-                              if (infiltrate) {
-                                 infiltrate.value -= UndermineArmyCost;
-                              }
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="UndermineTheirArmy" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {TimedActions.UndermineTheirArmy.name()}
-                     </ActionButton>
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           cost: { gold: getProvinceUpgrade(province, G.save) * 12 },
-                           condition: finalizeCondition([
-                              ...timedActionConditions(
-                                 { action: "CorruptOfficials" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              requireInfiltration(
-                                 25,
-                                 { consume: false },
-                                 G.save.state.playerProvince,
-                                 province,
-                                 G.save,
-                              ),
-                           ]),
-                           effect: () => {
-                              startTimedAction("CorruptOfficials", G.save.state.playerProvince, G.save);
-                              usToThem.infiltrate.value += 50;
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="CorruptOfficials" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {TimedActions.CorruptOfficials.name()}
-                     </ActionButton>
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           cost: { gold: getProvinceUpgrade(province, G.save) * 6 },
-                           condition: finalizeCondition([
-                              ...timedActionConditions(
-                                 { action: "SubvertGarrison" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              requireInfiltration(
-                                 SubvertGarrisonCost,
-                                 { consume: true },
-                                 G.save.state.playerProvince,
-                                 province,
-                                 G.save,
-                              ),
-                              {
-                                 name: $t(L.WeShareALandBorderWithThem),
-                                 value: getProvincesInRange(1, G.save.state.playerProvince, G.save).has(province),
-                              },
-                           ]),
-                           effect: () => {
-                              for (const [tile, tileData] of G.save.state.tiles) {
-                                 if (
-                                    tileData.province === province &&
-                                    isTileBorderingProvince(tile, G.save.state.playerProvince, G.save)
-                                 ) {
-                                    tileData.modifiers.Defense.push({
-                                       type: "multiply",
-                                       name: $t(L.SubvertedBy$1, getProvinceName(G.save.state.playerProvince, G.save)),
-                                       value: -0.2,
-                                       duration: TimedActions.SubvertGarrison.duration,
-                                    });
-                                 }
-                              }
-                              startTimedAction("SubvertGarrison", G.save.state.playerProvince, G.save);
-                              const infiltrate = usToThem.infiltrate;
-                              if (infiltrate) {
-                                 infiltrate.value -= SubvertGarrisonCost;
-                              }
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="SubvertGarrison" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {TimedActions.SubvertGarrison.name()}
-                     </ActionButton>
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           cost: { gold: getProvinceUpgrade(province, G.save) * 6 },
-                           condition: finalizeCondition([
-                              ...timedActionConditions({ action: "InciteUnrest" }, G.save.state.playerProvince, G.save),
-                              requireInfiltration(
-                                 InciteUnrestCost,
-                                 { consume: true },
-                                 G.save.state.playerProvince,
-                                 province,
-                                 G.save,
-                              ),
-                              {
-                                 name: $t(L.WeShareALandBorderWithThem),
-                                 value: getProvincesInRange(1, G.save.state.playerProvince, G.save).has(province),
-                              },
-                           ]),
-                           effect: () => {
-                              for (const [tile, tileData] of G.save.state.tiles) {
-                                 if (
-                                    tileData.province === province &&
-                                    isTileBorderingProvince(tile, G.save.state.playerProvince, G.save)
-                                 ) {
-                                    tileData.modifiers.Unrest.push({
-                                       type: "add",
-                                       name: $t(L.IncitedBy$1, getProvinceName(G.save.state.playerProvince, G.save)),
-                                       value: 20,
-                                       duration: TimedActions.InciteUnrest.duration,
-                                    });
-                                 }
-                              }
-                              startTimedAction("InciteUnrest", G.save.state.playerProvince, G.save);
-                              const infiltrate = usToThem.infiltrate;
-                              if (infiltrate) {
-                                 infiltrate.value -= InciteUnrestCost;
-                              }
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="InciteUnrest" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {TimedActions.InciteUnrest.name()}
-                     </ActionButton>
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           condition: finalizeCondition([
-                              ...timedActionConditions(
-                                 { action: "RevealElectionBacking" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              requireInfiltration(
-                                 RevealElectionSupportCost,
-                                 { consume: true },
-                                 G.save.state.playerProvince,
-                                 province,
-                                 G.save,
-                              ),
-                           ]),
-                           effect: () => {
-                              startTimedAction("RevealElectionBacking", G.save.state.playerProvince, G.save);
-                              usToThem.revealElectionBacking = G.save.state.month;
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              {usToThem.revealElectionBacking && (
-                                 <>
-                                    <div className="m10 text-green">
-                                       {$t(L.InTheUpcomingConsulElectionTheyPledgeSupportTo)}{" "}
-                                       <ul>
-                                          {Array.from(consulVotes).map((vote) => (
-                                             <li key={vote}>{G.save.state.senate.consulCandidates[vote]}</li>
-                                          ))}
-                                       </ul>
-                                    </div>
-                                    <div className="divider" />
-                                 </>
-                              )}
-                              <TimedActionDescComp action="RevealElectionBacking" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {TimedActions.RevealElectionBacking.name()}
-                     </ActionButton>
-                  </div>
-                  <div className="h1">{$t(L.GreatPowerActions)}</div>
-                  <div className="m10 col stretch g5">
-                     <ActionButton
-                        className="btn py2"
-                        action={{
-                           ...DemandTileCostCondition(G.save.state.playerProvince, province, [], G.save),
-                           effect: () => showPanel(<DemandTileModal province={province} />),
-                        }}
-                     >
-                        {$t(L.DemandATile)}
-                     </ActionButton>
-                     <ActionButton
-                        className="btn py2"
-                        action={{
-                           ...DemandTributeCostCondition(G.save.state.playerProvince, province, G.save),
-                           effect: () => showPanel(<DemandTribute province={province} />),
-                        }}
-                     >
-                        {TimedActions.DemandTribute.name()}
-                     </ActionButton>
-                     <ActionButton
-                        className="btn py2"
-                        action={{
-                           cost: { diplomatic: 50 },
-                           condition: finalizeCondition([
-                              ...timedActionConditions(
-                                 { action: "DemandElectionBacking" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              isGreatPowerCondition(G.save.state.playerProvince, G.save),
-                              isNorGreatPowerCondition(province, G.save),
-                              {
-                                 name: $t(
-                                    L.$1HasNotAlreadyPledgedWithOtherProvinces,
-                                    getProvinceName(province, G.save),
-                                 ),
-                                 value: getProvinceStat("consulVotes", province, G.save) >= 1,
-                              },
-                           ]),
-                           effect: () => {
-                              addProvinceStat("consulVotes", -1, province, G.save);
-                              addProvinceStat("consulVotes", 1, G.save.state.playerProvince, G.save);
-                              startTimedAction("DemandElectionBacking", G.save.state.playerProvince, G.save);
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="DemandElectionBacking" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {TimedActions.DemandElectionBacking.name()}
-                     </ActionButton>
-                     <ActionButton
-                        className="py2"
-                        action={{
-                           cost: { diplomatic: 50 },
-                           condition: finalizeCondition([
-                              ...timedActionConditions({ action: "Denounce" }, G.save.state.playerProvince, G.save),
-                              isGreatPowerCondition(G.save.state.playerProvince, G.save),
-                              isNorGreatPowerCondition(province, G.save),
-                           ]),
-                           effect: () => {
-                              startTimedAction("Denounce", G.save.state.playerProvince, G.save);
-                              addAttitudeModifier(
-                                 province,
-                                 G.save.state.playerProvince,
-                                 {
-                                    type: "add",
-                                    name: $t(
-                                       L.$1Denounced$2,
-                                       getProvinceName(G.save.state.playerProvince, G.save),
-                                       getProvinceName(province, G.save),
-                                    ),
-                                    value: -50,
-                                    duration: TimedActions.Denounce.duration,
-                                 },
-                                 G.save,
-                              );
-                              addModifier({
-                                 modifier: "Prestige",
-                                 type: "multiply",
-                                 name: $t(
-                                    L.$1Denounced$2,
-                                    getProvinceName(G.save.state.playerProvince, G.save),
-                                    getProvinceName(province, G.save),
-                                 ),
-                                 value: ourState.rivals.includes(province) ? 0.2 : 0.1,
-                                 duration: TimedActions.Denounce.duration,
-                                 province: G.save.state.playerProvince,
-                                 save: G.save,
-                              });
-                           },
-                        }}
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="Denounce" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        {TimedActions.Denounce.name()}
-                     </ActionButton>
-                  </div>
-               </div>
-            )}
+            <DiplomacyActions province={province} />
          </div>
       </SidebarComp>
+   );
+}
+
+function DiplomacyActions({ province }: { province: Province }): React.ReactNode {
+   const theirState = G.save.state.provinces[province];
+   if (!theirState) {
+      return null;
+   }
+   const ourState = G.save.state.provinces[G.save.state.playerProvince];
+   if (!ourState) {
+      return null;
+   }
+   const usToThem = getRelation(G.save.state.playerProvince, province, G.save);
+   if (!usToThem) {
+      return null;
+   }
+   const themToUs = getRelation(province, G.save.state.playerProvince, G.save);
+   if (!themToUs) {
+      return null;
+   }
+   const consulVotes = G.save.state.senate.votes.get(province) ?? new Set<number>();
+   return (
+      <div className="box m10" style={{ width: DiplomacyActionWidth, marginLeft: 0 }}>
+         <div className="m10 col stretch g5">
+            <FloatingTip label={$t(L.WeWillConfirmDeclaringWarInTheNextScreen)}>
+               <button
+                  id={`DiplomacyPage_DeclareWar_${province}`}
+                  className="btn py2 red"
+                  onClick={() => {
+                     showPanel(<DeclareWarPage province={province} />);
+                  }}
+               >
+                  {$t(L.DeclareWar)}
+               </button>
+            </FloatingTip>
+         </div>
+         <div className="h1 row">
+            <div className="f1">{$t(L.Treaties)}</div>
+            <FloatingTip
+               fixedWidth
+               label={
+                  <>
+                     <div className="text-sm">{$t(L.ObligationOfOtherPartyInCaseOfWar)}</div>
+                     <div className="h10" />
+                     <AllianceTableComp />
+                  </>
+               }
+            >
+               <div className="mi sm">info</div>
+            </FloatingTip>
+         </div>
+         <div className="m10 col stretch g5">
+            <TreatyActionButton
+               ourProvince={G.save.state.playerProvince}
+               theirProvince={province}
+               treaty="DefensePact"
+            />
+            <TreatyActionButton ourProvince={G.save.state.playerProvince} theirProvince={province} treaty="Alliance" />
+            <TreatyActionButton ourProvince={G.save.state.playerProvince} theirProvince={province} treaty="Patron" />
+         </div>
+         <div className="h1">{$t(L.RelationsActions)}</div>
+         <div className="m10 col stretch g5">
+            <RelationsActionButton
+               province={province}
+               isDoingTooltip={html($t(L.CancellingImproveRelationsFreesADiplomat))}
+               tooltip={(element) => {
+                  const rate = getImproveRelationsRate(province, G.save);
+                  return (
+                     <>
+                        <div className="m10">
+                           {$t(
+                              L.ImprovingRelationsIncreasesAttitudeBy$1PerMonthMax$2,
+                              formatNumber(rate.value),
+                              MaxImprovedRelations,
+                           )}
+                        </div>
+                        <div className="h2">{Modifiers.ImproveRelationsRate.name()}</div>
+                        <BreakdownComp breakdown={rate} />
+                        {element}
+                     </>
+                  );
+               }}
+               isDoingFunc={isImprovingRelations}
+               cancelFunc={cancelImproveRelations}
+               canDoFunc={canImproveRelations}
+               doFunc={improveRelations}
+               doLabel={$t(L.ImproveRelations)}
+               cancelLabel={$t(L.CancelImproveRelations)}
+            />
+            <button
+               className="btn py2"
+               onClick={() => showPanel(<LookForSpouseModal family={ourState.governor} province={province} />)}
+            >
+               {$t(L.OfferMarriage)}
+            </button>
+            <button className="btn py2" onClick={() => showPanel(<TradeModal provinces={new Set([province])} />)}>
+               {$t(L.TradeGoods)}
+            </button>
+            <ActionButton
+               className="py2"
+               action={{
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "GuaranteeDefense" }, G.save.state.playerProvince, G.save),
+                     isWithinDiplomaticRange(G.save.state.playerProvince, province, G.save),
+                     {
+                        name: $t(L.WeAreNotAtWarWithThem),
+                        value: getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
+                     },
+                     {
+                        name: $t(L.WeHaventGuaranteedTheirDefense),
+                        value: usToThem.guaranteeDefense === undefined,
+                     },
+                     {
+                        name: $t(L.WeHaveNoTreatyWithThem),
+                        value: usToThem.treaty === undefined,
+                     },
+                     requireHigherPrestige(G.save.state.playerProvince, province, 1, G.save),
+                  ]),
+                  effect: () => {
+                     startTimedAction("GuaranteeDefense", G.save.state.playerProvince, G.save);
+                     addAttitudeModifier(
+                        province,
+                        G.save.state.playerProvince,
+                        {
+                           type: "add",
+                           name: $t(L.GuaranteedDefenseBy$1, getProvinceName(G.save.state.playerProvince, G.save)),
+                           value: 50,
+                           duration: TimedActions.GuaranteeDefense.duration,
+                        },
+                        G.save,
+                     );
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="GuaranteeDefense" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.GuaranteeDefense.name()}
+            </ActionButton>
+            <ActionButton
+               className="py2"
+               action={{
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "DeterAggression" }, G.save.state.playerProvince, G.save),
+                     isWithinDiplomaticRange(G.save.state.playerProvince, province, G.save),
+                     {
+                        name: $t(L.WeHaventAlreadyDeterredTheirAggression),
+                        value: usToThem.deterAggression === undefined,
+                     },
+                     requireHigherPrestige(G.save.state.playerProvince, province, 1, G.save),
+                     {
+                        name: $t(L.TheyAreNotAClientOfAnotherProvince),
+                        value: !isClientOfAnyProvince(province, G.save),
+                     },
+                  ]),
+                  effect: () => {
+                     startTimedAction("DeterAggression", G.save.state.playerProvince, G.save);
+                     usToThem.deterAggression = G.save.state.month;
+                     addModifier({
+                        modifier: "Prestige",
+                        type: "multiply",
+                        name: $t(L.Deterred$1sAggression, getProvinceName(province, G.save)),
+                        value: ourState.rivals.includes(province) ? 0.2 : 0.1,
+                        duration: TimedActions.DeterAggression.duration,
+                        province: G.save.state.playerProvince,
+                        save: G.save,
+                     });
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="DeterAggression" />
+                     {element}
+                  </>
+               )}
+            >
+               {$t(L.DeterAggression)}
+            </ActionButton>
+            <ActionButton
+               className="py2"
+               action={{
+                  cost: { gold: getTotalUpgrades(province, G.save) * TimedActions.SendAGift.duration },
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "SendAGift" }, G.save.state.playerProvince, G.save),
+                  ]),
+                  effect: () => {
+                     startTimedAction("SendAGift", G.save.state.playerProvince, G.save);
+                     addAttitudeModifier(
+                        province,
+                        G.save.state.playerProvince,
+                        {
+                           type: "add",
+                           name: $t(L.ReceivedAGiftFrom$1, getProvinceName(G.save.state.playerProvince, G.save)),
+                           value: 25,
+                           duration: TimedActions.SendAGift.duration,
+                        },
+                        G.save,
+                     );
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="SendAGift" />
+                     {element}
+                  </>
+               )}
+            >
+               {$t(L.SendAGift)}
+            </ActionButton>
+            <ActionButton
+               className="py2"
+               action={{
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "ProclaimCrusade" }, G.save.state.playerProvince, G.save),
+                     {
+                        name: $t(L.OurReligionIsChristianity),
+                        value: ourState.religion === "Christianity",
+                     },
+                     {
+                        name: $t(L.TheirReligionIsNotChristianity),
+                        value: theirState.religion !== "Christianity",
+                     },
+                  ]),
+                  effect: () => {
+                     startTimedAction("ProclaimCrusade", G.save.state.playerProvince, G.save);
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="ProclaimCrusade" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.ProclaimCrusade.name()}
+            </ActionButton>
+         </div>
+         {getPatrons(province, G.save).includes(G.save.state.playerProvince) && (
+            <>
+               <div className="h1">{$t(L.ClientActions)}</div>
+               <div className="m10 col stretch g5">
+                  <ActionButton
+                     className="py2"
+                     action={{
+                        condition: finalizeCondition([
+                           ...timedActionConditions({ action: "SummonGovernor" }, G.save.state.playerProvince, G.save),
+                           {
+                              name: $t(L.TheyAreOurClient),
+                              value:
+                                 getRelation(G.save.state.playerProvince, province, G.save)?.treaty?.type ===
+                                    "Patron" &&
+                                 getRelation(province, G.save.state.playerProvince, G.save)?.treaty?.type === "Client",
+                           },
+                           {
+                              name: $t(L.WeAreNotAtWarWithThem),
+                              value: getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
+                           },
+                        ]),
+                        effect: () => {
+                           startTimedAction("SummonGovernor", G.save.state.playerProvince, G.save);
+                           addModifier({
+                              modifier: "Prestige",
+                              type: "multiply",
+                              name: $t(
+                                 L.$1Summoned$2sGovernor,
+                                 getProvinceName(G.save.state.playerProvince, G.save),
+                                 getProvinceName(province, G.save),
+                              ),
+                              value: 0.1,
+                              duration: TimedActions.SummonGovernor.duration,
+                              province: G.save.state.playerProvince,
+                              save: G.save,
+                           });
+                           addModifier({
+                              modifier: "Prestige",
+                              type: "multiply",
+                              name: $t(
+                                 L.$1Summoned$2sGovernor,
+                                 getProvinceName(province, G.save),
+                                 getProvinceName(G.save.state.playerProvince, G.save),
+                              ),
+                              value: -0.1,
+                              duration: TimedActions.SummonGovernor.duration,
+                              province: province,
+                              save: G.save,
+                           });
+                        },
+                     }}
+                     tooltip={(element) => (
+                        <>
+                           <TimedActionDescComp action="SummonGovernor" />
+                           {element}
+                        </>
+                     )}
+                  >
+                     {TimedActions.SummonGovernor.name()}
+                  </ActionButton>
+                  <ActionButton
+                     className="py2"
+                     action={{
+                        condition: finalizeCondition([
+                           ...timedActionConditions(
+                              { action: "RequestMilitaryAid" },
+                              G.save.state.playerProvince,
+                              G.save,
+                           ),
+                           {
+                              name: $t(L.TheyAreOurClient),
+                              value: usToThem.treaty?.type === "Patron" && themToUs.treaty?.type === "Client",
+                           },
+                           {
+                              name: $t(L.WeAreNotAtWarWithThem),
+                              value: getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
+                           },
+                        ]),
+                        effect: () => {
+                           startTimedAction("RequestMilitaryAid", G.save.state.playerProvince, G.save);
+                           addModifier({
+                              modifier: "WarPower",
+                              type: "multiply",
+                              name: $t(
+                                 L.$1RequestedMilitaryAidFrom$2,
+                                 getProvinceName(G.save.state.playerProvince, G.save),
+                                 getProvinceName(province, G.save),
+                              ),
+                              value: 0.1,
+                              duration: TimedActions.RequestMilitaryAid.duration,
+                              province: G.save.state.playerProvince,
+                              save: G.save,
+                           });
+                           addModifier({
+                              modifier: "WarPower",
+                              type: "multiply",
+                              name: $t(
+                                 L.$1RequestedMilitaryAidFrom$2,
+                                 getProvinceName(G.save.state.playerProvince, G.save),
+                                 getProvinceName(province, G.save),
+                              ),
+                              value: -0.1,
+                              duration: TimedActions.RequestMilitaryAid.duration,
+                              province: province,
+                              save: G.save,
+                           });
+                        },
+                     }}
+                     tooltip={(element) => (
+                        <>
+                           <TimedActionDescComp action="RequestMilitaryAid" />
+                           {element}
+                        </>
+                     )}
+                  >
+                     {TimedActions.RequestMilitaryAid.name()}
+                  </ActionButton>
+                  <ActionButton
+                     className="py2"
+                     action={{
+                        cost: getAnnexClientCost(G.save.state.playerProvince, province, G.save),
+                        condition: finalizeCondition([
+                           ...timedActionConditions({ action: "AnnexClient" }, G.save.state.playerProvince, G.save),
+                           {
+                              name: $t(L.TheyAreOurClient),
+                              value: usToThem.treaty?.type === "Patron" && themToUs.treaty?.type === "Client",
+                           },
+                           {
+                              name: $t(L.WeAreNotAtWarWithThem),
+                              value: getWarsBetween(G.save.state.playerProvince, province, G.save).length === 0,
+                           },
+                        ]),
+                        effect: () => {
+                           startTimedAction("AnnexClient", G.save.state.playerProvince, G.save);
+                           const tiles = new Set<Tile>();
+                           for (const [tile, data] of G.save.state.tiles) {
+                              if (data.province === province) {
+                                 data.province = G.save.state.playerProvince;
+                                 tiles.add(tile);
+                              }
+                           }
+                           RefreshTiles.emit({ tiles, options: { indicator: true, visual: true } });
+                        },
+                     }}
+                     tooltip={(element) => (
+                        <>
+                           <TimedActionDescComp action="AnnexClient" />
+                           {element}
+                           <div className="h2">{Modifiers.AnnexCostDiscount.name()}</div>
+                           <BreakdownComp
+                              breakdown={getAnnexCostDiscount(G.save.state.playerProvince, province, G.save)}
+                              formatFunc={formatPercent}
+                           />
+                        </>
+                     )}
+                  >
+                     {TimedActions.AnnexClient.name()}
+                  </ActionButton>
+               </div>
+            </>
+         )}
+         <div className="h1">{$t(L.CovertActions)}</div>
+         <div className="m10 col stretch g5">
+            <RelationsActionButton
+               province={province}
+               isDoingTooltip={html($t(L.CancellingInfiltrateFreesADiplomat))}
+               tooltip={(element) => {
+                  const rate = getInfiltrationRate(province, G.save);
+                  return (
+                     <>
+                        <div className="m10">
+                           {html($t(L.InfiltratingProvinceIncreasesInfiltrationBy$1PerMonth, formatNumber(rate.value)))}
+                        </div>
+                        <div className="h2">{Modifiers.InfiltrationRate.name()}</div>
+                        <BreakdownComp breakdown={rate} />
+                        {element}
+                     </>
+                  );
+               }}
+               isDoingFunc={isInfiltrating}
+               cancelFunc={cancelInfiltration}
+               canDoFunc={canInfiltrate}
+               doFunc={infiltrate}
+               doLabel={$t(L.Infiltrate)}
+               doId={`DiplomacyPage_Infiltrate_${province}`}
+               cancelLabel={$t(L.CancelInfiltrate)}
+            />
+            <ActionButton
+               className="py2"
+               action={{
+                  cost: { gold: getTotalUpgrades(province, G.save) * 3 },
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "FabricateCasusBelli" }, G.save.state.playerProvince, G.save),
+                     requireInfiltration(
+                        FabricateCasusBelliCost,
+                        { consume: true },
+                        G.save.state.playerProvince,
+                        province,
+                        G.save,
+                     ),
+                     {
+                        name: $t(L.NoDiplomaticDisputeCasusBelliYet),
+                        value: !usToThem.casusBelli.has("DiplomaticDispute"),
+                     },
+                  ]),
+                  effect: () => {
+                     if (tryUseInfiltration(FabricateCasusBelliCost, G.save.state.playerProvince, province, G.save)) {
+                        startTimedAction("FabricateCasusBelli", G.save.state.playerProvince, G.save);
+                        usToThem.casusBelli.set("DiplomaticDispute", {
+                           monthsLeft: TimedActions.FabricateCasusBelli.duration,
+                        });
+                     }
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="FabricateCasusBelli" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.FabricateCasusBelli.name()}
+            </ActionButton>
+            <ActionButton
+               className="py2"
+               action={{
+                  cost: { gold: getTotalUpgrades(province, G.save) * 6 },
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "UndermineTheirArmy" }, G.save.state.playerProvince, G.save),
+                     requireInfiltration(
+                        UndermineArmyCost,
+                        { consume: true },
+                        G.save.state.playerProvince,
+                        province,
+                        G.save,
+                     ),
+                  ]),
+                  effect: () => {
+                     addModifier({
+                        modifier: "WarPower",
+                        type: "multiply",
+                        name: $t(L.UnderminedBy$1, getProvinceName(G.save.state.playerProvince, G.save)),
+                        value: -0.1,
+                        duration: TimedActions.UndermineTheirArmy.duration,
+                        province: province,
+                        save: G.save,
+                     });
+                     startTimedAction("UndermineTheirArmy", G.save.state.playerProvince, G.save);
+                     const infiltrate = usToThem.infiltrate;
+                     if (infiltrate) {
+                        infiltrate.value -= UndermineArmyCost;
+                     }
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="UndermineTheirArmy" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.UndermineTheirArmy.name()}
+            </ActionButton>
+            <ActionButton
+               className="py2"
+               action={{
+                  cost: { gold: getTotalUpgrades(province, G.save) * 12 },
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "CorruptOfficials" }, G.save.state.playerProvince, G.save),
+                     requireInfiltration(25, { consume: false }, G.save.state.playerProvince, province, G.save),
+                  ]),
+                  effect: () => {
+                     startTimedAction("CorruptOfficials", G.save.state.playerProvince, G.save);
+                     usToThem.infiltrate.value += 50;
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="CorruptOfficials" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.CorruptOfficials.name()}
+            </ActionButton>
+            <ActionButton
+               className="py2"
+               action={{
+                  cost: { gold: getTotalUpgrades(province, G.save) * 6 },
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "SubvertGarrison" }, G.save.state.playerProvince, G.save),
+                     requireInfiltration(
+                        SubvertGarrisonCost,
+                        { consume: true },
+                        G.save.state.playerProvince,
+                        province,
+                        G.save,
+                     ),
+                     {
+                        name: $t(L.WeShareALandBorderWithThem),
+                        value: getProvincesInRange(1, G.save.state.playerProvince, G.save).has(province),
+                     },
+                  ]),
+                  effect: () => {
+                     for (const [tile, tileData] of G.save.state.tiles) {
+                        if (
+                           tileData.province === province &&
+                           isTileBorderingProvince(tile, G.save.state.playerProvince, G.save)
+                        ) {
+                           tileData.modifiers.Defense.push({
+                              type: "multiply",
+                              name: $t(L.SubvertedBy$1, getProvinceName(G.save.state.playerProvince, G.save)),
+                              value: -0.2,
+                              duration: TimedActions.SubvertGarrison.duration,
+                           });
+                        }
+                     }
+                     startTimedAction("SubvertGarrison", G.save.state.playerProvince, G.save);
+                     const infiltrate = usToThem.infiltrate;
+                     if (infiltrate) {
+                        infiltrate.value -= SubvertGarrisonCost;
+                     }
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="SubvertGarrison" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.SubvertGarrison.name()}
+            </ActionButton>
+            <ActionButton
+               className="py2"
+               action={{
+                  cost: { gold: getTotalUpgrades(province, G.save) * 6 },
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "InciteUnrest" }, G.save.state.playerProvince, G.save),
+                     requireInfiltration(
+                        InciteUnrestCost,
+                        { consume: true },
+                        G.save.state.playerProvince,
+                        province,
+                        G.save,
+                     ),
+                     {
+                        name: $t(L.WeShareALandBorderWithThem),
+                        value: getProvincesInRange(1, G.save.state.playerProvince, G.save).has(province),
+                     },
+                  ]),
+                  effect: () => {
+                     for (const [tile, tileData] of G.save.state.tiles) {
+                        if (
+                           tileData.province === province &&
+                           isTileBorderingProvince(tile, G.save.state.playerProvince, G.save)
+                        ) {
+                           tileData.modifiers.Unrest.push({
+                              type: "add",
+                              name: $t(L.IncitedBy$1, getProvinceName(G.save.state.playerProvince, G.save)),
+                              value: 20,
+                              duration: TimedActions.InciteUnrest.duration,
+                           });
+                        }
+                     }
+                     startTimedAction("InciteUnrest", G.save.state.playerProvince, G.save);
+                     const infiltrate = usToThem.infiltrate;
+                     if (infiltrate) {
+                        infiltrate.value -= InciteUnrestCost;
+                     }
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="InciteUnrest" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.InciteUnrest.name()}
+            </ActionButton>
+            <ActionButton
+               className="py2"
+               action={{
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "RevealElectionBacking" }, G.save.state.playerProvince, G.save),
+                     requireInfiltration(
+                        RevealElectionSupportCost,
+                        { consume: true },
+                        G.save.state.playerProvince,
+                        province,
+                        G.save,
+                     ),
+                  ]),
+                  effect: () => {
+                     startTimedAction("RevealElectionBacking", G.save.state.playerProvince, G.save);
+                     usToThem.revealElectionBacking = G.save.state.month;
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     {usToThem.revealElectionBacking && (
+                        <>
+                           <div className="m10 text-green">
+                              {$t(L.InTheUpcomingConsulElectionTheyPledgeSupportTo)}{" "}
+                              <ul>
+                                 {Array.from(consulVotes).map((vote) => (
+                                    <li key={vote}>{G.save.state.senate.consulCandidates[vote]}</li>
+                                 ))}
+                              </ul>
+                           </div>
+                           <div className="divider" />
+                        </>
+                     )}
+                     <TimedActionDescComp action="RevealElectionBacking" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.RevealElectionBacking.name()}
+            </ActionButton>
+         </div>
+         <div className="h1">{$t(L.GreatPowerActions)}</div>
+         <div className="m10 col stretch g5">
+            <ActionButton
+               className="btn py2"
+               action={{
+                  ...DemandTileCostCondition(G.save.state.playerProvince, province, [], G.save),
+                  effect: () => showPanel(<DemandTileModal province={province} />),
+               }}
+            >
+               {$t(L.DemandATile)}
+            </ActionButton>
+            <ActionButton
+               className="btn py2"
+               action={{
+                  ...DemandTributeCostCondition(G.save.state.playerProvince, province, G.save),
+                  effect: () => showPanel(<DemandTribute province={province} />),
+               }}
+            >
+               {TimedActions.DemandTribute.name()}
+            </ActionButton>
+            <ActionButton
+               className="btn py2"
+               action={{
+                  cost: { diplomatic: 50 },
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "DemandElectionBacking" }, G.save.state.playerProvince, G.save),
+                     isGreatPowerCondition(G.save.state.playerProvince, G.save),
+                     isNorGreatPowerCondition(province, G.save),
+                     {
+                        name: $t(L.$1HasNotAlreadyPledgedWithOtherProvinces, getProvinceName(province, G.save)),
+                        value: getProvinceStat("consulVotes", province, G.save) >= 1,
+                     },
+                  ]),
+                  effect: () => {
+                     addProvinceStat("consulVotes", -1, province, G.save);
+                     addProvinceStat("consulVotes", 1, G.save.state.playerProvince, G.save);
+                     startTimedAction("DemandElectionBacking", G.save.state.playerProvince, G.save);
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="DemandElectionBacking" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.DemandElectionBacking.name()}
+            </ActionButton>
+            <ActionButton
+               className="py2"
+               action={{
+                  cost: { diplomatic: 50 },
+                  condition: finalizeCondition([
+                     ...timedActionConditions({ action: "Denounce" }, G.save.state.playerProvince, G.save),
+                     isGreatPowerCondition(G.save.state.playerProvince, G.save),
+                     isNorGreatPowerCondition(province, G.save),
+                  ]),
+                  effect: () => {
+                     startTimedAction("Denounce", G.save.state.playerProvince, G.save);
+                     addAttitudeModifier(
+                        province,
+                        G.save.state.playerProvince,
+                        {
+                           type: "add",
+                           name: $t(
+                              L.$1Denounced$2,
+                              getProvinceName(G.save.state.playerProvince, G.save),
+                              getProvinceName(province, G.save),
+                           ),
+                           value: -50,
+                           duration: TimedActions.Denounce.duration,
+                        },
+                        G.save,
+                     );
+                     addModifier({
+                        modifier: "Prestige",
+                        type: "multiply",
+                        name: $t(
+                           L.$1Denounced$2,
+                           getProvinceName(G.save.state.playerProvince, G.save),
+                           getProvinceName(province, G.save),
+                        ),
+                        value: ourState.rivals.includes(province) ? 0.2 : 0.1,
+                        duration: TimedActions.Denounce.duration,
+                        province: G.save.state.playerProvince,
+                        save: G.save,
+                     });
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="Denounce" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.Denounce.name()}
+            </ActionButton>
+         </div>
+      </div>
    );
 }
 

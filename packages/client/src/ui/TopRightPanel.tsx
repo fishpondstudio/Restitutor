@@ -6,7 +6,7 @@ import Steam from "../../src/assets/images/Steam.svg";
 import { DiscordUrl, SteamUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated, GameSpeedChanged, GameTimeUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
-import { getGameDate } from "../game/logic/TickLogic";
+import { getGameDate } from "../game/logic/GameDateTime";
 import { useShortcut } from "../game/Shortcut";
 import { openUrl } from "../rpc/SteamClient";
 import { G, isDev, setSpeed } from "../utils/Global";

@@ -12,7 +12,7 @@ export function SidebarComp({
          className="panel"
          style={{
             width,
-            margin: `${SidebarTopMargin} ${SidebarMargin} ${SidebarMargin} 0`,
+            margin: `${SidebarTopMargin} 0 ${SidebarMargin} ${SidebarMargin}`,
             height: `calc(100vh - calc(${SidebarTopMargin} + ${SidebarMargin}))`,
             display: "flex",
             flexDirection: "column",

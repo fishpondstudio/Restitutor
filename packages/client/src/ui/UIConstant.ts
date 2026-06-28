@@ -11,9 +11,14 @@ export const TopRightPanelMargin = "0.625rem";
 document.documentElement.style.setProperty("--top-right-panel-height", TopRightPanelHeight);
 document.documentElement.style.setProperty("--top-right-panel-margin", TopRightPanelMargin);
 
+export const ResourcePanelHeight = "4.375rem";
+export const ResourcePanelMargin = "0.625rem";
+document.documentElement.style.setProperty("--resource-panel-height", ResourcePanelHeight);
+document.documentElement.style.setProperty("--resource-panel-margin", ResourcePanelMargin);
+
 export const SidebarWidth = "25rem";
 export const SidebarWiderWidth = "33rem";
-export const SidebarTopMargin = `${Number.parseFloat(TopRightPanelHeight) + 2 * Number.parseFloat(TopRightPanelMargin)}rem`;
+export const SidebarTopMargin = `${Number.parseFloat(ResourcePanelHeight) + 2 * Number.parseFloat(ResourcePanelMargin)}rem`;
 export const SidebarMargin = "0.625rem";
 
 export const HeaderHeight = "2.25rem";

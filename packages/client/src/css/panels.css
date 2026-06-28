@@ -1,35 +1,37 @@
 .box {
-   border: 0.0625rem solid var(--mantine-color-dark-3);
+   position: relative;
+   border: 0.0625rem solid rgba(255, 255, 255, 0.15);
    border-radius: var(--mantine-radius-default);
+   box-shadow:
+      inset 0 0 0 0.0625rem rgba(0, 0, 0, 0.75),
+      inset 0 0.5rem 0.75rem rgba(0, 0, 0, 0.1),
+      inset 0 -0.5rem 0.75rem rgba(255, 255, 255, 0.05);
+
+   background: url("../assets/images/Background10.webp");
+
+   &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.25));
+   }
 
    &.blue {
-      border: 0.0625rem solid var(--mantine-color-blue-4);
+      border: 0.0625rem solid color-mix(in srgb, var(--mantine-color-blue-4) 30%, transparent);
    }
    &.green {
-      border: 0.0625rem solid var(--mantine-color-green-4);
+      border: 0.0625rem solid color-mix(in srgb, var(--mantine-color-green-4) 30%, transparent);
    }
    &.red {
-      border: 0.0625rem solid var(--mantine-color-red-4);
+      border: 0.0625rem solid color-mix(in srgb, var(--mantine-color-red-4) 30%, transparent);
    }
    &.primary {
-      border: 0.0625rem solid var(--mantine-primary-color-4);
+      border: 0.0625rem solid color-mix(in srgb, var(--mantine-primary-color-4) 30%, transparent);
    }
    &.yellow {
-      border: 0.0625rem solid var(--mantine-color-yellow-4);
-   }
-   > .h1:first-child,
-   > .h2:first-child {
-      background:
-         linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.3) 100%) bottom / 100%
-         0.125rem no-repeat,
-         url("../assets/images/H1Dark.svg"),
-         linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-   }
-   > .h3:first-child {
-      background:
-         linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.3) 100%) bottom / 100%
-         0.0625rem no-repeat,
-         linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+      border: 0.0625rem solid color-mix(in srgb, var(--mantine-color-yellow-4) 30%, transparent);
    }
 }
 
@@ -115,16 +117,18 @@
 
    .h1,
    .h2 {
+      --header-border-top-size: 0.0625rem;
+      --header-border-bottom-size: 0.125rem;
       background:
          linear-gradient(
             to right,
             rgba(255, 255, 255, 0.1) 0%,
-            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0.2) 50%,
             rgba(255, 255, 255, 0.1) 100%
          )
-         top / 100% 0.0625rem no-repeat,
+         top / 100% var(--header-border-top-size) no-repeat,
          linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.3) 100%) bottom / 100%
-         0.125rem no-repeat,
+         var(--header-border-bottom-size) no-repeat,
          url("../assets/images/H1Dark.svg"),
          linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
       padding: 0.3125rem 0.625rem;
@@ -141,16 +145,18 @@
    .h3 {
       padding: 0.3125rem 0.625rem;
       font-size: 0.9375rem;
+      --header-border-top-size: 0.0625rem;
+      --header-border-bottom-size: 0.0625rem;
       background:
          linear-gradient(
             to right,
             rgba(255, 255, 255, 0.1) 0%,
-            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0.2) 50%,
             rgba(255, 255, 255, 0.1) 100%
          )
-         top / 100% 0.0625rem no-repeat,
+         top / 100% var(--header-border-top-size) no-repeat,
          linear-gradient(to right, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.3) 100%) bottom / 100%
-         0.0625rem no-repeat,
+         var(--header-border-bottom-size) no-repeat,
          linear-gradient(to bottom, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
       color: var(--mantine-color-gray-0);
       text-shadow: 0.0625rem 0.0625rem 0 var(--mantine-color-dark-5);
@@ -158,14 +164,10 @@
    }
 }
 
-:root {
-   --resource-panel-height: 4.375rem;
-}
-
 .resource-panel {
    position: absolute;
-   top: 0.625rem;
-   left: 0.625rem;
+   top: var(--resource-panel-margin);
+   left: var(--resource-panel-margin);
    font-size: var(--mantine-font-size-sm);
    color: var(--mantine-color-gray-0);
    text-shadow: 0.0625rem 0.0625rem 0 var(--mantine-color-gray-9);
@@ -176,10 +178,10 @@
    }
 }
 
-.left-panel {
+.todo-panel {
    position: absolute;
-   top: calc(0.625rem + var(--resource-panel-height) + 0.625rem);
-   left: 0.625rem;
+   top: calc(0.625rem + var(--top-right-panel-height) + 0.625rem);
+   right: 0.625rem;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -296,5 +298,5 @@
    width: 25rem;
    position: absolute;
    bottom: 0.625rem;
-   left: 0.625rem;
+   right: 0.625rem;
 }

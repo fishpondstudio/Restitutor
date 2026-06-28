@@ -1,6 +1,7 @@
 import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
-import { randOne, type Tile } from "@project/shared/src/utils/Helper";
+import { clamp, randOne, type Tile } from "@project/shared/src/utils/Helper";
 import { Container, Sprite, type Texture } from "pixi.js";
+import type { Province } from "../game/definitions/Province";
 import type { Terrain } from "../game/definitions/Terrain";
 import { MapBackgroundColors, MapColorsH, MapForegroundColors } from "../game/logic/MapLogic";
 import { isCapital } from "../game/logic/TileLogic";
@@ -12,6 +13,7 @@ let TerrainTextures: Record<Terrain, (Texture | undefined)[]> | undefined;
 export class TileVisual extends Container {
    private _background: Sprite;
    private _terrain: Sprite;
+   private _province: Province | undefined;
 
    constructor(tile: Tile) {
       super();
@@ -24,9 +26,10 @@ export class TileVisual extends Container {
       this._background.alpha = 1;
 
       const tileData = G.save.state.tiles.get(tile);
-      const province = tileData?.province;
-      if (province) {
-         this._background.tint = MapBackgroundColors[province];
+      this._province = tileData?.province;
+
+      if (this._province) {
+         this._background.tint = MapBackgroundColors[this._province];
       }
 
       const terrain = tileData?.terrain ?? "Plain";
@@ -50,8 +53,8 @@ export class TileVisual extends Container {
 
       const textures = TerrainTextures[terrain];
       this._terrain = this.addChild(new Sprite(randOne(textures)));
-      if (province) {
-         this._terrain.tint = hslToRgb(MapColorsH[province], 30, 40);
+      if (this._province) {
+         this._terrain.tint = hslToRgb(MapColorsH[this._province], 30, 40);
       }
 
       if (isCapital(tile, G.save)) {
@@ -59,11 +62,22 @@ export class TileVisual extends Container {
          star.anchor.set(0.5, 0.5);
          star.scale.set(0.5);
          star.position.set(0, textureHeight / 3);
-         if (province) {
-            star.tint = MapForegroundColors[province];
+         if (this._province) {
+            star.tint = MapForegroundColors[this._province];
          }
       }
 
       this._terrain.anchor.set(0.5, 0.5);
+   }
+
+   public onZoomed(zoom: number, [minZoom, maxZoom]: [number, number]): void {
+      if (this._province) {
+         const factor = (zoom - minZoom) / (maxZoom - minZoom);
+         this._terrain.tint = hslToRgb(
+            MapColorsH[this._province],
+            clamp(100 * factor, 0, 100),
+            clamp(50 - 25 * factor, 0, 100),
+         );
+      }
    }
 }

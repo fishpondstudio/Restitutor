@@ -5,10 +5,12 @@ import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { attachModifiers } from "../logic/ModifierLogic";
+import { isSocialClassDisloyal, isSocialClassDominant } from "../logic/SocialClassLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
 import { LegacyUpgrades } from "./LegacyUpgrade";
 import type { Province } from "./Province";
 import { ProvinceUpgrades } from "./ProvinceUpgrades";
+import { SocialClass } from "./SocialClass";
 import { Tech } from "./Tech";
 import { TimedActions } from "./TimedAction";
 
@@ -168,6 +170,26 @@ export const Modifiers = {
       name: () => $t(L.AnnexCostDiscount),
       desc: () => $t(L.ModifierAnnexCostDiscountDesc),
    },
+   UpperClassInfluenceYearly: {
+      name: () => $t(L.UpperClassInfluenceYearly),
+      desc: () => $t(L.UpperClassInfluenceYearlyDesc),
+   },
+   MiddleClassInfluenceYearly: {
+      name: () => $t(L.MiddleClassInfluenceYearly),
+      desc: () => $t(L.MiddleClassInfluenceYearlyDesc),
+   },
+   LowerClassInfluenceYearly: {
+      name: () => $t(L.LowerClassInfluenceYearly),
+      desc: () => $t(L.LowerClassInfluenceYearlyDesc),
+   },
+   ReligiousClassInfluenceYearly: {
+      name: () => $t(L.ReligiousClassInfluenceYearly),
+      desc: () => $t(L.ReligiousClassInfluenceYearlyDesc),
+   },
+   MilitaryClassInfluenceYearly: {
+      name: () => $t(L.MilitaryClassInfluenceYearly),
+      desc: () => $t(L.MilitaryClassInfluenceYearlyDesc),
+   },
 } as const satisfies Record<string, IModifierDefinition>;
 
 export type Modifier = keyof typeof Modifiers;
@@ -258,6 +280,28 @@ GameStateUpdated.on(() => {
                   value,
                   name: config.name(),
                   timeLeft,
+               });
+            });
+         }
+      });
+      forEach(SocialClass, (socialClass, data) => {
+         if (isSocialClassDominant(socialClass, province, G.save)) {
+            forEach(data.dominant, (modifier, data) => {
+               const { type, value } = data;
+               safePush(state.dynamicModifiers, modifier, {
+                  type,
+                  value,
+                  name: $t(L.$1ClassIsDominant, SocialClass[socialClass].name()),
+               });
+            });
+         }
+         if (isSocialClassDisloyal(socialClass, province, G.save)) {
+            forEach(data.disloyal, (modifier, data) => {
+               const { type, value } = data;
+               safePush(state.dynamicModifiers, modifier, {
+                  type,
+                  value,
+                  name: $t(L.$1ClassIsDisloyal, SocialClass[socialClass].name()),
                });
             });
          }

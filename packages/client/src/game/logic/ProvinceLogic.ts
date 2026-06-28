@@ -1,6 +1,5 @@
 import {
    entriesOf,
-   filterInPlace,
    forEach,
    formatDelta,
    formatNumber,
@@ -16,7 +15,6 @@ import {
 import { $t, L } from "../../utils/i18n";
 import type { ICondition, IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
-import { NegotiateWhitePeaceAction } from "../actions/NegotiateWhitePeaceAction";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import { Buildings } from "../definitions/Building";
 import { Goods, Price } from "../definitions/Goods";
@@ -40,7 +38,6 @@ import {
    type TradeOfferBase,
 } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
-import { SocialClasses, SocialClassNames } from "../definitions/SocialClass";
 import type { ITileConfig } from "../definitions/Tile";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
@@ -51,7 +48,6 @@ import { getAttitudeTowards, getRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
 import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
 import { attachModifiers } from "./ModifierLogic";
-import { isSocialClassDissent, SocialClassDissentEffectPct } from "./SocialClassLogic";
 import {
    getTileGoodsTax,
    getTileGoverningCost,
@@ -238,7 +234,7 @@ export function getProvinceCoreTileCount(province: Province, save: SaveGame): nu
    return count;
 }
 
-export function getProvinceUpgrade(province: Province, save: SaveGame): number {
+export function getTotalUpgrades(province: Province, save: SaveGame): number {
    let upgrade = 0;
    for (const [tile, data] of save.state.tiles) {
       if (data.province === province) {
@@ -252,7 +248,7 @@ export function getProvinceUpgrade(province: Province, save: SaveGame): number {
 
 export function getProvincePrestige(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
-   breakdown.add.push({ name: $t(L.TileUpgrades), value: getProvinceUpgrade(province, save) });
+   breakdown.add.push({ name: $t(L.TileUpgrades), value: getTotalUpgrades(province, save) });
    attachModifiers("Prestige", breakdown, province, save);
    getProvinceTraits("Distinguished", province, save).forEach((trait) => {
       breakdown.multiply.push({ ...trait, value: 0.02 });
@@ -262,37 +258,15 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
 
 export function getProvinceStability(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
-   if (isSocialClassDissent("UpperClass", province, save)) {
-      breakdown.add.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.UpperClass()),
-         value: SocialClassDissentEffectPct * 100,
-      });
-   }
-   if (isSocialClassDissent("MiddleClass", province, save)) {
-      breakdown.add.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.MiddleClass()),
-         value: SocialClassDissentEffectPct * 100,
-      });
-   }
-   if (isSocialClassDissent("LowerClass", province, save)) {
-      breakdown.add.push({
-         name: $t(L.$1ClassDissent, SocialClassNames.LowerClass()),
-         value: SocialClassDissentEffectPct * 100,
-      });
-   }
-
    const overextension = getProvinceOverextension(province, save).value;
    if (overextension > 0) {
       breakdown.add.push({ name: $t(L.FromOverextension), value: -overextension });
    }
-
    attachModifiers("Stability", breakdown, province, save);
    getProvinceTraits("Calm", province, save).forEach((trait) => {
       breakdown.add.push({ ...trait, value: 2 });
    });
-
    const wars = getCurrentWars(province, save);
-
    for (const war of wars) {
       if (war.attacker === province) {
          // Here we should use `war.log.length`, instead of `war.log.length + 1`. Check the implementation of `calculateWarTotalStability`.
@@ -304,7 +278,6 @@ export function getProvinceStability(province: Province, save: SaveGame): IValue
          });
       }
    }
-
    return finalizeBreakdown(breakdown);
 }
 
@@ -524,16 +497,6 @@ export function initProvince(province: Province): IProvince {
          resources: {},
       },
       completedMissions: new Set(),
-      socialClasses: fromEntries(
-         SocialClasses.map((socialClass) => [
-            socialClass,
-            {
-               loyalty: 50,
-               influence: 50,
-               dissent: 0,
-            },
-         ]),
-      ),
       tradeOffers: [],
       flags: ProvinceFlags.None,
       monthly: {
@@ -989,32 +952,6 @@ export function getAnnexedTiles(toAnnex: Province, ourProvince: Province, save: 
       }
    }
    return [annexed, total];
-}
-
-// This function should remove `province` and clean up all references to it from `SaveGame`
-export function cleanUpProvince(province: Province, save: SaveGame): void {
-   forEach(save.state.provinces, (otherProvince, state) => {
-      if (otherProvince === province) {
-         return;
-      }
-      getRelations(otherProvince, save)?.delete(province);
-      for (let i = 0; i < state.rivals.length; i++) {
-         if (state.rivals[i] === province) {
-            state.rivals[i] = null;
-         }
-      }
-   });
-   filterInPlace(save.state.wars, (war) => {
-      if (war.attacker === province || war.defender === province) {
-         NegotiateWhitePeaceAction(war, province, save).effect({ headless: true });
-         return false;
-      }
-      war.coAttackers.delete(province);
-      war.coDefenders.delete(province);
-      return true;
-   });
-   delete save.state.provinces[province];
-   clearProvincePrestigeRankingCache();
 }
 
 export function getRestoration(province: Province, save: SaveGame): number {

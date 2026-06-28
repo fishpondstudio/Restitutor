@@ -22,11 +22,9 @@ import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { getTileWar } from "../game/logic/TileLogic";
 import { MapGrid, TileHeight } from "../game/MapGrid";
 import { showPanel } from "../ui/common/ShowPanel";
-import { remToPx } from "../ui/common/UIScaling";
 import { DiplomacyPage } from "../ui/DiplomacyPage";
 import { EditTilePage } from "../ui/EditTilePage";
 import { TilePage } from "../ui/TilePage";
-import { SidebarWidth } from "../ui/UIConstant";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
 import { G, GameFlags, isDev } from "../utils/Global";
@@ -52,6 +50,7 @@ export class WorldScene extends Scene {
    private _staticOutline: SmoothGraphics;
    private _dynamicOutline: SmoothGraphics;
    private _landTiles: Set<number>;
+   private _lastZoom = 0;
    private _clickTileHandler: ((tile: Tile, e: FederatedPointerEvent) => void) | undefined;
    private readonly _isEditor: boolean;
 
@@ -90,7 +89,8 @@ export class WorldScene extends Scene {
          app.screen.width / this.viewport.worldWidth,
          app.screen.height / this.viewport.worldHeight,
       );
-      this.viewport.zoom = (minZoom + 1) / 4;
+      this._lastZoom = (minZoom + 1) / 4;
+      this.viewport.zoom = this._lastZoom;
       this.viewport.setZoomRange(minZoom, 1);
 
       this._landTiles = new Set<Tile>(Land);
@@ -220,7 +220,8 @@ export class WorldScene extends Scene {
    public lookAt(tile: Tile, { time }: { time: number }): Promise<WorldScene> {
       return new Promise((resolve) => {
          const position = MapGrid.gridToPosition(tileToPoint(tile));
-         position.x += marginX + remToPx(SidebarWidth) / 2 / this.viewport.zoom;
+         // position.x += marginX + remToPx(SidebarWidth) / 2 / this.viewport.zoom;
+         position.x += marginX;
          if (time > 0) {
             sequence(
                CustomAction.createPoint(
@@ -257,6 +258,12 @@ export class WorldScene extends Scene {
       if (this._indicatorContainer.children.length > 0) {
          this._indicatorContainer.alpha = Math.sin(Math.PI * 2 * time) * 0.5 + 0.5;
          time += unscaled;
+      }
+      if (this._lastZoom !== this.viewport.zoom) {
+         this._lastZoom = this.viewport.zoom;
+         for (const [tile, visual] of this._tileMap) {
+            visual.onZoomed(this.viewport.zoom, this.viewport.getZoomRange());
+         }
       }
    }
 

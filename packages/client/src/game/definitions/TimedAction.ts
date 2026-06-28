@@ -2,7 +2,7 @@ import { EmptyString } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { finalizeCondition, type IGameCostCondition } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
-import { getProvinceUpgrade } from "../logic/ProvinceLogic";
+import { getTotalUpgrades } from "../logic/ProvinceLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
 import { onGeneralEnded } from "../logic/WarLogic";
 import { Price } from "./Goods";
@@ -61,7 +61,7 @@ class TimedActionDefinitions {
       cooldown: 24,
       costCondition: (province, save) => {
          return {
-            cost: { gold: getProvinceUpgrade(province, save) * 12 },
+            cost: { gold: getTotalUpgrades(province, save) * 12 },
          };
       },
       modifiers: {
@@ -74,7 +74,7 @@ class TimedActionDefinitions {
       duration: 12,
       costCondition: (province, save) => {
          return {
-            cost: { bread: (getProvinceUpgrade(province, save) * 12) / Price.bread },
+            cost: { bread: (getTotalUpgrades(province, save) * 12) / Price.bread },
          };
       },
       modifiers: {
@@ -87,7 +87,7 @@ class TimedActionDefinitions {
       cooldown: 24,
       costCondition: (province, save) => {
          return {
-            cost: { cheese: (getProvinceUpgrade(province, save) * 12) / Price.cheese },
+            cost: { cheese: (getTotalUpgrades(province, save) * 12) / Price.cheese },
          };
       },
       modifiers: {
@@ -100,7 +100,7 @@ class TimedActionDefinitions {
       cooldown: 24,
       costCondition: (province, save) => {
          return {
-            cost: { armor: (getProvinceUpgrade(province, save) * 12) / Price.armor },
+            cost: { armor: (getTotalUpgrades(province, save) * 12) / Price.armor },
          };
       },
       modifiers: {
@@ -113,7 +113,7 @@ class TimedActionDefinitions {
       cooldown: 24,
       costCondition: (province, save) => {
          return {
-            cost: { weapon: (getProvinceUpgrade(province, save) * 12) / Price.weapon },
+            cost: { weapon: (getTotalUpgrades(province, save) * 12) / Price.weapon },
          };
       },
       modifiers: {
@@ -419,7 +419,7 @@ class TimedActionDefinitions {
       cooldown: 24,
       costCondition: (province, save) => {
          return {
-            cost: { administrative: getProvinceUpgrade(province, save) },
+            cost: { administrative: getTotalUpgrades(province, save) },
          };
       },
       modifiers: {
@@ -432,7 +432,7 @@ class TimedActionDefinitions {
       cooldown: 24,
       costCondition: (province, save) => {
          return {
-            cost: { garments: (getProvinceUpgrade(province, save) * 12) / Price.garments },
+            cost: { garments: (getTotalUpgrades(province, save) * 12) / Price.garments },
          };
       },
       modifiers: {
@@ -445,7 +445,7 @@ class TimedActionDefinitions {
       cooldown: 24,
       costCondition: (province, save) => {
          return {
-            cost: { gold: getProvinceUpgrade(province, save) * 12 },
+            cost: { gold: getTotalUpgrades(province, save) * 12 },
          };
       },
       modifiers: {
@@ -518,12 +518,6 @@ class TimedActionDefinitions {
       duration: 0,
       cooldown: 12,
    };
-   CurryFavor: ITimedAction = {
-      name: () => $t(L.CurryFavor),
-      desc: () => $t(L.TimedActionCurryFavorDesc$1$2, "20", "20"),
-      duration: 0,
-      cooldown: 12 * 2,
-   };
    TradeGoods: ITimedAction = {
       name: () => $t(L.TradeGoods),
       duration: 12 * 5,
@@ -546,6 +540,23 @@ class TimedActionDefinitions {
       name: () => EmptyString,
       duration: 0,
       cooldown: 12 * 5,
+   };
+   GrantSocialClassBonus: ITimedAction = {
+      name: () => EmptyString,
+      duration: 12 * 5,
+      cooldown: 12 * 5,
+   };
+   SocialClassFavor: ITimedAction = {
+      name: () => $t(L.SocialClassFavor),
+      desc: () => $t(L.SocialClassFavorDesc),
+      duration: 0,
+      cooldown: 12 * 2,
+   };
+   SocialClassCurtail: ITimedAction = {
+      name: () => $t(L.SocialClassCurtail),
+      desc: () => $t(L.SocialClassCurtailDesc),
+      duration: 0,
+      cooldown: 12 * 2,
    };
 }
 
