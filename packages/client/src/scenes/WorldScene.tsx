@@ -15,7 +15,6 @@ import {
 import Land from "../data/Land.json";
 import { Fonts } from "../Fonts";
 import type { Province } from "../game/definitions/Province";
-import { Tiles } from "../game/definitions/TileConstants";
 import { RefreshTiles } from "../game/Events";
 import { MapForegroundColors, MapTextColors } from "../game/logic/MapLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
@@ -89,12 +88,12 @@ export class WorldScene extends Scene {
          app.screen.width / this.viewport.worldWidth,
          app.screen.height / this.viewport.worldHeight,
       );
-      this._lastZoom = (minZoom + 1) / 4;
-      this.viewport.zoom = this._lastZoom;
-      this.viewport.setZoomRange(minZoom, 1);
+      const maxZoom = 1;
+      this.viewport.setZoomRange(minZoom, maxZoom);
 
       this._landTiles = new Set<Tile>(Land);
-
+      const minPos = { x: Number.POSITIVE_INFINITY, y: Number.POSITIVE_INFINITY };
+      const maxPos = { x: Number.NEGATIVE_INFINITY, y: Number.NEGATIVE_INFINITY };
       MapGrid.forEach((g) => {
          const tile = pointToTile(g);
          if (this._landTiles.has(tile)) {
@@ -104,6 +103,10 @@ export class WorldScene extends Scene {
                visual.position.set(position.x, position.y);
                this._tileMap.set(tile, visual);
                this._drawIndicator(tile, position);
+               minPos.x = Math.min(minPos.x, position.x - visual.width / 2);
+               minPos.y = Math.min(minPos.y, position.y - visual.height / 2);
+               maxPos.x = Math.max(maxPos.x, position.x + visual.width / 2);
+               maxPos.y = Math.max(maxPos.y, position.y + visual.height / 2);
             } else {
                const textureHeight = 256;
                const sprite = this._emptyTileContainer.addChild(new Sprite(G.textures.get("Tile/Background")));
@@ -116,6 +119,13 @@ export class WorldScene extends Scene {
             G.save.state.tiles.delete(tile);
          }
       });
+
+      this._lastZoom = Math.min(
+         this.viewport.screenWidth / (maxPos.x - minPos.x),
+         this.viewport.screenHeight / (maxPos.y - minPos.y),
+      );
+      this.viewport.zoom = this._lastZoom;
+      this.viewport.center = { x: marginX + (minPos.x + maxPos.x) / 2, y: (minPos.y + maxPos.y) / 2 };
 
       this._drawStaticOutlineAndLabel();
 
@@ -140,12 +150,6 @@ export class WorldScene extends Scene {
          }
       });
 
-      const state = G.save.state.provinces[G.save.state.playerProvince];
-      if (state) {
-         this.lookAt(state.capital, { time: 0 });
-      } else {
-         this.lookAt(Tiles.Rome, { time: 0 });
-      }
       this._selectedProvince = G.save.state.playerProvince;
       this.drawProvinceOutline(G.save.state.playerProvince);
 
