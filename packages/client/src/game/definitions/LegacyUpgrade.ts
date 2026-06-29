@@ -152,9 +152,30 @@ export class LegacyUpgradeDefinitions {
    } as const;
    GoverningCapacity2: ILegacyUpgradeModifier = {
       requires: ["GoverningCapacity1"],
-      position: [2, 3],
+      position: [1, 3],
       modifiers: {
          GoverningCapacity: { type: "add", value: 100 },
+      },
+   } as const;
+   GoverningCapacity3: ILegacyUpgradeModifier = {
+      requires: ["GoverningCapacity2"],
+      position: [1, 4],
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
+      },
+   } as const;
+   MakeCore1: ILegacyUpgradeModifier = {
+      requires: ["InfrastructureUpgrade1"],
+      position: [2, 4],
+      modifiers: {
+         MakeCoreCost: { type: "multiply", value: -0.1 },
+      },
+   } as const;
+   Defense1: ILegacyUpgradeModifier = {
+      requires: ["InfrastructureUpgrade1"],
+      position: [3, 4],
+      modifiers: {
+         Defense: { type: "multiply", value: 0.1 },
       },
    } as const;
    Prestige1: ILegacyUpgradeModifier = {
@@ -164,23 +185,58 @@ export class LegacyUpgradeDefinitions {
          Prestige: { type: "add", value: 10 },
       },
    } as const;
-   DiplomaticRange1: ILegacyUpgradeModifier = {
+   Prestige2: ILegacyUpgradeModifier = {
       requires: ["Prestige1"],
       position: [3, -1],
+      modifiers: {
+         Prestige: { type: "add", value: 10 },
+      },
+   } as const;
+   Prestige3: ILegacyUpgradeModifier = {
+      requires: ["Prestige2"],
+      position: [4, -1],
+      modifiers: {
+         Prestige: { type: "add", value: 10 },
+      },
+   } as const;
+   DiplomaticRange1: ILegacyUpgradeModifier = {
+      requires: ["InfiltrationRate1"],
+      position: [4, 3],
       modifiers: {
          DiplomaticRange: { type: "add", value: 5 },
       },
    } as const;
    ImproveRelationsRate1: ILegacyUpgradeModifier = {
-      requires: ["Prestige1"],
-      position: [3, -2],
+      requires: ["ProductionUpgrade1"],
+      position: [4, -2],
       modifiers: {
          ImproveRelationsRate: { type: "multiply", value: 0.5 },
       },
    } as const;
-   ProductionUpgrade1: ILegacyUpgradeModifier = {
+   TileOutput1: ILegacyUpgradeModifier = {
       requires: ["Diplomatic1"],
       position: [2, 1],
+      modifiers: {
+         TileOutput: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+   TileOutput2: ILegacyUpgradeModifier = {
+      requires: ["TileOutput1"],
+      position: [3, 1],
+      modifiers: {
+         TileOutput: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+   TileOutput3: ILegacyUpgradeModifier = {
+      requires: ["TileOutput2"],
+      position: [4, 1],
+      modifiers: {
+         TileOutput: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+   ProductionUpgrade1: ILegacyUpgradeModifier = {
+      requires: ["Prestige1"],
+      position: [3, -2],
       modifiers: {
          ProductionUpgradeCost: { type: "multiply", value: -0.1 },
       },
@@ -188,14 +244,21 @@ export class LegacyUpgradeDefinitions {
    InfiltrationOnDeclaringWar: ILegacyUpgradeDefinition = {
       name: () => $t(L.$1InfiltrationWhenDeclaringWar, "+25"),
       desc: () => $t(L.InfiltrationOnDeclaringWarDesc$1, "+25"),
-      requires: ["ProductionUpgrade1"],
-      position: [3, 1],
+      requires: ["InfiltrationRate1"],
+      position: [4, 2],
    } as const;
    InfiltrationRate1: ILegacyUpgradeModifier = {
-      requires: ["ProductionUpgrade1"],
+      requires: ["TileOutput1"],
       position: [3, 2],
       modifiers: {
          InfiltrationRate: { type: "multiply", value: 0.5 },
+      },
+   } as const;
+   Diplomat1: ILegacyUpgradeModifier = {
+      requires: ["ProductionUpgrade1"],
+      position: [4, -3],
+      modifiers: {
+         Diplomat: { type: "add", value: 1 },
       },
    } as const;
    TradeCapacity1: ILegacyUpgradeModifier = {
@@ -212,50 +275,92 @@ export class LegacyUpgradeDefinitions {
          TradeCapacity: { type: "add", value: 1 },
       },
    } as const;
-   TileOutput1: ILegacyUpgradeModifier = {
-      requires: ["ResearchCost1"],
-      position: [2, -3],
+   TradeCapacity3: ILegacyUpgradeModifier = {
+      requires: ["TradeCapacity2"],
+      position: [-1, -4],
       modifiers: {
-         TileOutput: { type: "multiply", value: 0.1 },
-      },
-   } as const;
-   LandTax1: ILegacyUpgradeModifier = {
-      requires: ["ResearchCost1"],
-      position: [1, -3],
-      modifiers: {
-         LandTax: { type: "multiply", value: 0.1 },
+         TradeCapacity: { type: "add", value: 1 },
       },
    } as const;
    TradeProfitForAttitude: ILegacyUpgradeDefinition = {
       name: () => $t(L.$1TradeProfitPerPositiveAttitude, "+1%"),
       desc: () => $t(L.AttitudeTradeProfit$1, "1%"),
       requires: ["TradeProfit1"],
+      position: [2, -3],
+   } as const;
+   Manpower1: ILegacyUpgradeModifier = {
+      requires: ["TradeCapacity1"],
+      position: [-2, -3],
+      modifiers: {
+         Manpower: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+   Manpower2: ILegacyUpgradeModifier = {
+      requires: ["Manpower1"],
       position: [-2, -4],
+      modifiers: {
+         Manpower: { type: "multiply", value: 0.1 },
+      },
    } as const;
    ResearchCost1: ILegacyUpgradeModifier = {
-      requires: ["ProductionCapacity1"],
-      position: [1, -2],
+      requires: ["TradeProfitForAttitude"],
+      position: [3, -4],
       modifiers: {
          ResearchCost: { type: "multiply", value: -0.1 },
       },
    } as const;
-   BuildingSlot1: ILegacyUpgradeModifier = {
+   LandTax1: ILegacyUpgradeModifier = {
+      requires: ["Stability1"],
+      position: [-2, 3],
+      modifiers: {
+         LandTax: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+   LandTax2: ILegacyUpgradeModifier = {
       requires: ["LandTax1"],
+      position: [-2, 4],
+      modifiers: {
+         LandTax: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+   AdvisorCost1: ILegacyUpgradeModifier = {
+      requires: ["LandTax1"],
+      position: [-3, 4],
+      modifiers: {
+         AdvisorCost: { type: "multiply", value: -0.1 },
+      },
+   } as const;
+   TradeProfit1: ILegacyUpgradeModifier = {
+      requires: ["ProductionCapacity1"],
+      position: [1, -2],
+      modifiers: {
+         TradeProfit: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+   TradeProfit2: ILegacyUpgradeModifier = {
+      requires: ["TradeProfit1"],
+      position: [1, -3],
+      modifiers: {
+         TradeProfit: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+   TradeProfit3: ILegacyUpgradeModifier = {
+      requires: ["TradeProfit2"],
       position: [1, -4],
+      modifiers: {
+         TradeProfit: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+   BuildingSlot1: ILegacyUpgradeModifier = {
+      requires: ["TradeProfitForAttitude"],
+      position: [2, -4],
       modifiers: {
          BuildingSlot: { type: "add", value: 1 },
       },
    } as const;
-   MakeCore1: ILegacyUpgradeModifier = {
-      requires: ["Administrative3", "GoverningCapacity1"],
-      position: [1, 3],
-      modifiers: {
-         MakeCoreCost: { type: "multiply", value: -0.1 },
-      },
-   } as const;
    InfrastructureUpgrade1: ILegacyUpgradeModifier = {
-      requires: ["Stability1", "Administrative3"],
-      position: [-1, 3],
+      requires: ["GoverningCapacity1"],
+      position: [2, 3],
       modifiers: {
          InfrastructureUpgradeCost: { type: "multiply", value: -0.1 },
       },
@@ -269,7 +374,14 @@ export class LegacyUpgradeDefinitions {
    } as const;
    Stability2: ILegacyUpgradeModifier = {
       requires: ["Stability1"],
-      position: [-2, 3],
+      position: [-1, 3],
+      modifiers: {
+         Stability: { type: "add", value: 10 },
+      },
+   } as const;
+   Stability3: ILegacyUpgradeModifier = {
+      requires: ["Stability2"],
+      position: [-1, 4],
       modifiers: {
          Stability: { type: "add", value: 10 },
       },
@@ -302,13 +414,6 @@ export class LegacyUpgradeDefinitions {
          ProductionCapacity: { type: "add", value: 5 },
       },
    } as const;
-   TradeProfit1: ILegacyUpgradeModifier = {
-      requires: ["TradeCapacity1"],
-      position: [-2, -3],
-      modifiers: {
-         TradeProfit: { type: "multiply", value: 0.1 },
-      },
-   } as const;
    ArmyMaintenance1: ILegacyUpgradeModifier = {
       requires: ["Military1"],
       position: [-2, 1],
@@ -317,8 +422,15 @@ export class LegacyUpgradeDefinitions {
       },
    } as const;
    InfantryUnitPower1: ILegacyUpgradeModifier = {
-      requires: ["ArmyMaintenance1", "Military2"],
+      requires: ["ArmyMaintenance1"],
       position: [-3, 1],
+      modifiers: {
+         InfantryUnitPower: { type: "add", value: 1 },
+      },
+   } as const;
+   InfantryUnitPower2: ILegacyUpgradeModifier = {
+      requires: ["InfantryUnitPower1"],
+      position: [-4, 1],
       modifiers: {
          InfantryUnitPower: { type: "add", value: 1 },
       },
@@ -330,8 +442,15 @@ export class LegacyUpgradeDefinitions {
          RangedUnitPower: { type: "add", value: 1 },
       },
    } as const;
+   RangedUnitPower2: ILegacyUpgradeModifier = {
+      requires: ["RangedUnitPower1"],
+      position: [-4, 2],
+      modifiers: {
+         RangedUnitPower: { type: "add", value: 1 },
+      },
+   } as const;
    CavalryUnitPower1: ILegacyUpgradeModifier = {
-      requires: ["Military2", "PopulationUpgrade1"],
+      requires: ["PopulationUpgrade1"],
       position: [-3, -1],
       modifiers: {
          CavalryUnitPower: { type: "add", value: 1 },

@@ -120,6 +120,9 @@ export class WorldScene extends Scene {
          }
       });
 
+      // Adjust for lower part of Egypt
+      maxPos.y -= TileHeight * 4;
+
       this._lastZoom = Math.min(
          this.viewport.screenWidth / (maxPos.x - minPos.x),
          this.viewport.screenHeight / (maxPos.y - minPos.y),
