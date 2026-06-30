@@ -61,11 +61,18 @@ export function getAttitudeTowards(fromProvince: Province, toProvince: Province,
       });
    });
 
-   const improveRelations = getRelation(toProvince, fromProvince, save)?.improveRelations.value ?? 0;
+   const relations = getRelation(toProvince, fromProvince, save);
+   const improveRelations = relations?.improveRelations.value ?? 0;
    if (improveRelations > 0) {
       breakdown.add.push({
          name: $t(L.ImprovedRelations),
          value: improveRelations,
+      });
+   }
+   if (relations?.trade) {
+      breakdown.add.push({
+         name: `Trade from ${getProvinceName(toProvince, save)}`,
+         value: 10,
       });
    }
 
