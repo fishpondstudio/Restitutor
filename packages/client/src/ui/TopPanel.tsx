@@ -21,7 +21,7 @@ import { Modifiers } from "../game/definitions/Modifier";
 import { ProvinceResourceNames } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
 import { getCurrentRelations, getDiplomats } from "../game/logic/DiplomacyLogic";
-import { MapBackgroundColors } from "../game/logic/MapLogic";
+import { MapBackgroundColors } from "../game/logic/MapColor";
 import {
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,

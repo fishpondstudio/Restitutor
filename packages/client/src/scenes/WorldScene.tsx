@@ -1,4 +1,5 @@
 import { LINE_SCALE_MODE, SmoothGraphics } from "@pixi/graphics-smooth";
+import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
 import { hasFlag, pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
 import type { IHaveXY } from "@project/shared/src/utils/Vector2";
 import {
@@ -8,18 +9,19 @@ import {
    LINE_CAP,
    LINE_JOIN,
    ParticleContainer,
-   Rectangle,
    Sprite,
    type Texture,
 } from "pixi.js";
 import Land from "../data/Land.json";
 import { Fonts } from "../Fonts";
+import { Goods } from "../game/definitions/Goods";
 import type { Province } from "../game/definitions/Province";
+import type { Terrain } from "../game/definitions/Terrain";
 import { RefreshTiles } from "../game/Events";
-import { MapForegroundColors, MapTextColors } from "../game/logic/MapLogic";
+import { MapBackgroundColors, MapColorsH, MapForegroundColors, MapTextColors } from "../game/logic/MapColor";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
-import { getTileWar } from "../game/logic/TileLogic";
-import { MapGrid, TileHeight } from "../game/MapGrid";
+import { getTileWar, isCapital } from "../game/logic/TileLogic";
+import { MapGrid, TileHeight, TileWidth } from "../game/MapGrid";
 import { showPanel } from "../ui/common/ShowPanel";
 import { DiplomacyPage } from "../ui/DiplomacyPage";
 import { EditTilePage } from "../ui/EditTilePage";
@@ -30,16 +32,20 @@ import { G, GameFlags, isDev } from "../utils/Global";
 import { IndexedContainer } from "../utils/IndexedContainer";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
-import { TileVisual } from "./TileVisual";
 import { ExternalBorder, InternalBorder } from "./WorldSceneConstants";
 
-const marginX = 2000;
-const textureHeight = 256;
+const MarginX = 2000;
+const TextureHeight = 256;
 let time = 0;
+let TerrainTextures: Record<Terrain, Texture[]> | undefined;
+
+export type OverlayType = "Terrain" | "TileOutput";
 
 export class WorldScene extends Scene {
    private _indicatorContainer: IndexedContainer<Tile, Sprite>;
-   private _tileContainer: IndexedContainer<Tile, TileVisual>;
+   private _tileContainer: IndexedContainer<Tile, Sprite>;
+   private _capitalContainer: IndexedContainer<Tile, Sprite>;
+   private _overlayContainer: IndexedContainer<Tile, Sprite>;
    private _emptyTileContainer: ParticleContainer;
    private _labelContainer: Container;
    private _selectors: Container<Sprite>;
@@ -49,6 +55,7 @@ export class WorldScene extends Scene {
    private _dynamicOutline: SmoothGraphics;
    private _landTiles: Set<number>;
    private _lastZoom = 0;
+   private _overlayType: OverlayType = "Terrain";
    private _clickTileHandler: ((tile: Tile, e: FederatedPointerEvent) => void) | undefined;
    private readonly _isEditor: boolean;
 
@@ -61,27 +68,33 @@ export class WorldScene extends Scene {
       const { app } = context;
 
       const max = MapGrid.maxPosition();
-      this.viewport.setWorldSize(max.x + marginX * 2, max.y);
+      this.viewport.setWorldSize(max.x + MarginX * 2, max.y);
 
       this._emptyTileContainer = this.viewport.addChild(new ParticleContainer(MapGrid.maxX * MapGrid.maxY, {}));
-      this._emptyTileContainer.position.set(marginX, 0);
+      this._emptyTileContainer.position.set(MarginX, 0);
 
-      this._tileContainer = this.viewport.addChild(new IndexedContainer<Tile, TileVisual>());
-      this._tileContainer.position.set(marginX, 0);
+      this._tileContainer = this.viewport.addChild(new IndexedContainer<Tile, Sprite>());
+      this._tileContainer.position.set(MarginX, 0);
+
+      this._capitalContainer = this.viewport.addChild(new IndexedContainer<Tile, Sprite>());
+      this._capitalContainer.position.set(MarginX, 0);
+
+      this._overlayContainer = this.viewport.addChild(new IndexedContainer<Tile, Sprite>());
+      this._overlayContainer.position.set(MarginX, 0);
 
       this._staticOutline = this.viewport.addChild(new SmoothGraphics());
-      this._staticOutline.position.set(marginX, 0);
+      this._staticOutline.position.set(MarginX, 0);
 
       this._indicatorContainer = this.viewport.addChild(new IndexedContainer<Tile, Sprite>());
-      this._indicatorContainer.position.set(marginX, 0);
+      this._indicatorContainer.position.set(MarginX, 0);
 
       this._selectors = this.viewport.addChild(new Container<Sprite>());
 
       this._dynamicOutline = this.viewport.addChild(new SmoothGraphics());
-      this._dynamicOutline.position.set(marginX, 0);
+      this._dynamicOutline.position.set(MarginX, 0);
 
       this._labelContainer = this.viewport.addChild(new Container());
-      this._labelContainer.position.set(marginX, 0);
+      this._labelContainer.position.set(MarginX, 0);
 
       const minZoom = Math.max(
          app.screen.width / this.viewport.worldWidth,
@@ -98,13 +111,12 @@ export class WorldScene extends Scene {
          if (this._landTiles.has(tile)) {
             const position = MapGrid.gridToPosition(g);
             if (G.save.state.tiles.has(tile)) {
-               const visual = this._tileContainer.set(tile, new TileVisual(tile));
-               visual.position.set(position.x, position.y);
+               this._makeTile(tile);
                this._drawIndicator(tile, position);
-               minPos.x = Math.min(minPos.x, position.x - visual.width / 2);
-               minPos.y = Math.min(minPos.y, position.y - visual.height / 2);
-               maxPos.x = Math.max(maxPos.x, position.x + visual.width / 2);
-               maxPos.y = Math.max(maxPos.y, position.y + visual.height / 2);
+               minPos.x = Math.min(minPos.x, position.x - TileWidth / 2);
+               minPos.y = Math.min(minPos.y, position.y - TileHeight / 2);
+               maxPos.x = Math.max(maxPos.x, position.x + TileWidth / 2);
+               maxPos.y = Math.max(maxPos.y, position.y + TileHeight / 2);
             } else {
                const textureHeight = 256;
                const sprite = this._emptyTileContainer.addChild(new Sprite(G.textures.get("Tile/Background")));
@@ -126,8 +138,9 @@ export class WorldScene extends Scene {
          this.viewport.screenHeight / (maxPos.y - minPos.y),
       );
       this.viewport.zoom = this._lastZoom;
-      this.viewport.center = { x: marginX + (minPos.x + maxPos.x) / 2, y: (minPos.y + maxPos.y) / 2 };
+      this.viewport.center = { x: MarginX + (minPos.x + maxPos.x) / 2, y: (minPos.y + maxPos.y) / 2 };
 
+      this._updateAlpha();
       this._drawStaticOutlineAndLabel();
 
       RefreshTiles.on(({ tiles, options }) => {
@@ -138,10 +151,7 @@ export class WorldScene extends Scene {
                   this._drawIndicator(tile, visual.position);
                }
                if (options.visual) {
-                  const x = visual.position.x;
-                  const y = visual.position.y;
-                  const newVisual = this._tileContainer.set(tile, new TileVisual(tile));
-                  newVisual.position.set(x, y);
+                  this._makeTile(tile);
                }
             }
          }
@@ -161,13 +171,102 @@ export class WorldScene extends Scene {
       }
    }
 
+   private _makeTile(tile: Tile): void {
+      const tileData = G.save.state.tiles.get(tile);
+      if (!tileData) {
+         return;
+      }
+      const { x, y } = MapGrid.gridToPosition(tileToPoint(tile));
+
+      // Background
+      const bg = this._tileContainer.set(tile, new Sprite(G.textures.get("Tile/Background")));
+      bg.scale.set(TileHeight / TextureHeight);
+      bg.anchor.set(0.5, 0.5);
+      bg.position.set(x, y);
+      if (tileData.province) {
+         bg.tint = MapBackgroundColors[tileData.province];
+      }
+
+      // Capital
+      if (isCapital(tile, G.save)) {
+         const star = this._capitalContainer.set(tile, new Sprite(G.textures.get("Misc/Capital")));
+         star.anchor.set(0.5, 0.5);
+         star.scale.set(0.3);
+         star.position.set(x, y + 0.25 * TileHeight);
+         star.tint = MapForegroundColors[tileData.province];
+      } else {
+         this._capitalContainer.delete(tile);
+      }
+
+      // Overlay
+      const overlay = new Sprite();
+      this._overlayContainer.set(tile, overlay);
+      overlay.anchor.set(0.5, 0.5);
+      overlay.position.set(x, y);
+
+      this._renderOverlay(tile);
+   }
+
+   private _renderOverlay(tile: Tile): void {
+      const tileData = G.save.state.tiles.get(tile);
+      if (!tileData) {
+         return;
+      }
+      const visual = this._overlayContainer.get(tile);
+      if (!visual) {
+         return;
+      }
+      switch (this._overlayType) {
+         case "Terrain": {
+            if (!TerrainTextures) {
+               TerrainTextures = {
+                  Mountain: [
+                     G.textures.get("Shaded/Mountain1") as Texture,
+                     G.textures.get("Shaded/Mountain2") as Texture,
+                     G.textures.get("Shaded/Mountain3") as Texture,
+                  ],
+                  Hill: [
+                     G.textures.get("Shaded/Hill1") as Texture,
+                     G.textures.get("Shaded/Hill2") as Texture,
+                     G.textures.get("Shaded/Hill3") as Texture,
+                  ],
+                  Forest: [
+                     G.textures.get("Shaded/Forest1") as Texture,
+                     G.textures.get("Shaded/Forest2") as Texture,
+                     G.textures.get("Shaded/Forest3") as Texture,
+                  ],
+                  Plain: [
+                     G.textures.get("Shaded/Plain1") as Texture,
+                     G.textures.get("Shaded/Plain2") as Texture,
+                     G.textures.get("Shaded/Plain3") as Texture,
+                  ],
+               };
+            }
+            const textures = TerrainTextures[tileData.terrain];
+            visual.texture = textures[tile % textures.length];
+            visual.scale.set(TileHeight / TextureHeight);
+            visual.tint = hslToRgb(MapColorsH[tileData.province], 100, 25);
+            break;
+         }
+         case "TileOutput": {
+            const t = G.textures.get(Goods[tileData.goods].iconTexture);
+            if (t) {
+               visual.texture = t;
+               visual.scale.set((0.75 * TileHeight) / TextureHeight);
+               visual.tint = MapForegroundColors[tileData.province];
+            }
+            break;
+         }
+      }
+   }
+
    override scrollSensitivity(): number {
       return 1.5;
    }
 
    override onClicked(e: FederatedPointerEvent): void {
       const pos = this.viewport.screenToWorld(e);
-      pos.x -= marginX;
+      pos.x -= MarginX;
 
       const point = MapGrid.positionToGrid(pos);
       const tile = pointToTile(point);
@@ -226,7 +325,7 @@ export class WorldScene extends Scene {
       return new Promise((resolve) => {
          const position = MapGrid.gridToPosition(tileToPoint(tile));
          // position.x += marginX + remToPx(SidebarWidth) / 2 / this.viewport.zoom;
-         position.x += marginX;
+         position.x += MarginX;
          if (time > 0) {
             sequence(
                CustomAction.createPoint(
@@ -246,29 +345,25 @@ export class WorldScene extends Scene {
       });
    }
 
-   override onZoomed(zoom: number): void {
-      this._cullTiles();
+   private _updateAlpha(): void {
+      const [minZoom, maxZoom] = this.viewport.getZoomRange();
+      const factor = (this.viewport.zoom - minZoom) / (maxZoom - minZoom);
+      this._overlayContainer.alpha = 0.5 + 0.5 * factor;
+      this._capitalContainer.alpha = 0.5 + 0.5 * factor;
    }
 
    override onMoved(point: IHaveXY): void {
-      this._cullTiles();
+      this._updateAlpha();
    }
 
    override onResize(width: number, height: number): void {
       super.onResize(width, height);
-      this._cullTiles();
    }
 
    public update(dt: number, unscaled: number): void {
       if (this._indicatorContainer.children.length > 0) {
          this._indicatorContainer.alpha = Math.sin(Math.PI * 2 * time) * 0.5 + 0.5;
          time += unscaled;
-      }
-      if (this._lastZoom !== this.viewport.zoom) {
-         this._lastZoom = this.viewport.zoom;
-         for (const [tile, visual] of this._tileContainer) {
-            visual.onZoomed(this.viewport.zoom, this.viewport.getZoomRange());
-         }
       }
    }
 
@@ -311,24 +406,8 @@ export class WorldScene extends Scene {
          indicator.tint = MapForegroundColors[tileData.province];
       }
       indicator.alpha = 0.5;
-      indicator.scale.set(TileHeight / textureHeight);
+      indicator.scale.set(TileHeight / TextureHeight);
       indicator.position.set(position.x, position.y);
-   }
-
-   private _rect: Rectangle = new Rectangle();
-   private _cullTiles(): void {
-      const visibleRect = this.viewport.visibleWorldRect();
-      for (const [tile, visual] of this._tileContainer) {
-         this._rect.x = visual.position.x + marginX - TileHeight / 2;
-         this._rect.y = visual.position.y - TileHeight / 2;
-         this._rect.width = TileHeight;
-         this._rect.height = TileHeight;
-         if (visibleRect.intersects(this._rect)) {
-            visual.visible = true;
-         } else {
-            visual.visible = false;
-         }
-      }
    }
 
    public drawProvinceOutline(province: Province): Promise<WorldScene> {
@@ -472,8 +551,8 @@ export class WorldScene extends Scene {
    private _addSelector(tile: Tile): void {
       const position = MapGrid.gridToPosition(tileToPoint(tile));
       const selector = this._selectors.addChild(new Sprite(G.textures.get("Tile/Selector")));
-      selector.position.set(position.x + marginX, position.y);
-      selector.scale.set(TileHeight / textureHeight);
+      selector.position.set(position.x + MarginX, position.y);
+      selector.scale.set(TileHeight / TextureHeight);
       selector.anchor.set(0.5, 0.5);
       selector.alpha = 0.25;
    }

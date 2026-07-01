@@ -3,7 +3,7 @@ import type { HTMLReactParserOptions } from "html-react-parser";
 import parse from "html-react-parser";
 import { type Province, Provinces } from "../game/definitions/Province";
 import { getTileName } from "../game/definitions/TileName";
-import { MapBackgroundColors } from "../game/logic/MapLogic";
+import { MapBackgroundColors } from "../game/logic/MapColor";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";

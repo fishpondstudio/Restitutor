@@ -21,6 +21,7 @@ export interface IGoodsDefinition {
    input: Partial<Record<Goods, number>>;
    position: { x: number; y: number };
    icon: string;
+   iconTexture: string;
    tech?: Tech;
 }
 
@@ -30,24 +31,28 @@ export class GoodsDefinitions {
       input: {},
       position: { x: 0, y: 0 },
       icon: Grain,
+      iconTexture: "Goods/Grain",
    };
    livestock: IGoodsDefinition = {
       name: () => $t(L.GoodsLivestock),
       input: {},
       position: { x: 1, y: 0 },
       icon: Livestock,
+      iconTexture: "Goods/Livestock",
    };
    wood: IGoodsDefinition = {
       name: () => $t(L.GoodsWood),
       input: {},
       position: { x: 4, y: 0 },
       icon: Wood,
+      iconTexture: "Goods/Wood",
    };
    ironOre: IGoodsDefinition = {
       name: () => $t(L.GoodsIronOre),
       input: {},
       position: { x: 3, y: 0 },
       icon: IronOre,
+      iconTexture: "Goods/IronOre",
    };
    flour: IGoodsDefinition = {
       name: () => $t(L.GoodsFlour),
@@ -56,6 +61,7 @@ export class GoodsDefinitions {
       },
       position: { x: 0, y: 1 },
       icon: Flour,
+      iconTexture: "Goods/Flour",
    };
    leather: IGoodsDefinition = {
       name: () => $t(L.GoodsLeather),
@@ -64,6 +70,7 @@ export class GoodsDefinitions {
       },
       position: { x: 2, y: 1 },
       icon: Leather,
+      iconTexture: "Goods/Leather",
    };
    milk: IGoodsDefinition = {
       name: () => $t(L.GoodsMilk),
@@ -72,6 +79,7 @@ export class GoodsDefinitions {
       },
       position: { x: 1, y: 1 },
       icon: Milk,
+      iconTexture: "Goods/Milk",
    };
    lumber: IGoodsDefinition = {
       name: () => $t(L.GoodsLumber),
@@ -80,6 +88,7 @@ export class GoodsDefinitions {
       },
       position: { x: 4, y: 1 },
       icon: Lumber,
+      iconTexture: "Goods/Lumber",
    };
    ironIngots: IGoodsDefinition = {
       name: () => $t(L.GoodsIronIngots),
@@ -88,6 +97,7 @@ export class GoodsDefinitions {
       },
       position: { x: 3, y: 1 },
       icon: IronIngots,
+      iconTexture: "Goods/IronIngots",
    };
    bread: IGoodsDefinition = {
       name: () => $t(L.GoodsBread),
@@ -96,6 +106,7 @@ export class GoodsDefinitions {
       },
       position: { x: 0, y: 2 },
       icon: Bread,
+      iconTexture: "Goods/Bread",
    };
    cheese: IGoodsDefinition = {
       name: () => $t(L.GoodsCheese),
@@ -104,6 +115,7 @@ export class GoodsDefinitions {
       },
       position: { x: 1, y: 2 },
       icon: Cheese,
+      iconTexture: "Goods/Cheese",
    };
    garments: IGoodsDefinition = {
       name: () => $t(L.GoodsGarments),
@@ -112,6 +124,7 @@ export class GoodsDefinitions {
       },
       position: { x: 2, y: 2 },
       icon: Garments,
+      iconTexture: "Goods/Garments",
    };
    weapon: IGoodsDefinition = {
       name: () => $t(L.GoodsWeapon),
@@ -121,6 +134,7 @@ export class GoodsDefinitions {
       },
       position: { x: 4, y: 2 },
       icon: Weapon,
+      iconTexture: "Goods/Weapon",
    };
    armor: IGoodsDefinition = {
       name: () => $t(L.GoodsArmor),
@@ -130,6 +144,7 @@ export class GoodsDefinitions {
       },
       position: { x: 3, y: 2 },
       icon: Armor,
+      iconTexture: "Goods/Armor",
    };
 }
 

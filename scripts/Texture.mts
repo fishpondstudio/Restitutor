@@ -46,7 +46,7 @@ async function convertToWhiteAlpha(
 }
 
 async function convertAllFiles() : Promise<void> {
-  const files = await glob("../**/Shaded/*.png", { nodir: true });
+  const files = await glob("../packages/client/textures/atlas{tps}{fix}/Goods/*.png", { nodir: true });
   for (const file of files) {
     await convertToWhiteAlpha(file, file);
   }
