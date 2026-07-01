@@ -4,7 +4,7 @@ export const Grid2 = { display: "grid", gridTemplateColumns: "repeat(2, minmax(0
 export const CloseButtonClass = "close-button-shortcut";
 
 export const DiplomacyActionWidth = "16rem";
-export const DiplomacyWidth = "41rem";
+export const DiplomacyWidth = "40rem";
 
 export const TopRightPanelHeight = "2.1875rem";
 export const TopRightPanelMargin = "0.625rem";

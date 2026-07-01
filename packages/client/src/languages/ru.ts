@@ -1988,4 +1988,6 @@ export const RU = {
    $1Loyalty: "$1 Лояльность",
    Percentage: "Процент",
    SocialClassAgenda: "Повестка сословия",
+   Output: "Выработка",
+   Upgrade: "Улучшения",
 };

@@ -39,7 +39,7 @@ export async function bootstrap(): Promise<void> {
          return;
       }
       let weight = f.weight as TextStyleFontWeight;
-      if (f.family === Fonts.RomanFont) {
+      if (f.family === Fonts.RomanFont || f.family === Fonts.MainFont) {
          weight = "bold";
       }
       BitmapFont.from(

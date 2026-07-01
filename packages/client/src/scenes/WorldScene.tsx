@@ -1,10 +1,11 @@
 import { LINE_SCALE_MODE, SmoothGraphics } from "@pixi/graphics-smooth";
 import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
-import { hasFlag, pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
+import { hasFlag, pointToTile, round, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
 import type { IHaveXY } from "@project/shared/src/utils/Vector2";
 import {
    type ColorSource,
    Container,
+   type DisplayObject,
    type FederatedPointerEvent,
    LINE_CAP,
    LINE_JOIN,
@@ -17,10 +18,10 @@ import { Fonts } from "../Fonts";
 import { Goods } from "../game/definitions/Goods";
 import type { Province } from "../game/definitions/Province";
 import type { Terrain } from "../game/definitions/Terrain";
-import { RefreshTiles } from "../game/Events";
+import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
 import { MapBackgroundColors, MapColorsH, MapForegroundColors, MapTextColors } from "../game/logic/MapColor";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
-import { getTileWar, isCapital } from "../game/logic/TileLogic";
+import { getTileDefense, getTileMaintenanceCost, getTileWar, isCapital } from "../game/logic/TileLogic";
 import { MapGrid, TileHeight, TileWidth } from "../game/MapGrid";
 import { showPanel } from "../ui/common/ShowPanel";
 import { DiplomacyPage } from "../ui/DiplomacyPage";
@@ -32,6 +33,7 @@ import { G, GameFlags, isDev } from "../utils/Global";
 import { IndexedContainer } from "../utils/IndexedContainer";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
+import { getOverlay } from "./Overlays";
 import { ExternalBorder, InternalBorder } from "./WorldSceneConstants";
 
 const MarginX = 2000;
@@ -39,13 +41,11 @@ const TextureHeight = 256;
 let time = 0;
 let TerrainTextures: Record<Terrain, Texture[]> | undefined;
 
-export type OverlayType = "Terrain" | "TileOutput";
-
 export class WorldScene extends Scene {
    private _indicatorContainer: IndexedContainer<Tile, Sprite>;
    private _tileContainer: IndexedContainer<Tile, Sprite>;
    private _capitalContainer: IndexedContainer<Tile, Sprite>;
-   private _overlayContainer: IndexedContainer<Tile, Sprite>;
+   private _overlayContainer: IndexedContainer<Tile, DisplayObject>;
    private _emptyTileContainer: ParticleContainer;
    private _labelContainer: Container;
    private _selectors: Container<Sprite>;
@@ -55,7 +55,6 @@ export class WorldScene extends Scene {
    private _dynamicOutline: SmoothGraphics;
    private _landTiles: Set<number>;
    private _lastZoom = 0;
-   private _overlayType: OverlayType = "Terrain";
    private _clickTileHandler: ((tile: Tile, e: FederatedPointerEvent) => void) | undefined;
    private readonly _isEditor: boolean;
 
@@ -79,7 +78,7 @@ export class WorldScene extends Scene {
       this._capitalContainer = this.viewport.addChild(new IndexedContainer<Tile, Sprite>());
       this._capitalContainer.position.set(MarginX, 0);
 
-      this._overlayContainer = this.viewport.addChild(new IndexedContainer<Tile, Sprite>());
+      this._overlayContainer = this.viewport.addChild(new IndexedContainer<Tile, DisplayObject>());
       this._overlayContainer.position.set(MarginX, 0);
 
       this._staticOutline = this.viewport.addChild(new SmoothGraphics());
@@ -161,6 +160,50 @@ export class WorldScene extends Scene {
          }
       });
 
+      RefreshOverlay.on(() => {
+         for (const [tile, visual] of this._overlayContainer) {
+            this._renderOverlay(tile);
+         }
+      });
+
+      GameStateUpdated.on(() => {
+         switch (getOverlay()) {
+            case "Upgrade": {
+               for (const [tile, visual] of this._overlayContainer) {
+                  const tileData = G.save.state.tiles.get(tile);
+                  if (tileData) {
+                     const text = visual as UnicodeText;
+                     text.text = `${tileData.infrastructure + tileData.production + tileData.population}`;
+                     this._adjustTextSize(text);
+                  }
+               }
+               break;
+            }
+            case "Defense": {
+               for (const [tile, visual] of this._overlayContainer) {
+                  const tileData = G.save.state.tiles.get(tile);
+                  if (tileData) {
+                     const text = visual as UnicodeText;
+                     text.text = `${round(getTileDefense(tile, G.save).value, 1)}`;
+                     this._adjustTextSize(text);
+                  }
+               }
+               break;
+            }
+            case "Maintenance": {
+               for (const [tile, visual] of this._overlayContainer) {
+                  const tileData = G.save.state.tiles.get(tile);
+                  if (tileData) {
+                     const text = visual as UnicodeText;
+                     text.text = `${round(getTileMaintenanceCost(tile, G.save).value, 1)}`;
+                     this._adjustTextSize(text);
+                  }
+               }
+               break;
+            }
+         }
+      });
+
       this._selectedProvince = G.save.state.playerProvince;
       this.drawProvinceOutline(G.save.state.playerProvince);
 
@@ -199,11 +242,6 @@ export class WorldScene extends Scene {
       }
 
       // Overlay
-      const overlay = new Sprite();
-      this._overlayContainer.set(tile, overlay);
-      overlay.anchor.set(0.5, 0.5);
-      overlay.position.set(x, y);
-
       this._renderOverlay(tile);
    }
 
@@ -212,11 +250,8 @@ export class WorldScene extends Scene {
       if (!tileData) {
          return;
       }
-      const visual = this._overlayContainer.get(tile);
-      if (!visual) {
-         return;
-      }
-      switch (this._overlayType) {
+      const { x, y } = MapGrid.gridToPosition(tileToPoint(tile));
+      switch (getOverlay()) {
          case "Terrain": {
             if (!TerrainTextures) {
                TerrainTextures = {
@@ -242,21 +277,65 @@ export class WorldScene extends Scene {
                   ],
                };
             }
+
             const textures = TerrainTextures[tileData.terrain];
-            visual.texture = textures[tile % textures.length];
+            const visual = new Sprite(textures[tile % textures.length]);
+            this._overlayContainer.set(tile, visual);
+            visual.anchor.set(0.5, 0.5);
+            visual.position.set(x, y);
             visual.scale.set(TileHeight / TextureHeight);
             visual.tint = hslToRgb(MapColorsH[tileData.province], 100, 25);
             break;
          }
-         case "TileOutput": {
-            const t = G.textures.get(Goods[tileData.goods].iconTexture);
-            if (t) {
-               visual.texture = t;
-               visual.scale.set((0.75 * TileHeight) / TextureHeight);
-               visual.tint = MapForegroundColors[tileData.province];
-            }
+         case "Output": {
+            const visual = new Sprite(G.textures.get(Goods[tileData.goods].iconTexture));
+            this._overlayContainer.set(tile, visual);
+            visual.anchor.set(0.5, 0.5);
+            visual.position.set(x, y);
+            visual.scale.set((0.75 * TileHeight) / TextureHeight);
+            visual.tint = MapForegroundColors[tileData.province];
             break;
          }
+         case "Upgrade": {
+            const visual = new UnicodeText(`${tileData.infrastructure + tileData.production + tileData.population}`, {
+               fontName: Fonts.MainFont,
+            });
+            this._adjustTextSize(visual);
+            this._overlayContainer.set(tile, visual);
+            visual.anchor.set(0.5, 0.5);
+            visual.position.set(x, y);
+            visual.tint = MapForegroundColors[tileData.province];
+            break;
+         }
+         case "Defense": {
+            const visual = new UnicodeText(`${round(getTileDefense(tile, G.save).value, 1)}`, {
+               fontName: Fonts.MainFont,
+            });
+            this._adjustTextSize(visual);
+            this._overlayContainer.set(tile, visual);
+            visual.anchor.set(0.5, 0.5);
+            visual.position.set(x, y);
+            visual.tint = MapForegroundColors[tileData.province];
+            break;
+         }
+         case "Maintenance": {
+            const visual = new UnicodeText(`${round(getTileMaintenanceCost(tile, G.save).value, 1)}`, {
+               fontName: Fonts.MainFont,
+            });
+            this._adjustTextSize(visual);
+            this._overlayContainer.set(tile, visual);
+            visual.anchor.set(0.5, 0.5);
+            visual.position.set(x, y);
+            visual.tint = MapForegroundColors[tileData.province];
+            break;
+         }
+      }
+   }
+
+   private _adjustTextSize(text: UnicodeText): void {
+      text.size = 50;
+      while (text.width > TileWidth - 20) {
+         text.size -= 1;
       }
    }
 

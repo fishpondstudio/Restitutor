@@ -1973,4 +1973,6 @@ export const ZH_CN = {
    $1Loyalty: "$1 忠诚度",
    Percentage: "百分比",
    SocialClassAgenda: "社会阶层议程",
+   Output: "产出",
+   Upgrade: "升级",
 };

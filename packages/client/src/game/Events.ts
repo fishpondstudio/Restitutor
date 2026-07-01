@@ -24,6 +24,7 @@ export const CloseModal = new TypedEvent<void>();
 export const OnKeydown = new TypedEvent<KeyboardEvent>();
 export const OnKeyup = new TypedEvent<KeyboardEvent>();
 export const CurrentShortcuts = new Map<Shortcut, (event: KeyboardEvent) => void>();
+export const RefreshOverlay = new TypedEvent<void>();
 
 // Network
 export const UserUpdated = new TypedEvent<IUser>();

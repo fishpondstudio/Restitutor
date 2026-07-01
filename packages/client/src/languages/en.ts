@@ -1988,4 +1988,6 @@ export const EN = {
    $1Loyalty: "$1 Loyalty",
    Percentage: "Percentage",
    SocialClassAgenda: "Social Class Agenda",
+   Output: "Output",
+   Upgrade: "Upgrade",
 };

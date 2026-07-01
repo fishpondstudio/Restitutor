@@ -1,5 +1,6 @@
 import { Menu } from "@mantine/core";
-import { clamp, cls, hasFlag } from "@project/shared/src/utils/Helper";
+import { useForceUpdate } from "@mantine/hooks";
+import { clamp, cls, entriesOf, hasFlag } from "@project/shared/src/utils/Helper";
 import { memo } from "react";
 import Discord from "../../src/assets/images/Discord.svg";
 import Steam from "../../src/assets/images/Steam.svg";
@@ -9,6 +10,7 @@ import { GameOptionFlag } from "../game/GameOption";
 import { getGameDate } from "../game/logic/GameDateTime";
 import { useShortcut } from "../game/Shortcut";
 import { openUrl } from "../rpc/SteamClient";
+import { getOverlay, Overlays, setOverlay } from "../scenes/Overlays";
 import { G, isDev, setSpeed } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -19,6 +21,8 @@ export function TopRightPanel(): React.ReactNode {
    return (
       <div className="top-right-panel panel">
          <TimeComp />
+         <div className="divider vertical" />
+         <OverlayComp />
          <div className="divider vertical" />
          <SpeedComp />
          <SteamDiscordComp />
@@ -43,6 +47,32 @@ function SteamDiscordComp(): React.ReactNode {
          <DiscordComp />
          <div className="w10" />
       </>
+   );
+}
+
+function OverlayComp(): React.ReactNode {
+   const forceUpdate = useForceUpdate();
+   const current = getOverlay();
+   return (
+      <Menu position="bottom-end">
+         <Menu.Target>
+            <div className="px15 pointer">{Overlays[current]()}</div>
+         </Menu.Target>
+         <Menu.Dropdown className="panel">
+            {entriesOf(Overlays).map(([overlay, label]) => (
+               <Menu.Item
+                  key={overlay}
+                  onClick={() => {
+                     setOverlay(overlay);
+                     forceUpdate();
+                  }}
+                  className={cls(overlay === current ? "text-primary" : null)}
+               >
+                  {label()}
+               </Menu.Item>
+            ))}
+         </Menu.Dropdown>
+      </Menu>
    );
 }
 
