@@ -27,6 +27,7 @@ import { TilePage } from "../ui/TilePage";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
 import { G, GameFlags, isDev } from "../utils/Global";
+import { IndexedContainer } from "../utils/IndexedContainer";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
 import { TileVisual } from "./TileVisual";
@@ -37,10 +38,8 @@ const textureHeight = 256;
 let time = 0;
 
 export class WorldScene extends Scene {
-   private _tileMap = new Map<Tile, TileVisual>();
-   private _indicatorMap = new Map<Tile, Sprite>();
-   private _tileContainer: Container;
-   private _indicatorContainer: Container;
+   private _indicatorContainer: IndexedContainer<Tile, Sprite>;
+   private _tileContainer: IndexedContainer<Tile, TileVisual>;
    private _emptyTileContainer: ParticleContainer;
    private _labelContainer: Container;
    private _selectors: Container<Sprite>;
@@ -67,13 +66,13 @@ export class WorldScene extends Scene {
       this._emptyTileContainer = this.viewport.addChild(new ParticleContainer(MapGrid.maxX * MapGrid.maxY, {}));
       this._emptyTileContainer.position.set(marginX, 0);
 
-      this._tileContainer = this.viewport.addChild(new Container());
+      this._tileContainer = this.viewport.addChild(new IndexedContainer<Tile, TileVisual>());
       this._tileContainer.position.set(marginX, 0);
 
       this._staticOutline = this.viewport.addChild(new SmoothGraphics());
       this._staticOutline.position.set(marginX, 0);
 
-      this._indicatorContainer = this.viewport.addChild(new Container());
+      this._indicatorContainer = this.viewport.addChild(new IndexedContainer<Tile, Sprite>());
       this._indicatorContainer.position.set(marginX, 0);
 
       this._selectors = this.viewport.addChild(new Container<Sprite>());
@@ -99,9 +98,8 @@ export class WorldScene extends Scene {
          if (this._landTiles.has(tile)) {
             const position = MapGrid.gridToPosition(g);
             if (G.save.state.tiles.has(tile)) {
-               const visual = this._tileContainer.addChild(new TileVisual(tile));
+               const visual = this._tileContainer.set(tile, new TileVisual(tile));
                visual.position.set(position.x, position.y);
-               this._tileMap.set(tile, visual);
                this._drawIndicator(tile, position);
                minPos.x = Math.min(minPos.x, position.x - visual.width / 2);
                minPos.y = Math.min(minPos.y, position.y - visual.height / 2);
@@ -134,16 +132,16 @@ export class WorldScene extends Scene {
 
       RefreshTiles.on(({ tiles, options }) => {
          for (const tile of tiles) {
-            const visual = this._tileMap.get(tile);
+            const visual = this._tileContainer.get(tile);
             if (visual) {
                if (options.indicator) {
                   this._drawIndicator(tile, visual.position);
                }
                if (options.visual) {
-                  const newVisual = this._tileContainer.addChild(new TileVisual(tile));
-                  newVisual.position = visual.position;
-                  this._tileMap.set(tile, newVisual);
-                  visual.destroy({ children: true });
+                  const x = visual.position.x;
+                  const y = visual.position.y;
+                  const newVisual = this._tileContainer.set(tile, new TileVisual(tile));
+                  newVisual.position.set(x, y);
                }
             }
          }
@@ -174,7 +172,7 @@ export class WorldScene extends Scene {
       const point = MapGrid.positionToGrid(pos);
       const tile = pointToTile(point);
 
-      if (!this._tileMap.has(tile)) {
+      if (!this._tileContainer.has(tile)) {
          return;
       }
 
@@ -268,7 +266,7 @@ export class WorldScene extends Scene {
       }
       if (this._lastZoom !== this.viewport.zoom) {
          this._lastZoom = this.viewport.zoom;
-         for (const [tile, visual] of this._tileMap) {
+         for (const [tile, visual] of this._tileContainer) {
             visual.onZoomed(this.viewport.zoom, this.viewport.getZoomRange());
          }
       }
@@ -290,17 +288,9 @@ export class WorldScene extends Scene {
       });
    }
 
-   private _removeIndicator(tile: Tile): void {
-      const indicator = this._indicatorMap.get(tile);
-      if (indicator) {
-         indicator.destroy();
-         this._indicatorMap.delete(tile);
-      }
-   }
-
    private _drawIndicator(tile: Tile, position: IHaveXY): void {
       const tileData = G.save.state.tiles.get(tile);
-      this._removeIndicator(tile);
+      this._indicatorContainer.delete(tile);
       if (!tileData) {
          return;
       }
@@ -313,8 +303,7 @@ export class WorldScene extends Scene {
       if (!texture) {
          return;
       }
-      const indicator = this._indicatorContainer.addChild(new Sprite(texture));
-      this._indicatorMap.set(tile, indicator);
+      const indicator = this._indicatorContainer.set(tile, new Sprite(texture));
       indicator.anchor.set(0.5, 0.5);
       if (war) {
          indicator.tint = MapForegroundColors[war.attacker];
@@ -329,7 +318,7 @@ export class WorldScene extends Scene {
    private _rect: Rectangle = new Rectangle();
    private _cullTiles(): void {
       const visibleRect = this.viewport.visibleWorldRect();
-      for (const [tile, visual] of this._tileMap) {
+      for (const [tile, visual] of this._tileContainer) {
          this._rect.x = visual.position.x + marginX - TileHeight / 2;
          this._rect.y = visual.position.y - TileHeight / 2;
          this._rect.width = TileHeight;
