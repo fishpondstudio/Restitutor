@@ -78,12 +78,6 @@
    }
 }
 
-:root {
-   --header-background:
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5)),
-      url("../assets/images/Header.webp") center / contain repeat;
-}
-
 .panel {
    background:
       url("../assets/images/Background9.png") padding-box,
@@ -102,7 +96,9 @@
    }
 
    .header {
-      background: var(--header-background);
+      background:
+         linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5)),
+         url("../assets/images/Header.webp") center / contain repeat;
       color: var(--mantine-color-gray-0);
       text-shadow: 0.0625rem 0.0625rem 0 var(--mantine-color-dark-7);
       display: flex;
@@ -264,7 +260,9 @@
    height: 3rem;
    width: 8rem;
 
-   background: var(--header-background);
+   background:
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+      url("../assets/images/Header.webp") center / contain repeat;
    border: 0.125rem solid transparent;
 
    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.5);
