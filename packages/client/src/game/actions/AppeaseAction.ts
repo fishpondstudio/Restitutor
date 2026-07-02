@@ -4,13 +4,14 @@ import type { Province } from "../definitions/Province";
 import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { timedActionConditions } from "../logic/TimedActionLogic";
+import { EmptyGameAction } from "./EmptyGameAction";
 import type { IGameAction } from "./GameAction";
 import { finalizeCondition } from "./GameAction";
 
 export function AppeaseAction(tile: Tile, province: Province, save: SaveGame): IGameAction {
    const tileData = save.state.tiles.get(tile);
    if (!tileData) {
-      throw new Error(`Tile ${tile} not found`);
+      return EmptyGameAction;
    }
    const totalUpgrades = tileData.infrastructure + tileData.production + tileData.population;
    return {

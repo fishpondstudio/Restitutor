@@ -3,13 +3,14 @@ import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { getTileUpgradeCost, tileIsOurCoreCondition } from "../logic/TileLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
+import { EmptyGameAction } from "./EmptyGameAction";
 import type { IGameAction } from "./GameAction";
 import { finalizeCondition } from "./GameAction";
 
 export function UpgradePopulationAction(tile: Tile, province: Province, save: SaveGame): IGameAction {
    const tileData = save.state.tiles.get(tile);
    if (!tileData) {
-      throw new Error(`Tile ${tile} not found`);
+      return EmptyGameAction;
    }
    const upgradeCost = getTileUpgradeCost(tile, "military", save);
    return {
@@ -28,7 +29,7 @@ export function UpgradePopulationAction(tile: Tile, province: Province, save: Sa
 export function UpgradeProductionAction(tile: Tile, province: Province, save: SaveGame): IGameAction {
    const tileData = save.state.tiles.get(tile);
    if (!tileData) {
-      throw new Error(`Tile ${tile} not found`);
+      return EmptyGameAction;
    }
    const upgradeCost = getTileUpgradeCost(tile, "diplomatic", save);
    return {
@@ -47,7 +48,7 @@ export function UpgradeProductionAction(tile: Tile, province: Province, save: Sa
 export function UpgradeInfrastructureAction(tile: Tile, province: Province, save: SaveGame): IGameAction {
    const tileData = save.state.tiles.get(tile);
    if (!tileData) {
-      throw new Error(`Tile ${tile} not found`);
+      return EmptyGameAction;
    }
    const upgradeCost = getTileUpgradeCost(tile, "administrative", save);
    return {

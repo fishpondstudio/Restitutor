@@ -5,13 +5,14 @@ import type { SaveGame } from "../GameState";
 import { addProvinceStat } from "../logic/ProvinceLogic";
 import { getTileMakeCoreCost } from "../logic/TileLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
+import { EmptyGameAction } from "./EmptyGameAction";
 import type { IGameAction } from "./GameAction";
 import { finalizeCondition } from "./GameAction";
 
 export function MakeCoreAction(tile: Tile, province: Province, save: SaveGame): IGameAction {
    const tileData = save.state.tiles.get(tile);
    if (!tileData) {
-      throw new Error(`Tile ${tile} not found`);
+      return EmptyGameAction;
    }
    const cost = getTileMakeCoreCost(tile, save);
    return {
