@@ -1,25 +1,10 @@
-- There are dynamic socials classes. In the beginning, there are: senate, equites and plebs. Later on, senate will decline and clergy class will rise.
-- Each class has two properties: loyalty and influence. Loyalty ranges from 0 - 100 (initial = 100); Influence ranges from 0 - Infinity (initial = 100); Loyalty is a resource (and the player spend other sources to increase it), Influence is a stats that needs to be managed.
-- Clergy class will have 0 influence in the beginning (because they are now spawned yet)
-- All actions look at relative Influence, which is the percentage of that class' influence: Influence% = Class Influence / All Class Influence.
-- The player can issue edicts. Each edict provides gameplay bonuses and one supporting class and one opposing class.
-- An edict can only be issued if the supporting class has >= 50 Loyalty and >= 50% Influence.
-- After issuing an edict, supporting classes gain +10 Influence. Opposing classes lose -10 Loyalty.
-- An edict lasts for 5 years and can expire early when supporting class has < 50 Loyalty.
-- A new edict can be issued every 3 years. An active edict cannot be issued again. Different edicts can be active at the same time and its effect can stack.
-- If a social class has >= 50% Influence, a negative effect is applied; If a social class has < 50 Loyalty, a negative effect is applied; These two negative effects can stack.
-- "Curry Favor" action: cost gold, increase a class' loyalty, 2-year cooldown
-- "Arrange Marriage" action: marry a family member, increase a class' loyalty, uncommon
-- "Elevate" action: cost admin point, increase a class' influence by 20%, shared 5-year cooldown with "Suppress"
-- "Suppress" action: cost military point, reduce a class' influence by 20%, shared 5-year cooldown with "Elevate"
-
 0.10 Plan:
 - Senate Action: Boost Social Class Loyalty
 - Senate Action: Boost Prestige
 
 0.10 Done:
-- Add Province Spirit
-
+- Province Spirit
+- Social Class Rework
 
 DONE
 - Event Log
