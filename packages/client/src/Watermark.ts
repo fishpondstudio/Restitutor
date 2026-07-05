@@ -14,7 +14,7 @@ export class Watermark {
       this._fps = new RingBuffer<number>(120);
       this._version = getVersion();
       this._watermark = G.scene.overlay.addChild(
-         new BitmapText("", { fontName: Fonts.MainFont, fontSize: 12, tint: 0x666666 }),
+         new BitmapText("", { fontName: Fonts.MonospaceFont, fontSize: 12, tint: 0x666666 }),
       );
       this._watermark.anchor.set(0, 1);
       this._updatePosition();
@@ -25,7 +25,12 @@ export class Watermark {
 
    public update(): void {
       this._fps.push(G.pixi.ticker.FPS);
-      this._watermark.text = `TICK: ${G.save.state.tick}    FPS: ${Math.round(this._fps.reduce(sum, 0) / this._fps.size)}    VERSION: ${this._version}    ${navigator.onLine ? "ONLINE" : "OFFLINE"}`;
+      this._watermark.text = [
+         `TICK:${G.save.state.tick}`,
+         `FPS:${Math.round(this._fps.reduce(sum, 0) / this._fps.size)}`,
+         `VERSION:${this._version}`,
+         navigator.onLine ? "ONLINE" : "OFFLINE",
+      ].join("   ");
    }
 
    private _updatePosition(): void {
