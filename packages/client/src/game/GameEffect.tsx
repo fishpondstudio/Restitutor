@@ -128,7 +128,7 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
                   </div>
                );
             })}
-         {effect.spawnProvinces?.map((province, data) => (
+         {effect.spawnProvinces?.map((province) => (
             <div key={province}>
                {html(
                   $t(

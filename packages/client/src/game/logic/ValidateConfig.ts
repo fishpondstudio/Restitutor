@@ -5,6 +5,7 @@ import { type SocialClass, SocialClassBonuses } from "../definitions/SocialClass
 import { Tech } from "../definitions/Tech";
 import { SpawnedProvinces } from "../definitions/TileConstants";
 import { TimedActions } from "../definitions/TimedAction";
+import { RomeMap } from "../RomeMap";
 
 export function validateConfig(): void {
    const buildings = new Set<Building>();
@@ -69,6 +70,9 @@ export function validateConfig(): void {
    forEach(SpawnedProvinces, (province, config) => {
       const tiles = new Set<Tile>();
       config.tiles.forEach((tile) => {
+         if (!RomeMap.has(tile)) {
+            console.error(`Spawned province ${province} has tile ${tile} that is not in the map`);
+         }
          if (tiles.has(tile)) {
             console.error(`Spawned province ${province} has duplicate tile ${tile}`);
          }
