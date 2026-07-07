@@ -1,4 +1,5 @@
-import { randInt, range, uuid4 } from "@project/shared/src/utils/Helper";
+import { forEach, randInt, range, type Tile, uuid4 } from "@project/shared/src/utils/Helper";
+import { WorldScene } from "../scenes/WorldScene";
 import { ChronicleModal } from "../ui/ChronicleModal";
 import { showPanel } from "../ui/common/ShowPanel";
 import { DeclareWarOnUsModal } from "../ui/DeclareWarOnUsEventModal";
@@ -9,12 +10,14 @@ import { RestorationBonusModal } from "../ui/RestorationBonusModal";
 import { WarEndedModal } from "../ui/WarEndedModal";
 import { G, isDev } from "../utils/Global";
 import { type IFamily, PersonFlags } from "./definitions/Family";
+import type { Province } from "./definitions/Province";
+import { SpawnedProvinces } from "./definitions/TileConstants";
 import type { TimedAction } from "./definitions/TimedAction";
-import { GameStateUpdated } from "./Events";
+import { GameStateUpdated, RefreshTiles } from "./Events";
 import { resetGame, saveGame } from "./LoadSave";
 import { monthToDate } from "./logic/GameDateTime";
 import { rebirth } from "./logic/LegacyUpgradeLogic";
-import { addProvinceResource, GovernorMaxExcl, GovernorMinIncl } from "./logic/ProvinceLogic";
+import { addProvinceResource, GovernorMaxExcl, GovernorMinIncl, spawnProvince } from "./logic/ProvinceLogic";
 import { addGameEvent } from "./logic/TickProvince";
 import { startTimedAction } from "./logic/TimedActionLogic";
 import { type IWar, WarFlag, WarLogFlag } from "./logic/WarLogic";
@@ -150,6 +153,25 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.undoTutorial = (number = 1) => {
       G.save.state.completedTutorials = new Set(Array.from(G.save.state.completedTutorials).slice(0, -number));
+      GameStateUpdated.emit();
+   };
+   // @ts-expect-error
+   globalThis.selectTiles = (tiles: number[]) => {
+      const scene = G.scene.getCurrent(WorldScene);
+      if (!scene) {
+         return;
+      }
+      scene.drawSelectors(new Set(tiles));
+   };
+   // @ts-expect-error
+   globalThis.spawnProvinces = () => {
+      const tiles: Tile[] = [];
+      forEach(SpawnedProvinces, (province, config) => {
+         spawnProvince(province, config.tiles, G.save).forEach((tile) => {
+            tiles.push(tile);
+         });
+      });
+      RefreshTiles.emit({ tiles: tiles, options: { visual: true, indicator: true } });
       GameStateUpdated.emit();
    };
    // @ts-expect-error

@@ -1,6 +1,8 @@
 import { Switch } from "@mantine/core";
 import { hasFlag, toggleFlag } from "@project/shared/src/utils/Helper";
+import { finalizeCondition } from "../game/actions/GameAction";
 import { ProvinceFlags } from "../game/definitions/Province";
+import { hasNotProvinceUpgradeCondition } from "../game/definitions/ProvinceUpgrades";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { getRevealedConsulVotes } from "../game/logic/DiplomacyLogic";
@@ -15,6 +17,7 @@ import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { ActionButton } from "./ActionButton";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
@@ -112,28 +115,66 @@ export function SenateModal(): React.ReactNode {
                         </div>
                      </FloatingTip>
                      <div className="row g5">
-                        <button
-                           id={`SenateModal_Candidate_${i}_${votes.has(i) ? "Revoke" : "Pledge"}`}
-                           className="btn f1"
-                           onClick={() => {
-                              if (votes.has(i)) {
-                                 votes.delete(i);
-                              } else {
-                                 votes.add(i);
-                              }
-                              G.save.state.senate.votes.set(G.save.state.playerProvince, votes);
-                              GameStateUpdated.emit();
-                           }}
-                           disabled={!votes.has(i) && votes.size >= 2}
-                        >
-                           <FloatingTip label={$t(L.PledgeSupportTooltip)}>
+                        {votes.has(i) ? (
+                           <ActionButton
+                              id={`SenateModal_Candidate_${i}_Revoke`}
+                              className="btn f1"
+                              action={{
+                                 effect: () => {
+                                    votes.delete(i);
+                                    G.save.state.senate.votes.set(G.save.state.playerProvince, votes);
+                                    GameStateUpdated.emit();
+                                 },
+                              }}
+                              tooltip={(element) => {
+                                 return (
+                                    <>
+                                       <div className="m10">{$t(L.PledgeSupportTooltip)}</div>
+                                       {element}
+                                    </>
+                                 );
+                              }}
+                           >
+                              <div className="text-red">{$t(L.RevokeSupport)}</div>
+                           </ActionButton>
+                        ) : (
+                           <ActionButton
+                              id={`SenateModal_Candidate_${i}_Pledge`}
+                              className="btn f1"
+                              action={{
+                                 condition: finalizeCondition([
+                                    {
+                                       name: $t(L.WeHavePledgedSupportToLessThan2Candidates),
+                                       value: votes.size < 2,
+                                    },
+                                    hasNotProvinceUpgradeCondition(
+                                       "OurOwnDestiny",
+                                       G.save.state.playerProvince,
+                                       G.save,
+                                    ),
+                                 ]),
+                                 effect: () => {
+                                    votes.add(i);
+                                    G.save.state.senate.votes.set(G.save.state.playerProvince, votes);
+                                    GameStateUpdated.emit();
+                                 },
+                              }}
+                              tooltip={(element) => {
+                                 return (
+                                    <>
+                                       <div className="m10">{$t(L.PledgeSupportTooltip)}</div>
+                                       {element}
+                                    </>
+                                 );
+                              }}
+                           >
                               {votes.has(i) ? (
                                  <div className="text-red">{$t(L.RevokeSupport)}</div>
                               ) : (
                                  <div>{$t(L.PledgeSupport)}</div>
                               )}
-                           </FloatingTip>
-                        </button>
+                           </ActionButton>
+                        )}
                         <FloatingTip
                            label={
                               supportedProvinces.length > 0

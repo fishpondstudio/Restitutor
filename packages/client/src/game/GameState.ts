@@ -49,7 +49,13 @@ export class GameState {
    flags: GameStateFlags = GameStateFlags.None;
    playerProvince: Province = "Lugdunensis";
    provinces: Partial<Record<Province, IProvince>> = fromEntries(
-      Provinces.map((province) => [province, initProvince(province)]),
+      Provinces.flatMap((province) => {
+         const capital = getOriginalCapital(province);
+         if (!capital) {
+            return [];
+         }
+         return [[province, initProvince(province, capital)]];
+      }),
    );
    senate: ISenate = {
       electedConsuls: new Map([
@@ -246,4 +252,13 @@ export function getOriginalTileCount(province: Province): number {
       }
    }
    return count;
+}
+
+export function getOriginalCapital(province: Province): Tile | undefined {
+   for (const [tile, data] of RomeMap) {
+      if (data.province === province && data.isCapital) {
+         return tile;
+      }
+   }
+   return undefined;
 }

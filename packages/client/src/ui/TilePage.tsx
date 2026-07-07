@@ -9,6 +9,7 @@ import { Terrains } from "../game/definitions/Terrain";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
+import { MapBackgroundColors } from "../game/logic/MapColor";
 import { getProvinceName, getProvinceStat } from "../game/logic/ProvinceLogic";
 import {
    getTileDefense,
@@ -107,7 +108,9 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                >
                   {$t(L.Diplomacy)}
                </button>
-               <div>{getProvinceName(tileData.province, G.save)}</div>
+               <div style={{ color: `#${MapBackgroundColors[tileData.province].toString(16)}` }}>
+                  {getProvinceName(tileData.province, G.save)}
+               </div>
             </div>
             {isCapital(tile, G.save) && (
                <div className="row my5">

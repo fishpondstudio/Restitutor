@@ -1,6 +1,7 @@
 import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
-import { fromEntries, pointToTile, range, tileToPoint } from "@project/shared/src/utils/Helper";
+import { forEach, fromEntries, pointToTile, range, tileToPoint } from "@project/shared/src/utils/Helper";
 import { type Province, Provinces } from "../definitions/Province";
+import { SpawnedProvinces } from "../definitions/TileConstants";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
 
@@ -57,11 +58,24 @@ function buildAdjacentProvinces(): Record<Province, Set<Province>> {
       }
    }
 
+   forEach(SpawnedProvinces, (province, config) => {
+      config.tiles.forEach((tile) => {
+         for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
+            const neighborProvince = RomeMap.get(pointToTile(neighbor))?.province;
+            if (neighborProvince && neighborProvince !== province) {
+               adjacency[province].add(neighborProvince);
+               adjacency[neighborProvince].add(province);
+            }
+         }
+      });
+   });
+
    addAdjacency("Corsica", "Sardinia", adjacency);
    addAdjacency("Corsica", "Italia", adjacency);
    addAdjacency("Sardinia", "Italia", adjacency);
    addAdjacency("Britannia", "Lugdunensis", adjacency);
    addAdjacency("Britannia", "Belgica", adjacency);
+   addAdjacency("Britannia", "Germania", adjacency);
 
    return adjacency;
 }

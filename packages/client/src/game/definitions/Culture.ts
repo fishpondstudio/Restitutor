@@ -27,6 +27,7 @@ export const Culture = {
    Arab: { name: () => $t(L.CultureArab) },
    Sardinian: { name: () => $t(L.CultureSardinian) },
    Corsican: { name: () => $t(L.CultureCorsican) },
+   Hunnic: { name: () => $t(L.CultureHunnic) },
 } as const satisfies Record<string, ICultureConfig>;
 
 export type Culture = keyof typeof Culture;

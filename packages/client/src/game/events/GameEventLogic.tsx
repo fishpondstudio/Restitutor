@@ -26,12 +26,12 @@ import type { ImageWithCredit } from "./ImageWithCredit";
 
 export function getGameEventButtonDesc(button: IGameEventButton, province: Province, save: SaveGame): React.ReactNode {
    return (
-      <>
+      <div className="col-gap-5">
          {getGameEffectDesc(button, province, save)}
          {button.custom?.map(
             (effect, index) => effect.desc && <div key={index}>{html(effect.desc(province, save))}</div>,
          )}
-      </>
+      </div>
    );
 }
 

@@ -625,14 +625,14 @@
    }
 }
 
-.animate-bounce-left {
-   animation: bounce-left 1s infinite;
+.animate-bounce-right {
+   animation: bounce-right 1s infinite;
 }
 
-@keyframes bounce-left {
+@keyframes bounce-right {
    0%,
    100% {
-      transform: translateX(20%);
+      transform: translateX(-20%);
       animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
    }
    50% {
@@ -653,4 +653,10 @@ ul {
 p {
    margin: 0.3125rem 0;
    padding: 0;
+}
+
+.col-gap-5 {
+   display: flex;
+   flex-direction: column;
+   gap: 0.3125rem;
 }

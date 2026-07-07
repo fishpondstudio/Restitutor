@@ -51,6 +51,20 @@ import Y380 from "../../assets/images/events/Y380.webp";
 import Y395 from "../../assets/images/events/Y395.webp";
 import Y400 from "../../assets/images/events/Y400.webp";
 import Y401 from "../../assets/images/events/Y401.webp";
+import Y409 from "../../assets/images/events/Y409.webp";
+import Y410 from "../../assets/images/events/Y410.webp";
+import Y418 from "../../assets/images/events/Y418.webp";
+import Y429 from "../../assets/images/events/Y429.webp";
+import Y439 from "../../assets/images/events/Y439.webp";
+import Y443 from "../../assets/images/events/Y443.webp";
+import Y445 from "../../assets/images/events/Y445.webp";
+import Y446 from "../../assets/images/events/Y446.webp";
+import Y449 from "../../assets/images/events/Y449.webp";
+import Y451 from "../../assets/images/events/Y451.webp";
+import Y453 from "../../assets/images/events/Y453.webp";
+import Y455 from "../../assets/images/events/Y455.webp";
+import Y471 from "../../assets/images/events/Y471.webp";
+import Y476 from "../../assets/images/events/Y476.webp";
 
 import type { ImageWithCredit } from "./ImageWithCredit";
 
@@ -96,6 +110,20 @@ export const EventImage = {
    },
    Y400: { url: Y400, credit: "Das Forum Romanum, J. Bühlmann (1901)" },
    Y401: { url: Y401, credit: "Extensive landscape in the Roman Campagna, Louis Gurlitt (1844)" },
+   Y409: { url: Y409, credit: "Captives, Évariste-Vital Luminais" },
+   Y410: { url: Y410, credit: "Sac de Rome, Joseph-Noël Sylvestre (1890)" },
+   Y418: { url: Y418, credit: "Walia, rey de los Visigodos, Alejo Vera (1855)" },
+   Y429: { url: Y429, credit: "Death of St. Augustine, Benozzo Gozzoli (1465)" },
+   Y439: { url: Y439, credit: "The Decline of the Carthaginian Empire, J. M. W. Turner (1817)" },
+   Y443: { url: Y443, credit: "Hagen versenkt den Nibelungenhort, Peter von Cornelius (1859)" },
+   Y445: { url: Y445, credit: "A Feast At Attila's Court, Hans Werner Schmidt (1912)" },
+   Y446: { url: Y446, credit: "The Baptism of Clovis, Master of Saint Giles (c.1500)" },
+   Y449: { url: Y449, credit: "Meeting of Vortigern and Rowena, William Hamilton (c.1800)" },
+   Y451: { url: Y451, credit: "Die Hunnenschlacht, Wilhelm von Kaulbach (c.1850)" },
+   Y453: { url: Y453, credit: "The Battle of Tolbiac, Ary Scheffer (1836)" },
+   Y455: { url: Y455, credit: "Plundering of Rome by the Vandals, Heinrich Leutemann (1866)" },
+   Y471: { url: Y471, credit: "Saint Benedict receiving Totila, King of the Ostrogoths, Gaspar de Crayer (1633)" },
+   Y476: { url: Y476, credit: "The Colosseum Rome, John Warwick Smith (1802)" },
    Merchant: { url: Merchant, credit: "The Orange Merchant In Cairo, Anton Binder (Austrian, 1868-1944)" },
    Merchant2: { url: Merchant2, credit: "The Street Merchant, Gustavo Simoni (Italian, 1845-1926)" },
    Merchant3: { url: Merchant3, credit: "The Carpet Merchant, Francesco Ballesio (Italian, 1860-1923)" },

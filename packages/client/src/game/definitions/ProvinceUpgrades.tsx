@@ -1,6 +1,7 @@
 import { mapOf } from "@project/shared/src/utils/Helper";
 import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
+import type { ICondition } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
 import { type IBaseModifier, type Modifier, modifierToString } from "./Modifier";
 import type { Province } from "./Province";
@@ -111,6 +112,10 @@ const _ProvinceUpgrades = {
       name: () => $t(L.ChristianFervor),
       desc: () => $t(L.ChristianFervorDesc),
    },
+   OurOwnDestiny: {
+      name: () => $t(L.OurOwnDestiny),
+      desc: () => $t(L.OurOwnDestinyDesc),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;
@@ -122,6 +127,24 @@ export function hasProvinceUpgrade(upgrade: ProvinceUpgrade, province: Province,
       return false;
    }
    return state.provinceUpgrades.has(upgrade);
+}
+
+export function hasProvinceUpgradeCondition(upgrade: ProvinceUpgrade, province: Province, save: SaveGame): ICondition {
+   return {
+      name: $t(L.WeHaveEnacted$1, ProvinceUpgrades[upgrade].name()),
+      value: hasProvinceUpgrade(upgrade, province, save),
+   };
+}
+
+export function hasNotProvinceUpgradeCondition(
+   upgrade: ProvinceUpgrade,
+   province: Province,
+   save: SaveGame,
+): ICondition {
+   return {
+      name: $t(L.WeHaventEnacted$1, ProvinceUpgrades[upgrade].name()),
+      value: !hasProvinceUpgrade(upgrade, province, save),
+   };
 }
 
 export function addProvinceUpgrade(upgrade: ProvinceUpgrade, province: Province, save: SaveGame): void {

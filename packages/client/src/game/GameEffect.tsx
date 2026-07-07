@@ -1,5 +1,6 @@
-import { forEach, formatDelta, formatNumber, formatPercent, mapOf } from "@project/shared/src/utils/Helper";
+import { forEach, formatDelta, formatNumber, formatPercent, mapOf, type Tile } from "@project/shared/src/utils/Helper";
 import type React from "react";
+import { html } from "../ui/components/RenderHTMLComp";
 import { $t, L } from "../utils/i18n";
 import { CasusBelli } from "./definitions/CasusBelli";
 import { Goods } from "./definitions/Goods";
@@ -11,7 +12,7 @@ import {
    modifierValueToString,
 } from "./definitions/Modifier";
 import {
-   type Province,
+   Province,
    type ProvinceResource,
    ProvinceResourceNames,
    type ProvinceStat,
@@ -19,12 +20,21 @@ import {
    type TradeOfferBase,
 } from "./definitions/Province";
 import { addProvinceUpgrade, type ProvinceUpgrade, ProvinceUpgrades } from "./definitions/ProvinceUpgrades";
+import { type SpawnedProvince, SpawnedProvinces } from "./definitions/TileConstants";
+import { getTileName } from "./definitions/TileName";
 import { TimedActions } from "./definitions/TimedAction";
+import { RefreshTiles } from "./Events";
 import { filterProvinces } from "./events/GameEventLogic";
 import type { SaveGame } from "./GameState";
 import { addAttitudeModifier, getRelation } from "./logic/DiplomacyLogic";
 import { addModifier } from "./logic/ModifierLogic";
-import { addProvinceResource, addProvinceStat, generateTrade, getProvinceName } from "./logic/ProvinceLogic";
+import {
+   addProvinceResource,
+   addProvinceStat,
+   generateTrade,
+   getProvinceName,
+   spawnProvince,
+} from "./logic/ProvinceLogic";
 
 export interface IGameEffect {
    resources?: Partial<Record<ProvinceResource, number>>;
@@ -35,6 +45,7 @@ export interface IGameEffect {
    modifiers?: Partial<Record<Modifier, Omit<IModifier, "name">>>;
    attitudes?: Partial<Record<Province, Omit<IModifier, "name"> & { duration: number }>>;
    casusBelli?: Partial<Record<Province, { casusBelli: CasusBelli; duration: number }>>;
+   spawnProvinces?: SpawnedProvince[];
 }
 
 export interface ICustomEffect {
@@ -51,7 +62,12 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
    return (
       <>
          {effect.provinceUpgrades?.map((upgrade) => (
-            <div key={upgrade}>{$t(L.Enact$1, ProvinceUpgrades[upgrade].name())}</div>
+            <div key={upgrade}>
+               {$t(L.Enact$1, ProvinceUpgrades[upgrade].name())}
+               {ProvinceUpgrades[upgrade].desc && (
+                  <div className="text-dimmed text-xs">{ProvinceUpgrades[upgrade].desc()}</div>
+               )}
+            </div>
          ))}
          {effect.resources &&
             mapOf(effect.resources, (resource, amount) => (
@@ -112,6 +128,21 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
                   </div>
                );
             })}
+         {effect.spawnProvinces?.map((province, data) => (
+            <div key={province}>
+               {html(
+                  $t(
+                     L.SpawnProvinceEffectDesc$1$2,
+                     Province[province].name(),
+                     SpawnedProvinces[province].tiles
+                        .map((tile, index) =>
+                           index === 0 ? `${getTileName(tile)} (${$t(L.Capital)})` : getTileName(tile),
+                        )
+                        .join(", "),
+                  ),
+               )}
+            </div>
+         ))}
       </>
    );
 }
@@ -147,6 +178,7 @@ export function applyGameEffect(effect: IGameEffect, source: string, province: P
          relation.casusBelli.set(data.casusBelli, { monthsLeft: data.duration });
       }
    });
+
    forEach(filterProvinces(effect.trades ?? {}, province, save), (fromProvince, data) => {
       const { trade } = generateTrade(data.offer, data.extraProfit, province, save);
       const relation = getRelation(province, fromProvince, save);
@@ -160,4 +192,13 @@ export function applyGameEffect(effect: IGameEffect, source: string, province: P
    effect.provinceUpgrades?.forEach((upgrade) => {
       addProvinceUpgrade(upgrade, province, save);
    });
+   const changedTiles: Tile[] = [];
+   effect.spawnProvinces?.forEach((spawnedProvince) => {
+      spawnProvince(spawnedProvince, SpawnedProvinces[spawnedProvince].tiles, save).forEach((tile) => {
+         changedTiles.push(tile);
+      });
+   });
+   if (changedTiles.length > 0) {
+      RefreshTiles.emit({ tiles: changedTiles, options: { visual: true, indicator: true } });
+   }
 }

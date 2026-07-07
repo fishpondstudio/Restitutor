@@ -38,7 +38,6 @@ import {
    type TradeOfferBase,
 } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
-import type { ITileConfig } from "../definitions/Tile";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
@@ -462,7 +461,7 @@ export const GovernorMinIncl = 3;
 export const GovernorMaxIncl = 6;
 export const GovernorMaxExcl = GovernorMaxIncl + 1;
 
-export function initProvince(province: Province): IProvince {
+export function initProvince(province: Province, capital: Tile): IProvince {
    return {
       nameOverride: undefined,
       culture: Province[province].culture,
@@ -480,7 +479,7 @@ export function initProvince(province: Province): IProvince {
          military: initAdvisors(),
       },
       focus: "administrative",
-      capital: getProvinceCapital(province, RomeMap),
+      capital: capital,
       rivals: [null, null],
       _relations: new Map(),
       unlockedTech: new Set(["A1", "A2", "A3"]),
@@ -505,15 +504,6 @@ export function initProvince(province: Province): IProvince {
          skippedTrade: new Set(),
       },
    };
-}
-
-function getProvinceCapital(province: Province, tiles: Map<Tile, ITileConfig>): Tile {
-   for (const [tile, data] of tiles) {
-      if (data.province === province && data.isCapital) {
-         return tile;
-      }
-   }
-   throw new Error(`No capital found for province ${province}`);
 }
 
 export function getProvinceGovernmentPoint(type: GovernorPower, province: Province, save: SaveGame): IValueBreakdown {
@@ -712,23 +702,21 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
    return finalizeBreakdown(result);
 }
 
-export function ensureProvinceCapital(province: Province, save: SaveGame): void {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   if (save.state.tiles.get(state.capital)?.province === province) {
-      return;
-   }
-   for (const [tile, data] of save.state.tiles) {
-      if (data.province === province) {
-         state.capital = tile;
+export function ensureProvinceCapitals(save: SaveGame): Tile[] {
+   const result: Tile[] = [];
+   forEach(save.state.provinces, (province, state) => {
+      if (save.state.tiles.get(state.capital)?.province === province) {
          return;
       }
-   }
-   console.warn(
-      `ensureProvinceCapital: cannot find a capital for ${province}. It is likely that the province has no tiles.`,
-   );
+      for (const [tile, data] of save.state.tiles) {
+         if (data.province === province) {
+            state.capital = tile;
+            result.push(tile);
+            return;
+         }
+      }
+   });
+   return result;
 }
 
 const _cachedProvincePrestigeRanking = new Map<Province, number>();
@@ -1010,4 +998,21 @@ export function getCulturalCohesion(province: Province, save: SaveGame): number 
       }
    }
    return sameCulture / total;
+}
+
+export function spawnProvince(province: Province, tiles: Tile[], save: SaveGame): Tile[] {
+   if (save.state.provinces[province]) {
+      return [];
+   }
+   const data = initProvince(province, tiles[0]);
+   save.state.provinces[province] = data;
+   tiles.forEach((tile) => {
+      const data = save.state.tiles.get(tile);
+      if (!data) {
+         return;
+      }
+      data.province = province;
+      data.coreProvinces.add(province);
+   });
+   return [...tiles, ...ensureProvinceCapitals(save)];
 }

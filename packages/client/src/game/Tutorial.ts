@@ -139,7 +139,7 @@ export const Tutorial: ITutorial[] = [
          }
          return [0, 1];
       },
-      selectors: ["#LeftPanel_OngoingWar_0.animate-bounce-left", "#WarModal_SignPeaceTreaty"],
+      selectors: ["#LeftPanel_OngoingWar_0.animate-bounce-right", "#WarModal_SignPeaceTreaty"],
    },
    {
       id: "MakeCore",

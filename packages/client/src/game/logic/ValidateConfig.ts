@@ -1,8 +1,9 @@
-import { forEach, sizeOf } from "@project/shared/src/utils/Helper";
+import { forEach, sizeOf, type Tile } from "@project/shared/src/utils/Helper";
 import { type Building, Buildings } from "../definitions/Building";
 import { Goods } from "../definitions/Goods";
 import { type SocialClass, SocialClassBonuses } from "../definitions/SocialClass";
 import { Tech } from "../definitions/Tech";
+import { SpawnedProvinces } from "../definitions/TileConstants";
 import { TimedActions } from "../definitions/TimedAction";
 
 export function validateConfig(): void {
@@ -64,6 +65,15 @@ export function validateConfig(): void {
       if (config.opposing.includes("UpperClass") && config.opposing.includes("ReligiousClass")) {
          console.error(`SocialClassBonus "${bonus}" has conflicting opposing social classes`);
       }
+   });
+   forEach(SpawnedProvinces, (province, config) => {
+      const tiles = new Set<Tile>();
+      config.tiles.forEach((tile) => {
+         if (tiles.has(tile)) {
+            console.error(`Spawned province ${province} has duplicate tile ${tile}`);
+         }
+         tiles.add(tile);
+      });
    });
    // forEach(TimedActions, (timedAction, config) => {
    //    if (config.duration > config.cooldown) {

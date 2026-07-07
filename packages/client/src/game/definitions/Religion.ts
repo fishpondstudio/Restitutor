@@ -16,6 +16,7 @@ export const Religion = {
    Egyptian: { name: () => $t(L.ReligionEgyptian) },
    Judaism: { name: () => $t(L.ReligionJudaism) },
    Christianity: { name: () => $t(L.ReligionChristianity) },
+   Hunnic: { name: () => $t(L.ReligionHunnic) },
 } as const satisfies Record<string, IReligionConfig>;
 
 export type Religion = keyof typeof Religion;

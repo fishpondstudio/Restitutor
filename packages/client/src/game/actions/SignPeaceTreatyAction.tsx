@@ -9,7 +9,7 @@ import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getRelation } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
-import { addProvinceResource, ensureProvinceCapital } from "../logic/ProvinceLogic";
+import { addProvinceResource, ensureProvinceCapitals } from "../logic/ProvinceLogic";
 import { showGameEventModal } from "../logic/TickProvince";
 import { getCurrentGeneral, getTruceDuration, type IWar, WarFlag } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
@@ -42,7 +42,7 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
             addProvinceResource("generalSkillPoint", war.tiles.size, war.attacker, save);
          }
          const truceDuration = getTruceDuration(war, save);
-         ensureProvinceCapital(war.defender, save);
+         const changedCapitals = ensureProvinceCapitals(save);
          filterInPlace(save.state.wars, (w) => w !== war);
          const attackerToDefender = getRelation(war.attacker, war.defender, save);
          const defenderToAttacker = getRelation(war.defender, war.attacker, save);
@@ -67,7 +67,7 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
                save: save,
             });
          }
-         RefreshTiles.emit({ tiles: war.tiles, options: { indicator: true, visual: true } });
+         RefreshTiles.emit({ tiles: [...war.tiles, ...changedCapitals], options: { indicator: true, visual: true } });
          if (headless) {
             if (war.defender === save.state.playerProvince) {
                showGameEventModal(<InvaderConqueredWarGoalModal war={war} />);

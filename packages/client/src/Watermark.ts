@@ -30,7 +30,7 @@ export class Watermark {
          `FPS:${Math.round(this._fps.reduce(sum, 0) / this._fps.size)}`,
          `VERSION:${this._version}`,
          navigator.onLine ? "ONLINE" : "OFFLINE",
-      ].join("   ");
+      ].join("  ");
    }
 
    private _updatePosition(): void {

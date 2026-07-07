@@ -269,6 +269,15 @@ export const Province = {
    Syria: { name: () => $t(L.ProvinceSyria), culture: "Syrian", religion: "Eastern", upgrades: [] },
    Tarraconensis: { name: () => $t(L.ProvinceTarraconensis), culture: "Iberian", religion: "Iberian", upgrades: [] },
    Thracia: { name: () => $t(L.ProvinceThracia), culture: "Thracian", religion: "GrecoRoman", upgrades: [] },
+   Suebi: { name: () => $t(L.ProvinceSuebi), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Visigoths: { name: () => $t(L.ProvinceVisigoths), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Vandals: { name: () => $t(L.ProvinceVandals), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Burgundians: { name: () => $t(L.ProvinceBurgundians), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Franks: { name: () => $t(L.ProvinceFranks), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Saxons: { name: () => $t(L.ProvinceSaxons), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Alemanni: { name: () => $t(L.ProvinceAlemanni), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Ostrogoths: { name: () => $t(L.ProvinceOstrogoths), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Huns: { name: () => $t(L.ProvinceHuns), culture: "Hunnic", religion: "Hunnic", upgrades: [] },
 } as const satisfies Record<string, IProvinceConfig>;
 
 export type Province = keyof typeof Province;

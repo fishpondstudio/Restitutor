@@ -692,4 +692,251 @@ export const HistoricalEvents = {
          },
       ],
    },
+   Y409: {
+      name: () => $t(L.EventY409Name),
+      image: EventImage.Y409,
+      desc: () => $t(L.EventY409Desc),
+      condition: {
+         year: [409, 409],
+      },
+      buttons: [
+         {
+            label: () => $t(L.WeShallKeepAnEyeOnThem),
+            spawnProvinces: ["Suebi"],
+         },
+      ],
+   },
+   Y410: {
+      name: () => $t(L.EventY410Name),
+      image: EventImage.Y410,
+      desc: () => $t(L.EventY410Desc),
+      condition: {
+         year: [410, 410],
+      },
+      buttons: [
+         {
+            label: () => $t(L.WeShallAssistRomeToRebuild),
+            modifiers: {
+               Prestige: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.WeShallFortifyOurOwnDefense),
+            modifiers: {
+               Defense: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.RomeIsWhereverLegionsStand),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Y418: {
+      name: () => $t(L.EventY418Name),
+      image: EventImage.Y418,
+      desc: () => $t(L.EventY418Desc),
+      condition: {
+         year: [418, 418],
+      },
+      buttons: [
+         {
+            label: () => $t(L.FineLetThemSettleThere),
+            spawnProvinces: ["Visigoths"],
+         },
+      ],
+   },
+   Y429: {
+      name: () => $t(L.EventY429Name),
+      image: EventImage.Y429,
+      desc: () => $t(L.EventY429Desc),
+      condition: {
+         year: [429, 429],
+      },
+      buttons: [
+         {
+            label: () => $t(L.AfricaMustBeDefendedAtAllCost),
+            resources: { military: -50 },
+         },
+         {
+            label: () => $t(L.NegotiateAndContainThem),
+            resources: { diplomatic: -50 },
+         },
+      ],
+   },
+   Y439: {
+      name: () => $t(L.EventY439Name),
+      image: EventImage.Y439,
+      desc: () => $t(L.EventY439Desc),
+      condition: {
+         year: [439, 439],
+      },
+      buttons: [
+         {
+            label: () => $t(L.HmmOneMoreThreatToDealWith),
+            spawnProvinces: ["Vandals"],
+         },
+      ],
+   },
+   Y443: {
+      name: () => $t(L.EventY443Name),
+      image: EventImage.Y443,
+      desc: () => $t(L.EventY443Desc),
+      condition: {
+         year: [443, 443],
+      },
+      buttons: [
+         {
+            label: () => $t(L.LetsHopeTheyStayPeaceful),
+            spawnProvinces: ["Burgundians"],
+         },
+      ],
+   },
+   Y445: {
+      name: () => $t(L.EventY445Name),
+      image: EventImage.Y445,
+      desc: () => $t(L.EventY445Desc),
+      condition: {
+         year: [445, 445],
+      },
+      buttons: [
+         {
+            label: () => $t(L.WeShallPrepareForThisNewThreat),
+            spawnProvinces: ["Huns"],
+         },
+      ],
+   },
+   Y446: {
+      name: () => $t(L.EventY446Name),
+      image: EventImage.Y446,
+      desc: () => $t(L.EventY446Desc),
+      condition: {
+         year: [446, 446],
+      },
+      buttons: [
+         {
+            label: () => $t(L.LetUsSeeWhatComesOfThis),
+            spawnProvinces: ["Franks"],
+         },
+      ],
+   },
+   Y449: {
+      name: () => $t(L.EventY449Name),
+      image: EventImage.Y449,
+      desc: () => $t(L.EventY449Desc),
+      condition: {
+         year: [449, 449],
+      },
+      buttons: [
+         {
+            label: () => $t(L.TheSignsAreNotEncouraging),
+            spawnProvinces: ["Saxons"],
+         },
+      ],
+   },
+   Y451: {
+      name: () => $t(L.EventY451Name),
+      image: EventImage.Y451,
+      desc: () => $t(L.EventY451Desc),
+      condition: {
+         year: [451, 451],
+      },
+      buttons: [
+         {
+            label: () => $t(L.WeShallHonorOurBarbarianAllies),
+            resources: { diplomatic: 100 },
+            modifiers: {
+               Prestige: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.TheVictoryBelongsToRomeAlone),
+            resources: { military: 100 },
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Y453: {
+      name: () => $t(L.EventY453Name),
+      image: EventImage.Y453,
+      desc: () => $t(L.EventY453Desc),
+      condition: {
+         year: [453, 453],
+      },
+      buttons: [
+         {
+            label: () => $t(L.WeShouldNotUnderestimateThem),
+            spawnProvinces: ["Alemanni"],
+         },
+      ],
+   },
+   Y455: {
+      name: () => $t(L.EventY455Name),
+      image: EventImage.Y455,
+      desc: () => $t(L.EventY455Desc),
+      condition: {
+         year: [455, 455],
+      },
+      buttons: [
+         {
+            label: () => $t(L.WeShallRansomTheCaptives),
+            resources: { gold: -1000 },
+            modifiers: {
+               Prestige: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.WeHaveNothingLeftToGive),
+            modifiers: {
+               LandTax: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               Prestige: { type: "multiply", value: -0.1, duration: 2 * 12 },
+               Stability: { type: "add", value: -10, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Y471: {
+      name: () => $t(L.EventY471Name),
+      image: EventImage.Y471,
+      desc: () => $t(L.EventY471Desc),
+      condition: {
+         year: [471, 471],
+      },
+      buttons: [
+         {
+            label: () => $t(L.WeShouldNotUnderestimateThem),
+            spawnProvinces: ["Ostrogoths"],
+         },
+      ],
+   },
+   Y476: {
+      name: () => $t(L.EventY476Name),
+      image: EventImage.Y476,
+      desc: () => $t(L.EventY476Desc),
+      condition: {
+         year: [476, 476],
+      },
+      buttons: [
+         {
+            label: () => $t(L.OurDestinyIsInOurOwnHands),
+            resources: { consulPoint: 25, administrative: 100 },
+            modifiers: {
+               Prestige: { type: "multiply", value: -0.1, duration: 12 },
+            },
+            provinceUpgrades: ["OurOwnDestiny"],
+         },
+         {
+            label: () => $t(L.OneEmpireOneEmperorInTheEast),
+            resources: { diplomatic: 100 },
+            modifiers: {
+               Stability: { type: "add", value: -10, duration: 12 },
+            },
+         },
+      ],
+   },
 } as const satisfies Record<string, IGameEventConfig>;

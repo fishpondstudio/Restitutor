@@ -149,7 +149,7 @@ function WarTodo(war: IWar, index: number): [string, ITodo] {
                save,
             );
             if (war.actualWarScore >= war.requiredWarScore) {
-               return "green animate-bounce-left";
+               return "green animate-bounce-right";
             }
             if (isWarStalled(war, save)) {
                return "yellow animate-pulse";
@@ -178,7 +178,7 @@ const Rebellions: ITodo = {
       for (const [tile, data] of save.state.tiles) {
          if (data.province === save.state.playerProvince) {
             if (data.rebellion >= 10) {
-               return "red animate-bounce-left";
+               return "red animate-bounce-right";
             }
          }
       }
@@ -688,7 +688,7 @@ const TreatiesAboutToExpire: ITodo = {
 const PendingGameEvent: ITodo = {
    name: (save) => $t(L.PendingEventDecision),
    icon: (save) => PendingEvent,
-   className: (save) => "green animate-bounce-left",
+   className: (save) => "green animate-bounce-right",
    tooltip: (save) => {
       const state = save.state.provinces[save.state.playerProvince];
       if (!state) {
