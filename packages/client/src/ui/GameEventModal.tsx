@@ -1,4 +1,5 @@
 import { formatNumber, randOne } from "@project/shared/src/utils/Helper";
+import Wikipedia from "../assets/images/Wikipedia.svg";
 import { GameStateUpdated } from "../game/Events";
 import {
    applyGameEventButton,
@@ -9,6 +10,7 @@ import {
 } from "../game/events/GameEventLogic";
 import { type GameEvent, GameEvents } from "../game/events/GameEvents";
 import { PendingGameEventTimeoutMonths } from "../game/logic/TickProvince";
+import { openUrl } from "../rpc/SteamClient";
 import { G } from "../utils/Global";
 import { useTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -60,7 +62,22 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
 
    return (
       <GenericEventModal
-         title={data.name()}
+         title={
+            <div className="row">
+               <div>{data.name()}</div>
+               {data.wikipedia && (
+                  <img
+                     src={Wikipedia}
+                     style={{ height: "1rem", opacity: 0.7 }}
+                     className="pointer"
+                     onClick={() => {
+                        openUrl(`https://en.qrwp.org/${data.wikipedia}`);
+                     }}
+                  />
+               )}
+               <div className="f1" />
+            </div>
+         }
          content={data.desc()}
          image={image.url}
          titleTooltip={

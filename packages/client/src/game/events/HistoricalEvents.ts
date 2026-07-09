@@ -11,6 +11,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const HistoricalEvents = {
    Y193: {
       name: () => $t(L.YearOfTheFiveEmperors),
+      wikipedia: "Year_of_the_Five_Emperors",
       image: EventImage.Y193,
       desc: () => $t(L.YearOfTheFiveEmperorsDesc),
       condition: {
@@ -66,6 +67,7 @@ export const HistoricalEvents = {
    },
    Y197: {
       name: () => $t(L.BattleOfLugdunum),
+      wikipedia: "Battle_of_Lugdunum",
       image: EventImage.Y197,
       desc: () => $t(L.BattleOfLugdunumDesc),
       condition: {
@@ -88,6 +90,7 @@ export const HistoricalEvents = {
    },
    Y198: {
       name: () => $t(L.GoodNewsFromTheEast),
+      wikipedia: "Battle_of_Ctesiphon_(198)",
       image: EventImage.Y198,
       desc: () => $t(L.GoodNewsFromTheEastDesc),
       condition: {
@@ -108,6 +111,7 @@ export const HistoricalEvents = {
    },
    Y211: {
       name: () => $t(L.LongLiveTheEmperorSeptimiusSeverus),
+      wikipedia: "Septimius_Severus",
       image: EventImage.Y211,
       desc: () => $t(L.LongLiveTheEmperorSeptimiusSeverusDesc),
       condition: {
@@ -132,6 +136,7 @@ export const HistoricalEvents = {
    },
    Y212: {
       name: () => $t(L.AllAreRomanCitizens),
+      wikipedia: "Constitutio_Antoniniana",
       image: EventImage.Y212,
       desc: () => $t(L.AllAreRomanCitizensDesc),
       condition: {
@@ -153,6 +158,7 @@ export const HistoricalEvents = {
    },
    Y217: {
       name: () => $t(L.BloodOnTheRoadToCarrhae),
+      wikipedia: "Caracalla",
       image: EventImage.Y217,
       desc: () => $t(L.BloodOnTheRoadToCarrhaeDesc),
       condition: {
@@ -177,6 +183,7 @@ export const HistoricalEvents = {
    },
    Y218: {
       name: () => $t(L.TheGodFromTheEast),
+      wikipedia: "Elagabalus",
       image: EventImage.Y218,
       desc: () => $t(L.TheGodFromTheEastDesc),
       condition: {
@@ -195,6 +202,7 @@ export const HistoricalEvents = {
    },
    Y222: {
       name: () => $t(L.ThePraetoriansDecide),
+      wikipedia: "Alexander_Severus",
       image: EventImage.Y222,
       desc: () => $t(L.ThePraetoriansDecideDesc),
       condition: {
@@ -213,6 +221,7 @@ export const HistoricalEvents = {
    },
    Y224: {
       name: () => $t(L.ANewPersiaRises),
+      wikipedia: "Sasanian_Empire",
       image: EventImage.Y224,
       desc: () => $t(L.ANewPersiaRisesDesc),
       condition: {
@@ -236,6 +245,7 @@ export const HistoricalEvents = {
    },
    Y235: {
       name: () => $t(L.TheAgeOfSoldiers),
+      wikipedia: "Severus_Alexander",
       image: EventImage.Y235,
       desc: () => $t(L.TheAgeOfSoldiersDesc),
       condition: {
@@ -256,6 +266,7 @@ export const HistoricalEvents = {
    },
    Y238: {
       name: () => $t(L.YearOfTheSixEmperors),
+      wikipedia: "Year_of_the_Six_Emperors",
       image: EventImage.Y238,
       desc: () => $t(L.YearOfTheSixEmperorsDesc),
       condition: {
@@ -300,6 +311,7 @@ export const HistoricalEvents = {
    },
    Y251: {
       name: () => $t(L.TheEmperorWhoFellInBattle),
+      wikipedia: "Battle_of_Abritus",
       image: EventImage.Y251,
       desc: () => $t(L.TheEmperorWhoFellInBattleDesc),
       condition: {
@@ -322,6 +334,7 @@ export const HistoricalEvents = {
    },
    Y260: {
       name: () => $t(L.TheCaptiveEmperor),
+      wikipedia: "Valerian_(emperor)",
       image: EventImage.Y224,
       desc: () => $t(L.TheCaptiveEmperorDesc),
       condition: {
@@ -340,6 +353,7 @@ export const HistoricalEvents = {
    },
    Y262: {
       name: () => $t(L.TheSunderingOfTheWest),
+      wikipedia: "Gallic_Empire",
       image: EventImage.Y262,
       desc: () => $t(L.TheSunderingOfTheWestDesc),
       condition: {
@@ -365,6 +379,7 @@ export const HistoricalEvents = {
    },
    Y270: {
       name: () => $t(L.TheQueenOfTheEast),
+      wikipedia: "Palmyrene_Empire",
       image: EventImage.Y270,
       desc: () => $t(L.TheQueenOfTheEastDesc),
       condition: {
@@ -390,6 +405,7 @@ export const HistoricalEvents = {
    },
    Y272: {
       name: () => $t(L.RestitutorOrbis),
+      wikipedia: "Aurelian",
       image: EventImage.Y272,
       desc: () => $t(L.RestitutorOrbisDesc),
       condition: {
@@ -408,6 +424,7 @@ export const HistoricalEvents = {
    },
    Y284: {
       name: () => $t(L.TheRiseOfDiocletian),
+      wikipedia: "Diocletian",
       image: EventImage.Y284,
       desc: () => $t(L.TheRiseOfDiocletianDesc),
       condition: {
@@ -434,6 +451,7 @@ export const HistoricalEvents = {
    },
    Y293: {
       name: () => $t(L.TheRuleOfFour),
+      wikipedia: "Tetrarchy",
       image: EventImage.Y293,
       desc: () => $t(L.TheRuleOfFourDesc),
       condition: {
@@ -461,6 +479,7 @@ export const HistoricalEvents = {
    },
    Y303: {
       name: () => $t(L.TheGreatPersecution),
+      wikipedia: "Diocletianic_Persecution",
       image: EventImage.Y303,
       desc: () => $t(L.TheGreatPersecutionDesc),
       condition: {
@@ -491,6 +510,7 @@ export const HistoricalEvents = {
    },
    Y312: {
       name: () => $t(L.InThisSignYouShallConquer),
+      wikipedia: "Battle_of_the_Milvian_Bridge",
       image: EventImage.Y312,
       desc: () => $t(L.InThisSignYouShallConquerDesc),
       condition: {
@@ -538,6 +558,7 @@ export const HistoricalEvents = {
    },
    Y313: {
       name: () => $t(L.TheEdictOfMilan),
+      wikipedia: "Edict_of_Milan",
       image: EventImage.Y313,
       desc: () => $t(L.TheEdictOfMilanDesc),
       condition: {
@@ -570,6 +591,7 @@ export const HistoricalEvents = {
    },
    Y330: {
       name: () => $t(L.TheNewRomeRises),
+      wikipedia: "Constantinople",
       image: EventImage.Y330,
       desc: () => $t(L.TheNewRomeRisesDesc),
       condition: {
@@ -594,6 +616,7 @@ export const HistoricalEvents = {
    },
    Y361: {
       name: () => $t(L.TheLastPaganEmperor),
+      wikipedia: "Julian_(emperor)",
       image: EventImage.Y361,
       desc: () => $t(L.TheLastPaganEmperorDesc),
       condition: {
@@ -620,6 +643,7 @@ export const HistoricalEvents = {
    },
    Y378: {
       name: () => $t(L.TheCatastropheAtAdrianople),
+      wikipedia: "Battle_of_Adrianople",
       image: EventImage.Y378,
       desc: () => $t(L.TheCatastropheAtAdrianopleDesc),
       condition: {
@@ -644,6 +668,7 @@ export const HistoricalEvents = {
    },
    Y380: {
       name: () => $t(L.TheEdictOfThessalonica),
+      wikipedia: "Edict_of_Thessalonica",
       image: EventImage.Y380,
       desc: () => $t(L.TheEdictOfThessalonicaDesc),
       condition: {
@@ -676,6 +701,7 @@ export const HistoricalEvents = {
    },
    Y395: {
       name: () => $t(L.TheFinalDivision),
+      wikipedia: "Theodosius_I",
       image: EventImage.Y395,
       desc: () => $t(L.TheFinalDivisionDesc),
       condition: {
@@ -694,6 +720,7 @@ export const HistoricalEvents = {
    },
    Y409: {
       name: () => $t(L.TheSuebiSettleGallaecia),
+      wikipedia: "Kingdom_of_the_Suebi",
       image: EventImage.Y409,
       desc: () => $t(L.TheSuebiSettleGallaeciaDesc),
       condition: {
@@ -708,6 +735,7 @@ export const HistoricalEvents = {
    },
    Y410: {
       name: () => $t(L.TheEternalCityFalls),
+      wikipedia: "Sack_of_Rome_(410)",
       image: EventImage.Y410,
       desc: () => $t(L.TheEternalCityFallsDesc),
       condition: {
@@ -736,6 +764,7 @@ export const HistoricalEvents = {
    },
    Y418: {
       name: () => $t(L.AKingdomWithinTheEmpire),
+      wikipedia: "Visigothic_Kingdom",
       image: EventImage.Y418,
       desc: () => $t(L.AKingdomWithinTheEmpireDesc),
       condition: {
@@ -750,6 +779,7 @@ export const HistoricalEvents = {
    },
    Y429: {
       name: () => $t(L.TheVandalsCrossToAfrica),
+      wikipedia: "Gaiseric",
       image: EventImage.Y429,
       desc: () => $t(L.TheVandalsCrossToAfricaDesc),
       condition: {
@@ -768,6 +798,7 @@ export const HistoricalEvents = {
    },
    Y439: {
       name: () => $t(L.CarthageHasFallenAgain),
+      wikipedia: "Vandalic_Kingdom",
       image: EventImage.Y439,
       desc: () => $t(L.CarthageHasFallenAgainDesc),
       condition: {
@@ -782,6 +813,7 @@ export const HistoricalEvents = {
    },
    Y443: {
       name: () => $t(L.TheBurgundiansOfSapaudia),
+      wikipedia: "Kingdom_of_the_Burgundians",
       image: EventImage.Y443,
       desc: () => $t(L.TheBurgundiansOfSapaudiaDesc),
       condition: {
@@ -796,6 +828,7 @@ export const HistoricalEvents = {
    },
    Y445: {
       name: () => $t(L.TheCourtOfAttila),
+      wikipedia: "Attila",
       image: EventImage.Y445,
       desc: () => $t(L.TheCourtOfAttilaDesc),
       condition: {
@@ -810,6 +843,7 @@ export const HistoricalEvents = {
    },
    Y446: {
       name: () => $t(L.TheLongHairedKings),
+      wikipedia: "Franks",
       image: EventImage.Y446,
       desc: () => $t(L.TheLongHairedKingsDesc),
       condition: {
@@ -824,6 +858,7 @@ export const HistoricalEvents = {
    },
    Y449: {
       name: () => $t(L.TheSaxonShoreBreaks),
+      wikipedia: "Anglo-Saxon_settlement_of_Britain",
       image: EventImage.Y449,
       desc: () => $t(L.TheSaxonShoreBreaksDesc),
       condition: {
@@ -838,6 +873,7 @@ export const HistoricalEvents = {
    },
    Y451: {
       name: () => $t(L.TheScourgeOfGodIsHalted),
+      wikipedia: "Battle_of_the_Catalaunian_Plains",
       image: EventImage.Y451,
       desc: () => $t(L.TheScourgeOfGodIsHaltedDesc),
       condition: {
@@ -862,6 +898,7 @@ export const HistoricalEvents = {
    },
    Y453: {
       name: () => $t(L.TheAlemanniCrossTheRhine),
+      wikipedia: "Alemanni",
       image: EventImage.Y453,
       desc: () => $t(L.TheAlemanniCrossTheRhineDesc),
       condition: {
@@ -876,6 +913,7 @@ export const HistoricalEvents = {
    },
    Y455: {
       name: () => $t(L.FourteenDaysOfPlunder),
+      wikipedia: "Sack_of_Rome_(455)",
       image: EventImage.Y455,
       desc: () => $t(L.FourteenDaysOfPlunderDesc),
       condition: {
@@ -902,6 +940,7 @@ export const HistoricalEvents = {
    },
    Y471: {
       name: () => $t(L.TheKingOfTheOstrogoths),
+      wikipedia: "Theodoric_the_Great",
       image: EventImage.Y471,
       desc: () => $t(L.TheKingOfTheOstrogothsDesc),
       condition: {
@@ -916,6 +955,7 @@ export const HistoricalEvents = {
    },
    Y476: {
       name: () => $t(L.AnEmpireEndsInSilence),
+      wikipedia: "Fall_of_the_Western_Roman_Empire",
       image: EventImage.Y476,
       desc: () => $t(L.AnEmpireEndsInSilenceDesc),
       condition: {

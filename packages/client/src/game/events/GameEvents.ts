@@ -23,6 +23,7 @@ export interface IGameEventConfig {
    name: () => string;
    desc: () => string;
    type?: GameEventType;
+   wikipedia?: string;
    image: ImageWithCredit;
    condition?: IGameEventCondition;
    buttons: IGameEventButton[];
