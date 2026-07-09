@@ -2,8 +2,8 @@ import { forEach, sizeOf, type Tile } from "@project/shared/src/utils/Helper";
 import { type Building, Buildings } from "../definitions/Building";
 import { Goods } from "../definitions/Goods";
 import { type SocialClass, SocialClassBonuses } from "../definitions/SocialClass";
+import { SpawnedProvinces } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
-import { SpawnedProvinces } from "../definitions/TileConstants";
 import { TimedActions } from "../definitions/TimedAction";
 import { RomeMap } from "../RomeMap";
 

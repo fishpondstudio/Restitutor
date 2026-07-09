@@ -11,7 +11,7 @@ import { WarEndedModal } from "../ui/WarEndedModal";
 import { G, isDev } from "../utils/Global";
 import { type IFamily, PersonFlags } from "./definitions/Family";
 import type { Province } from "./definitions/Province";
-import { SpawnedProvinces } from "./definitions/TileConstants";
+import { SpawnedProvinces } from "./definitions/SpawnedProvince";
 import type { TimedAction } from "./definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "./Events";
 import { resetGame, saveGame } from "./LoadSave";
@@ -166,8 +166,8 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.spawnProvinces = () => {
       const tiles: Tile[] = [];
-      forEach(SpawnedProvinces, (province, config) => {
-         spawnProvince(province, config.tiles, G.save).forEach((tile) => {
+      forEach(SpawnedProvinces, (province) => {
+         spawnProvince(province, "Debug", G.save).forEach((tile) => {
             tiles.push(tile);
          });
       });

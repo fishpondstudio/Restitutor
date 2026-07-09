@@ -1,7 +1,7 @@
 import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
 import { forEach, fromEntries, pointToTile, range, tileToPoint } from "@project/shared/src/utils/Helper";
 import { type Province, Provinces } from "../definitions/Province";
-import { SpawnedProvinces } from "../definitions/TileConstants";
+import { SpawnedProvinces } from "../definitions/SpawnedProvince";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
 

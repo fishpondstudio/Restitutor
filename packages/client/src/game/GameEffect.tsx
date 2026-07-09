@@ -20,7 +20,8 @@ import {
    type TradeOfferBase,
 } from "./definitions/Province";
 import { addProvinceUpgrade, type ProvinceUpgrade, ProvinceUpgrades } from "./definitions/ProvinceUpgrades";
-import { type SpawnedProvince, SpawnedProvinces } from "./definitions/TileConstants";
+import type { SpawnedProvince } from "./definitions/SpawnedProvince";
+import { SpawnedProvinces } from "./definitions/SpawnedProvince";
 import { getTileName } from "./definitions/TileName";
 import { TimedActions } from "./definitions/TimedAction";
 import { RefreshTiles } from "./Events";
@@ -194,7 +195,7 @@ export function applyGameEffect(effect: IGameEffect, source: string, province: P
    });
    const changedTiles: Tile[] = [];
    effect.spawnProvinces?.forEach((spawnedProvince) => {
-      spawnProvince(spawnedProvince, SpawnedProvinces[spawnedProvince].tiles, save).forEach((tile) => {
+      spawnProvince(spawnedProvince, source, save).forEach((tile) => {
          changedTiles.push(tile);
       });
    });

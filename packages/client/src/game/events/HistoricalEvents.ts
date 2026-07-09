@@ -693,9 +693,9 @@ export const HistoricalEvents = {
       ],
    },
    Y409: {
-      name: () => $t(L.EventY409Name),
+      name: () => $t(L.TheSuebiSettleGallaecia),
       image: EventImage.Y409,
-      desc: () => $t(L.EventY409Desc),
+      desc: () => $t(L.TheSuebiSettleGallaeciaDesc),
       condition: {
          year: [409, 409],
       },
@@ -707,9 +707,9 @@ export const HistoricalEvents = {
       ],
    },
    Y410: {
-      name: () => $t(L.EventY410Name),
+      name: () => $t(L.TheEternalCityFalls),
       image: EventImage.Y410,
-      desc: () => $t(L.EventY410Desc),
+      desc: () => $t(L.TheEternalCityFallsDesc),
       condition: {
          year: [410, 410],
       },
@@ -735,9 +735,9 @@ export const HistoricalEvents = {
       ],
    },
    Y418: {
-      name: () => $t(L.EventY418Name),
+      name: () => $t(L.AKingdomWithinTheEmpire),
       image: EventImage.Y418,
-      desc: () => $t(L.EventY418Desc),
+      desc: () => $t(L.AKingdomWithinTheEmpireDesc),
       condition: {
          year: [418, 418],
       },
@@ -749,9 +749,9 @@ export const HistoricalEvents = {
       ],
    },
    Y429: {
-      name: () => $t(L.EventY429Name),
+      name: () => $t(L.TheVandalsCrossToAfrica),
       image: EventImage.Y429,
-      desc: () => $t(L.EventY429Desc),
+      desc: () => $t(L.TheVandalsCrossToAfricaDesc),
       condition: {
          year: [429, 429],
       },
@@ -767,9 +767,9 @@ export const HistoricalEvents = {
       ],
    },
    Y439: {
-      name: () => $t(L.EventY439Name),
+      name: () => $t(L.CarthageHasFallenAgain),
       image: EventImage.Y439,
-      desc: () => $t(L.EventY439Desc),
+      desc: () => $t(L.CarthageHasFallenAgainDesc),
       condition: {
          year: [439, 439],
       },
@@ -781,9 +781,9 @@ export const HistoricalEvents = {
       ],
    },
    Y443: {
-      name: () => $t(L.EventY443Name),
+      name: () => $t(L.TheBurgundiansOfSapaudia),
       image: EventImage.Y443,
-      desc: () => $t(L.EventY443Desc),
+      desc: () => $t(L.TheBurgundiansOfSapaudiaDesc),
       condition: {
          year: [443, 443],
       },
@@ -795,9 +795,9 @@ export const HistoricalEvents = {
       ],
    },
    Y445: {
-      name: () => $t(L.EventY445Name),
+      name: () => $t(L.TheCourtOfAttila),
       image: EventImage.Y445,
-      desc: () => $t(L.EventY445Desc),
+      desc: () => $t(L.TheCourtOfAttilaDesc),
       condition: {
          year: [445, 445],
       },
@@ -809,9 +809,9 @@ export const HistoricalEvents = {
       ],
    },
    Y446: {
-      name: () => $t(L.EventY446Name),
+      name: () => $t(L.TheLongHairedKings),
       image: EventImage.Y446,
-      desc: () => $t(L.EventY446Desc),
+      desc: () => $t(L.TheLongHairedKingsDesc),
       condition: {
          year: [446, 446],
       },
@@ -823,9 +823,9 @@ export const HistoricalEvents = {
       ],
    },
    Y449: {
-      name: () => $t(L.EventY449Name),
+      name: () => $t(L.TheSaxonShoreBreaks),
       image: EventImage.Y449,
-      desc: () => $t(L.EventY449Desc),
+      desc: () => $t(L.TheSaxonShoreBreaksDesc),
       condition: {
          year: [449, 449],
       },
@@ -837,9 +837,9 @@ export const HistoricalEvents = {
       ],
    },
    Y451: {
-      name: () => $t(L.EventY451Name),
+      name: () => $t(L.TheScourgeOfGodIsHalted),
       image: EventImage.Y451,
-      desc: () => $t(L.EventY451Desc),
+      desc: () => $t(L.TheScourgeOfGodIsHaltedDesc),
       condition: {
          year: [451, 451],
       },
@@ -861,9 +861,9 @@ export const HistoricalEvents = {
       ],
    },
    Y453: {
-      name: () => $t(L.EventY453Name),
+      name: () => $t(L.TheAlemanniCrossTheRhine),
       image: EventImage.Y453,
-      desc: () => $t(L.EventY453Desc),
+      desc: () => $t(L.TheAlemanniCrossTheRhineDesc),
       condition: {
          year: [453, 453],
       },
@@ -875,9 +875,9 @@ export const HistoricalEvents = {
       ],
    },
    Y455: {
-      name: () => $t(L.EventY455Name),
+      name: () => $t(L.FourteenDaysOfPlunder),
       image: EventImage.Y455,
-      desc: () => $t(L.EventY455Desc),
+      desc: () => $t(L.FourteenDaysOfPlunderDesc),
       condition: {
          year: [455, 455],
       },
@@ -901,9 +901,9 @@ export const HistoricalEvents = {
       ],
    },
    Y471: {
-      name: () => $t(L.EventY471Name),
+      name: () => $t(L.TheKingOfTheOstrogoths),
       image: EventImage.Y471,
-      desc: () => $t(L.EventY471Desc),
+      desc: () => $t(L.TheKingOfTheOstrogothsDesc),
       condition: {
          year: [471, 471],
       },
@@ -915,9 +915,9 @@ export const HistoricalEvents = {
       ],
    },
    Y476: {
-      name: () => $t(L.EventY476Name),
+      name: () => $t(L.AnEmpireEndsInSilence),
       image: EventImage.Y476,
-      desc: () => $t(L.EventY476Desc),
+      desc: () => $t(L.AnEmpireEndsInSilenceDesc),
       condition: {
          year: [476, 476],
       },

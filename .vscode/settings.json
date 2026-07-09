@@ -5,7 +5,6 @@
       "Mothership",
       "msgpack"
    ],
-   "typescript.tsdk": "node_modules\\typescript\\lib",
    "editor.codeActionsOnSave": {
       "source.fixAll.ts": "explicit",
       "source.fixAll.biome": "explicit",

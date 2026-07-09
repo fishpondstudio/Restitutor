@@ -1,4 +1,4 @@
-import { entriesOf, forEach, formatNumber } from "@project/shared/src/utils/Helper";
+import { entriesOf, forEach, formatNumber, mapSafeAdd, sizeOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
@@ -115,4 +115,21 @@ export function getBuildingTech(building: Building): Tech | undefined {
       }
    }
    return undefined;
+}
+
+export function getBaselineTechs(save: SaveGame): Tech[] {
+   const threshold = sizeOf(save.state.provinces) / 2;
+   const techs = new Map<Tech, number>();
+   forEach(save.state.provinces, (province, state) => {
+      state.unlockedTech.forEach((tech) => {
+         mapSafeAdd(techs, tech, 1);
+      });
+   });
+   const result: Tech[] = [];
+   techs.forEach((count, tech) => {
+      if (count >= threshold) {
+         result.push(tech);
+      }
+   });
+   return result;
 }

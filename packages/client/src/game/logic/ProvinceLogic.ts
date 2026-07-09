@@ -38,6 +38,8 @@ import {
    type TradeOfferBase,
 } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
+import type { SpawnedProvince } from "../definitions/SpawnedProvince";
+import { SpawnedProvinces } from "../definitions/SpawnedProvince";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
@@ -46,7 +48,8 @@ import { makeCached } from "./CacheLogic";
 import { getAttitudeTowards, getRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
 import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
-import { attachModifiers } from "./ModifierLogic";
+import { addModifier, attachModifiers } from "./ModifierLogic";
+import { getBaselineTechs } from "./TechLogic";
 import {
    getTileGoodsTax,
    getTileGoverningCost,
@@ -1000,13 +1003,18 @@ export function getCulturalCohesion(province: Province, save: SaveGame): number 
    return sameCulture / total;
 }
 
-export function spawnProvince(province: Province, tiles: Tile[], save: SaveGame): Tile[] {
+export function spawnProvince(province: Province, source: string, save: SaveGame): Tile[] {
    if (save.state.provinces[province]) {
       return [];
    }
-   const data = initProvince(province, tiles[0]);
-   save.state.provinces[province] = data;
-   tiles.forEach((tile) => {
+   const config = SpawnedProvinces[province as SpawnedProvince];
+   if (!config) {
+      return [];
+   }
+   const state = initProvince(province, config.tiles[0]);
+   state.unlockedTech = new Set(getBaselineTechs(save));
+   save.state.provinces[province] = state;
+   config.tiles.forEach((tile) => {
       const data = save.state.tiles.get(tile);
       if (!data) {
          return;
@@ -1014,5 +1022,26 @@ export function spawnProvince(province: Province, tiles: Tile[], save: SaveGame)
       data.province = province;
       data.coreProvinces.add(province);
    });
-   return [...tiles, ...ensureProvinceCapitals(save)];
+
+   forEach(config.stats, (key, value) => {
+      setProvinceStat(key, value, province, save);
+   });
+
+   forEach(config.resources, (key, value) => {
+      addProvinceResource(key, value, province, save);
+   });
+
+   forEach(config.modifiers, (key, value) => {
+      addModifier({
+         modifier: key,
+         name: source,
+         type: value.type,
+         value: value.value,
+         duration: value.duration,
+         province,
+         save,
+      });
+   });
+
+   return [...config.tiles, ...ensureProvinceCapitals(save)];
 }

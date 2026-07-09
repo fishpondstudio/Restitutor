@@ -4,8 +4,8 @@
    "description": "",
    "main": "index.js",
    "scripts": {
-      "watch": "npx tsgo -b . --watch",
-      "build": "npx tsgo -b .",
+      "watch": "npx tsc -b . --watch",
+      "build": "npx tsc -b .",
       "translate": "node scripts/Translate.js",
       "lint": "node scripts/Lint.js",
       "check": "biome check --write --diagnostic-level=error"
@@ -15,9 +15,8 @@
    "license": "ISC",
    "devDependencies": {
       "@biomejs/biome": "2.4.0",
-      "@typescript/native-preview": "7.0.0-dev.20260601.1",
       "glob": "^13.0.6",
-      "typescript": "^6.0.3",
+      "typescript": "^7.0.2",
       "sharp": "^0.35.2"
    },
    "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d"
