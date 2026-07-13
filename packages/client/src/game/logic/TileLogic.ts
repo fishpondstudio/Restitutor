@@ -11,6 +11,7 @@ import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
+import { cacheTile } from "./CacheLogic";
 import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
 import { getProvinceOverextension, getProvinceStability, getProvinceStat } from "./ProvinceLogic";
 import { getBuildingTech, hasResearched } from "./TechLogic";
@@ -67,7 +68,9 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
    return finalizeBreakdown(breakdown);
 }
 
-export function getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
+export const getTileManpower = cacheTile(_getTileManpower);
+
+function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    const data = save.state.tiles.get(tile);
    if (!data) {
@@ -144,25 +147,25 @@ export function getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    breakdown.multiply.push({
       name: $t(L.Infrastructure),
-      desc: $t(L.$1PerInfrastructureLevel, "1%"),
-      value: data.infrastructure * 0.01,
+      desc: $t(L.$1PerInfrastructureLevel, "0.5%"),
+      value: data.infrastructure * 0.005,
    });
    if (data.terrain === "Mountain") {
-      breakdown.multiply.push({ name: $t(L.TerrainMountain), value: +0.2 });
+      breakdown.multiply.push({ name: $t(L.TerrainMountain), value: +0.1 });
    }
    if (data.terrain === "Hill") {
-      breakdown.multiply.push({ name: $t(L.TerrainHill), value: +0.1 });
+      breakdown.multiply.push({ name: $t(L.TerrainHill), value: +0.05 });
    }
    if (data.terrain === "Forest") {
       breakdown.multiply.push({ name: $t(L.TerrainForest), value: +0.05 });
    }
    if (isCapital(tile, save)) {
-      breakdown.multiply.push({ name: $t(L.IsCurrentCapital), value: 0.4 });
+      breakdown.multiply.push({ name: $t(L.IsCurrentCapital), value: +0.1 });
    }
    if (data.coreProvinces.has(data.province)) {
-      breakdown.multiply.push({ name: $t(L.IsCore), value: +0.2 });
+      breakdown.multiply.push({ name: $t(L.IsCore), value: +0.1 });
    } else {
-      breakdown.multiply.push({ name: $t(L.NotCore), value: -0.2 });
+      breakdown.multiply.push({ name: $t(L.NotCore), value: -0.1 });
    }
    const unrest = getTileUnrest(tile, save);
    if (unrest.value > 0) {
@@ -173,7 +176,9 @@ export function getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
 
 const UnrestPerActualConscription = 0.5;
 
-export function getTileUnrest(tile: Tile, save: SaveGame): IValueBreakdown {
+export const getTileUnrest = cacheTile(_getTileUnrest);
+
+function _getTileUnrest(tile: Tile, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
    const data = save.state.tiles.get(tile);
    if (!data) {
@@ -236,7 +241,9 @@ export function getTileUnrest(tile: Tile, save: SaveGame): IValueBreakdown {
    return finalizeBreakdown(breakdown);
 }
 
-export function getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
+export const getTileLandTax = cacheTile(_getTileLandTax);
+
+function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    const data = save.state.tiles.get(tile);
    if (!data) {
@@ -285,7 +292,9 @@ export function getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
 
 export const ImportRangeUpgradeFactor = 10;
 
-export function getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
+export const getTileOutput = cacheTile(_getTileOutput);
+
+export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    const data = save.state.tiles.get(tile);
    if (!data) {
@@ -328,7 +337,9 @@ export function getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    return finalizeBreakdown(breakdown);
 }
 
-export function getTileGoodsTax(tile: Tile, save: SaveGame): number {
+export const getTileGoodsTax = cacheTile(_getTileGoodsTax);
+
+function _getTileGoodsTax(tile: Tile, save: SaveGame): number {
    const data = save.state.tiles.get(tile);
    if (!data) {
       return 0;
@@ -351,7 +362,9 @@ export function getDistanceFromCapital(tile: Tile, save: SaveGame): number {
    return MapGrid.distanceTile(tile, capital);
 }
 
-export function getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakdown {
+export const getTileMaintenanceCost = cacheTile(_getTileMaintenanceCost);
+
+function _getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
    const data = save.state.tiles.get(tile);
    if (!data) {

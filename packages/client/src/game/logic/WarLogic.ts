@@ -14,7 +14,7 @@ import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBr
 import type { CasusBelli } from "../definitions/CasusBelli";
 import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
-import { isTileBorderingProvince } from "../definitions/Tile";
+import { getBorderingProvinces } from "../definitions/Tile";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
@@ -26,7 +26,13 @@ import {
    getRelations,
 } from "./DiplomacyLogic";
 import { attachModifiers } from "./ModifierLogic";
-import { getProvinceStat, getWarPower, provinceResourceOf, setProvinceStat } from "./ProvinceLogic";
+import {
+   getProvinceStat,
+   getProvinceTileCount,
+   getWarPower,
+   provinceResourceOf,
+   setProvinceStat,
+} from "./ProvinceLogic";
 import { getTileDefense } from "./TileLogic";
 import { endTimedActionAndResetCooldown, getTimedActionTimeLeft } from "./TimedActionLogic";
 
@@ -348,7 +354,7 @@ export function calculateWarLengthForStability(stability: number, casusBelli: Ca
 function filterNeighborTiles(tiles: Iterable<Tile>, province: Province, save: SaveGame): Tile[] {
    const result: Tile[] = [];
    for (const tile of tiles) {
-      if (isTileBorderingProvince(tile, province, save)) {
+      if (getBorderingProvinces(tile, save).includes(province)) {
          result.push(tile);
       }
    }
@@ -608,4 +614,12 @@ export function getWarPlunder(war: IWar, save: SaveGame): { tiles: IValueBreakdo
       tiles: tilesResult,
       warScore: finalizeBreakdown(warScoreResult),
    };
+}
+
+export function getWarPowerPerTile(province: Province, save: SaveGame): number {
+   const tileCount = getProvinceTileCount(province, save);
+   if (tileCount === 0) {
+      return 0;
+   }
+   return getWarPower(province, save).value / tileCount;
 }

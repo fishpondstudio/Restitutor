@@ -1,4 +1,5 @@
 import {
+   clamp,
    entriesOf,
    forEach,
    formatDelta,
@@ -39,12 +40,14 @@ import {
 } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import type { SpawnedProvince } from "../definitions/SpawnedProvince";
-import { SpawnedProvinces } from "../definitions/SpawnedProvince";
+import { SpawnedProvinceBoostMonths, SpawnedProvinces } from "../definitions/SpawnedProvince";
+import { getBorderingProvinces } from "../definitions/Tile";
 import { getTileName } from "../definitions/TileName";
+import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
-import { makeCached } from "./CacheLogic";
+import { cacheProvince } from "./CacheLogic";
 import { getAttitudeTowards, getRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
 import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
@@ -65,6 +68,7 @@ import {
    getCurrentWars,
    getInfantryUnitWarPower,
    getRangedUnitWarPower,
+   getWarPowerPerTile,
    MonthlyExtraArmyMaintenancePct,
 } from "./WarLogic";
 
@@ -196,7 +200,9 @@ export function trySpendProvinceResources(
    return true;
 }
 
-export function getProvinceManpower(province: Province, save: SaveGame): IValueBreakdown {
+export const getProvinceManpower = cacheProvince(_getProvinceManpower);
+
+function _getProvinceManpower(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    for (const [tile, data] of save.state.tiles) {
       if (data.province === province) {
@@ -414,7 +420,7 @@ export function getMercenaryCost(province: Province, save: SaveGame): IValueBrea
    return finalizeBreakdown(result);
 }
 
-export const getProvinceOverextension = makeCached(_getProvinceOverextension);
+export const getProvinceOverextension = cacheProvince(_getProvinceOverextension);
 function _getProvinceOverextension(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
    const overCapacity =
@@ -439,7 +445,7 @@ export function getProvinceGoverningCapacity(province: Province, save: SaveGame)
    return finalizeBreakdown(breakdown);
 }
 
-export const getProvinceGoverningCost = makeCached(_getProvinceGoverningCost);
+export const getProvinceGoverningCost = cacheProvince(_getProvinceGoverningCost);
 function _getProvinceGoverningCost(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
    let result = 0;
@@ -547,7 +553,9 @@ export function getTilesAnnexedAndCored(province: Province, save: SaveGame): num
    return count;
 }
 
-export function getProvinceIncome(
+export const getProvinceIncome = cacheProvince(_getProvinceIncome);
+
+function _getProvinceIncome(
    province: Province,
    save: SaveGame,
 ): { revenue: IValueBreakdown; expense: IValueBreakdown; income: number } {
@@ -1021,7 +1029,12 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
       }
       data.province = province;
       data.coreProvinces.add(province);
+      data.rebellion = 0;
+      data.culture = Province[province].culture;
+      data.religion = Province[province].religion;
+      data.modifiers.Unrest.length = 0;
    });
+   GameStateUpdated.emit();
 
    forEach(config.stats, (key, value) => {
       setProvinceStat(key, value, province, save);
@@ -1041,6 +1054,34 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
          province,
          save,
       });
+   });
+
+   const neighboringProvinces = new Set<Province>();
+   for (const tile of config.tiles) {
+      for (const neighboringProvince of getBorderingProvinces(tile, save)) {
+         if (neighboringProvince === province || neighboringProvince === save.state.playerProvince) {
+            continue;
+         }
+         neighboringProvinces.add(neighboringProvince);
+      }
+   }
+
+   let targetWarPower = 0;
+   for (const neighboringProvince of neighboringProvinces) {
+      const warPowerPerTile = getWarPowerPerTile(neighboringProvince, save);
+      targetWarPower += warPowerPerTile;
+   }
+   targetWarPower = 2 * (targetWarPower / neighboringProvinces.size) * config.tiles.length;
+
+   const currentWarPower = getWarPower(province, save).value;
+   addModifier({
+      modifier: "WarPower",
+      name: source,
+      type: "multiply",
+      value: clamp(targetWarPower / currentWarPower, 1, 10),
+      duration: SpawnedProvinceBoostMonths,
+      province,
+      save,
    });
 
    return [...config.tiles, ...ensureProvinceCapitals(save)];

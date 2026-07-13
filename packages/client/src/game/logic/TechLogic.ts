@@ -121,6 +121,9 @@ export function getBaselineTechs(save: SaveGame): Tech[] {
    const threshold = sizeOf(save.state.provinces) / 2;
    const techs = new Map<Tech, number>();
    forEach(save.state.provinces, (province, state) => {
+      if (province === save.state.playerProvince) {
+         return;
+      }
       state.unlockedTech.forEach((tech) => {
          mapSafeAdd(techs, tech, 1);
       });

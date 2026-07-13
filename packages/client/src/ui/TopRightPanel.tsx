@@ -31,7 +31,7 @@ export function TopRightPanel(): React.ReactNode {
 }
 
 const Speed = [0, 1, 2, 3, 4, 7, 14];
-const FasterSpeed = [0, 1, 7, 14, 30, 120, 360];
+const FasterSpeed = [0, 1, 7, 14, 30, 360, 3600];
 
 function SteamDiscordComp(): React.ReactNode {
    refreshOnTypedEvent(GameOptionUpdated);

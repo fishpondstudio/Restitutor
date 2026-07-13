@@ -1,30 +1,41 @@
-import type { IValueBreakdown } from "../actions/GameAction";
+import type { Tile } from "@project/shared/src/utils/Helper";
 import type { Province } from "../definitions/Province";
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 
-const _cache = new Map<string, { tick: number; value: IValueBreakdown }>();
+const _provinceCache = new Map<string, unknown>();
+const _tileCache = new Map<string, unknown>();
 
 GameStateUpdated.on(() => {
-   _cache.clear();
+   _provinceCache.clear();
+   _tileCache.clear();
 });
 
-export interface IProvinceCacheKey {
-   name: string;
-   province: Province;
-}
+type ProvinceBreakdownFunc<T> = (province: Province, save: SaveGame) => T;
+type TileBreakdownFunc<T> = (province: Tile, save: SaveGame) => T;
 
-type ProvinceBreakdownFunc = (province: Province, save: SaveGame) => IValueBreakdown;
-
-export function makeCached(func: ProvinceBreakdownFunc): ProvinceBreakdownFunc {
-   return (province, save) => {
+export function cacheProvince<T>(func: ProvinceBreakdownFunc<T>): ProvinceBreakdownFunc<T> {
+   return (province, save): T => {
       const key = `${func.name}-${province}`;
-      const cached = _cache.get(key);
-      if (cached && cached.tick === save.state.tick) {
-         return cached.value;
+      const cached = _provinceCache.get(key);
+      if (cached) {
+         return cached as T;
       }
       const breakdown = func(province, save);
-      _cache.set(key, { tick: save.state.tick, value: breakdown });
+      _provinceCache.set(key, breakdown);
+      return breakdown;
+   };
+}
+
+export function cacheTile<T>(func: TileBreakdownFunc<T>): TileBreakdownFunc<T> {
+   return (tile, save): T => {
+      const key = `${func.name}-${tile}`;
+      const cached = _tileCache.get(key);
+      if (cached) {
+         return cached as T;
+      }
+      const breakdown = func(tile, save);
+      _tileCache.set(key, breakdown);
       return breakdown;
    };
 }

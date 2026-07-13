@@ -1,7 +1,7 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
-import { isTileBorderingProvince } from "../definitions/Tile";
+import { getBorderingProvinces } from "../definitions/Tile";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { getRelation, isWithinDiplomaticRange } from "../logic/DiplomacyLogic";
@@ -60,7 +60,7 @@ export function canDemandTile(tile: Tile, ourProvince: Province, save: SaveGame)
       },
       {
          name: $t(L.$1BordersOurProvince, getTileName(tile)),
-         value: isTileBorderingProvince(tile, ourProvince, save),
+         value: getBorderingProvinces(tile, save).includes(ourProvince),
       },
    ];
 }

@@ -48,14 +48,20 @@ export interface ITileData {
    };
 }
 
-export function isTileBorderingProvince(tile: Tile, province: Province, save: SaveGame): boolean {
+export function getBorderingProvinces(tile: Tile, save: SaveGame): Province[] {
+   const result: Province[] = [];
+   const province = save.state.tiles.get(tile)?.province;
+   if (!province) {
+      return [];
+   }
    for (let dir = 0; dir < 6; dir++) {
       const neighbor = pointToTile(MapGrid.getNeighbor(tileToPoint(tile), dir));
-      if (save.state.tiles.get(neighbor)?.province === province) {
-         return true;
+      const neighborProvince = save.state.tiles.get(neighbor)?.province;
+      if (neighborProvince && neighborProvince !== province) {
+         result.push(neighborProvince);
       }
    }
-   return false;
+   return result;
 }
 
 const TerrainToGoods: Record<Terrain, Goods[]> = {

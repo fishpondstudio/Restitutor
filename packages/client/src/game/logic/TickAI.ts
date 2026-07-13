@@ -41,6 +41,7 @@ import {
    Provinces,
 } from "../definitions/Province";
 import { SocialClass } from "../definitions/SocialClass";
+import { SpawnedProvinces } from "../definitions/SpawnedProvince";
 import type { SaveGame } from "../GameState";
 import {
    cancelImproveRelations,
@@ -90,7 +91,7 @@ import {
 
 const AIDeclareWarChance = 0.2;
 const AIWarMaxUnrest = 20;
-const MaxYear = 400;
+const MaxYear = 600;
 
 export function tickAI(save: SaveGame): void {
    if (hasFlag(G.flags, GameFlags.Sandbox) && getGameDate(save.state.tick).getFullYear() >= MaxYear) {
@@ -336,9 +337,15 @@ function doWar(province: Province, save: SaveGame): void {
       }
       return;
    }
-   if (Math.random() > AIDeclareWarChance || save.state.month % 12 !== Provinces.indexOf(province) % 12) {
-      return;
+
+   if (province in SpawnedProvinces) {
+      // Spawned provinces (Barbarians) should always declare war.
+   } else {
+      if (Math.random() > AIDeclareWarChance || save.state.month % 12 !== Provinces.indexOf(province) % 12) {
+         return;
+      }
    }
+
    const warGoal = findWarGoal(province, save);
    if (!warGoal) {
       return;

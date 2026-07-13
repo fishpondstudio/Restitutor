@@ -209,6 +209,8 @@ function initTileUpgrades(save: SaveGame): void {
          if (hasReachedMinimum) {
             break;
          }
+         // Clear cache
+         GameStateUpdated.emit();
       }
       maxIteration = 1000;
       while (true) {
@@ -231,8 +233,9 @@ function initTileUpgrades(save: SaveGame): void {
                }
             }
          }
+         // Clear cache
+         GameStateUpdated.emit();
       }
-      GameStateUpdated.emit();
       const overextension = getProvinceOverextension(province, save).value;
       if (overextension > 0) {
          console.error(`initTileUpgrades: ${province} has overextension: ${overextension}`);

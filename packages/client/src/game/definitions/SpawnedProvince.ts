@@ -2,6 +2,8 @@ import type { Tile } from "@project/shared/src/utils/Helper";
 import type { IBaseModifier, Modifier } from "./Modifier";
 import type { Province, ProvinceResource, ProvinceStat } from "./Province";
 
+export const SpawnedProvinceBoostMonths = 12 * 20;
+
 const BaseSpawnedProvinceData: SpawnedProvinceData = {
    stats: {
       targetConscription: 20,
@@ -10,13 +12,7 @@ const BaseSpawnedProvinceData: SpawnedProvinceData = {
    resources: {
       generalSkillPoint: 10,
    },
-   modifiers: {
-      WarPower: {
-         type: "multiply",
-         value: 1,
-         duration: 10 * 12,
-      },
-   },
+   modifiers: {},
 };
 
 export const _SpawnedProvinces = {

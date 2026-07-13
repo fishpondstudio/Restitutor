@@ -11,7 +11,7 @@ import { Culture } from "../game/definitions/Culture";
 import { Modifiers } from "../game/definitions/Modifier";
 import type { Province } from "../game/definitions/Province";
 import { Religion } from "../game/definitions/Religion";
-import { isTileBorderingProvince } from "../game/definitions/Tile";
+import { getBorderingProvinces } from "../game/definitions/Tile";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "../game/Events";
 import type { SaveGame } from "../game/GameState";
@@ -961,7 +961,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                      for (const [tile, tileData] of G.save.state.tiles) {
                         if (
                            tileData.province === province &&
-                           isTileBorderingProvince(tile, G.save.state.playerProvince, G.save)
+                           getBorderingProvinces(tile, G.save).includes(G.save.state.playerProvince)
                         ) {
                            tileData.modifiers.Defense.push({
                               type: "multiply",
@@ -1009,7 +1009,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                      for (const [tile, tileData] of G.save.state.tiles) {
                         if (
                            tileData.province === province &&
-                           isTileBorderingProvince(tile, G.save.state.playerProvince, G.save)
+                           getBorderingProvinces(tile, G.save).includes(G.save.state.playerProvince)
                         ) {
                            tileData.modifiers.Unrest.push({
                               type: "add",
