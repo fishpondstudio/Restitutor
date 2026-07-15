@@ -1,5 +1,6 @@
 import { cls, entriesOf, forEach, formatNumber } from "@project/shared/src/utils/Helper";
 import Bankruptcy from "../assets/images/Bankruptcy.svg";
+import Barbarian from "../assets/images/Barbarian.svg";
 import Core from "../assets/images/Core.svg";
 import Decree from "../assets/images/Decree.svg";
 import Diplomat from "../assets/images/Diplomat.svg";
@@ -63,6 +64,7 @@ import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ArmyModal } from "./ArmyModal";
 import { BankruptcyEffectComp } from "./BankruptcyEffectComp";
+import { BarbarianRaidModal } from "./BarbarianRaidModal";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
@@ -342,6 +344,24 @@ const VacantArmyGeneral: ITodo = {
    },
    onClick: (save) => {
       showPanel(<ArmyModal />);
+   },
+};
+
+const BarbarianRaid: ITodo = {
+   name: (save) => "Barbarian Raid",
+   icon: (save) => Barbarian,
+   className: (save) =>
+      save.state.wars.find((war) => war.casusBelli === "BarbarianRaid" && war.defender === save.state.playerProvince)
+         ? "red"
+         : "yellow",
+   tooltip: (save) => {
+      if (save.state.wars.find((war) => war.casusBelli === "BarbarianRaid")) {
+         return "Barbarian raids are ongoing. Click to view details.";
+      }
+      return null;
+   },
+   onClick: (save) => {
+      showPanel(<BarbarianRaidModal />);
    },
 };
 
@@ -719,6 +739,7 @@ const _Todos = {
    Rebellions,
    SocialClassDissent,
    ProvinceBankrupt,
+   BarbarianRaid,
    TooFewRivals,
    VacantArmyGeneral,
    UpgradeArmyGeneral,

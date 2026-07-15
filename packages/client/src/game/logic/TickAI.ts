@@ -41,10 +41,11 @@ import {
    Provinces,
 } from "../definitions/Province";
 import { SocialClass } from "../definitions/SocialClass";
-import { SpawnedProvinces } from "../definitions/SpawnedProvince";
+import { MaxRaidMonths, SpawnedProvinces } from "../definitions/SpawnedProvince";
 import type { SaveGame } from "../GameState";
 import {
    cancelImproveRelations,
+   getAttitudeTowards,
    getDiplomats,
    getRelation,
    getRelations,
@@ -69,7 +70,7 @@ import {
    trySpendProvinceResources,
 } from "./ProvinceLogic";
 import { getCheapestLockedTech } from "./TechLogic";
-import { getBuildingSlot, getTileUnrest } from "./TileLogic";
+import { getBuildingSlot, getTileUnrest, getTileWar } from "./TileLogic";
 import {
    getTimedActionCooldownLeft,
    getTimedActionTimeLeft,
@@ -259,7 +260,11 @@ export function tickAI(save: SaveGame): void {
       doDiplomacy(province, save);
       doGeneralUpgrade(province, save);
       lookForSpouse(state.governor, province, save);
-      doWar(province, save);
+      if (getTimedActionTimeLeft("BarbarianInvasions", province, save) > 0) {
+         doRaid(province, save);
+      } else {
+         doWar(province, save);
+      }
       tryDoHeadless(ConvertToChristianityAction(province, save), "ConvertToChristianity", province, save);
       tryDoHeadless(makeGameAction("AppointPontiff", province, save), "AppointPontiffEnvoyArmyStaff", province, save);
       tryDoHeadless(makeGameAction("AppointEnvoy", province, save), "AppointPontiffEnvoyArmyStaff", province, save);
@@ -304,46 +309,106 @@ function doTrade(province: Province, save: SaveGame): void {
    }
 }
 
-function doWar(province: Province, save: SaveGame): void {
-   const currentWars = getCurrentWars(province, save);
-   if (currentWars.length > 0) {
-      for (const currentWar of currentWars) {
-         if (currentWar.attacker !== province) {
-            continue;
-         }
-         if (currentWar.actualWarScore >= currentWar.requiredWarScore) {
-            logAI(`${province} signs peace treaty with ${currentWar.defender}`);
-            tryDoHeadless(SignPeaceTreatyAction(currentWar, province, save), "SignPeaceTreaty", province, save);
-            continue;
-         }
-         if (getAverageUnrest(province, save) > AIWarMaxUnrest) {
-            logAI(`${province} negotiates white peace with ${currentWar.defender} due to unrest`);
-            tryDoHeadless(NegotiateWhitePeaceAction(currentWar, province, save), "NegotiateWhitePeace", province, save);
-            continue;
-         }
-         if (
-            getWarSuccessChance(
-               currentWar.attacker,
-               currentWar.coAttackers,
-               currentWar.defender,
-               currentWar.coDefenders,
-               save,
-            ) <= 0.5
-         ) {
-            const action = NegotiateWhitePeaceAction(currentWar, province, save);
-            logAI(`${province} negotiates white peace with ${currentWar.defender} due to low success chance`);
-            tryDoHeadless(action, "NegotiateWhitePeace", province, save);
-         }
+function doRaid(province: Province, save: SaveGame): void {
+   for (const currentWar of save.state.wars.filter((war) => war.attacker === province)) {
+      if (currentWar.actualWarScore >= currentWar.requiredWarScore) {
+         logAI(`${province} ends raid on ${currentWar.defender} after victory`);
+         tryDoHeadless(SignPeaceTreatyAction(currentWar, province, save), "SignPeaceTreaty", province, save);
+         continue;
       }
+      if (currentWar.log.length > MaxRaidMonths) {
+         logAI(`${province} ends raid on ${currentWar.defender} due to timeout`);
+         tryDoHeadless(NegotiateWhitePeaceAction(currentWar, province, save), "NegotiateWhitePeace", province, save);
+      }
+   }
+   if (save.state.wars.filter((war) => war.attacker === province).length > 0) {
+      return;
+   }
+   const candidates = keysOf(save.state.provinces).filter((p) => p !== province && !(p in SpawnedProvinces));
+   shuffle(candidates);
+   for (const candidate of candidates) {
+      if (getAttitudeTowards(province, candidate, save).value > 0) {
+         continue;
+      }
+      if (save.state.wars.find((war) => war.defender === candidate && war.casusBelli === "BarbarianRaid")) {
+         continue;
+      }
+      const candidateState = save.state.provinces[candidate];
+      if (!candidateState) {
+         continue;
+      }
+      const tiles = Array.from(save.state.tiles.entries())
+         .filter(
+            ([t, tileData]) => tileData.province === candidate && candidateState.capital !== t && !getTileWar(t, save),
+         )
+         .sort(([_tileA, tileDataA], [_tileB, tileDataB]) => {
+            const totalUpgradeA = tileDataA.infrastructure + tileDataA.production + tileDataA.population;
+            const totalUpgradeB = tileDataB.infrastructure + tileDataB.production + tileDataB.population;
+            return totalUpgradeA - totalUpgradeB;
+         });
+      if (tiles.length === 0) {
+         continue;
+      }
+      const [tile, tileData] = tiles[0];
+      const relation = getRelation(province, tileData.province, save);
+      if (relation) {
+         relation.casusBelli.set("BarbarianRaid", {
+            monthsLeft: MaxRaidMonths,
+         });
+      }
+      const { coAttackers, coDefenders } = getWarParticipants(province, tileData.province, save);
+      const action = DeclareWarAction(
+         province,
+         coAttackers,
+         tileData.province,
+         coDefenders,
+         new Set([tile]),
+         "BarbarianRaid",
+         save,
+      );
+      if (tryDoHeadless(action, "DeclareWar", province, save)) {
+         logAI(`${province} starts a raid on ${tileData.province}\n${printAction(action, province, save)}`);
+         return;
+      }
+   }
+}
+
+function doWar(province: Province, save: SaveGame): void {
+   for (const currentWar of getCurrentWars(province, save)) {
+      if (currentWar.attacker !== province) {
+         continue;
+      }
+      if (currentWar.actualWarScore >= currentWar.requiredWarScore) {
+         logAI(`${province} signs peace treaty with ${currentWar.defender}`);
+         tryDoHeadless(SignPeaceTreatyAction(currentWar, province, save), "SignPeaceTreaty", province, save);
+         continue;
+      }
+      if (getAverageUnrest(province, save) > AIWarMaxUnrest) {
+         logAI(`${province} negotiates white peace with ${currentWar.defender} due to unrest`);
+         tryDoHeadless(NegotiateWhitePeaceAction(currentWar, province, save), "NegotiateWhitePeace", province, save);
+         continue;
+      }
+      if (
+         getWarSuccessChance(
+            currentWar.attacker,
+            currentWar.coAttackers,
+            currentWar.defender,
+            currentWar.coDefenders,
+            save,
+         ) <= 0.5
+      ) {
+         const action = NegotiateWhitePeaceAction(currentWar, province, save);
+         logAI(`${province} negotiates white peace with ${currentWar.defender} due to low success chance`);
+         tryDoHeadless(action, "NegotiateWhitePeace", province, save);
+      }
+   }
+
+   if (getCurrentWars(province, save).length > 0) {
       return;
    }
 
-   if (province in SpawnedProvinces) {
-      // Spawned provinces (Barbarians) should always declare war.
-   } else {
-      if (Math.random() > AIDeclareWarChance || save.state.month % 12 !== Provinces.indexOf(province) % 12) {
-         return;
-      }
+   if (Math.random() > AIDeclareWarChance || save.state.month % 12 !== Provinces.indexOf(province) % 12) {
+      return;
    }
 
    const warGoal = findWarGoal(province, save);
@@ -362,6 +427,7 @@ function doWar(province: Province, save: SaveGame): void {
       return;
    }
    if (tileData) {
+      // This is necessary because declaring war validates casus belli.
       const relation = getRelation(province, tileData.province, save);
       if (relation) {
          relation.casusBelli.set("ConquestMission", {

@@ -8,7 +8,6 @@ import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
 import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
-import { showError } from "../logic/AlertLogic";
 import {
    addAttitudeModifier,
    getRelation,
@@ -44,7 +43,7 @@ export function DeclareWarAction(
    const warCoalitions = getWarCoalitions([attacker, defender], save);
    return {
       cost: {
-         diplomatic: WarOneTimeDiplomaticPoint,
+         diplomatic: casusBelli === "BarbarianRaid" ? 0 : WarOneTimeDiplomaticPoint,
       },
       condition: finalizeCondition([
          {
@@ -54,6 +53,10 @@ export function DeclareWarAction(
          {
             name: $t(L.WeAreNotAClientOfAnotherProvince),
             value: !isClientOfAnyProvince(attacker, save),
+         },
+         {
+            name: "Our selected casus belli is still valid",
+            value: casusBelli === "None" || !!getRelation(attacker, defender, save)?.casusBelli.has(casusBelli),
          },
          {
             name: $t(L.WeHaveSelectedAtLeastOneTileAsWarGoal),
@@ -91,15 +94,9 @@ export function DeclareWarAction(
             value: truceMonthsLeft <= 0,
             desc: truceMonthsLeft > 0 ? $t(L.TruceWillEndIn$1Months, truceMonthsLeft) : undefined,
          },
-         isWithinDiplomaticRange(attacker, defender, save),
+         ...(casusBelli === "BarbarianRaid" ? [] : [isWithinDiplomaticRange(attacker, defender, save)]),
       ]),
       effect: ({ headless }: { headless: boolean }) => {
-         if (casusBelli !== "None" && !getRelation(attacker, defender, save)?.casusBelli.has(casusBelli)) {
-            if (!headless) {
-               showError($t(L.SelectedCasusBelliIsNoLongerValid));
-            }
-            return;
-         }
          const war = {
             attacker: attacker,
             coAttackers: new Map(

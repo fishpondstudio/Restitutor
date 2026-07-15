@@ -3,6 +3,7 @@
    z-index: 300;
    left: 50%;
    top: 10vh;
+   max-height: calc(80vh);
    transform: translateX(-50%);
 
    .modal-transparent-header {

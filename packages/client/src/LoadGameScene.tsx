@@ -3,6 +3,7 @@ import { type Province, Provinces } from "./game/definitions/Province";
 import { GameOptionFlag } from "./game/GameOption";
 import { TechTreeScene } from "./scenes/TechTreeScene";
 import { WorldScene } from "./scenes/WorldScene";
+import { BarbarianRaidModal } from "./ui/BarbarianRaidModal";
 import { showPanel } from "./ui/common/ShowPanel";
 import { LegacyUpgradeModal } from "./ui/LegacyUpgradeModal";
 import { G, GameFlags, setSpeed } from "./utils/Global";
@@ -28,6 +29,10 @@ export function loadGameScene() {
 
    if (params.has("legacy")) {
       showPanel(<LegacyUpgradeModal />);
+   }
+
+   if (params.has("barbarian")) {
+      showPanel(<BarbarianRaidModal />);
    }
 
    const scene = params.get("scene")?.toLowerCase();

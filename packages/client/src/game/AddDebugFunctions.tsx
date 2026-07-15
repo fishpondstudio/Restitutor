@@ -1,5 +1,6 @@
 import { forEach, randInt, range, type Tile, uuid4 } from "@project/shared/src/utils/Helper";
 import { WorldScene } from "../scenes/WorldScene";
+import { BarbarianRaidModal } from "../ui/BarbarianRaidModal";
 import { ChronicleModal } from "../ui/ChronicleModal";
 import { showPanel } from "../ui/common/ShowPanel";
 import { DeclareWarOnUsModal } from "../ui/DeclareWarOnUsEventModal";
@@ -173,6 +174,10 @@ export function addDebugFunctions(): void {
       });
       RefreshTiles.emit({ tiles: tiles, options: { visual: true, indicator: true } });
       GameStateUpdated.emit();
+   };
+   // @ts-expect-error
+   globalThis.showBarbarian = () => {
+      showPanel(<BarbarianRaidModal />);
    };
    // @ts-expect-error
    globalThis.addChild = (female: boolean) => {

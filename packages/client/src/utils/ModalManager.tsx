@@ -71,13 +71,13 @@ function Modal({
 
 export function ModalComp({
    title,
-   size,
    children,
+   size,
    scrollbars = "y",
 }: React.PropsWithChildren<{
    title?: React.ReactNode;
-   dismiss?: boolean;
    size?: MantineSize;
+   style?: React.CSSProperties;
    scrollbars?: "y" | "x" | "xy" | false;
 }>): React.ReactNode {
    return (

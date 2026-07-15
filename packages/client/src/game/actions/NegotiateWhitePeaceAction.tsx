@@ -14,7 +14,7 @@ import { finalizeCondition, type IGameAction } from "./GameAction";
 
 export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: SaveGame): IGameAction {
    return {
-      cost: { diplomatic: WhitePeaceCostPerTile * war.tiles.size },
+      cost: { diplomatic: war.casusBelli === "BarbarianRaid" ? 0 : WhitePeaceCostPerTile * war.tiles.size },
       condition: finalizeCondition([
          {
             name: $t(L.WeAreTheLeadAttackerOfTheWar),

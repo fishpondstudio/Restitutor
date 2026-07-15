@@ -60,7 +60,7 @@ import {
    getTileMaintenanceCost,
    getTileManpower,
 } from "./TileLogic";
-import { getTimedActionTimeLeft } from "./TimedActionLogic";
+import { getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
 import { getClients, getPatrons } from "./TreatyLogic";
 import {
    calculateWarTotalStability,
@@ -1044,18 +1044,6 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
       addProvinceResource(key, value, province, save);
    });
 
-   forEach(config.modifiers, (key, value) => {
-      addModifier({
-         modifier: key,
-         name: source,
-         type: value.type,
-         value: value.value,
-         duration: value.duration,
-         province,
-         save,
-      });
-   });
-
    const neighboringProvinces = new Set<Province>();
    for (const tile of config.tiles) {
       for (const neighboringProvince of getBorderingProvinces(tile, save)) {
@@ -1083,6 +1071,8 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
       province,
       save,
    });
+
+   startTimedAction("BarbarianInvasions", province, save);
 
    return [...config.tiles, ...ensureProvinceCapitals(save)];
 }

@@ -8,6 +8,7 @@ import { onGeneralEnded } from "../logic/WarLogic";
 import { Price } from "./Goods";
 import type { IBaseModifier, Modifier } from "./Modifier";
 import type { Province } from "./Province";
+import { SpawnedProvinceBoostMonths } from "./SpawnedProvince";
 import type { Tech } from "./Tech";
 
 export interface ITimedAction {
@@ -557,6 +558,17 @@ class TimedActionDefinitions {
       desc: () => $t(L.SocialClassCurtailDesc),
       duration: 0,
       cooldown: 12 * 2,
+   };
+   BarbarianInvasions: ITimedEffectAction = {
+      name: () => "Barbarian Invasions",
+      duration: SpawnedProvinceBoostMonths,
+      cooldown: 0,
+      costCondition: (province, save) => {
+         return {};
+      },
+      modifiers: {
+         Stability: { type: "add", value: 10 },
+      },
    };
 }
 

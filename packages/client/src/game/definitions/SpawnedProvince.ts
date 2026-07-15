@@ -1,8 +1,8 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
-import type { IBaseModifier, Modifier } from "./Modifier";
 import type { Province, ProvinceResource, ProvinceStat } from "./Province";
 
 export const SpawnedProvinceBoostMonths = 12 * 20;
+export const MaxRaidMonths = 12;
 
 const BaseSpawnedProvinceData: SpawnedProvinceData = {
    stats: {
@@ -12,7 +12,6 @@ const BaseSpawnedProvinceData: SpawnedProvinceData = {
    resources: {
       generalSkillPoint: 10,
    },
-   modifiers: {},
 };
 
 export const _SpawnedProvinces = {
@@ -57,7 +56,6 @@ export const _SpawnedProvinces = {
 export interface SpawnedProvinceData {
    stats: Partial<Record<ProvinceStat, number>>;
    resources: Partial<Record<ProvinceResource, number>>;
-   modifiers: Partial<Record<Modifier, IBaseModifier & { duration: number }>>;
 }
 
 export interface SpawnedProvinceConfig extends SpawnedProvinceData {
