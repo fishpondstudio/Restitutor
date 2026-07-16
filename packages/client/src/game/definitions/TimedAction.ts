@@ -572,7 +572,7 @@ class TimedActionDefinitions {
    };
    BarbarianActions: ITimedAction = {
       name: () => EmptyString,
-      duration: 0,
+      duration: 12,
       cooldown: 12,
    };
 }

@@ -5,10 +5,17 @@ import { finalizeCondition } from "../game/actions/GameAction";
 import { NegotiateWhitePeaceAction } from "../game/actions/NegotiateWhitePeaceAction";
 import { MaxRaidMonths } from "../game/definitions/SpawnedProvince";
 import { getTileName } from "../game/definitions/TileName";
+import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
-import { getAttitudeTowards, getRelation, requireInfiltration } from "../game/logic/DiplomacyLogic";
+import {
+   addAttitudeModifier,
+   getAttitudeTowards,
+   getRelation,
+   requireInfiltration,
+} from "../game/logic/DiplomacyLogic";
+import { addModifier } from "../game/logic/ModifierLogic";
 import { getProvinceName, getTotalUpgrades, getWarPower } from "../game/logic/ProvinceLogic";
-import { getTimedActionTimeLeft, timedActionConditions } from "../game/logic/TimedActionLogic";
+import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -190,6 +197,11 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                    if (!rel) {
                                                       return;
                                                    }
+                                                   startTimedAction(
+                                                      "BarbarianActions",
+                                                      G.save.state.playerProvince,
+                                                      G.save,
+                                                   );
                                                    NegotiateWhitePeaceAction(raid, raid.attacker, G.save).effect({
                                                       headless: true,
                                                    });
@@ -234,6 +246,11 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                    if (!rel) {
                                                       return;
                                                    }
+                                                   startTimedAction(
+                                                      "BarbarianActions",
+                                                      G.save.state.playerProvince,
+                                                      G.save,
+                                                   );
                                                    rel.infiltrate.value -= 25;
                                                    NegotiateWhitePeaceAction(raid, raid.attacker, G.save).effect({
                                                       headless: true,
@@ -243,7 +260,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                              tooltip={(element) => (
                                                 <>
                                                    <div className="m10">
-                                                      Subverting will end the raid on us immediately.
+                                                      Subverting the raid will end the raid on us immediately.
                                                    </div>
                                                    {element}
                                                 </>
@@ -257,7 +274,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                           <ActionButton
                                              action={{
                                                 cost: {
-                                                   gold: getTotalUpgrades(G.save.state.playerProvince, G.save) * 12,
+                                                   administrative: getTotalUpgrades(raid.attacker, G.save),
                                                 },
                                                 condition: finalizeCondition([
                                                    ...timedActionConditions(
@@ -269,25 +286,50 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       G.save,
                                                    ),
                                                 ]),
-                                                effect: () => {},
+                                                effect: () => {
+                                                   startTimedAction(
+                                                      "BarbarianActions",
+                                                      G.save.state.playerProvince,
+                                                      G.save,
+                                                   );
+                                                   addModifier({
+                                                      modifier: "WarPower",
+                                                      type: "multiply",
+                                                      name: `${getProvinceName(raid.attacker, G.save)}'s raid incited by ${getProvinceName(G.save.state.playerProvince, G.save)}`,
+                                                      duration: TimedActions.BarbarianActions.duration,
+                                                      value: 0.2,
+                                                      province: raid.attacker,
+                                                      save: G.save,
+                                                   });
+                                                   addModifier({
+                                                      modifier: "Defense",
+                                                      type: "multiply",
+                                                      name: `${getProvinceName(raid.attacker, G.save)}'s raid deterred by ${getProvinceName(G.save.state.playerProvince, G.save)}`,
+                                                      duration: TimedActions.BarbarianActions.duration,
+                                                      value: -0.2,
+                                                      province: raid.defender,
+                                                      save: G.save,
+                                                   });
+                                                },
                                              }}
                                              tooltip={(element) => (
                                                 <>
                                                    <div className="m10">
-                                                      Inciting the raid has the following effects
+                                                      Inciting the raid enacts the following effects for{" "}
+                                                      {formatNumber(TimedActions.BarbarianActions.duration)} months:
                                                    </div>
                                                    <div className="m10">
                                                       <div className="row my5">
                                                          <div className="f1">
                                                             {getProvinceName(raid.attacker, G.save)}'s War Power
                                                          </div>
-                                                         <div>+25%</div>
+                                                         <div>+20%</div>
                                                       </div>
                                                       <div className="row my5">
                                                          <div className="f1">
                                                             {getProvinceName(raid.defender, G.save)}'s Defense
                                                          </div>
-                                                         <div>-25%</div>
+                                                         <div>-20%</div>
                                                       </div>
                                                    </div>
                                                    {element}
@@ -296,7 +338,76 @@ export function BarbarianRaidModal(): React.ReactNode {
                                           >
                                              Incite
                                           </ActionButton>
-                                          <button className="btn">Deter</button>
+                                          <ActionButton
+                                             action={{
+                                                cost: {
+                                                   diplomatic: getTotalUpgrades(raid.attacker, G.save),
+                                                },
+                                                condition: finalizeCondition([
+                                                   ...timedActionConditions(
+                                                      {
+                                                         action: "BarbarianActions",
+                                                         label: "Barbarian actions are not on cooldown",
+                                                      },
+                                                      G.save.state.playerProvince,
+                                                      G.save,
+                                                   ),
+                                                ]),
+                                                effect: () => {
+                                                   startTimedAction(
+                                                      "BarbarianActions",
+                                                      G.save.state.playerProvince,
+                                                      G.save,
+                                                   );
+                                                   addModifier({
+                                                      modifier: "WarPower",
+                                                      type: "multiply",
+                                                      name: `${getProvinceName(raid.attacker, G.save)}'s raid deterred by ${getProvinceName(G.save.state.playerProvince, G.save)}`,
+                                                      duration: TimedActions.BarbarianActions.duration,
+                                                      value: -0.2,
+                                                      province: raid.attacker,
+                                                      save: G.save,
+                                                   });
+                                                   addAttitudeModifier(
+                                                      raid.defender,
+                                                      G.save.state.playerProvince,
+                                                      {
+                                                         name: `${getProvinceName(raid.attacker, G.save)}'s raid deterred by ${getProvinceName(G.save.state.playerProvince, G.save)}`,
+                                                         value: 20,
+                                                         duration: TimedActions.BarbarianActions.duration,
+                                                         type: "add",
+                                                      },
+                                                      G.save,
+                                                   );
+                                                },
+                                             }}
+                                             tooltip={(element) => (
+                                                <>
+                                                   <div className="m10">
+                                                      Deterring the raid enacts the following effects for{" "}
+                                                      {formatNumber(TimedActions.BarbarianActions.duration)} months:
+                                                   </div>
+                                                   <div className="m10">
+                                                      <div className="row my5">
+                                                         <div className="f1">
+                                                            {getProvinceName(raid.attacker, G.save)}'s War Power
+                                                         </div>
+                                                         <div>-20%</div>
+                                                      </div>
+                                                      <div className="row my5">
+                                                         <div className="f1">
+                                                            {getProvinceName(raid.defender, G.save)}'s Attitude Towards
+                                                            Us
+                                                         </div>
+                                                         <div>+20</div>
+                                                      </div>
+                                                   </div>
+                                                   {element}
+                                                </>
+                                             )}
+                                          >
+                                             Deter
+                                          </ActionButton>
                                        </div>
                                     ))}
                               </td>
