@@ -570,6 +570,11 @@ class TimedActionDefinitions {
          Stability: { type: "add", value: 10 },
       },
    };
+   BarbarianActions: ITimedAction = {
+      name: () => EmptyString,
+      duration: 0,
+      cooldown: 12,
+   };
 }
 
 export type TimedAction = keyof TimedActionDefinitions;

@@ -356,7 +356,7 @@ const BarbarianRaid: ITodo = {
          : "yellow",
    tooltip: (save) => {
       if (save.state.wars.find((war) => war.casusBelli === "BarbarianRaid")) {
-         return "Barbarian raids are ongoing. Click to view details.";
+         return <div className="m10">Barbarian raids are ongoing. Click to view details.</div>;
       }
       return null;
    },

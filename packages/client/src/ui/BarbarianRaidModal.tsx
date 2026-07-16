@@ -1,16 +1,21 @@
 import { Progress } from "@mantine/core";
 import { cls, formatNumber } from "@project/shared/src/utils/Helper";
 import BarbarianRaidHeader from "../assets/images/BarbarianRaidHeader.webp";
-import { MaxRaidMonths, SpawnedProvinceBoostMonths } from "../game/definitions/SpawnedProvince";
+import { finalizeCondition } from "../game/actions/GameAction";
+import { NegotiateWhitePeaceAction } from "../game/actions/NegotiateWhitePeaceAction";
+import { MaxRaidMonths } from "../game/definitions/SpawnedProvince";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
-import { getProvinceName, getWarPower } from "../game/logic/ProvinceLogic";
-import { getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
+import { getAttitudeTowards, getRelation, requireInfiltration } from "../game/logic/DiplomacyLogic";
+import { getProvinceName, getTotalUpgrades, getWarPower } from "../game/logic/ProvinceLogic";
+import { getTimedActionTimeLeft, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp } from "../utils/ModalManager";
+import { ActionButton } from "./ActionButton";
 import { BreakdownTooltip } from "./BreakdownRow";
+import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { CloseButtonClass, Grid2 } from "./UIConstant";
 
@@ -69,19 +74,62 @@ export function BarbarianRaidModal(): React.ReactNode {
                      .sort((a, b) => a.attacker.localeCompare(b.attacker))
                      .map((raid) => {
                         const warPower = getWarPower(raid.attacker, G.save);
+                        const attitude = getAttitudeTowards(raid.attacker, G.save.state.playerProvince, G.save);
                         return (
                            <tr key={raid.attacker}>
                               <td>
-                                 <span className="text-display">{getProvinceName(raid.attacker, G.save)}</span>
+                                 <BreakdownTooltip
+                                    breakdown={attitude}
+                                    tooltip={(element) => (
+                                       <>
+                                          <div className="m10">
+                                             Barbarians will not raid our province if their attitude towards us is
+                                             positive.
+                                          </div>
+                                          <div className="h2 row">
+                                             <div className="f1">Attitude Towards Us</div>
+                                             <div>{colorNumber(attitude.value)}</div>
+                                          </div>
+                                          {element}
+                                       </>
+                                    )}
+                                 >
+                                    <div>
+                                       <div className="text-display text-md">
+                                          {getProvinceName(raid.attacker, G.save)}
+                                       </div>
+                                       <div className="row g5 text-dimmed">
+                                          <div className="mi xs">sentiment_neutral</div>
+                                          <div className="f1">{formatNumber(attitude.value)}</div>
+                                       </div>
+                                    </div>
+                                 </BreakdownTooltip>
                               </td>
                               <td>
-                                 <BreakdownTooltip breakdown={warPower}>
-                                    <div>{formatNumber(warPower.value)}</div>
+                                 <BreakdownTooltip
+                                    breakdown={warPower}
+                                    tooltip={(element) => (
+                                       <>
+                                          <div className="m10">
+                                             {getProvinceName(raid.attacker, G.save)} is currently receiving a
+                                             significant war power boost that will end in{" "}
+                                             {getTimedActionTimeLeft("BarbarianInvasions", raid.attacker, G.save)}{" "}
+                                             months.
+                                          </div>
+                                          {element}
+                                       </>
+                                    )}
+                                 >
+                                    <div>
+                                       <div>{formatNumber(warPower.value)}</div>
+                                       <div className="row g5 text-dimmed">
+                                          <div className="mi xs">schedule</div>
+                                          <div className="f1">
+                                             {getTimedActionTimeLeft("BarbarianInvasions", raid.attacker, G.save)}
+                                          </div>
+                                       </div>
+                                    </div>
                                  </BreakdownTooltip>
-                                 <div className="text-dimmed">
-                                    {getTimedActionTimeLeft("BarbarianInvasions", raid.attacker, G.save)}/
-                                    {SpawnedProvinceBoostMonths}
-                                 </div>
                               </td>
                               <td>
                                  {raid && (
@@ -90,7 +138,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                           <div>
                                              <span
                                                 className={cls(
-                                                   "text-display",
+                                                   "text-display text-md",
                                                    raid.defender === G.save.state.playerProvince ? "text-yellow" : "",
                                                 )}
                                              >
@@ -117,15 +165,137 @@ export function BarbarianRaidModal(): React.ReactNode {
                               <td>
                                  {raid &&
                                     (raid.defender === G.save.state.playerProvince ? (
-                                       <div style={Grid2}>
-                                          <button className="btn">Ransom</button>
-                                          <button className="btn">Placate</button>
-                                          <button className="btn">Negotiate</button>
-                                          <button className="btn">Subvert</button>
+                                       <div style={{ ...Grid2, gap: "0.3125rem" }}>
+                                          <ActionButton
+                                             action={{
+                                                cost: {
+                                                   gold: getTotalUpgrades(G.save.state.playerProvince, G.save) * 12,
+                                                },
+                                                condition: finalizeCondition([
+                                                   ...timedActionConditions(
+                                                      {
+                                                         action: "BarbarianActions",
+                                                         label: "Barbarian actions are not on cooldown",
+                                                      },
+                                                      G.save.state.playerProvince,
+                                                      G.save,
+                                                   ),
+                                                ]),
+                                                effect: () => {
+                                                   const rel = getRelation(
+                                                      G.save.state.playerProvince,
+                                                      raid.attacker,
+                                                      G.save,
+                                                   );
+                                                   if (!rel) {
+                                                      return;
+                                                   }
+                                                   NegotiateWhitePeaceAction(raid, raid.attacker, G.save).effect({
+                                                      headless: true,
+                                                   });
+                                                },
+                                             }}
+                                             tooltip={(element) => (
+                                                <>
+                                                   <div className="m10">
+                                                      Paying a random will end the raid on us immediately.
+                                                   </div>
+                                                   {element}
+                                                </>
+                                             )}
+                                          >
+                                             Ransom
+                                          </ActionButton>
+                                          <ActionButton
+                                             action={{
+                                                condition: finalizeCondition([
+                                                   ...timedActionConditions(
+                                                      {
+                                                         action: "BarbarianActions",
+                                                         label: "Barbarian actions are not on cooldown",
+                                                      },
+                                                      G.save.state.playerProvince,
+                                                      G.save,
+                                                   ),
+                                                   requireInfiltration(
+                                                      25,
+                                                      { consume: true },
+                                                      G.save.state.playerProvince,
+                                                      raid.attacker,
+                                                      G.save,
+                                                   ),
+                                                ]),
+                                                effect: () => {
+                                                   const rel = getRelation(
+                                                      G.save.state.playerProvince,
+                                                      raid.attacker,
+                                                      G.save,
+                                                   );
+                                                   if (!rel) {
+                                                      return;
+                                                   }
+                                                   rel.infiltrate.value -= 25;
+                                                   NegotiateWhitePeaceAction(raid, raid.attacker, G.save).effect({
+                                                      headless: true,
+                                                   });
+                                                },
+                                             }}
+                                             tooltip={(element) => (
+                                                <>
+                                                   <div className="m10">
+                                                      Subverting will end the raid on us immediately.
+                                                   </div>
+                                                   {element}
+                                                </>
+                                             )}
+                                          >
+                                             Subvert
+                                          </ActionButton>
                                        </div>
                                     ) : (
-                                       <div style={Grid2}>
-                                          <button className="btn">Incite</button>
+                                       <div style={{ ...Grid2, gap: "0.3125rem" }}>
+                                          <ActionButton
+                                             action={{
+                                                cost: {
+                                                   gold: getTotalUpgrades(G.save.state.playerProvince, G.save) * 12,
+                                                },
+                                                condition: finalizeCondition([
+                                                   ...timedActionConditions(
+                                                      {
+                                                         action: "BarbarianActions",
+                                                         label: "Barbarian actions are not on cooldown",
+                                                      },
+                                                      G.save.state.playerProvince,
+                                                      G.save,
+                                                   ),
+                                                ]),
+                                                effect: () => {},
+                                             }}
+                                             tooltip={(element) => (
+                                                <>
+                                                   <div className="m10">
+                                                      Inciting the raid has the following effects
+                                                   </div>
+                                                   <div className="m10">
+                                                      <div className="row my5">
+                                                         <div className="f1">
+                                                            {getProvinceName(raid.attacker, G.save)}'s War Power
+                                                         </div>
+                                                         <div>+25%</div>
+                                                      </div>
+                                                      <div className="row my5">
+                                                         <div className="f1">
+                                                            {getProvinceName(raid.defender, G.save)}'s Defense
+                                                         </div>
+                                                         <div>-25%</div>
+                                                      </div>
+                                                   </div>
+                                                   {element}
+                                                </>
+                                             )}
+                                          >
+                                             Incite
+                                          </ActionButton>
                                           <button className="btn">Deter</button>
                                        </div>
                                     ))}
