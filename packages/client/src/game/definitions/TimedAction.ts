@@ -560,7 +560,7 @@ class TimedActionDefinitions {
       cooldown: 12 * 2,
    };
    BarbarianInvasions: ITimedEffectAction = {
-      name: () => "Barbarian Invasions",
+      name: () => $t(L.BarbarianInvasions),
       duration: SpawnedProvinceBoostMonths,
       cooldown: 0,
       costCondition: (province, save) => {

@@ -38,8 +38,8 @@ export const _CasusBelli = {
       effect: () => $t(L.TilesOriginallyOwnedByUsContribute$1LessToWarScore, "50%"),
    },
    BarbarianRaid: {
-      name: () => "Barbarian Raid",
-      effect: () => "Starting a raid does no cost diplomatic points and is not limited by diplomatic range",
+      name: () => $t(L.BarbarianRaid),
+      effect: () => $t(L.StartingARaidDoesNotCostDiplomaticPointsAndIsNotLimitedByDiplomaticRange),
    },
 } satisfies Record<string, ICasusBelliConfig>;
 

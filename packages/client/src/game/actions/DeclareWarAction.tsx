@@ -55,7 +55,7 @@ export function DeclareWarAction(
             value: !isClientOfAnyProvince(attacker, save),
          },
          {
-            name: "Our selected casus belli is still valid",
+            name: $t(L.OurSelectedCasusBelliIsStillValid),
             value: casusBelli === "None" || !!getRelation(attacker, defender, save)?.casusBelli.has(casusBelli),
          },
          {

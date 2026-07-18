@@ -348,7 +348,7 @@ const VacantArmyGeneral: ITodo = {
 };
 
 const BarbarianRaid: ITodo = {
-   name: (save) => "Barbarian Raid",
+   name: (save) => $t(L.BarbarianRaid),
    icon: (save) => Barbarian,
    className: (save) =>
       save.state.wars.find((war) => war.casusBelli === "BarbarianRaid" && war.defender === save.state.playerProvince)
@@ -356,7 +356,7 @@ const BarbarianRaid: ITodo = {
          : "yellow",
    tooltip: (save) => {
       if (save.state.wars.find((war) => war.casusBelli === "BarbarianRaid")) {
-         return <div className="m10">Barbarian raids are ongoing. Click to view details.</div>;
+         return <div className="m10">{$t(L.BarbarianRaidsAreOngoingClickToViewDetails)}</div>;
       }
       return null;
    },
