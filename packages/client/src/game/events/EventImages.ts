@@ -1,4 +1,13 @@
 import Annex from "../../assets/images/events/Annex.webp";
+import Aquitania1 from "../../assets/images/events/Aquitania1.webp";
+import Aquitania2 from "../../assets/images/events/Aquitania2.webp";
+import Aquitania3 from "../../assets/images/events/Aquitania3.webp";
+import Aquitania5 from "../../assets/images/events/Aquitania5.webp";
+import Aquitania6 from "../../assets/images/events/Aquitania6.webp";
+import Aquitania7 from "../../assets/images/events/Aquitania7.webp";
+import Aquitania8 from "../../assets/images/events/Aquitania8.webp";
+import Aquitania9 from "../../assets/images/events/Aquitania9.webp";
+import Aquitania10 from "../../assets/images/events/Aquitania10.webp";
 import Arianism from "../../assets/images/events/Arianism.webp";
 import Bishop from "../../assets/images/events/Bishop.webp";
 import DeclareWar from "../..//assets/images/events/DeclareWar.webp";
@@ -185,4 +194,46 @@ export const EventImage = {
       url: Flood,
       credit: "The Flood in the Darling, William Charles Piguenit (1895)",
    },
+   Aquitania1: {
+      url: Aquitania1,
+      credit: "Young Woman in the Vaudois after the Grape Harvest, Wolfgang Adam Töpffer (1821)",
+   },
+   Aquitania2: { url: Aquitania2, credit: "Villa Farnese, Abraham-Louis-Rodolphe Ducros (c.1780)" },
+   Aquitania3: {
+      url: Aquitania3,
+      credit: "A Capriccio of Roman Ruins with Peasants in the Foreground, Charles-Louis Clérisseau (1773)",
+   },
+   Aquitania5: { url: Aquitania5, credit: "The Disputation of the Holy Sacrament (La Disputa), Raphael (1510)" },
+   Aquitania6: { url: Aquitania6, credit: "Saint Paulinus of Nola. Line engraving" },
+   Aquitania7: { url: Aquitania7, credit: "A Reading from Homer, Lawrence Alma-Tadema (1885)" },
+   Aquitania8: { url: Aquitania8, credit: "A Favourite Custom, Lawrence Alma-Tadema (1909)" },
+   Aquitania9: { url: Aquitania9, credit: "Fashion in a Landscape with Horses Beyond, Henri Delattre (1855)" },
+   Aquitania10: { url: Aquitania10, credit: "The Return of the Herd, Pieter Bruegel the Elder (1565)" },
+   Belgica1: { url: "TODO", credit: "Ancient Rome, Giovanni Paolo Panini (1757)" },
+   Belgica2: { url: "TODO", credit: "Las Hilanderas (The Fable of Arachne), Diego Velázquez (c.1657)" },
+   Belgica3: {
+      url: "TODO",
+      credit: "Romans in the Decadence of the Empire (Les Romains de la décadence), Thomas Couture (1847)",
+   },
+   Belgica4: { url: "TODO", credit: "The Druids Bringing in the Mistletoe, Henri-Paul Motte (1900)" },
+   Belgica5: { url: "TODO", credit: "Saint Jerome in His Study, Domenico Ghirlandaio (1480)" },
+   Belgica7: { url: "TODO", credit: "Still Life with a Gilt Cup, Willem Claesz. Heda (1635)" },
+   Belgica9: { url: "TODO", credit: "Architectural Capriccio, Francesco Guardi (c.1770)" },
+   Belgica10: { url: "TODO", credit: "Joseph, Overseer of Pharaoh's Granaries, Lawrence Alma-Tadema (1874)" },
+   Narbonensis1: {
+      url: "TODO",
+      credit: "Seaport with the Embarkation of the Queen of Sheba, Claude Lorrain (1648)",
+   },
+   Narbonensis2: {
+      url: "TODO",
+      credit: "The Old Port of Marseille (Vue du port de Marseille), Joseph Vernet (1754)",
+   },
+   Narbonensis3: { url: "TODO", credit: "Le Pont du Gard, Hubert Robert (1787)" },
+   Narbonensis4: { url: "TODO", credit: "The Beheading of Saint John the Baptist, Caravaggio (1608)" },
+   Narbonensis5: { url: "TODO", credit: "The Vision of the Cross, Workshop of Raphael (c.1520)" },
+   Narbonensis6: { url: "TODO", credit: "The Ideal City (Città Ideale), attributed to Fra Carnevale (c.1480)" },
+   Narbonensis7: { url: "TODO", credit: "Landscape with the Ponte Molle, Claude Lorrain (1645)" },
+   Narbonensis8: { url: "TODO", credit: "Saint Jerome in the Wilderness, Giovanni Bellini (c.1480)" },
+   Narbonensis9: { url: "TODO", credit: "The Thebaid, Fra Angelico (c.1420)" },
+   Narbonensis10: { url: "TODO", credit: "The Course of Empire: Desolation, Thomas Cole (1836)" },
 } as const satisfies Record<string, ImageWithCredit>;
