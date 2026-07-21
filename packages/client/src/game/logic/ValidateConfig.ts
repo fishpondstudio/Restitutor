@@ -1,10 +1,12 @@
-import { forEach, sizeOf, type Tile } from "@project/shared/src/utils/Helper";
+import { forEach, keysOf, sizeOf, type Tile } from "@project/shared/src/utils/Helper";
 import { type Building, Buildings } from "../definitions/Building";
 import { Goods } from "../definitions/Goods";
+import { Province } from "../definitions/Province";
 import { type SocialClass, SocialClassBonuses } from "../definitions/SocialClass";
 import { SpawnedProvinces } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
 import { TimedActions } from "../definitions/TimedAction";
+import { type GameEvent, GameEvents } from "../events/GameEvents";
 import { RomeMap } from "../RomeMap";
 
 export function validateConfig(): void {
@@ -77,6 +79,26 @@ export function validateConfig(): void {
             console.error(`Spawned province ${province} has duplicate tile ${tile}`);
          }
          tiles.add(tile);
+      });
+   });
+   forEach(Province, (province) => {
+      const yearToEvents = new Map<number, GameEvent>();
+      forEach(GameEvents, (k, config) => {
+         if (config.type === "manual" || config.type === "random") {
+            return;
+         }
+         if (config.condition?.year && (!config.condition.province || config.condition.province.includes(province))) {
+            const [startYear, _] = config.condition.year;
+            const existingEvent = yearToEvents.get(startYear);
+            // If an event has conditions other than year and province, we don't need to check for year duplicates
+            if (keysOf(config.condition).filter((k) => k !== "year" && k !== "province").length > 0) {
+               return;
+            }
+            if (existingEvent) {
+               console.error(`[${province}] Game Event "${existingEvent}" and "${k}" have the same year ${startYear}`);
+            }
+            yearToEvents.set(startYear, k);
+         }
       });
    });
    // forEach(TimedActions, (timedAction, config) => {
