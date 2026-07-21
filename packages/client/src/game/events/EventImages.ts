@@ -9,6 +9,14 @@ import Aquitania8 from "../../assets/images/events/Aquitania8.webp";
 import Aquitania9 from "../../assets/images/events/Aquitania9.webp";
 import Aquitania10 from "../../assets/images/events/Aquitania10.webp";
 import Arianism from "../../assets/images/events/Arianism.webp";
+import Belgica1 from "../../assets/images/events/Belgica1.webp";
+import Belgica2 from "../../assets/images/events/Belgica2.webp";
+import Belgica3 from "../../assets/images/events/Belgica3.webp";
+import Belgica4 from "../../assets/images/events/Belgica4.webp";
+import Belgica5 from "../../assets/images/events/Belgica5.webp";
+import Belgica7 from "../../assets/images/events/Belgica7.webp";
+import Belgica9 from "../../assets/images/events/Belgica9.webp";
+import Belgica10 from "../../assets/images/events/Belgica10.webp";
 import Bishop from "../../assets/images/events/Bishop.webp";
 import DeclareWar from "../..//assets/images/events/DeclareWar.webp";
 import DrawnIntoWar from "../../assets/images/events/DrawnIntoWar.webp";
@@ -23,6 +31,15 @@ import Martyrs from "../../assets/images/events/Martyrs.webp";
 import Merchant from "../../assets/images/events/Merchant.webp";
 import Merchant2 from "../../assets/images/events/Merchant2.webp";
 import Merchant3 from "../../assets/images/events/Merchant3.webp";
+import Narbonensis1 from "../../assets/images/events/Narbonensis1.webp";
+import Narbonensis3 from "../../assets/images/events/Narbonensis3.webp";
+import Narbonensis4 from "../../assets/images/events/Narbonensis4.webp";
+import Narbonensis5 from "../../assets/images/events/Narbonensis5.webp";
+import Narbonensis6 from "../../assets/images/events/Narbonensis6.webp";
+import Narbonensis7 from "../../assets/images/events/Narbonensis7.webp";
+import Narbonensis8 from "../../assets/images/events/Narbonensis8.webp";
+import Narbonensis9 from "../../assets/images/events/Narbonensis9.webp";
+import Narbonensis10 from "../../assets/images/events/Narbonensis10.webp";
 import Refugee from "../../assets/images/events/Refugee.webp";
 import Rome from "../../assets/images/events/Rome.webp";
 import Sail from "../../assets/images/events/Sail.webp";
@@ -208,32 +225,32 @@ export const EventImage = {
    Aquitania7: { url: Aquitania7, credit: "A Reading from Homer, Lawrence Alma-Tadema (1885)" },
    Aquitania8: { url: Aquitania8, credit: "A Favourite Custom, Lawrence Alma-Tadema (1909)" },
    Aquitania9: { url: Aquitania9, credit: "Fashion in a Landscape with Horses Beyond, Henri Delattre (1855)" },
-   Aquitania10: { url: Aquitania10, credit: "The Return of the Herd, Pieter Bruegel the Elder (1565)" },
-   Belgica1: { url: "TODO", credit: "Ancient Rome, Giovanni Paolo Panini (1757)" },
-   Belgica2: { url: "TODO", credit: "Las Hilanderas (The Fable of Arachne), Diego Velázquez (c.1657)" },
+   Aquitania10: { url: Aquitania10, credit: "Frühsommerlicher Weinberg in Pillnitz, Carl Gustav Carus (c.1830)" },
+   Belgica1: { url: Belgica1, credit: "Ancient Rome, Giovanni Paolo Panini (1757)" },
+   Belgica2: { url: Belgica2, credit: "Las Hilanderas (The Fable of Arachne), Diego Velázquez (c.1657)" },
    Belgica3: {
-      url: "TODO",
-      credit: "Romans in the Decadence of the Empire (Les Romains de la décadence), Thomas Couture (1847)",
+      url: Belgica3,
+      credit: "The Triumph Of A Roman Hero, Possibly Marcus Claudius Marcellus, Vincenzo Camuccini (1816)",
    },
-   Belgica4: { url: "TODO", credit: "The Druids Bringing in the Mistletoe, Henri-Paul Motte (1900)" },
-   Belgica5: { url: "TODO", credit: "Saint Jerome in His Study, Domenico Ghirlandaio (1480)" },
-   Belgica7: { url: "TODO", credit: "Still Life with a Gilt Cup, Willem Claesz. Heda (1635)" },
-   Belgica9: { url: "TODO", credit: "Architectural Capriccio, Francesco Guardi (c.1770)" },
-   Belgica10: { url: "TODO", credit: "Joseph, Overseer of Pharaoh's Granaries, Lawrence Alma-Tadema (1874)" },
+   Belgica4: {
+      url: Belgica4,
+      credit:
+         "Druid cutting mistletoe on the sixth day of the moon (Druide coupant le gui au sixième jour de la lune), Henri-Paul Motte (1900)",
+   },
+   Belgica5: { url: Belgica5, credit: "Saint Jerome in His Study, Domenico Ghirlandaio (1480)" },
+   Belgica7: { url: Belgica7, credit: "Still Life with a Gilt Cup, Willem Claesz. Heda (1635)" },
+   Belgica9: { url: Belgica9, credit: "A Colonnade, Partly Ruined, with Figures, Francesco Guardi (c.1780)" },
+   Belgica10: { url: Belgica10, credit: "Harvest in the Czech-Moravian Highlands, Tavík František Šimon (1870)" },
    Narbonensis1: {
-      url: "TODO",
+      url: Narbonensis1,
       credit: "Seaport with the Embarkation of the Queen of Sheba, Claude Lorrain (1648)",
    },
-   Narbonensis2: {
-      url: "TODO",
-      credit: "The Old Port of Marseille (Vue du port de Marseille), Joseph Vernet (1754)",
-   },
-   Narbonensis3: { url: "TODO", credit: "Le Pont du Gard, Hubert Robert (1787)" },
-   Narbonensis4: { url: "TODO", credit: "The Beheading of Saint John the Baptist, Caravaggio (1608)" },
-   Narbonensis5: { url: "TODO", credit: "The Vision of the Cross, Workshop of Raphael (c.1520)" },
-   Narbonensis6: { url: "TODO", credit: "The Ideal City (Città Ideale), attributed to Fra Carnevale (c.1480)" },
-   Narbonensis7: { url: "TODO", credit: "Landscape with the Ponte Molle, Claude Lorrain (1645)" },
-   Narbonensis8: { url: "TODO", credit: "Saint Jerome in the Wilderness, Giovanni Bellini (c.1480)" },
-   Narbonensis9: { url: "TODO", credit: "The Thebaid, Fra Angelico (c.1420)" },
-   Narbonensis10: { url: "TODO", credit: "The Course of Empire: Desolation, Thomas Cole (1836)" },
+   Narbonensis3: { url: Narbonensis3, credit: "Le Pont du Gard, Hubert Robert (1787)" },
+   Narbonensis4: { url: Narbonensis4, credit: "The Beheading of Saint John the Baptist, Caravaggio (1608)" },
+   Narbonensis5: { url: Narbonensis5, credit: "The Council of Trent, Santa Maria Fresco in Trastevere, Rome (1588)" },
+   Narbonensis6: { url: Narbonensis6, credit: "The Ideal City (Città Ideale), attributed to Fra Carnevale (c.1480)" },
+   Narbonensis7: { url: Narbonensis7, credit: "Landscape with the Ponte Molle, Claude Lorrain (1645)" },
+   Narbonensis8: { url: Narbonensis8, credit: "Saint Jerome in the Wilderness, Giovanni Bellini (c.1480)" },
+   Narbonensis9: { url: Narbonensis9, credit: "The Thebaid, Fra Angelico (c.1420)" },
+   Narbonensis10: { url: Narbonensis10, credit: "The Course of Empire: Desolation, Thomas Cole (1836)" },
 } as const satisfies Record<string, ImageWithCredit>;

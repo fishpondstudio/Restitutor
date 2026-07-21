@@ -33,7 +33,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis2: {
       name: () => $t(L.TheGreekMerchantsOfMassilia),
-      image: EventImage.Narbonensis2,
+      image: EventImage.Sail,
       desc: () => $t(L.TheGreekMerchantsOfMassiliaDesc),
       condition: {
          province: ["Narbonensis"],
