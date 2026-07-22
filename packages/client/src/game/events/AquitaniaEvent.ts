@@ -1,6 +1,16 @@
 import { $t, L } from "../../utils/i18n";
+import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
-import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
+import { getOriginalTileCount } from "../GameState";
+import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
+import { getProvinceCoreTileCount, getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
+import { annexAndCoreTileCondition } from "../logic/TileLogic";
+import {
+   dissolveAllTreaties,
+   requireMinimumAttitude,
+   requireNoTreatyBetween,
+   requirePeaceBetween,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -286,6 +296,134 @@ export const AquitaniaEvent = {
             modifiers: {
                Stability: { type: "add", value: 5, duration: 2 * 12 },
                LandTax: { type: "multiply", value: -0.1, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Aquitania11: {
+      name: () => $t(L.AGallicAlliance),
+      image: EventImage.Alliance,
+      desc: () => $t(L.AGallicAllianceDesc),
+      condition: {
+         province: ["Aquitania"],
+         conditions: (province, save) => {
+            return [
+               requireNoTreatyBetween(["Alliance", "Patron"], province, "Lugdunensis", save),
+               requirePeaceBetween(province, "Lugdunensis", save),
+               availableDiplomatCondition(province, "Lugdunensis", save),
+               availableDiplomatCondition("Lugdunensis", province, save),
+               requireMinimumAttitude("Lugdunensis", province, 25, save),
+            ];
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.$1ShallStandAsOurAlly, Province.Lugdunensis.name()),
+            custom: [
+               {
+                  effect: (province, save) => {
+                     OfferAllianceAction(province, "Lugdunensis", save).effect({ headless: false });
+                  },
+                  desc: (province, save) => $t(L.$1BecomesOurAlly, Province.Lugdunensis.name()),
+               },
+            ],
+         },
+      ],
+   },
+   Aquitania12: {
+      name: () => $t(L.APortOnTheMediterranean),
+      image: EventImage.MediterraneanHarbour,
+      desc: () => $t(L.APortOnTheMediterraneanDesc),
+      condition: {
+         province: ["Aquitania"],
+         coreTiles: [{ province: "Narbonensis", count: 2 }],
+         conditions: (province, save) => [annexAndCoreTileCondition(8978507, province, save)],
+      },
+      buttons: [
+         {
+            label: () => $t(L.ChannelTradeThroughAgatha),
+            modifiers: {
+               LandTax: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               TileOutput: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Narbonensis: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.FortifyOurMediterraneanPrize),
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+               Prestige: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Narbonensis: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+      ],
+   },
+   Aquitania13: {
+      name: () => $t(L.TheSubmissionOfNarbonensis),
+      image: EventImage.Annex,
+      desc: () => $t(L.TheSubmissionOfNarbonensisDesc),
+      condition: {
+         province: ["Aquitania"],
+         coreTiles: [{ province: "Narbonensis", count: Math.ceil(getOriginalTileCount("Narbonensis") * 0.7) }],
+         conditions: (province, save) => {
+            return [
+               availableDiplomatCondition(province, "Narbonensis", save),
+               {
+                  name: $t(L.$1HasAtMost$2CoreTiles, Province.Narbonensis.name(), "5"),
+                  value: getProvinceCoreTileCount("Narbonensis", save) <= 5,
+               },
+               requirePeaceBetween(province, "Narbonensis", save),
+            ];
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.$1ShallServeAsOurLoyalClient, Province.Narbonensis.name()),
+            custom: [
+               {
+                  effect: (province, save) => {
+                     dissolveAllTreaties("Narbonensis", save);
+                     OfferPatronageAction(province, "Narbonensis", save).effect({ headless: false });
+                  },
+                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Narbonensis.name()),
+               },
+            ],
+         },
+      ],
+   },
+   Aquitania14: {
+      name: () => $t(L.AcrossThePyrenees),
+      image: EventImage.Aquitania1,
+      desc: () => $t(L.AcrossThePyreneesDesc),
+      condition: {
+         province: ["Aquitania"],
+         coreTiles: [{ province: "Tarraconensis", count: 6 }],
+      },
+      buttons: [
+         {
+            label: () => $t(L.WeShallContinueOurCampaign),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.2, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Tarraconensis: { casusBelli: "ConquestMission", duration: 10 * 12 },
+               Lusitania: { casusBelli: "ConquestMission", duration: 10 * 12 },
+               Baetica: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.SecureOurIberianFoothold),
+            modifiers: {
+               Stability: { type: "add", value: 20, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Tarraconensis: { casusBelli: "ConquestMission", duration: 10 * 12 },
+               Lusitania: { casusBelli: "ConquestMission", duration: 10 * 12 },
+               Baetica: { casusBelli: "ConquestMission", duration: 10 * 12 },
             },
          },
       ],

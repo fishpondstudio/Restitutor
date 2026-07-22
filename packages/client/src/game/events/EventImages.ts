@@ -1,3 +1,5 @@
+import Alliance from "../../assets/images/events/Alliance.webp";
+
 import Annex from "../../assets/images/events/Annex.webp";
 import Aquitania1 from "../../assets/images/events/Aquitania1.webp";
 import Aquitania2 from "../../assets/images/events/Aquitania2.webp";
@@ -28,6 +30,7 @@ import H3 from "../../assets/images/events/H3.webp";
 import InvaderConqueredWarGoal from "../../assets/images/events/InvaderConqueredWarGoal.webp";
 import InvaderSueForWhitePeace from "../../assets/images/events/InvaderSueForWhitePeace.webp";
 import Martyrs from "../../assets/images/events/Martyrs.webp";
+import MediterraneanHarbour from "../../assets/images/events/MediterraneanHarbour.webp";
 import Merchant from "../../assets/images/events/Merchant.webp";
 import Merchant2 from "../../assets/images/events/Merchant2.webp";
 import Merchant3 from "../../assets/images/events/Merchant3.webp";
@@ -40,6 +43,7 @@ import Narbonensis7 from "../../assets/images/events/Narbonensis7.webp";
 import Narbonensis8 from "../../assets/images/events/Narbonensis8.webp";
 import Narbonensis9 from "../../assets/images/events/Narbonensis9.webp";
 import Narbonensis10 from "../../assets/images/events/Narbonensis10.webp";
+import Pyrenees from "../../assets/images/events/Pyrenees.webp";
 import Refugee from "../../assets/images/events/Refugee.webp";
 import Rome from "../../assets/images/events/Rome.webp";
 import Sail from "../../assets/images/events/Sail.webp";
@@ -253,4 +257,10 @@ export const EventImage = {
    Narbonensis8: { url: Narbonensis8, credit: "Saint Jerome in the Wilderness, Giovanni Bellini (c.1480)" },
    Narbonensis9: { url: Narbonensis9, credit: "Čeština: Saint John Cassian" },
    Narbonensis10: { url: Narbonensis10, credit: "The Course of Empire: Desolation, Thomas Cole (1836)" },
+   Pyrenees: { url: Pyrenees, credit: "Views from Spain towards the High Pyrenees, Charles Hamilton Smith" },
+   Alliance: { url: Alliance, credit: "The Oracle at Delphi, Hans Werner Schmidt (1920)" },
+   MediterraneanHarbour: {
+      url: MediterraneanHarbour,
+      credit: "View of a Mediterranean harbour, Hendrik Frans Van Lint",
+   },
 } as const satisfies Record<string, ImageWithCredit>;

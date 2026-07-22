@@ -6,7 +6,7 @@ import { RefreshTiles } from "../Events";
 import { getOriginalTileCount } from "../GameState";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
 import { getProvinceCoreTileCount, setProvinceNameOverride } from "../logic/ProvinceLogic";
-import { dissolveAllTreaties, requireMinimumAttitude } from "../logic/TreatyLogic";
+import { dissolveAllTreaties, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -54,7 +54,7 @@ export const GallicEmpireEvents = {
                   name: $t(L.$1HasAtMost$2CoreTiles, Province.Britannia.name(), "5"),
                   value: getProvinceCoreTileCount("Britannia", save) <= 5,
                },
-               requireMinimumAttitude("Britannia", province, 50, save),
+               requirePeaceBetween(province, "Britannia", save),
             ];
          },
       },
