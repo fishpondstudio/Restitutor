@@ -1,7 +1,7 @@
 import { Select } from "@mantine/core";
 import { cls, setFlag } from "@project/shared/src/utils/Helper";
 import { Fragment, useState } from "react";
-import { Province, Provinces } from "../game/definitions/Province";
+import { EnabledProvinces, Province } from "../game/definitions/Province";
 import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { GameOptionFlag } from "../game/GameOption";
 import { saveGame } from "../game/LoadSave";
@@ -50,8 +50,7 @@ export function RebirthModal(): React.ReactNode {
                   }}
                   checkIconPosition="right"
                   allowDeselect={false}
-                  data={Provinces.map((p) => ({ value: p, label: getProvinceName(p, G.save) }))}
-                  disabled
+                  data={EnabledProvinces.map((p) => ({ value: p, label: getProvinceName(p, G.save) }))}
                />
             </div>
          </FloatingTip>

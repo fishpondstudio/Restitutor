@@ -22,7 +22,7 @@ export function CanTradeCostCondition(
             name: $t(L.WeAreNotAtWarWithThem),
             value: getWarsBetween(ourProvince, theirProvince, save).length === 0,
          },
-         requireMinimumAttitude(theirProvince, ourProvince, -10, save),
+         requireMinimumAttitude(ourProvince, theirProvince, -10, save),
          {
             name: $t(L.WeDontAlreadyHaveAnActiveTradeWithThem),
             value: getRelation(ourProvince, theirProvince, save)?.trade === undefined,

@@ -1,3 +1,18 @@
+Aquitania:
+- Serene Vineyards: +1% Tile Output for each positive Stability.
+- Cultivated Estates: +1% Land Tax for each Tile Upgrade.
+- Hillfort Bastion: +1% all tiles' Defense for each core Hill tile
+
+Narbonensis:
+- Municipal Privilege: Core tiles get +1 Building Slot
+- Maritime Prosperity: Harbour gives +10% Trade Profit
+- Commercial Alliances: Each diplomatic treaty gives +1 Trade Capacity
+
+Belgica:
+- Ranged Predominance: +1% War Power for each 1% of Ranged composition
+- Bravest of the Gauls: +1 General Skill Point after winning a war
+- Martial Society: +1% War Power for each 1% of Actual Conscription
+
 0.10 Plan:
 - Senate Action: Boost Social Class Loyalty
 - Senate Action: Boost Prestige

@@ -98,7 +98,7 @@ export function requireHigherPrestige(us: Province, them: Province, percentage: 
    };
 }
 
-export function requireMinimumAttitudeV2(from: Province, to: Province, attitude: number, save: SaveGame): ICondition {
+export function requireMinimumAttitude(from: Province, to: Province, attitude: number, save: SaveGame): ICondition {
    const current = getAttitudeTowards(from, to, save);
    return {
       name: $t(
@@ -106,20 +106,6 @@ export function requireMinimumAttitudeV2(from: Province, to: Province, attitude:
          getProvinceName(from, save),
          formatNumber(attitude),
          getProvinceName(to, save),
-      ),
-      progress: [current.value, attitude],
-      value: current.value >= attitude,
-   };
-}
-
-export function requireMinimumAttitude(us: Province, them: Province, attitude: number, save: SaveGame): ICondition {
-   const current = getAttitudeTowards(them, us, save);
-   return {
-      name: $t(
-         L.$1HasAtLeast$2AttitudeTowards$3,
-         getProvinceName(them, save),
-         formatNumber(attitude),
-         getProvinceName(us, save),
       ),
       progress: [current.value, attitude],
       value: current.value >= attitude,

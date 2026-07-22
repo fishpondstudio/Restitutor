@@ -251,6 +251,6 @@ export const EventImage = {
    Narbonensis6: { url: Narbonensis6, credit: "The Ideal City (Città Ideale), attributed to Fra Carnevale (c.1480)" },
    Narbonensis7: { url: Narbonensis7, credit: "Landscape with the Ponte Molle, Claude Lorrain (1645)" },
    Narbonensis8: { url: Narbonensis8, credit: "Saint Jerome in the Wilderness, Giovanni Bellini (c.1480)" },
-   Narbonensis9: { url: Narbonensis9, credit: "The Thebaid, Fra Angelico (c.1420)" },
+   Narbonensis9: { url: Narbonensis9, credit: "Čeština: Saint John Cassian" },
    Narbonensis10: { url: Narbonensis10, credit: "The Course of Empire: Desolation, Thomas Cole (1836)" },
 } as const satisfies Record<string, ImageWithCredit>;

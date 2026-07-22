@@ -177,7 +177,7 @@ export const LugdunensisEvent = {
                value: getMarriageAlliance(province, "Belgica", save).length > 0,
             },
             availableDiplomatCondition(province, "Belgica", save),
-            requireMinimumAttitude(province, "Belgica", 50, save),
+            requireMinimumAttitude("Belgica", province, 50, save),
          ],
       },
       buttons: [

@@ -12,7 +12,7 @@ import { getProvinceName, getProvincesInRange } from "../logic/ProvinceLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import {
    requireHigherPrestige,
-   requireMinimumAttitudeV2,
+   requireMinimumAttitude,
    requireNoTreatyBetween,
    requirePeaceBetween,
 } from "../logic/TreatyLogic";
@@ -31,7 +31,7 @@ export function OfferDefensePactAction(fromProvince: Province, toProvince: Provi
          availableDiplomatCondition(fromProvince, toProvince, save),
          isWithinDiplomaticRange(fromProvince, toProvince, save),
 
-         requireMinimumAttitudeV2(toProvince, fromProvince, 0, save),
+         requireMinimumAttitude(toProvince, fromProvince, 0, save),
          availableDiplomatCondition(toProvince, fromProvince, save),
       ]),
       effect: () => {
@@ -67,7 +67,7 @@ export function OfferAllianceAction(fromProvince: Province, toProvince: Province
          availableDiplomatCondition(fromProvince, toProvince, save),
          isWithinDiplomaticRange(fromProvince, toProvince, save),
 
-         requireMinimumAttitudeV2(toProvince, fromProvince, 50, save),
+         requireMinimumAttitude(toProvince, fromProvince, 50, save),
          availableDiplomatCondition(toProvince, fromProvince, save),
       ]),
       effect: () => {
@@ -114,7 +114,7 @@ export function OfferPatronageAction(fromProvince: Province, toProvince: Provinc
             name: $t(L.$1IsNotAClientOfAnyProvince, getProvinceName(toProvince, save)),
             value: !isClientOfAnyProvince(toProvince, save),
          },
-         requireMinimumAttitudeV2(toProvince, fromProvince, 100, save),
+         requireMinimumAttitude(toProvince, fromProvince, 100, save),
          availableDiplomatCondition(toProvince, fromProvince, save),
       ]),
       effect: () => {

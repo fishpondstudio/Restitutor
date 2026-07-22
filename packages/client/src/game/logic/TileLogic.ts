@@ -9,6 +9,7 @@ import { getProvinceTraits } from "../definitions/PersonTrait";
 import type { GovernorPower, Province } from "../definitions/Province";
 import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { Tech } from "../definitions/Tech";
+import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { cacheTile } from "./CacheLogic";
@@ -591,4 +592,12 @@ export function getBuildingSlot(tile: Tile, save: SaveGame): IValueBreakdown {
       }
    }
    return finalizeBreakdown(result);
+}
+
+export function annexAndCoreTileCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
+   const data = save.state.tiles.get(tile);
+   return {
+      name: `Annex and Core ${getTileName(tile)}`,
+      value: data?.province === province && data.coreProvinces.has(province),
+   };
 }

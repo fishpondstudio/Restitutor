@@ -54,7 +54,7 @@ export const GallicEmpireEvents = {
                   name: $t(L.$1HasAtMost$2CoreTiles, Province.Britannia.name(), "5"),
                   value: getProvinceCoreTileCount("Britannia", save) <= 5,
                },
-               requireMinimumAttitude(province, "Britannia", 50, save),
+               requireMinimumAttitude("Britannia", province, 50, save),
             ];
          },
       },

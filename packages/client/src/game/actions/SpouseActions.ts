@@ -70,7 +70,7 @@ export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Pr
    } else {
       conditions.push({ name: $t(L.IsEligibleForMarriage), value: true });
       conditions.push(requireHigherPrestige(ourPerson.province, theirPerson.province, 0.75, G.save));
-      conditions.push(requireMinimumAttitude(ourPerson.province, theirPerson.province, 10, G.save));
+      conditions.push(requireMinimumAttitude(theirPerson.province, ourPerson.province, 10, G.save));
    }
 
    return {
