@@ -397,7 +397,7 @@ export const AquitaniaEvent = {
    },
    Aquitania14: {
       name: () => $t(L.AcrossThePyrenees),
-      image: EventImage.Aquitania1,
+      image: EventImage.Pyrenees,
       desc: () => $t(L.AcrossThePyreneesDesc),
       condition: {
          province: ["Aquitania"],

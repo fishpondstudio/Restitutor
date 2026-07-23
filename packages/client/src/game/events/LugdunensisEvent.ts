@@ -7,7 +7,7 @@ import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { availableDiplomatCondition, getMarriageAlliance, getRelation } from "../logic/DiplomacyLogic";
 import {
    manpowerCondition,
-   provinceIncomeCondition,
+   provinceRevenueCondition,
    techCountCondition,
    warPowerCondition,
 } from "../logic/MissionLogic";
@@ -69,7 +69,7 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          conditions: (province, save) => [
-            provinceIncomeCondition(200, province, save),
+            provinceRevenueCondition(200, province, save),
             manpowerCondition(50_000, province, save),
             techCountCondition(6, province, save),
          ],

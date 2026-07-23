@@ -1,6 +1,12 @@
 import { $t, L } from "../../utils/i18n";
+import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
+import { getTileName } from "../definitions/TileName";
+import { RefreshTiles } from "../Events";
+import { getMarriageAlliance } from "../logic/DiplomacyLogic";
+import { provinceResourceCondition, provinceRevenueCondition } from "../logic/MissionLogic";
 import { getProvinceResource } from "../logic/ProvinceLogic";
+import { dissolveAllTreaties, requireAnyTreatyBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -277,6 +283,186 @@ export const NarbonensisEvent = {
             resources: { gold: 300 },
             modifiers: {
                Stability: { type: "add", value: -10, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Narbonensis11: {
+      name: () => $t(L.TheFruitsOfItalianFriendship),
+      image: EventImage.Alliance,
+      desc: () => $t(L.TheFruitsOfItalianFriendshipDesc),
+      condition: {
+         province: ["Narbonensis"],
+         conditions: (province, save) => {
+            return [requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Italia", save)];
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.EngageItaliasSeasonedMagistrates),
+            resources: { administrative: 100 },
+         },
+         {
+            label: () => $t(L.LearnFromItaliasPracticedEnvoys),
+            resources: { diplomatic: 100 },
+         },
+         {
+            label: () => $t(L.InviteItaliasVeteranOfficers),
+            resources: { military: 100 },
+         },
+      ],
+   },
+   Narbonensis12: {
+      name: () => $t(L.TheFruitsOfAquitanianFriendship),
+      image: EventImage.Alliance,
+      desc: () => $t(L.TheFruitsOfAquitanianFriendshipDesc),
+      condition: {
+         province: ["Narbonensis"],
+         conditions: (province, save) => {
+            return [requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Aquitania", save)];
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.ExchangeCraftsmenAndCultivators),
+            modifiers: {
+               TileOutput: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.ReformTheRollsWithAquitanianAssessors),
+            modifiers: {
+               LandTax: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.DrillBeneathAlliedStandards),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Narbonensis13: {
+      name: () => $t(L.TheGoldenCoffersOfNarbo),
+      image: EventImage.Prosperity,
+      desc: () => $t(L.TheGoldenCoffersOfNarboDesc),
+      condition: {
+         province: ["Narbonensis"],
+         conditions: (province, save) => {
+            return [
+               provinceRevenueCondition(300, province, save),
+               provinceResourceCondition("gold", 10_000, province, save),
+            ];
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.FinanceANewGenerationOfMerchants),
+            modifiers: {
+               TradeCapacity: { type: "add", value: 1 },
+               TradeProfit: { type: "multiply", value: 0.1 },
+            },
+         },
+         {
+            label: () => $t(L.InvestInTheGreatEstates),
+            modifiers: {
+               LandTax: { type: "multiply", value: 0.1 },
+            },
+         },
+      ],
+   },
+   Narbonensis14: {
+      name: () => $t(L.TheCorsicanMarriageSettlement),
+      image: EventImage.Wedding,
+      desc: () => $t(L.TheCorsicanMarriageSettlementDesc),
+      condition: {
+         province: ["Narbonensis"],
+         conditions: (province, save) => {
+            return [
+               provinceResourceCondition("gold", 5000, province, save),
+               requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Corsica", save),
+               {
+                  name: $t(L.WeHaveAMarriageAllianceWith$1, Province.Corsica.name()),
+                  value: getMarriageAlliance(province, "Corsica", save).length > 0,
+               },
+            ];
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.SealCorsicasLoyaltyWithAPrincelyDowry),
+            resources: { gold: -5000 },
+            custom: [
+               {
+                  effect: (province, save) => {
+                     dissolveAllTreaties("Corsica", save);
+                     OfferPatronageAction(province, "Corsica", save).effect({ headless: false });
+                  },
+                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Corsica.name()),
+               },
+            ],
+         },
+      ],
+   },
+   Narbonensis15: {
+      name: () => $t(L.AnAlpineExchange),
+      image: EventImage.Narbonensis10,
+      desc: () => $t(L.AnAlpineExchangeDesc),
+      condition: {
+         province: ["Narbonensis"],
+         conditions: (province, save) => {
+            const AugustaPraetoria = save.state.tiles.get(9175112);
+            const Taurinorum = save.state.tiles.get(9175113);
+            return [
+               requireAnyTreatyBetween(["Alliance"], province, "Italia", save),
+               {
+                  name: $t(L.$1Is$2CoreTile, getTileName(9175112), Province.Narbonensis.name()),
+                  value: AugustaPraetoria?.province === province && AugustaPraetoria?.coreProvinces.has(province),
+               },
+               {
+                  name: $t(L.$1Is$2CoreTile, getTileName(9175113), Province.Italia.name()),
+                  value: Taurinorum?.province === "Italia" && Taurinorum?.coreProvinces.has("Italia"),
+               },
+            ];
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.AgreeToTheExchange),
+            custom: [
+               {
+                  desc: () =>
+                     $t(
+                        L.$1Becomes$2CoreTileAnd$3Becomes$4CoreTile,
+                        getTileName(9175112),
+                        Province.Italia.name(),
+                        getTileName(9175113),
+                        Province.Narbonensis.name(),
+                     ),
+                  effect: (province, save) => {
+                     const AugustaPraetoria = save.state.tiles.get(9175112);
+                     if (AugustaPraetoria) {
+                        AugustaPraetoria.province = "Italia";
+                        AugustaPraetoria.coreProvinces.add("Italia");
+                     }
+                     const Taurinorum = save.state.tiles.get(9175113);
+                     if (Taurinorum) {
+                        Taurinorum.province = province;
+                        Taurinorum.coreProvinces.add(province);
+                     }
+                     RefreshTiles.emit({ tiles: [9175112, 9175113], options: { visual: true, indicator: true } });
+                  },
+               },
+            ],
+         },
+         {
+            label: () => $t(L.OurLandsAreNotTheirsToBarter),
+            modifiers: {
+               Prestige: { type: "multiply", value: 0.05, duration: 2 * 12 },
+            },
+            attitudes: {
+               Italia: { type: "add", value: -10, duration: 2 * 12 },
             },
          },
       ],

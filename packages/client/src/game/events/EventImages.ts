@@ -1,5 +1,4 @@
 import Alliance from "../../assets/images/events/Alliance.webp";
-
 import Annex from "../../assets/images/events/Annex.webp";
 import Aquitania1 from "../../assets/images/events/Aquitania1.webp";
 import Aquitania2 from "../../assets/images/events/Aquitania2.webp";
@@ -20,6 +19,7 @@ import Belgica7 from "../../assets/images/events/Belgica7.webp";
 import Belgica9 from "../../assets/images/events/Belgica9.webp";
 import Belgica10 from "../../assets/images/events/Belgica10.webp";
 import Bishop from "../../assets/images/events/Bishop.webp";
+import Circus from "../../assets/images/events/Circus.webp";
 import DeclareWar from "../..//assets/images/events/DeclareWar.webp";
 import DrawnIntoWar from "../../assets/images/events/DrawnIntoWar.webp";
 import Emperor from "../../assets/images/events/Emperor.webp";
@@ -43,16 +43,22 @@ import Narbonensis7 from "../../assets/images/events/Narbonensis7.webp";
 import Narbonensis8 from "../../assets/images/events/Narbonensis8.webp";
 import Narbonensis9 from "../../assets/images/events/Narbonensis9.webp";
 import Narbonensis10 from "../../assets/images/events/Narbonensis10.webp";
+import NavalWarfare from "../../assets/images/events/NavalWarfare.webp";
+import Prosperity from "../../assets/images/events/Prosperity.webp";
 import Pyrenees from "../../assets/images/events/Pyrenees.webp";
 import Refugee from "../../assets/images/events/Refugee.webp";
 import Rome from "../../assets/images/events/Rome.webp";
+import Sack from "../../assets/images/events/Sack.webp";
 import Sail from "../../assets/images/events/Sail.webp";
 import Saint from "../../assets/images/events/Saint.webp";
 import Saint2 from "../../assets/images/events/Saint2.webp";
 import School from "../../assets/images/events/School.webp";
 import Surrender from "../../assets/images/events/Surrender.webp";
+import War1 from "../../assets/images/events/War1.webp";
+import War2 from "../../assets/images/events/War2.webp";
 import WarEnded from "../../assets/images/events/WarEnded.webp";
 import Watchtower from "../../assets/images/events/Watchtower.webp";
+import Wedding from "../../assets/images/events/Wedding.webp";
 import Y193 from "../../assets/images/events/Y193.webp";
 import Y197 from "../../assets/images/events/Y197.webp";
 import Y198 from "../../assets/images/events/Y198.webp";
@@ -259,6 +265,13 @@ export const EventImage = {
    Narbonensis10: { url: Narbonensis10, credit: "The Course of Empire: Desolation, Thomas Cole (1836)" },
    Pyrenees: { url: Pyrenees, credit: "Views from Spain towards the High Pyrenees, Charles Hamilton Smith" },
    Alliance: { url: Alliance, credit: "The Oracle at Delphi, Hans Werner Schmidt (1920)" },
+   NavalWarfare: { url: NavalWarfare, credit: "The Battle of Salamis, Anton Hoffmann (1920)" },
+   Sack: { url: Sack, credit: "The Gauls in Rome, Anton Hoffmann (1920)" },
+   War1: { url: War1, credit: "Alexander and Darius at Issus, Anton Hoffmann (1920)" },
+   Circus: { url: Circus, credit: "Rome under the emperors, battles in the circus, Carl H.F. Schmidt (1888)" },
+   War2: { url: War2, credit: "The Fall of Pompeii, Anton Hoffmann (1920)" },
+   Prosperity: { url: Prosperity, credit: "Le triomphe de la Ville de Paris, François-Edouard Picot (1842)" },
+   Wedding: { url: Wedding, credit: "Hymen, oh Hyménée, Juan Luna (1886-87)" },
    MediterraneanHarbour: {
       url: MediterraneanHarbour,
       credit: "View of a Mediterranean harbour, Hendrik Frans Van Lint",

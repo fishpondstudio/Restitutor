@@ -300,7 +300,7 @@ export const BelgicaEvent = {
    },
    Belgica11: {
       name: () => $t(L.SouthwardIntoLugdunensis),
-      image: EventImage.Belgica10,
+      image: EventImage.War1,
       desc: () => $t(L.SouthwardIntoLugdunensisDesc),
       condition: {
          province: ["Belgica"],
@@ -330,7 +330,7 @@ export const BelgicaEvent = {
    },
    Belgica12: {
       name: () => $t(L.NorthwardIntoGermania),
-      image: EventImage.Belgica10,
+      image: EventImage.War2,
       desc: () => $t(L.NorthwardIntoGermaniaDesc),
       condition: {
          province: ["Belgica"],
@@ -360,7 +360,7 @@ export const BelgicaEvent = {
    },
    Belgica13: {
       name: () => $t(L.AcrossTheSeaToBritannia),
-      image: EventImage.Belgica10,
+      image: EventImage.NavalWarfare,
       desc: () => $t(L.AcrossTheSeaToBritanniaDesc),
       condition: {
          province: ["Belgica"],
@@ -390,7 +390,7 @@ export const BelgicaEvent = {
    },
    Belgica14: {
       name: () => $t(L.BelgicaAscendant),
-      image: EventImage.Belgica10,
+      image: EventImage.Prosperity,
       desc: () => $t(L.BelgicaAscendantDesc),
       condition: {
          province: ["Belgica"],

@@ -136,6 +136,23 @@ export function requireNoTreatyBetween(
    };
 }
 
+export function requireAnyTreatyBetween(
+   treaties: Exclude<Treaty, "Client">[],
+   fromProvince: Province,
+   toProvince: Province,
+   save: SaveGame,
+): ICondition {
+   return {
+      name: $t(
+         L.$1HasAnActive$2With$3,
+         getProvinceName(fromProvince, save),
+         treaties.map((t) => TreatyNames[t]()).join(", "),
+         getProvinceName(toProvince, save),
+      ),
+      value: treaties.some((t) => hasTreatyBetween(t, fromProvince, toProvince, save)),
+   };
+}
+
 export function hasTreatyBetween(
    treaty: Exclude<Treaty, "Client">,
    fromProvince: Province,

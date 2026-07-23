@@ -1,18 +1,26 @@
 import { formatNumber } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
-import type { Province } from "../definitions/Province";
+import {
+   type Province,
+   type ProvinceResource,
+   ProvinceResourceNames,
+   type ProvinceStat,
+   ProvinceStatNames,
+} from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import {
    getProvinceGoverningCost,
    getProvinceIncome,
    getProvinceManpower,
+   getProvinceResource,
+   getProvinceStat,
    getProvinceTileCount,
    getWarPower,
 } from "./ProvinceLogic";
 import { getAllies } from "./TreatyLogic";
 
-export function provinceIncomeCondition(minimum: number, province: Province, save: SaveGame): ICondition {
+export function provinceRevenueCondition(minimum: number, province: Province, save: SaveGame): ICondition {
    const monthlyRevenue = getProvinceIncome(province, save).revenue.value;
    return {
       name: $t(L.Reach$1MonthlyRevenue, formatNumber(minimum)),
@@ -72,5 +80,33 @@ export function governingCostCondition(minimum: number, province: Province, save
       name: $t(L.Reach$1GoverningCost, formatNumber(minimum)),
       value: governingCost >= minimum,
       progress: [governingCost, minimum],
+   };
+}
+
+export function provinceResourceCondition(
+   resource: ProvinceResource,
+   minimum: number,
+   province: Province,
+   save: SaveGame,
+): ICondition {
+   const available = getProvinceResource(resource, province, save);
+   return {
+      name: $t(L.HaveAtLeast$1$2, formatNumber(minimum), ProvinceResourceNames[resource]()),
+      value: available >= minimum,
+      progress: [available, minimum],
+   };
+}
+
+export function provinceStatCondition(
+   stat: ProvinceStat,
+   minimum: number,
+   province: Province,
+   save: SaveGame,
+): ICondition {
+   const value = getProvinceStat(stat, province, save);
+   return {
+      name: $t(L.HaveAtLeast$1$2, formatNumber(minimum), ProvinceStatNames[stat]()),
+      value: value >= minimum,
+      progress: [value, minimum],
    };
 }
