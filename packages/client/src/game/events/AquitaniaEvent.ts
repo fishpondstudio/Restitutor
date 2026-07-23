@@ -336,7 +336,7 @@ export const AquitaniaEvent = {
       desc: () => $t(L.APortOnTheMediterraneanDesc),
       condition: {
          province: ["Aquitania"],
-         coreTiles: [{ province: "Narbonensis", count: 2 }],
+         coreTiles: { Narbonensis: 2 },
          conditions: (province, save) => [annexAndCoreTileCondition(8978507, province, save)],
       },
       buttons: [
@@ -368,7 +368,7 @@ export const AquitaniaEvent = {
       desc: () => $t(L.TheSubmissionOfNarbonensisDesc),
       condition: {
          province: ["Aquitania"],
-         coreTiles: [{ province: "Narbonensis", count: Math.ceil(getOriginalTileCount("Narbonensis") * 0.7) }],
+         coreTiles: { Narbonensis: Math.ceil(getOriginalTileCount("Narbonensis") * 0.7) },
          conditions: (province, save) => {
             return [
                availableDiplomatCondition(province, "Narbonensis", save),
@@ -401,7 +401,7 @@ export const AquitaniaEvent = {
       desc: () => $t(L.AcrossThePyreneesDesc),
       condition: {
          province: ["Aquitania"],
-         coreTiles: [{ province: "Tarraconensis", count: 6 }],
+         coreTiles: { Tarraconensis: 6 },
       },
       buttons: [
          {

@@ -23,7 +23,7 @@ export const LugdunensisEvent = {
       desc: () => $t(L.BlitzkriegAgainstBelgicaDesc),
       condition: {
          province: ["Lugdunensis"],
-         coreTiles: [{ province: "Belgica", count: 2 }],
+         coreTiles: { Belgica: 2 },
          year: [Number.NEGATIVE_INFINITY, 200],
       },
       buttons: [
@@ -101,7 +101,7 @@ export const LugdunensisEvent = {
       desc: () => $t(L.AWeakenedBelgicaDesc),
       condition: {
          province: ["Lugdunensis"],
-         coreTiles: [{ province: "Belgica", count: 6 }],
+         coreTiles: { Belgica: 6 },
          year: [200, 220],
       },
       buttons: [
@@ -165,7 +165,7 @@ export const LugdunensisEvent = {
       desc: () => $t(L.BoundByBloodAndOathDesc),
       condition: {
          province: ["Lugdunensis"],
-         coreTiles: [{ province: "Belgica", count: 6 }],
+         coreTiles: { Belgica: 6 },
          year: [220, 250],
          conditions: (province, save) => [
             {

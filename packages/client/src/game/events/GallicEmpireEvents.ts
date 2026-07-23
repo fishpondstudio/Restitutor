@@ -1,3 +1,4 @@
+import { fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province, ProvinceNameOverrides } from "../definitions/Province";
@@ -17,7 +18,7 @@ export const GallicEmpireEvents = {
       desc: () => $t(L.GallicEmpireProclaimedDesc),
       condition: {
          province: GallicEmpireProvinces,
-         coreTiles: GallicEmpireProvinces.map((province) => ({ province })),
+         coreTiles: fromEntries(GallicEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
       buttons: [
          {
@@ -46,7 +47,7 @@ export const GallicEmpireEvents = {
       desc: () => $t(L.TheSubmissionOfBritanniaDesc),
       condition: {
          nameOverride: "GallicEmpire",
-         coreTiles: [{ province: "Britannia", count: Math.ceil(getOriginalTileCount("Britannia") * 0.7) }],
+         coreTiles: { Britannia: Math.ceil(getOriginalTileCount("Britannia") * 0.7) },
          conditions: (province, save) => {
             return [
                availableDiplomatCondition(province, "Britannia", save),

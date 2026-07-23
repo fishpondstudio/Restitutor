@@ -1,4 +1,4 @@
-import { filterOf, forEach, formatNumber, sizeOf } from "@project/shared/src/utils/Helper";
+import { clamp, filterOf, forEach, formatNumber, sizeOf } from "@project/shared/src/utils/Helper";
 import type React from "react";
 import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
@@ -203,13 +203,14 @@ export function getGameEventCondition(
       });
    }
    if (condition.coreTiles) {
-      condition.coreTiles.forEach((coreTile) => {
-         const [annexed, total] = getAnnexedTiles(coreTile.province, province, save);
-         const count = coreTile.count ?? total;
+      forEach(condition.coreTiles, (targetProvince, _count) => {
+         const [annexed, total] = getAnnexedTiles(targetProvince, province, save);
+         const count = clamp(_count, 0, total);
          result.push({
-            name: coreTile.count
-               ? $t(L.OccupyAndCore$1TilesOf$2, count, getProvinceName(coreTile.province, save))
-               : $t(L.OccupyAndCoreAllTilesOf$1, getProvinceName(coreTile.province, save)),
+            name:
+               count < total
+                  ? $t(L.OccupyAndCore$1TilesOf$2, count, getProvinceName(targetProvince, save))
+                  : $t(L.OccupyAndCoreAllTilesOf$1, getProvinceName(targetProvince, save)),
             value: annexed >= count,
             progress: [annexed, count],
          });

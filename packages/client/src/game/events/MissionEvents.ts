@@ -55,7 +55,11 @@ export const MissionEvents = {
       image: EventImage.Annex,
       desc: () => $t(L.TheIncorporationOfHispaniaDesc),
       condition: {
-         coreTiles: [{ province: "Tarraconensis" }, { province: "Lusitania" }, { province: "Baetica" }],
+         coreTiles: {
+            Tarraconensis: Number.POSITIVE_INFINITY,
+            Lusitania: Number.POSITIVE_INFINITY,
+            Baetica: Number.POSITIVE_INFINITY,
+         },
       },
       buttons: [
          {

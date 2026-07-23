@@ -39,7 +39,7 @@ export interface IGameEventCondition {
    religion?: Religion;
    techs?: Tech[];
    provinceUpgrades?: ProvinceUpgrade[];
-   coreTiles?: { province: Province; count?: number }[];
+   coreTiles?: Partial<Record<Province, number>>;
    monthlyRevenue?: number;
    manpower?: number;
    coreTileCount?: number;
