@@ -1,4 +1,5 @@
 import { $t, L } from "../../utils/i18n";
+import { allyCountCondition } from "../logic/MissionLogic";
 import { isGreatPowerCondition } from "../logic/ProvinceLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -9,7 +10,7 @@ export const MissionEvents = {
       image: EventImage.WarEnded,
       desc: () => $t(L.AStrongAllianceDesc),
       condition: {
-         allyCount: 2,
+         conditions: (province, save) => [allyCountCondition(2, province, save)],
       },
       buttons: [
          {
@@ -55,7 +56,7 @@ export const MissionEvents = {
       image: EventImage.Annex,
       desc: () => $t(L.TheIncorporationOfHispaniaDesc),
       condition: {
-         coreTiles: {
+         annexAndCore: {
             Tarraconensis: Number.POSITIVE_INFINITY,
             Lusitania: Number.POSITIVE_INFINITY,
             Baetica: Number.POSITIVE_INFINITY,

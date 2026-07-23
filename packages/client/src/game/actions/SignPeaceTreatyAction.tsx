@@ -9,7 +9,7 @@ import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getRelation } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
-import { addProvinceResource, ensureProvinceCapitals } from "../logic/ProvinceLogic";
+import { addProvinceResource, addProvinceStat, ensureProvinceCapitals } from "../logic/ProvinceLogic";
 import { showGameEventModal } from "../logic/TickProvince";
 import { getCurrentGeneral, getTruceDuration, type IWar, WarFlag } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
@@ -41,6 +41,7 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
          if (getCurrentGeneral(war.attacker, save)) {
             addProvinceResource("generalSkillPoint", war.tiles.size, war.attacker, save);
          }
+         addProvinceStat("victoryCount", 1, war.attacker, save);
          const truceDuration = getTruceDuration(war, save);
          const changedCapitals = ensureProvinceCapitals(save);
          filterInPlace(save.state.wars, (w) => w !== war);

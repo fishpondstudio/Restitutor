@@ -39,14 +39,7 @@ export interface IGameEventCondition {
    religion?: Religion;
    techs?: Tech[];
    provinceUpgrades?: ProvinceUpgrade[];
-   coreTiles?: Partial<Record<Province, number>>;
-   monthlyRevenue?: number;
-   manpower?: number;
-   coreTileCount?: number;
-   governingCost?: number;
-   techCount?: number;
-   allyCount?: number;
-   warPower?: number;
+   annexAndCore?: Partial<Record<Province, number>>;
    conditions?: (province: Province, save: SaveGame) => ICondition[];
 }
 

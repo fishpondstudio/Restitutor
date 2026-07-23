@@ -6,6 +6,12 @@ import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { availableDiplomatCondition, getMarriageAlliance, getRelation } from "../logic/DiplomacyLogic";
 import {
+   manpowerCondition,
+   provinceIncomeCondition,
+   techCountCondition,
+   warPowerCondition,
+} from "../logic/MissionLogic";
+import {
    getProvinceCoreTileCount,
    getProvinceName,
    getProvinceResource,
@@ -23,7 +29,7 @@ export const LugdunensisEvent = {
       desc: () => $t(L.BlitzkriegAgainstBelgicaDesc),
       condition: {
          province: ["Lugdunensis"],
-         coreTiles: { Belgica: 2 },
+         annexAndCore: { Belgica: 2 },
          year: [Number.NEGATIVE_INFINITY, 200],
       },
       buttons: [
@@ -62,9 +68,11 @@ export const LugdunensisEvent = {
       desc: () => $t(L.AProsperousLugdunensisDesc),
       condition: {
          province: ["Lugdunensis"],
-         monthlyRevenue: 200,
-         manpower: 50_000,
-         techCount: 6,
+         conditions: (province, save) => [
+            provinceIncomeCondition(200, province, save),
+            manpowerCondition(50_000, province, save),
+            techCountCondition(6, province, save),
+         ],
       },
       buttons: [
          {
@@ -83,8 +91,7 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          year: [200, 205],
-         warPower: 8000,
-         conditions: (province, save) => [hasGeneralCondition(province, save)],
+         conditions: (province, save) => [warPowerCondition(8000, province, save), hasGeneralCondition(province, save)],
       },
       buttons: [
          {
@@ -101,7 +108,7 @@ export const LugdunensisEvent = {
       desc: () => $t(L.AWeakenedBelgicaDesc),
       condition: {
          province: ["Lugdunensis"],
-         coreTiles: { Belgica: 6 },
+         annexAndCore: { Belgica: 6 },
          year: [200, 220],
       },
       buttons: [
@@ -165,7 +172,7 @@ export const LugdunensisEvent = {
       desc: () => $t(L.BoundByBloodAndOathDesc),
       condition: {
          province: ["Lugdunensis"],
-         coreTiles: { Belgica: 6 },
+         annexAndCore: { Belgica: 6 },
          year: [220, 250],
          conditions: (province, save) => [
             {

@@ -1,6 +1,7 @@
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
-import { getProvinceResource } from "../logic/ProvinceLogic";
+import { coreTileCountCondition, warPowerCondition } from "../logic/MissionLogic";
+import { getProvinceResource, getProvinceStat } from "../logic/ProvinceLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -293,6 +294,128 @@ export const BelgicaEvent = {
             modifiers: {
                Stability: { type: "add", value: 10, duration: 2 * 12 },
                Prestige: { type: "multiply", value: -0.1, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Belgica11: {
+      name: () => $t(L.SouthwardIntoLugdunensis),
+      image: EventImage.Belgica10,
+      desc: () => $t(L.SouthwardIntoLugdunensisDesc),
+      condition: {
+         province: ["Belgica"],
+         year: [Number.NEGATIVE_INFINITY, 200],
+         annexAndCore: { Lugdunensis: 2 },
+      },
+      buttons: [
+         {
+            label: () => $t(L.PressSouthAlongTheGreatRoads),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Lugdunensis: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.SecureOurSouthernMarches),
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Lugdunensis: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+      ],
+   },
+   Belgica12: {
+      name: () => $t(L.NorthwardIntoGermania),
+      image: EventImage.Belgica10,
+      desc: () => $t(L.NorthwardIntoGermaniaDesc),
+      condition: {
+         province: ["Belgica"],
+         year: [Number.NEGATIVE_INFINITY, 210],
+         annexAndCore: { Germania: 2 },
+      },
+      buttons: [
+         {
+            label: () => $t(L.CarryOurStandardsIntoGermania),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Germania: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.FortifyTheRhineFrontier),
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Germania: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+      ],
+   },
+   Belgica13: {
+      name: () => $t(L.AcrossTheSeaToBritannia),
+      image: EventImage.Belgica10,
+      desc: () => $t(L.AcrossTheSeaToBritanniaDesc),
+      condition: {
+         province: ["Belgica"],
+         year: [Number.NEGATIVE_INFINITY, 220],
+         annexAndCore: { Britannia: 2 },
+      },
+      buttons: [
+         {
+            label: () => $t(L.PrepareTheChannelCrossing),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Britannia: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.SecureTheGallicShore),
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Britannia: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+      ],
+   },
+   Belgica14: {
+      name: () => $t(L.BelgicaAscendant),
+      image: EventImage.Belgica10,
+      desc: () => $t(L.BelgicaAscendantDesc),
+      condition: {
+         province: ["Belgica"],
+         conditions: (province, save) => [
+            coreTileCountCondition(20, province, save),
+            warPowerCondition(10_000, province, save),
+            {
+               name: $t(L.Win$1Wars, "10"),
+               value: getProvinceStat("victoryCount", province, save) >= 10,
+            },
+         ],
+      },
+      buttons: [
+         {
+            label: () => $t(L.RewardTheVeteransWhoWonOurRealm),
+            resources: {
+               generalSkillPoint: 5,
+               military: 100,
+            },
+         },
+         {
+            label: () => $t(L.BindOurConquestsToUs),
+            resources: {
+               diplomatic: 100,
+               administrative: 100,
             },
          },
       ],

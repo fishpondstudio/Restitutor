@@ -1,4 +1,4 @@
-import { clamp, filterOf, forEach, formatNumber, sizeOf } from "@project/shared/src/utils/Helper";
+import { clamp, filterOf, forEach, sizeOf } from "@project/shared/src/utils/Helper";
 import type React from "react";
 import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
@@ -10,17 +10,8 @@ import { Tech } from "../definitions/Tech";
 import { applyGameEffect, getGameEffectDesc } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { getGameDate } from "../logic/GameDateTime";
-import {
-   getAnnexedTiles,
-   getProvinceGoverningCost,
-   getProvinceIncome,
-   getProvinceManpower,
-   getProvinceName,
-   getProvinceTileCount,
-   getWarPower,
-} from "../logic/ProvinceLogic";
+import { getAnnexedTiles, getProvinceName } from "../logic/ProvinceLogic";
 import { hasResearched } from "../logic/TechLogic";
-import { getAllies } from "../logic/TreatyLogic";
 import { type GameEvent, GameEvents, type IGameEventButton, type IGameEventCondition } from "./GameEvents";
 import type { ImageWithCredit } from "./ImageWithCredit";
 
@@ -127,46 +118,6 @@ export function getGameEventCondition(
          });
       }
    }
-   if (condition.monthlyRevenue) {
-      const monthlyRevenue = getProvinceIncome(province, save).revenue.value;
-      result.push({
-         name: $t(L.Reach$1MonthlyRevenue, formatNumber(condition.monthlyRevenue)),
-         value: monthlyRevenue >= condition.monthlyRevenue,
-         progress: [monthlyRevenue, condition.monthlyRevenue],
-      });
-   }
-   if (condition.manpower) {
-      const manpower = getProvinceManpower(province, save).value;
-      result.push({
-         name: $t(L.Reach$1Manpower, formatNumber(condition.manpower)),
-         value: manpower >= condition.manpower,
-         progress: [manpower, condition.manpower],
-      });
-   }
-   if (condition.techCount) {
-      const technologies = state.unlockedTech.size;
-      result.push({
-         name: $t(L.Research$1Technologies, formatNumber(condition.techCount)),
-         value: technologies >= condition.techCount,
-         progress: [technologies, condition.techCount],
-      });
-   }
-   if (condition.allyCount) {
-      const allies = getAllies(province, save).length;
-      result.push({
-         name: $t(L.HaveAtLeast$1Allies, formatNumber(condition.allyCount)),
-         value: allies >= condition.allyCount,
-         progress: [allies, condition.allyCount],
-      });
-   }
-   if (condition.warPower) {
-      const warPower = getWarPower(province, save).value;
-      result.push({
-         name: $t(L.Reach$1WarPower, formatNumber(condition.warPower)),
-         value: warPower >= condition.warPower,
-         progress: [warPower, condition.warPower],
-      });
-   }
    if (condition.religion) {
       result.push({
          name: $t(L.OurReligionIs$1, Religion[condition.religion].name()),
@@ -202,34 +153,18 @@ export function getGameEventCondition(
          });
       });
    }
-   if (condition.coreTiles) {
-      forEach(condition.coreTiles, (targetProvince, _count) => {
+   if (condition.annexAndCore) {
+      forEach(condition.annexAndCore, (targetProvince, _count) => {
          const [annexed, total] = getAnnexedTiles(targetProvince, province, save);
          const count = clamp(_count, 0, total);
          result.push({
             name:
                count < total
-                  ? $t(L.OccupyAndCore$1TilesOf$2, count, getProvinceName(targetProvince, save))
-                  : $t(L.OccupyAndCoreAllTilesOf$1, getProvinceName(targetProvince, save)),
+                  ? $t(L.AnnexAndCore$1TilesOf$2, count, getProvinceName(targetProvince, save))
+                  : $t(L.AnnexAndCoreAllTilesOf$1, getProvinceName(targetProvince, save)),
             value: annexed >= count,
             progress: [annexed, count],
          });
-      });
-   }
-   if (condition.coreTileCount) {
-      const tileCount = getProvinceTileCount(province, save);
-      result.push({
-         name: $t(L.HaveAtLeast$1CoreTiles, formatNumber(condition.coreTileCount)),
-         value: tileCount >= condition.coreTileCount,
-         progress: [tileCount, condition.coreTileCount],
-      });
-   }
-   if (condition.governingCost) {
-      const governingCost = getProvinceGoverningCost(province, save).value;
-      result.push({
-         name: $t(L.Reach$1GoverningCost, formatNumber(condition.governingCost)),
-         value: governingCost >= condition.governingCost,
-         progress: [governingCost, condition.governingCost],
       });
    }
    if (condition.conditions) {

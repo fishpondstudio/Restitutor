@@ -18,7 +18,7 @@ export const GallicEmpireEvents = {
       desc: () => $t(L.GallicEmpireProclaimedDesc),
       condition: {
          province: GallicEmpireProvinces,
-         coreTiles: fromEntries(GallicEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
+         annexAndCore: fromEntries(GallicEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
       buttons: [
          {
@@ -47,7 +47,7 @@ export const GallicEmpireEvents = {
       desc: () => $t(L.TheSubmissionOfBritanniaDesc),
       condition: {
          nameOverride: "GallicEmpire",
-         coreTiles: { Britannia: Math.ceil(getOriginalTileCount("Britannia") * 0.7) },
+         annexAndCore: { Britannia: Math.ceil(getOriginalTileCount("Britannia") * 0.7) },
          conditions: (province, save) => {
             return [
                availableDiplomatCondition(province, "Britannia", save),
