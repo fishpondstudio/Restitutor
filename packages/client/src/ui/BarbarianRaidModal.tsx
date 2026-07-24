@@ -3,7 +3,8 @@ import { cls, formatNumber } from "@project/shared/src/utils/Helper";
 import BarbarianRaidHeader from "../assets/images/BarbarianRaidHeader.webp";
 import { finalizeCondition } from "../game/actions/GameAction";
 import { NegotiateWhitePeaceAction } from "../game/actions/NegotiateWhitePeaceAction";
-import { MaxRaidMonths } from "../game/definitions/SpawnedProvince";
+import { Modifiers } from "../game/definitions/Modifier";
+import { BarbarianRaidNegativeEffect, MaxRaidMonths } from "../game/definitions/SpawnedProvince";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
@@ -140,33 +141,62 @@ export function BarbarianRaidModal(): React.ReactNode {
                               </td>
                               <td>
                                  {raid && (
-                                    <>
-                                       <div className="row">
-                                          <div>
-                                             <span
-                                                className={cls(
-                                                   "text-display text-md",
-                                                   raid.defender === G.save.state.playerProvince ? "text-yellow" : "",
+                                    <FloatingTip
+                                       className="p0"
+                                       fixedWidth
+                                       label={
+                                          <>
+                                             <div className="m10">
+                                                {$t(
+                                                   L.$1CurrentlyGetsTheFollowingNegativeEffectsFromThisRaid,
+                                                   getProvinceName(raid.defender, G.save),
                                                 )}
-                                             >
-                                                {getProvinceName(raid.defender, G.save)}
-                                             </span>{" "}
-                                             <span className="text-dimmed">
-                                                (
-                                                {Array.from(raid.tiles)
-                                                   .map((tile) => getTileName(tile))
-                                                   .join(", ")}
-                                                )
-                                             </span>
+                                             </div>
+                                             <div className="row mx10 my5">
+                                                <div className="f1">{Modifiers.LandTax.name()}</div>
+                                                <div className="text-red">{BarbarianRaidNegativeEffect}%</div>
+                                             </div>
+                                             <div className="row mx10 my5">
+                                                <div className="f1">{Modifiers.TileOutput.name()}</div>
+                                                <div className="text-red">{BarbarianRaidNegativeEffect}%</div>
+                                             </div>
+                                             <div className="row mx10 my5">
+                                                <div className="f1">{Modifiers.Stability.name()}</div>
+                                                <div className="text-red"> {BarbarianRaidNegativeEffect}</div>
+                                             </div>
+                                          </>
+                                       }
+                                    >
+                                       <div>
+                                          <div className="row">
+                                             <div>
+                                                <span
+                                                   className={cls(
+                                                      "text-display text-md",
+                                                      raid.defender === G.save.state.playerProvince
+                                                         ? "text-yellow"
+                                                         : "",
+                                                   )}
+                                                >
+                                                   {getProvinceName(raid.defender, G.save)}
+                                                </span>{" "}
+                                                <span className="text-dimmed">
+                                                   (
+                                                   {Array.from(raid.tiles)
+                                                      .map((tile) => getTileName(tile))
+                                                      .join(", ")}
+                                                   )
+                                                </span>
+                                             </div>
+                                             <div className="f1" />
+                                             <div>
+                                                {raid.log.length}/{MaxRaidMonths}
+                                             </div>
                                           </div>
-                                          <div className="f1" />
-                                          <div>
-                                             {raid.log.length}/{MaxRaidMonths}
-                                          </div>
+                                          <div className="h5" />
+                                          <Progress value={(100 * raid.log.length) / MaxRaidMonths} />
                                        </div>
-                                       <div className="h5" />
-                                       <Progress value={(100 * raid.log.length) / MaxRaidMonths} />
-                                    </>
+                                    </FloatingTip>
                                  )}
                               </td>
                               <td>

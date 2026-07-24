@@ -40,7 +40,11 @@ import {
 } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import type { SpawnedProvince } from "../definitions/SpawnedProvince";
-import { SpawnedProvinceBoostMonths, SpawnedProvinces } from "../definitions/SpawnedProvince";
+import {
+   BarbarianRaidNegativeEffect,
+   SpawnedProvinceBoostMonths,
+   SpawnedProvinces,
+} from "../definitions/SpawnedProvince";
 import { getBorderingProvinces } from "../definitions/Tile";
 import { getTileName } from "../definitions/TileName";
 import { GameStateUpdated } from "../Events";
@@ -283,6 +287,12 @@ export function getProvinceStability(province: Province, save: SaveGame): IValue
             name: $t(L.$1$2War, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
             desc: $t(L.WarHasBeenGoingOnFor$1Months, formatNumber(war.log.length)),
             value: -warCost,
+         });
+      }
+      if (war.defender === province && war.casusBelli === "BarbarianRaid") {
+         breakdown.add.push({
+            name: $t(L.CurrentlyRaidedBy$1, getProvinceName(war.attacker, save)),
+            value: BarbarianRaidNegativeEffect,
          });
       }
    }

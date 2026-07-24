@@ -2262,4 +2262,6 @@ export const ZH_CN = {
    BravestOfTheGaulsDesc: "赢得战争后获得 +1 将军技能点",
    MartialSociety: "尚武社会",
    MartialSocietyDesc: "实际征兵率每 1% 提供 +1% 军力",
+   CurrentlyRaidedBy$1: "当前遭受$1袭击",
+   $1CurrentlyGetsTheFollowingNegativeEffectsFromThisRaid: "$1当前正从此袭击中获得以下负面效果",
 };

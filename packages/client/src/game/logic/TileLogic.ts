@@ -8,13 +8,14 @@ import { Price } from "../definitions/Goods";
 import { getProvinceTraits } from "../definitions/PersonTrait";
 import type { GovernorPower, Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
+import { BarbarianRaidNegativeEffect } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { cacheTile } from "./CacheLogic";
 import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
-import { getProvinceOverextension, getProvinceStability, getProvinceStat } from "./ProvinceLogic";
+import { getProvinceName, getProvinceOverextension, getProvinceStability, getProvinceStat } from "./ProvinceLogic";
 import { getBuildingTech, hasResearched } from "./TechLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
 import { getCurrentWars, type IWar } from "./WarLogic";
@@ -287,6 +288,14 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    if (!data.coreProvinces.has(data.province)) {
       breakdown.multiply.push({ name: $t(L.NotCore), value: -0.5 });
    }
+   save.state.wars.forEach((war) => {
+      if (war.defender === data.province && war.casusBelli === "BarbarianRaid") {
+         breakdown.multiply.push({
+            name: $t(L.CurrentlyRaidedBy$1, getProvinceName(war.attacker, save)),
+            value: BarbarianRaidNegativeEffect / 100,
+         });
+      }
+   });
    if (hasProvinceUpgrade("CultivatedEstates", data.province, save)) {
       const tileUpgrades = data.infrastructure + data.production + data.population;
       breakdown.multiply.push({ name: ProvinceUpgrades.CultivatedEstates.name(), value: tileUpgrades * 0.01 });
@@ -341,6 +350,14 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    if (!data.coreProvinces.has(data.province)) {
       breakdown.multiply.push({ name: $t(L.NotCore), value: -0.5 });
    }
+   save.state.wars.forEach((war) => {
+      if (war.defender === data.province && war.casusBelli === "BarbarianRaid") {
+         breakdown.multiply.push({
+            name: $t(L.CurrentlyRaidedBy$1, getProvinceName(war.attacker, save)),
+            value: BarbarianRaidNegativeEffect / 100,
+         });
+      }
+   });
    const overextension = getProvinceOverextension(data.province, save).value;
    if (overextension > 0) {
       breakdown.multiply.push({ name: $t(L.Overextension), value: -overextension * 0.01 });

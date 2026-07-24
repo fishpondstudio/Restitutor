@@ -3,6 +3,7 @@ import type { Province, ProvinceResource, ProvinceStat } from "./Province";
 
 export const SpawnedProvinceBoostMonths = 12 * 20;
 export const MaxRaidMonths = 12;
+export const BarbarianRaidNegativeEffect = -10;
 
 const BaseSpawnedProvinceData: SpawnedProvinceData = {
    stats: {

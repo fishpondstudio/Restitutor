@@ -2277,4 +2277,6 @@ export const RU = {
    BravestOfTheGaulsDesc: "+1 к очкам навыка генерала после победы в войне",
    MartialSociety: "Военное общество",
    MartialSocietyDesc: "+1% к военной мощи за каждый 1% фактического призыва",
+   CurrentlyRaidedBy$1: "Сейчас подвергается набегу $1",
+   $1CurrentlyGetsTheFollowingNegativeEffectsFromThisRaid: "$1 в настоящее время получает следующие отрицательные эффекты от этого набега",
 };

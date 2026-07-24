@@ -2277,4 +2277,6 @@ export const EN = {
    BravestOfTheGaulsDesc: "+1 General Skill Point after winning a war",
    MartialSociety: "Martial Society",
    MartialSocietyDesc: "+1% War Power for each 1% of Actual Conscription",
+   CurrentlyRaidedBy$1: "Currently raided by $1",
+   $1CurrentlyGetsTheFollowingNegativeEffectsFromThisRaid: "$1 currently gets the following negative effects from this raid",
 };
