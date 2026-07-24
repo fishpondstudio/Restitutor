@@ -5,6 +5,7 @@ import { $t, L } from "../../utils/i18n";
 import { hideModal } from "../../utils/ModalManager";
 import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
+import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getRelation } from "../logic/DiplomacyLogic";
@@ -40,6 +41,9 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
          }
          if (getCurrentGeneral(war.attacker, save)) {
             addProvinceResource("generalSkillPoint", war.tiles.size, war.attacker, save);
+         }
+         if (hasProvinceUpgrade("BravestOfTheGauls", war.attacker, save)) {
+            addProvinceResource("generalSkillPoint", 1, war.attacker, save);
          }
          addProvinceStat("victoryCount", 1, war.attacker, save);
          const truceDuration = getTruceDuration(war, save);

@@ -61,7 +61,7 @@ import {
    getTileManpower,
 } from "./TileLogic";
 import { getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
-import { getClients, getPatrons } from "./TreatyLogic";
+import { getClients, getPatrons, getTreatyCount } from "./TreatyLogic";
 import {
    calculateWarTotalStability,
    getCavalryUnitWarPower,
@@ -680,6 +680,19 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
          value: cavalryUnit * 0.01,
       });
    }
+   if (hasProvinceUpgrade("RangedPredominance", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.RangedPredominance.name(),
+         value: rangedUnit * 0.01,
+      });
+   }
+   if (hasProvinceUpgrade("MartialSociety", province, save)) {
+      const actualConscription = getProvinceStat("actualConscription", province, save);
+      result.multiply.push({
+         name: ProvinceUpgrades.MartialSociety.name(),
+         value: actualConscription * 0.01,
+      });
+   }
    attachModifiers("WarPower", result, province, save);
    const wars = getCurrentWars(province, save);
    if (wars.length > 1) {
@@ -856,6 +869,10 @@ export function getProvinceTradeCapacity(province: Province, save: SaveGame): IV
    if (harbour > 0) {
       result.add.push({ name: Buildings.Harbour.name(), value: harbour });
    }
+   if (hasProvinceUpgrade("CommercialAlliances", province, save)) {
+      const treatyCount = getTreatyCount(province, save);
+      result.add.push({ name: ProvinceUpgrades.CommercialAlliances.name(), value: treatyCount });
+   }
    attachModifiers("TradeCapacity", result, province, save);
    return finalizeBreakdown(result);
 }
@@ -870,6 +887,17 @@ export function getProvinceTradeProfit(province: Province, save: SaveGame): IVal
             name: ProvinceUpgrades.TradeProfitForEachTrade.name(),
             value: 0.1 * tradeCount,
          });
+      }
+   }
+   if (hasProvinceUpgrade("MaritimeProsperity", province, save)) {
+      let harbour = 0;
+      for (const [tile, data] of save.state.tiles) {
+         if (data.province === province && data.buildings.has("Harbour")) {
+            ++harbour;
+         }
+      }
+      if (harbour > 0) {
+         result.multiply.push({ name: ProvinceUpgrades.MaritimeProsperity.name(), value: harbour * 0.1 });
       }
    }
    attachModifiers("TradeProfit", result, province, save);

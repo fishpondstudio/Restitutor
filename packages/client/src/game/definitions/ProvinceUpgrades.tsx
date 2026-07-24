@@ -116,6 +116,42 @@ const _ProvinceUpgrades = {
       name: () => $t(L.OurOwnDestiny),
       desc: () => $t(L.OurOwnDestinyDesc),
    },
+   SereneVineyards: {
+      name: () => $t(L.SereneVineyards),
+      desc: () => $t(L.SereneVineyardsDesc),
+   },
+   CultivatedEstates: {
+      name: () => $t(L.CultivatedEstates),
+      desc: () => $t(L.CultivatedEstatesDesc),
+   },
+   HillfortBastion: {
+      name: () => $t(L.HillfortBastion),
+      desc: () => $t(L.HillfortBastionDesc),
+   },
+   MunicipalPrivilege: {
+      name: () => $t(L.MunicipalPrivilege),
+      desc: () => $t(L.MunicipalPrivilegeDesc),
+   },
+   MaritimeProsperity: {
+      name: () => $t(L.MaritimeProsperity),
+      desc: () => $t(L.MaritimeProsperityDesc),
+   },
+   CommercialAlliances: {
+      name: () => $t(L.CommercialAlliances),
+      desc: () => $t(L.CommercialAlliancesDesc),
+   },
+   RangedPredominance: {
+      name: () => $t(L.RangedPredominance),
+      desc: () => $t(L.RangedPredominanceDesc),
+   },
+   BravestOfTheGauls: {
+      name: () => $t(L.BravestOfTheGauls),
+      desc: () => $t(L.BravestOfTheGaulsDesc),
+   },
+   MartialSociety: {
+      name: () => $t(L.MartialSociety),
+      desc: () => $t(L.MartialSocietyDesc),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

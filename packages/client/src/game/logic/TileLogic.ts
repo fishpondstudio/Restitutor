@@ -7,7 +7,7 @@ import { type Building, Buildings } from "../definitions/Building";
 import { Price } from "../definitions/Goods";
 import { getProvinceTraits } from "../definitions/PersonTrait";
 import type { GovernorPower, Province } from "../definitions/Province";
-import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
+import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { Tech } from "../definitions/Tech";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
@@ -125,7 +125,9 @@ function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    return finalizeBreakdown(breakdown);
 }
 
-export function getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
+export const getTileDefense = cacheTile(_getTileDefense);
+
+export function _getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    const data = save.state.tiles.get(tile);
    if (!data) {
@@ -162,6 +164,19 @@ export function getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (isCapital(tile, save)) {
       breakdown.multiply.push({ name: $t(L.IsCurrentCapital), value: +0.1 });
+   }
+   if (hasProvinceUpgrade("HillfortBastion", data.province, save)) {
+      let hillTileCount = 0;
+      for (const [tile, tileData] of save.state.tiles) {
+         if (
+            tileData.province === data.province &&
+            tileData.coreProvinces.has(data.province) &&
+            tileData.terrain === "Hill"
+         ) {
+            ++hillTileCount;
+         }
+      }
+      breakdown.multiply.push({ name: ProvinceUpgrades.HillfortBastion.name(), value: hillTileCount * 0.01 });
    }
    if (data.coreProvinces.has(data.province)) {
       breakdown.multiply.push({ name: $t(L.IsCore), value: +0.1 });
@@ -272,6 +287,10 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    if (!data.coreProvinces.has(data.province)) {
       breakdown.multiply.push({ name: $t(L.NotCore), value: -0.5 });
    }
+   if (hasProvinceUpgrade("CultivatedEstates", data.province, save)) {
+      const tileUpgrades = data.infrastructure + data.production + data.population;
+      breakdown.multiply.push({ name: ProvinceUpgrades.CultivatedEstates.name(), value: tileUpgrades * 0.01 });
+   }
    const overextension = getProvinceOverextension(data.province, save).value;
    if (overextension > 0) {
       breakdown.multiply.push({ name: $t(L.Overextension), value: -overextension * 0.01 });
@@ -325,6 +344,12 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    const overextension = getProvinceOverextension(data.province, save).value;
    if (overextension > 0) {
       breakdown.multiply.push({ name: $t(L.Overextension), value: -overextension * 0.01 });
+   }
+   if (hasProvinceUpgrade("SereneVineyards", data.province, save)) {
+      const stability = getProvinceStability(data.province, save).value;
+      if (stability > 0) {
+         breakdown.multiply.push({ name: ProvinceUpgrades.SereneVineyards.name(), value: stability * 0.01 });
+      }
    }
    if (data.terrain === "Mountain") {
       breakdown.multiply.push({ name: $t(L.TerrainMountain), value: -0.1 });
@@ -589,6 +614,9 @@ export function getBuildingSlot(tile: Tile, save: SaveGame): IValueBreakdown {
       attachModifiers("BuildingSlot", result, data.province, save);
       if (data.buildings.has("Temple")) {
          result.add.push({ name: Buildings.Temple.name(), value: 1 });
+      }
+      if (hasProvinceUpgrade("MunicipalPrivilege", data.province, save) && data.coreProvinces.has(data.province)) {
+         result.add.push({ name: ProvinceUpgrades.MunicipalPrivilege.name(), value: 1 });
       }
    }
    return finalizeBreakdown(result);
