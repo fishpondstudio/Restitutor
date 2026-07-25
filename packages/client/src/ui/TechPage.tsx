@@ -31,7 +31,7 @@ export function TechPage({ tech }: { tech: Tech }): React.ReactNode {
    const unlockCost = makeResearchCost(tech, breakdown.value);
    const config = Tech[tech];
    return (
-      <SidebarComp header={<SidebarHeader title={config.name()} />}>
+      <SidebarComp title={<SidebarHeader title={config.name()} />}>
          {config.requires.length > 0 && <div className="h1">{$t(L.Prerequisites)}</div>}
          {config.requires.map((t) => (
             <div className="mx10 my5 row" key={t}>

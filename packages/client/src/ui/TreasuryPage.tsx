@@ -36,7 +36,7 @@ export function TreasuryPage(): React.ReactNode {
    const { revenue, expense, income } = getProvinceIncome(province, G.save);
    const isBankrupt = getTimedActionTimeLeft("Bankruptcy", province, G.save) > 0;
    return (
-      <SidebarComp header={<SidebarHeader title={$t(L.Treasury)} />}>
+      <SidebarComp title={<SidebarHeader title={$t(L.Treasury)} />}>
          <DevOnly>
             <Select
                className="m10"

@@ -25,7 +25,7 @@ export function MissionPage(): React.ReactNode {
       G.save,
    );
    return (
-      <SidebarComp header={<SidebarHeader title={$t(L.Missions)} />}>
+      <SidebarComp title={<SidebarHeader title={$t(L.Missions)} />}>
          <div className="box m10 p10 row text-sm">
             <div className="f1 text-display">{$t(L.CurrentlyAvailableEventsOnly)}</div>
             <Switch

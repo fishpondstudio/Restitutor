@@ -1,6 +1,6 @@
 import { Controls, ReactFlow } from "@xyflow/react";
 import { getLegacyUpgradeCost, makeLegacyUpgradeNodes } from "../game/logic/LegacyUpgradeLogic";
-import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { FloatingEdge, LegacyUpgradeNode } from "./LegacyUpgradeNode";
 import "./LegacyUpgradeModal.css";
 import { formatNumber } from "@project/shared/src/utils/Helper";
@@ -11,7 +11,7 @@ import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
-import { RebirthModal } from "./RebirthModal";
+import { RebirthPage } from "./RebirthPage";
 import { ModalFullHeight } from "./UIConstant";
 
 const NodeTypes = { LegacyUpgradeNode };
@@ -78,7 +78,14 @@ export function LegacyUpgradeModal(): React.ReactNode {
                         {formatNumber(legacyPoints)}/{formatNumber(cost)}
                      </button>
                   </FloatingTip>
-                  <button className="btn" id="LegacyUpgradeModal_Rebirth" onClick={() => showPanel(<RebirthModal />)}>
+                  <button
+                     className="btn"
+                     id="LegacyUpgradeModal_Rebirth"
+                     onClick={() => {
+                        hideModal();
+                        showPanel(<RebirthPage />);
+                     }}
+                  >
                      {$t(L.Rebirth)}
                   </button>
                </Controls>

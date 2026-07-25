@@ -68,7 +68,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
    }
    return (
       <SidebarComp
-         header={
+         title={
             <div className="text-shadow" style={{ position: "relative" }}>
                <img src={Terrains[tileData.terrain].image.url} className="w100 display-block" />
                <div

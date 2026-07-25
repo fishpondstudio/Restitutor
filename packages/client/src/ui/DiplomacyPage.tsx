@@ -128,7 +128,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
    const diplomaticDistance = getDiplomaticDistance(G.save.state.playerProvince, province, G.save);
    return (
       <SidebarComp
-         header={<SidebarHeader title={$t(L.DiplomacyWith$1, getProvinceName(province, G.save))} />}
+         title={<SidebarHeader title={$t(L.DiplomacyWith$1, getProvinceName(province, G.save))} />}
          width={isMe ? SidebarWidth : DiplomacyWidth}
       >
          <div className="row g0 fstart">

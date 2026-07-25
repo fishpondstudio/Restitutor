@@ -20,7 +20,7 @@ export function ChroniclePage(): React.ReactNode {
       return true;
    });
    return (
-      <SidebarComp header={<SidebarHeader title={$t(L.Chronicle)} />}>
+      <SidebarComp title={<SidebarHeader title={$t(L.Chronicle)} />}>
          <div className="m10">
             <MultiSelect
                placeholder={$t(L.Years)}

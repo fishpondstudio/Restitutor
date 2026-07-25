@@ -3,10 +3,10 @@ import { CloseButtonClass, SidebarMargin, SidebarTopMargin, SidebarWidth } from 
 import { hideSidebar } from "./SidebarManager";
 
 export function SidebarComp({
-   header,
+   title,
    children,
    width = SidebarWidth,
-}: React.PropsWithChildren<{ header: React.ReactNode; width?: string }>): React.ReactElement {
+}: React.PropsWithChildren<{ title: React.ReactNode; width?: string }>): React.ReactElement {
    return (
       <div
          className="panel"
@@ -18,7 +18,7 @@ export function SidebarComp({
             flexDirection: "column",
          }}
       >
-         {header}
+         {title}
          <ScrollArea scrollbars="y" className="f1">
             {children}
             <div className="h10" />

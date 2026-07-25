@@ -85,7 +85,7 @@ export function InternalAffairsPage(): React.ReactNode {
    const overExtension = getProvinceOverextension(G.save.state.playerProvince, G.save);
    const stability = getProvinceStability(G.save.state.playerProvince, G.save);
    return (
-      <SidebarComp header={<SidebarHeader title={$t(L.InternalAffairs)} />}>
+      <SidebarComp title={<SidebarHeader title={$t(L.InternalAffairs)} />}>
          <div className="h1">{$t(L.GoverningAndStability)}</div>
          <BreakdownTooltip
             breakdown={governingCost}

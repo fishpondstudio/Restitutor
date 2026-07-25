@@ -83,7 +83,7 @@ export function EditTilePage({ tiles }: { tiles: Set<Tile> }): React.ReactNode {
 
    const forceUpdate = useForceUpdate();
    return (
-      <SidebarComp header={<SidebarHeader title={`Edit ${tiles.size} Tile`} />}>
+      <SidebarComp title={<SidebarHeader title={`Edit ${tiles.size} Tile`} />}>
          <div className="m10">
             <SelectComp
                value={data.terrain}

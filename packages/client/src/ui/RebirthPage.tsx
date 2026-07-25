@@ -10,16 +10,16 @@ import { getProvinceName, getTilesAnnexedAndCored, provinceResourceOf } from "..
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
-import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 
-export function RebirthModal(): React.ReactNode {
+export function RebirthPage(): React.ReactNode {
    const [total, used] = provinceResourceOf("legacy", G.save.state.playerProvince, G.save);
    const newTiles = getTilesAnnexedAndCored(G.save.state.playerProvince, G.save);
    const [province, setProvince] = useState(G.save.state.playerProvince);
    return (
-      <ModalComp size="sm" title={<ModalTitleBar title={$t(L.Rebirth)} dismiss />}>
+      <SidebarComp title={<SidebarHeader title={$t(L.Rebirth)} />}>
          <div className="h1">{$t(L.LegacyPoint)}</div>
          <div className="mx10 my5 row">
             <div className="f1">{$t(L.TilesAnnexedAndCored)}</div>
@@ -79,6 +79,6 @@ export function RebirthModal(): React.ReactNode {
                {$t(L.Rebirth)}
             </button>
          </div>
-      </ModalComp>
+      </SidebarComp>
    );
 }

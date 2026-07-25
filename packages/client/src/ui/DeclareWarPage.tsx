@@ -98,7 +98,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
       return null;
    }
    return (
-      <SidebarComp header={<SidebarHeader title={$t(L.DeclareWar)} />} width={SidebarWiderWidth}>
+      <SidebarComp title={<SidebarHeader title={$t(L.DeclareWar)} />} width={SidebarWiderWidth}>
          <div className="h1">{$t(L.WarGoal)}</div>
          <div
             className="m10 text-sm"
