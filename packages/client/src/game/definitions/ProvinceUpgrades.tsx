@@ -152,6 +152,18 @@ const _ProvinceUpgrades = {
       name: () => $t(L.MartialSociety),
       desc: () => $t(L.MartialSocietyDesc),
    },
+   FortifiedAdministration: {
+      name: () => $t(L.FortifiedAdministration),
+      desc: () => $t(L.FortifiedAdministrationDesc),
+   },
+   VeteranGenerals: {
+      name: () => $t(L.VeteranGenerals),
+      desc: () => $t(L.VeteranGeneralsDesc),
+   },
+   UnitedFrontier: {
+      name: () => $t(L.UnitedFrontier),
+      desc: () => $t(L.UnitedFrontierDesc),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

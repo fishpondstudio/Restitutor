@@ -8,6 +8,7 @@ import type { SaveGame } from "../GameState";
 import { AquitaniaEvent } from "./AquitaniaEvent";
 import { BelgicaEvent } from "./BelgicaEvent";
 import { GallicEmpireEvents } from "./GallicEmpireEvents";
+import { GermaniaEvent } from "./GermaniaEvent";
 import { HistoricalEvents } from "./HistoricalEvents";
 import type { ImageWithCredit } from "./ImageWithCredit";
 import { LugdunensisEvent } from "./LugdunensisEvent";
@@ -48,6 +49,7 @@ const _GameEvents = {
    ...AquitaniaEvent,
    ...BelgicaEvent,
    ...NarbonensisEvent,
+   ...GermaniaEvent,
    ...GallicEmpireEvents,
    ...MissionEvents,
    ...WesternRomanEmpireEvents,

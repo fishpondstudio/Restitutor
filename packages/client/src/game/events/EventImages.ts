@@ -24,6 +24,14 @@ import DeclareWar from "../..//assets/images/events/DeclareWar.webp";
 import DrawnIntoWar from "../../assets/images/events/DrawnIntoWar.webp";
 import Emperor from "../../assets/images/events/Emperor.webp";
 import Flood from "../../assets/images/events/Flood.webp";
+import Galley from "../../assets/images/events/Galley.webp";
+import Germania1 from "../../assets/images/events/Germania1.webp";
+import Germania3 from "../../assets/images/events/Germania3.webp";
+import Germania4 from "../../assets/images/events/Germania4.webp";
+import Germania6 from "../../assets/images/events/Germania6.webp";
+import Germania7 from "../../assets/images/events/Germania7.webp";
+import Germania8 from "../../assets/images/events/Germania8.webp";
+import Germania10 from "../../assets/images/events/Germania10.webp";
 import H1 from "../../assets/images/events/H1.webp";
 import H2 from "../../assets/images/events/H2.webp";
 import H3 from "../../assets/images/events/H3.webp";
@@ -251,6 +259,23 @@ export const EventImage = {
    Belgica7: { url: Belgica7, credit: "Still Life with a Gilt Cup, Willem Claesz. Heda (1635)" },
    Belgica9: { url: Belgica9, credit: "A Colonnade, Partly Ruined, with Figures, Francesco Guardi (c.1780)" },
    Belgica10: { url: Belgica10, credit: "Harvest in the Czech-Moravian Highlands, Tavík František Šimon (1870)" },
+   Germania1: { url: Germania1, credit: "Am Töpfermarkt, Alfred Steinacker" },
+   Galley: { url: Galley, credit: "A Phoenician warship, H. G. Swanwick (1920)" },
+   Germania3: {
+      url: Germania3,
+      credit: "Pharamond Is Lifted on the Shield by the Franks, Pierre-Henri Révoil and Michel-Philibert Genod (1845)",
+   },
+   Germania4: { url: Germania4, credit: "The Course of Empire: Destruction, Thomas Cole (1836)" },
+   Germania6: { url: Germania6, credit: "Saint Gereon with His Entourage, anonymous Cologne master (c. 1460)" },
+   Germania7: {
+      url: Germania7,
+      credit: "A Bridge near Sorrento, Thorald Brendstrup (c.1850)",
+   },
+   Germania8: {
+      url: Germania8,
+      credit: "The Romans under Julius Caesar Invading Britain, Edward Armitage (1843)",
+   },
+   Germania10: { url: Germania10, credit: "The Barbarians Before Rome, Évariste-Vital Luminais (c.1800s)" },
    Narbonensis1: {
       url: Narbonensis1,
       credit: "Seaport with the Embarkation of the Queen of Sheba, Claude Lorrain (1648)",

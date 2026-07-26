@@ -5,9 +5,11 @@ import { $t, L } from "../../utils/i18n";
 import { hideModal } from "../../utils/ModalManager";
 import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
+import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getRelation } from "../logic/DiplomacyLogic";
+import { addProvinceResource } from "../logic/ProvinceLogic";
 import { showGameEventModal } from "../logic/TickProvince";
 import { getTruceDuration, type IWar, WhitePeaceCostPerTile } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
@@ -36,6 +38,9 @@ export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: S
          const defenderToAttacker = getRelation(war.defender, war.attacker, save);
          if (defenderToAttacker) {
             defenderToAttacker.truceUntil = save.state.month + truceDuration.value;
+         }
+         if (hasProvinceUpgrade("VeteranGenerals", war.defender, save)) {
+            addProvinceResource("generalSkillPoint", 1, war.defender, save);
          }
          RefreshTiles.emit({ tiles: war.tiles, options: { indicator: true } });
          if (headless) {

@@ -6,10 +6,9 @@
    justify-content: center;
    text-align: center;
    position: relative;
-   font-family: "TitleFont", serif;
+   font-family: "RomanFont", serif;
    text-shadow: 0.0625rem 0.0625rem 0 var(--mantine-color-dark-9);
    overflow: hidden;
-   font-family: "RomanFont", serif;
    font-weight: bold;
    font-size: 0.875rem;
    .upgrade-id {

@@ -46,6 +46,21 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
    if (data.buildings.has("Courthouse")) {
       breakdown.multiply.push({ name: Buildings.Courthouse.name(), value: -0.2 });
    }
+   if (hasProvinceUpgrade("FortifiedAdministration", data.province, save)) {
+      let result = 0;
+      if (data.buildings.has("Castra")) {
+         ++result;
+      }
+      if (data.buildings.has("Citadel")) {
+         ++result;
+      }
+      if (result > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.FortifiedAdministration.name(),
+            value: result * -0.1,
+         });
+      }
+   }
    const distanceFromCapital = getDistanceFromCapital(tile, save);
    breakdown.multiply.push({
       name: $t(L.DistanceFromCapital),

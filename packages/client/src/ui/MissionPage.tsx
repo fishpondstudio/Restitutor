@@ -9,7 +9,8 @@ import {
 } from "../game/events/GameEventLogic";
 import { GameEvents } from "../game/events/GameEvents";
 import { GameOptionFlag } from "../game/GameOption";
-import { G } from "../utils/Global";
+import { addGameEvent } from "../game/logic/TickProvince";
+import { G, isDev } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ConditionBreakdownComp } from "./ConditionBreakdownComp";
@@ -46,9 +47,22 @@ export function MissionPage(): React.ReactNode {
             return (
                <div className="box m10 text-sm" key={event}>
                   <FloatingTip label={config.desc()}>
-                     <div className="h1">
+                     <div className="h1 row">
                         {config.type === "random" ? "*" : ""}
                         {config.name()}
+                        <div className="f1" />
+                        {isDev() ? (
+                           <div
+                              className="mi sm pointer"
+                              onClick={() => {
+                                 if (import.meta.env.DEV) {
+                                    addGameEvent(event, G.save.state.playerProvince, G.save);
+                                 }
+                              }}
+                           >
+                              open_in_new
+                           </div>
+                        ) : null}
                      </div>
                   </FloatingTip>
                   <ConditionBreakdownComp condition={condition} />

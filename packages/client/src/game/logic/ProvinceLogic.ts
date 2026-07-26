@@ -703,6 +703,12 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
          value: actualConscription * 0.01,
       });
    }
+   if (hasProvinceUpgrade("UnitedFrontier", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.UnitedFrontier.name(),
+         value: getNeighborProvinces(province, save).size * 0.05,
+      });
+   }
    attachModifiers("WarPower", result, province, save);
    const wars = getCurrentWars(province, save);
    if (wars.length > 1) {
@@ -1113,4 +1119,16 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
    startTimedAction("BarbarianInvasions", province, save);
 
    return [...config.tiles, ...ensureProvinceCapitals(save)];
+}
+
+export function getNeighborProvinces(province: Province, save: SaveGame): Set<Province> {
+   const result = new Set<Province>();
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province === province) {
+         getBorderingProvinces(tile, save).forEach((neighbor) => {
+            result.add(neighbor);
+         });
+      }
+   }
+   return result;
 }
