@@ -19,9 +19,6 @@
          "problemMatcher": [],
          "label": "npm: check",
          "isBackground": true,
-         "runOptions": {
-            "runOn": "folderOpen"
-         }
       },
       {
          "type": "npm",
