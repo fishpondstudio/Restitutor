@@ -7,7 +7,6 @@
       "watch": "npx tsc -b . --watch",
       "build": "npx tsc -b .",
       "translate": "node scripts/Translate.js",
-      "lint": "node scripts/Lint.js",
       "check": "biome check --write --diagnostic-level=error"
    },
    "keywords": [],
