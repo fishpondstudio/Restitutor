@@ -1,4 +1,5 @@
 import Alliance from "../../assets/images/events/Alliance.webp";
+import Alps from "../../assets/images/events/Alps.webp";
 import Annex from "../../assets/images/events/Annex.webp";
 import Aquitania1 from "../../assets/images/events/Aquitania1.webp";
 import Aquitania2 from "../../assets/images/events/Aquitania2.webp";
@@ -23,6 +24,8 @@ import Circus from "../../assets/images/events/Circus.webp";
 import DeclareWar from "../..//assets/images/events/DeclareWar.webp";
 import DrawnIntoWar from "../../assets/images/events/DrawnIntoWar.webp";
 import Emperor from "../../assets/images/events/Emperor.webp";
+import Empire from "../../assets/images/events/Empire.webp";
+import Expedition from "../../assets/images/events/Expedition.webp";
 import Flood from "../../assets/images/events/Flood.webp";
 import Galley from "../../assets/images/events/Galley.webp";
 import Germania1 from "../../assets/images/events/Germania1.webp";
@@ -127,7 +130,7 @@ export const EventImage = {
    },
    Y235: { url: Y235, credit: "The Death of Julius Caesar, Vincenzo Camuccini (1806)" },
    Y238: { url: Y238, credit: "Ruines Romaines, Hubert Robert (1776)" },
-   Y248: { url: Y248, credit: "The Course of Empire: The Consummation of Empire, Thomas Cole (1836)" },
+   Y248: { url: Y248, credit: "A Roman Triumph, Jacques Grasset de Saint-Sauveur (1796)" },
    Y251: { url: Y251, credit: "The Death of Decius Mus, Peter Paul Rubens (1618)" },
    Y262: {
       url: Y262,
@@ -297,6 +300,9 @@ export const EventImage = {
    War2: { url: War2, credit: "The Fall of Pompeii, Anton Hoffmann (1920)" },
    Prosperity: { url: Prosperity, credit: "Le triomphe de la Ville de Paris, François-Edouard Picot (1842)" },
    Wedding: { url: Wedding, credit: "Hymen, oh Hyménée, Juan Luna (1886-87)" },
+   Empire: { url: Empire, credit: "Marcus Aurelius' expedition from Vindobona, Anton Hoffmann (1920)" },
+   Expedition: { url: Expedition, credit: "The Course of Empire: Consummation , Thomas Cole (1836)" },
+   Alps: { url: Alps, credit: "Aus der Berninagruppe. Typus der Centralalpen, Vogelsang & Kaiser (1890)" },
    MediterraneanHarbour: {
       url: MediterraneanHarbour,
       credit: "View of a Mediterranean harbour, Hendrik Frans Van Lint",

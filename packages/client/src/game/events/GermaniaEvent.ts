@@ -299,7 +299,7 @@ export const GermaniaEvent = {
    },
    Germania11: {
       name: () => $t(L.BeyondTheRhineFrontier),
-      image: EventImage.Germania10,
+      image: EventImage.Expedition,
       desc: () => $t(L.BeyondTheRhineFrontierDesc),
       condition: {
          province: ["Germania"],
@@ -337,7 +337,7 @@ export const GermaniaEvent = {
    },
    Germania12: {
       name: () => $t(L.$1SeeksOurProtection, Province.Raetia.name()),
-      image: EventImage.Germania10,
+      image: EventImage.Annex,
       desc: () => $t(L.RaetiaSeeksOurProtectionDesc),
       condition: {
          province: ["Germania"],
@@ -366,7 +366,7 @@ export const GermaniaEvent = {
    },
    Germania13: {
       name: () => $t(L.$1SeeksOurProtection, Province.Belgica.name()),
-      image: EventImage.Germania10,
+      image: EventImage.Emperor,
       desc: () => $t(L.BelgicaSeeksOurProtectionDesc),
       condition: {
          province: ["Germania"],
@@ -395,7 +395,7 @@ export const GermaniaEvent = {
    },
    Germania14: {
       name: () => $t(L.ThePassesToTheSouth),
-      image: EventImage.Germania10,
+      image: EventImage.Alps,
       desc: () => $t(L.ThePassesToTheSouthDesc),
       condition: {
          province: ["Germania"],
@@ -458,7 +458,7 @@ export const GermaniaEvent = {
    },
    Germania15: {
       name: () => $t(L.GermaniaAscendant),
-      image: EventImage.Germania10,
+      image: EventImage.Empire,
       desc: () => $t(L.GermaniaAscendantDesc),
       condition: {
          province: ["Germania"],
