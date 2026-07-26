@@ -1,6 +1,10 @@
 import { $t, L } from "../../utils/i18n";
+import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
-import { getProvinceResource } from "../logic/ProvinceLogic";
+import { getTileName } from "../definitions/TileName";
+import { coreTileCountCondition, warPowerCondition } from "../logic/MissionLogic";
+import { getProvinceCoreTileCount, getProvinceResource } from "../logic/ProvinceLogic";
+import { dissolveAllTreaties, requireAnyTreatyBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -289,6 +293,194 @@ export const GermaniaEvent = {
             modifiers: {
                Stability: { type: "add", value: 10, duration: 2 * 12 },
                TileOutput: { type: "multiply", value: -0.1, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania11: {
+      name: () => $t(L.BeyondTheRhineFrontier),
+      image: EventImage.Germania10,
+      desc: () => $t(L.BeyondTheRhineFrontierDesc),
+      condition: {
+         province: ["Germania"],
+         conditions: (province, save) => [warPowerCondition(10_000, province, save)],
+      },
+      buttons: [
+         {
+            label: () => $t(L.TurnOurStandardsTowardBelgica),
+            attitudes: {
+               Raetia: { type: "add", value: 20, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Belgica: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.MarchIntoTheHeartOfLugdunensis),
+            attitudes: {
+               Belgica: { type: "add", value: 20, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Lugdunensis: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.AdvanceAlongTheUpperRhineIntoRaetia),
+            attitudes: {
+               Lugdunensis: { type: "add", value: 20, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Raetia: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+      ],
+   },
+   Germania12: {
+      name: () => $t(L.$1SeeksOurProtection, Province.Raetia.name()),
+      image: EventImage.Germania10,
+      desc: () => $t(L.RaetiaSeeksOurProtectionDesc),
+      condition: {
+         province: ["Germania"],
+         conditions: (province, save) => [
+            {
+               name: $t(L.$1HasAtMost$2CoreTiles, Province.Raetia.name(), "3"),
+               value: getProvinceCoreTileCount("Raetia", save) <= 3,
+            },
+            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Raetia", save),
+         ],
+      },
+      buttons: [
+         {
+            label: () => $t(L.$1BecomesOurClient, Province.Raetia.name()),
+            custom: [
+               {
+                  effect: (province, save) => {
+                     dissolveAllTreaties("Raetia", save);
+                     OfferPatronageAction(province, "Raetia", save).effect({ headless: false });
+                  },
+                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Raetia.name()),
+               },
+            ],
+         },
+      ],
+   },
+   Germania13: {
+      name: () => $t(L.$1SeeksOurProtection, Province.Belgica.name()),
+      image: EventImage.Germania10,
+      desc: () => $t(L.BelgicaSeeksOurProtectionDesc),
+      condition: {
+         province: ["Germania"],
+         conditions: (province, save) => [
+            {
+               name: $t(L.$1HasAtMost$2CoreTiles, Province.Belgica.name(), "3"),
+               value: getProvinceCoreTileCount("Belgica", save) <= 3,
+            },
+            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Belgica", save),
+         ],
+      },
+      buttons: [
+         {
+            label: () => $t(L.$1BecomesOurClient, Province.Belgica.name()),
+            custom: [
+               {
+                  effect: (province, save) => {
+                     dissolveAllTreaties("Belgica", save);
+                     OfferPatronageAction(province, "Belgica", save).effect({ headless: false });
+                  },
+                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Belgica.name()),
+               },
+            ],
+         },
+      ],
+   },
+   Germania14: {
+      name: () => $t(L.ThePassesToTheSouth),
+      image: EventImage.Germania10,
+      desc: () => $t(L.ThePassesToTheSouthDesc),
+      condition: {
+         province: ["Germania"],
+         conditions: (province, save) => [coreTileCountCondition(25, province, save)],
+      },
+      buttons: [
+         {
+            label: () => $t(L.DescendUponNarbonensis),
+            casusBelli: {
+               Narbonensis: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+            custom: [
+               {
+                  desc: () =>
+                     $t(L.$1TileDefenseFor$2And$3For$4Years, "-10%", getTileName(9175112), getTileName(9109577), "5"),
+                  effect: (province, save) => {
+                     save.state.tiles.get(9175112)?.modifiers.Defense.push({
+                        type: "multiply",
+                        value: -0.1,
+                        duration: 5 * 12,
+                        name: GermaniaEvent.Germania13.name(),
+                     });
+                     save.state.tiles.get(9109577)?.modifiers.Defense.push({
+                        type: "multiply",
+                        value: -0.1,
+                        duration: 5 * 12,
+                        name: GermaniaEvent.Germania13.name(),
+                     });
+                  },
+               },
+            ],
+         },
+         {
+            label: () => $t(L.CarryOurStandardsIntoItalia),
+            casusBelli: {
+               Italia: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+            custom: [
+               {
+                  desc: () =>
+                     $t(L.$1TileDefenseFor$2And$3For$4Years, "-10%", getTileName(9240648), getTileName(9175113), "5"),
+                  effect: (province, save) => {
+                     save.state.tiles.get(9240648)?.modifiers.Defense.push({
+                        type: "multiply",
+                        value: -0.1,
+                        duration: 5 * 12,
+                        name: GermaniaEvent.Germania12.name(),
+                     });
+                     save.state.tiles.get(9175113)?.modifiers.Defense.push({
+                        type: "multiply",
+                        value: -0.1,
+                        duration: 5 * 12,
+                        name: GermaniaEvent.Germania12.name(),
+                     });
+                  },
+               },
+            ],
+         },
+      ],
+   },
+   Germania15: {
+      name: () => $t(L.GermaniaAscendant),
+      image: EventImage.Germania10,
+      desc: () => $t(L.GermaniaAscendantDesc),
+      condition: {
+         province: ["Germania"],
+         conditions: (province, save) => [coreTileCountCondition(30, province, save)],
+      },
+      buttons: [
+         {
+            label: () => $t(L.EntrustTheRealmToSeasonedMagistrates),
+            modifiers: {
+               AdministrativePoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.SendEnvoysToEveryCourt),
+            modifiers: {
+               DiplomaticPoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.PlaceTheLegionsAboveAll),
+            modifiers: {
+               MilitaryPoint: { type: "add", value: 1 },
             },
          },
       ],
