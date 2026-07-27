@@ -52,7 +52,7 @@ import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
 import { cacheProvince } from "./CacheLogic";
-import { getAttitudeTowards, getRelations } from "./DiplomacyLogic";
+import { getAttitudeTowards, getRelation, getRelations } from "./DiplomacyLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
 import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
 import { addModifier, attachModifiers } from "./ModifierLogic";
@@ -1066,11 +1066,16 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
    const state = initProvince(province, config.tiles[0]);
    state.unlockedTech = new Set(getBaselineTechs(save));
    save.state.provinces[province] = state;
+   const provinces = new Set<Province>();
    config.tiles.forEach((tile) => {
       const data = save.state.tiles.get(tile);
       if (!data) {
          return;
       }
+      provinces.add(data.province);
+      data.coreProvinces.forEach((p) => {
+         provinces.add(p);
+      });
       data.province = province;
       data.coreProvinces.add(province);
       data.rebellion = 0;
@@ -1086,6 +1091,13 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
 
    forEach(config.resources, (key, value) => {
       addProvinceResource(key, value, province, save);
+   });
+
+   provinces.forEach((p) => {
+      const relation = getRelation(p, province, save);
+      if (relation) {
+         relation.casusBelli.set("Reconquista", { monthsLeft: 12 * 20 });
+      }
    });
 
    const neighboringProvinces = new Set<Province>();
