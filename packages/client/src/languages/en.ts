@@ -2418,4 +2418,12 @@ export const EN = {
    LusitaniaUnderOurProtection: "Lusitania Under Our Protection",
    LusitaniaUnderOurProtectionDesc: "Lusitania can no longer preserve its position without our gold and influence. Its leaders are prepared to accept Tarraconensian protection in return for the security of their offices and frontiers.",
    ReceiveLusitaniaAsOurClient: "Receive Lusitania as our client",
+   TheRoadsIntoGaulDesc: "Tarraconensis now commands the roads and passes of Hispania. Beyond the Pyrenees lie two roads into Gaul: the coastal route toward Narbonensis and the western valleys of Aquitania. Our council must decide where the next campaign will begin.",
+   MarchAlongTheCoastIntoNarbonensis: "March along the coast into Narbonensis",
+   OpenTheWesternRoadIntoAquitania: "Open the western road into Aquitania",
+   AcrossTheStraitOfGibraltar: "Across the Strait of Gibraltar",
+   AcrossTheStraitOfGibraltarDesc: "With Baelo secured, only the narrow strait separates our lands from the coast of Mauretania. Its harbors promise command of the western Mediterranean, but an African expedition will demand either force of arms or careful preparation.",
+   LaunchTheInvasionFromBaelo: "Launch the invasion from Baelo",
+   PlanTheAfricanCampaignWithCare: "Plan the African campaign with care",
+   TheRoadsIntoGaul: "The Roads into Gaul",
 };

@@ -10,12 +10,12 @@ import {
 } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import {
+   getProvinceCoreTileCount,
    getProvinceGoverningCost,
    getProvinceIncome,
    getProvinceManpower,
    getProvinceResource,
    getProvinceStat,
-   getProvinceTileCount,
    getWarPower,
 } from "./ProvinceLogic";
 import { getAllies } from "./TreatyLogic";
@@ -66,7 +66,7 @@ export function warPowerCondition(minimum: number, province: Province, save: Sav
 }
 
 export function coreTileCountCondition(minimum: number, province: Province, save: SaveGame): ICondition {
-   const tileCount = getProvinceTileCount(province, save);
+   const tileCount = getProvinceCoreTileCount(province, save);
    return {
       name: $t(L.HaveAtLeast$1CoreTiles, formatNumber(minimum)),
       value: tileCount >= minimum,

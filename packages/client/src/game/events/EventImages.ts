@@ -38,6 +38,7 @@ import Germania6 from "../../assets/images/events/Germania6.webp";
 import Germania7 from "../../assets/images/events/Germania7.webp";
 import Germania8 from "../../assets/images/events/Germania8.webp";
 import Germania10 from "../../assets/images/events/Germania10.webp";
+import Gibraltar from "../../assets/images/events/Gibraltar.webp";
 import H1 from "../../assets/images/events/H1.webp";
 import H2 from "../../assets/images/events/H2.webp";
 import H3 from "../../assets/images/events/H3.webp";
@@ -320,6 +321,7 @@ export const EventImage = {
    Games1: { url: Games1, credit: "Horse racing at the Circus, Hans Werner Schmidt (1912)" },
    Games2: { url: Games2, credit: "The Chariot Race, Alexander von Wagner (c. 1882)" },
    Empire: { url: Empire, credit: "Marcus Aurelius' expedition from Vindobona, Anton Hoffmann (1920)" },
+   Gibraltar: { url: Gibraltar, credit: "Gibraltar. (From the Mainland), Thomas Nelson & Sons (1907)" },
    Expedition: { url: Expedition, credit: "The Course of Empire: Consummation , Thomas Cole (1836)" },
    Alps: { url: Alps, credit: "Aus der Berninagruppe. Typus der Centralalpen, Vogelsang & Kaiser (1890)" },
    MediterraneanHarbour: {

@@ -3,7 +3,7 @@ import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActi
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { provinceResourceCondition } from "../logic/MissionLogic";
+import { coreTileCountCondition, provinceResourceCondition } from "../logic/MissionLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { getProvinceCoreTileCount, getProvinceName, getProvinceResource } from "../logic/ProvinceLogic";
 import { isCoreTileCondition } from "../logic/TileLogic";
@@ -298,7 +298,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis11: {
       name: () => $t(L.AFootholdInBaetica),
-      image: EventImage.Tarraconensis10,
+      image: EventImage.Expedition,
       desc: () => $t(L.AFootholdInBaeticaDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -328,7 +328,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis12: {
       name: () => $t(L.BaeticaLiesExposed),
-      image: EventImage.Tarraconensis10,
+      image: EventImage.Belgica3,
       desc: () => $t(L.BaeticaLiesExposedDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -382,7 +382,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis13: {
       name: () => $t(L.AnAccordWithLusitania),
-      image: EventImage.Tarraconensis10,
+      image: EventImage.Alliance,
       desc: () => $t(L.AnAccordWithLusitaniaDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -437,7 +437,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis14: {
       name: () => $t(L.TheDistressOfLusitania),
-      image: EventImage.Tarraconensis10,
+      image: EventImage.Aquitania3,
       desc: () => $t(L.TheDistressOfLusitaniaDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -490,7 +490,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis15: {
       name: () => $t(L.LusitaniaUnderOurProtection),
-      image: EventImage.Tarraconensis10,
+      image: EventImage.Emperor,
       desc: () => $t(L.LusitaniaUnderOurProtectionDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -516,6 +516,70 @@ export const TarraconensisEvent = {
                   desc: (province, save) => $t(L.$1BecomesOurClient, Province.Lusitania.name()),
                },
             ],
+         },
+      ],
+   },
+   Tarraconensis16: {
+      name: () => $t(L.TheRoadsIntoGaul),
+      image: EventImage.Pyrenees,
+      desc: () => $t(L.TheRoadsIntoGaulDesc),
+      condition: {
+         province: ["Tarraconensis"],
+         conditions: (province, save) => {
+            return [coreTileCountCondition(50, province, save)];
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.MarchAlongTheCoastIntoNarbonensis),
+            casusBelli: {
+               Narbonensis: { casusBelli: "ConquestMission", duration: 12 * 10 },
+            },
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.2, duration: 12 * 2 },
+            },
+         },
+         {
+            label: () => $t(L.OpenTheWesternRoadIntoAquitania),
+            casusBelli: {
+               Aquitania: { casusBelli: "ConquestMission", duration: 12 * 10 },
+            },
+            modifiers: {
+               Stability: { type: "add", value: 20, duration: 12 * 2 },
+            },
+         },
+      ],
+   },
+   Tarraconensis17: {
+      name: () => $t(L.AcrossTheStraitOfGibraltar),
+      image: EventImage.Gibraltar,
+      desc: () => $t(L.AcrossTheStraitOfGibraltarDesc),
+      condition: {
+         province: ["Tarraconensis"],
+         conditions: (province, save) => {
+            return [isCoreTileCondition(8585300, province, save)];
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.LaunchTheInvasionFromBaelo),
+            casusBelli: {
+               Mauretania: { casusBelli: "ConquestMission", duration: 12 * 10 },
+            },
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.2, duration: 12 * 2 },
+            },
+         },
+         {
+            label: () => $t(L.PlanTheAfricanCampaignWithCare),
+            resources: {
+               administrative: 50,
+               diplomatic: 50,
+               military: 50,
+            },
+            casusBelli: {
+               Mauretania: { casusBelli: "ConquestMission", duration: 12 * 10 },
+            },
          },
       ],
    },

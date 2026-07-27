@@ -2403,4 +2403,12 @@ export const ZH_CN = {
    LusitaniaUnderOurProtection: "受我们保护的卢西塔尼亚",
    LusitaniaUnderOurProtectionDesc: "没有我们的黄金与影响力，卢西塔尼亚已无法维持其地位。其领袖愿接受塔拉科嫩西斯的保护，以换取其职位与边疆的安全。",
    ReceiveLusitaniaAsOurClient: "接纳卢西塔尼亚为我们的附庸",
+   TheRoadsIntoGaulDesc: "塔拉科嫩西斯如今掌控了西班牙的道路与关隘。越过比利牛斯山，两条道路通往高卢：一条沿海岸通往纳博讷西斯，另一条穿过阿基坦尼亚西部的谷地。我们的议会必须决定下一场战役从何处开始。",
+   MarchAlongTheCoastIntoNarbonensis: "沿海岸进军纳博讷西斯",
+   OpenTheWesternRoadIntoAquitania: "打通通往阿基坦尼亚的西部道路",
+   AcrossTheStraitOfGibraltar: "横渡直布罗陀海峡",
+   AcrossTheStraitOfGibraltarDesc: "拜洛既已落入我们掌控，唯有一道狭窄海峡将我们的领地与毛里塔尼亚海岸隔开。那里的港湾意味着对西地中海的支配，但远征非洲需要我们诉诸武力，或是从长计议。",
+   LaunchTheInvasionFromBaelo: "从拜洛发动入侵",
+   PlanTheAfricanCampaignWithCare: "审慎筹划非洲战役",
+   TheRoadsIntoGaul: "通往高卢之路",
 };
