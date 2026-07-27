@@ -15,7 +15,13 @@ import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { cacheTile } from "./CacheLogic";
 import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
-import { getProvinceName, getProvinceOverextension, getProvinceStability, getProvinceStat } from "./ProvinceLogic";
+import {
+   getCulturalCohesion,
+   getProvinceName,
+   getProvinceOverextension,
+   getProvinceStability,
+   getProvinceStat,
+} from "./ProvinceLogic";
 import { getBuildingTech, hasResearched } from "./TechLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
 import { getCurrentWars, type IWar } from "./WarLogic";
@@ -263,6 +269,9 @@ function _getTileUnrest(tile: Tile, save: SaveGame): IValueBreakdown {
    } else if (!hasProvinceUpgrade("EdictOfMilan", data.province, save)) {
       breakdown.add.push({ name: $t(L.MinorReligion), value: +10 });
    }
+   if (hasProvinceUpgrade("ChristianTranquility", data.province, save) && data.religion === "Christianity") {
+      breakdown.add.push({ name: ProvinceUpgrades.ChristianTranquility.name(), value: -5 });
+   }
    const conscription = getProvinceStat("actualConscription", data.province, save);
    breakdown.add.push({
       name: $t(L.Conscription$1, formatNumber(conscription)),
@@ -469,6 +478,15 @@ function _getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakdown {
          desc: $t(L.$1PerStabilityMax$2Reduction, "1%", "50%"),
       });
    }
+   if (hasProvinceUpgrade("CulturalEfficiency", data.province, save)) {
+      const culturalCohesion = getCulturalCohesion(data.province, save);
+      if (culturalCohesion > 0.5) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.CulturalEfficiency.name(),
+            value: (0.5 - culturalCohesion) * 0.4,
+         });
+      }
+   }
    attachTileModifiers(data.modifiers.Maintenance, breakdown);
    attachModifiers("TileMaintenance", breakdown, data.province, save);
    getProvinceTraits("Efficient", data.province, save).forEach((trait) => {
@@ -654,10 +672,10 @@ export function getBuildingSlot(tile: Tile, save: SaveGame): IValueBreakdown {
    return finalizeBreakdown(result);
 }
 
-export function annexAndCoreTileCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
+export function isCoreTileCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
    const data = save.state.tiles.get(tile);
    return {
-      name: `Annex and Core ${getTileName(tile)}`,
+      name: $t(L.$1Is$2CoreTile, getTileName(tile), getProvinceName(province, save)),
       value: data?.province === province && data.coreProvinces.has(province),
    };
 }

@@ -289,7 +289,12 @@ export const Province = {
    Sardinia: { name: () => $t(L.ProvinceSardinia), culture: "Sardinian", religion: "GrecoRoman", upgrades: [] },
    Sicilia: { name: () => $t(L.ProvinceSicilia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
    Syria: { name: () => $t(L.ProvinceSyria), culture: "Syrian", religion: "Eastern", upgrades: [] },
-   Tarraconensis: { name: () => $t(L.ProvinceTarraconensis), culture: "Iberian", religion: "Iberian", upgrades: [] },
+   Tarraconensis: {
+      name: () => $t(L.ProvinceTarraconensis),
+      culture: "Iberian",
+      religion: "Iberian",
+      upgrades: ["CulturalEfficiency", "ChristianTranquility", "FocusedGovernance"],
+   },
    Thracia: { name: () => $t(L.ProvinceThracia), culture: "Thracian", religion: "GrecoRoman", upgrades: [] },
    Suebi: { name: () => $t(L.ProvinceSuebi), culture: "Germanic", religion: "Germanic", upgrades: [] },
    Visigoths: { name: () => $t(L.ProvinceVisigoths), culture: "Germanic", religion: "Germanic", upgrades: [] },
@@ -304,7 +309,14 @@ export const Province = {
 
 export type Province = keyof typeof Province;
 export const Provinces = keysOf(Province);
-export const EnabledProvinces: Province[] = ["Lugdunensis", "Aquitania", "Narbonensis", "Belgica", "Germania"];
+export const EnabledProvinces: Province[] = [
+   "Lugdunensis",
+   "Aquitania",
+   "Narbonensis",
+   "Belgica",
+   "Germania",
+   "Tarraconensis",
+];
 
 export const ProvinceExtraGoverningCapacity: Partial<Record<Province, number>> = {
    Africa: 100,

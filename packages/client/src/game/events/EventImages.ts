@@ -20,6 +20,7 @@ import Belgica7 from "../../assets/images/events/Belgica7.webp";
 import Belgica9 from "../../assets/images/events/Belgica9.webp";
 import Belgica10 from "../../assets/images/events/Belgica10.webp";
 import Bishop from "../../assets/images/events/Bishop.webp";
+import Canal from "../../assets/images/events/Canal.webp";
 import Circus from "../../assets/images/events/Circus.webp";
 import DeclareWar from "../..//assets/images/events/DeclareWar.webp";
 import DrawnIntoWar from "../../assets/images/events/DrawnIntoWar.webp";
@@ -28,6 +29,8 @@ import Empire from "../../assets/images/events/Empire.webp";
 import Expedition from "../../assets/images/events/Expedition.webp";
 import Flood from "../../assets/images/events/Flood.webp";
 import Galley from "../../assets/images/events/Galley.webp";
+import Games1 from "../../assets/images/events/Games1.webp";
+import Games2 from "../../assets/images/events/Games2.webp";
 import Germania1 from "../../assets/images/events/Germania1.webp";
 import Germania3 from "../../assets/images/events/Germania3.webp";
 import Germania4 from "../../assets/images/events/Germania4.webp";
@@ -45,6 +48,7 @@ import MediterraneanHarbour from "../../assets/images/events/MediterraneanHarbou
 import Merchant from "../../assets/images/events/Merchant.webp";
 import Merchant2 from "../../assets/images/events/Merchant2.webp";
 import Merchant3 from "../../assets/images/events/Merchant3.webp";
+import Mine from "../../assets/images/events/Mine.webp";
 import Narbonensis1 from "../../assets/images/events/Narbonensis1.webp";
 import Narbonensis3 from "../../assets/images/events/Narbonensis3.webp";
 import Narbonensis4 from "../../assets/images/events/Narbonensis4.webp";
@@ -65,6 +69,10 @@ import Saint from "../../assets/images/events/Saint.webp";
 import Saint2 from "../../assets/images/events/Saint2.webp";
 import School from "../../assets/images/events/School.webp";
 import Surrender from "../../assets/images/events/Surrender.webp";
+import Tarraconensis7 from "../../assets/images/events/Tarraconensis7.webp";
+import Tarraconensis9 from "../../assets/images/events/Tarraconensis9.webp";
+import Tarraconensis10 from "../../assets/images/events/Tarraconensis10.webp";
+import Toledo from "../../assets/images/events/Toledo.webp";
 import War1 from "../../assets/images/events/War1.webp";
 import War2 from "../../assets/images/events/War2.webp";
 import WarEnded from "../../assets/images/events/WarEnded.webp";
@@ -291,6 +299,14 @@ export const EventImage = {
    Narbonensis8: { url: Narbonensis8, credit: "Saint Jerome in the Wilderness, Giovanni Bellini (c.1480)" },
    Narbonensis9: { url: Narbonensis9, credit: "Čeština: Saint John Cassian" },
    Narbonensis10: { url: Narbonensis10, credit: "The Course of Empire: Desolation, Thomas Cole (1836)" },
+   Toledo: { url: Toledo, credit: "Bridge near Toledo, Marius Bauer (1903)" },
+   Canal: { url: Canal, credit: "Moorkanal in der Hammeniederung, Fritz Overbeck (1894)" },
+   Tarraconensis7: { url: Tarraconensis7, credit: "Saint Augustine in His Study, Vittore Carpaccio (1502)" },
+   Tarraconensis9: { url: Tarraconensis9, credit: "The Last Day of Numantia, Alejo Vera (1881)" },
+   Tarraconensis10: {
+      url: Tarraconensis10,
+      credit: "Episode from the Peasants' Revolt: The Fire of Turnhout, Constantin Meunier (c. 1878)",
+   },
    Pyrenees: { url: Pyrenees, credit: "Views from Spain towards the High Pyrenees, Charles Hamilton Smith" },
    Alliance: { url: Alliance, credit: "The Oracle at Delphi, Hans Werner Schmidt (1920)" },
    NavalWarfare: { url: NavalWarfare, credit: "The Battle of Salamis, Anton Hoffmann (1920)" },
@@ -300,6 +316,9 @@ export const EventImage = {
    War2: { url: War2, credit: "The Fall of Pompeii, Anton Hoffmann (1920)" },
    Prosperity: { url: Prosperity, credit: "Le triomphe de la Ville de Paris, François-Edouard Picot (1842)" },
    Wedding: { url: Wedding, credit: "Hymen, oh Hyménée, Juan Luna (1886-87)" },
+   Mine: { url: Mine, credit: "Copper mining, Adolf Hoeffler (1853)" },
+   Games1: { url: Games1, credit: "Horse racing at the Circus, Hans Werner Schmidt (1912)" },
+   Games2: { url: Games2, credit: "The Chariot Race, Alexander von Wagner (c. 1882)" },
    Empire: { url: Empire, credit: "Marcus Aurelius' expedition from Vindobona, Anton Hoffmann (1920)" },
    Expedition: { url: Expedition, credit: "The Course of Empire: Consummation , Thomas Cole (1836)" },
    Alps: { url: Alps, credit: "Aus der Berninagruppe. Typus der Centralalpen, Vogelsang & Kaiser (1890)" },

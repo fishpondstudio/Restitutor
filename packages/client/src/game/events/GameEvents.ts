@@ -16,6 +16,7 @@ import { ManualEvents } from "./ManualEvents";
 import { MissionEvents } from "./MissionEvents";
 import { NarbonensisEvent } from "./NarbonensisEvent";
 import { RandomEvents } from "./RandomEvents";
+import { TarraconensisEvent } from "./TarraconensisEvent";
 import { WesternRomanEmpireEvents } from "./WesternRomanEmpireEvents";
 
 export interface IGameEventButton extends IGameEffect {
@@ -50,6 +51,7 @@ const _GameEvents = {
    ...BelgicaEvent,
    ...NarbonensisEvent,
    ...GermaniaEvent,
+   ...TarraconensisEvent,
    ...GallicEmpireEvents,
    ...MissionEvents,
    ...WesternRomanEmpireEvents,

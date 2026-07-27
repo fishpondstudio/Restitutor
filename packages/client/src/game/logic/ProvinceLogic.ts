@@ -537,6 +537,9 @@ export function getProvinceGovernmentPoint(type: GovernorPower, province: Provin
       breakdown.add.push({ name: $t(L.FromAdvisor), value: fromAdvisor });
    }
    breakdown.add.push({ name: $t(L.FromFocus), value: state.focus === type ? 2 : -1 });
+   if (hasProvinceUpgrade("FocusedGovernance", province, save) && state.focus === type) {
+      breakdown.add.push({ name: ProvinceUpgrades.FocusedGovernance.name(), value: 1 });
+   }
    if (type === "administrative") {
       attachModifiers("AdministrativePoint", breakdown, province, save);
    }

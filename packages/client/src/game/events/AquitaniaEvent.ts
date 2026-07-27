@@ -4,7 +4,7 @@ import { Province } from "../definitions/Province";
 import { getOriginalTileCount } from "../GameState";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
 import { getProvinceCoreTileCount, getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
-import { annexAndCoreTileCondition } from "../logic/TileLogic";
+import { isCoreTileCondition } from "../logic/TileLogic";
 import {
    dissolveAllTreaties,
    requireMinimumAttitude,
@@ -337,7 +337,7 @@ export const AquitaniaEvent = {
       condition: {
          province: ["Aquitania"],
          annexAndCore: { Narbonensis: 2 },
-         conditions: (province, save) => [annexAndCoreTileCondition(8978507, province, save)],
+         conditions: (province, save) => [isCoreTileCondition(8978507, province, save)],
       },
       buttons: [
          {

@@ -164,6 +164,18 @@ const _ProvinceUpgrades = {
       name: () => $t(L.UnitedFrontier),
       desc: () => $t(L.UnitedFrontierDesc),
    },
+   CulturalEfficiency: {
+      name: () => $t(L.CulturalEfficiency),
+      desc: () => $t(L.CulturalEfficiencyDesc$1$2$3, "1%", "50%", "0.4%"),
+   },
+   ChristianTranquility: {
+      name: () => $t(L.ChristianTranquility),
+      desc: () => $t(L.ChristianTranquilityDesc$1, "-5"),
+   },
+   FocusedGovernance: {
+      name: () => $t(L.FocusedGovernance),
+      desc: () => $t(L.FocusedGovernanceDesc$1, "+1"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;
