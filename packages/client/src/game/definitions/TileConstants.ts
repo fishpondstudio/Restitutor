@@ -9,6 +9,8 @@ export const GallicEmpireProvinces: Province[] = [
    "Germania",
 ] as const;
 
+export const HispaniaProvinces: Province[] = ["Tarraconensis", "Lusitania", "Baetica"] as const;
+
 export const ExpandedGallicEmpireProvinces: Province[] = [
    ...GallicEmpireProvinces,
    "Britannia",

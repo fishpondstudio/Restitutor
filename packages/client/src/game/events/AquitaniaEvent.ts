@@ -306,6 +306,7 @@ export const AquitaniaEvent = {
       desc: () => $t(L.AGallicAllianceDesc),
       condition: {
          province: ["Aquitania"],
+         provinceOnMap: ["Lugdunensis"],
          conditions: (province, save) => {
             return [
                requireNoTreatyBetween(["Alliance", "Patron"], province, "Lugdunensis", save),

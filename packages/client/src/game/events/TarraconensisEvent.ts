@@ -3,8 +3,7 @@ import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActi
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { coreTileCountCondition, provinceResourceCondition } from "../logic/MissionLogic";
-import { addModifier } from "../logic/ModifierLogic";
+import { provinceResourceCondition } from "../logic/MissionLogic";
 import { getProvinceCoreTileCount, getProvinceName, getProvinceResource } from "../logic/ProvinceLogic";
 import { isCoreTileCondition } from "../logic/TileLogic";
 import {
@@ -332,6 +331,8 @@ export const TarraconensisEvent = {
       desc: () => $t(L.BaeticaLiesExposedDesc),
       condition: {
          province: ["Tarraconensis"],
+         playerOnly: true,
+         provinceOnMap: ["Baetica"],
          conditions: (province, save) => [
             {
                name: $t(L.$1HasAtMost$2CoreTiles, Province.Baetica.name(), "3"),
@@ -342,40 +343,14 @@ export const TarraconensisEvent = {
       buttons: [
          {
             label: () => $t(L.UndermineTheFrontierForts),
-            custom: [
-               {
-                  desc: () => $t(L.$1Gets$2TileDefenseFor$3Years, Province.Baetica.name(), "-30%", "5"),
-                  effect: (province, save) => {
-                     addModifier({
-                        name: TarraconensisEvent.Tarraconensis12.name(),
-                        modifier: "Defense",
-                        type: "multiply",
-                        value: -0.3,
-                        duration: 5 * 12,
-                        province: "Baetica",
-                        save,
-                     });
-                  },
-               },
+            provinceModifiers: [
+               { modifier: "Defense", type: "multiply", value: -0.3, duration: 5 * 12, province: "Baetica" },
             ],
          },
          {
             label: () => $t(L.SubornTheRemainingGarrisons),
-            custom: [
-               {
-                  desc: () => $t(L.$1Gets$2WarPowerFor$3Years, Province.Baetica.name(), "-30%", "5"),
-                  effect: (province, save) => {
-                     addModifier({
-                        name: TarraconensisEvent.Tarraconensis12.name(),
-                        modifier: "WarPower",
-                        type: "multiply",
-                        value: -0.3,
-                        duration: 5 * 12,
-                        province: "Baetica",
-                        save,
-                     });
-                  },
-               },
+            provinceModifiers: [
+               { modifier: "WarPower", type: "multiply", value: -0.3, duration: 5 * 12, province: "Baetica" },
             ],
          },
       ],
@@ -386,6 +361,7 @@ export const TarraconensisEvent = {
       desc: () => $t(L.AnAccordWithLusitaniaDesc),
       condition: {
          province: ["Tarraconensis"],
+         provinceOnMap: ["Lusitania"],
          conditions: (province, save) => {
             return [
                requireNoTreatyBetween(["Alliance", "Patron"], province, "Lusitania", save),
@@ -441,10 +417,11 @@ export const TarraconensisEvent = {
       desc: () => $t(L.TheDistressOfLusitaniaDesc),
       condition: {
          province: ["Tarraconensis"],
+         playerOnly: true,
          conditions: (province, save) => {
             return [
                requireAnyTreatyBetween(["Alliance", "Patron"], province, "Lusitania", save),
-               provinceResourceCondition("gold", 10_000, province, save),
+               provinceResourceCondition("gold", 5000, province, save),
                isCoreTileCondition(8585296, "Lusitania", save),
             ];
          },
@@ -452,7 +429,7 @@ export const TarraconensisEvent = {
       buttons: [
          {
             label: () => $t(L.PurchaseCaperaForTarraconensis),
-            resources: { gold: -10_000 },
+            resources: { gold: -5000 },
             custom: [
                {
                   desc: (province, save) => $t(L.$1Annexes$2, getProvinceName(province, save), getTileName(8585296)),
@@ -467,7 +444,7 @@ export const TarraconensisEvent = {
          },
          {
             label: () => $t(L.GrantOurAllyEmergencyRelief),
-            resources: { gold: -1000 },
+            resources: { gold: -500 },
             attitudes: {
                Lusitania: {
                   type: "add",
@@ -516,70 +493,6 @@ export const TarraconensisEvent = {
                   desc: (province, save) => $t(L.$1BecomesOurClient, Province.Lusitania.name()),
                },
             ],
-         },
-      ],
-   },
-   Tarraconensis16: {
-      name: () => $t(L.TheRoadsIntoGaul),
-      image: EventImage.Pyrenees,
-      desc: () => $t(L.TheRoadsIntoGaulDesc),
-      condition: {
-         province: ["Tarraconensis"],
-         conditions: (province, save) => {
-            return [coreTileCountCondition(50, province, save)];
-         },
-      },
-      buttons: [
-         {
-            label: () => $t(L.MarchAlongTheCoastIntoNarbonensis),
-            casusBelli: {
-               Narbonensis: { casusBelli: "ConquestMission", duration: 12 * 10 },
-            },
-            modifiers: {
-               WarPower: { type: "multiply", value: 0.2, duration: 12 * 2 },
-            },
-         },
-         {
-            label: () => $t(L.OpenTheWesternRoadIntoAquitania),
-            casusBelli: {
-               Aquitania: { casusBelli: "ConquestMission", duration: 12 * 10 },
-            },
-            modifiers: {
-               Stability: { type: "add", value: 20, duration: 12 * 2 },
-            },
-         },
-      ],
-   },
-   Tarraconensis17: {
-      name: () => $t(L.AcrossTheStraitOfGibraltar),
-      image: EventImage.Gibraltar,
-      desc: () => $t(L.AcrossTheStraitOfGibraltarDesc),
-      condition: {
-         province: ["Tarraconensis"],
-         conditions: (province, save) => {
-            return [isCoreTileCondition(8585300, province, save)];
-         },
-      },
-      buttons: [
-         {
-            label: () => $t(L.LaunchTheInvasionFromBaelo),
-            casusBelli: {
-               Mauretania: { casusBelli: "ConquestMission", duration: 12 * 10 },
-            },
-            modifiers: {
-               WarPower: { type: "multiply", value: 0.2, duration: 12 * 2 },
-            },
-         },
-         {
-            label: () => $t(L.PlanTheAfricanCampaignWithCare),
-            resources: {
-               administrative: 50,
-               diplomatic: 50,
-               military: 50,
-            },
-            casusBelli: {
-               Mauretania: { casusBelli: "ConquestMission", duration: 12 * 10 },
-            },
          },
       ],
    },

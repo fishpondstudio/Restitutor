@@ -1,6 +1,7 @@
 import Alliance from "../../assets/images/events/Alliance.webp";
 import Alps from "../../assets/images/events/Alps.webp";
 import Annex from "../../assets/images/events/Annex.webp";
+import Aqueduct from "../../assets/images/events/Aqueduct.webp";
 import Aquitania1 from "../../assets/images/events/Aquitania1.webp";
 import Aquitania2 from "../../assets/images/events/Aquitania2.webp";
 import Aquitania3 from "../../assets/images/events/Aquitania3.webp";
@@ -44,6 +45,10 @@ import H2 from "../../assets/images/events/H2.webp";
 import H3 from "../../assets/images/events/H3.webp";
 import InvaderConqueredWarGoal from "../../assets/images/events/InvaderConqueredWarGoal.webp";
 import InvaderSueForWhitePeace from "../../assets/images/events/InvaderSueForWhitePeace.webp";
+import Lusitania3 from "../../assets/images/events/Lusitania3.webp";
+import Lusitania4 from "../../assets/images/events/Lusitania4.webp";
+import Lusitania6 from "../../assets/images/events/Lusitania6.webp";
+import Lusitania7 from "../../assets/images/events/Lusitania7.webp";
 import Martyrs from "../../assets/images/events/Martyrs.webp";
 import MediterraneanHarbour from "../../assets/images/events/MediterraneanHarbour.webp";
 import Merchant from "../../assets/images/events/Merchant.webp";
@@ -308,6 +313,10 @@ export const EventImage = {
       url: Tarraconensis10,
       credit: "Episode from the Peasants' Revolt: The Fire of Turnhout, Constantin Meunier (c. 1878)",
    },
+   Lusitania3: { url: Lusitania3, credit: "The Four Elements: Water, Joachim Beuckelaer (1569)" },
+   Lusitania4: { url: Lusitania4, credit: "The Vintage Festival, Lawrence Alma-Tadema (1871)" },
+   Lusitania6: { url: Lusitania6, credit: "Saint Eulalia, John William Waterhouse (1885)" },
+   Lusitania7: { url: Lusitania7, credit: "The Disputation of Saint Stephen, Vittore Carpaccio (1514)" },
    Pyrenees: { url: Pyrenees, credit: "Views from Spain towards the High Pyrenees, Charles Hamilton Smith" },
    Alliance: { url: Alliance, credit: "The Oracle at Delphi, Hans Werner Schmidt (1920)" },
    NavalWarfare: { url: NavalWarfare, credit: "The Battle of Salamis, Anton Hoffmann (1920)" },
@@ -321,6 +330,7 @@ export const EventImage = {
    Games1: { url: Games1, credit: "Horse racing at the Circus, Hans Werner Schmidt (1912)" },
    Games2: { url: Games2, credit: "The Chariot Race, Alexander von Wagner (c. 1882)" },
    Empire: { url: Empire, credit: "Marcus Aurelius' expedition from Vindobona, Anton Hoffmann (1920)" },
+   Aqueduct: { url: Aqueduct, credit: "Landscape with ruins and an aqueduct, Pierre Antoine Patel the younger" },
    Gibraltar: { url: Gibraltar, credit: "Gibraltar. (From the Mainland), Thomas Nelson & Sons (1907)" },
    Expedition: { url: Expedition, credit: "The Course of Empire: Consummation , Thomas Cole (1836)" },
    Alps: { url: Alps, credit: "Aus der Berninagruppe. Typus der Centralalpen, Vogelsang & Kaiser (1890)" },

@@ -10,7 +10,6 @@ import type { GovernorPower, Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { BarbarianRaidNegativeEffect } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
-import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { cacheTile } from "./CacheLogic";
@@ -24,6 +23,7 @@ import {
 } from "./ProvinceLogic";
 import { getBuildingTech, hasResearched } from "./TechLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
+import { getTreatyCount } from "./TreatyLogic";
 import { getCurrentWars, type IWar } from "./WarLogic";
 
 export function isCapital(tile: Tile, save: SaveGame): boolean {
@@ -297,6 +297,15 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.LandTax, breakdown);
    attachModifiers("LandTax", breakdown, data.province, save);
+   if (hasProvinceUpgrade("TreatyRevenues", data.province, save)) {
+      const treatyCount = getTreatyCount(data.province, save);
+      if (treatyCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.TreatyRevenues.name(),
+            value: treatyCount * 0.05,
+         });
+      }
+   }
    getProvinceTraits("Diligent", data.province, save).forEach((trait) => {
       breakdown.multiply.push({ ...trait, value: 0.02 });
    });
@@ -359,6 +368,12 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.GoodsTax, breakdown);
    attachModifiers("TileOutput", breakdown, data.province, save);
+   if (hasProvinceUpgrade("PaxLusitana", data.province, save) && getCurrentWars(data.province, save).length === 0) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.PaxLusitana.name(),
+         value: 0.2,
+      });
+   }
    getProvinceTraits("Methodical", data.province, save).forEach((trait) => {
       breakdown.multiply.push({ ...trait, value: 0.02 });
    });
@@ -672,10 +687,39 @@ export function getBuildingSlot(tile: Tile, save: SaveGame): IValueBreakdown {
    return finalizeBreakdown(result);
 }
 
-export function isCoreTileCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
+function isCoreTile(tile: Tile, province: Province, save: SaveGame): boolean {
    const data = save.state.tiles.get(tile);
+   return data?.province === province && data.coreProvinces.has(province);
+}
+
+export function isCoreTileCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
    return {
-      name: $t(L.$1Is$2CoreTile, getTileName(tile), getProvinceName(province, save)),
-      value: data?.province === province && data.coreProvinces.has(province),
+      name: $t(L.$1AnnexesAndCores$2, getProvinceName(province, save), `<Tile>${tile}</Tile>`),
+      value: isCoreTile(tile, province, save),
+   };
+}
+
+export function anyCoreTileCondition(tiles: Iterable<Tile>, province: Province, save: SaveGame): ICondition {
+   const tileList = Array.from(tiles);
+   return {
+      name: $t(
+         L.$1AnnexesAndCoresAnyOf$2,
+         getProvinceName(province, save),
+         tileList.map((tile) => `<Tile>${tile}</Tile>`).join(", "),
+      ),
+      value: tileList.some((tile) => isCoreTile(tile, province, save)),
+   };
+}
+
+export function allCoreTileCondition(tiles: Iterable<Tile>, province: Province, save: SaveGame): ICondition {
+   const tileList = Array.from(tiles);
+   return {
+      name: $t(
+         L.$1AnnexesAndCoresAllOf$2,
+         getProvinceName(province, save),
+         tileList.map((tile) => `<Tile>${tile}</Tile>`).join(", "),
+      ),
+      value: tileList.every((tile) => isCoreTile(tile, province, save)),
+      progress: [tileList.filter((tile) => isCoreTile(tile, province, save)).length, tileList.length],
    };
 }

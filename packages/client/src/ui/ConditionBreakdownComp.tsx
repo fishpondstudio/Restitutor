@@ -1,6 +1,7 @@
 import { formatNumber } from "@project/shared/src/utils/Helper";
 import { memo } from "react";
 import { areConditionBreakdownsEqual, type ICondition, type IConditionBreakdown } from "../game/actions/GameAction";
+import { renderMarkup } from "./ParseMarkup";
 
 export const ConditionBreakdownComp = memo(_ConditionBreakdownComp, (prev, next) => {
    return areConditionBreakdownsEqual(prev.condition, next.condition);
@@ -27,9 +28,9 @@ function _ConditionBreakdownRow({ name, value, desc, progress, hidden }: ICondit
       return null;
    }
    return (
-      <div className="row ml10 my5 mr5" key={name}>
+      <div className="row ml10 my5 mr5">
          <div className="f1">
-            <div>{name}</div>
+            <div>{renderMarkup(name)}</div>
             {desc && <div className="text-xs text-dimmed text-italic">{desc}</div>}
          </div>
          {progress && (

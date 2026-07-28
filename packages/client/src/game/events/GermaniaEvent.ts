@@ -399,6 +399,7 @@ export const GermaniaEvent = {
       desc: () => $t(L.ThePassesToTheSouthDesc),
       condition: {
          province: ["Germania"],
+         playerOnly: true,
          conditions: (province, save) => [coreTileCountCondition(25, province, save)],
       },
       buttons: [

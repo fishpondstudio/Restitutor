@@ -1,4 +1,4 @@
-import { clamp, filterOf, forEach, sizeOf } from "@project/shared/src/utils/Helper";
+import { clamp, filterOf, forEach, isNullOrUndefined, sizeOf } from "@project/shared/src/utils/Helper";
 import type React from "react";
 import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
@@ -55,28 +55,40 @@ export function filterProvinces<T>(
 }
 
 export function getEventButtons(event: GameEvent, province: Province, save: SaveGame): IGameEventButton[] {
-   return GameEvents[event].buttons.filter((button) => {
+   return GameEvents[event].buttons.flatMap((_button) => {
+      const button = cloneGameEventButton(_button);
       if (button.attitudes) {
-         if (sizeOf(filterProvinces(button.attitudes, province, save)) === 0) {
-            return false;
+         button.attitudes = filterProvinces(button.attitudes, province, save);
+         if (sizeOf(button.attitudes) === 0) {
+            // biome-ignore lint/performance/noDelete: Ignore
+            delete button.attitudes;
          }
       }
       if (button.infiltration) {
-         if (sizeOf(filterProvinces(button.infiltration, province, save)) === 0) {
-            return false;
+         button.infiltration = filterProvinces(button.infiltration, province, save);
+         if (sizeOf(button.infiltration) === 0) {
+            // biome-ignore lint/performance/noDelete: Ignore
+            delete button.infiltration;
          }
       }
       if (button.casusBelli) {
-         if (sizeOf(filterProvinces(button.casusBelli, province, save)) === 0) {
-            return false;
+         button.casusBelli = filterProvinces(button.casusBelli, province, save);
+         if (sizeOf(button.casusBelli) === 0) {
+            // biome-ignore lint/performance/noDelete: Ignore
+            delete button.casusBelli;
          }
       }
       if (button.trades) {
-         if (sizeOf(filterProvinces(button.trades, province, save)) === 0) {
-            return false;
+         button.trades = filterProvinces(button.trades, province, save);
+         if (sizeOf(button.trades) === 0) {
+            // biome-ignore lint/performance/noDelete: Ignore
+            delete button.trades;
          }
       }
-      return true;
+      if (sizeOf(button) > 1) {
+         return [button];
+      }
+      return [];
    });
 }
 
@@ -137,6 +149,21 @@ export function getGameEventCondition(
          name: $t(L.OurProvinceIs$1, getProvinceName(province, save)),
          value: condition.province.includes(province),
          hidden: true,
+      });
+   }
+   if (condition.playerOnly) {
+      result.push({
+         name: $t(L.$1IsControlledByPlayer, getProvinceName(province, save)),
+         value: province === save.state.playerProvince,
+         hidden: true,
+      });
+   }
+   if (condition.provinceOnMap) {
+      condition.provinceOnMap.forEach((province) => {
+         result.push({
+            name: $t(L.$1IsOnTheMap, province),
+            value: !isNullOrUndefined(save.state.provinces[province]),
+         });
       });
    }
    if (condition.nameOverride) {
@@ -211,6 +238,16 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
       if (config.condition.province && !config.condition.province.includes(province)) {
          return;
       }
+      if (config.condition.provinceOnMap && !showAll) {
+         for (const province of config.condition.provinceOnMap) {
+            if (isNullOrUndefined(save.state.provinces[province])) {
+               return;
+            }
+         }
+      }
+      if (config.condition.playerOnly && province !== save.state.playerProvince) {
+         return;
+      }
       if (config.condition.nameOverride) {
          if (state.nameOverride !== config.condition.nameOverride) {
             return;
@@ -229,4 +266,15 @@ export function getGameEventImages(): ImageWithCredit[] {
       }
    });
    return result;
+}
+
+export function cloneGameEventButton(button: IGameEventButton): IGameEventButton {
+   const cloned = JSON.parse(JSON.stringify(button)) as IGameEventButton;
+   if (button.label) {
+      cloned.label = button.label;
+   }
+   if (button.custom) {
+      cloned.custom = button.custom;
+   }
+   return cloned;
 }

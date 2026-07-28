@@ -3030,8 +3030,7 @@
          {
             "terrain": "Plain",
             "province": "Mauretania",
-            "name": "Tingi",
-            "isCapital": true
+            "name": "Tingi"
          }
       ],
       [
@@ -3143,7 +3142,8 @@
          {
             "terrain": "Plain",
             "province": "Mauretania",
-            "name": "Caesarea"
+            "name": "Caesarea",
+            "isCapital": true
          }
       ],
       [

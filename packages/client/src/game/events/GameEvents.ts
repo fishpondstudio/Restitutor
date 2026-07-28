@@ -9,9 +9,11 @@ import { AquitaniaEvent } from "./AquitaniaEvent";
 import { BelgicaEvent } from "./BelgicaEvent";
 import { GallicEmpireEvents } from "./GallicEmpireEvents";
 import { GermaniaEvent } from "./GermaniaEvent";
+import { HispaniaEvent } from "./HispaniaEvents";
 import { HistoricalEvents } from "./HistoricalEvents";
 import type { ImageWithCredit } from "./ImageWithCredit";
 import { LugdunensisEvent } from "./LugdunensisEvent";
+import { LusitaniaEvent } from "./LusitaniaEvent";
 import { ManualEvents } from "./ManualEvents";
 import { MissionEvents } from "./MissionEvents";
 import { NarbonensisEvent } from "./NarbonensisEvent";
@@ -38,6 +40,8 @@ export interface IGameEventCondition {
    year?: [number, number];
    nameOverride?: ProvinceNameOverride;
    province?: Province[];
+   playerOnly?: boolean;
+   provinceOnMap?: Province[];
    religion?: Religion;
    techs?: Tech[];
    provinceUpgrades?: ProvinceUpgrade[];
@@ -52,7 +56,9 @@ const _GameEvents = {
    ...NarbonensisEvent,
    ...GermaniaEvent,
    ...TarraconensisEvent,
+   ...LusitaniaEvent,
    ...GallicEmpireEvents,
+   ...HispaniaEvent,
    ...MissionEvents,
    ...WesternRomanEmpireEvents,
    // These should not appear in `MissionPage`

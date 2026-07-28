@@ -266,7 +266,12 @@ export const Province = {
    },
    Italia: { name: () => $t(L.ProvinceItalia), culture: "Italic", religion: "GrecoRoman", upgrades: [] },
    Judea: { name: () => $t(L.ProvinceJudea), culture: "Arab", religion: "Judaism", upgrades: [] },
-   Lusitania: { name: () => $t(L.ProvinceLusitania), culture: "Iberian", religion: "Iberian", upgrades: [] },
+   Lusitania: {
+      name: () => $t(L.ProvinceLusitania),
+      culture: "Iberian",
+      religion: "Iberian",
+      upgrades: ["TreatyRevenues", "VictoriousLeadership", "PaxLusitana"],
+   },
    Lycia: { name: () => $t(L.ProvinceLycia), culture: "Anatolian", religion: "Anatolian", upgrades: [] },
    Lugdunensis: {
       name: () => $t(L.ProvinceLugdunensis),
@@ -316,6 +321,7 @@ export const EnabledProvinces: Province[] = [
    "Belgica",
    "Germania",
    "Tarraconensis",
+   "Lusitania",
 ];
 
 export const ProvinceExtraGoverningCapacity: Partial<Record<Province, number>> = {

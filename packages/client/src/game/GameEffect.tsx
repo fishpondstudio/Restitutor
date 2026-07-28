@@ -44,6 +44,7 @@ export interface IGameEffect {
    trades?: Partial<Record<Province, IEventTrade>>;
    provinceUpgrades?: ProvinceUpgrade[];
    modifiers?: Partial<Record<Modifier, Omit<IModifier, "name">>>;
+   provinceModifiers?: (Omit<IModifier, "name"> & { modifier: Modifier; province: Province })[];
    attitudes?: Partial<Record<Province, Omit<IModifier, "name"> & { duration: number }>>;
    casusBelli?: Partial<Record<Province, { casusBelli: CasusBelli; duration: number }>>;
    spawnProvinces?: SpawnedProvince[];
@@ -84,6 +85,11 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
             ))}
          {effect.modifiers &&
             mapOf(effect.modifiers, (modifier, data) => <div key={modifier}>{modifierToString(modifier, data)}</div>)}
+         {effect.provinceModifiers?.map((modifier) => (
+            <div key={modifier.modifier}>
+               {getProvinceName(modifier.province, save)}: {modifierToString(modifier.modifier, modifier)}
+            </div>
+         ))}
          {effect.attitudes &&
             mapOf(filterProvinces(effect.attitudes, province, save), (fromProvince, modifier) => (
                <div key={fromProvince}>
@@ -155,6 +161,13 @@ export function applyGameEffect(effect: IGameEffect, source: string, province: P
          name: source,
          modifier: modifier,
          province: province,
+         save: save,
+      });
+   });
+   effect.provinceModifiers?.forEach((data) => {
+      addModifier({
+         ...data,
+         name: source,
          save: save,
       });
    });
