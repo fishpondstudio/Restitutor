@@ -302,7 +302,7 @@ export const LusitaniaEvent = {
             },
          },
          {
-            label: () => $t(L.ExchangeMagistratesEnvoysAndOfficers),
+            label: () => $t(L.ExchangeOfficialsEnvoysAndOfficers),
             resources: { administrative: 50, diplomatic: 50, military: 50 },
          },
       ],
@@ -319,14 +319,14 @@ export const LusitaniaEvent = {
       },
       buttons: [
          {
-            label: () => $t(L.SellTheSpoilsThroughTarraconensianMerchants),
+            label: () => $t(L.SellSpoilsViaTarraconensianMerchants),
             resources: { gold: 1500 },
             attitudes: {
                Tarraconensis: { type: "add", value: 20, duration: 5 * 12 },
             },
          },
          {
-            label: () => $t(L.InviteMauretanianEnvoysToStudyOurVictory),
+            label: () => $t(L.LetMauretanianEnvoysStudyOurVictory),
             resources: { diplomatic: 50, administrative: 50, military: 50 },
             attitudes: {
                Mauretania: { type: "add", value: 20, duration: 5 * 12 },

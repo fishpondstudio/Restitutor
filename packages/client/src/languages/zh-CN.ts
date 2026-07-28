@@ -2476,10 +2476,7 @@ export const ZH_CN = {
    TheFruitsOfTarraconensianFriendshipDesc: "西班牙各地的友好关系已经稳固，塔拉科嫩西斯的指挥官、工程师与政务官愿意与我们分享经验。我们只需决定，他们的建议最适合用来加强卢西塔尼亚的哪个方面。",
    CoordinateOurArmies: "协调我们的军队",
    StrengthenOurCommonDefenses: "加强我们的共同防御",
-   ExchangeMagistratesEnvoysAndOfficers: "互派政务官、使节与军官",
    LusitaniaFootholdInBaeticaDesc: "我们在拜提卡西部的胜利使富饶庄园、繁荣城镇和久经沙场的士兵归入卢西塔尼亚统治。征服所得的战利品也让我们有机会打动一位强大的邻邦。",
-   SellTheSpoilsThroughTarraconensianMerchants: "通过塔拉科嫩西斯商人出售战利品",
-   InviteMauretanianEnvoysToStudyOurVictory: "邀请毛里塔尼亚使节考察我们的胜利",
    TheDistressOfTarraconensis: "塔拉科嫩西斯之困",
    TheDistressOfTarraconensisDesc: "债务与收入下滑耗空了塔拉科嫩西斯的国库。其政务官愿出售西部边地，但接受这一价格会给我们的国库带来沉重负担。",
    PurchaseTheWesternBorderlands: "购下西部边地",
@@ -2490,4 +2487,7 @@ export const ZH_CN = {
    RecruitANewGenerationOfOfficials: "招募新一代官员",
    TheGoldenCoffersOfEmerita: "埃梅里塔的黄金国库",
    TheGoldenCoffersOfEmeritaDesc: "卢西塔尼亚的收入如今已可媲美西部最富裕的行省。若投资得当，这笔财富能让我们的商人深入大西洋，也能从大型庄园中榨取更丰厚的回报。",
+   ExchangeOfficialsEnvoysAndOfficers: "互派官员、使节与军官",
+   SellSpoilsViaTarraconensianMerchants: "通过塔拉科嫩西斯商人出售战利品",
+   LetMauretanianEnvoysStudyOurVictory: "让毛里塔尼亚使节考察我们的胜利",
 };

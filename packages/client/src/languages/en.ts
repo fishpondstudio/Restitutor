@@ -2491,10 +2491,7 @@ export const EN = {
    TheFruitsOfTarraconensianFriendshipDesc: "With friendship across Hispania secured, Tarraconensian commanders, engineers, and magistrates offer us the benefit of their experience. We need only decide where their counsel might best strengthen Lusitania.",
    CoordinateOurArmies: "Coordinate our armies",
    StrengthenOurCommonDefenses: "Strengthen our common defenses",
-   ExchangeMagistratesEnvoysAndOfficers: "Exchange magistrates, envoys, and officers",
    LusitaniaFootholdInBaeticaDesc: "Our victories in western Baetica have brought rich estates, prosperous towns, and seasoned soldiers under Lusitanian rule. The spoils of conquest also offer a chance to impress one of our powerful neighbors.",
-   SellTheSpoilsThroughTarraconensianMerchants: "Sell the spoils through Tarraconensian merchants",
-   InviteMauretanianEnvoysToStudyOurVictory: "Invite Mauretanian envoys to study our victory",
    TheDistressOfTarraconensis: "The Distress of Tarraconensis",
    TheDistressOfTarraconensisDesc: "Debt and declining revenues have emptied Tarraconensis's treasury. Its magistrates offer the western borderlands for sale, though accepting their price would place a heavy burden on our own coffers.",
    PurchaseTheWesternBorderlands: "Purchase the western borderlands",
@@ -2505,4 +2502,7 @@ export const EN = {
    RecruitANewGenerationOfOfficials: "Recruit a new generation of officials",
    TheGoldenCoffersOfEmerita: "The Golden Coffers of Emerita",
    TheGoldenCoffersOfEmeritaDesc: "Lusitania's revenues now rival those of the richest provinces in the west. Invested wisely, this wealth could carry our merchants farther across the Atlantic or wring richer returns from the great estates.",
+   ExchangeOfficialsEnvoysAndOfficers: "Exchange officials, envoys, and officers",
+   SellSpoilsViaTarraconensianMerchants: "Sell spoils via Tarraconensian merchants",
+   LetMauretanianEnvoysStudyOurVictory: "Let Mauretanian envoys study our victory",
 };
