@@ -156,27 +156,35 @@ function initTileUpgrades(save: SaveGame): void {
    for (const [province, data] of entriesOf(save.state.provinces)) {
       maxTileCount = Math.max(maxTileCount, getProvinceTileCount(province, save));
    }
+
+   for (const [province, data] of entriesOf(save.state.provinces)) {
+      const tileData = save.state.tiles.get(data.capital);
+      if (tileData) {
+         tileData.infrastructure = 2;
+         tileData.production = 2;
+         tileData.population = 2;
+      }
+   }
+
    for (const [province, data] of entriesOf(save.state.provinces)) {
       const tileCount = getProvinceTileCount(province, save);
-      let total = Math.min(maxTileCount * 3, 20 * 3 * tileCount);
-      const capital = data.capital;
+      let total = Math.min(maxTileCount * 3, 20 * 3 * tileCount) - 6;
       while (true) {
          if (total <= 0) break;
          for (const [tile, data] of save.state.tiles) {
             if (data.province !== province) {
                continue;
             }
-            const amount = tile === capital ? 2 : 1;
-            data.infrastructure += amount;
-            total -= amount;
+            ++data.infrastructure;
+            --total;
             if (total <= 0) break;
 
-            data.production += amount;
-            total -= amount;
+            ++data.production;
+            --total;
             if (total <= 0) break;
 
-            data.population += amount;
-            total -= amount;
+            ++data.population;
+            --total;
             if (total <= 0) break;
          }
       }
