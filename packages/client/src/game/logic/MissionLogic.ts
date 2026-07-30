@@ -9,11 +9,13 @@ import {
    ProvinceStatNames,
 } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
+import { getMarriageAlliance } from "./DiplomacyLogic";
 import {
    getProvinceCoreTileCount,
    getProvinceGoverningCost,
    getProvinceIncome,
    getProvinceManpower,
+   getProvinceName,
    getProvinceResource,
    getProvinceStat,
    getWarPower,
@@ -65,12 +67,20 @@ export function warPowerCondition(minimum: number, province: Province, save: Sav
    };
 }
 
-export function coreTileCountCondition(minimum: number, province: Province, save: SaveGame): ICondition {
+export function minCoreTileCondition(minimum: number, province: Province, save: SaveGame): ICondition {
    const tileCount = getProvinceCoreTileCount(province, save);
    return {
-      name: $t(L.HaveAtLeast$1CoreTiles, formatNumber(minimum)),
+      name: $t(L.$1HasAtLeast$2CoreTiles, getProvinceName(province, save), formatNumber(minimum)),
       value: tileCount >= minimum,
       progress: [tileCount, minimum],
+   };
+}
+
+export function maxCoreTileCondition(max: number, province: Province, save: SaveGame): ICondition {
+   const tileCount = getProvinceCoreTileCount(province, save);
+   return {
+      name: $t(L.$1HasAtMost$2CoreTiles, getProvinceName(province, save), formatNumber(max)),
+      value: tileCount <= max,
    };
 }
 
@@ -108,5 +118,12 @@ export function provinceStatCondition(
       name: $t(L.HaveAtLeast$1$2, formatNumber(minimum), ProvinceStatNames[stat]()),
       value: value >= minimum,
       progress: [value, minimum],
+   };
+}
+
+export function marriageCondition(province1: Province, province2: Province, save: SaveGame): ICondition {
+   return {
+      name: $t(L.$1HasAMarriageWith$2, getProvinceName(province1, save), getProvinceName(province2, save)),
+      value: getMarriageAlliance(province1, province2, save).length > 0,
    };
 }

@@ -53,3 +53,5 @@ export const Tiles = {
    Durocortorum: createTile(138, 67),
    Lutetia: createTile(137, 68),
 } as const satisfies Record<string, Tile>;
+
+export const StraitOfGibraltarTiles = [8585300, 8519765] as const satisfies Tile[];

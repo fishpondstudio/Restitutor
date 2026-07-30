@@ -1,6 +1,6 @@
 import { $t, L } from "../../utils/i18n";
 import { getOriginalTileCount } from "../GameState";
-import { allyCountCondition, coreTileCountCondition } from "../logic/MissionLogic";
+import { allyCountCondition, minCoreTileCondition } from "../logic/MissionLogic";
 import { isGreatPowerCondition } from "../logic/ProvinceLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -35,7 +35,7 @@ export const MissionEvents = {
       condition: {
          conditions: (province, save) => [
             isGreatPowerCondition(province, save),
-            coreTileCountCondition(getOriginalTileCount(province) + 5, province, save),
+            minCoreTileCondition(getOriginalTileCount(province) + 5, province, save),
          ],
       },
       buttons: [

@@ -2,7 +2,7 @@ import { $t, L } from "../../utils/i18n";
 import { HispaniaProvinces } from "../definitions/TileConstants";
 import { TimedActions } from "../definitions/TimedAction";
 import { getOriginalTileCount } from "../GameState";
-import { coreTileCountCondition } from "../logic/MissionLogic";
+import { minCoreTileCondition } from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
 import { allCoreTileCondition, anyCoreTileCondition, isCoreTileCondition } from "../logic/TileLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
@@ -18,7 +18,7 @@ export const HispaniaEvent = {
          province: HispaniaProvinces,
          conditions: (province, save) => {
             return [
-               coreTileCountCondition(getOriginalTileCount(province) + 10, province, save),
+               minCoreTileCondition(getOriginalTileCount(province) + 10, province, save),
                anyCoreTileCondition([8781900, 8847436, 8847437, 8912973, 8978509], province, save),
             ];
          },
@@ -51,7 +51,10 @@ export const HispaniaEvent = {
       condition: {
          province: HispaniaProvinces,
          conditions: (province, save) => {
-            return [isCoreTileCondition(8585300, province, save)];
+            return [
+               minCoreTileCondition(getOriginalTileCount(province) + 2, province, save),
+               isCoreTileCondition(8585300, province, save),
+            ];
          },
       },
       buttons: [

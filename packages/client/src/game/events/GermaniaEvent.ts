@@ -2,7 +2,7 @@ import { $t, L } from "../../utils/i18n";
 import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
-import { coreTileCountCondition, warPowerCondition } from "../logic/MissionLogic";
+import { minCoreTileCondition, warPowerCondition } from "../logic/MissionLogic";
 import { getProvinceCoreTileCount, getProvinceResource } from "../logic/ProvinceLogic";
 import { dissolveAllTreaties, requireAnyTreatyBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
@@ -400,7 +400,7 @@ export const GermaniaEvent = {
       condition: {
          province: ["Germania"],
          playerOnly: true,
-         conditions: (province, save) => [coreTileCountCondition(25, province, save)],
+         conditions: (province, save) => [minCoreTileCondition(25, province, save)],
       },
       buttons: [
          {
@@ -463,7 +463,7 @@ export const GermaniaEvent = {
       desc: () => $t(L.GermaniaAscendantDesc),
       condition: {
          province: ["Germania"],
-         conditions: (province, save) => [coreTileCountCondition(30, province, save)],
+         conditions: (province, save) => [minCoreTileCondition(30, province, save)],
       },
       buttons: [
          {

@@ -374,7 +374,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis14: {
       name: () => $t(L.TheCorsicanMarriageSettlement),
-      image: EventImage.Wedding,
+      image: EventImage.Wedding1,
       desc: () => $t(L.TheCorsicanMarriageSettlementDesc),
       condition: {
          province: ["Narbonensis"],

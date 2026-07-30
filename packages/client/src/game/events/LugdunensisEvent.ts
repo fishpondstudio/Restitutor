@@ -4,9 +4,10 @@ import { OfferPatronageAction } from "../actions/TreatyActions";
 import { CasusBelli } from "../definitions/CasusBelli";
 import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
-import { availableDiplomatCondition, getMarriageAlliance, getRelation } from "../logic/DiplomacyLogic";
+import { availableDiplomatCondition, getRelation } from "../logic/DiplomacyLogic";
 import {
    manpowerCondition,
+   marriageCondition,
    provinceRevenueCondition,
    techCountCondition,
    warPowerCondition,
@@ -179,10 +180,7 @@ export const LugdunensisEvent = {
                name: $t(L.$1HasAtMost$2CoreTiles, Province.Belgica.name(), "3"),
                value: getProvinceCoreTileCount("Belgica", save) <= 3,
             },
-            {
-               name: $t(L.$1HasAMarriageWith$2, Province.Lugdunensis.name(), Province.Belgica.name()),
-               value: getMarriageAlliance(province, "Belgica", save).length > 0,
-            },
+            marriageCondition(province, "Belgica", save),
             availableDiplomatCondition(province, "Belgica", save),
             requireMinimumAttitude("Belgica", province, 50, save),
          ],

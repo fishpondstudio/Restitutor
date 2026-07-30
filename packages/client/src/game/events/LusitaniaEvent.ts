@@ -1,6 +1,6 @@
 import { $t, L } from "../../utils/i18n";
 import { getTileName } from "../definitions/TileName";
-import { coreTileCountCondition, provinceResourceCondition, provinceRevenueCondition } from "../logic/MissionLogic";
+import { minCoreTileCondition, provinceResourceCondition, provinceRevenueCondition } from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
 import { allCoreTileCondition } from "../logic/TileLogic";
 import { requireAnyTreatyBetween } from "../logic/TreatyLogic";
@@ -384,7 +384,7 @@ export const LusitaniaEvent = {
       condition: {
          province: ["Lusitania"],
          conditions: (province, save) => [
-            coreTileCountCondition(15, province, save),
+            minCoreTileCondition(15, province, save),
             provinceRevenueCondition(200, province, save),
          ],
       },
@@ -406,7 +406,7 @@ export const LusitaniaEvent = {
       condition: {
          province: ["Lusitania"],
          conditions: (province, save) => [
-            coreTileCountCondition(20, province, save),
+            minCoreTileCondition(20, province, save),
             provinceRevenueCondition(300, province, save),
          ],
       },

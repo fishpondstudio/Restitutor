@@ -6,6 +6,7 @@ import type { Tech } from "../definitions/Tech";
 import type { ICustomEffect, IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { AquitaniaEvent } from "./AquitaniaEvent";
+import { BaeticaEvent } from "./BaeticaEvent";
 import { BelgicaEvent } from "./BelgicaEvent";
 import { GallicEmpireEvents } from "./GallicEmpireEvents";
 import { GermaniaEvent } from "./GermaniaEvent";
@@ -57,6 +58,7 @@ const _GameEvents = {
    ...GermaniaEvent,
    ...TarraconensisEvent,
    ...LusitaniaEvent,
+   ...BaeticaEvent,
    ...GallicEmpireEvents,
    ...HispaniaEvent,
    ...MissionEvents,

@@ -12,6 +12,12 @@ import Aquitania8 from "../../assets/images/events/Aquitania8.webp";
 import Aquitania9 from "../../assets/images/events/Aquitania9.webp";
 import Aquitania10 from "../../assets/images/events/Aquitania10.webp";
 import Arianism from "../../assets/images/events/Arianism.webp";
+import Baetica2 from "../../assets/images/events/Baetica2.webp";
+import Baetica3 from "../../assets/images/events/Baetica3.webp";
+import Baetica5 from "../../assets/images/events/Baetica5.webp";
+import Baetica6 from "../../assets/images/events/Baetica6.webp";
+import Baetica7 from "../../assets/images/events/Baetica7.webp";
+import Baetica9 from "../../assets/images/events/Baetica9.webp";
 import Belgica1 from "../../assets/images/events/Belgica1.webp";
 import Belgica2 from "../../assets/images/events/Belgica2.webp";
 import Belgica3 from "../../assets/images/events/Belgica3.webp";
@@ -23,6 +29,7 @@ import Belgica10 from "../../assets/images/events/Belgica10.webp";
 import Bishop from "../../assets/images/events/Bishop.webp";
 import Canal from "../../assets/images/events/Canal.webp";
 import Circus from "../../assets/images/events/Circus.webp";
+import Dancer from "../../assets/images/events/Dancer.webp";
 import DeclareWar from "../..//assets/images/events/DeclareWar.webp";
 import DrawnIntoWar from "../../assets/images/events/DrawnIntoWar.webp";
 import Emperor from "../../assets/images/events/Emperor.webp";
@@ -45,6 +52,7 @@ import H2 from "../../assets/images/events/H2.webp";
 import H3 from "../../assets/images/events/H3.webp";
 import InvaderConqueredWarGoal from "../../assets/images/events/InvaderConqueredWarGoal.webp";
 import InvaderSueForWhitePeace from "../../assets/images/events/InvaderSueForWhitePeace.webp";
+import Island from "../../assets/images/events/Island.webp";
 import Lusitania3 from "../../assets/images/events/Lusitania3.webp";
 import Lusitania4 from "../../assets/images/events/Lusitania4.webp";
 import Lusitania6 from "../../assets/images/events/Lusitania6.webp";
@@ -65,6 +73,7 @@ import Narbonensis8 from "../../assets/images/events/Narbonensis8.webp";
 import Narbonensis9 from "../../assets/images/events/Narbonensis9.webp";
 import Narbonensis10 from "../../assets/images/events/Narbonensis10.webp";
 import NavalWarfare from "../../assets/images/events/NavalWarfare.webp";
+import Olive from "../../assets/images/events/Olive.webp";
 import Prosperity from "../../assets/images/events/Prosperity.webp";
 import Pyrenees from "../../assets/images/events/Pyrenees.webp";
 import Refugee from "../../assets/images/events/Refugee.webp";
@@ -83,7 +92,8 @@ import War1 from "../../assets/images/events/War1.webp";
 import War2 from "../../assets/images/events/War2.webp";
 import WarEnded from "../../assets/images/events/WarEnded.webp";
 import Watchtower from "../../assets/images/events/Watchtower.webp";
-import Wedding from "../../assets/images/events/Wedding.webp";
+import Wedding1 from "../../assets/images/events/Wedding1.webp";
+import Wedding2 from "../../assets/images/events/Wedding2.webp";
 import Y193 from "../../assets/images/events/Y193.webp";
 import Y197 from "../../assets/images/events/Y197.webp";
 import Y198 from "../../assets/images/events/Y198.webp";
@@ -317,6 +327,17 @@ export const EventImage = {
    Lusitania4: { url: Lusitania4, credit: "The Vintage Festival, Lawrence Alma-Tadema (1871)" },
    Lusitania6: { url: Lusitania6, credit: "Saint Eulalia, John William Waterhouse (1885)" },
    Lusitania7: { url: Lusitania7, credit: "The Disputation of Saint Stephen, Vittore Carpaccio (1514)" },
+   Olive: { url: Olive, credit: "Women Picking Olives, Vincent van Gogh Dutch (1889)" },
+   Baetica2: { url: Baetica2, credit: "Swordfish fishing off Capri, Christian Frederik Ferdinand Thøming (c.1830)" },
+   Baetica3: { url: Baetica3, credit: "Pass in the Sierra Morena, Charles Hamilton Smith" },
+   Baetica5: { url: Baetica5, credit: "Saint Roderick, Bartolomé Esteban Murillo (c.1646)" },
+   Baetica6: {
+      url: Baetica6,
+      credit: "Pope Formosus and Stephen VI - The Cadaver Synod, Jean-Paul Laurens (1870)",
+   },
+   Baetica7: { url: Baetica7, credit: "The First Council of Nicaea, Michael Damaskinos (1591)" },
+   Dancer: { url: Dancer, credit: "The Roman Dance, Ettore Forti" },
+   Baetica9: { url: Baetica9, credit: "Gaiseric's Vandals in Italy, Unknown artist (c.1800s)" },
    Pyrenees: { url: Pyrenees, credit: "Views from Spain towards the High Pyrenees, Charles Hamilton Smith" },
    Alliance: { url: Alliance, credit: "The Oracle at Delphi, Hans Werner Schmidt (1920)" },
    NavalWarfare: { url: NavalWarfare, credit: "The Battle of Salamis, Anton Hoffmann (1920)" },
@@ -325,7 +346,8 @@ export const EventImage = {
    Circus: { url: Circus, credit: "Rome under the emperors, battles in the circus, Carl H.F. Schmidt (1888)" },
    War2: { url: War2, credit: "The Fall of Pompeii, Anton Hoffmann (1920)" },
    Prosperity: { url: Prosperity, credit: "Le triomphe de la Ville de Paris, François-Edouard Picot (1842)" },
-   Wedding: { url: Wedding, credit: "Hymen, oh Hyménée, Juan Luna (1886-87)" },
+   Wedding1: { url: Wedding1, credit: "Hymen, oh Hyménée, Juan Luna (1886-87)" },
+   Wedding2: { url: Wedding2, credit: "A Roman Wedding Procession, Edwin Howland Blashfield" },
    Mine: { url: Mine, credit: "Copper mining, Adolf Hoeffler (1853)" },
    Games1: { url: Games1, credit: "Horse racing at the Circus, Hans Werner Schmidt (1912)" },
    Games2: { url: Games2, credit: "The Chariot Race, Alexander von Wagner (c. 1882)" },
@@ -334,6 +356,7 @@ export const EventImage = {
    Gibraltar: { url: Gibraltar, credit: "Gibraltar. (From the Mainland), Thomas Nelson & Sons (1907)" },
    Expedition: { url: Expedition, credit: "The Course of Empire: Consummation , Thomas Cole (1836)" },
    Alps: { url: Alps, credit: "Aus der Berninagruppe. Typus der Centralalpen, Vogelsang & Kaiser (1890)" },
+   Island: { url: Island, credit: "Aften ved Middelhavet. I baggrunden Marseille og øen If, Emanuel Larsen (1854)" },
    MediterraneanHarbour: {
       url: MediterraneanHarbour,
       credit: "View of a Mediterranean harbour, Hendrik Frans Van Lint",

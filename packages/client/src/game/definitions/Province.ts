@@ -241,7 +241,12 @@ export const Province = {
       upgrades: ["SereneVineyards", "CultivatedEstates", "HillfortBastion"],
    },
    Asia: { name: () => $t(L.ProvinceAsia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
-   Baetica: { name: () => $t(L.ProvinceBaetica), culture: "Iberian", religion: "Iberian", upgrades: [] },
+   Baetica: {
+      name: () => $t(L.ProvinceBaetica),
+      culture: "Iberian",
+      religion: "Iberian",
+      upgrades: ["CommandOfThePillars", "OpulentPortCities", "WorkshopOfTheWest"],
+   },
    Belgica: {
       name: () => $t(L.ProvinceBelgica),
       culture: "Gallic",
@@ -322,6 +327,7 @@ export const EnabledProvinces: Province[] = [
    "Germania",
    "Tarraconensis",
    "Lusitania",
+   "Baetica",
 ];
 
 export const ProvinceExtraGoverningCapacity: Partial<Record<Province, number>> = {

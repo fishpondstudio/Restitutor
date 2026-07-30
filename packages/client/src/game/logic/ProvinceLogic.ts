@@ -46,6 +46,7 @@ import {
    SpawnedProvinces,
 } from "../definitions/SpawnedProvince";
 import { getBorderingProvinces } from "../definitions/Tile";
+import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
@@ -892,8 +893,18 @@ export function getProvinceTradeCapacity(province: Province, save: SaveGame): IV
       const treatyCount = getTreatyCount(province, save);
       result.add.push({ name: ProvinceUpgrades.CommercialAlliances.name(), value: treatyCount });
    }
+   if (hasProvinceUpgrade("CommandOfThePillars", province, save) && hasStraitOfGibraltar(province, save)) {
+      result.add.push({ name: ProvinceUpgrades.CommandOfThePillars.name(), value: 3 });
+   }
    attachModifiers("TradeCapacity", result, province, save);
    return finalizeBreakdown(result);
+}
+
+function hasStraitOfGibraltar(province: Province, save: SaveGame): boolean {
+   return StraitOfGibraltarTiles.every((tile) => {
+      const data = save.state.tiles.get(tile);
+      return data?.province === province && data.coreProvinces.has(province);
+   });
 }
 
 export function getProvinceTradeProfit(province: Province, save: SaveGame): IValueBreakdown {
@@ -918,6 +929,9 @@ export function getProvinceTradeProfit(province: Province, save: SaveGame): IVal
       if (harbour > 0) {
          result.multiply.push({ name: ProvinceUpgrades.MaritimeProsperity.name(), value: harbour * 0.1 });
       }
+   }
+   if (hasProvinceUpgrade("CommandOfThePillars", province, save) && hasStraitOfGibraltar(province, save)) {
+      result.multiply.push({ name: ProvinceUpgrades.CommandOfThePillars.name(), value: 0.3 });
    }
    attachModifiers("TradeProfit", result, province, save);
    return finalizeBreakdown(result);

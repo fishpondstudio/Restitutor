@@ -1,6 +1,6 @@
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
-import { coreTileCountCondition, warPowerCondition } from "../logic/MissionLogic";
+import { minCoreTileCondition, warPowerCondition } from "../logic/MissionLogic";
 import { getProvinceResource, getProvinceStat } from "../logic/ProvinceLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -395,7 +395,7 @@ export const BelgicaEvent = {
       condition: {
          province: ["Belgica"],
          conditions: (province, save) => [
-            coreTileCountCondition(20, province, save),
+            minCoreTileCondition(20, province, save),
             warPowerCondition(10_000, province, save),
             {
                name: $t(L.Win$1Wars, "10"),

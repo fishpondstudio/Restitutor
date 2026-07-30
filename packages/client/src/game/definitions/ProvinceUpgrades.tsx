@@ -166,7 +166,7 @@ const _ProvinceUpgrades = {
    },
    CulturalEfficiency: {
       name: () => $t(L.CulturalEfficiency),
-      desc: () => $t(L.CulturalEfficiencyDesc$1$2$3, "1%", "50%", "0.4%"),
+      desc: () => $t(L.CulturalEfficiencyDesc$3$1$2, "1%", "50%", "0.4%"),
    },
    ChristianTranquility: {
       name: () => $t(L.ChristianTranquility),
@@ -187,6 +187,20 @@ const _ProvinceUpgrades = {
    PaxLusitana: {
       name: () => $t(L.PaxLusitana),
       desc: () => $t(L.$1TileOutputWhileNotAtWar, "+20%"),
+   },
+   CommandOfThePillars: {
+      name: () => $t(L.CommandOfThePillars),
+      desc: () => $t(L.CommandOfThePillarsDesc),
+   },
+   OpulentPortCities: {
+      name: () => $t(L.OpulentPortCities),
+      desc: () => $t(L.OpulentPortCitiesDesc),
+   },
+   WorkshopOfTheWest: {
+      name: () => $t(L.WorkshopOfTheWest),
+      modifiers: {
+         ProductionCapacity: { type: "add", value: 5 },
+      },
    },
 } as const satisfies Record<string, IProvinceUpgrade>;
 

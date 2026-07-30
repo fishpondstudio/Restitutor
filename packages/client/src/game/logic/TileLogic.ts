@@ -297,6 +297,13 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.LandTax, breakdown);
    attachModifiers("LandTax", breakdown, data.province, save);
+   if (
+      hasProvinceUpgrade("OpulentPortCities", data.province, save) &&
+      data.coreProvinces.has(data.province) &&
+      isCoastal(tile)
+   ) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.OpulentPortCities.name(), value: 0.3 });
+   }
    if (hasProvinceUpgrade("TreatyRevenues", data.province, save)) {
       const treatyCount = getTreatyCount(data.province, save);
       if (treatyCount > 0) {
@@ -368,6 +375,13 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.GoodsTax, breakdown);
    attachModifiers("TileOutput", breakdown, data.province, save);
+   if (
+      hasProvinceUpgrade("OpulentPortCities", data.province, save) &&
+      data.coreProvinces.has(data.province) &&
+      isCoastal(tile)
+   ) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.OpulentPortCities.name(), value: 0.3 });
+   }
    if (hasProvinceUpgrade("PaxLusitana", data.province, save) && getCurrentWars(data.province, save).length === 0) {
       breakdown.multiply.push({
          name: ProvinceUpgrades.PaxLusitana.name(),
@@ -679,6 +693,13 @@ export function getBuildingSlot(tile: Tile, save: SaveGame): IValueBreakdown {
       attachModifiers("BuildingSlot", result, data.province, save);
       if (data.buildings.has("Temple")) {
          result.add.push({ name: Buildings.Temple.name(), value: 1 });
+      }
+      if (
+         hasProvinceUpgrade("OpulentPortCities", data.province, save) &&
+         data.coreProvinces.has(data.province) &&
+         isCoastal(tile)
+      ) {
+         result.add.push({ name: ProvinceUpgrades.OpulentPortCities.name(), value: 2 });
       }
       if (hasProvinceUpgrade("MunicipalPrivilege", data.province, save) && data.coreProvinces.has(data.province)) {
          result.add.push({ name: ProvinceUpgrades.MunicipalPrivilege.name(), value: 1 });
