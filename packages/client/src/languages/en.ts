@@ -2571,4 +2571,6 @@ export const EN = {
    TheLusitanianMarriageSettlement: "The Lusitanian Marriage Settlement",
    TheLusitanianMarriageSettlementDesc: "Marriage has bound the leading houses of Baetica and Lusitania together, even as Lusitania's power has dwindled to a handful of cities. Its nobles now seek our formal protection, though some urge us to preserve the union as a partnership between equals.",
    RenewTheUnionBetweenEquals: "Renew the union between equals",
+   InheritedRegionalEvents: "*Inherited regional events",
+   ProvincialEvents: "Provincial Events",
 };

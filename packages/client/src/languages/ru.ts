@@ -2571,4 +2571,6 @@ export const RU = {
    TheLusitanianMarriageSettlement: "Лузитанское брачное соглашение",
    TheLusitanianMarriageSettlementDesc: "Брак связал ведущие дома Бетики и Лузитании, хотя мощь Лузитании сократилась до горстки городов. Теперь её знать просит нашей официальной защиты, но некоторые призывают сохранить союз как партнёрство равных.",
    RenewTheUnionBetweenEquals: "Возобновить союз равных",
+   InheritedRegionalEvents: "*Унаследованные региональные события",
+   ProvincialEvents: "Провинциальные события",
 };

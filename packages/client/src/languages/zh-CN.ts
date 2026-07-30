@@ -2556,4 +2556,6 @@ export const ZH_CN = {
    TheLusitanianMarriageSettlement: "卢西塔尼亚联姻协议",
    TheLusitanianMarriageSettlementDesc: "联姻将拜提卡与卢西塔尼亚的显贵家族结合在一起，尽管卢西塔尼亚的势力已衰落到仅剩寥寥数城。其贵族如今寻求我们的正式保护，但也有人主张将这段联合维持为平等伙伴关系。",
    RenewTheUnionBetweenEquals: "重申平等伙伴的联合",
+   InheritedRegionalEvents: "*继承的区域事件",
+   ProvincialEvents: "行省事件",
 };
