@@ -557,7 +557,7 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          year: [350, Number.POSITIVE_INFINITY],
-         religion: "Christianity",
+         religion: ["Christianity"],
       },
       buttons: [
          {

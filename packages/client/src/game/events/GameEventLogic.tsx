@@ -132,8 +132,8 @@ export function getGameEventCondition(
    }
    if (condition.religion) {
       result.push({
-         name: $t(L.OurReligionIs$1, Religion[condition.religion].name()),
-         value: state.religion === condition.religion,
+         name: $t(L.OurReligionIs$1, condition.religion.map((religion) => Religion[religion].name()).join(", ")),
+         value: condition.religion.includes(state.religion),
       });
    }
    if (condition.techs) {

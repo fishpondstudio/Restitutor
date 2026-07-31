@@ -43,7 +43,7 @@ export interface IGameEventCondition {
    province?: Province[];
    playerOnly?: boolean;
    provinceOnMap?: Province[];
-   religion?: Religion;
+   religion?: Religion[];
    techs?: Tech[];
    provinceUpgrades?: ProvinceUpgrade[];
    annexAndCore?: Partial<Record<Province, number>>;

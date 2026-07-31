@@ -10,7 +10,7 @@ export const WesternRomanEmpireEvents = {
       desc: () => $t(L.TheArianControversyDesc),
       condition: {
          province: WesternRomanEmpireProvinces,
-         religion: "Christianity",
+         religion: ["Christianity"],
          year: [313, Number.POSITIVE_INFINITY],
       },
       buttons: [
