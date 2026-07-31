@@ -1,7 +1,6 @@
 import { forEach, fromEntries, hasFlag } from "@project/shared/src/utils/Helper";
 import { isPaused, revertSpeed } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
-import { addProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { GallicEmpireProvinces, PalmyreneEmpireProvinces } from "../definitions/TileConstants";
 import { GameOptionFlag } from "../GameOption";
 import { getRelation } from "../logic/DiplomacyLogic";
@@ -570,15 +569,8 @@ export const HistoricalEvents = {
             resources: { christianity: 50 },
             modifiers: {
                ChristianityYearly: { type: "add", value: 1 },
+               ToleratedReligion: { type: "add", value: 1 },
             },
-            custom: [
-               {
-                  desc: (province, save) => $t(L.EdictOfMilanRemovesMinorReligionPenalties),
-                  effect: (province, save) => {
-                     addProvinceUpgrade("EdictOfMilan", province, save);
-                  },
-               },
-            ],
          },
          {
             label: () => $t(L.TheEmperorsDivinityMustBeRespected),

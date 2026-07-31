@@ -1,6 +1,6 @@
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
-import { getProvinceGoverningCost, getProvinceResource } from "../logic/ProvinceLogic";
+import { changeProvinceReligion, getProvinceGoverningCost, getProvinceResource } from "../logic/ProvinceLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
@@ -24,7 +24,7 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
          },
       ]),
       effect: () => {
-         state.religion = "Christianity";
+         changeProvinceReligion("Christianity", province, save);
          for (const [tile, tileData] of save.state.tiles) {
             if (tileData.province === province && tileData.coreProvinces.has(province)) {
                tileData.religion = "Christianity";

@@ -1,6 +1,6 @@
 import { forEach } from "@project/shared/src/utils/Helper";
 import { Province, ProvinceStats } from "./game/definitions/Province";
-import { addProvinceUpgrade } from "./game/definitions/ProvinceUpgrades";
+import { addProvinceUpgrade, ProvinceUpgrades } from "./game/definitions/ProvinceUpgrades";
 import { SocialClass } from "./game/definitions/SocialClass";
 import { GameOption } from "./game/GameOption";
 import { GameState, type SaveGame } from "./game/GameState";
@@ -36,20 +36,21 @@ export function migrateSave(save: SaveGame): void {
          });
          delete data.socialClasses;
       }
-   });
-   fixRelations(save);
-
-   forEach(save.state.provinces, (province, data) => {
       Province[province].upgrades.forEach((upgrade) => {
          addProvinceUpgrade(upgrade, province, save);
       });
+      for (const upgrade of data.provinceUpgrades) {
+         if (!ProvinceUpgrades[upgrade]) {
+            data.provinceUpgrades.delete(upgrade);
+         }
+      }
       if (data.legacyUpgrades instanceof Map) {
          data.legacyUpgrades = new Set();
          const legacyPoints = provinceResourceOf("legacy", province, save);
          legacyPoints[1] = 0;
       }
    });
-
+   fixRelations(save);
    for (const [tile, data] of save.state.tiles) {
       if (!data.autonomy) {
          data.autonomy = 0;

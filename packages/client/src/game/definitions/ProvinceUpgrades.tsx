@@ -16,9 +16,6 @@ const _ProvinceUpgrades = {
    Tetrarchy: {
       name: () => $t(L.Tetrarchy),
    },
-   EdictOfMilan: {
-      name: () => $t(L.EdictOfMilan),
-   },
    ReligiousUnrest: {
       name: () => $t(L.ReligiousUnrest),
       modifiers: {

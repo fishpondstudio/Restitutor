@@ -1,13 +1,15 @@
-import { Progress, Switch } from "@mantine/core";
+import { Menu, Progress, Switch } from "@mantine/core";
 import {
    clamp,
    cls,
    compareBool,
+   entriesOf,
    formatDelta,
    formatNumber,
    formatPercent,
    hasFlag,
    mapOf,
+   range,
    toggleFlag,
 } from "@project/shared/src/utils/Helper";
 import { Fragment } from "react/jsx-runtime";
@@ -31,6 +33,8 @@ import {
    getReligiousCohesion,
    getRestoration,
    getTilesAnnexedAndCored,
+   getToleratedCulture,
+   getToleratedReligion,
    TilesPerRestoration,
 } from "../game/logic/ProvinceLogic";
 import { getTileUnrest, isCapital } from "../game/logic/TileLogic";
@@ -50,7 +54,7 @@ import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { MakeCoreButton } from "./MakeCoreButton";
-import { playClick } from "./Sound";
+import { playClick, playError } from "./Sound";
 import { TilePage } from "./TilePage";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid2 } from "./UIConstant";
@@ -84,6 +88,10 @@ export function InternalAffairsPage(): React.ReactNode {
    const culturalCohesion = getCulturalCohesion(G.save.state.playerProvince, G.save);
    const overExtension = getProvinceOverextension(G.save.state.playerProvince, G.save);
    const stability = getProvinceStability(G.save.state.playerProvince, G.save);
+   const toleratedReligions = Array.from(state.toleratedReligions);
+   const toleratedReligionSlots = getToleratedReligion(G.save.state.playerProvince, G.save);
+   const toleratedCultures = Array.from(state.toleratedCultures);
+   const toleratedCultureSlots = getToleratedCulture(G.save.state.playerProvince, G.save);
    return (
       <SidebarComp title={<SidebarHeader title={$t(L.InternalAffairs)} />}>
          <div className="h1">{$t(L.GoverningAndStability)}</div>
@@ -224,6 +232,63 @@ export function InternalAffairsPage(): React.ReactNode {
          <Progress value={100 * religiousCohesion} className="mx10" />
          <div className="h10" />
          <div className="divider" />
+         <BreakdownTooltip breakdown={toleratedReligionSlots}>
+            <div className="m10 row">
+               <div className="f1">{$t(L.ToleratedReligions)}</div>
+               <div>
+                  {state.toleratedReligions.size}/{toleratedReligionSlots.value}
+               </div>
+            </div>
+         </BreakdownTooltip>
+         <div
+            className={cls(toleratedReligionSlots.value > 0 ? "m10" : null)}
+            style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
+         >
+            {range(0, toleratedReligionSlots.value).map((idx) => {
+               const religion = toleratedReligions[idx];
+               if (religion) {
+                  return (
+                     <div className="box px5 py2" key={idx}>
+                        {Religion[religion].name()}
+                     </div>
+                  );
+               }
+               return (
+                  <Menu key={idx} position="bottom-start">
+                     <FloatingTip label={html($t(L.SelectAToleratedReligionThisSelectionCannotBeChanged))}>
+                        <Menu.Target>
+                           <div className="box px5 py2 pointer" key={idx}>
+                              <div className="mi sm">add</div>
+                           </div>
+                        </Menu.Target>
+                     </FloatingTip>
+                     <Menu.Dropdown className="panel">
+                        {entriesOf(Religion)
+                           .filter(
+                              ([religion]) => religion !== state.religion && !toleratedReligions.includes(religion),
+                           )
+                           .map(([religion]) => (
+                              <Menu.Item
+                                 key={religion}
+                                 onClick={() => {
+                                    if (state.toleratedReligions.size < toleratedReligionSlots.value) {
+                                       state.toleratedReligions.add(religion);
+                                       GameStateUpdated.emit();
+                                       playClick();
+                                    } else {
+                                       playError();
+                                    }
+                                 }}
+                              >
+                                 {Religion[religion].name()}
+                              </Menu.Item>
+                           ))}
+                     </Menu.Dropdown>
+                  </Menu>
+               );
+            })}
+         </div>
+         <div className="divider" />
          <FloatingTip
             className="p0"
             fixedWidth
@@ -306,6 +371,69 @@ export function InternalAffairsPage(): React.ReactNode {
          </FloatingTip>
          <Progress value={100 * religiousCohesion} className="mx10" />
          <div className="h10" />
+         <div className="divider" />
+         <BreakdownTooltip
+            breakdown={toleratedCultureSlots}
+            tooltip={(element) => (
+               <>
+                  <div className="m10">{Modifiers.ToleratedCulture.desc()}</div>
+                  {element}
+               </>
+            )}
+         >
+            <div className="m10 row">
+               <div className="f1">{$t(L.ToleratedCultures)}</div>
+               <div>
+                  {state.toleratedCultures.size}/{toleratedCultureSlots.value}
+               </div>
+            </div>
+         </BreakdownTooltip>
+         <div
+            className={cls(toleratedCultureSlots.value > 0 ? "m10" : null)}
+            style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
+         >
+            {range(0, toleratedCultureSlots.value).map((idx) => {
+               const culture = toleratedCultures[idx];
+               if (culture) {
+                  return (
+                     <div className="box px5 py2" key={idx}>
+                        {Culture[culture].name()}
+                     </div>
+                  );
+               }
+               return (
+                  <Menu key={idx} position="bottom-start">
+                     <FloatingTip label={html($t(L.SelectAToleratedCultureThisSelectionCannotBeChanged))}>
+                        <Menu.Target>
+                           <div className="box px5 py2 pointer" key={idx}>
+                              <div className="mi sm">add</div>
+                           </div>
+                        </Menu.Target>
+                     </FloatingTip>
+                     <Menu.Dropdown className="panel">
+                        {entriesOf(Culture)
+                           .filter(([culture]) => culture !== state.culture && !toleratedCultures.includes(culture))
+                           .map(([culture]) => (
+                              <Menu.Item
+                                 key={culture}
+                                 onClick={() => {
+                                    if (state.toleratedCultures.size < toleratedCultureSlots.value) {
+                                       state.toleratedCultures.add(culture);
+                                       GameStateUpdated.emit();
+                                       playClick();
+                                    } else {
+                                       playError();
+                                    }
+                                 }}
+                              >
+                                 {Culture[culture].name()}
+                              </Menu.Item>
+                           ))}
+                     </Menu.Dropdown>
+                  </Menu>
+               );
+            })}
+         </div>
          <div className="h1">{$t(L.AutonomyAndRebellion)}</div>
          {tiles.map(([tile, tileData]) => {
             const unrest = getTileUnrest(tile, G.save);

@@ -130,7 +130,9 @@ export type ProvinceFlags = ValueOf<typeof ProvinceFlags>;
 export interface IProvince {
    nameOverride: ProvinceNameOverride | undefined;
    culture: Culture;
+   toleratedCultures: Set<Culture>;
    religion: Religion;
+   toleratedReligions: Set<Religion>;
    resources: ProvinceResources;
    governor: IGovernorFamily;
    stats: ProvinceStats;

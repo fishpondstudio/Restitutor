@@ -190,6 +190,14 @@ export const Modifiers = {
       name: () => $t(L.MilitaryClassInfluenceYearly),
       desc: () => $t(L.MilitaryClassInfluenceYearlyDesc),
    },
+   ToleratedCulture: {
+      name: () => $t(L.ToleratedCulture),
+      desc: () => $t(L.ToleratedCultureDesc),
+   },
+   ToleratedReligion: {
+      name: () => $t(L.ToleratedReligion),
+      desc: () => $t(L.ToleratedReligionDesc),
+   },
 } as const satisfies Record<string, IModifierDefinition>;
 
 export type Modifier = keyof typeof Modifiers;

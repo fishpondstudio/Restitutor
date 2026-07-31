@@ -258,6 +258,8 @@ function _getTileUnrest(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (data.culture === state.culture) {
       breakdown.add.push({ name: $t(L.DominantCulture), value: -10 });
+   } else if (state.toleratedCultures.has(data.culture)) {
+      breakdown.add.push({ name: $t(L.ToleratedCulture), value: 0 });
    } else {
       breakdown.add.push({ name: $t(L.MinorCulture), value: +10 });
    }
@@ -266,7 +268,9 @@ function _getTileUnrest(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (data.religion === state.religion) {
       breakdown.add.push({ name: $t(L.DominantReligion), value: -10 });
-   } else if (!hasProvinceUpgrade("EdictOfMilan", data.province, save)) {
+   } else if (state.toleratedReligions.has(data.religion)) {
+      breakdown.add.push({ name: $t(L.ToleratedReligion), value: 0 });
+   } else {
       breakdown.add.push({ name: $t(L.MinorReligion), value: +10 });
    }
    if (hasProvinceUpgrade("ChristianTranquility", data.province, save) && data.religion === "Christianity") {
@@ -478,12 +482,16 @@ function _getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    if (data.culture === state.culture) {
       breakdown.multiply.push({ name: $t(L.DominantCulture), value: -0.1 });
+   } else if (state.toleratedCultures.has(data.culture)) {
+      breakdown.multiply.push({ name: $t(L.ToleratedCulture), value: 0 });
    } else {
       breakdown.multiply.push({ name: $t(L.MinorCulture), value: 0.1 });
    }
    if (data.religion === state.religion) {
       breakdown.multiply.push({ name: $t(L.DominantReligion), value: -0.1 });
-   } else if (!hasProvinceUpgrade("EdictOfMilan", data.province, save)) {
+   } else if (state.toleratedReligions.has(data.religion)) {
+      breakdown.multiply.push({ name: $t(L.ToleratedReligion), value: 0 });
+   } else {
       breakdown.multiply.push({ name: $t(L.MinorReligion), value: 0.1 });
    }
    if (data.buildings.has("Temple")) {
@@ -563,12 +571,16 @@ export function getTileMakeCoreCost(tile: Tile, save: SaveGame): IValueBreakdown
    });
    if (data.culture === state.culture) {
       breakdown.multiply.push({ name: $t(L.DominantCulture), value: -0.1 });
+   } else if (state.toleratedCultures.has(data.culture)) {
+      breakdown.multiply.push({ name: $t(L.ToleratedCulture), value: 0 });
    } else {
       breakdown.multiply.push({ name: $t(L.MinorCulture), value: 0.1 });
    }
    if (data.religion === state.religion) {
       breakdown.multiply.push({ name: $t(L.DominantReligion), value: -0.1 });
-   } else if (!hasProvinceUpgrade("EdictOfMilan", data.province, save)) {
+   } else if (state.toleratedReligions.has(data.religion)) {
+      breakdown.multiply.push({ name: $t(L.ToleratedReligion), value: 0 });
+   } else {
       breakdown.multiply.push({ name: $t(L.MinorReligion), value: 0.1 });
    }
    attachModifiers("MakeCoreCost", breakdown, data.province, save);
@@ -595,12 +607,16 @@ export function getTileUpgradeCost(tile: Tile, resource: GovernorPower, save: Sa
    });
    if (data.culture === state.culture) {
       breakdown.multiply.push({ name: $t(L.DominantCulture), value: -0.1 });
+   } else if (state.toleratedCultures.has(data.culture)) {
+      breakdown.multiply.push({ name: $t(L.ToleratedCulture), value: 0 });
    } else {
       breakdown.multiply.push({ name: $t(L.MinorCulture), value: 0.1 });
    }
    if (data.religion === state.religion) {
       breakdown.multiply.push({ name: $t(L.DominantReligion), value: -0.1 });
-   } else if (!hasProvinceUpgrade("EdictOfMilan", data.province, save)) {
+   } else if (state.toleratedReligions.has(data.religion)) {
+      breakdown.multiply.push({ name: $t(L.ToleratedReligion), value: 0 });
+   } else {
       breakdown.multiply.push({ name: $t(L.MinorReligion), value: 0.1 });
    }
    if (resource === "administrative") {

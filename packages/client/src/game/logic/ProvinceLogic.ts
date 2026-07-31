@@ -18,6 +18,7 @@ import type { ICondition, IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import { Buildings } from "../definitions/Building";
+import type { Culture } from "../definitions/Culture";
 import { Goods, Price } from "../definitions/Goods";
 import { LegacyUpgrades } from "../definitions/LegacyUpgrade";
 import { makeModifierGetter } from "../definitions/Modifier";
@@ -39,6 +40,7 @@ import {
    type TradeOfferBase,
 } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
+import type { Religion } from "../definitions/Religion";
 import type { SpawnedProvince } from "../definitions/SpawnedProvince";
 import {
    BarbarianRaidNegativeEffect,
@@ -485,7 +487,9 @@ export function initProvince(province: Province, capital: Tile): IProvince {
    return {
       nameOverride: undefined,
       culture: Province[province].culture,
+      toleratedCultures: new Set(),
       religion: Province[province].religion,
+      toleratedReligions: new Set(),
       stats: {
          ...structuredClone(ProvinceStats),
       },
@@ -1036,6 +1040,9 @@ export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1,
    }
 });
 
+export const getToleratedReligion = makeModifierGetter("ToleratedReligion", 0, (result, province, save) => {});
+export const getToleratedCulture = makeModifierGetter("ToleratedCulture", 0, (result, province, save) => {});
+
 export function getReligiousCohesion(province: Province, save: SaveGame): number {
    let sameReligion = 0;
    let total = 0;
@@ -1045,10 +1052,11 @@ export function getReligiousCohesion(province: Province, save: SaveGame): number
    }
    for (const [tile, data] of save.state.tiles) {
       if (data.province === province) {
-         if (data.religion === state.religion) {
-            sameReligion += 1;
+         const totalUpgrades = data.infrastructure + data.production + data.population;
+         if (data.religion === state.religion || state.toleratedReligions.has(data.religion)) {
+            sameReligion += totalUpgrades;
          }
-         total += 1;
+         total += totalUpgrades;
       }
    }
    return sameReligion / total;
@@ -1063,10 +1071,11 @@ export function getCulturalCohesion(province: Province, save: SaveGame): number 
    }
    for (const [tile, data] of save.state.tiles) {
       if (data.province === province) {
-         if (data.culture === state.culture) {
-            sameCulture += 1;
+         const totalUpgrades = data.infrastructure + data.production + data.population;
+         if (data.culture === state.culture || state.toleratedCultures.has(data.culture)) {
+            sameCulture += totalUpgrades;
          }
-         total += 1;
+         total += totalUpgrades;
       }
    }
    return sameCulture / total;
@@ -1160,4 +1169,26 @@ export function getNeighborProvinces(province: Province, save: SaveGame): Set<Pr
       }
    }
    return result;
+}
+
+export function changeProvinceReligion(religion: Religion, province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   if (state.toleratedReligions.has(religion)) {
+      state.toleratedReligions.delete(religion);
+   }
+   state.religion = religion;
+}
+
+export function changeProvinceCulture(culture: Culture, province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   if (state.toleratedCultures.has(culture)) {
+      state.toleratedCultures.delete(culture);
+   }
+   state.culture = culture;
 }
