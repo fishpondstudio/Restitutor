@@ -96,7 +96,7 @@ export const BelgicaEvent = {
          year: [320, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
                value: getProvinceResource("christianity", province, save) >= 20,
             },
          ],
@@ -134,7 +134,7 @@ export const BelgicaEvent = {
          year: [335, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
                value: getProvinceResource("christianity", province, save) >= 20,
             },
          ],
@@ -216,7 +216,7 @@ export const BelgicaEvent = {
          year: [407, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
                value: getProvinceResource("christianity", province, save) >= 20,
             },
          ],

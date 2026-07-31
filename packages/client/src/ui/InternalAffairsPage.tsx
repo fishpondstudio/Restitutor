@@ -296,7 +296,7 @@ export function InternalAffairsPage(): React.ReactNode {
                <>
                   <div className="m10">
                      <div className="row my5">
-                        <div className="f1">{$t(L.ChristianityInfluence)}</div>
+                        <div className="f1">{$t(L.ChristianInfluence)}</div>
                         <div>{formatNumber(christianity)}</div>
                      </div>
                      <div className="row my5">
@@ -304,10 +304,10 @@ export function InternalAffairsPage(): React.ReactNode {
                         <div>{formatNumber(governingCost.value)}</div>
                      </div>
                   </div>
-                  <div className="h2">{$t(L.ChristianityYearly)}</div>
+                  <div className="h2">{$t(L.ChristianInfluencePerYear)}</div>
                   <BreakdownComp breakdown={christianityYearly} />
                   <div className="m10">
-                     {$t(L.ChristianityConversionEffectsDescription)}
+                     {$t(L.ChristianInfluenceConversionEffectsDescription)}
                      <div className="h10" />
                      {mapOf(ProvinceUpgrades.ReligiousUnrest.modifiers, (modifier, data) => (
                         <div className="row my5" key={modifier}>

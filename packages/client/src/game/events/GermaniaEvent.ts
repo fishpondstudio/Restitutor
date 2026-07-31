@@ -158,7 +158,7 @@ export const GermaniaEvent = {
          year: [305, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Germania.name(), "20"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Germania.name(), "20"),
                value: getProvinceResource("christianity", province, save) >= 20,
             },
          ],

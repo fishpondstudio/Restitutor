@@ -100,7 +100,7 @@ export const ProvinceResourceNames: Record<ProvinceResource, () => string> = {
    legacy: () => $t(L.LegacyPoint),
    generalSkillPoint: () => $t(L.GeneralSkillPoint),
    consulPoint: () => $t(L.ConsulPoint),
-   christianity: () => $t(L.ChristianityInfluence),
+   christianity: () => $t(L.ChristianInfluence),
    ...fromEntries(mapOf(Goods, (goods, def) => [goods, () => def.name()])),
 } as const;
 

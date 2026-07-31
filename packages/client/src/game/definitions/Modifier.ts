@@ -147,8 +147,8 @@ export const Modifiers = {
       desc: () => $t(L.ModifierPopulationUpgradeCostDesc),
    },
    ChristianityYearly: {
-      name: () => $t(L.ChristianityYearly),
-      desc: () => $t(L.ChristianityYearlyDesc),
+      name: () => $t(L.ChristianInfluencePerYear),
+      desc: () => $t(L.ChristianInfluencePerYearDesc),
    },
    MonthlyInterestRate: {
       name: () => $t(L.MonthlyInterestRate),

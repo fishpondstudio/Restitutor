@@ -4,7 +4,7 @@ import { finalizeCondition } from "../game/actions/GameAction";
 import { Buildings } from "../game/definitions/Building";
 import { Culture } from "../game/definitions/Culture";
 import { Goods, Price } from "../game/definitions/Goods";
-import { Religion } from "../game/definitions/Religion";
+import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
@@ -147,16 +147,16 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                            ...timedActionConditions({ action: "EvangelizeTile" }, G.save.state.playerProvince, G.save),
                            tileIsOurCoreCondition(tile, G.save.state.playerProvince, G.save),
                            {
-                              name: $t(L.OurProvinceReligionIsChristianity),
-                              value: state.religion === "Christianity",
+                              name: $t(L.OurProvinceReligionIsChristian),
+                              value: isChristianReligion(state.religion),
                            },
                            {
-                              name: $t(L.TileReligionIsNotChristianity),
-                              value: tileData.religion !== "Christianity",
+                              name: $t(L.TileReligionIsNotChristian),
+                              value: !isChristianReligion(tileData.religion),
                            },
                         ]),
                         effect: () => {
-                           tileData.religion = "Christianity";
+                           tileData.religion = state.religion;
                         },
                      }}
                      tooltip={(element) => (

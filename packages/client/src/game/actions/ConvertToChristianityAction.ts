@@ -1,4 +1,6 @@
+import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
+import { isChristianReligion } from "../definitions/Religion";
 import type { SaveGame } from "../GameState";
 import { changeProvinceReligion, getProvinceGoverningCost, getProvinceResource } from "../logic/ProvinceLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
@@ -14,13 +16,13 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
    return {
       condition: finalizeCondition([
          {
-            name: "Christianity Influence >= Governing Cost",
+            name: $t(L.ChristianInfluenceIsHigherThanGoverningCost),
             value: christianity > governingCost.value,
             progress: [christianity, governingCost.value],
          },
          {
-            name: "Our religion is not Christianity",
-            value: state.religion !== "Christianity",
+            name: $t(L.OurReligionIsNotChristian),
+            value: !isChristianReligion(state.religion),
          },
       ]),
       effect: () => {

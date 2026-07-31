@@ -97,7 +97,7 @@ export const NarbonensisEvent = {
          year: [305, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Narbonensis.name(), "10"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Narbonensis.name(), "10"),
                value: getProvinceResource("christianity", province, save) >= 10,
             },
          ],
@@ -206,7 +206,7 @@ export const NarbonensisEvent = {
          year: [412, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Narbonensis.name(), "20"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Narbonensis.name(), "20"),
                value: getProvinceResource("christianity", province, save) >= 20,
             },
          ],
@@ -238,7 +238,7 @@ export const NarbonensisEvent = {
          year: [425, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Narbonensis.name(), "20"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Narbonensis.name(), "20"),
                value: getProvinceResource("christianity", province, save) >= 20,
             },
          ],

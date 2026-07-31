@@ -245,7 +245,7 @@ export const LugdunensisEvent = {
          year: [200, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "20"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "20"),
                value: getProvinceResource("christianity", province, save) >= 20,
             },
          ],
@@ -285,7 +285,7 @@ export const LugdunensisEvent = {
          techs: ["D1"],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "50"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "50"),
                value: getProvinceResource("christianity", province, save) >= 50,
             },
          ],
@@ -484,7 +484,7 @@ export const LugdunensisEvent = {
          year: [300, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "100"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "100"),
                value: getProvinceResource("christianity", province, save) >= 100,
             },
          ],

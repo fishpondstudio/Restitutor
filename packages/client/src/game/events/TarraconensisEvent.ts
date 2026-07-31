@@ -79,7 +79,7 @@ export const TarraconensisEvent = {
          year: [259, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Tarraconensis.name(), "10"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Tarraconensis.name(), "10"),
                value: getProvinceResource("christianity", province, save) >= 10,
             },
          ],
@@ -191,7 +191,7 @@ export const TarraconensisEvent = {
          year: [385, Number.POSITIVE_INFINITY],
          conditions: (province, save) => [
             {
-               name: $t(L.$1ChristianityInfluenceIsAtLeast$2, Province.Tarraconensis.name(), "30"),
+               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Tarraconensis.name(), "30"),
                value: getProvinceResource("christianity", province, save) >= 30,
             },
          ],

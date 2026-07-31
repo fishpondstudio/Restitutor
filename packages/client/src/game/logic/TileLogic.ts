@@ -8,6 +8,7 @@ import { Price } from "../definitions/Goods";
 import { getProvinceTraits } from "../definitions/PersonTrait";
 import type { GovernorPower, Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
+import { isChristianReligion } from "../definitions/Religion";
 import { BarbarianRaidNegativeEffect } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
@@ -273,7 +274,7 @@ function _getTileUnrest(tile: Tile, save: SaveGame): IValueBreakdown {
    } else {
       breakdown.add.push({ name: $t(L.MinorReligion), value: +10 });
    }
-   if (hasProvinceUpgrade("ChristianTranquility", data.province, save) && data.religion === "Christianity") {
+   if (hasProvinceUpgrade("ChristianTranquility", data.province, save) && isChristianReligion(data.religion)) {
       breakdown.add.push({ name: ProvinceUpgrades.ChristianTranquility.name(), value: -5 });
    }
    const conscription = getProvinceStat("actualConscription", data.province, save);

@@ -10,7 +10,7 @@ import { CasusBelli } from "../game/definitions/CasusBelli";
 import { Culture } from "../game/definitions/Culture";
 import { Modifiers } from "../game/definitions/Modifier";
 import type { Province } from "../game/definitions/Province";
-import { Religion } from "../game/definitions/Religion";
+import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { getBorderingProvinces } from "../game/definitions/Tile";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "../game/Events";
@@ -632,12 +632,12 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                   condition: finalizeCondition([
                      ...timedActionConditions({ action: "ProclaimCrusade" }, G.save.state.playerProvince, G.save),
                      {
-                        name: $t(L.OurReligionIsChristianity),
-                        value: ourState.religion === "Christianity",
+                        name: $t(L.OurReligionIsChristian),
+                        value: isChristianReligion(ourState.religion),
                      },
                      {
-                        name: $t(L.TheirReligionIsNotChristianity),
-                        value: theirState.religion !== "Christianity",
+                        name: $t(L.TheirReligionIsDifferentFromOurs),
+                        value: theirState.religion !== ourState.religion,
                      },
                   ]),
                   effect: () => {

@@ -16,6 +16,7 @@ import { $t, L } from "../../utils/i18n";
 import type { IGovernorFamily } from "../definitions/Family";
 import { type Province, ProvinceFlags } from "../definitions/Province";
 import { addProvinceUpgrade, removeProvinceUpgrade } from "../definitions/ProvinceUpgrades";
+import { isChristianReligion } from "../definitions/Religion";
 import { RestorationBonus } from "../definitions/RestorationBonus";
 import { TimedActions } from "../definitions/TimedAction";
 import { RefreshTiles } from "../Events";
@@ -165,8 +166,8 @@ export function tickProvince(province: Province, save: SaveGame): void {
    const governingCost = getProvinceGoverningCost(province, save).value;
    const christianity = getProvinceResource("christianity", province, save);
    if (
-      (christianity > governingCost && state.religion !== "Christianity") ||
-      (christianity < governingCost && state.religion === "Christianity")
+      (christianity > governingCost && !isChristianReligion(state.religion)) ||
+      (christianity < governingCost && isChristianReligion(state.religion))
    ) {
       addProvinceUpgrade("ReligiousUnrest", province, save);
    } else {

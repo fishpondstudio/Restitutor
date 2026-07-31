@@ -23,7 +23,7 @@ export const _CasusBelli = {
    },
    ReligiousWar: {
       name: () => $t(L.ReligiousWar),
-      effect: () => $t(L.$1WarScoreWhenDefendersReligionIsNotChristianity, "-10%"),
+      effect: () => $t(L.$1WarScoreWhenDefendersReligionIsDifferentFromOurs, "-10%"),
    },
    DemandRejected: {
       name: () => $t(L.DemandRejected),

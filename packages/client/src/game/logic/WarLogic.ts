@@ -219,6 +219,10 @@ export function getWarScore(
    if (!defenderState) {
       return result;
    }
+   const attackerState = save.state.provinces[attacker];
+   if (!attackerState) {
+      return result;
+   }
    for (const tile of tiles) {
       const data = save.state.tiles.get(tile);
       if (data) {
@@ -274,7 +278,7 @@ export function getWarScore(
       });
    }
 
-   if (casusBelli === "ReligiousWar" && defenderState.religion !== "Christianity") {
+   if (casusBelli === "ReligiousWar" && defenderState.religion !== attackerState.religion) {
       result.multiply.push({
          name: $t(L.ReligiousWar),
          value: -0.1,

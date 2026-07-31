@@ -40,7 +40,7 @@ import {
    type TradeOfferBase,
 } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
-import type { Religion } from "../definitions/Religion";
+import { isChristianReligion, type Religion } from "../definitions/Religion";
 import type { SpawnedProvince } from "../definitions/SpawnedProvince";
 import {
    BarbarianRaidNegativeEffect,
@@ -1035,7 +1035,7 @@ export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1,
    if (!state) {
       return;
    }
-   if (hasProvinceUpgrade("ChristianFervor", province, save) && state.religion === "Christianity") {
+   if (hasProvinceUpgrade("ChristianFervor", province, save) && isChristianReligion(state.religion)) {
       result.add.push({ name: ProvinceUpgrades.ChristianFervor.name(), value: 1 });
    }
 });
