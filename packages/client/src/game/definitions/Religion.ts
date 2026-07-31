@@ -1,5 +1,6 @@
 import { entriesOf, hasFlag, keysOf, type ValueOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
+import type { Province } from "./Province";
 
 export const ReligionFlags = {
    None: 0,
@@ -34,6 +35,111 @@ const _Religion = {
    Monothelitism: { name: () => $t(L.ReligionMonothelitism), flags: ReligionFlags.Christian },
    Iconoclasm: { name: () => $t(L.ReligionIconoclasm), flags: ReligionFlags.Christian },
 } as const satisfies Record<string, IReligionConfig>;
+
+export const ChristianDoctrines = {
+   Donatism: { year: 311, percentage: 15, provinces: ["Africa", "Mauretania"] },
+   Arianism: {
+      year: 318,
+      percentage: 30,
+      provinces: [
+         "Italia",
+         "Aegyptus",
+         "Cyrenaica",
+         "Judea",
+         "Syria",
+         "Cilicia",
+         "Cappadocia",
+         "Galatia",
+         "Lycia",
+         "Asia",
+         "Bithynia",
+         "Thracia",
+         "Macedonia",
+         "Achaia",
+         "Moesia",
+         "Dacia",
+         "Pannonia",
+         "Suebi",
+         "Visigoths",
+         "Vandals",
+         "Burgundians",
+         "Ostrogoths",
+      ],
+   },
+   Macedonianism: {
+      year: 360,
+      percentage: 10,
+      provinces: ["Thracia", "Bithynia", "Asia", "Galatia", "Cappadocia", "Cilicia", "Syria", "Aegyptus"],
+   },
+   Pelagianism: {
+      year: 411,
+      percentage: 10,
+      provinces: ["Britannia", "Italia", "Africa", "Mauretania", "Sicilia", "Judea"],
+   },
+   Nestorianism: {
+      year: 428,
+      percentage: 15,
+      provinces: [
+         "Thracia",
+         "Bithynia",
+         "Asia",
+         "Galatia",
+         "Cappadocia",
+         "Cilicia",
+         "Syria",
+         "Judea",
+         "Aegyptus",
+         "Cyrenaica",
+      ],
+   },
+   Miaphysitism: {
+      year: 451,
+      percentage: 25,
+      provinces: ["Aegyptus", "Cyrenaica", "Syria", "Judea", "Cilicia", "Cappadocia", "Galatia"],
+   },
+   Monothelitism: {
+      year: 638,
+      percentage: 15,
+      provinces: [
+         "Thracia",
+         "Bithynia",
+         "Asia",
+         "Galatia",
+         "Cappadocia",
+         "Cilicia",
+         "Syria",
+         "Judea",
+         "Aegyptus",
+         "Cyrenaica",
+         "Achaia",
+         "Macedonia",
+         "Italia",
+         "Sicilia",
+         "Africa",
+      ],
+   },
+   Iconoclasm: {
+      year: 726,
+      percentage: 20,
+      provinces: [
+         "Asia",
+         "Bithynia",
+         "Cappadocia",
+         "Cilicia",
+         "Galatia",
+         "Lycia",
+         "Thracia",
+         "Macedonia",
+         "Achaia",
+         "Epirus",
+         "Moesia",
+         "Dacia",
+         "Dalmatia",
+         "Italia",
+         "Sicilia",
+      ],
+   },
+} as const satisfies Partial<Record<Religion, { percentage: number; provinces: Province[]; year: number }>>;
 
 export type Religion = keyof typeof _Religion;
 export const Religion: Record<Religion, IReligionConfig> = _Religion;
