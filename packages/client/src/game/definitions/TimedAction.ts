@@ -530,7 +530,7 @@ class TimedActionDefinitions {
       cooldown: 12 * 10,
       costCondition: (province, save) => {
          return {
-            cost: { christianity: 12 * 5 },
+            cost: { christianity: 5 },
          };
       },
       modifiers: {
