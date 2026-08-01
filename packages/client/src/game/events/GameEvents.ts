@@ -19,6 +19,7 @@ import { ManualEvents } from "./ManualEvents";
 import { MissionEvents } from "./MissionEvents";
 import { NarbonensisEvent } from "./NarbonensisEvent";
 import { RandomEvents } from "./RandomEvents";
+import { ReligiousEvents } from "./ReligiousEvents";
 import { TarraconensisEvent } from "./TarraconensisEvent";
 import { WesternRomanEmpireEvents } from "./WesternRomanEmpireEvents";
 
@@ -63,6 +64,7 @@ const _GameEvents = {
    ...HispaniaEvent,
    ...MissionEvents,
    ...WesternRomanEmpireEvents,
+   ...ReligiousEvents,
    // These should not appear in `MissionPage`
    ...HistoricalEvents,
    ...ManualEvents,

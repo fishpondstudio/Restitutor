@@ -31,6 +31,7 @@ import Canal from "../../assets/images/events/Canal.webp";
 import Circus from "../../assets/images/events/Circus.webp";
 import Dancer from "../../assets/images/events/Dancer.webp";
 import DeclareWar from "../..//assets/images/events/DeclareWar.webp";
+import Donatism from "../../assets/images/events/Donatism.webp";
 import DrawnIntoWar from "../../assets/images/events/DrawnIntoWar.webp";
 import Emperor from "../../assets/images/events/Emperor.webp";
 import Empire from "../../assets/images/events/Empire.webp";
@@ -50,6 +51,7 @@ import Gibraltar from "../../assets/images/events/Gibraltar.webp";
 import H1 from "../../assets/images/events/H1.webp";
 import H2 from "../../assets/images/events/H2.webp";
 import H3 from "../../assets/images/events/H3.webp";
+import Iconoclasm from "../../assets/images/events/Iconoclasm.webp";
 import InvaderConqueredWarGoal from "../../assets/images/events/InvaderConqueredWarGoal.webp";
 import InvaderSueForWhitePeace from "../../assets/images/events/InvaderSueForWhitePeace.webp";
 import Island from "../../assets/images/events/Island.webp";
@@ -57,12 +59,15 @@ import Lusitania3 from "../../assets/images/events/Lusitania3.webp";
 import Lusitania4 from "../../assets/images/events/Lusitania4.webp";
 import Lusitania6 from "../../assets/images/events/Lusitania6.webp";
 import Lusitania7 from "../../assets/images/events/Lusitania7.webp";
+import Macedonianism from "../../assets/images/events/Macedonianism.webp";
 import Martyrs from "../../assets/images/events/Martyrs.webp";
 import MediterraneanHarbour from "../../assets/images/events/MediterraneanHarbour.webp";
 import Merchant from "../../assets/images/events/Merchant.webp";
 import Merchant2 from "../../assets/images/events/Merchant2.webp";
 import Merchant3 from "../../assets/images/events/Merchant3.webp";
+import Miaphysitism from "../../assets/images/events/Miaphysitism.webp";
 import Mine from "../../assets/images/events/Mine.webp";
+import Monothelitism from "../../assets/images/events/Monothelitism.webp";
 import Narbonensis1 from "../../assets/images/events/Narbonensis1.webp";
 import Narbonensis3 from "../../assets/images/events/Narbonensis3.webp";
 import Narbonensis4 from "../../assets/images/events/Narbonensis4.webp";
@@ -73,7 +78,9 @@ import Narbonensis8 from "../../assets/images/events/Narbonensis8.webp";
 import Narbonensis9 from "../../assets/images/events/Narbonensis9.webp";
 import Narbonensis10 from "../../assets/images/events/Narbonensis10.webp";
 import NavalWarfare from "../../assets/images/events/NavalWarfare.webp";
+import Nestorianism from "../../assets/images/events/Nestorianism.webp";
 import Olive from "../../assets/images/events/Olive.webp";
+import Pelagianism from "../../assets/images/events/Pelagianism.webp";
 import Prosperity from "../../assets/images/events/Prosperity.webp";
 import Pyrenees from "../../assets/images/events/Pyrenees.webp";
 import Refugee from "../../assets/images/events/Refugee.webp";
@@ -136,10 +143,29 @@ import Y453 from "../../assets/images/events/Y453.webp";
 import Y455 from "../../assets/images/events/Y455.webp";
 import Y471 from "../../assets/images/events/Y471.webp";
 import Y476 from "../../assets/images/events/Y476.webp";
-
 import type { ImageWithCredit } from "./ImageWithCredit";
 
 export const EventImage = {
+   Arianism: { url: Arianism, credit: "The Baptism of Constantine, Gianfrancesco Penni (c.1520)" },
+   Donatism: {
+      url: Donatism,
+      credit: "St. Augustine Arguing with the Donatists, Charles-André van Loo (18th century)",
+   },
+   Macedonianism: { url: Macedonianism, credit: "The Pentecost, El Greco (c. 1600)" },
+   Pelagianism: { url: Pelagianism, credit: "A print of Pelagius from an unidentified early modern source (c.1600s)" },
+   Nestorianism: {
+      url: Nestorianism,
+      credit: "Portret van Nestorius, Romeyn de Hooghe (1688)",
+   },
+   Miaphysitism: { url: Miaphysitism, credit: "Fresco in the Chora Church, Istanbul, 14th century" },
+   Monothelitism: {
+      url: Monothelitism,
+      credit: "Byzantine mosaic of Jesus Christ in Basilica of Sant'Apollinare Nuovo in Ravenna",
+   },
+   Iconoclasm: {
+      url: Iconoclasm,
+      credit: "Gli Iconoclasti, Domenico Morelli (1855)",
+   },
    Y193: { url: Y193, credit: "The Death of Commodus, Fernand Pelez (c. 1899)" },
    Y197: { url: Y197, credit: "The Battle of the Teutoburg Forest, Otto Albert Koch (1909)" },
    Y198: { url: Y198, credit: "The Triumph of Titus, Lawrence Alma-Tadema (1885)" },
@@ -204,7 +230,6 @@ export const EventImage = {
       url: Surrender,
       credit: "Camillus Delivers the Schoolmaster of Falerii to His Pupils, Nicolas Poussin (1637)",
    },
-   Arianism: { url: Arianism, credit: "The Baptism of Constantine, Gianfrancesco Penni (c.1520)" },
    Refugee: { url: Refugee, credit: "The Last Days of Pompeii, Karl Bryullov (1830-33)" },
    Rome: {
       url: Rome,

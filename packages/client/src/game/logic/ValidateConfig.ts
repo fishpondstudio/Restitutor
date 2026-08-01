@@ -81,6 +81,7 @@ export function validateConfig(): void {
          tiles.add(tile);
       });
    });
+   const errors: string[] = [];
    forEach(Province, (province) => {
       const yearToEvents = new Map<number, GameEvent>();
       forEach(GameEvents, (k, config) => {
@@ -90,17 +91,22 @@ export function validateConfig(): void {
          if (config.condition?.year && (!config.condition.province || config.condition.province.includes(province))) {
             const [startYear, _] = config.condition.year;
             const existingEvent = yearToEvents.get(startYear);
-            // If an event has conditions other than year and province, we don't need to check for year duplicates
-            if (keysOf(config.condition).filter((k) => k !== "year" && k !== "province").length > 0) {
+            // If an event has conditions other than year, province, and playerOnly, we don't need to check for year duplicates
+            if (
+               keysOf(config.condition).filter((k) => k !== "year" && k !== "province" && k !== "playerOnly").length > 0
+            ) {
                return;
             }
             if (existingEvent) {
-               console.error(`[${province}] Game Event "${existingEvent}" and "${k}" have the same year ${startYear}`);
+               errors.push(`[${province}] Game Event "${existingEvent}" and "${k}" have the same year ${startYear}`);
             }
             yearToEvents.set(startYear, k);
          }
       });
    });
+   if (errors.length > 0) {
+      console.error(errors.join("\n"));
+   }
    // forEach(TimedActions, (timedAction, config) => {
    //    if (config.duration > config.cooldown) {
    //       console.warn(`Timed action ${timedAction} has a duration > cooldown`);

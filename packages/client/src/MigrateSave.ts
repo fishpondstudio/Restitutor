@@ -2,6 +2,7 @@ import { forEach } from "@project/shared/src/utils/Helper";
 import { Province, ProvinceStats } from "./game/definitions/Province";
 import { addProvinceUpgrade, ProvinceUpgrades } from "./game/definitions/ProvinceUpgrades";
 import { SocialClass } from "./game/definitions/SocialClass";
+import { GameEvents } from "./game/events/GameEvents";
 import { GameOption } from "./game/GameOption";
 import { GameState, type SaveGame } from "./game/GameState";
 import { emptyRelation, fixRelations, getRelations } from "./game/logic/DiplomacyLogic";
@@ -48,6 +49,16 @@ export function migrateSave(save: SaveGame): void {
          data.legacyUpgrades = new Set();
          const legacyPoints = provinceResourceOf("legacy", province, save);
          legacyPoints[1] = 0;
+      }
+      for (const [event] of data.events) {
+         if (!GameEvents[event]) {
+            data.events.delete(event);
+         }
+      }
+      for (const event of data.usedEvents) {
+         if (!GameEvents[event]) {
+            data.usedEvents.delete(event);
+         }
       }
    });
    fixRelations(save);
