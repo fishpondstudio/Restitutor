@@ -2589,4 +2589,5 @@ export const RU = {
    ChristianInfluencePerYearDesc: "Это количество христианского влияния, которое наша провинция получает каждый год.",
    $1ChristianInfluenceIsAtLeast$2: "Христианское влияние в провинции $1 — не менее $2",
    ChristianInfluenceIsHigherThanGoverningCost: "Христианское влияние превышает стоимость управления",
+   $1SpreadsTo$2And$3OfTheChristianTiles: "$1 распространяется в провинциях $2 и охватывает $3 христианских владений.",
 };

@@ -2589,4 +2589,5 @@ export const EN = {
    ChristianInfluencePerYearDesc: "This is the amount of Christian Influence our province gains each year.",
    $1ChristianInfluenceIsAtLeast$2: "$1's Christian Influence is at least $2",
    ChristianInfluenceIsHigherThanGoverningCost: "Christian Influence is higher than Governing Cost",
+   $1SpreadsTo$2And$3OfTheChristianTiles: "$1 spreads to $2 and $3 of the Christian tiles.",
 };

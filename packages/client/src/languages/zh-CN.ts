@@ -2574,4 +2574,5 @@ export const ZH_CN = {
    ChristianInfluencePerYearDesc: "这是我们行省每年获得的基督宗教影响力。",
    $1ChristianInfluenceIsAtLeast$2: "$1的基督宗教影响力至少为$2",
    ChristianInfluenceIsHigherThanGoverningCost: "基督宗教影响力高于治理花费",
+   $1SpreadsTo$2And$3OfTheChristianTiles: "$1传播至$2，并影响基督宗教地块的$3。",
 };

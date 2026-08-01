@@ -36,11 +36,17 @@ const _Religion = {
    Iconoclasm: { name: () => $t(L.ReligionIconoclasm), flags: ReligionFlags.Christian },
 } as const satisfies Record<string, IReligionConfig>;
 
-export const ChristianDoctrines = {
-   Donatism: { year: 311, percentage: 15, provinces: ["Africa", "Mauretania"] },
+interface IChristianDoctrineConfig {
+   percentage: number;
+   provinces: Province[];
+   year: number;
+}
+
+const _ChristianDoctrines = {
+   Donatism: { year: 311, percentage: 0.15, provinces: ["Africa", "Mauretania"] },
    Arianism: {
       year: 318,
-      percentage: 30,
+      percentage: 0.3,
       provinces: [
          "Italia",
          "Aegyptus",
@@ -68,17 +74,17 @@ export const ChristianDoctrines = {
    },
    Macedonianism: {
       year: 360,
-      percentage: 10,
+      percentage: 0.1,
       provinces: ["Thracia", "Bithynia", "Asia", "Galatia", "Cappadocia", "Cilicia", "Syria", "Aegyptus"],
    },
    Pelagianism: {
       year: 411,
-      percentage: 10,
+      percentage: 0.1,
       provinces: ["Britannia", "Italia", "Africa", "Mauretania", "Sicilia", "Judea"],
    },
    Nestorianism: {
       year: 428,
-      percentage: 15,
+      percentage: 0.15,
       provinces: [
          "Thracia",
          "Bithynia",
@@ -94,12 +100,12 @@ export const ChristianDoctrines = {
    },
    Miaphysitism: {
       year: 451,
-      percentage: 25,
+      percentage: 0.25,
       provinces: ["Aegyptus", "Cyrenaica", "Syria", "Judea", "Cilicia", "Cappadocia", "Galatia"],
    },
    Monothelitism: {
       year: 638,
-      percentage: 15,
+      percentage: 0.15,
       provinces: [
          "Thracia",
          "Bithynia",
@@ -120,7 +126,7 @@ export const ChristianDoctrines = {
    },
    Iconoclasm: {
       year: 726,
-      percentage: 20,
+      percentage: 0.2,
       provinces: [
          "Asia",
          "Bithynia",
@@ -139,9 +145,11 @@ export const ChristianDoctrines = {
          "Sicilia",
       ],
    },
-} as const satisfies Partial<Record<Religion, { percentage: number; provinces: Province[]; year: number }>>;
+} as const satisfies Partial<Record<Religion, IChristianDoctrineConfig>>;
 
 export type Religion = keyof typeof _Religion;
+export type ChristianDoctrines = keyof typeof _ChristianDoctrines;
+export const ChristianDoctrines: Record<ChristianDoctrines, IChristianDoctrineConfig> = _ChristianDoctrines;
 export const Religion: Record<Religion, IReligionConfig> = _Religion;
 export const Religions = keysOf(_Religion);
 export const ChristianReligions = entriesOf(Religion)

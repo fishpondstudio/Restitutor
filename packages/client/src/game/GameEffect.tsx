@@ -1,4 +1,12 @@
-import { forEach, formatDelta, formatNumber, formatPercent, mapOf, type Tile } from "@project/shared/src/utils/Helper";
+import {
+   forEach,
+   formatDelta,
+   formatNumber,
+   formatPercent,
+   mapOf,
+   shuffle,
+   type Tile,
+} from "@project/shared/src/utils/Helper";
 import type React from "react";
 import { html } from "../ui/components/RenderHTMLComp";
 import { $t, L } from "../utils/i18n";
@@ -20,8 +28,10 @@ import {
    type TradeOfferBase,
 } from "./definitions/Province";
 import { addProvinceUpgrade, type ProvinceUpgrade, ProvinceUpgrades } from "./definitions/ProvinceUpgrades";
+import { ChristianDoctrines, isChristianReligion, Religion } from "./definitions/Religion";
 import type { SpawnedProvince } from "./definitions/SpawnedProvince";
 import { SpawnedProvinces } from "./definitions/SpawnedProvince";
+import type { ITileData } from "./definitions/Tile";
 import { getTileName } from "./definitions/TileName";
 import { TimedActions } from "./definitions/TimedAction";
 import { RefreshTiles } from "./Events";
@@ -48,6 +58,7 @@ export interface IGameEffect {
    attitudes?: Partial<Record<Province, Omit<IModifier, "name"> & { duration: number }>>;
    casusBelli?: Partial<Record<Province, { casusBelli: CasusBelli; duration: number }>>;
    spawnProvinces?: SpawnedProvince[];
+   spawnHeresies?: ChristianDoctrines[];
 }
 
 export interface ICustomEffect {
@@ -150,6 +161,16 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
                )}
             </div>
          ))}
+         {effect.spawnHeresies?.map((heresy) => (
+            <div key={heresy}>
+               {$t(
+                  L.$1SpreadsTo$2And$3OfTheChristianTiles,
+                  Religion[heresy].name(),
+                  ChristianDoctrines[heresy].provinces.map((province) => getProvinceName(province, save)).join(", "),
+                  formatPercent(ChristianDoctrines[heresy].percentage),
+               )}
+            </div>
+         ))}
       </>
    );
 }
@@ -210,6 +231,27 @@ export function applyGameEffect(effect: IGameEffect, source: string, province: P
    effect.spawnProvinces?.forEach((spawnedProvince) => {
       spawnProvince(spawnedProvince, source, save).forEach((tile) => {
          changedTiles.push(tile);
+      });
+   });
+   effect.spawnHeresies?.forEach((heresy) => {
+      const tiles = new Map<Tile, ITileData>();
+      const provinces = ChristianDoctrines[heresy].provinces;
+      const pool = shuffle(Array.from(save.state.tiles));
+      for (const province of provinces) {
+         for (const [tile, tileData] of pool) {
+            if (tileData.province === province && tileData.coreProvinces.has(province)) {
+               tiles.set(tile, tileData);
+               break;
+            }
+         }
+      }
+      const candidates = pool.filter(([tile, tileData]) => isChristianReligion(tileData.religion) && !tiles.has(tile));
+      const size = Math.ceil(candidates.length * ChristianDoctrines[heresy].percentage);
+      candidates.slice(0, size).forEach(([tile, tileData]) => {
+         tiles.set(tile, tileData);
+      });
+      tiles.forEach((tileData, tile) => {
+         tileData.religion = heresy;
       });
    });
    if (changedTiles.length > 0) {
