@@ -2559,7 +2559,6 @@ export const ZH_CN = {
    ReligionMonothelitism: "基督一志论",
    ReligionIconoclasm: "圣像破坏运动",
    $1WarScoreWhenDefendersReligionIsDifferentFromOurs: "防守方宗教与我方宗教不同时$1战争分数",
-   TheirReligionIsDifferentFromOurs: "其宗教与我方宗教不同",
    OurReligionIsNotChristian: "我们的宗教不属于基督宗教",
    OurReligionIsChristian: "我们的宗教属于基督宗教",
    OurProvinceReligionIsChristian: "我们行省的宗教属于基督宗教",
@@ -2595,4 +2594,5 @@ export const ZH_CN = {
    TheWarAgainstTheIcons: "反对圣像之战",
    TheWarAgainstTheIconsDesc: "帝国官员正从教堂和公共场所移走圣像，宣称对圣像的敬礼是一种偶像崇拜。修士、主教和信徒挺身捍卫圣像，这场争论正使帝国各地的社群陷入分裂。",
    SacredImagesBecomeABattleground: "圣像成为争夺的战场",
+   TheirReligionIsNotChristian: "其宗教不属于基督宗教",
 };

@@ -2574,7 +2574,6 @@ export const EN = {
    ReligionMonothelitism: "Monothelitism",
    ReligionIconoclasm: "Iconoclasm",
    $1WarScoreWhenDefendersReligionIsDifferentFromOurs: "$1 War Score when defender's religion is different from ours",
-   TheirReligionIsDifferentFromOurs: "Their religion is different from ours",
    OurReligionIsNotChristian: "Our religion is not Christian",
    OurReligionIsChristian: "Our religion is Christian",
    OurProvinceReligionIsChristian: "Our province religion is Christian",
@@ -2610,4 +2609,5 @@ export const EN = {
    TheWarAgainstTheIcons: "The War Against the Icons",
    TheWarAgainstTheIconsDesc: "Imperial officers are removing sacred images from churches and public places, declaring their veneration a form of idolatry. Monks, bishops, and worshippers defend the icons, and the quarrel is dividing communities across the empire.",
    SacredImagesBecomeABattleground: "Sacred images become a battleground",
+   TheirReligionIsNotChristian: "Their religion is not Christian",
 };

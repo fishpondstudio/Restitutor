@@ -629,6 +629,9 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             <ActionButton
                className="py2"
                action={{
+                  cost: {
+                     diplomatic: 25,
+                  },
                   condition: finalizeCondition([
                      ...timedActionConditions({ action: "ProclaimCrusade" }, G.save.state.playerProvince, G.save),
                      {
@@ -636,8 +639,8 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                         value: isChristianReligion(ourState.religion),
                      },
                      {
-                        name: $t(L.TheirReligionIsDifferentFromOurs),
-                        value: theirState.religion !== ourState.religion,
+                        name: $t(L.TheirReligionIsNotChristian),
+                        value: !isChristianReligion(theirState.religion),
                      },
                   ]),
                   effect: () => {

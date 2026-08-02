@@ -2574,7 +2574,6 @@ export const RU = {
    ReligionMonothelitism: "Монофелитство",
    ReligionIconoclasm: "Иконоборчество",
    $1WarScoreWhenDefendersReligionIsDifferentFromOurs: "$1 к счёту войны, если религия защитника отличается от нашей",
-   TheirReligionIsDifferentFromOurs: "Их религия отличается от нашей",
    OurReligionIsNotChristian: "Наша религия — не христианская",
    OurReligionIsChristian: "Наша религия — христианская",
    OurProvinceReligionIsChristian: "Религия нашей провинции — христианская",
@@ -2610,4 +2609,5 @@ export const RU = {
    TheWarAgainstTheIcons: "Война против икон",
    TheWarAgainstTheIconsDesc: "Императорские чиновники удаляют священные изображения из церквей и общественных мест, объявляя их почитание формой идолопоклонства. Монахи, епископы и верующие защищают иконы, и этот спор раскалывает общины по всей империи.",
    SacredImagesBecomeABattleground: "Священные изображения становятся полем битвы",
+   TheirReligionIsNotChristian: "Их религия — не христианская",
 };
