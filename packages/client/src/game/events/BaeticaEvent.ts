@@ -124,6 +124,7 @@ export const BaeticaEvent = {
    },
    Baetica5: {
       name: () => $t(L.TheMartyrsOfCorduba),
+      wikipedia: "Acisclus",
       image: EventImage.Baetica5,
       desc: () => $t(L.TheMartyrsOfCordubaDesc),
       condition: {
@@ -150,6 +151,7 @@ export const BaeticaEvent = {
    },
    Baetica6: {
       name: () => $t(L.TheCouncilOfElvira),
+      wikipedia: "Synod_of_Elvira",
       image: EventImage.Baetica6,
       desc: () => $t(L.TheCouncilOfElviraDesc),
       condition: {
@@ -177,6 +179,7 @@ export const BaeticaEvent = {
    },
    Baetica7: {
       name: () => $t(L.HosiusReturnsFromNicaea),
+      wikipedia: "Hosius_of_Corduba",
       image: EventImage.Baetica7,
       desc: () => $t(L.HosiusReturnsFromNicaeaDesc),
       condition: {
@@ -233,6 +236,7 @@ export const BaeticaEvent = {
    },
    Baetica9: {
       name: () => $t(L.TheVandalsReceiveBaetica),
+      wikipedia: "Silingi",
       image: EventImage.Baetica9,
       desc: () => $t(L.TheVandalsReceiveBaeticaDesc),
       condition: {
@@ -259,6 +263,7 @@ export const BaeticaEvent = {
    },
    Baetica10: {
       name: () => $t(L.TheEmptyHarborsAfterTheCrossing),
+      wikipedia: "Vandal_conquest_of_Roman_Africa",
       image: EventImage.Narbonensis10,
       desc: () => $t(L.TheEmptyHarborsAfterTheCrossingDesc),
       condition: {

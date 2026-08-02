@@ -90,6 +90,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis4: {
       name: () => $t(L.TheMartyrdomOfGenesiusAtArelate),
+      wikipedia: "Genesius_of_Arles",
       image: EventImage.Narbonensis4,
       desc: () => $t(L.TheMartyrdomOfGenesiusAtArelateDesc),
       condition: {
@@ -122,6 +123,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis5: {
       name: () => $t(L.TheCouncilOfArles),
+      wikipedia: "Synod_of_Arles",
       image: EventImage.Narbonensis5,
       desc: () => $t(L.TheCouncilOfArlesDesc),
       condition: {
@@ -147,6 +149,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis6: {
       name: () => $t(L.ArelateTheRomeOfGaul),
+      wikipedia: "Praetorian_prefecture_of_Gaul",
       image: EventImage.Narbonensis6,
       desc: () => $t(L.ArelateTheRomeOfGaulDesc),
       condition: {
@@ -199,6 +202,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis8: {
       name: () => $t(L.TheMonksOfLerins),
+      wikipedia: "L%C3%A9rins_Abbey",
       image: EventImage.Narbonensis8,
       desc: () => $t(L.TheMonksOfLerinsDesc),
       condition: {
@@ -231,6 +235,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis9: {
       name: () => $t(L.CassianBringsTheDesertToMassilia),
+      wikipedia: "John_Cassian",
       image: EventImage.Narbonensis9,
       desc: () => $t(L.CassianBringsTheDesertToMassiliaDesc),
       condition: {

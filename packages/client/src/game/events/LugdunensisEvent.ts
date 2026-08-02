@@ -238,6 +238,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis7: {
       name: () => $t(L.TheLegacyOfIrenaeus),
+      wikipedia: "Irenaeus",
       image: EventImage.Saint,
       desc: () => $t(L.TheLegacyOfIrenaeusDesc),
       condition: {
@@ -552,6 +553,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis15: {
       name: () => $t(L.MartinOfToursAndTheCloak),
+      wikipedia: "Martin_of_Tours",
       image: EventImage.Saint2,
       desc: () => $t(L.MartinOfToursAndTheCloakDesc),
       condition: {

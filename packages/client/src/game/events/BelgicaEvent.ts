@@ -8,6 +8,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const BelgicaEvent = {
    Belgica1: {
       name: () => $t(L.AugustaTreverorumCityOfEmperors),
+      wikipedia: "Trier",
       image: EventImage.Belgica1,
       desc: () => $t(L.AugustaTreverorumCityOfEmperorsDesc),
       condition: {
@@ -127,6 +128,7 @@ export const BelgicaEvent = {
    },
    Belgica5: {
       name: () => $t(L.AthanasiusInExileAtTrier),
+      wikipedia: "Athanasius_of_Alexandria",
       image: EventImage.Belgica5,
       desc: () => $t(L.AthanasiusInExileAtTrierDesc),
       condition: {
@@ -158,6 +160,7 @@ export const BelgicaEvent = {
    },
    Belgica6: {
       name: () => $t(L.ValentinianFortifiesTheRhine),
+      wikipedia: "Valentinian_I",
       image: EventImage.Watchtower,
       desc: () => $t(L.ValentinianFortifiesTheRhineDesc),
       condition: {
@@ -209,6 +212,7 @@ export const BelgicaEvent = {
    },
    Belgica8: {
       name: () => $t(L.TheMartyrdomOfNicasiusAtReims),
+      wikipedia: "Nicasius_of_Rheims",
       image: EventImage.Martyrs,
       desc: () => $t(L.TheMartyrdomOfNicasiusAtReimsDesc),
       condition: {
@@ -240,6 +244,7 @@ export const BelgicaEvent = {
    },
    Belgica9: {
       name: () => $t(L.TheCourtDepartsTrier),
+      wikipedia: "Praetorian_prefecture_of_Gaul",
       image: EventImage.Belgica9,
       desc: () => $t(L.TheCourtDepartsTrierDesc),
       condition: {

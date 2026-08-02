@@ -111,6 +111,7 @@ export const LusitaniaEvent = {
    },
    Lusitania5: {
       name: () => $t(L.EmeritaSeatOfTheDiocese),
+      wikipedia: "Diocese_of_Hispania",
       image: EventImage.Y284,
       desc: () => $t(L.EmeritaSeatOfTheDioceseDesc),
       condition: {
@@ -136,6 +137,7 @@ export const LusitaniaEvent = {
    },
    Lusitania6: {
       name: () => $t(L.EulaliaDefiesTheMagistrate),
+      wikipedia: "Eulalia_of_M%C3%A9rida",
       image: EventImage.Lusitania6,
       desc: () => $t(L.EulaliaDefiesTheMagistrateDesc),
       condition: {
@@ -162,6 +164,7 @@ export const LusitaniaEvent = {
    },
    Lusitania7: {
       name: () => $t(L.ThePriscillianistControversy),
+      wikipedia: "Priscillian",
       image: EventImage.Lusitania7,
       desc: () => $t(L.ThePriscillianistControversyDesc),
       condition: {
@@ -193,6 +196,7 @@ export const LusitaniaEvent = {
    },
    Lusitania8: {
       name: () => $t(L.LusitaniaIsGrantedToTheAlans),
+      wikipedia: "Alans",
       image: EventImage.War2,
       desc: () => $t(L.LusitaniaIsGrantedToTheAlansDesc),
       condition: {
@@ -219,6 +223,7 @@ export const LusitaniaEvent = {
    },
    Lusitania9: {
       name: () => $t(L.GothAndAlanContestTheProvince),
+      wikipedia: "Alans",
       image: EventImage.Y453,
       desc: () => $t(L.GothAndAlanContestTheProvinceDesc),
       condition: {

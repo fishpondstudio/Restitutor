@@ -5,6 +5,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const ReligiousEvents = {
    Donatism: {
       name: () => $t(L.TheSchismAtCarthage),
+      wikipedia: "Donatism",
       image: EventImage.Donatism,
       desc: () => $t(L.TheSchismAtCarthageDesc),
       condition: {
@@ -20,6 +21,7 @@ export const ReligiousEvents = {
    },
    Arianism: {
       name: () => $t(L.AriusChallengesTheBishops),
+      wikipedia: "Arianism",
       image: EventImage.Arianism,
       desc: () => $t(L.AriusChallengesTheBishopsDesc),
       condition: {
@@ -35,6 +37,7 @@ export const ReligiousEvents = {
    },
    Macedonianism: {
       name: () => $t(L.TheSpiritIsCalledIntoQuestion),
+      wikipedia: "Pneumatomachi",
       image: EventImage.Macedonianism,
       desc: () => $t(L.TheSpiritIsCalledIntoQuestionDesc),
       condition: {
@@ -50,6 +53,7 @@ export const ReligiousEvents = {
    },
    Pelagianism: {
       name: () => $t(L.TheTeachingsOfPelagius),
+      wikipedia: "Pelagianism",
       image: EventImage.Pelagianism,
       desc: () => $t(L.TheTeachingsOfPelagiusDesc),
       condition: {
@@ -65,6 +69,7 @@ export const ReligiousEvents = {
    },
    Nestorianism: {
       name: () => $t(L.NestoriusRejectsTheotokos),
+      wikipedia: "Nestorianism",
       image: EventImage.Nestorianism,
       desc: () => $t(L.NestoriusRejectsTheotokosDesc),
       condition: {
@@ -80,6 +85,7 @@ export const ReligiousEvents = {
    },
    Miaphysitism: {
       name: () => $t(L.ChalcedonDividesTheEast),
+      wikipedia: "Miaphysitism",
       image: EventImage.Miaphysitism,
       desc: () => $t(L.ChalcedonDividesTheEastDesc),
       condition: {
@@ -95,6 +101,7 @@ export const ReligiousEvents = {
    },
    Monothelitism: {
       name: () => $t(L.OneWillInChrist),
+      wikipedia: "Monothelitism",
       image: EventImage.Monothelitism,
       desc: () => $t(L.OneWillInChristDesc),
       condition: {
@@ -110,6 +117,7 @@ export const ReligiousEvents = {
    },
    Iconoclasm: {
       name: () => $t(L.TheWarAgainstTheIcons),
+      wikipedia: "Byzantine_Iconoclasm",
       image: EventImage.Iconoclasm,
       desc: () => $t(L.TheWarAgainstTheIconsDesc),
       condition: {

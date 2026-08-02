@@ -72,6 +72,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis3: {
       name: () => $t(L.TheMartyrdomOfFructuosus),
+      wikipedia: "Fructuosus",
       image: EventImage.Y303,
       desc: () => $t(L.TheMartyrdomOfFructuosusDesc),
       condition: {
@@ -184,6 +185,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis7: {
       name: () => $t(L.PrudentiusSingsOfChristianRome),
+      wikipedia: "Prudentius",
       image: EventImage.Tarraconensis7,
       desc: () => $t(L.PrudentiusSingsOfChristianRomeDesc),
       condition: {
@@ -212,6 +214,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis8: {
       name: () => $t(L.MaximusTakesThePurpleInHispania),
+      wikipedia: "Maximus_of_Hispania",
       image: EventImage.Y222,
       desc: () => $t(L.MaximusTakesThePurpleInHispaniaDesc),
       condition: {
@@ -264,6 +267,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis10: {
       name: () => $t(L.TheBagaudaeOfTheEbro),
+      wikipedia: "Bagaudae",
       image: EventImage.Tarraconensis10,
       desc: () => $t(L.TheBagaudaeOfTheEbroDesc),
       condition: {

@@ -286,6 +286,7 @@ export const HistoricalEvents = {
    },
    Y248: {
       name: () => $t(L.OneThousandYearsOfRome),
+      wikipedia: "Secular_Games",
       image: EventImage.Y248,
       desc: () => $t(L.OneThousandYearsOfRomeDesc),
       condition: {

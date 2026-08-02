@@ -64,6 +64,7 @@ export const GermaniaEvent = {
    },
    Germania3: {
       name: () => $t(L.PostumusIsRaisedUponTheShield),
+      wikipedia: "Postumus",
       image: EventImage.Germania3,
       desc: () => $t(L.PostumusIsRaisedUponTheShieldDesc),
       condition: {
@@ -90,6 +91,7 @@ export const GermaniaEvent = {
    },
    Germania4: {
       name: () => $t(L.TheLimesGivesWay),
+      wikipedia: "Limesfall",
       image: EventImage.Germania4,
       desc: () => $t(L.TheLimesGivesWayDesc),
       condition: {
@@ -151,6 +153,7 @@ export const GermaniaEvent = {
    },
    Germania6: {
       name: () => $t(L.GereonAndTheMartyrsOfColonia),
+      wikipedia: "Gereon",
       image: EventImage.Germania6,
       desc: () => $t(L.GereonAndTheMartyrsOfColoniaDesc),
       condition: {
@@ -215,6 +218,7 @@ export const GermaniaEvent = {
    },
    Germania8: {
       name: () => $t(L.TheVictoryAtArgentoratum),
+      wikipedia: "Battle_of_Strasbourg",
       image: EventImage.Germania8,
       desc: () => $t(L.TheVictoryAtArgentoratumDesc),
       condition: {
@@ -240,6 +244,7 @@ export const GermaniaEvent = {
    },
    Germania9: {
       name: () => $t(L.ValentiniansChainOfForts),
+      wikipedia: "Valentinian_I",
       image: EventImage.Watchtower,
       desc: () => $t(L.ValentiniansChainOfFortsDesc),
       condition: {
@@ -265,6 +270,7 @@ export const GermaniaEvent = {
    },
    Germania10: {
       name: () => $t(L.TheRhineIsCrossed),
+      wikipedia: "Crossing_of_the_Rhine",
       image: EventImage.Germania10,
       desc: () => $t(L.TheRhineIsCrossedDesc),
       condition: {

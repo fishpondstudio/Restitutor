@@ -68,6 +68,7 @@ export const AquitaniaEvent = {
    },
    Aquitania3: {
       name: () => $t(L.TheBagaudaeRiseInTheCountryside),
+      wikipedia: "Bagaudae",
       image: EventImage.Aquitania3,
       desc: () => $t(L.TheBagaudaeRiseInTheCountrysideDesc),
       condition: {
@@ -131,6 +132,7 @@ export const AquitaniaEvent = {
    },
    Aquitania5: {
       name: () => $t(L.HilaryOfPoitiersDefiesTheArians),
+      wikipedia: "Hilary_of_Poitiers",
       image: EventImage.Aquitania5,
       desc: () => $t(L.HilaryOfPoitiersDefiesTheAriansDesc),
       condition: {
@@ -170,6 +172,7 @@ export const AquitaniaEvent = {
    },
    Aquitania6: {
       name: () => $t(L.PaulinusForsakesTheWorld),
+      wikipedia: "Paulinus_of_Nola",
       image: EventImage.Aquitania6,
       desc: () => $t(L.PaulinusForsakesTheWorldDesc),
       condition: {
@@ -201,6 +204,7 @@ export const AquitaniaEvent = {
    },
    Aquitania7: {
       name: () => $t(L.AusoniusReturnsToHisVilla),
+      wikipedia: "Ausonius",
       image: EventImage.Aquitania7,
       desc: () => $t(L.AusoniusReturnsToHisVillaDesc),
       condition: {
