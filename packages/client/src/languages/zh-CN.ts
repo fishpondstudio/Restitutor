@@ -699,7 +699,7 @@ export const ZH_CN = {
    PledgeSupport: "承诺支持",
    PledgeSupportConsulElectionTooltip: "我们可在即将到来的执政官选举中承诺支持两名候选人。点击查看详情。",
    PledgeSupportInConsulElection: "在执政官选举中承诺支持",
-   PledgeSupportTooltip: "每年选举两名执政官。我们可承诺支持两名候选人——若他们当选，我们将获得其执政官点数，可用于元老院法令",
+   PledgeSupportTooltip: "每两年选举两名执政官。我们可承诺支持两名候选人——若他们当选，我们将获得执政官点数，可用于元老院法令。",
    PlunderingWarTilesWillReduceTheRequiredWarScore: "掠夺战争地块将降低<i>所需战争分数</i>。",
    PlunderWarTile: "掠夺战争地块",
    PlunderWarTiles: "掠夺战争地块",

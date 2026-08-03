@@ -48,8 +48,8 @@ export function EcumenicalCouncilPage(): React.ReactNode {
          }
       >
          <div className="row mx10 my5">
-            <div className="f1">Months Left</div>
-            <div>{getTimedActionTimeLeft(council, G.save.state.playerProvince, G.save)}</div>
+            <div className="f1">Council ends in</div>
+            <div>{getTimedActionTimeLeft(council, G.save.state.playerProvince, G.save)} months</div>
          </div>
          <div className="mx10 my5 text-dimmed text-sm">
             Our province gets +{formatPercent(EcumenicalCouncilChristianityPct)} {Modifiers.ChristianityYearly.name()}{" "}
@@ -245,7 +245,7 @@ function ReconcilePanel(): React.ReactNode {
                               tooltip={(element) => (
                                  <>
                                     <div className="m10">
-                                       Reconcile {getTileName(tile)} from {Religion[tileData.religion].name()} to{" "}
+                                       Convert {getTileName(tile)} from {Religion[tileData.religion].name()} to{" "}
                                        {Religion[state.religion].name()}
                                     </div>
                                     {element}
@@ -314,7 +314,7 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                      condition: finalizeCondition([
                         ...timedActionConditions(
                            { action: "EcumenicalCouncilAction", label: "Ecumenical council action not on cooldown" },
-                           selectedProvince,
+                           G.save.state.playerProvince,
                            G.save,
                         ),
                         ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),
@@ -405,7 +405,7 @@ function CouncilActionButton({ modifier }: { modifier: Omit<IAddModifier, "save"
             condition: finalizeCondition([
                ...timedActionConditions(
                   { action: "EcumenicalCouncilAction", label: "Ecumenical council action not on cooldown" },
-                  modifier.province,
+                  G.save.state.playerProvince,
                   G.save,
                ),
                ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),

@@ -36,7 +36,6 @@ import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import type { SaveGame } from "../game/GameState";
 import { getCurrentRelations, getDiplomats, getRelations } from "../game/logic/DiplomacyLogic";
-import { monthToNextYear } from "../game/logic/GameDateTime";
 import { getEligibleForMarriage } from "../game/logic/GovernorLogic";
 import { getLegacyUpgradeCost } from "../game/logic/LegacyUpgradeLogic";
 import {
@@ -45,6 +44,7 @@ import {
    getProvinceProductionCapacity,
    getProvinceResource,
    getProvinceUsedProductionCapacity,
+   monthsToNextConsulElection,
 } from "../game/logic/ProvinceLogic";
 import { isSocialClassDisloyal, isSocialClassDominant } from "../game/logic/SocialClassLogic";
 import { getTechsCanBeResearched, hasResearched } from "../game/logic/TechLogic";
@@ -308,18 +308,14 @@ const ExpiringConsulPoints: ITodo = {
    icon: (save) => Decree,
    className: (save) => "yellow",
    tooltip: (save) => {
-      const monthsToNextYear = monthToNextYear(save);
-      if (
-         getProvinceResource("consulPoint", save.state.playerProvince, save) > 0 &&
-         monthsToNextYear > 0 &&
-         monthsToNextYear < 6
-      ) {
+      const monthsToNextElection = monthsToNextConsulElection(save);
+      if (getProvinceResource("consulPoint", save.state.playerProvince, save) > 0 && monthsToNextElection < 6) {
          return (
             <div className="m10">
                {$t(
                   L.ExpiringConsulPointsTooltip$1$2,
                   getProvinceResource("consulPoint", save.state.playerProvince, save),
-                  monthToNextYear(save),
+                  monthsToNextElection,
                )}
             </div>
          );

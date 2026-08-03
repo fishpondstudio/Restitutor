@@ -6,12 +6,12 @@ import { hasNotProvinceUpgradeCondition } from "../game/definitions/ProvinceUpgr
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { getRevealedConsulVotes } from "../game/logic/DiplomacyLogic";
-import { monthToDate, monthToNextYear } from "../game/logic/GameDateTime";
+import { monthToDate } from "../game/logic/GameDateTime";
 import {
-   ConsulElectionMonths,
    getProvinceName,
    getProvinceResource,
    getProvinceStat,
+   monthsToNextConsulElection,
 } from "../game/logic/ProvinceLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -35,12 +35,12 @@ export function SenatePage(): React.ReactNode {
    }
    const votes = G.save.state.senate.votes.get(G.save.state.playerProvince) ?? new Set();
    const thisYear = monthToDate(G.save.state.month).getFullYear();
+   const monthsToNextElection = monthsToNextConsulElection(G.save);
+   const nextElectionYear = monthToDate(G.save.state.month + monthsToNextElection).getFullYear();
    const revealedVotes = getRevealedConsulVotes(G.save.state.playerProvince, G.save);
    return (
       <SidebarComp title={<SidebarImageHeader image={HeaderImages.Senate} title={$t(L.SenateAndConsuls)} />}>
-         <FloatingTip
-            label={$t(L.ConsulPointsWillExpireWhenTheNextConsulsAreElectedIn$1Months, monthToNextYear(G.save))}
-         >
+         <FloatingTip label={$t(L.ConsulPointsWillExpireWhenTheNextConsulsAreElectedIn$1Months, monthsToNextElection)}>
             <div className="h1 row">
                <div className="f1">{$t(L.SenateDecrees)}</div>
                <div>
@@ -95,7 +95,7 @@ export function SenatePage(): React.ReactNode {
                </div>
             </FloatingTip>
          </div>
-         <div className="h1">{$t(L.ConsulElectionOf$1Ad, thisYear + Math.ceil(ConsulElectionMonths / 12))}</div>
+         <div className="h1">{$t(L.ConsulElectionOf$1Ad, nextElectionYear)}</div>
          <FloatingTip label={$t(L.DefaultPledgeSupportTooltip)}>
             <div className="m10 row">
                <div className="f1">{$t(L.ProvincialBacking)}</div>

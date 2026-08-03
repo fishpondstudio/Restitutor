@@ -707,7 +707,7 @@ export const EN = {
    PledgeSupport: "Pledge Support",
    PledgeSupportConsulElectionTooltip: "We can pledge support to two candidates in the upcoming consul election. Click to view details.",
    PledgeSupportInConsulElection: "Pledge Support in Consul Election",
-   PledgeSupportTooltip: "Two consuls are elected every year. We can pledge support to two candidates - if they are elected, we will be rewarded with consul points from them, which can be used for senate decrees",
+   PledgeSupportTooltip: "Two consuls are elected every two years. We can pledge support to two candidates - if they are elected, we will be rewarded with consul points, which can be used for senate decrees.",
    PlunderingWarTilesWillReduceTheRequiredWarScore: "Plundering war tiles will reduce the <i>required war score</i>.",
    PlunderWarTile: "Plunder War Tile",
    PlunderWarTiles: "Plunder War Tiles",

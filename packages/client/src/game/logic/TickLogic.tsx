@@ -128,6 +128,10 @@ function tickConsulElection(save: SaveGame) {
       save.state.senate.electedConsuls.set(consul, provinces);
    });
 
+   forEach(save.state.provinces, (province) => {
+      resetProvinceResource("consulPoint", province, save);
+   });
+
    save.state.senate.votes.forEach((votes, province) => {
       let count = 0;
       elected.forEach((idx) => {
@@ -135,7 +139,6 @@ function tickConsulElection(save: SaveGame) {
             count++;
          }
       });
-      resetProvinceResource("consulPoint", province, save);
       if (count === 2) {
          addProvinceResource("consulPoint", 3, province, save);
       } else if (count === 1) {

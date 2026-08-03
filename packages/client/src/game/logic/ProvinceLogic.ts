@@ -974,6 +974,11 @@ export function generateTrade(
 
 export const ConsulElectionMonths = 24;
 
+export function monthsToNextConsulElection(save: SaveGame): number {
+   const elapsedMonths = save.state.month % ConsulElectionMonths;
+   return elapsedMonths === 0 ? ConsulElectionMonths : ConsulElectionMonths - elapsedMonths;
+}
+
 export function pledgeProvinceConsulVotes(province: Province, save: SaveGame): void {
    const votes = save.state.senate.votes.get(province);
    if (!votes) {
