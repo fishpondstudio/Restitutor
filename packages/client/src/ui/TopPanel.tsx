@@ -54,7 +54,7 @@ import { MissionPage } from "./MissionPage";
 import { PausePanel } from "./PausePanel";
 import { ProductionModal } from "./ProductionModal";
 import { ProvinceListModal } from "./ProvinceListModal";
-import { SenateModal } from "./SenateModal";
+import { SenatePage } from "./SenatePage";
 import { SettingsModal } from "./SettingsModal";
 import { SocialClassModal } from "./SocialClassModal";
 import { TileListModal } from "./TileListModal";
@@ -340,7 +340,7 @@ export function TopLeftPanel(): React.ReactNode {
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.SenateAndConsuls)}>
-                  <div className="pointer" id="TopPanel_Senate" onClick={() => showPanel(<SenateModal />)}>
+                  <div className="pointer" id="TopPanel_Senate" onClick={() => showPanel(<SenatePage />)}>
                      <img src={Senate} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>

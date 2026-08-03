@@ -108,7 +108,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                   </>
                )}
             >
-               Pressure Bishops
+               Draft Agenda
             </ActionButton>
             <ActionButton
                action={{
@@ -136,6 +136,33 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                )}
             >
                Lobby Bishops
+            </ActionButton>
+            <ActionButton
+               action={{
+                  cost: {
+                     military: 50,
+                  },
+                  condition: finalizeCondition([
+                     ...timedActionConditions(
+                        { action: "EcumenicalCouncilAction", label: "Ecumenical council action not on cooldown" },
+                        G.save.state.playerProvince,
+                        G.save,
+                     ),
+                     ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),
+                  ]),
+                  effect: () => {
+                     startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
+                     addProvinceResource("christianity", 1, G.save.state.playerProvince, G.save);
+                  },
+               }}
+               tooltip={(element) => (
+                  <>
+                     <div className="m10">+1 {ProvinceResourceNames.christianity()}</div>
+                     {element}
+                  </>
+               )}
+            >
+               Pressure Bishops
             </ActionButton>
          </div>
          <div className="h1">Reconcile Heretics</div>
@@ -173,6 +200,7 @@ function ReconcilePanel(): React.ReactNode {
                   if (!tileData) {
                      return null;
                   }
+                  const tileUpgrades = tileData.infrastructure + tileData.production + tileData.population;
                   return (
                      <tr key={tile}>
                         <td>
@@ -192,10 +220,40 @@ function ReconcilePanel(): React.ReactNode {
                               <div className="f1">{getTileName(tile)}</div>
                            </div>
                         </td>
-                        <td>{tileData.infrastructure + tileData.production + tileData.population}</td>
+                        <td>{tileUpgrades}</td>
                         <td>{Religion[tileData.religion].name()}</td>
                         <td className="w0">
-                           <button className="btn">Reconcile</button>
+                           <ActionButton
+                              action={{
+                                 condition: finalizeCondition([
+                                    ...timedActionConditions(
+                                       {
+                                          action: "EcumenicalCouncilAction",
+                                          label: "Ecumenical council action not on cooldown",
+                                       },
+                                       tileData.province,
+                                       G.save,
+                                    ),
+                                    ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),
+                                 ]),
+                                 cost: { christianity: tileUpgrades },
+                                 effect: () => {
+                                    tileData.religion = state.religion;
+                                    startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
+                                 },
+                              }}
+                              tooltip={(element) => (
+                                 <>
+                                    <div className="m10">
+                                       Reconcile {getTileName(tile)} from {Religion[tileData.religion].name()} to{" "}
+                                       {Religion[state.religion].name()}
+                                    </div>
+                                    {element}
+                                 </>
+                              )}
+                           >
+                              Reconcile
+                           </ActionButton>
                         </td>
                      </tr>
                   );
@@ -237,6 +295,13 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                onChange={(value) => {
                   if (value) {
                      setSelectedProvince(value);
+                     const capital = G.save.state.provinces[value]?.capital;
+                     if (capital) {
+                        G.scene
+                           .getCurrent(WorldScene)
+                           ?.lookAt(capital, { time: 0.2 })
+                           .then((scene) => scene.drawProvinceOutline(value));
+                     }
                   }
                }}
             />

@@ -75,7 +75,7 @@ import { GovernmentModal } from "./GovernmentModal";
 import { InternalAffairsPage } from "./InternalAffairsPage";
 import { LegacyUpgradeModal } from "./LegacyUpgradeModal";
 import { ProductionModal } from "./ProductionModal";
-import { SenateModal } from "./SenateModal";
+import { SenatePage } from "./SenatePage";
 import { SocialClassModal } from "./SocialClassModal";
 import { TradeModal } from "./TradeModal";
 import { TreasuryPage } from "./TreasuryPage";
@@ -299,7 +299,7 @@ const PledgeSupportToConsulCandidates: ITodo = {
       return null;
    },
    onClick: (save) => {
-      showPanel(<SenateModal />);
+      showPanel(<SenatePage />);
    },
 };
 
@@ -327,7 +327,7 @@ const ExpiringConsulPoints: ITodo = {
       return null;
    },
    onClick: (save) => {
-      showPanel(<SenateModal />);
+      showPanel(<SenatePage />);
    },
 };
 

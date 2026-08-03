@@ -16,18 +16,18 @@ import {
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { ModalComp, ModalImageHeader } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { showPanel } from "./common/ShowPanel";
+import { SidebarComp, SidebarImageHeader } from "./common/SidebarComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { DissolveTreatyModal } from "./DissolveTreatyModal";
 import { HeaderImages } from "./HeaderImages";
 import { NamePublicEnemyModal } from "./NamePublicEnemyModal";
 import { TimedActionButton } from "./TimedActionButton";
-import { Grid2, Grid3 } from "./UIConstant";
+import { Grid2 } from "./UIConstant";
 
-export function SenateModal(): React.ReactNode {
+export function SenatePage(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
@@ -37,7 +37,7 @@ export function SenateModal(): React.ReactNode {
    const thisYear = monthToDate(G.save.state.month).getFullYear();
    const revealedVotes = getRevealedConsulVotes(G.save.state.playerProvince, G.save);
    return (
-      <ModalComp size="lg" title={<ModalImageHeader image={HeaderImages.Senate} title={$t(L.SenateAndConsuls)} />}>
+      <SidebarComp title={<SidebarImageHeader image={HeaderImages.Senate} title={$t(L.SenateAndConsuls)} />}>
          <FloatingTip
             label={$t(L.ConsulPointsWillExpireWhenTheNextConsulsAreElectedIn$1Months, monthToNextYear(G.save))}
          >
@@ -48,7 +48,7 @@ export function SenateModal(): React.ReactNode {
                </div>
             </div>
          </FloatingTip>
-         <div style={Grid3} className="m10">
+         <div style={Grid2} className="m10">
             <TimedActionButton timedAction="RequestFunding" />
             <TimedActionButton timedAction="EnactSenateOversight" />
             <TimedActionButton timedAction="AffirmCivicUnity" />
@@ -80,7 +80,7 @@ export function SenateModal(): React.ReactNode {
                );
             })}
          </div>
-         <div className="h1">{$t(L.Automation)}</div>
+         <div className="divider" />
          <div className="m10">
             <FloatingTip label={$t(L.AutomaticallyPledgeSupportToTwoRandomCandidatesEveryElectionYear)}>
                <div className="row my5">
@@ -102,7 +102,7 @@ export function SenateModal(): React.ReactNode {
                <div>{getProvinceStat("consulVotes", G.save.state.playerProvince, G.save)}</div>
             </div>
          </FloatingTip>
-         <div style={Grid3} className="m10">
+         <div style={Grid2} className="m10">
             {G.save.state.senate.consulCandidates.map((name, i) => {
                const supportedProvinces = revealedVotes.get(i) ?? [];
                return (
@@ -195,6 +195,6 @@ export function SenateModal(): React.ReactNode {
                );
             })}
          </div>
-      </ModalComp>
+      </SidebarComp>
    );
 }
