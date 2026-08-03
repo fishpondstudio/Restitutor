@@ -13,9 +13,9 @@ import { $t, L } from "../utils/i18n";
 import { CasusBelli } from "./definitions/CasusBelli";
 import { Goods } from "./definitions/Goods";
 import {
+   durationToString,
    type IModifier,
    type Modifier,
-   modifierDurationToString,
    modifierToString,
    modifierValueToString,
 } from "./definitions/Modifier";
@@ -108,7 +108,7 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
                      L.$1$2AttitudeTowardsUsFor$3,
                      modifierValueToString(modifier),
                      getProvinceName(fromProvince, save),
-                     modifierDurationToString(modifier.duration),
+                     durationToString(modifier.duration),
                   )}
                </div>
             ))}
@@ -125,7 +125,7 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
                      L.Gain$1CasusBelliAgainst$2For$3,
                      CasusBelli[data.casusBelli].name(),
                      getProvinceName(fromProvince, save),
-                     modifierDurationToString(data.duration),
+                     durationToString(data.duration),
                   )}
                </div>
             ))}

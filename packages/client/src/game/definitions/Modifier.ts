@@ -204,7 +204,7 @@ export type Modifier = keyof typeof Modifiers;
 
 export function modifierToString(mod: Modifier, data: Omit<IModifier, "name">): string {
    if (data.duration) {
-      return `${modifierValueToString(data)} ${Modifiers[mod].name()} (${modifierDurationToString(data.duration)})`;
+      return `${modifierValueToString(data)} ${Modifiers[mod].name()} (${durationToString(data.duration)})`;
    }
    return `${modifierValueToString(data)} ${Modifiers[mod].name()}`;
 }
@@ -213,7 +213,7 @@ export function modifierValueToString(data: Omit<IModifier, "name">): string {
    return data.type === "add" ? formatDelta(data.value) : formatPercentDelta(data.value);
 }
 
-export function modifierDurationToString(duration: number): string {
+export function durationToString(duration: number): string {
    if (duration > 12 && duration % 12 === 0) {
       const years = Math.floor(duration / 12);
       return $t(L.$1Years, formatNumber(years));

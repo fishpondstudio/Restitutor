@@ -1,7 +1,7 @@
 import { formatNumber } from "@project/shared/src/utils/Helper";
 import type React from "react";
 import { finalizeCondition } from "../game/actions/GameAction";
-import { modifierDurationToString } from "../game/definitions/Modifier";
+import { durationToString } from "../game/definitions/Modifier";
 import { type Province, type Treaty, TreatyNames } from "../game/definitions/Province";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
@@ -49,7 +49,7 @@ export function TreatyActionButton({
                   <div className="row mx10 my5">
                      <div className="f1">{$t(L.ExpiresIn)}</div>
                      <div className="text-dimmed">
-                        {modifierDurationToString(getTreatyMonthLeft(ourProvince, theirProvince, G.save))}
+                        {durationToString(getTreatyMonthLeft(ourProvince, theirProvince, G.save))}
                      </div>
                   </div>
                   <div className="h2">{$t(L.Cancel$1, TreatyNames[treaty]())}</div>
@@ -61,7 +61,7 @@ export function TreatyActionButton({
                         getProvinceName(theirProvince, G.save),
                         getProvinceName(ourProvince, G.save),
                      )}{" "}
-                     ({modifierDurationToString(CancelTreatyPenalty[treaty].duration)})
+                     ({durationToString(CancelTreatyPenalty[treaty].duration)})
                   </div>
                   {element}
                </>
@@ -86,7 +86,7 @@ export function TreatyActionButton({
                )}
                <div className="row mx10 my5">
                   <div className="f1">{$t(L.Duration)}</div>
-                  <div className="text-dimmed">{modifierDurationToString(TimedActions.DiplomaticTreaty.duration)}</div>
+                  <div className="text-dimmed">{durationToString(TimedActions.DiplomaticTreaty.duration)}</div>
                </div>
                {element}
             </>

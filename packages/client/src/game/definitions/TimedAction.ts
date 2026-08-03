@@ -576,37 +576,37 @@ class TimedActionDefinitions {
       cooldown: 12,
    };
    EcumenicalCouncil1: ITimedAction = {
-      name: () => $t(L.FirstCouncilOfNicaea),
+      name: () => $t(L.TheFirstCouncilOfNicaea),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil2: ITimedAction = {
-      name: () => $t(L.FirstCouncilOfConstantinople),
+      name: () => $t(L.TheFirstCouncilOfConstantinople),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil3: ITimedAction = {
-      name: () => $t(L.CouncilOfEphesus),
+      name: () => $t(L.TheCouncilOfEphesus),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil4: ITimedAction = {
-      name: () => $t(L.CouncilOfChalcedon),
+      name: () => $t(L.TheCouncilOfChalcedon),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil5: ITimedAction = {
-      name: () => $t(L.SecondCouncilOfConstantinople),
+      name: () => $t(L.TheSecondCouncilOfConstantinople),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil6: ITimedAction = {
-      name: () => $t(L.ThirdCouncilOfConstantinople),
+      name: () => $t(L.TheThirdCouncilOfConstantinople),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil7: ITimedAction = {
-      name: () => $t(L.SecondCouncilOfNicaea),
+      name: () => $t(L.TheSecondCouncilOfNicaea),
       duration: 12 * 10,
       cooldown: 0,
    };

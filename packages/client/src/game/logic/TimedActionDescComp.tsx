@@ -1,6 +1,6 @@
 import { G } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
-import { modifierDurationToString } from "../definitions/Modifier";
+import { durationToString } from "../definitions/Modifier";
 import { type TimedAction, TimedActions } from "../definitions/TimedAction";
 import { getTimedActionDesc } from "./TimedActionLogic";
 
@@ -14,13 +14,13 @@ export function TimedActionDescComp({ action }: { action: TimedAction }): React.
          {"duration" in def && def.duration > 0 && (
             <div className="row mx10 my5">
                <div className="f1">{$t(L.Duration)}</div>
-               <div className="text-sm text-dimmed">{modifierDurationToString(def.duration)}</div>
+               <div className="text-sm text-dimmed">{durationToString(def.duration)}</div>
             </div>
          )}
          {def.cooldown > 0 && (
             <div className="row mx10 my5">
                <div className="f1">{$t(L.Cooldown)}</div>
-               <div className="text-sm text-dimmed">{modifierDurationToString(def.cooldown)}</div>
+               <div className="text-sm text-dimmed">{durationToString(def.cooldown)}</div>
             </div>
          )}
       </>

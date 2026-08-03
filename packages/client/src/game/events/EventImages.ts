@@ -33,6 +33,11 @@ import Dancer from "../../assets/images/events/Dancer.webp";
 import DeclareWar from "../..//assets/images/events/DeclareWar.webp";
 import Donatism from "../../assets/images/events/Donatism.webp";
 import DrawnIntoWar from "../../assets/images/events/DrawnIntoWar.webp";
+import EcumenicalCouncil2 from "../../assets/images/events/EcumenicalCouncil2.webp";
+import EcumenicalCouncil3 from "../../assets/images/events/EcumenicalCouncil3.webp";
+import EcumenicalCouncil4 from "../../assets/images/events/EcumenicalCouncil4.webp";
+import EcumenicalCouncil6 from "../../assets/images/events/EcumenicalCouncil6.webp";
+import EcumenicalCouncil7 from "../../assets/images/events/EcumenicalCouncil7.webp";
 import Emperor from "../../assets/images/events/Emperor.webp";
 import Empire from "../../assets/images/events/Empire.webp";
 import Expedition from "../../assets/images/events/Expedition.webp";
@@ -146,6 +151,26 @@ import Y476 from "../../assets/images/events/Y476.webp";
 import type { ImageWithCredit } from "./ImageWithCredit";
 
 export const EventImage = {
+   EcumenicalCouncil2: {
+      url: EcumenicalCouncil2,
+      credit: "Christ Among the Doctors, Paolo Veronese (c.1560)",
+   },
+   EcumenicalCouncil3: {
+      url: EcumenicalCouncil3,
+      credit: "Saint Augustine Disputing with the Heretics, Vergós Group (c.1470)",
+   },
+   EcumenicalCouncil4: {
+      url: EcumenicalCouncil4,
+      credit: "Jan Hus at Constance, Carl Friedrich Lessing (1842)",
+   },
+   EcumenicalCouncil6: {
+      url: EcumenicalCouncil6,
+      credit: "Saint Paul Preaching in Athens, Giovanni Paolo Panini (1734)",
+   },
+   EcumenicalCouncil7: {
+      url: EcumenicalCouncil7,
+      credit: "The Triumph of Religion in the Arts, Johann Friedrich Overbeck (1834)",
+   },
    Arianism: { url: Arianism, credit: "The Baptism of Constantine, Gianfrancesco Penni (c.1520)" },
    Donatism: {
       url: Donatism,
