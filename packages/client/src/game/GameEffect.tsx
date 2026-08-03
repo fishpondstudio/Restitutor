@@ -28,7 +28,7 @@ import {
    type TradeOfferBase,
 } from "./definitions/Province";
 import { addProvinceUpgrade, type ProvinceUpgrade, ProvinceUpgrades } from "./definitions/ProvinceUpgrades";
-import { ChristianDoctrines, isChristianReligion, Religion } from "./definitions/Religion";
+import { ChristianHeresy, isChristianReligion, Religion } from "./definitions/Religion";
 import type { SpawnedProvince } from "./definitions/SpawnedProvince";
 import { SpawnedProvinces } from "./definitions/SpawnedProvince";
 import type { ITileData } from "./definitions/Tile";
@@ -58,7 +58,7 @@ export interface IGameEffect {
    attitudes?: Partial<Record<Province, Omit<IModifier, "name"> & { duration: number }>>;
    casusBelli?: Partial<Record<Province, { casusBelli: CasusBelli; duration: number }>>;
    spawnProvinces?: SpawnedProvince[];
-   spawnHeresies?: ChristianDoctrines[];
+   spawnHeresies?: ChristianHeresy[];
 }
 
 export interface ICustomEffect {
@@ -166,8 +166,8 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
                {$t(
                   L.$1SpreadsTo$2And$3OfTheChristianTiles,
                   Religion[heresy].name(),
-                  ChristianDoctrines[heresy].provinces.map((province) => getProvinceName(province, save)).join(", "),
-                  formatPercent(ChristianDoctrines[heresy].percentage),
+                  ChristianHeresy[heresy].provinces.map((province) => getProvinceName(province, save)).join(", "),
+                  formatPercent(ChristianHeresy[heresy].percentage),
                )}
             </div>
          ))}
@@ -235,7 +235,7 @@ export function applyGameEffect(effect: IGameEffect, source: string, province: P
    });
    effect.spawnHeresies?.forEach((heresy) => {
       const tiles = new Map<Tile, ITileData>();
-      const provinces = ChristianDoctrines[heresy].provinces;
+      const provinces = ChristianHeresy[heresy].provinces;
       const pool = shuffle(Array.from(save.state.tiles));
       for (const province of provinces) {
          for (const [tile, tileData] of pool) {
@@ -246,7 +246,7 @@ export function applyGameEffect(effect: IGameEffect, source: string, province: P
          }
       }
       const candidates = pool.filter(([tile, tileData]) => isChristianReligion(tileData.religion) && !tiles.has(tile));
-      const size = Math.ceil(candidates.length * ChristianDoctrines[heresy].percentage);
+      const size = Math.ceil(candidates.length * ChristianHeresy[heresy].percentage);
       candidates.slice(0, size).forEach(([tile, tileData]) => {
          tiles.set(tile, tileData);
       });

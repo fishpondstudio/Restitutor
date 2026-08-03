@@ -3,7 +3,7 @@ import { GameStateUpdated } from "../game/Events";
 import { makeFamilyTree } from "../game/logic/GovernorLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
-import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { ModalTitleBar } from "../utils/ModalManager";
 import "@xyflow/react/dist/style.css";
 import "./FamilyModal.css";
 import type React from "react";
@@ -19,7 +19,8 @@ export function FamilyTreeModal(): React.ReactNode {
    }
    const { nodes, edges } = makeFamilyTree(state.governor);
    return (
-      <ModalComp size="xl" title={<ModalTitleBar title={$t(L.FamilyTree)} dismiss />}>
+      <div className="modal panel xl">
+         <ModalTitleBar title={$t(L.FamilyTree)} dismiss />
          <div style={{ width: "100%", height: ModalFullHeight }}>
             <ReactFlow
                colorMode="dark"
@@ -39,6 +40,6 @@ export function FamilyTreeModal(): React.ReactNode {
                <Controls showInteractive={false} showZoom={false} showFitView={true} fitViewOptions={{ maxZoom: 1 }} />
             </ReactFlow>
          </div>
-      </ModalComp>
+      </div>
    );
 }

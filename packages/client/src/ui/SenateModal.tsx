@@ -16,12 +16,13 @@ import {
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { ModalComp, ModalImageHeader } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { DissolveTreatyModal } from "./DissolveTreatyModal";
+import { HeaderImages } from "./HeaderImages";
 import { NamePublicEnemyModal } from "./NamePublicEnemyModal";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid2, Grid3 } from "./UIConstant";
@@ -36,7 +37,7 @@ export function SenateModal(): React.ReactNode {
    const thisYear = monthToDate(G.save.state.month).getFullYear();
    const revealedVotes = getRevealedConsulVotes(G.save.state.playerProvince, G.save);
    return (
-      <ModalComp size="lg" title={<ModalTitleBar title={$t(L.SenateAndConsuls)} dismiss />}>
+      <ModalComp size="lg" title={<ModalImageHeader image={HeaderImages.Senate} title={$t(L.SenateAndConsuls)} />}>
          <FloatingTip
             label={$t(L.ConsulPointsWillExpireWhenTheNextConsulsAreElectedIn$1Months, monthToNextYear(G.save))}
          >

@@ -644,6 +644,10 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                      },
                   ]),
                   effect: () => {
+                     const relation = getRelation(G.save.state.playerProvince, province, G.save);
+                     if (relation) {
+                        relation.casusBelli.set("ReligiousWar", { monthsLeft: TimedActions.ProclaimCrusade.duration });
+                     }
                      startTimedAction("ProclaimCrusade", G.save.state.playerProvince, G.save);
                   },
                }}
@@ -1190,12 +1194,12 @@ function SelectRival({ province, index }: { province: Province; index: number })
    return (
       <Select
          className={cls(state.rivals[index] ? null : "DiplomacyPage_SelectRival")}
-         allowDeselect={false}
          data={keysOf(G.save.state.provinces)
             .filter((p) => p !== province)
             .sort((a, b) => getProvinceName(a, G.save).localeCompare(getProvinceName(b, G.save)))
             .map((p) => ({ value: p, label: getProvinceName(p, G.save) }))}
          checkIconPosition="right"
+         allowDeselect={false}
          value={state.rivals[index]}
          disabled={getTimedActionCooldownLeft("ChangeRival", province, G.save) > 0 && state.rivals[index] !== null}
          onChange={(value) => {

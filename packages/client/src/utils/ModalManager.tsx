@@ -3,8 +3,11 @@ import { cls } from "@project/shared/src/utils/Helper";
 import type { TypedEvent } from "@project/shared/src/utils/TypedEvent";
 import { useCallback, useEffect, useState } from "react";
 import { CloseModal, ShowModal } from "../game/Events";
+import type { ImageWithCredit } from "../game/events/ImageWithCredit";
+import { FloatingTip } from "../ui/components/FloatingTip";
 import { CloseButtonClass } from "../ui/UIConstant";
 import { useTypedEvent } from "./Hook";
+import { $t, L } from "./i18n";
 
 export function ModalManager(): React.ReactNode {
    const [modals, setModals] = useState<React.ReactNode[]>([]);
@@ -122,3 +125,41 @@ document.addEventListener("mousedown", (event) => {
       }
    }
 });
+
+export function ModalImageHeader({
+   image,
+   title,
+   children,
+}: React.PropsWithChildren<{
+   image: ImageWithCredit;
+   title: React.ReactNode;
+}>): React.ReactNode {
+   return (
+      <div className="text-shadow" style={{ position: "relative" }}>
+         <div
+            style={{
+               position: "absolute",
+               top: "50%",
+               left: 0,
+               right: 0,
+               bottom: 0,
+               background: "linear-gradient(to bottom, transparent, rgba(40, 40, 40, 1))",
+            }}
+         />
+         <FloatingTip label={$t(L.ImageCredit$1, image.credit)}>
+            <div className="text-roman text-lg" style={{ position: "absolute", bottom: "0.625rem", left: "0.625rem" }}>
+               {title}
+            </div>
+         </FloatingTip>
+         {children}
+         <div
+            className={`mi pointer text-white ${CloseButtonClass}`}
+            onClick={hideModal}
+            style={{ position: "absolute", top: "0.3125rem", right: "0.3125rem" }}
+         >
+            close
+         </div>
+         <img className="display-block w100" src={image.url} />
+      </div>
+   );
+}

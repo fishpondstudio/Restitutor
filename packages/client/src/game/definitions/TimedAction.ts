@@ -575,6 +575,46 @@ class TimedActionDefinitions {
       duration: 12,
       cooldown: 12,
    };
+   EcumenicalCouncil1: ITimedAction = {
+      name: () => "First Council of Nicaea",
+      duration: 12 * 10,
+      cooldown: 0,
+   };
+   EcumenicalCouncil2: ITimedAction = {
+      name: () => "First Council of Constantinople",
+      duration: 12 * 10,
+      cooldown: 0,
+   };
+   EcumenicalCouncil3: ITimedAction = {
+      name: () => "Council of Ephesus",
+      duration: 12 * 10,
+      cooldown: 0,
+   };
+   EcumenicalCouncil4: ITimedAction = {
+      name: () => "Council of Chalcedon",
+      duration: 12 * 10,
+      cooldown: 0,
+   };
+   EcumenicalCouncil5: ITimedAction = {
+      name: () => "Second Council of Constantinople",
+      duration: 12 * 10,
+      cooldown: 0,
+   };
+   EcumenicalCouncil6: ITimedAction = {
+      name: () => "Third Council of Constantinople",
+      duration: 12 * 10,
+      cooldown: 0,
+   };
+   EcumenicalCouncil7: ITimedAction = {
+      name: () => "Second Council of Nicaea",
+      duration: 12 * 10,
+      cooldown: 0,
+   };
+   EcumenicalCouncilAction: ITimedAction = {
+      name: () => "Sponsor Delegate",
+      duration: 0,
+      cooldown: 6,
+   };
 }
 
 export type TimedAction = keyof TimedActionDefinitions;
@@ -582,3 +622,12 @@ export type TimedEffectAction = {
    [K in TimedAction]: TimedActionDefinitions[K] extends ITimedEffectAction ? K : never;
 }[TimedAction];
 export const TimedActions = new TimedActionDefinitions();
+export const EcumenicalCouncils = [
+   "EcumenicalCouncil1",
+   "EcumenicalCouncil2",
+   "EcumenicalCouncil3",
+   "EcumenicalCouncil4",
+   "EcumenicalCouncil5",
+   "EcumenicalCouncil6",
+   "EcumenicalCouncil7",
+] as const satisfies TimedAction[];

@@ -1,16 +1,14 @@
 import type React from "react";
-import ChronicleHeader from "../assets/images/ChronicleHeader.webp";
 import { GameStateUpdated } from "../game/Events";
 import { monthToDate } from "../game/logic/GameDateTime";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { hideModal, ModalComp } from "../utils/ModalManager";
+import { hideModal, ModalComp, ModalImageHeader } from "../utils/ModalManager";
 import { ChronicleEntryComp } from "./ChronicleEntryComp";
 import { ChroniclePage } from "./ChroniclePage";
 import { showPanel } from "./common/ShowPanel";
-import { FloatingTip } from "./components/FloatingTip";
-import { CloseButtonClass } from "./UIConstant";
+import { HeaderImages } from "./HeaderImages";
 
 export function ChronicleModal({ years }: { years: [number, number] }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -23,17 +21,10 @@ export function ChronicleModal({ years }: { years: [number, number] }): React.Re
          size="md"
          title={
             <>
-               <div className="text-shadow" style={{ position: "relative" }}>
-                  <div
-                     style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        background: "linear-gradient(to bottom, transparent, rgba(40, 40, 40, 1))",
-                     }}
-                  />
+               <ModalImageHeader
+                  image={HeaderImages.Chronicle}
+                  title={$t(L.ChronicleOf$1Ad, startYear === endYear ? startYear : `${startYear} ~ ${endYear}`)}
+               >
                   <button
                      className="btn text-sm"
                      style={{ position: "absolute", right: "0.625rem", bottom: "0.625rem" }}
@@ -44,23 +35,7 @@ export function ChronicleModal({ years }: { years: [number, number] }): React.Re
                   >
                      {$t(L.FullChronicle)}
                   </button>
-                  <FloatingTip label={$t(L.ImageCredit$1, "Das Forum Romanum, J. Bühlmann (1901)")}>
-                     <div
-                        className="text-roman text-lg"
-                        style={{ position: "absolute", bottom: "0.625rem", left: "0.625rem" }}
-                     >
-                        {$t(L.ChronicleOf$1Ad, startYear === endYear ? startYear : `${startYear} ~ ${endYear}`)}
-                     </div>
-                  </FloatingTip>
-                  <div
-                     className={`mi pointer text-white ${CloseButtonClass}`}
-                     onClick={hideModal}
-                     style={{ position: "absolute", top: "0.3125rem", right: "0.3125rem" }}
-                  >
-                     close
-                  </div>
-                  <img className="display-block w100" src={ChronicleHeader} />
-               </div>
+               </ModalImageHeader>
                <div className="divider" />
             </>
          }

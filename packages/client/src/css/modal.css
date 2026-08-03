@@ -6,6 +6,13 @@
    max-height: calc(80vh);
    transform: translateX(-50%);
 
+   display: flex;
+   flex-direction: column;
+
+   .modal-content {
+      flex: 1;
+   }
+
    .modal-transparent-header {
       position: absolute;
       top: 0;
@@ -86,8 +93,4 @@
 .modal.xs {
    max-width: 90vw;
    width: 18.75rem;
-}
-
-.modal .modal-content {
-   max-height: calc(80vh - var(--header-height));
 }

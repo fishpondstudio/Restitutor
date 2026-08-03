@@ -1,6 +1,6 @@
 import { Controls, ReactFlow } from "@xyflow/react";
 import { getLegacyUpgradeCost, makeLegacyUpgradeNodes } from "../game/logic/LegacyUpgradeLogic";
-import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { hideModal, ModalTitleBar } from "../utils/ModalManager";
 import { FloatingEdge, LegacyUpgradeNode } from "./LegacyUpgradeNode";
 import "./LegacyUpgradeModal.css";
 import { formatNumber } from "@project/shared/src/utils/Helper";
@@ -27,7 +27,8 @@ export function LegacyUpgradeModal(): React.ReactNode {
    const cost = getLegacyUpgradeCost(G.save.state.playerProvince, G.save);
    const legacyPoints = getProvinceResource("legacy", G.save.state.playerProvince, G.save);
    return (
-      <ModalComp size="xl" title={<ModalTitleBar title={$t(L.LegacyUpgrade)} dismiss />}>
+      <div className="modal panel xl">
+         <ModalTitleBar title={$t(L.LegacyUpgrade)} dismiss />
          <div style={{ width: "100%", height: ModalFullHeight }}>
             <ReactFlow
                colorMode="dark"
@@ -91,6 +92,6 @@ export function LegacyUpgradeModal(): React.ReactNode {
                </Controls>
             </ReactFlow>
          </div>
-      </ModalComp>
+      </div>
    );
 }

@@ -1,6 +1,7 @@
 export const Grid4 = { display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: "0.625rem" } as const;
 export const Grid3 = { display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "0.625rem" } as const;
 export const Grid2 = { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "0.625rem" } as const;
+export const Grid1 = { display: "grid", gridTemplateColumns: "repeat(1, minmax(0, 1fr))", gap: "0.625rem" } as const;
 export const CloseButtonClass = "close-button-shortcut";
 
 export const DiplomacyActionWidth = "16rem";

@@ -5,6 +5,7 @@ import { ChronicleModal } from "../ui/ChronicleModal";
 import { showPanel } from "../ui/common/ShowPanel";
 import { DeclareWarOnUsModal } from "../ui/DeclareWarOnUsEventModal";
 import { DrawnIntoWarModal } from "../ui/DrawnIntoWarEventModal";
+import { EcumenicalCouncilPage } from "../ui/EcumenicalCouncilPage";
 import { InvaderConqueredWarGoalModal } from "../ui/InvaderConqueredWarGoalModal";
 import { InvaderSueForWhitePeaceModal } from "../ui/InvaderSueForWhitePeaceModal";
 import { RestorationBonusModal } from "../ui/RestorationBonusModal";
@@ -178,6 +179,11 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.showBarbarian = () => {
       showPanel(<BarbarianRaidModal />);
+   };
+   // @ts-expect-error
+   globalThis.showEcumenicalCouncil = () => {
+      startTimedAction("EcumenicalCouncil2", G.save.state.playerProvince, G.save);
+      showPanel(<EcumenicalCouncilPage />);
    };
    // @ts-expect-error
    globalThis.addChild = (female: boolean) => {

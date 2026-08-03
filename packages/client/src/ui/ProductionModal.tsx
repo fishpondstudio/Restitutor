@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { ModalTitleBar } from "../utils/ModalManager";
 import "./ProductionModal.css";
 import { Popover } from "@mantine/core";
 import { cls, formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
@@ -26,7 +26,8 @@ export function ProductionModal(): React.ReactNode {
    const containerRef = useRef<HTMLDivElement>(null);
    const { nodes, edges } = makeProductionTree(G.save.state.playerProvince, G.save);
    return (
-      <ModalComp size="xl" title={<ModalTitleBar title={$t(L.Production)} dismiss />}>
+      <div className="modal panel xl">
+         <ModalTitleBar title={$t(L.Production)} dismiss />
          <div style={{ width: "100%", height: ModalFullHeight }} ref={containerRef}>
             <ReactFlow
                colorMode="dark"
@@ -78,7 +79,7 @@ export function ProductionModal(): React.ReactNode {
                </Controls>
             </ReactFlow>
          </div>
-      </ModalComp>
+      </div>
    );
 }
 

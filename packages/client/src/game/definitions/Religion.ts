@@ -1,6 +1,7 @@
 import { entriesOf, hasFlag, keysOf, type ValueOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "./Province";
+import type { TimedAction } from "./TimedAction";
 
 export const ReligionFlags = {
    None: 0,
@@ -36,14 +37,15 @@ const _Religion = {
    Iconoclasm: { name: () => $t(L.ReligionIconoclasm), flags: ReligionFlags.Christian },
 } as const satisfies Record<string, IReligionConfig>;
 
-interface IChristianDoctrineConfig {
+interface IChristianHeresyConfig {
    percentage: number;
    provinces: Province[];
+   councils: TimedAction[];
    year: number;
 }
 
-const _ChristianDoctrines = {
-   Donatism: { year: 311, percentage: 0.15, provinces: ["Africa", "Mauretania"] },
+const _ChristianHeresy = {
+   Donatism: { year: 311, percentage: 0.15, provinces: ["Africa", "Mauretania"], councils: [] },
    Arianism: {
       year: 318,
       percentage: 0.3,
@@ -71,16 +73,19 @@ const _ChristianDoctrines = {
          "Burgundians",
          "Ostrogoths",
       ],
+      councils: ["EcumenicalCouncil1", "EcumenicalCouncil2"],
    },
    Macedonianism: {
       year: 360,
       percentage: 0.1,
       provinces: ["Thracia", "Bithynia", "Asia", "Galatia", "Cappadocia", "Cilicia", "Syria", "Aegyptus"],
+      councils: ["EcumenicalCouncil2"],
    },
    Pelagianism: {
       year: 411,
       percentage: 0.1,
       provinces: ["Britannia", "Italia", "Africa", "Mauretania", "Sicilia", "Judea"],
+      councils: ["EcumenicalCouncil3"],
    },
    Nestorianism: {
       year: 428,
@@ -97,11 +102,13 @@ const _ChristianDoctrines = {
          "Aegyptus",
          "Cyrenaica",
       ],
+      councils: ["EcumenicalCouncil3", "EcumenicalCouncil4", "EcumenicalCouncil5"],
    },
    Miaphysitism: {
       year: 451,
       percentage: 0.25,
       provinces: ["Aegyptus", "Cyrenaica", "Syria", "Judea", "Cilicia", "Cappadocia", "Galatia"],
+      councils: ["EcumenicalCouncil4", "EcumenicalCouncil5"],
    },
    Monothelitism: {
       year: 638,
@@ -123,6 +130,7 @@ const _ChristianDoctrines = {
          "Sicilia",
          "Africa",
       ],
+      councils: ["EcumenicalCouncil6"],
    },
    Iconoclasm: {
       year: 726,
@@ -144,12 +152,12 @@ const _ChristianDoctrines = {
          "Italia",
          "Sicilia",
       ],
+      councils: ["EcumenicalCouncil7"],
    },
-} as const satisfies Partial<Record<Religion, IChristianDoctrineConfig>>;
-
+} as const satisfies Partial<Record<Religion, IChristianHeresyConfig>>;
 export type Religion = keyof typeof _Religion;
-export type ChristianDoctrines = keyof typeof _ChristianDoctrines;
-export const ChristianDoctrines: Record<ChristianDoctrines, IChristianDoctrineConfig> = _ChristianDoctrines;
+export type ChristianHeresy = keyof typeof _ChristianHeresy;
+export const ChristianHeresy: Record<ChristianHeresy, IChristianHeresyConfig> = _ChristianHeresy;
 export const Religion: Record<Religion, IReligionConfig> = _Religion;
 export const Religions = keysOf(_Religion);
 export const ChristianReligions = entriesOf(Religion)

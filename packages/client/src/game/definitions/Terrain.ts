@@ -1,7 +1,7 @@
-import Forest from "../../assets/images/Forest.webp";
-import Hill from "../../assets/images/Hill.webp";
-import Mountain from "../../assets/images/Mountain.webp";
-import Plain from "../../assets/images/Plain.webp";
+import Forest from "../../assets/images/headers/Forest.webp";
+import Hill from "../../assets/images/headers/Hill.webp";
+import Mountain from "../../assets/images/headers/Mountain.webp";
+import Plain from "../../assets/images/headers/Plain.webp";
 import type { ImageWithCredit } from "../events/ImageWithCredit";
 
 export const Terrains = {

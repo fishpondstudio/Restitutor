@@ -1,6 +1,5 @@
 import { Progress } from "@mantine/core";
 import { cls, formatNumber } from "@project/shared/src/utils/Helper";
-import BarbarianRaidHeader from "../assets/images/BarbarianRaidHeader.webp";
 import { finalizeCondition } from "../game/actions/GameAction";
 import { NegotiateWhitePeaceAction } from "../game/actions/NegotiateWhitePeaceAction";
 import { Modifiers } from "../game/definitions/Modifier";
@@ -20,12 +19,13 @@ import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from 
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { hideModal, ModalComp } from "../utils/ModalManager";
+import { ModalComp, ModalImageHeader } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
-import { CloseButtonClass, Grid2 } from "./UIConstant";
+import { HeaderImages } from "./HeaderImages";
+import { Grid2 } from "./UIConstant";
 
 export function BarbarianRaidModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -34,34 +34,7 @@ export function BarbarianRaidModal(): React.ReactNode {
          size="lg"
          title={
             <>
-               <div className="text-shadow" style={{ position: "relative" }}>
-                  <div
-                     style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        background: "linear-gradient(to bottom, transparent, rgba(40, 40, 40, 1))",
-                     }}
-                  />
-                  <FloatingTip label={$t(L.ImageCredit$1, "Alexander and Darius at Issus, Anton Hoffmann (1920)")}>
-                     <div
-                        className="text-roman text-lg"
-                        style={{ position: "absolute", bottom: "0.625rem", left: "0.625rem" }}
-                     >
-                        {$t(L.BarbarianRaids)}
-                     </div>
-                  </FloatingTip>
-                  <div
-                     className={`mi pointer text-white ${CloseButtonClass}`}
-                     onClick={hideModal}
-                     style={{ position: "absolute", top: "0.3125rem", right: "0.3125rem" }}
-                  >
-                     close
-                  </div>
-                  <img className="display-block w100" src={BarbarianRaidHeader} />
-               </div>
+               <ModalImageHeader image={HeaderImages.BarbarianRaid} title={$t(L.BarbarianRaids)} />
                <div className="divider" />
             </>
          }

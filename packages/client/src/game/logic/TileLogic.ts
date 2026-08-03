@@ -8,12 +8,14 @@ import { Price } from "../definitions/Goods";
 import { getProvinceTraits } from "../definitions/PersonTrait";
 import type { GovernorPower, Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
-import { isChristianReligion } from "../definitions/Religion";
+import { ChristianHeresy, isChristianReligion } from "../definitions/Religion";
 import { BarbarianRaidNegativeEffect } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
+import { TimedActions } from "../definitions/TimedAction";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { cacheTile } from "./CacheLogic";
+import { EcumenicalCouncilPct } from "./EcumenicalCouncilLogic";
 import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
 import {
    getCulturalCohesion,
@@ -187,6 +189,15 @@ export function _getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (isCapital(tile, save)) {
       breakdown.multiply.push({ name: $t(L.IsCurrentCapital), value: +0.1 });
+   }
+   if (data.religion in ChristianHeresy) {
+      const heresy = data.religion as ChristianHeresy;
+      for (const council of ChristianHeresy[heresy].councils) {
+         if (getTimedActionTimeLeft(council, data.province, save) > 0) {
+            breakdown.multiply.push({ name: TimedActions[council].name(), value: -EcumenicalCouncilPct });
+            break;
+         }
+      }
    }
    if (hasProvinceUpgrade("HillfortBastion", data.province, save)) {
       let hillTileCount = 0;
@@ -507,6 +518,15 @@ function _getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakdown {
          desc: $t(L.UnevenUpgradeDesc$1$2, "10%", formatNumber(unevenUpgrades)),
          value: unevenUpgrades * 0.1,
       });
+   }
+   if (data.religion in ChristianHeresy) {
+      const heresy = data.religion as ChristianHeresy;
+      for (const council of ChristianHeresy[heresy].councils) {
+         if (getTimedActionTimeLeft(council, data.province, save) > 0) {
+            breakdown.multiply.push({ name: TimedActions[council].name(), value: EcumenicalCouncilPct });
+            break;
+         }
+      }
    }
    const stability = getProvinceStability(data.province, save).value;
    if (stability > 0) {

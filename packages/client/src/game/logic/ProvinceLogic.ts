@@ -56,6 +56,7 @@ import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
 import { cacheProvince } from "./CacheLogic";
 import { getAttitudeTowards, getRelation, getRelations } from "./DiplomacyLogic";
+import { EcumenicalCouncilChristianityPct, ongoingEcumenicalCouncilCondition } from "./EcumenicalCouncilLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
 import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
 import { addModifier, attachModifiers } from "./ModifierLogic";
@@ -1037,6 +1038,10 @@ export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1,
    }
    if (hasProvinceUpgrade("ChristianFervor", province, save) && isChristianReligion(state.religion)) {
       result.add.push({ name: ProvinceUpgrades.ChristianFervor.name(), value: 1 });
+   }
+   const ongoingCouncil = ongoingEcumenicalCouncilCondition(province, save);
+   if (ongoingCouncil.value) {
+      result.multiply.push({ name: ongoingCouncil.name, value: EcumenicalCouncilChristianityPct });
    }
 });
 
