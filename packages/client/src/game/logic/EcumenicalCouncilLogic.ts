@@ -1,4 +1,5 @@
 import { entriesOf, forEach, type Tile } from "@project/shared/src/utils/Helper";
+import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
 import type { Province } from "../definitions/Province";
 import { ChristianHeresy, isChristianReligion, type Religion } from "../definitions/Religion";
@@ -52,7 +53,7 @@ export function ongoingEcumenicalCouncilCondition(province: Province, save: Save
       };
    }
    return {
-      name: "Ongoing Ecumenical Council",
+      name: $t(L.OngoingEcumenicalCouncil),
       value: false,
    };
 }

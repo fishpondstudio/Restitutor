@@ -1,5 +1,5 @@
 import { Select } from "@mantine/core";
-import { formatPercent } from "@project/shared/src/utils/Helper";
+import { formatNumber, formatPercentDelta } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
 import { finalizeCondition } from "../game/actions/GameAction";
 import { CasusBelli } from "../game/definitions/CasusBelli";
@@ -25,9 +25,11 @@ import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from 
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
+import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { SidebarComp, SidebarImageHeader } from "./common/SidebarComp";
 import { FloatingTip } from "./components/FloatingTip";
+import { html } from "./components/RenderHTMLComp";
 import { HeaderImages } from "./HeaderImages";
 import { Grid2 } from "./UIConstant";
 
@@ -48,12 +50,20 @@ export function EcumenicalCouncilPage(): React.ReactNode {
          }
       >
          <div className="row mx10 my5">
-            <div className="f1">Council ends in</div>
-            <div>{getTimedActionTimeLeft(council, G.save.state.playerProvince, G.save)} months</div>
+            <div className="f1">
+               {$t(
+                  L.CouncilEndsIn$1Months,
+                  formatNumber(getTimedActionTimeLeft(council, G.save.state.playerProvince, G.save)),
+               )}
+            </div>
          </div>
          <div className="mx10 my5 text-dimmed text-sm">
-            Our province gets +{formatPercent(EcumenicalCouncilChristianityPct)} {Modifiers.ChristianityYearly.name()}{" "}
-            during {TimedActions[council].name()}
+            {$t(
+               L.OurProvinceGets$1$2During$3,
+               formatPercentDelta(EcumenicalCouncilChristianityPct),
+               Modifiers.ChristianityYearly.name(),
+               TimedActions[council].name(),
+            )}
          </div>
          <div style={{ ...Grid2 }} className="m10">
             <ActionButton
@@ -63,7 +73,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                   },
                   condition: finalizeCondition([
                      ...timedActionConditions(
-                        { action: "EcumenicalCouncilAction", label: "Ecumenical council action not on cooldown" },
+                        { action: "EcumenicalCouncilAction", label: $t(L.EcumenicalCouncilActionsAreNotOnCooldown) },
                         G.save.state.playerProvince,
                         G.save,
                      ),
@@ -81,7 +91,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                   </>
                )}
             >
-               Sponsor Delegate
+               {TimedActions.EcumenicalCouncilAction.name()}
             </ActionButton>
             <ActionButton
                action={{
@@ -90,7 +100,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                   },
                   condition: finalizeCondition([
                      ...timedActionConditions(
-                        { action: "EcumenicalCouncilAction", label: "Ecumenical council action not on cooldown" },
+                        { action: "EcumenicalCouncilAction", label: $t(L.EcumenicalCouncilActionsAreNotOnCooldown) },
                         G.save.state.playerProvince,
                         G.save,
                      ),
@@ -108,7 +118,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                   </>
                )}
             >
-               Draft Agenda
+               {$t(L.DraftAgenda)}
             </ActionButton>
             <ActionButton
                action={{
@@ -117,7 +127,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                   },
                   condition: finalizeCondition([
                      ...timedActionConditions(
-                        { action: "EcumenicalCouncilAction", label: "Ecumenical council action not on cooldown" },
+                        { action: "EcumenicalCouncilAction", label: $t(L.EcumenicalCouncilActionsAreNotOnCooldown) },
                         G.save.state.playerProvince,
                         G.save,
                      ),
@@ -135,7 +145,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                   </>
                )}
             >
-               Lobby Bishops
+               {$t(L.LobbyBishops)}
             </ActionButton>
             <ActionButton
                action={{
@@ -144,7 +154,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                   },
                   condition: finalizeCondition([
                      ...timedActionConditions(
-                        { action: "EcumenicalCouncilAction", label: "Ecumenical council action not on cooldown" },
+                        { action: "EcumenicalCouncilAction", label: $t(L.EcumenicalCouncilActionsAreNotOnCooldown) },
                         G.save.state.playerProvince,
                         G.save,
                      ),
@@ -162,10 +172,10 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                   </>
                )}
             >
-               Pressure Bishops
+               {$t(L.PressureBishops)}
             </ActionButton>
          </div>
-         <div className="h1">Reconcile Heretics</div>
+         <div className="h1">{$t(L.ReconcileHeretics)}</div>
          <ReconcilePanel />
          {Array.from(config).map((heresy) => {
             return <HeresyPanel key={heresy} heresy={heresy} />;
@@ -188,9 +198,9 @@ function ReconcilePanel(): React.ReactNode {
          <table className="data-table">
             <thead>
                <tr>
-                  <th>Tile</th>
-                  <th>Upg</th>
-                  <th>Heresy</th>
+                  <th>{$t(L.Tile)}</th>
+                  <th>{$t(L.Upgrades)}</th>
+                  <th>{$t(L.Heresy)}</th>
                   <th></th>
                </tr>
             </thead>
@@ -222,14 +232,14 @@ function ReconcilePanel(): React.ReactNode {
                         </td>
                         <td>{tileUpgrades}</td>
                         <td>{Religion[tileData.religion].name()}</td>
-                        <td className="w0">
+                        <td>
                            <ActionButton
                               action={{
                                  condition: finalizeCondition([
                                     ...timedActionConditions(
                                        {
                                           action: "EcumenicalCouncilAction",
-                                          label: "Ecumenical council action not on cooldown",
+                                          label: $t(L.EcumenicalCouncilActionsAreNotOnCooldown),
                                        },
                                        tileData.province,
                                        G.save,
@@ -245,14 +255,18 @@ function ReconcilePanel(): React.ReactNode {
                               tooltip={(element) => (
                                  <>
                                     <div className="m10">
-                                       Convert {getTileName(tile)} from {Religion[tileData.religion].name()} to{" "}
-                                       {Religion[state.religion].name()}
+                                       {$t(
+                                          L.Convert$1From$2To$3,
+                                          getTileName(tile),
+                                          Religion[tileData.religion].name(),
+                                          Religion[state.religion].name(),
+                                       )}
                                     </div>
                                     {element}
                                  </>
                               )}
                            >
-                              Reconcile
+                              {$t(L.Reconcile)}
                            </ActionButton>
                         </td>
                      </tr>
@@ -275,12 +289,19 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
    return (
       <div key={heresy}>
          <FloatingTip
-            label={`All tiles following ${Religion[heresy].name()} get -${formatPercent(EcumenicalCouncilPct)} Defense and +${formatPercent(EcumenicalCouncilPct)} Maintenance`}
+            label={$t(
+               L.AllTilesFollowing$1Get$2$3And$4$5,
+               Religion[heresy].name(),
+               formatPercentDelta(-EcumenicalCouncilPct),
+               $t(L.Defense),
+               formatPercentDelta(EcumenicalCouncilPct),
+               $t(L.Maintenance),
+            )}
          >
             <div className="h1">{Religion[heresy].name()}</div>
          </FloatingTip>
          <div className="mx10 my5 row">
-            <div>Heretic Province</div>
+            <div>{$t(L.HereticProvince)}</div>
             <div className="f1"></div>
             <Select
                checkIconPosition="right"
@@ -313,7 +334,10 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                      cost: { christianity: 1 },
                      condition: finalizeCondition([
                         ...timedActionConditions(
-                           { action: "EcumenicalCouncilAction", label: "Ecumenical council action not on cooldown" },
+                           {
+                              action: "EcumenicalCouncilAction",
+                              label: $t(L.EcumenicalCouncilActionsAreNotOnCooldown),
+                           },
                            G.save.state.playerProvince,
                            G.save,
                         ),
@@ -330,18 +354,24 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                   tooltip={(element) => (
                      <>
                         <div className="m10">
-                           Gain <i>{CasusBelli.ReligiousWar.name()}</i> casus belli against{" "}
-                           {getProvinceName(selectedProvince, G.save)} for 1 year.
+                           {html(
+                              $t(
+                                 L.Gain$1CasusBelliAgainst$2For$3Years,
+                                 CasusBelli.ReligiousWar.name(),
+                                 getProvinceName(selectedProvince, G.save),
+                                 "1",
+                              ),
+                           )}
                         </div>
                         {element}
                      </>
                   )}
                >
-                  Proclaim Holy War
+                  {$t(L.ProclaimHolyWar)}
                </ActionButton>
                <CouncilActionButton
                   modifier={{
-                     name: "Excommunicate",
+                     name: $t(L.Excommunicate),
                      modifier: "Stability",
                      type: "add",
                      value: -10,
@@ -351,7 +381,7 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                />
                <CouncilActionButton
                   modifier={{
-                     name: "Condemn Heretics",
+                     name: $t(L.CondemnHeretics),
                      modifier: "Prestige",
                      type: "multiply",
                      value: -0.1,
@@ -361,7 +391,7 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                />
                <CouncilActionButton
                   modifier={{
-                     name: "Interdict Lands",
+                     name: $t(L.InterdictLands),
                      modifier: "LandTax",
                      type: "multiply",
                      value: -0.1,
@@ -371,7 +401,7 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                />
                <CouncilActionButton
                   modifier={{
-                     name: "Embargo Heretics",
+                     name: $t(L.EmbargoHeretics),
                      modifier: "TileOutput",
                      type: "multiply",
                      value: -0.1,
@@ -381,7 +411,7 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                />
                <CouncilActionButton
                   modifier={{
-                     name: "Forbid Enlistment",
+                     name: $t(L.ForbidEnlistment),
                      modifier: "WarPower",
                      type: "multiply",
                      value: -0.1,
@@ -391,7 +421,7 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                />
             </div>
          ) : (
-            <div className="m10 text-dimmed">Select a Heretic Province First</div>
+            <div className="m10 text-dimmed">{$t(L.SelectAHereticProvinceFirst)}</div>
          )}
       </div>
    );
@@ -404,7 +434,7 @@ function CouncilActionButton({ modifier }: { modifier: Omit<IAddModifier, "save"
             cost: { christianity: 1 },
             condition: finalizeCondition([
                ...timedActionConditions(
-                  { action: "EcumenicalCouncilAction", label: "Ecumenical council action not on cooldown" },
+                  { action: "EcumenicalCouncilAction", label: $t(L.EcumenicalCouncilActionsAreNotOnCooldown) },
                   G.save.state.playerProvince,
                   G.save,
                ),

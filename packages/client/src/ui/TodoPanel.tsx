@@ -347,7 +347,7 @@ const VacantArmyGeneral: ITodo = {
 };
 
 const EcumenicalCouncil: ITodo = {
-   name: (save) => "Ongoing Ecumenical Council",
+   name: (save) => $t(L.OngoingEcumenicalCouncil),
    icon: (save) => EcumenicalCouncilIcon,
    className: (save) => "green",
    tooltip: (save) => {
@@ -355,7 +355,7 @@ const EcumenicalCouncil: ITodo = {
       if (!council) {
          return null;
       }
-      return <div className="m10">{TimedActions[council].name()} is ongoing. Click to view details.</div>;
+      return <div className="m10">{$t(L.$1IsOngoingClickToViewDetails, TimedActions[council].name())}</div>;
    },
    onClick: (save) => {
       showPanel(<EcumenicalCouncilPage />);

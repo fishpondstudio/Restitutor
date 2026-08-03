@@ -576,42 +576,42 @@ class TimedActionDefinitions {
       cooldown: 12,
    };
    EcumenicalCouncil1: ITimedAction = {
-      name: () => "First Council of Nicaea",
+      name: () => $t(L.FirstCouncilOfNicaea),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil2: ITimedAction = {
-      name: () => "First Council of Constantinople",
+      name: () => $t(L.FirstCouncilOfConstantinople),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil3: ITimedAction = {
-      name: () => "Council of Ephesus",
+      name: () => $t(L.CouncilOfEphesus),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil4: ITimedAction = {
-      name: () => "Council of Chalcedon",
+      name: () => $t(L.CouncilOfChalcedon),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil5: ITimedAction = {
-      name: () => "Second Council of Constantinople",
+      name: () => $t(L.SecondCouncilOfConstantinople),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil6: ITimedAction = {
-      name: () => "Third Council of Constantinople",
+      name: () => $t(L.ThirdCouncilOfConstantinople),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncil7: ITimedAction = {
-      name: () => "Second Council of Nicaea",
+      name: () => $t(L.SecondCouncilOfNicaea),
       duration: 12 * 10,
       cooldown: 0,
    };
    EcumenicalCouncilAction: ITimedAction = {
-      name: () => "Sponsor Delegate",
+      name: () => $t(L.SponsorDelegate),
       duration: 0,
       cooldown: 6,
    };
