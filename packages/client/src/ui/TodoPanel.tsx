@@ -5,6 +5,7 @@ import Core from "../assets/images/Core.svg";
 import Decree from "../assets/images/Decree.svg";
 import Diplomat from "../assets/images/Diplomat.svg";
 import Dissent from "../assets/images/Dissent.svg";
+import EcumenicalCouncilIcon from "../assets/images/EcumenicalCouncil.svg";
 import EmptyAdvisor from "../assets/images/EmptyAdvisor.svg";
 import Legacy from "../assets/images/Legacy.svg";
 import Loan from "../assets/images/Loan.svg";
@@ -36,6 +37,7 @@ import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import type { SaveGame } from "../game/GameState";
 import { getCurrentRelations, getDiplomats, getRelations } from "../game/logic/DiplomacyLogic";
+import { getOngoingEcumenicalCouncil } from "../game/logic/EcumenicalCouncilLogic";
 import { getEligibleForMarriage } from "../game/logic/GovernorLogic";
 import { getLegacyUpgradeCost } from "../game/logic/LegacyUpgradeLogic";
 import {
@@ -69,6 +71,7 @@ import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { DiplomacyPage } from "./DiplomacyPage";
+import { EcumenicalCouncilPage } from "./EcumenicalCouncilPage";
 import { FamilyTreeModal } from "./FamilyModal";
 import { GameEventModal } from "./GameEventModal";
 import { GovernmentModal } from "./GovernmentModal";
@@ -340,6 +343,22 @@ const VacantArmyGeneral: ITodo = {
    },
    onClick: (save) => {
       showPanel(<ArmyModal />);
+   },
+};
+
+const EcumenicalCouncil: ITodo = {
+   name: (save) => "Ongoing Ecumenical Council",
+   icon: (save) => EcumenicalCouncilIcon,
+   className: (save) => "green",
+   tooltip: (save) => {
+      const council = getOngoingEcumenicalCouncil(save.state.playerProvince, save);
+      if (!council) {
+         return null;
+      }
+      return <div className="m10">{TimedActions[council].name()} is ongoing. Click to view details.</div>;
+   },
+   onClick: (save) => {
+      showPanel(<EcumenicalCouncilPage />);
    },
 };
 
@@ -736,6 +755,7 @@ const _Todos = {
    SocialClassDissent,
    ProvinceBankrupt,
    BarbarianRaid,
+   EcumenicalCouncil,
    TooFewRivals,
    VacantArmyGeneral,
    UpgradeArmyGeneral,
