@@ -282,10 +282,14 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
    const hereticProvinces = getHereticProvinces(heresy, G.save);
    hereticProvinces.delete(G.save.state.playerProvince);
    const provinces = Array.from(hereticProvinces);
-   if (provinces.length === 0) {
+   const [selectedProvinceState, setSelectedProvince] = useState<Province | null>(provinces[0] ?? null);
+   const selectedProvince =
+      selectedProvinceState && hereticProvinces.has(selectedProvinceState)
+         ? selectedProvinceState
+         : (provinces[0] ?? null);
+   if (!selectedProvince) {
       return null;
    }
-   const [selectedProvince, setSelectedProvince] = useState<Province>(provinces[0]);
    return (
       <div key={heresy}>
          <FloatingTip
