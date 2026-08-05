@@ -10,6 +10,7 @@ import { fixRelations } from "./DiplomacyLogic";
 import { getGameDate, monthToDate, tickToMonth, tickToYear } from "./GameDateTime";
 import {
    addProvinceResource,
+   ConsulCandidatesCount,
    ConsulElectionMonths,
    clearProvincePrestigeRankingCache,
    getChristianityYearly,
@@ -148,7 +149,7 @@ function tickConsulElection(save: SaveGame) {
    });
 
    save.state.senate.votes.clear();
-   save.state.senate.consulCandidates = range(0, 9).map(() => randomMaleName().join(" "));
+   save.state.senate.consulCandidates = range(0, ConsulCandidatesCount).map(() => randomMaleName().join(" "));
 }
 
 export function tickWar(war: IWar, save: SaveGame): void {

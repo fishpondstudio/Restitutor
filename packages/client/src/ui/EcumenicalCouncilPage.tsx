@@ -199,7 +199,7 @@ function ReconcilePanel(): React.ReactNode {
             <thead>
                <tr>
                   <th>{$t(L.Tile)}</th>
-                  <th>{$t(L.Upgrades)}</th>
+                  <th>{$t(L.Upg)}</th>
                   <th>{$t(L.Heresy)}</th>
                   <th></th>
                </tr>

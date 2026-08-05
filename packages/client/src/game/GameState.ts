@@ -21,6 +21,7 @@ import { GameOption } from "./GameOption";
 import { addAttitudeModifier, getProvincesWithinDiplomaticRange, getRelation } from "./logic/DiplomacyLogic";
 import { tickProduction } from "./logic/ProductionLogic";
 import {
+   ConsulCandidatesCount,
    getProvinceIncome,
    getProvinceOverextension,
    getProvinceTileCount,
@@ -62,7 +63,7 @@ export class GameState {
          [randomMaleName().join(" "), []],
          [randomMaleName().join(" "), []],
       ]),
-      consulCandidates: range(0, 9).map(() => randomMaleName().join(" ")),
+      consulCandidates: range(0, ConsulCandidatesCount).map(() => randomMaleName().join(" ")),
       votes: new Map(),
    };
    completedTutorials: Set<string> = new Set();

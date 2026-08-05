@@ -972,6 +972,7 @@ export function generateTrade(
    return { trade: result, profit: totalProfit };
 }
 
+export const ConsulCandidatesCount = 10;
 export const ConsulElectionMonths = 24;
 
 export function monthsToNextConsulElection(save: SaveGame): number {
