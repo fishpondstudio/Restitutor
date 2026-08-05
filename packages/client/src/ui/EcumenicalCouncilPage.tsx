@@ -199,7 +199,6 @@ function ReconcilePanel(): React.ReactNode {
             <thead>
                <tr>
                   <th>{$t(L.Tile)}</th>
-                  <th>{$t(L.Upg)}</th>
                   <th>{$t(L.Heresy)}</th>
                   <th></th>
                </tr>
@@ -230,7 +229,6 @@ function ReconcilePanel(): React.ReactNode {
                               <div className="f1">{getTileName(tile)}</div>
                            </div>
                         </td>
-                        <td>{tileUpgrades}</td>
                         <td>{Religion[tileData.religion].name()}</td>
                         <td>
                            <ActionButton
