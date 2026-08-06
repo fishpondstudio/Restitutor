@@ -323,9 +323,9 @@ export type Province = keyof typeof Province;
 export const Provinces = keysOf(Province);
 export const EnabledProvinces: Province[] = [
    "Lugdunensis",
-   "Aquitania",
-   "Narbonensis",
-   "Belgica",
+   // "Aquitania",
+   // "Narbonensis",
+   // "Belgica",
    "Germania",
    "Tarraconensis",
    "Lusitania",

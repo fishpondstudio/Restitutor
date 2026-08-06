@@ -35,7 +35,7 @@ export class TechDefinitions {
 
    B1: ITechDefinition = {
       requires: ["A1"],
-      name: () => $t(L.TechAppeasement),
+      name: () => $t(L.TechSocialPolicy),
       timedActions: ["Appease", "SocialClassFavor", "SocialClassCurtail"],
       goods: ["flour"],
    } as const;
@@ -49,7 +49,7 @@ export class TechDefinitions {
 
    B3: ITechDefinition = {
       requires: ["A3"],
-      name: () => $t(L.TechHarshPacification),
+      name: () => $t(L.TechPacification),
       modifiers: {
          InfantryUnitPower: { type: "add", value: 1 },
       },
@@ -59,7 +59,7 @@ export class TechDefinitions {
 
    C1: ITechDefinition = {
       requires: ["B1"],
-      name: () => $t(L.BuildingTemple),
+      name: () => $t(L.TechSacredOffices),
       modifiers: {
          GoverningCapacity: { type: "add", value: 100 },
       },
@@ -69,7 +69,7 @@ export class TechDefinitions {
 
    C2: ITechDefinition = {
       requires: ["B1", "B2"],
-      name: () => $t(L.BuildingMarket),
+      name: () => $t(L.TechTradeNetworks),
       modifiers: {
          TradeCapacity: { type: "add", value: 1 },
          TradeProfit: { type: "multiply", value: 0.1 },
@@ -100,7 +100,7 @@ export class TechDefinitions {
 
    D2: ITechDefinition = {
       requires: ["C2", "C3"],
-      name: () => $t(L.TechPublicSpace),
+      name: () => $t(L.TechCivicAssembly),
       timedActions: ["DemandElectionBacking", "UpgradeRations", "Denounce"],
       buildings: ["TownSquare"],
       goods: ["cheese"],
@@ -108,7 +108,7 @@ export class TechDefinitions {
 
    D3: ITechDefinition = {
       requires: ["C3"],
-      name: () => $t(L.TechFortification),
+      name: () => $t(L.TechFortifications),
       timedActions: ["ServiceWeapons"],
       buildings: ["Castra"],
       goods: ["weapon"],
@@ -119,10 +119,10 @@ export class TechDefinitions {
 
    E1: ITechDefinition = {
       requires: ["D1", "D2"],
-      name: () => $t(L.TechGovernmentReform),
+      name: () => $t(L.TechCurialReform),
       timedActions: ["AppointPontiff", "ReformCuria"],
       modifiers: {
-         BuildingSlot: { type: "add", value: 1 },
+         ToleratedCulture: { type: "add", value: 1 },
       },
    } as const;
 
@@ -146,7 +146,7 @@ export class TechDefinitions {
 
    F1: ITechDefinition = {
       requires: ["E1"],
-      name: () => $t(L.TechLegalCodification),
+      name: () => $t(L.TechLegalCode),
       buildings: ["Courthouse"],
       modifiers: {
          ResearchCost: { type: "multiply", value: -0.1 },
@@ -156,7 +156,7 @@ export class TechDefinitions {
 
    F2: ITechDefinition = {
       requires: ["E2"],
-      name: () => $t(L.TechDiplomaticMissions),
+      name: () => $t(L.TechEnvoyMissions),
       modifiers: {
          Diplomat: { type: "add", value: 1 },
          DiplomaticRange: { type: "add", value: 5 },
@@ -178,7 +178,7 @@ export class TechDefinitions {
       requires: ["F1"],
       name: () => $t(L.TechUrbanPlanning),
       modifiers: {
-         GoverningCapacity: { type: "add", value: 100 },
+         BuildingSlot: { type: "add", value: 1 },
          InfrastructureUpgradeCost: { type: "multiply", value: -0.2 },
       },
       buildings: ["CircusMaximus"],
@@ -187,7 +187,7 @@ export class TechDefinitions {
 
    G2: ITechDefinition = {
       requires: ["F1", "F2"],
-      name: () => $t(L.BuildingWorkshop),
+      name: () => $t(L.TechCraftWorkshops),
       buildings: ["Workshop"],
       timedActions: ["DemandTile"],
       modifiers: {
@@ -211,6 +211,7 @@ export class TechDefinitions {
       requires: ["G1"],
       name: () => $t(L.TechLandSurveying),
       modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
          BuildingSlot: { type: "add", value: 1 },
       },
       timedActions: ["GrantTaxRelief"],
@@ -229,7 +230,7 @@ export class TechDefinitions {
 
    H3: ITechDefinition = {
       requires: ["G3"],
-      name: () => $t(L.TechArmyIntelligence),
+      name: () => $t(L.TechArmyIntel),
       timedActions: ["UndermineTheirArmy"],
       buildings: ["Barracks"],
       modifiers: {
@@ -260,12 +261,99 @@ export class TechDefinitions {
 
    I3: ITechDefinition = {
       requires: ["H3"],
-      name: () => $t(L.TechSupplyLogistics),
+      name: () => $t(L.TechArmyLogistics),
       modifiers: {
          InfantryUnitPower: { type: "add", value: 1 },
          WarPower: { type: "multiply", value: 0.1 },
       },
    } as const;
+
+   J1: ITechDefinition = {
+      requires: ["I1"],
+      name: () => $t(L.TechCulturalPolicy),
+      modifiers: {
+         ToleratedCulture: { type: "add", value: 1 },
+         GoverningCapacity: { type: "add", value: 100 },
+      },
+   } as const;
+
+   J2: ITechDefinition = {
+      requires: ["I2"],
+      name: () => $t(L.TechReligiousPolicy),
+      modifiers: {
+         ToleratedReligion: { type: "add", value: 1 },
+         Prestige: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+
+   J3: ITechDefinition = {
+      requires: ["I3"],
+      name: () => $t(L.TechRangedDoctrine),
+      modifiers: {
+         RangedUnitPower: { type: "add", value: 1 },
+         WarPower: { type: "multiply", value: 0.1 },
+      },
+   } as const;
+
+   // K1: ITechDefinition = {
+   //    requires: ["J1"],
+   //    name: () => $t(L.TechLocalGovernance),
+   // } as const;
+
+   // K2: ITechDefinition = {
+   //    requires: ["J2"],
+   //    name: () => $t(L.TechClientProvinces),
+   // } as const;
+
+   // K3: ITechDefinition = {
+   //    requires: ["J3"],
+   //    name: () => $t(L.TechCombinedArms),
+   // } as const;
+
+   // L1: ITechDefinition = {
+   //    requires: ["K1"],
+   //    name: () => $t(L.TechProvincialStaff),
+   // } as const;
+
+   // L2: ITechDefinition = {
+   //    requires: ["K2"],
+   //    name: () => $t(L.TechMarriagePacts),
+   // } as const;
+
+   // L3: ITechDefinition = {
+   //    requires: ["K3"],
+   //    name: () => $t(L.TechDefenseInDepth),
+   // } as const;
+
+   // M1: ITechDefinition = {
+   //    requires: ["L1"],
+   //    name: () => $t(L.TechTaxOffices),
+   // } as const;
+
+   // M2: ITechDefinition = {
+   //    requires: ["L2"],
+   //    name: () => $t(L.TechBorderPacts),
+   // } as const;
+
+   // M3: ITechDefinition = {
+   //    requires: ["L3"],
+   //    name: () => $t(L.TechFieldArmies),
+   // } as const;
+
+   // N1: ITechDefinition = {
+   //    requires: ["M1"],
+   //    name: () => $t(L.TechPublicRecords),
+   // } as const;
+
+   // N2: ITechDefinition = {
+   //    requires: ["M2"],
+   //    name: () => $t(L.TechBorderDiplomacy),
+   // } as const;
+
+   // N3: ITechDefinition = {
+   //    requires: ["M3"],
+   //    name: () => $t(L.TechArmyReserves),
+   // } as const;
 }
 
 export type Tech = keyof TechDefinitions;
