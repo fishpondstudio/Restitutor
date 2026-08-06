@@ -1,4 +1,4 @@
-import { Menu, Progress, Switch } from "@mantine/core";
+import { Menu, Progress, ScrollArea, Switch } from "@mantine/core";
 import {
    clamp,
    cls,
@@ -263,26 +263,29 @@ export function InternalAffairsPage(): React.ReactNode {
                         </Menu.Target>
                      </FloatingTip>
                      <Menu.Dropdown className="panel">
-                        {entriesOf(Religion)
-                           .filter(
-                              ([religion]) => religion !== state.religion && !toleratedReligions.includes(religion),
-                           )
-                           .map(([religion]) => (
-                              <Menu.Item
-                                 key={religion}
-                                 onClick={() => {
-                                    if (state.toleratedReligions.size < toleratedReligionSlots.value) {
-                                       state.toleratedReligions.add(religion);
-                                       GameStateUpdated.emit();
-                                       playClick();
-                                    } else {
-                                       playError();
-                                    }
-                                 }}
-                              >
-                                 {Religion[religion].name()}
-                              </Menu.Item>
-                           ))}
+                        <ScrollArea.Autosize mah="33vh" scrollbars="y">
+                           {entriesOf(Religion)
+                              .sort((a, b) => a[1].name().localeCompare(b[1].name()))
+                              .filter(
+                                 ([religion]) => religion !== state.religion && !toleratedReligions.includes(religion),
+                              )
+                              .map(([religion]) => (
+                                 <Menu.Item
+                                    key={religion}
+                                    onClick={() => {
+                                       if (state.toleratedReligions.size < toleratedReligionSlots.value) {
+                                          state.toleratedReligions.add(religion);
+                                          GameStateUpdated.emit();
+                                          playClick();
+                                       } else {
+                                          playError();
+                                       }
+                                    }}
+                                 >
+                                    {Religion[religion].name()}
+                                 </Menu.Item>
+                              ))}
+                        </ScrollArea.Autosize>
                      </Menu.Dropdown>
                   </Menu>
                );
@@ -411,24 +414,27 @@ export function InternalAffairsPage(): React.ReactNode {
                         </Menu.Target>
                      </FloatingTip>
                      <Menu.Dropdown className="panel">
-                        {entriesOf(Culture)
-                           .filter(([culture]) => culture !== state.culture && !toleratedCultures.includes(culture))
-                           .map(([culture]) => (
-                              <Menu.Item
-                                 key={culture}
-                                 onClick={() => {
-                                    if (state.toleratedCultures.size < toleratedCultureSlots.value) {
-                                       state.toleratedCultures.add(culture);
-                                       GameStateUpdated.emit();
-                                       playClick();
-                                    } else {
-                                       playError();
-                                    }
-                                 }}
-                              >
-                                 {Culture[culture].name()}
-                              </Menu.Item>
-                           ))}
+                        <ScrollArea.Autosize mah="33vh" scrollbars="y">
+                           {entriesOf(Culture)
+                              .filter(([culture]) => culture !== state.culture && !toleratedCultures.includes(culture))
+                              .sort((a, b) => a[1].name().localeCompare(b[1].name()))
+                              .map(([culture]) => (
+                                 <Menu.Item
+                                    key={culture}
+                                    onClick={() => {
+                                       if (state.toleratedCultures.size < toleratedCultureSlots.value) {
+                                          state.toleratedCultures.add(culture);
+                                          GameStateUpdated.emit();
+                                          playClick();
+                                       } else {
+                                          playError();
+                                       }
+                                    }}
+                                 >
+                                    {Culture[culture].name()}
+                                 </Menu.Item>
+                              ))}
+                        </ScrollArea.Autosize>
                      </Menu.Dropdown>
                   </Menu>
                );
