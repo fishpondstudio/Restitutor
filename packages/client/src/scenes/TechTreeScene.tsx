@@ -63,7 +63,8 @@ export class TechTreeScene extends Scene {
       });
 
       const zoom = app.screen.height / PageHeight;
-      const width = rowCount.size * ColumnWidth + remToPx(SidebarWidth) / zoom;
+      const xOffset = remToPx(SidebarWidth) / zoom;
+      const width = rowCount.size * ColumnWidth + xOffset;
       const height = PageHeight;
 
       this.viewport.setWorldSize(width, PageHeight);
@@ -85,7 +86,7 @@ export class TechTreeScene extends Scene {
 
       forEach(Tech, (tech, def) => {
          const position = getTechPosition(tech);
-         const x = position.x * ColumnWidth + ColumnWidth / 2 - BoxWidth / 2;
+         const x = xOffset + position.x * ColumnWidth + ColumnWidth / 2 - BoxWidth / 2;
          const totalRow = rowCount.get(position.x) ?? 1;
          const totalHeight = PageHeight - BottomMargin - TopMargin - HeaderHeight - BottomPadding;
          const y = HeaderHeight + TopMargin + layoutSpaceBetween(BoxHeight, totalHeight, totalRow, position.y);
@@ -152,7 +153,7 @@ export class TechTreeScene extends Scene {
             maxX = Math.max(maxX, box.center.x);
          }
       });
-      this.viewport.center = { x: maxX + app.screen.width / 4, y: this.viewport.center.y };
+      this.viewport.center = { x: maxX, y: this.viewport.center.y };
 
       forEach(Tech, (tech, def) => {
          const from = this._techs.get(tech);
