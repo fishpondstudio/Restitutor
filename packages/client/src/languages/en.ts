@@ -2673,4 +2673,5 @@ export const EN = {
    TechCulturalPolicy: "Cultural Policy",
    TechReligiousPolicy: "Religious Policy",
    TechRangedDoctrine: "Ranged Doctrine",
+   FreeDemoProvinceAvailability$1: "*$1 and one other province (rotating every two weeks) are available in the free demo.",
 };

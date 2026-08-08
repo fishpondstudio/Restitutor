@@ -1,6 +1,8 @@
 import type { IPCService } from "@project/electron/src/IPCService";
 import { rpcClient } from "@project/shared/src/thirdparty/TRPCClient";
 import { saveGame } from "../game/LoadSave";
+import { showError } from "../game/logic/AlertLogic";
+import { playError } from "../ui/Sound";
 import { G } from "../utils/Global";
 
 export function isSteam(): boolean {
@@ -19,8 +21,12 @@ export const SteamClient = rpcClient<IPCService>({
 window.addEventListener("DOMContentLoaded", () => {
    if (typeof IPCBridge !== "undefined") {
       IPCBridge.onClose(() => {
-         saveGame(G.save);
-         SteamClient.quit();
+         saveGame(G.save)
+            .then(() => SteamClient.quit())
+            .catch((e) => {
+               playError();
+               showError(String(e));
+            });
       });
    }
 });

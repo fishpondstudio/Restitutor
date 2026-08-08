@@ -1,6 +1,6 @@
 import { Select } from "@mantine/core";
-import { cls, entriesOf, setFlag } from "@project/shared/src/utils/Helper";
-import { Fragment, useState } from "react";
+import { cls, entriesOf, hasFlag, setFlag, WEEK } from "@project/shared/src/utils/Helper";
+import { Fragment, useEffect, useState } from "react";
 import { Culture } from "../game/definitions/Culture";
 import { EnabledProvinces, Province } from "../game/definitions/Province";
 import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
@@ -13,7 +13,7 @@ import { rebirth } from "../game/logic/LegacyUpgradeLogic";
 import { getProvinceName, getTilesAnnexedAndCored, provinceResourceOf } from "../game/logic/ProvinceLogic";
 import { RomeMap } from "../game/RomeMap";
 import { WorldScene } from "../scenes/WorldScene";
-import { G } from "../utils/Global";
+import { G, GameFlags } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { colorNumber } from "./components/ColorNumber";
@@ -25,6 +25,22 @@ export function RebirthPage(): React.ReactNode {
    const newTiles = getTilesAnnexedAndCored(G.save.state.playerProvince, G.save);
    const [province, setProvince] = useState(G.save.state.playerProvince);
    const provincialEvents = entriesOf(GameEvents).filter(([k, v]) => v.condition?.province?.includes(province));
+   const [freeProvinces, setFreeProvinces] = useState(new Set<Province>(["Lugdunensis"]));
+   const isDemo = hasFlag(G.flags, GameFlags.Demo);
+   useEffect(() => {
+      fetch("https://api.fishpondstudio.com/time")
+         .then(async (res) => {
+            return res.json();
+         })
+         .then((data) => {
+            const serverTime = data.time;
+            if (isDemo) {
+               const id = Math.floor(serverTime / (WEEK * 2));
+               const candidates = EnabledProvinces.filter((p) => p !== "Lugdunensis");
+               setFreeProvinces(new Set(["Lugdunensis", candidates[id % candidates.length]]));
+            }
+         });
+   }, [isDemo]);
    return (
       <SidebarComp title={<SidebarHeader title={$t(L.Rebirth)} />}>
          <div className="h1">{$t(L.LegacyPoint)}</div>
@@ -57,10 +73,18 @@ export function RebirthPage(): React.ReactNode {
                   }}
                   checkIconPosition="right"
                   allowDeselect={false}
-                  data={EnabledProvinces.map((p) => ({ value: p, label: getProvinceName(p, G.save) }))}
+                  data={EnabledProvinces.map((p) => ({
+                     value: p,
+                     label: `${getProvinceName(p, G.save)}${isDemo && freeProvinces.has(p) ? "*" : ""}`,
+                  }))}
                />
             </div>
          </FloatingTip>
+         {isDemo && (
+            <div className="box m10 p10 text-sm yellow text-yellow">
+               {$t(L.FreeDemoProvinceAvailability$1, getProvinceName("Lugdunensis", G.save))}
+            </div>
+         )}
          <div className="m10">
             <div className="row my5">
                <div className="f1">{$t(L.Culture)}</div>
@@ -120,6 +144,7 @@ export function RebirthPage(): React.ReactNode {
          </div>
          <div className="m10">
             <button
+               disabled={isDemo && !freeProvinces.has(province)}
                className={cls("btn py2 w100")}
                onClick={async () => {
                   rebirth(province, G.save);

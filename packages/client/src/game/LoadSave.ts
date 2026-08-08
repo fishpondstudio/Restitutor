@@ -1,8 +1,8 @@
 import { dateToYYYYMMDD } from "@project/shared/src/utils/Helper";
 import { jsonDecode, jsonEncode } from "@project/shared/src/utils/Serialization";
 import { compressToUint8Array, decompressFromUint8Array } from "lz-string";
+import { isSteam, SteamClient } from "../rpc/SteamClient";
 import { idbDel, idbGet, idbSet } from "../utils/BrowserStorage";
-import { isSteam, SteamClient } from "../utils/Steam";
 import type { SaveGame } from "./GameState";
 import { getGameDate } from "./logic/GameDateTime";
 

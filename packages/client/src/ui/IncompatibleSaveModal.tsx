@@ -1,10 +1,10 @@
 import { resetGame } from "../game/LoadSave";
 import { provinceResourceOf } from "../game/logic/ProvinceLogic";
 import { getVersion } from "../game/Version";
+import { isSteam, SteamClient } from "../rpc/SteamClient";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
-import { isSteam, SteamClient } from "../utils/Steam";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 

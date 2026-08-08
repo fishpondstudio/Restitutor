@@ -1,9 +1,10 @@
+import { hasFlag } from "@project/shared/src/utils/Helper";
 import { RingBuffer } from "@project/shared/src/utils/RingBuffer";
 import { BitmapText } from "pixi.js";
 import { Fonts } from "./Fonts";
 import { OnResize } from "./game/Events";
 import { getVersion } from "./game/Version";
-import { G } from "./utils/Global";
+import { G, GameFlags } from "./utils/Global";
 
 export class Watermark {
    private _watermark: BitmapText;
@@ -28,7 +29,7 @@ export class Watermark {
       this._watermark.text = [
          `TICK:${G.save.state.tick}`,
          `FPS:${Math.round(this._fps.reduce(sum, 0) / this._fps.size)}`,
-         `VERSION:${this._version}`,
+         `VERSION:${this._version}${hasFlag(G.flags, GameFlags.Demo) ? "(D)" : "(R)"}`,
          navigator.onLine ? "ONLINE" : "OFFLINE",
       ].join("  ");
    }

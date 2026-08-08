@@ -323,14 +323,15 @@ export type Province = keyof typeof Province;
 export const Provinces = keysOf(Province);
 export const EnabledProvinces: Province[] = [
    "Lugdunensis",
-   // "Aquitania",
-   // "Narbonensis",
-   // "Belgica",
+   "Aquitania",
+   "Narbonensis",
+   "Belgica",
    "Germania",
    "Tarraconensis",
    "Lusitania",
    "Baetica",
 ];
+EnabledProvinces.sort();
 
 export const ProvinceExtraGoverningCapacity: Partial<Record<Province, number>> = {
    Africa: 100,

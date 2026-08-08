@@ -1,7 +1,9 @@
-import { setFlag } from "@project/shared/src/utils/Helper";
+import { clearFlag, setFlag } from "@project/shared/src/utils/Helper";
+import { RetailSteamId } from "./game/definitions/Constant.ts";
 import { type Province, Provinces } from "./game/definitions/Province";
 import { GameOptionFlag } from "./game/GameOption";
 import { startTimedAction } from "./game/logic/TimedActionLogic";
+import { isSteam, SteamClient } from "./rpc/SteamClient";
 import { TechTreeScene } from "./scenes/TechTreeScene";
 import { WorldScene } from "./scenes/WorldScene";
 import { showPanel } from "./ui/common/ShowPanel";
@@ -26,6 +28,18 @@ export function loadGameScene() {
 
    if (params.has("nodev")) {
       G.flags = setFlag(G.flags, GameFlags.NoDev);
+   }
+
+   if (!import.meta.env.DEV) {
+      G.flags = setFlag(G.flags, GameFlags.Demo);
+   }
+
+   if (isSteam()) {
+      SteamClient.getAppId().then((steamId) => {
+         if (steamId === RetailSteamId) {
+            G.flags = clearFlag(G.flags, GameFlags.Demo);
+         }
+      });
    }
 
    if (params.has("legacy")) {

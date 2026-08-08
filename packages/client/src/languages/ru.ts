@@ -2673,4 +2673,5 @@ export const RU = {
    TechCulturalPolicy: "Культурный курс",
    TechReligiousPolicy: "Религиозный курс",
    TechRangedDoctrine: "Тактика стрелков",
+   FreeDemoProvinceAvailability$1: "*$1 и ещё одна провинция (сменяется каждые две недели) доступны в бесплатной демоверсии.",
 };

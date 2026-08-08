@@ -11,6 +11,7 @@ export const GameFlags = {
    None: 0,
    Sandbox: 1 << 0,
    NoDev: 1 << 1,
+   Demo: 1 << 2,
 } as const;
 
 export type GameFlags = ValueOf<typeof GameFlags>;

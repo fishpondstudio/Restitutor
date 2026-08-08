@@ -2,6 +2,8 @@ export const Version = "0.12";
 export const SupportedSaveVersion = 10;
 export const GoldenRatio = (1 + Math.sqrt(5)) / 2;
 
+export const RetailSteamId = 4431750;
+export const DemoSteamId = 4481710;
 export const DiscordUrl = "https://discord.gg/hANhARJFac";
 export const SteamUrl = "https://store.steampowered.com/app/4431750/?utm_source=InGame";
 export const TranslationUrl = "https://github.com/fishpondstudio/Restitutor/tree/main/packages/client/src/languages";

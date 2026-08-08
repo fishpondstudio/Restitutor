@@ -2658,4 +2658,5 @@ export const ZH_CN = {
    TechCulturalPolicy: "文化政策",
    TechReligiousPolicy: "宗教政策",
    TechRangedDoctrine: "远程战术",
+   FreeDemoProvinceAvailability$1: "*$1 和另一个行省（每两周轮换一次）可在免费试玩版中使用。",
 };
