@@ -37,7 +37,7 @@ export function validateConfig(): void {
    });
    forEach(Buildings, (building, config) => {
       if (!buildings.has(building)) {
-         console.error(`Building ${building} is unlocked by any tech`);
+         console.error(`Building ${building} is not unlocked by any tech`);
       }
    });
    forEach(Goods, (g, config) => {
