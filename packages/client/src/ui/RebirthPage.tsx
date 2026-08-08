@@ -28,6 +28,9 @@ export function RebirthPage(): React.ReactNode {
    const [freeProvinces, setFreeProvinces] = useState(new Set<Province>(["Lugdunensis"]));
    const isDemo = hasFlag(G.flags, GameFlags.Demo);
    useEffect(() => {
+      if (!isDemo) {
+         return;
+      }
       fetch("https://api.fishpondstudio.com/time")
          .then(async (res) => {
             return res.json();
@@ -147,6 +150,9 @@ export function RebirthPage(): React.ReactNode {
                disabled={isDemo && !freeProvinces.has(province)}
                className={cls("btn py2 w100")}
                onClick={async () => {
+                  if (isDemo && !freeProvinces.has(province)) {
+                     return;
+                  }
                   rebirth(province, G.save);
                   G.save.options.flag = setFlag(G.save.options.flag, GameOptionFlag.HideTutorial);
                   await saveGame(G.save);
