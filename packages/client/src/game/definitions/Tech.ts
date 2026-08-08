@@ -208,7 +208,7 @@ export class TechDefinitions {
    } as const;
 
    H1: ITechDefinition = {
-      requires: ["G1"],
+      requires: ["G1", "G2"],
       name: () => $t(L.TechLandSurveying),
       modifiers: {
          GoverningCapacity: { type: "add", value: 100 },
@@ -219,7 +219,7 @@ export class TechDefinitions {
    } as const;
 
    H2: ITechDefinition = {
-      requires: ["G2"],
+      requires: ["G2", "G3"],
       name: () => $t(L.TechMerchantGuilds),
       modifiers: {
          TradeCapacity: { type: "add", value: 1 },
@@ -239,7 +239,7 @@ export class TechDefinitions {
    } as const;
 
    I1: ITechDefinition = {
-      requires: ["H1"],
+      requires: ["H1", "H2"],
       name: () => $t(L.TechCivicEducation),
       modifiers: {
          ProductionCapacity: { type: "add", value: 5 },
@@ -260,7 +260,7 @@ export class TechDefinitions {
    } as const;
 
    I3: ITechDefinition = {
-      requires: ["H3"],
+      requires: ["H2", "H3"],
       name: () => $t(L.TechArmyLogistics),
       modifiers: {
          InfantryUnitPower: { type: "add", value: 1 },
@@ -278,7 +278,7 @@ export class TechDefinitions {
    } as const;
 
    J2: ITechDefinition = {
-      requires: ["I2"],
+      requires: ["I1", "I2"],
       name: () => $t(L.TechReligiousPolicy),
       modifiers: {
          ToleratedReligion: { type: "add", value: 1 },
@@ -287,7 +287,7 @@ export class TechDefinitions {
    } as const;
 
    J3: ITechDefinition = {
-      requires: ["I3"],
+      requires: ["I2", "I3"],
       name: () => $t(L.TechRangedDoctrine),
       modifiers: {
          RangedUnitPower: { type: "add", value: 1 },
