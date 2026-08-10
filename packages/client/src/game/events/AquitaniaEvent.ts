@@ -3,7 +3,8 @@ import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActi
 import { Province } from "../definitions/Province";
 import { getOriginalTileCount } from "../GameState";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { getProvinceCoreTileCount, getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
+import { maxCoreTileCondition } from "../logic/MissionLogic";
+import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
 import { isCoreTileCondition } from "../logic/TileLogic";
 import {
    dissolveAllTreaties,
@@ -377,10 +378,7 @@ export const AquitaniaEvent = {
          conditions: (province, save) => {
             return [
                availableDiplomatCondition(province, "Narbonensis", save),
-               {
-                  name: $t(L.$1HasAtMost$2CoreTiles, Province.Narbonensis.name(), "5"),
-                  value: getProvinceCoreTileCount("Narbonensis", save) <= 5,
-               },
+               maxCoreTileCondition(5, "Narbonensis", save),
                requirePeaceBetween(province, "Narbonensis", save),
             ];
          },

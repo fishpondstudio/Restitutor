@@ -330,6 +330,8 @@ export const EnabledProvinces: Province[] = [
    "Tarraconensis",
    "Lusitania",
    "Baetica",
+   "Italia",
+   "Sicilia",
 ];
 EnabledProvinces.sort();
 

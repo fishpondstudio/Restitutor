@@ -3,8 +3,7 @@ import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import { RefreshTiles } from "../Events";
-import { getMarriageAlliance } from "../logic/DiplomacyLogic";
-import { provinceResourceCondition, provinceRevenueCondition } from "../logic/MissionLogic";
+import { marriageCondition, provinceResourceCondition, provinceRevenueCondition } from "../logic/MissionLogic";
 import { getProvinceResource } from "../logic/ProvinceLogic";
 import { dissolveAllTreaties, requireAnyTreatyBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
@@ -387,10 +386,7 @@ export const NarbonensisEvent = {
             return [
                provinceResourceCondition("gold", 5000, province, save),
                requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Corsica", save),
-               {
-                  name: $t(L.WeHaveAMarriageAllianceWith$1, Province.Corsica.name()),
-                  value: getMarriageAlliance(province, "Corsica", save).length > 0,
-               },
+               marriageCondition(province, "Corsica", save),
             ];
          },
       },

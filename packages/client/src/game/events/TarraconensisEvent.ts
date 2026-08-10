@@ -3,8 +3,8 @@ import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActi
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { provinceResourceCondition } from "../logic/MissionLogic";
-import { getProvinceCoreTileCount, getProvinceName, getProvinceResource } from "../logic/ProvinceLogic";
+import { maxCoreTileCondition, provinceResourceCondition } from "../logic/MissionLogic";
+import { getProvinceName, getProvinceResource } from "../logic/ProvinceLogic";
 import { isCoreTileCondition } from "../logic/TileLogic";
 import {
    dissolveAllTreaties,
@@ -337,12 +337,7 @@ export const TarraconensisEvent = {
          province: ["Tarraconensis"],
          playerOnly: true,
          provinceOnMap: ["Baetica"],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1HasAtMost$2CoreTiles, Province.Baetica.name(), "3"),
-               value: getProvinceCoreTileCount("Baetica", save) <= 3,
-            },
-         ],
+         conditions: (province, save) => [maxCoreTileCondition(3, "Baetica", save)],
       },
       buttons: [
          {

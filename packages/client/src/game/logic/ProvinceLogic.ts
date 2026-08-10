@@ -13,6 +13,7 @@ import {
    type Tile,
    tileToPoint,
 } from "@project/shared/src/utils/Helper";
+import Land from "../../data/Land.json";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition, IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
@@ -67,6 +68,7 @@ import {
    getTileLandTax,
    getTileMaintenanceCost,
    getTileManpower,
+   isCoastal,
 } from "./TileLogic";
 import { getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
 import { getClients, getPatrons, getTreatyCount } from "./TreatyLogic";
@@ -250,6 +252,16 @@ export function getProvinceCoreTileCount(province: Province, save: SaveGame): nu
    return count;
 }
 
+export function getProvinceCoreCoastalTileCount(province: Province, save: SaveGame): number {
+   let count = 0;
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province === province && data.coreProvinces.has(province) && isCoastal(tile)) {
+         count++;
+      }
+   }
+   return count;
+}
+
 export function getTotalUpgrades(province: Province, save: SaveGame): number {
    let upgrade = 0;
    for (const [tile, data] of save.state.tiles) {
@@ -325,6 +337,45 @@ export function getProvincesInRange(range: number, province: Province, save: Sav
       }
    }
    return result;
+}
+
+const LandTiles = new Set<Tile>(Land);
+
+export function canReachBySea(province1: Province, province2: Province, save: SaveGame): boolean {
+   const destinationTiles = new Set<Tile>();
+   const visited = new Set<Tile>();
+   const queue: Tile[] = [];
+
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province === province2) {
+         destinationTiles.add(tile);
+      }
+      if (data.province === province1) {
+         for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
+            const neighborTile = pointToTile(neighbor);
+            if (!LandTiles.has(neighborTile) && !visited.has(neighborTile)) {
+               visited.add(neighborTile);
+               queue.push(neighborTile);
+            }
+         }
+      }
+   }
+
+   for (let index = 0; index < queue.length; index++) {
+      const current = queue[index];
+      for (const neighbor of MapGrid.getNeighbors(tileToPoint(current))) {
+         const neighborTile = pointToTile(neighbor);
+         if (destinationTiles.has(neighborTile)) {
+            return true;
+         }
+         if (!LandTiles.has(neighborTile) && !visited.has(neighborTile)) {
+            visited.add(neighborTile);
+            queue.push(neighborTile);
+         }
+      }
+   }
+
+   return false;
 }
 
 export function getProvincesByDistance(province: Province, save: SaveGame): Province[] {

@@ -8,16 +8,12 @@ import { availableDiplomatCondition, getRelation } from "../logic/DiplomacyLogic
 import {
    manpowerCondition,
    marriageCondition,
+   maxCoreTileCondition,
    provinceRevenueCondition,
    techCountCondition,
    warPowerCondition,
 } from "../logic/MissionLogic";
-import {
-   getProvinceCoreTileCount,
-   getProvinceName,
-   getProvinceResource,
-   getProvinceStability,
-} from "../logic/ProvinceLogic";
+import { getProvinceName, getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
 import { dissolveAllTreaties, requireMinimumAttitude } from "../logic/TreatyLogic";
 import { hasGeneralCondition } from "../logic/WarLogic";
 import { EventImage } from "./EventImages";
@@ -176,10 +172,7 @@ export const LugdunensisEvent = {
          annexAndCore: { Belgica: 6 },
          year: [220, 250],
          conditions: (province, save) => [
-            {
-               name: $t(L.$1HasAtMost$2CoreTiles, Province.Belgica.name(), "3"),
-               value: getProvinceCoreTileCount("Belgica", save) <= 3,
-            },
+            maxCoreTileCondition(3, "Belgica", save),
             marriageCondition(province, "Belgica", save),
             availableDiplomatCondition(province, "Belgica", save),
             requireMinimumAttitude("Belgica", province, 50, save),

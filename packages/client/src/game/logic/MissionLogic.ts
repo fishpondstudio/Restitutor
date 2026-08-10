@@ -11,6 +11,7 @@ import {
 import type { SaveGame } from "../GameState";
 import { getMarriageAlliance } from "./DiplomacyLogic";
 import {
+   getProvinceCoreCoastalTileCount,
    getProvinceCoreTileCount,
    getProvinceGoverningCost,
    getProvinceIncome,
@@ -64,6 +65,15 @@ export function warPowerCondition(minimum: number, province: Province, save: Sav
       name: $t(L.Reach$1WarPower, formatNumber(minimum)),
       value: warPower >= minimum,
       progress: [warPower, minimum],
+   };
+}
+
+export function minCoreCoastalTileCondition(minimum: number, province: Province, save: SaveGame): ICondition {
+   const tileCount = getProvinceCoreCoastalTileCount(province, save);
+   return {
+      name: $t(L.$1HasAtLeast$2CoreCoastalTiles, getProvinceName(province, save), formatNumber(minimum)),
+      value: tileCount >= minimum,
+      progress: [tileCount, minimum],
    };
 }
 

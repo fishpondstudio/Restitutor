@@ -2,8 +2,8 @@ import { $t, L } from "../../utils/i18n";
 import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
-import { minCoreTileCondition, warPowerCondition } from "../logic/MissionLogic";
-import { getProvinceCoreTileCount, getProvinceResource } from "../logic/ProvinceLogic";
+import { maxCoreTileCondition, minCoreTileCondition, warPowerCondition } from "../logic/MissionLogic";
+import { getProvinceResource } from "../logic/ProvinceLogic";
 import { dissolveAllTreaties, requireAnyTreatyBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -348,10 +348,7 @@ export const GermaniaEvent = {
       condition: {
          province: ["Germania"],
          conditions: (province, save) => [
-            {
-               name: $t(L.$1HasAtMost$2CoreTiles, Province.Raetia.name(), "3"),
-               value: getProvinceCoreTileCount("Raetia", save) <= 3,
-            },
+            maxCoreTileCondition(3, "Raetia", save),
             requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Raetia", save),
          ],
       },
@@ -377,10 +374,7 @@ export const GermaniaEvent = {
       condition: {
          province: ["Germania"],
          conditions: (province, save) => [
-            {
-               name: $t(L.$1HasAtMost$2CoreTiles, Province.Belgica.name(), "3"),
-               value: getProvinceCoreTileCount("Belgica", save) <= 3,
-            },
+            maxCoreTileCondition(3, "Belgica", save),
             requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Belgica", save),
          ],
       },

@@ -13,6 +13,8 @@ import { GermaniaEvent } from "./GermaniaEvent";
 import { HispaniaEvent } from "./HispaniaEvents";
 import { HistoricalEvents } from "./HistoricalEvents";
 import type { ImageWithCredit } from "./ImageWithCredit";
+import { ItaliaEvent } from "./ItaliaEvent";
+import { ItaliaSharedEvent } from "./ItaliaSharedEvent";
 import { LugdunensisEvent } from "./LugdunensisEvent";
 import { LusitaniaEvent } from "./LusitaniaEvent";
 import { ManualEvents } from "./ManualEvents";
@@ -20,6 +22,7 @@ import { MissionEvents } from "./MissionEvents";
 import { NarbonensisEvent } from "./NarbonensisEvent";
 import { RandomEvents } from "./RandomEvents";
 import { ReligiousEvents } from "./ReligiousEvents";
+import { SiciliaEvent } from "./SiciliaEvent";
 import { TarraconensisEvent } from "./TarraconensisEvent";
 import { WesternRomanEmpireEvents } from "./WesternRomanEmpireEvents";
 
@@ -60,6 +63,9 @@ const _GameEvents = {
    ...TarraconensisEvent,
    ...LusitaniaEvent,
    ...BaeticaEvent,
+   ...ItaliaEvent,
+   ...SiciliaEvent,
+   ...ItaliaSharedEvent,
    ...GallicEmpireEvents,
    ...HispaniaEvent,
    ...MissionEvents,
