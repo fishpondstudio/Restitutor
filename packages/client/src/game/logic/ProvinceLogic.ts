@@ -574,7 +574,6 @@ export function initProvince(province: Province, capital: Tile): IProvince {
       blackboard: {
          resources: {},
       },
-      completedMissions: new Set(),
       tradeOffers: [],
       flags: ProvinceFlags.None,
       monthly: {

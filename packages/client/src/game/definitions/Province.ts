@@ -150,7 +150,6 @@ export interface IProvince {
    events: Map<GameEvent, { month: number }>;
    usedEvents: Set<GameEvent>;
    blackboard: IBlackboard;
-   completedMissions: Set<string>;
    legacyUpgrades: Set<LegacyUpgrade>;
    provinceUpgrades: Set<ProvinceUpgrade>;
    tradeOffers: TradeOffer[];

@@ -14,7 +14,8 @@ export function migrateSave(save: SaveGame): void {
    save.state = Object.assign(new GameState(), save.state);
    save.options = Object.assign(new GameOption(), save.options);
    forEach(save.state.provinces, (province, data) => {
-      save.state.provinces[province] = Object.assign(initProvince(province, data.capital), data);
+      data = Object.assign(initProvince(province, data.capital), data);
+      save.state.provinces[province] = data;
       const relations = getRelations(province, save);
       if (relations) {
          for (const [otherProvince, relation] of relations) {
