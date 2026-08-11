@@ -148,7 +148,7 @@ export const SiciliaEvent = {
    Sicilia6: {
       name: () => $t(L.WhenAfricaWithholdsItsGrain),
       wikipedia: "Gildonic_War",
-      image: EventImage.MediterraneanHarbour,
+      image: EventImage.Honorius,
       desc: () => $t(L.WhenAfricaWithholdsItsGrainDesc),
       condition: {
          province: ["Sicilia"],

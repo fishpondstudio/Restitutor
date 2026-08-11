@@ -57,13 +57,12 @@ import Gibraltar from "../../assets/images/events/Gibraltar.webp";
 import H1 from "../../assets/images/events/H1.webp";
 import H2 from "../../assets/images/events/H2.webp";
 import H3 from "../../assets/images/events/H3.webp";
+import Honorius from "../../assets/images/events/Honorius.webp";
 import Iconoclasm from "../../assets/images/events/Iconoclasm.webp";
 import InvaderConqueredWarGoal from "../../assets/images/events/InvaderConqueredWarGoal.webp";
 import InvaderSueForWhitePeace from "../../assets/images/events/InvaderSueForWhitePeace.webp";
 import Island from "../../assets/images/events/Island.webp";
 import AurelianWalls from "../../assets/images/events/Italia4.webp";
-import Italia8 from "../../assets/images/events/Italia8.webp";
-import Italia10 from "../../assets/images/events/Italia10.webp";
 import Lusitania3 from "../../assets/images/events/Lusitania3.webp";
 import Lusitania4 from "../../assets/images/events/Lusitania4.webp";
 import Lusitania6 from "../../assets/images/events/Lusitania6.webp";
@@ -425,8 +424,7 @@ export const EventImage = {
       credit: "Cicero's tale about Catiline, Hans Werner Schmidt (1912)",
    },
    AurelianWalls: { url: AurelianWalls, credit: "Walls of Rome: The Aurelian Wall, Isaac Weld (1818)" },
-   Italia8: { url: Italia8, credit: "The Favourites of the Emperor Honorius, John William Waterhouse (1883)" },
-   Italia10: { url: Italia10, credit: "The Meeting of Leo the Great and Attila, Raphael (1514)" },
+   Honorius: { url: Honorius, credit: "The Favourites of the Emperor Honorius, John William Waterhouse (1883)" },
    Ravenna: { url: Ravenna, credit: "Apse Mosaic, Basilica of San Vitale, Ravenna (c.547)" },
    Sicilia2: { url: Sicilia2, credit: "St Peter Healing St Agatha, Giovanni Lanfranco (c.1614)" },
    Sicilia3: { url: Sicilia3, credit: "The Great Hunt mosaic, Villa Romana del Casale (4th century)" },

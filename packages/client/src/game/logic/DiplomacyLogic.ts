@@ -428,7 +428,7 @@ export function fixRelations(save: SaveGame): void {
             }
             if (relation.treaty) {
                const otherRelation = otherState._relations.get(province);
-               if (!otherRelation || !otherRelation.treaty) {
+               if (!otherRelation?.treaty) {
                   relation.treaty = undefined;
                   continue;
                }
