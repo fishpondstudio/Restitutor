@@ -20,6 +20,7 @@ import type { Province } from "../game/definitions/Province";
 import type { Terrain } from "../game/definitions/Terrain";
 import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
 import { MapBackgroundColors, MapColorsH, MapForegroundColors, MapTextColors } from "../game/logic/MapColor";
+import { findProvinceLabelPosition } from "../game/logic/MapLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { getTileDefense, getTileMaintenanceCost, getTileWar, isCapital } from "../game/logic/TileLogic";
 import { MapGrid, TileHeight, TileWidth } from "../game/MapGrid";
@@ -38,6 +39,7 @@ import { ExternalBorder, InternalBorder } from "./WorldSceneConstants";
 
 const MarginX = 2000;
 const TextureHeight = 256;
+const ProvinceLabelFontSize = 36;
 let time = 0;
 let TerrainTextures: Record<Terrain, Texture[]> | undefined;
 
@@ -571,59 +573,28 @@ export class WorldScene extends Scene {
          }
       }
       destroyAllChildren(this._labelContainer);
-      const provinceToTiles = new Map<Province, Tile[]>();
+      const provinceToTiles = new Map<Province, Set<Tile>>();
       G.save.state.tiles.forEach((data, tile) => {
          if (data.province) {
-            const tiles = provinceToTiles.get(data.province) ?? [];
-            tiles.push(tile);
-            provinceToTiles.set(data.province, tiles);
+            const tiles = provinceToTiles.get(data.province);
+            if (tiles) {
+               tiles.add(tile);
+            } else {
+               provinceToTiles.set(data.province, new Set([tile]));
+            }
          }
       });
       for (const [province, tiles] of provinceToTiles) {
-         // Group tiles by their y coordinate (row)
-         const rows = new Map<number, Tile[]>();
-         for (const tile of tiles) {
-            const { y } = tileToPoint(tile);
-            if (!rows.has(y)) rows.set(y, []);
-            rows.get(y)!.push(tile);
-         }
-
-         let bestChain: Tile[] = [];
-         // For each row, find the longest contiguous chain of tiles (by x)
-         for (const [y, rowTiles] of rows) {
-            // Sort tiles in the row by x
-            const sorted = rowTiles.slice().sort((a, b) => {
-               return tileToPoint(a).x - tileToPoint(b).x;
-            });
-            let chain: Tile[] = [];
-            let prevX: number | null = null;
-            for (const tile of sorted) {
-               const x = tileToPoint(tile).x;
-               if (chain.length === 0 || (prevX !== null && x === prevX + 1)) {
-                  chain.push(tile);
-               } else {
-                  if (chain.length > bestChain.length) bestChain = chain;
-                  chain = [tile];
-               }
-               prevX = x;
-            }
-            if (chain.length > bestChain.length) bestChain = chain;
-         }
-
-         if (bestChain.length > 0) {
-            // Pick the center tile of the best chain
-            const startPos = MapGrid.gridToPosition(tileToPoint(bestChain[0]));
-            const endPos = MapGrid.gridToPosition(tileToPoint(bestChain[bestChain.length - 1]));
-            const text = this._labelContainer.addChild(
-               new UnicodeText(getProvinceName(province, G.save), {
-                  fontName: Fonts.RomanFont,
-                  fontSize: 36,
-                  tint: MapTextColors[province],
-               }),
-            );
-            text.anchor.set(0.5, 0.5);
-            text.position.set((startPos.x + endPos.x) / 2, (startPos.y + endPos.y) / 2 - 5);
-         }
+         const text = this._labelContainer.addChild(
+            new UnicodeText(getProvinceName(province, G.save), {
+               fontName: Fonts.RomanFont,
+               fontSize: ProvinceLabelFontSize,
+               tint: MapTextColors[province],
+            }),
+         );
+         text.anchor.set(0.5, 0.5);
+         const position = findProvinceLabelPosition(tiles, text.width);
+         text.position.set(position.x, position.y);
       }
    }
 
