@@ -55,6 +55,13 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
    if (data.buildings.has("Courthouse")) {
       breakdown.multiply.push({ name: Buildings.Courthouse.name(), value: -0.2 });
    }
+   if (
+      hasProvinceUpgrade("CoastalAdministration", data.province, save) &&
+      data.coreProvinces.has(data.province) &&
+      isCoastal(tile)
+   ) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.CoastalAdministration.name(), value: -0.2 });
+   }
    if (hasProvinceUpgrade("FortifiedAdministration", data.province, save)) {
       let result = 0;
       if (data.buildings.has("Castra")) {
@@ -142,6 +149,15 @@ function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
                break;
             }
          }
+      }
+   }
+   if (hasProvinceUpgrade("BountifulCoastlines", data.province, save) && data.coreProvinces.has(data.province)) {
+      const coastalEdgeCount = getCoastalEdgeCount(tile);
+      if (coastalEdgeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.BountifulCoastlines.name(),
+            value: coastalEdgeCount * 0.1,
+         });
       }
    }
    if (data.rebellion >= 10) {
@@ -329,6 +345,15 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
          });
       }
    }
+   if (hasProvinceUpgrade("BountifulCoastlines", data.province, save) && data.coreProvinces.has(data.province)) {
+      const coastalEdgeCount = getCoastalEdgeCount(tile);
+      if (coastalEdgeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.BountifulCoastlines.name(),
+            value: coastalEdgeCount * 0.1,
+         });
+      }
+   }
    getProvinceTraits("Diligent", data.province, save).forEach((trait) => {
       breakdown.multiply.push({ ...trait, value: 0.02 });
    });
@@ -391,6 +416,15 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.GoodsTax, breakdown);
    attachModifiers("TileOutput", breakdown, data.province, save);
+   if (hasProvinceUpgrade("BountifulCoastlines", data.province, save) && data.coreProvinces.has(data.province)) {
+      const coastalEdgeCount = getCoastalEdgeCount(tile);
+      if (coastalEdgeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.BountifulCoastlines.name(),
+            value: coastalEdgeCount * 0.1,
+         });
+      }
+   }
    if (
       hasProvinceUpgrade("OpulentPortCities", data.province, save) &&
       data.coreProvinces.has(data.province) &&
@@ -710,6 +744,18 @@ export function getNearestTile(tilesA: Tile[], tilesB: Tile[]): [Tile, Tile] | u
 }
 
 const LandTiles = new Set<Tile>(Land);
+
+export function getCoastalEdgeCount(tile: Tile): number {
+   let result = 0;
+   const point = tileToPoint(tile);
+   for (let dir = 0; dir < 6; dir++) {
+      const neighbor = MapGrid.getNeighbor(point, dir);
+      if (MapGrid.isValid(neighbor) && !LandTiles.has(pointToTile(neighbor))) {
+         result++;
+      }
+   }
+   return result;
+}
 
 export function isCoastal(tile: Tile): boolean {
    const point = tileToPoint(tile);

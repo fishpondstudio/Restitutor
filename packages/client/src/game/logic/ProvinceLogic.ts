@@ -49,7 +49,7 @@ import {
    SpawnedProvinces,
 } from "../definitions/SpawnedProvince";
 import { getBorderingProvinces } from "../definitions/Tile";
-import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
+import { StraitOfGibraltarTiles, Tiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
@@ -278,6 +278,9 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.TileUpgrades), value: getTotalUpgrades(province, save) });
    attachModifiers("Prestige", breakdown, province, save);
+   if (hasProvinceUpgrade("CaputMundi", province, save) && save.state.provinces[province]?.capital === Tiles.Rome) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.CaputMundi.name(), value: 0.1 });
+   }
    getProvinceTraits("Distinguished", province, save).forEach((trait) => {
       breakdown.multiply.push({ ...trait, value: 0.02 });
    });
@@ -769,6 +772,18 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
          value: getNeighborProvinces(province, save).size * 0.05,
       });
    }
+   if (hasProvinceUpgrade("ExperiencedCommand", province, save)) {
+      const generalSkill =
+         getProvinceStat("infantrySkill", province, save) +
+         getProvinceStat("rangedSkill", province, save) +
+         getProvinceStat("cavalrySkill", province, save);
+      if (generalSkill > 0) {
+         result.multiply.push({
+            name: ProvinceUpgrades.ExperiencedCommand.name(),
+            value: generalSkill * 0.02,
+         });
+      }
+   }
    attachModifiers("WarPower", result, province, save);
    const wars = getCurrentWars(province, save);
    if (wars.length > 1) {
@@ -1103,7 +1118,11 @@ export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1,
 });
 
 export const getToleratedReligion = makeModifierGetter("ToleratedReligion", 0, (result, province, save) => {});
-export const getToleratedCulture = makeModifierGetter("ToleratedCulture", 0, (result, province, save) => {});
+export const getToleratedCulture = makeModifierGetter("ToleratedCulture", 0, (result, province, save) => {
+   if (hasProvinceUpgrade("InclusiveCitizenship", province, save)) {
+      result.add.push({ name: ProvinceUpgrades.InclusiveCitizenship.name(), value: 1 });
+   }
+});
 
 export function getReligiousCohesion(province: Province, save: SaveGame): number {
    let sameReligion = 0;

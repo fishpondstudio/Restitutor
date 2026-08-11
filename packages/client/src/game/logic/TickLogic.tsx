@@ -3,6 +3,7 @@ import { ChronicleModal } from "../../ui/ChronicleModal";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { G, GameFlags } from "../../utils/Global";
 import type { Province } from "../definitions/Province";
+import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { GameStateUpdated, GameTimeUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { randomMaleName } from "../RomanNames";
@@ -131,6 +132,9 @@ function tickConsulElection(save: SaveGame) {
 
    forEach(save.state.provinces, (province) => {
       resetProvinceResource("consulPoint", province, save);
+      if (hasProvinceUpgrade("SenatorialAuthority", province, save)) {
+         addProvinceResource("consulPoint", 1, province, save);
+      }
    });
 
    save.state.senate.votes.forEach((votes, province) => {

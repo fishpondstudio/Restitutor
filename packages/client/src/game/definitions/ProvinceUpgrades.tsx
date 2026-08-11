@@ -199,6 +199,34 @@ const _ProvinceUpgrades = {
          ProductionCapacity: { type: "add", value: 5 },
       },
    },
+   SenatorialAuthority: {
+      name: () => $t(L.SenatorialAuthority),
+      desc: () => $t(L.$1ConsulPointAfterEachConsulElection, "+1"),
+   },
+   InclusiveCitizenship: {
+      name: () => $t(L.InclusiveCitizenship),
+      desc: () => $t(L.$1ToleratedCulture, "+1"),
+   },
+   CaputMundi: {
+      name: () => $t(L.CaputMundi),
+      desc: () => $t(L.$1PrestigeWhileRomeIsOurCapital, "+10%"),
+   },
+   ExperiencedCommand: {
+      name: () => $t(L.ExperiencedCommand),
+      desc: () => $t(L.ExperiencedCommandDesc$1, "+2%"),
+   },
+   MediterraneanAmbition: {
+      name: () => $t(L.MediterraneanAmbition),
+      desc: () => $t(L.MediterraneanAmbitionDesc$1$2, "-20%", "10"),
+   },
+   BountifulCoastlines: {
+      name: () => $t(L.BountifulCoastlines),
+      desc: () => $t(L.BountifulCoastlinesDesc$1, "+10%"),
+   },
+   CoastalAdministration: {
+      name: () => $t(L.CoastalAdministration),
+      desc: () => $t(L.$1GoverningCostOnCoreCoastalTiles, "-20%"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

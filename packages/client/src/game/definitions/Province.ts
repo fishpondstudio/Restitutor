@@ -271,7 +271,12 @@ export const Province = {
       religion: "Germanic",
       upgrades: ["FortifiedAdministration", "VeteranGenerals", "UnitedFrontier"],
    },
-   Italia: { name: () => $t(L.ProvinceItalia), culture: "Italic", religion: "GrecoRoman", upgrades: [] },
+   Italia: {
+      name: () => $t(L.ProvinceItalia),
+      culture: "Italic",
+      religion: "GrecoRoman",
+      upgrades: ["SenatorialAuthority", "InclusiveCitizenship", "CaputMundi", "ExperiencedCommand"],
+   },
    Judea: { name: () => $t(L.ProvinceJudea), culture: "Arab", religion: "Judaism", upgrades: [] },
    Lusitania: {
       name: () => $t(L.ProvinceLusitania),
@@ -299,7 +304,12 @@ export const Province = {
    Pannonia: { name: () => $t(L.ProvincePannonia), culture: "Pannonian", religion: "GrecoRoman", upgrades: [] },
    Raetia: { name: () => $t(L.ProvinceRaetia), culture: "Raetian", religion: "GrecoRoman", upgrades: [] },
    Sardinia: { name: () => $t(L.ProvinceSardinia), culture: "Sardinian", religion: "GrecoRoman", upgrades: [] },
-   Sicilia: { name: () => $t(L.ProvinceSicilia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+   Sicilia: {
+      name: () => $t(L.ProvinceSicilia),
+      culture: "Greek",
+      religion: "GrecoRoman",
+      upgrades: ["MediterraneanAmbition", "BountifulCoastlines", "CoastalAdministration"],
+   },
    Syria: { name: () => $t(L.ProvinceSyria), culture: "Syrian", religion: "Eastern", upgrades: [] },
    Tarraconensis: {
       name: () => $t(L.ProvinceTarraconensis),

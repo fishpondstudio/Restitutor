@@ -14,12 +14,14 @@ import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBr
 import type { CasusBelli } from "../definitions/CasusBelli";
 import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
+import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { getBorderingProvinces } from "../definitions/Tile";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import {
    getAttitudeTowards,
+   getDiplomaticDistance,
    getProvincesThatDeterAggressionOf,
    getProvincesThatGuaranteeDefenseOf,
    getRelation,
@@ -283,6 +285,13 @@ export function getWarScore(
          name: $t(L.ReligiousWar),
          value: -0.1,
       });
+   }
+
+   if (
+      hasProvinceUpgrade("MediterraneanAmbition", attacker, save) &&
+      getDiplomaticDistance(attacker, defender, save) <= 10
+   ) {
+      result.multiply.push({ name: ProvinceUpgrades.MediterraneanAmbition.name(), value: -0.2 });
    }
 
    attachModifiers("WarScore", result, attacker, save);
