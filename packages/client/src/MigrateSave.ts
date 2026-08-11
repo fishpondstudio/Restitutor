@@ -2,6 +2,7 @@ import { forEach } from "@project/shared/src/utils/Helper";
 import { Province, ProvinceStats } from "./game/definitions/Province";
 import { addProvinceUpgrade, ProvinceUpgrades } from "./game/definitions/ProvinceUpgrades";
 import { SocialClass } from "./game/definitions/SocialClass";
+import { TimedActions } from "./game/definitions/TimedAction";
 import { GameEvents } from "./game/events/GameEvents";
 import { GameOption } from "./game/GameOption";
 import { GameState, type SaveGame } from "./game/GameState";
@@ -43,6 +44,11 @@ export function migrateSave(save: SaveGame): void {
       for (const upgrade of data.provinceUpgrades) {
          if (!ProvinceUpgrades[upgrade]) {
             data.provinceUpgrades.delete(upgrade);
+         }
+      }
+      for (const [timedAction, timeLeft] of data.timedActions) {
+         if (!TimedActions[timedAction]) {
+            data.timedActions.delete(timedAction);
          }
       }
       if (data.legacyUpgrades instanceof Map) {
