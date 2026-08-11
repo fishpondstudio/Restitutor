@@ -5,7 +5,12 @@ import { getTileName } from "../definitions/TileName";
 import { RefreshTiles } from "../Events";
 import { marriageCondition, provinceResourceCondition, provinceRevenueCondition } from "../logic/MissionLogic";
 import { getProvinceResource } from "../logic/ProvinceLogic";
-import { dissolveAllTreaties, requireAnyTreatyBetween } from "../logic/TreatyLogic";
+import {
+   dissolveAllTreaties,
+   requireAnyTreatyBetween,
+   requireNoTreatyBetween,
+   requirePeaceBetween,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -384,6 +389,8 @@ export const NarbonensisEvent = {
          province: ["Narbonensis"],
          conditions: (province, save) => {
             return [
+               requireNoTreatyBetween(["Patron"], province, "Corsica", save),
+               requirePeaceBetween(province, "Corsica", save),
                provinceResourceCondition("gold", 5000, province, save),
                requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Corsica", save),
                marriageCondition(province, "Corsica", save),

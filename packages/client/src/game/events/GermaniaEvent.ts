@@ -4,7 +4,12 @@ import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import { maxCoreTileCondition, minCoreTileCondition, warPowerCondition } from "../logic/MissionLogic";
 import { getProvinceResource } from "../logic/ProvinceLogic";
-import { dissolveAllTreaties, requireAnyTreatyBetween } from "../logic/TreatyLogic";
+import {
+   dissolveAllTreaties,
+   requireAnyTreatyBetween,
+   requireNoTreatyBetween,
+   requirePeaceBetween,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -348,6 +353,8 @@ export const GermaniaEvent = {
       condition: {
          province: ["Germania"],
          conditions: (province, save) => [
+            requireNoTreatyBetween(["Patron"], province, "Raetia", save),
+            requirePeaceBetween(province, "Raetia", save),
             maxCoreTileCondition(3, "Raetia", save),
             requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Raetia", save),
          ],
@@ -374,6 +381,8 @@ export const GermaniaEvent = {
       condition: {
          province: ["Germania"],
          conditions: (province, save) => [
+            requireNoTreatyBetween(["Patron"], province, "Belgica", save),
+            requirePeaceBetween(province, "Belgica", save),
             maxCoreTileCondition(3, "Belgica", save),
             requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Belgica", save),
          ],

@@ -377,9 +377,10 @@ export const AquitaniaEvent = {
          annexAndCore: { Narbonensis: Math.ceil(getOriginalTileCount("Narbonensis") * 0.7) },
          conditions: (province, save) => {
             return [
+               requireNoTreatyBetween(["Patron"], province, "Narbonensis", save),
+               requirePeaceBetween(province, "Narbonensis", save),
                availableDiplomatCondition(province, "Narbonensis", save),
                maxCoreTileCondition(5, "Narbonensis", save),
-               requirePeaceBetween(province, "Narbonensis", save),
             ];
          },
       },

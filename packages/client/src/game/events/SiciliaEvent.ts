@@ -4,7 +4,12 @@ import { Province } from "../definitions/Province";
 import { Tiles } from "../definitions/TileConstants";
 import { marriageCondition, maxCoreTileCondition, minCoreTileCondition } from "../logic/MissionLogic";
 import { isCoreTileCondition } from "../logic/TileLogic";
-import { dissolveAllTreaties, requireAnyTreatyBetween } from "../logic/TreatyLogic";
+import {
+   dissolveAllTreaties,
+   requireAnyTreatyBetween,
+   requireNoTreatyBetween,
+   requirePeaceBetween,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -335,9 +340,11 @@ export const SiciliaEvent = {
       condition: {
          province: ["Sicilia"],
          conditions: (province, save) => [
+            requireNoTreatyBetween(["Patron"], province, "Sardinia", save),
+            requirePeaceBetween(province, "Sardinia", save),
             minCoreTileCondition(15, province, save),
             maxCoreTileCondition(3, "Sardinia", save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Sardinia", save),
+            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Sardinia", save),
             marriageCondition(province, "Sardinia", save),
          ],
       },
@@ -363,9 +370,11 @@ export const SiciliaEvent = {
       condition: {
          province: ["Sicilia"],
          conditions: (province, save) => [
+            requireNoTreatyBetween(["Patron"], province, "Corsica", save),
+            requirePeaceBetween(province, "Corsica", save),
             minCoreTileCondition(15, province, save),
             maxCoreTileCondition(3, "Corsica", save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Corsica", save),
+            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Corsica", save),
             marriageCondition(province, "Corsica", save),
          ],
       },
@@ -391,9 +400,11 @@ export const SiciliaEvent = {
       condition: {
          province: ["Sicilia"],
          conditions: (province, save) => [
+            requireNoTreatyBetween(["Patron"], province, "Africa", save),
+            requirePeaceBetween(province, "Africa", save),
             minCoreTileCondition(15, province, save),
             maxCoreTileCondition(3, "Africa", save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Africa", save),
+            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Africa", save),
             marriageCondition(province, "Africa", save),
          ],
       },

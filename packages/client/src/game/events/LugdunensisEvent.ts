@@ -14,7 +14,12 @@ import {
    warPowerCondition,
 } from "../logic/MissionLogic";
 import { getProvinceName, getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
-import { dissolveAllTreaties, requireMinimumAttitude } from "../logic/TreatyLogic";
+import {
+   dissolveAllTreaties,
+   requireMinimumAttitude,
+   requireNoTreatyBetween,
+   requirePeaceBetween,
+} from "../logic/TreatyLogic";
 import { hasGeneralCondition } from "../logic/WarLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -172,6 +177,8 @@ export const LugdunensisEvent = {
          annexAndCore: { Belgica: 6 },
          year: [220, 250],
          conditions: (province, save) => [
+            requireNoTreatyBetween(["Patron"], province, "Belgica", save),
+            requirePeaceBetween(province, "Belgica", save),
             maxCoreTileCondition(3, "Belgica", save),
             marriageCondition(province, "Belgica", save),
             availableDiplomatCondition(province, "Belgica", save),

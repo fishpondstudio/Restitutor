@@ -472,7 +472,9 @@ export const TarraconensisEvent = {
          province: ["Tarraconensis"],
          conditions: (province, save) => {
             return [
-               requireAnyTreatyBetween(["Alliance", "Patron"], province, "Lusitania", save),
+               requireNoTreatyBetween(["Patron"], province, "Lusitania", save),
+               requirePeaceBetween(province, "Lusitania", save),
+               requireAnyTreatyBetween(["Alliance"], province, "Lusitania", save),
                requireHigherPrestige(province, "Lusitania", 2.5, save),
                provinceResourceCondition("diplomatic", 100, province, save),
                provinceResourceCondition("gold", 10_000, province, save),

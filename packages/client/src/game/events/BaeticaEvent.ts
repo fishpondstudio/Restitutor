@@ -12,7 +12,12 @@ import {
 } from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
 import { allCoreTileCondition } from "../logic/TileLogic";
-import { dissolveAllTreaties, requireAnyTreatyBetween } from "../logic/TreatyLogic";
+import {
+   dissolveAllTreaties,
+   requireAnyTreatyBetween,
+   requireNoTreatyBetween,
+   requirePeaceBetween,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -385,6 +390,8 @@ export const BaeticaEvent = {
          province: ["Baetica"],
          annexAndCore: { Tarraconensis: 5 },
          conditions: (province, save) => [
+            requireNoTreatyBetween(["Patron"], province, "Lusitania", save),
+            requirePeaceBetween(province, "Lusitania", save),
             provinceResourceCondition("diplomatic", 200, province, save),
             warPowerCondition(10_000, province, save),
             allCoreTileCondition([8978513], "Tarraconensis", save),

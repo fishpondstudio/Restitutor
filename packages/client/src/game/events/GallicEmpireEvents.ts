@@ -8,7 +8,7 @@ import { getOriginalTileCount } from "../GameState";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
 import { maxCoreTileCondition } from "../logic/MissionLogic";
 import { setProvinceNameOverride } from "../logic/ProvinceLogic";
-import { dissolveAllTreaties, requirePeaceBetween } from "../logic/TreatyLogic";
+import { dissolveAllTreaties, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -51,9 +51,10 @@ export const GallicEmpireEvents = {
          annexAndCore: { Britannia: Math.ceil(getOriginalTileCount("Britannia") * 0.7) },
          conditions: (province, save) => {
             return [
+               requireNoTreatyBetween(["Patron"], province, "Britannia", save),
+               requirePeaceBetween(province, "Britannia", save),
                availableDiplomatCondition(province, "Britannia", save),
                maxCoreTileCondition(5, "Britannia", save),
-               requirePeaceBetween(province, "Britannia", save),
             ];
          },
       },

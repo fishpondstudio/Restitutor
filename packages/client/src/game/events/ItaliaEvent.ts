@@ -8,7 +8,12 @@ import {
    provinceResourceCondition,
 } from "../logic/MissionLogic";
 import { allCoreTileCondition } from "../logic/TileLogic";
-import { dissolveAllTreaties, requireAnyTreatyBetween } from "../logic/TreatyLogic";
+import {
+   dissolveAllTreaties,
+   requireAnyTreatyBetween,
+   requireNoTreatyBetween,
+   requirePeaceBetween,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -329,8 +334,10 @@ export const ItaliaEvent = {
       condition: {
          province: ["Italia"],
          conditions: (province, save) => [
+            requireNoTreatyBetween(["Patron"], province, "Corsica", save),
+            requirePeaceBetween(province, "Corsica", save),
             minCoreTileCondition(40, province, save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Corsica", save),
+            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Corsica", save),
          ],
       },
       buttons: [
@@ -355,8 +362,10 @@ export const ItaliaEvent = {
       condition: {
          province: ["Italia"],
          conditions: (province, save) => [
+            requireNoTreatyBetween(["Patron"], province, "Sardinia", save),
+            requirePeaceBetween(province, "Sardinia", save),
             minCoreTileCondition(45, province, save),
-            requireAnyTreatyBetween(["Alliance", "Patron"], province, "Sardinia", save),
+            requireAnyTreatyBetween(["Alliance"], province, "Sardinia", save),
             marriageCondition(province, "Sardinia", save),
          ],
       },
