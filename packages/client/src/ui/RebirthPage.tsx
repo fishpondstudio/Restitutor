@@ -2,7 +2,7 @@ import { Select } from "@mantine/core";
 import { cls, entriesOf, hasFlag, setFlag, WEEK } from "@project/shared/src/utils/Helper";
 import { Fragment, useEffect, useState } from "react";
 import { Culture } from "../game/definitions/Culture";
-import { EnabledProvinces, Province } from "../game/definitions/Province";
+import { AlwaysFreeProvinces, EnabledProvinces, Province } from "../game/definitions/Province";
 import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { Religion } from "../game/definitions/Religion";
 import { GameEvents } from "../game/events/GameEvents";
@@ -25,7 +25,7 @@ export function RebirthPage(): React.ReactNode {
    const newTiles = getTilesAnnexedAndCored(G.save.state.playerProvince, G.save);
    const [province, setProvince] = useState(G.save.state.playerProvince);
    const provincialEvents = entriesOf(GameEvents).filter(([k, v]) => v.condition?.province?.includes(province));
-   const [freeProvinces, setFreeProvinces] = useState(new Set<Province>(["Lugdunensis"]));
+   const [freeProvinces, setFreeProvinces] = useState(new Set<Province>(AlwaysFreeProvinces));
    const isDemo = hasFlag(G.flags, GameFlags.Demo);
    useEffect(() => {
       if (!isDemo) {
@@ -39,7 +39,7 @@ export function RebirthPage(): React.ReactNode {
             const serverTime = data.time;
             if (isDemo) {
                const id = Math.floor(serverTime / (WEEK * 2));
-               const candidates = EnabledProvinces.filter((p) => p !== "Lugdunensis");
+               const candidates = EnabledProvinces.filter((p) => !AlwaysFreeProvinces.includes(p));
                setFreeProvinces(new Set(["Lugdunensis", candidates[id % candidates.length]]));
             }
          });
@@ -85,7 +85,10 @@ export function RebirthPage(): React.ReactNode {
          </FloatingTip>
          {isDemo && (
             <div className="box m10 p10 text-sm yellow text-yellow">
-               {$t(L.FreeDemoProvinceAvailability$1, getProvinceName("Lugdunensis", G.save))}
+               {$t(
+                  L.FreeDemoProvinceAvailability$1,
+                  AlwaysFreeProvinces.map((p) => getProvinceName(p, G.save)).join(", "),
+               )}
             </div>
          )}
          <div className="m10">
