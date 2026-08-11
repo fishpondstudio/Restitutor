@@ -106,6 +106,7 @@ const createWindow = async () => {
                .then((result) => {
                   if (result.response === 0) {
                      service.fileDelete(SaveKey);
+                     mainWindow.webContents.reload();
                   }
                });
          }
