@@ -3,13 +3,12 @@ import { jsonDecode, jsonEncode } from "@project/shared/src/utils/Serialization"
 import { compressToUint8Array, decompressFromUint8Array } from "lz-string";
 import { isSteam, SteamClient } from "../rpc/SteamClient";
 import { idbDel, idbGet, idbSet } from "../utils/BrowserStorage";
+import { SaveKey } from "./definitions/Constant";
 import type { SaveGame } from "./GameState";
 import { getGameDate } from "./logic/GameDateTime";
 
-const SAVE_KEY = "Restitutor";
-
 export async function loadGame(): Promise<SaveGame> {
-   const json = isSteam() ? await SteamClient.fileRead(SAVE_KEY) : await idbGet<string>(SAVE_KEY);
+   const json = isSteam() ? await SteamClient.fileRead(SaveKey) : await idbGet<string>(SaveKey);
    if (!json) {
       throw new Error("Save not found");
    }
@@ -19,17 +18,17 @@ export async function loadGame(): Promise<SaveGame> {
 export async function saveGame(save: SaveGame): Promise<void> {
    const serialized = jsonEncode(save);
    if (isSteam()) {
-      await SteamClient.fileWrite(SAVE_KEY, serialized);
+      await SteamClient.fileWrite(SaveKey, serialized);
    } else {
-      await idbSet(SAVE_KEY, serialized);
+      await idbSet(SaveKey, serialized);
    }
 }
 
 export async function resetGame(): Promise<void> {
    if (isSteam()) {
-      await SteamClient.fileDelete(SAVE_KEY);
+      await SteamClient.fileDelete(SaveKey);
    } else {
-      await idbDel(SAVE_KEY);
+      await idbDel(SaveKey);
    }
 }
 

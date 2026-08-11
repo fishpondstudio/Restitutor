@@ -10,3 +10,4 @@ export const TranslationUrl = "https://github.com/fishpondstudio/Restitutor/tree
 export const PatchNotesUrl =
    "https://store.steampowered.com/news/app/4431750?utm_source=InGame&utm_campaign=PatchNotes";
 export const SentryDSN = "https://c8bb0d77bec740e097724f281d481c75@bugreport.fishpondstudio.com/4";
+export const SaveKey = "Restitutor";

@@ -2,6 +2,7 @@ import path from "node:path";
 import { type Client, init, shutdown } from "@fishpondstudio/steamworks.js";
 import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
 import { ensureDirSync, existsSync, renameSync } from "fs-extra";
+import { SaveKey } from "../../client/src/game/definitions/Constant";
 import { IPCService } from "./IPCService";
 
 export type SteamClient = Omit<Client, "init" | "runCallbacks">;
@@ -88,10 +89,26 @@ const createWindow = async () => {
       });
 
       const service = new IPCService(steam);
-
       ipcMain.handle("__RPCCall", (e, method: keyof IPCService, args) => {
          // @ts-expect-error
          return service[method].apply(service, args);
+      });
+
+      mainWindow.webContents.on("before-input-event", (e, input) => {
+         if (input.control && input.shift && input.key.toLocaleLowerCase() === "r") {
+            dialog
+               .showMessageBox({
+                  type: "info",
+                  title: "Hard Reset",
+                  message: "You requested a hard reset, all progress will be lost.",
+                  buttons: ["Hard Reset", "Cancel"],
+               })
+               .then((result) => {
+                  if (result.response === 0) {
+                     service.fileDelete(SaveKey);
+                  }
+               });
+         }
       });
    } catch (error) {
       dialog.showErrorBox("Failed to Start Game", String(error));
