@@ -143,9 +143,13 @@ export function DeclareWarAction(
                showGameEventModal(<DrawnIntoWarModal war={war} />);
             }
          } else {
-            unlockAchievement("DeclareWar");
             hideSidebar();
          }
+
+         if (attacker === save.state.playerProvince) {
+            unlockAchievement("DeclareWar");
+         }
+
          addChronicleEntry(
             {
                type: "WarStarted",

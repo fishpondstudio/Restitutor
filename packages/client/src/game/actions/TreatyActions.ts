@@ -1,4 +1,5 @@
 import { $t, L } from "../../utils/i18n";
+import { unlockAchievement } from "../Achievement";
 import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
@@ -79,6 +80,9 @@ export function OfferAllianceAction(fromProvince: Province, toProvince: Province
          startTimedAction("DiplomaticTreaty", fromProvince, save);
          fromTo.treaty = { type: "Alliance", month: save.state.month };
          toFrom.treaty = { type: "Alliance", month: save.state.month };
+         if (fromProvince === save.state.playerProvince) {
+            unlockAchievement("FormAlliance");
+         }
          addChronicleEntry(
             {
                type: "DiplomaticTreaty",
@@ -126,6 +130,9 @@ export function OfferPatronageAction(fromProvince: Province, toProvince: Provinc
          startTimedAction("DiplomaticTreaty", fromProvince, save);
          fromTo.treaty = { type: "Patron", month: save.state.month };
          toFrom.treaty = { type: "Client", month: save.state.month };
+         if (fromProvince === save.state.playerProvince) {
+            unlockAchievement("EstablishClient");
+         }
          addChronicleEntry(
             {
                type: "DiplomaticTreaty",

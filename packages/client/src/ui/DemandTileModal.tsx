@@ -1,6 +1,7 @@
 import { Select } from "@mantine/core";
 import { formatNumber, safeParseInt, type Tile } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
+import { unlockAchievement } from "../game/Achievement";
 import { canDemandTile, DemandTileCostCondition } from "../game/actions/DemandTileCostCondition";
 import { finalizeCondition, type IConditionBreakdown, type IValueBreakdown } from "../game/actions/GameAction";
 import { CasusBelli } from "../game/definitions/CasusBelli";
@@ -164,6 +165,7 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
          onAccept={() => {
             playClick();
             tileData.province = G.save.state.playerProvince;
+            unlockAchievement("DemandTile");
             GameStateUpdated.emit();
             RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
             hideModal();

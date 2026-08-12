@@ -3,6 +3,7 @@ import { InvaderSueForWhitePeaceModal } from "../../ui/InvaderSueForWhitePeaceMo
 import { WarEndedModal } from "../../ui/WarEndedModal";
 import { $t, L } from "../../utils/i18n";
 import { hideModal } from "../../utils/ModalManager";
+import { unlockAchievement } from "../Achievement";
 import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
@@ -30,6 +31,9 @@ export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: S
          { name: $t(L.WarHasBeenGoingOnForAtLeastAYear), value: war.log.length >= 12 },
       ]),
       effect: ({ headless }) => {
+         if (war.defender === save.state.playerProvince && war.casusBelli !== "BarbarianRaid") {
+            unlockAchievement("DefendProvince");
+         }
          filterInPlace(save.state.wars, (w) => w !== war);
          const attackerToDefender = getRelation(war.attacker, war.defender, save);
          const truceDuration = getTruceDuration(war, save);

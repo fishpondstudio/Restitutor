@@ -1,4 +1,5 @@
 import { $t, L } from "../../utils/i18n";
+import { unlockAchievement } from "../Achievement";
 import type { Province } from "../definitions/Province";
 import { isChristianReligion } from "../definitions/Religion";
 import type { SaveGame } from "../GameState";
@@ -27,6 +28,9 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
       ]),
       effect: () => {
          changeProvinceReligion("Christianity", province, save);
+         if (province === save.state.playerProvince) {
+            unlockAchievement("AdoptChristianity");
+         }
          for (const [tile, tileData] of save.state.tiles) {
             if (tileData.province === province && tileData.coreProvinces.has(province)) {
                tileData.religion = "Christianity";

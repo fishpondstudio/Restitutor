@@ -1,5 +1,5 @@
 import { mkdir } from "node:fs/promises";
-import { basename, resolve } from "node:path";
+import { basename, parse, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
@@ -20,7 +20,8 @@ async function generateAchievement(
     ? targetFileName
     : `${targetFileName}.jpg`;
   const outputPath = resolve(outputDirectory, jpegFileName);
-  const unachievedPath = resolve(outputDirectory, `_${jpegFileName}`);
+  const { name, ext } = parse(jpegFileName);
+  const unachievedPath = resolve(outputDirectory, `${name}_${ext}`);
 
   await mkdir(outputDirectory, { recursive: true });
 

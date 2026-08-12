@@ -2,6 +2,7 @@ import { clamp, forEach, hasFlag, mapSafeAdd, range, setFlag } from "@project/sh
 import { ChronicleModal } from "../../ui/ChronicleModal";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { G, GameFlags } from "../../utils/Global";
+import { unlockAchievement } from "../Achievement";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { GameStateUpdated, GameTimeUpdated } from "../Events";
@@ -16,6 +17,7 @@ import {
    clearProvincePrestigeRankingCache,
    getChristianityYearly,
    getProvinceStat,
+   isProvinceGreatPower,
    resetProvinceResource,
    rollTradeOffers,
    setProvinceStat,
@@ -70,6 +72,9 @@ export function tickMonth(save: SaveGame): void {
 export function tickYear(save: SaveGame): void {
    rollTradeOffers(save);
    clearProvincePrestigeRankingCache();
+   if (isProvinceGreatPower(save.state.playerProvince, save)) {
+      unlockAchievement("BecomeGreatPower");
+   }
    tickConsulElection(save);
    forEach(save.state.provinces, (province) => {
       addProvinceResource("christianity", getChristianityYearly(province, save).value, province, save);

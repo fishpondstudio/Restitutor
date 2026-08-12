@@ -1,9 +1,84 @@
-# Each achievement is a three-line record: Steam ID, display name, and description.
-# Records are separated by a blank line; lines beginning with # are comments.
-# Every ID must have arts/achievements/ID.jpg and arts/achievements/_ID.jpg icons.
-# Every achievement must be unlocked in code at the appropriate gameplay event using its exact Steam ID.
-# Use concise verb-object PascalCase IDs, short Roman expressions or historical allusions for display names,
-# and clear English descriptions that state the exact unlock condition and end with a period.
+# Achievement registry instructions
+
+## Record format
+
+The Data section is the source of truth. Each achievement is one three-line record followed by a blank line:
+
+1. Steam API ID
+2. Display name
+3. Unlock description
+
+Do not add headings, comments, or other lines inside the Data section.
+
+## Writing standards
+
+- Use a concise verb-object PascalCase Steam API ID.
+- Prefer a short English historical allusion for the display name. Use Latin only when the expression is widely known.
+- Write the description as an imperative sentence that states the exact unlock condition and ends with a period.
+- Use the collective perspective for possessives: write "our province," not "your province."
+
+## Code implementation
+
+- Unlock the achievement at the gameplay event that completes its stated condition.
+- Pass the exact Steam API ID from the Data section to `unlockAchievement`.
+- Unlock achievements only for the player. Guard shared and headless code paths so AI actions cannot unlock them.
+- Do not unlock an achievement when the player merely opens a screen, starts an action, or fails its condition.
+
+## Icon generation
+
+Choose an appropriate existing painting from `packages/client/src/assets/images/events/`. Consult
+`packages/client/src/game/events/EventImages.ts` for the painting's subject and historical context.
+
+Generate the achieved and unachieved icons with:
+
+`npm run achievement -- "packages/client/src/assets/images/events/PAINTING.webp" ID`
+
+The command must produce both required files:
+
+- Achieved icon: `arts/achievements/ID.jpg`
+- Unachieved icon: `arts/achievements/ID_.jpg`
+
+## Steamworks synchronization
+
+Restitutor's Steam App ID is `4431750`. Open its Achievement Configuration page in a signed-in in-app browser:
+
+`https://partner.steamgames.com/apps/achievements/4431750`
+
+Compare the Steamworks table with the Data section before making changes:
+
+- Add only achievements whose Steam API IDs are missing.
+- Do not alter an existing record when it already matches.
+- If an existing record has a mismatched name, description, setting, or icon, report the difference and request
+  direction before overwriting it.
+
+For each missing achievement:
+
+1. Select New Achievement.
+2. Copy the Steam API ID, display name, and description exactly from the Data section.
+3. Set Progress Stat to None and Set By to Client. Leave Hidden unchecked.
+4. Save the new achievement before uploading icons. Steamworks rejects icon uploads for unsaved achievements.
+5. Edit the saved achievement.
+6. Upload `arts/achievements/ID.jpg` as the Achieved Icon.
+7. Upload `arts/achievements/ID_.jpg` as the Unachieved Icon.
+8. Save the achievement again after both uploads.
+
+Leave all Steamworks changes unpublished for review unless the user explicitly requests publication.
+
+## Verification checklist
+
+Before finishing, verify that:
+
+- Every Data record has an exact `unlockAchievement("ID")` call at the correct gameplay event.
+- Every Data record has both required local icon files.
+- Every Data record appears exactly once in the Steamworks table.
+- Every Steamworks record has the exact API Name, display name, and description from this file.
+- Every Steamworks record is set by Client, is not hidden, and has two hosted icons.
+- No achievement edit form remains open or unsaved.
+
+The Steamworks "Number of achievements" label may not include unpublished additions. Audit the visible table records
+instead of relying on that label alone.
+
+# Data
 
 CompleteTutorial
 The Die Is Cast
@@ -14,5 +89,37 @@ Casus Belli
 Declare war on another province.
 
 Rebirth
-Roma Resurgens
+Rome Reborn
 Begin a new run through Rebirth.
+
+WinWar
+Woe to the Vanquished
+Win a war and gain at least one tile.
+
+DefendProvince
+The Walls Hold
+End a defensive war without our province losing any tiles.
+
+FormAlliance
+Bound by Treaty
+Form an alliance with another province.
+
+EstablishClient
+Under Our Protection
+Make another province our client.
+
+BecomeGreatPower
+First Among Equals
+Raise our province to Great Power status.
+
+DemandTile
+Empire Without End
+Successfully demand a tile from another province.
+
+CaptureCapital
+The City Is Ours
+Capture an enemy provincial capital in a peace treaty.
+
+AdoptChristianity
+In This Sign
+Convert our province to Christianity.

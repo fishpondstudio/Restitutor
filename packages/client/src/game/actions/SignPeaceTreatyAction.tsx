@@ -3,6 +3,7 @@ import { InvaderConqueredWarGoalModal } from "../../ui/InvaderConqueredWarGoalMo
 import { WarEndedModal } from "../../ui/WarEndedModal";
 import { $t, L } from "../../utils/i18n";
 import { hideModal } from "../../utils/ModalManager";
+import { unlockAchievement } from "../Achievement";
 import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
@@ -28,6 +29,8 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
          },
       ]),
       effect: ({ headless }) => {
+         const defenderCapital = save.state.provinces[war.defender]?.capital;
+         const capturedCapital = defenderCapital !== undefined && war.tiles.has(defenderCapital);
          for (const tile of war.tiles) {
             const data = save.state.tiles.get(tile);
             if (data) {
@@ -57,6 +60,12 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
             });
          }
          addProvinceStat("victoryCount", 1, war.attacker, save);
+         if (war.attacker === save.state.playerProvince && war.tiles.size > 0) {
+            unlockAchievement("WinWar");
+            if (capturedCapital) {
+               unlockAchievement("CaptureCapital");
+            }
+         }
          const truceDuration = getTruceDuration(war, save);
          const changedCapitals = ensureProvinceCapitals(save);
          filterInPlace(save.state.wars, (w) => w !== war);
