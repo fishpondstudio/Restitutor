@@ -1,6 +1,7 @@
 import { entriesOf } from "@project/shared/src/utils/Helper";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
+import { unlockAchievement } from "./Achievement";
 import { Tiles } from "./definitions/TileConstants";
 import type { SaveGame } from "./GameState";
 import { getRelation } from "./logic/DiplomacyLogic";
@@ -303,6 +304,9 @@ export const Tutorial: ITutorial[] = [
       desc: () => $t(L.RebirthAndStartANewRunDesc),
       progress: (save) => {
          return [0, 1];
+      },
+      setup: (save) => {
+         unlockAchievement("CompleteTutorial");
       },
       selectors: ["#TopPanel_LegacyUpgrade", "#LegacyUpgradeModal_Rebirth"],
    },

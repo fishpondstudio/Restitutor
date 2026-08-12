@@ -7,6 +7,7 @@
       "watch": "npx tsc -b . --watch",
       "build": "npx tsc -b .",
       "translate": "node scripts/Translate.js",
+      "achievement": "node scripts/GenerateAchievement.mts",
       "check": "biome check --write --diagnostic-level=error"
    },
    "keywords": [],

@@ -3,6 +3,7 @@ import { hideSidebar } from "../../ui/common/SidebarManager";
 import { DeclareWarOnUsModal } from "../../ui/DeclareWarOnUsEventModal";
 import { DrawnIntoWarModal } from "../../ui/DrawnIntoWarEventModal";
 import { $t, L } from "../../utils/i18n";
+import { unlockAchievement } from "../Achievement";
 import { CasusBelli } from "../definitions/CasusBelli";
 import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
@@ -142,6 +143,7 @@ export function DeclareWarAction(
                showGameEventModal(<DrawnIntoWarModal war={war} />);
             }
          } else {
+            unlockAchievement("DeclareWar");
             hideSidebar();
          }
          addChronicleEntry(

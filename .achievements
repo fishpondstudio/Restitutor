@@ -1,0 +1,18 @@
+# Each achievement is a three-line record: Steam ID, display name, and description.
+# Records are separated by a blank line; lines beginning with # are comments.
+# Every ID must have arts/achievements/ID.jpg and arts/achievements/_ID.jpg icons.
+# Every achievement must be unlocked in code at the appropriate gameplay event using its exact Steam ID.
+# Use concise verb-object PascalCase IDs, short Roman expressions or historical allusions for display names,
+# and clear English descriptions that state the exact unlock condition and end with a period.
+
+CompleteTutorial
+The Die Is Cast
+Complete the tutorial.
+
+DeclareWar
+Casus Belli
+Declare war on another province.
+
+Rebirth
+Roma Resurgens
+Begin a new run through Rebirth.

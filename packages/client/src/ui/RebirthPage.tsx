@@ -1,6 +1,7 @@
 import { Select } from "@mantine/core";
 import { cls, entriesOf, hasFlag, setFlag, WEEK } from "@project/shared/src/utils/Helper";
 import { Fragment, useEffect, useState } from "react";
+import { unlockAchievement } from "../game/Achievement";
 import { Culture } from "../game/definitions/Culture";
 import { AlwaysFreeProvinces, EnabledProvinces, Province } from "../game/definitions/Province";
 import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
@@ -157,6 +158,7 @@ export function RebirthPage(): React.ReactNode {
                      return;
                   }
                   rebirth(province, G.save);
+                  unlockAchievement("Rebirth");
                   G.save.options.flag = setFlag(G.save.options.flag, GameOptionFlag.HideTutorial);
                   await saveGame(G.save);
                   window.location.reload();
