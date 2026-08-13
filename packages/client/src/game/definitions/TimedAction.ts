@@ -1,4 +1,4 @@
-import { EmptyString } from "@project/shared/src/utils/Helper";
+import { EmptyString, forEach } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { finalizeCondition, type IGameCostCondition } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
@@ -9,7 +9,7 @@ import { Price } from "./Goods";
 import type { IBaseModifier, Modifier } from "./Modifier";
 import type { Province } from "./Province";
 import { SpawnedProvinceBoostMonths } from "./SpawnedProvince";
-import type { Tech } from "./Tech";
+import { Tech } from "./Tech";
 
 export interface ITimedAction {
    name: () => string;
@@ -631,3 +631,9 @@ export const EcumenicalCouncils = [
    "EcumenicalCouncil6",
    "EcumenicalCouncil7",
 ] as const satisfies TimedAction[];
+
+forEach(Tech, (tech, config) => {
+   config.timedActions?.forEach((timedAction) => {
+      TimedActions[timedAction].tech = tech;
+   });
+});

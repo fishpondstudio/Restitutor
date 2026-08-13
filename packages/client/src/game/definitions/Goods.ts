@@ -14,7 +14,7 @@ import Milk from "../../assets/images/goods/Milk.png";
 import Weapon from "../../assets/images/goods/Weapon.png";
 import Wood from "../../assets/images/goods/Wood.png";
 import { $t, L } from "../../utils/i18n";
-import type { Tech } from "./Tech";
+import { Tech } from "./Tech";
 
 export interface IGoodsDefinition {
    name: () => string;
@@ -176,6 +176,12 @@ function calculatePrice(goods: Goods): number {
 forEach(Goods, (goods) => {
    Tier[goods] = calculateTier(goods);
    Price[goods] = calculatePrice(goods);
+});
+
+forEach(Tech, (tech, config) => {
+   config.goods?.forEach((goods) => {
+      Goods[goods].tech = tech;
+   });
 });
 
 export function getGoodsProfit(goods: Goods): { price: number; cost: number; profit: number } {
