@@ -21,6 +21,7 @@ export const GallicEmpireEvents = {
          province: GallicEmpireProvinces,
          annexAndCore: fromEntries(GallicEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
+      achievement: "FormGallicEmpire",
       buttons: [
          {
             label: () => $t(L.LongLiveTheGallicEmpire),

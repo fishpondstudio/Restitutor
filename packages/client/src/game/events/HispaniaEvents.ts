@@ -1,3 +1,4 @@
+import { fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { HispaniaProvinces } from "../definitions/TileConstants";
 import { TimedActions } from "../definitions/TimedAction";
@@ -144,6 +145,36 @@ export const HispaniaEvent = {
             provinceModifiers: [
                { modifier: "WarPower", type: "multiply", value: -0.2, duration: 5 * 12, province: "Mauretania" },
             ],
+         },
+      ],
+   },
+   Hispania5: {
+      name: () => $t(L.HispaniaUnited),
+      image: EventImage.Empire,
+      desc: () => $t(L.HispaniaUnitedDesc),
+      condition: {
+         province: HispaniaProvinces,
+         annexAndCore: fromEntries(HispaniaProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
+      },
+      achievement: "UniteHispania",
+      buttons: [
+         {
+            label: () => $t(L.BindHispaniaThroughLaw),
+            modifiers: {
+               AdministrativePoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.UniteTheProvincialCouncils),
+            modifiers: {
+               DiplomaticPoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.EntrustHispaniaToTheLegions),
+            modifiers: {
+               MilitaryPoint: { type: "add", value: 1 },
+            },
          },
       ],
    },

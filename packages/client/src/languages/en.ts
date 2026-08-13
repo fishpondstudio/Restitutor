@@ -2835,4 +2835,9 @@ export const EN = {
    TutorialSetUpProduction$1: "Set up $1 production",
    TutorialSetUpProductionDesc$1$2:
       "When we produce higher-value goods, part of the added value is taxed, while the remaining goods can be used for further production or trade. Our province has a limited amount of production capacity (which can be increased by research) that we can assign to different types of production.<br>Follow the on-screen instructions to assign $1 capacity to $2 production.",
+   HispaniaUnited: "Hispania United",
+   HispaniaUnitedDesc: "From the Pyrenees to the Pillars of Hercules, Tarraconensis, Lusitania, and Baetica now answer to a single authority. Roads, councils, and legions must bind the peninsula together. Which institution shall become the foundation of a united Hispania?",
+   BindHispaniaThroughLaw: "Bind Hispania through law",
+   UniteTheProvincialCouncils: "Unite the provincial councils",
+   EntrustHispaniaToTheLegions: "Entrust Hispania to the legions",
 };

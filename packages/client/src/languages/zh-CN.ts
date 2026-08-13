@@ -2809,4 +2809,9 @@ export const ZH_CN = {
    TutorialResearchDesc$1: "打开科技树并选择<i>$1</i>。请按屏幕提示研究该科技，并确保已研究前置科技且我们有足够军事点数。",
    TutorialSetUpProduction$1: "建立$1生产",
    TutorialSetUpProductionDesc$1$2: "生产更高价值货物时，部分增值会被征税，剩余货物可用于进一步生产或贸易。我们行省的产能有限（可通过研究提升），可分配给不同类型的生产。<br>请按屏幕提示将$1点产能分配给$2生产。",
+   HispaniaUnited: "西班牙一统",
+   HispaniaUnitedDesc: "从比利牛斯山到海格力斯之柱，塔拉科嫩西斯、卢西塔尼亚和拜提卡如今皆听命于同一权威。道路、议会与军团必须将整个半岛连为一体。哪一种制度将成为统一西班牙的根基？",
+   BindHispaniaThroughLaw: "以法律维系西班牙",
+   UniteTheProvincialCouncils: "联合各行省议会",
+   EntrustHispaniaToTheLegions: "将西班牙托付给军团",
 };

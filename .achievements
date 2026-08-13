@@ -15,13 +15,20 @@ Do not add headings, comments, or other lines inside the Data section.
 - Use a concise verb-object PascalCase Steam API ID.
 - Prefer a short English historical allusion for the display name. Use Latin only when the expression is widely known.
 - Write the description as an imperative sentence that states the exact unlock condition and ends with a period.
+- For an event-based achievement, use `Complete the "EVENT NAME" mission.` as the description, substituting the
+  exact English display name of the event.
 - Use the collective perspective for possessives: write "our province," not "your province."
 
 ## Code implementation
 
-- Unlock the achievement at the gameplay event that completes its stated condition.
-- Pass the exact Steam API ID from the Data section to `unlockAchievement`.
-- Unlock achievements only for the player. Guard shared and headless code paths so AI actions cannot unlock them.
+- Unlock the achievement at the gameplay event or action that completes its stated condition.
+- For an achievement unlocked by a gameplay event (`IGameEventConfig`), add `achievement: "ID"` to that event.
+  The shared event handler unlocks it when the event is added for the player. Use the event's exact English display
+  name in the Data description, and do not also call `unlockAchievement` for the same event.
+- For achievements that are not represented by a game event, pass the exact Steam API ID from the Data section to
+  `unlockAchievement("ID")` at the completion point.
+- Direct `unlockAchievement` calls must be guarded so shared and headless code paths cannot unlock achievements for
+  AI provinces. Event-based achievements already apply only to the player.
 - Do not unlock an achievement when the player merely opens a screen, starts an action, or fails its condition.
 
 ## Icon generation
@@ -68,7 +75,10 @@ Leave all Steamworks changes unpublished for review unless the user explicitly r
 
 Before finishing, verify that:
 
-- Every Data record has an exact `unlockAchievement("ID")` call at the correct gameplay event.
+- Every Data record has either an exact `achievement: "ID"` on the correct game event or an exact
+  `unlockAchievement("ID")` call at the correct action completion point.
+- Every event-based achievement's Data description references the event's exact English display name.
+- Every direct `unlockAchievement("ID")` call is guarded so only the player can unlock it.
 - Every Data record has both required local icon files.
 - Every Data record appears exactly once in the Steamworks table.
 - Every Steamworks record has the exact API Name, display name, and description from this file.
@@ -123,3 +133,11 @@ Capture an enemy provincial capital in a peace treaty.
 AdoptChristianity
 In This Sign
 Convert our province to Christianity.
+
+UniteHispania
+All Hispania
+Complete the "Hispania United" mission.
+
+FormGallicEmpire
+Postumus's Legacy
+Complete the "The Gallic Empire Proclaimed" mission.

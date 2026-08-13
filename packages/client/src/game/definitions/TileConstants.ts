@@ -1,5 +1,6 @@
 import { createTile, keysOf, type Tile } from "@project/shared/src/utils/Helper";
 import { Province } from "./Province";
+import { SpawnedProvinces } from "./SpawnedProvince";
 
 export const GallicEmpireProvinces: Province[] = [
    "Aquitania",
@@ -10,6 +11,13 @@ export const GallicEmpireProvinces: Province[] = [
 ] as const;
 
 export const HispaniaProvinces: Province[] = ["Tarraconensis", "Lusitania", "Baetica"] as const;
+export const ItaliaProvinces: Province[] = ["Italia", "Corsica", "Sardinia", "Sicilia"] as const;
+export const DanubiaProvinces: Province[] = ["Dacia", "Dalmatia", "Moesia", "Noricum", "Pannonia", "Raetia"] as const;
+export const GraeciaProvinces: Province[] = ["Achaia", "Epirus", "Macedonia", "Thracia"] as const;
+export const AnatoliaProvinces: Province[] = ["Asia", "Bithynia", "Cappadocia", "Cilicia", "Galatia", "Lycia"] as const;
+export const LevantProvinces: Province[] = ["Judea", "Syria"] as const;
+export const AegyptusProvinces: Province[] = ["Aegyptus", "Cyrenaica"] as const;
+export const AfricaProvinces: Province[] = ["Africa", "Mauretania"] as const;
 
 export const ExpandedGallicEmpireProvinces: Province[] = [
    ...GallicEmpireProvinces,
@@ -34,7 +42,7 @@ export const WesternRomanEmpireProvinces: Province[] = [
 ] as const;
 
 export const EasternRomanEmpireProvinces: Province[] = keysOf(Province).filter(
-   (province) => !WesternRomanEmpireProvinces.includes(province),
+   (province) => !WesternRomanEmpireProvinces.includes(province) && !(province in SpawnedProvinces),
 );
 
 export const PalmyreneEmpireProvinces: Province[] = [
