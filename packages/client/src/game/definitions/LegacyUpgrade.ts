@@ -230,7 +230,7 @@ export class LegacyUpgradeDefinitions {
    AttitudeOnTrade: ILegacyUpgradeDefinition = {
       requires: ["InfiltrationRate1"],
       position: [4, 2],
-      name: () => "+10 Attidude For Each Trade",
+      name: () => "+10 Attitude For Each Trade",
       desc: () => "Each active trade with a province increases their attitude towards by 10.",
    } as const;
    ImproveRelationsRate1: ILegacyUpgradeModifier = {

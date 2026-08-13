@@ -1,12 +1,26 @@
-import { entriesOf } from "@project/shared/src/utils/Helper";
+import { entriesOf, formatNumber, formatPercent, type Tile } from "@project/shared/src/utils/Helper";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { unlockAchievement } from "./Achievement";
+import { Goods } from "./definitions/Goods";
+import { DefaultConscription, Province, ProvinceResourceNames } from "./definitions/Province";
+import { SocialClass } from "./definitions/SocialClass";
+import { Tech } from "./definitions/Tech";
 import { Tiles } from "./definitions/TileConstants";
+import { getTileName } from "./definitions/TileName";
 import type { SaveGame } from "./GameState";
-import { getRelation } from "./logic/DiplomacyLogic";
-import { fillOfferAmount, getProvinceResource, getProvinceStat } from "./logic/ProvinceLogic";
-import { getCurrentGeneral, getCurrentWars } from "./logic/WarLogic";
+import { BaseDiplomats, getRelation } from "./logic/DiplomacyLogic";
+import {
+   ConsulCandidatesCount,
+   ConsulElectionMonths,
+   fillOfferAmount,
+   getProvinceResource,
+   getProvinceStat,
+} from "./logic/ProvinceLogic";
+import { getCurrentGeneral, getCurrentWars, WarOneTimeDiplomaticPoint } from "./logic/WarLogic";
+
+const TutorialEnemyProvince: Province = "Belgica" as const;
+const TutorialWarGoal: Tile = Tiles.Durocortorum;
 
 export interface ITutorial {
    id: string;
@@ -22,7 +36,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "Welcome",
       name: () => $t(L.WelcomeToRestitutor),
-      desc: () => $t(L.WelcomeToRestitutorDesc),
+      desc: () => $t(L.TutorialWelcomeDesc$1, Province.Lugdunensis.name()),
       progress: (save) => {
          return [0, 1];
       },
@@ -45,8 +59,8 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "SelectRivals",
-      name: () => $t(L.SelectTwoRivals),
-      desc: () => $t(L.SelectTwoRivalsDesc),
+      name: () => $t(L.TutorialSelectRivals$1, formatNumber(2)),
+      desc: () => $t(L.TutorialSelectRivalsDesc$1$2, formatNumber(2), Province[TutorialEnemyProvince].name()),
       progress: (save) => {
          const state = save.state.provinces[save.state.playerProvince];
          return [state?.rivals.filter(Boolean).length ?? 0, 2];
@@ -56,7 +70,12 @@ export const Tutorial: ITutorial[] = [
    {
       id: "IncreaseTargetConscription",
       name: () => $t(L.IncreaseTargetConscription),
-      desc: () => $t(L.IncreaseTargetConscriptionDesc),
+      desc: () =>
+         $t(
+            L.TutorialIncreaseTargetConscriptionDesc$1$2,
+            formatPercent(DefaultConscription / 100),
+            formatPercent(15 / 100),
+         ),
       progress: (save) => {
          if (getProvinceStat("targetConscription", save.state.playerProvince, save) >= 15) {
             return [1, 1];
@@ -79,10 +98,10 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "InfiltrateBelgica",
-      name: () => $t(L.InfiltrateBelgica),
-      desc: () => $t(L.InfiltrateBelgicaDesc),
+      name: () => $t(L.TutorialInfiltrate$1, Province[TutorialEnemyProvince].name()),
+      desc: () => $t(L.TutorialInfiltrateDesc$1$2, formatNumber(BaseDiplomats), Province[TutorialEnemyProvince].name()),
       progress: (save) => {
-         if (getRelation(save.state.playerProvince, "Belgica", save)?.infiltrate.active) {
+         if (getRelation(save.state.playerProvince, TutorialEnemyProvince, save)?.infiltrate.active) {
             return [1, 1];
          }
          return [0, 1];
@@ -103,21 +122,22 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "ReachDiplomaticPoint",
-      name: () => $t(L.Reach$1DiplomaticPoints, "50"),
-      desc: () => $t(L.Reach50DiplomaticPointsDesc),
+      name: () => $t(L.Reach$1DiplomaticPoints, formatNumber(WarOneTimeDiplomaticPoint)),
+      desc: () => $t(L.TutorialReachDiplomaticPointsDesc$1, formatNumber(WarOneTimeDiplomaticPoint)),
       progress: (save) => {
-         return [getProvinceResource("diplomatic", save.state.playerProvince, save), 50];
+         return [getProvinceResource("diplomatic", save.state.playerProvince, save), WarOneTimeDiplomaticPoint];
       },
       selectors: [],
    },
    {
       id: "DeclareWar",
-      name: () => $t(L.DeclareWarOnBelgica),
-      desc: () => $t(L.DeclareWarOnBelgicaDesc),
+      name: () => $t(L.TutorialDeclareWarOn$1, Province[TutorialEnemyProvince].name()),
+      desc: () =>
+         $t(L.TutorialDeclareWarDesc$1$2, Province[TutorialEnemyProvince].name(), getTileName(TutorialWarGoal)),
       progress: (save) => {
          if (
             getCurrentWars(save.state.playerProvince, save).find(
-               (war) => war.attacker === save.state.playerProvince && war.defender === "Belgica",
+               (war) => war.attacker === save.state.playerProvince && war.defender === TutorialEnemyProvince,
             )
          ) {
             return [1, 1];
@@ -126,16 +146,16 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: [
          "#DiplomacyPage_DeclareWar_Belgica",
-         `#DeclareWarPage_Tile_${Tiles.Durocortorum}_Unselected`,
+         `#DeclareWarPage_Tile_${TutorialWarGoal}_Unselected`,
          "#DeclareWarPage_DeclareWar_Belgica:enabled",
       ],
    },
    {
       id: "SignPeaceTreaty",
       name: () => $t(L.SignPeaceTreaty),
-      desc: () => $t(L.SignPeaceTreatyDesc),
+      desc: () => $t(L.TutorialSignPeaceTreatyDesc$1, getTileName(TutorialWarGoal)),
       progress: (save) => {
-         if (save.state.tiles.get(Tiles.Durocortorum)?.province === save.state.playerProvince) {
+         if (save.state.tiles.get(TutorialWarGoal)?.province === save.state.playerProvince) {
             return [1, 1];
          }
          return [0, 1];
@@ -144,21 +164,21 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "MakeCore",
-      name: () => $t(L.MakeDurocortorumOurCore),
+      name: () => $t(L.TutorialMakeTileOurCore$1, getTileName(TutorialWarGoal)),
       desc: () => $t(L.MakeDurocortorumOurCoreDesc),
       progress: (save) => {
-         const data = save.state.tiles.get(Tiles.Durocortorum);
+         const data = save.state.tiles.get(TutorialWarGoal);
          if (data?.province === save.state.playerProvince && data?.coreProvinces.has(save.state.playerProvince)) {
             return [1, 1];
          }
          return [0, 1];
       },
-      selectors: ["#TopPanel_InternalAffairs", `#InternalAffairsPage_MakeCore_${Tiles.Durocortorum}`],
+      selectors: ["#TopPanel_InternalAffairs", `#InternalAffairsPage_MakeCore_${TutorialWarGoal}`],
    },
    {
       id: "UpgradeProduction",
-      name: () => $t(L.UpgradeLutetiasProduction),
-      desc: () => $t(L.UpgradeLutetiasProductionDesc),
+      name: () => $t(L.TutorialUpgradeTileProduction$1, getTileName(Tiles.Lutetia)),
+      desc: () => $t(L.TutorialUpgradeTileProductionDesc$1, getTileName(Tiles.Lutetia)),
       progress: (save) => {
          const data = save.state.tiles.get(Tiles.Lutetia);
          if ((data?.upgradeCount ?? 0) > 0) {
@@ -171,7 +191,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "LowerArmyMaintenance",
       name: () => $t(L.LowerArmyMaintenance),
-      desc: () => $t(L.LowerArmyMaintenanceDesc),
+      desc: () => $t(L.TutorialLowerArmyMaintenanceDesc$1, formatPercent(80 / 100)),
       progress: (save) => {
          const armyMaintenance = getProvinceStat("armyMaintenance", save.state.playerProvince, save);
          if (armyMaintenance <= 80) {
@@ -197,7 +217,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "FindSpouse",
       name: () => $t(L.FindOurGovernorASpouse),
-      desc: () => $t(L.FindOurGovernorASpouseDesc),
+      desc: () => $t(L.TutorialFindGovernorSpouseDesc$1, SocialClass.UpperClass.name()),
       progress: (save) => {
          const governor = save.state.provinces[save.state.playerProvince]?.governor;
          if (governor?.female) {
@@ -209,8 +229,9 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "Trade",
-      name: () => $t(L.SetUpATradeWithAquitania),
-      desc: () => $t(L.SetUpATradeWithAquitaniaDesc),
+      name: () => $t(L.TutorialSetUpTradeWith$1, Province.Aquitania.name()),
+      desc: () =>
+         $t(L.TutorialSetUpTradeDesc$1$2$3, Goods.wood.name(), Province.Aquitania.name(), ProvinceResourceNames.gold()),
       progress: (save) => {
          const trade = getRelation(save.state.playerProvince, "Aquitania", save)?.trade;
          if (trade) {
@@ -229,7 +250,13 @@ export const Tutorial: ITutorial[] = [
    {
       id: "Senate",
       name: () => $t(L.VoteForConsulElection),
-      desc: () => $t(L.VoteForConsulElectionDesc),
+      desc: () =>
+         $t(
+            L.TutorialVoteForConsulElectionDesc$1$2$3,
+            formatNumber(ConsulElectionMonths / 12),
+            formatNumber(ConsulCandidatesCount),
+            formatNumber(2),
+         ),
       progress: (save) => {
          const votes = save.state.senate.votes.get(save.state.playerProvince);
          return [votes?.size ?? 0, 2];
@@ -257,8 +284,8 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "ReachMilitaryPoints",
-      name: () => $t(L.Reach$1MilitaryPoints, "300"),
-      desc: () => $t(L.Reach300MilitaryPointsDesc),
+      name: () => $t(L.Reach$1MilitaryPoints, formatNumber(300)),
+      desc: () => $t(L.TutorialReachMilitaryPointsDesc$1, formatNumber(300)),
       progress: (save) => {
          return [getProvinceResource("military", save.state.playerProvince, save), 300];
       },
@@ -266,8 +293,8 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "Research",
-      name: () => $t(L.ResearchHarshPacification),
-      desc: () => $t(L.ResearchHarshPacificationDesc),
+      name: () => $t(L.TutorialResearch$1, Tech.B3.name()),
+      desc: () => $t(L.TutorialResearchDesc$1, Tech.B3.name()),
       progress: (save) => {
          const state = save.state.provinces[save.state.playerProvince];
          if (state?.unlockedTech.has("B3")) {
@@ -279,8 +306,8 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "Production",
-      name: () => $t(L.SetUpLumberProduction),
-      desc: () => $t(L.SetUpLumberProductionDesc),
+      name: () => $t(L.TutorialSetUpProduction$1, Goods.lumber.name()),
+      desc: () => $t(L.TutorialSetUpProductionDesc$1$2, formatNumber(2), Goods.lumber.name()),
       progress: (save) => {
          const state = save.state.provinces[save.state.playerProvince];
          const lumberProduction = state?.production.lumber?.capacity ?? 0;

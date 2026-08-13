@@ -155,7 +155,7 @@ export const EN = {
    Capital: "Capital",
    CarryOnUntilProgressSlowsDown: "Carry on until progress slows down",
    CarryOnUntilProgressSlowsDownDesc:
-      "Now we've walked through the core loop: develop our province, raise a formidable army, conquer new tiles, and integrate them to fuel further growth.<br>Keep an eye on the icons on the left — they highlight matters that require attention, or at least awareness. Rome cannot be restored in one run - when our current run begins to slow down, click the button below and we will walk through rebirth.",
+      "Now we've walked through the core loop: develop our province, raise a formidable army, conquer new tiles, and integrate them to fuel further growth.<br>Keep an eye on the icons on the right — they highlight matters that require attention, or at least awareness. Rome cannot be restored in one run - when our current run begins to slow down, click the button below and we will walk through rebirth.",
    CasusBelli: "Casus Belli",
    CasusBelliEffect: "Casus Belli Effect:",
    Cavalry: "Cavalry",
@@ -254,9 +254,6 @@ export const EN = {
    DeclaredWarWithoutCasusBelli: "Declared war without casus belli",
    DeclareMobilization: "Declare Mobilization",
    DeclareWar: "Declare War",
-   DeclareWarOnBelgica: "Declare war on Belgica",
-   DeclareWarOnBelgicaDesc:
-      "Now we are ready for war. Right click Belgica <i>on the map</i> to open Diplomacy Panel and then follow the on-screen instructions to declare war on Belgica.<br>War can place significant strain on our province so start small: pick <i>Durocortorum</i> as the war goal.<br>We should almost always have a <i>casus belli</i> when declaring war. We currently have one and we can also fabricate one if needed.",
    DecreaseGameSpeed: "Decrease Game Speed",
    DefaultPledgeSupportTooltip: "By default we can only pledge our own support (i.e. provincial backing = 1). We can request other provinces to pledge with us through diplomacy, thus increasing our provincial backing.",
    Defender: "Defender",
@@ -341,8 +338,6 @@ export const EN = {
    FamilyTree: "Family Tree",
    FindAnEligibleSpouseFrom$1ClassIn$2The$3ClassWillGain50Loyalty: "Find an eligible spouse from $1 class in $2. The $3 class will gain 50 loyalty.",
    FindOurGovernorASpouse: "Find our governor a spouse",
-   FindOurGovernorASpouseDesc:
-      "Our governor is currently unmarried. To secure the province's future, we should arrange a suitable marriage.<br>A spouse can be chosen from one of our own social classes, which increases that class's <i>loyalty</i>, or from another province's governing family, which improves their <i>attitude toward us</i>.<br>Follow the on-screen instructions to choose a spouse from our province's Senate class.",
    FinePrint: "Fine Print",
    Focus: "Focus",
    ForcefulAttack: "Forceful Attack",
@@ -460,8 +455,6 @@ export const EN = {
    IncreaseGameSpeed: "Increase Game Speed",
    IncreasesBy$1EveryYear: "Increases by $1 every year.",
    IncreaseTargetConscription: "Increase target conscription",
-   IncreaseTargetConscriptionDesc:
-      "War Power is determined by factors such as standing army size and maintenance. Standing army size is determined by <i>conscription</i>. Follow the on-screen instructions to increase target conscription from 10% to 15%. The actual conscription will increase <i>over time</i> until it reaches the target.",
    Infantry: "Infantry",
    InfantryCost: "Infantry Cost",
    InfantryMercenaryCost: "Infantry Mercenary Cost",
@@ -469,8 +462,6 @@ export const EN = {
    InfantryUnitPower: "Infantry Unit Power",
    InfantryUnitPowerIsTheWarPowerOfEachInfantryUnit: "Infantry Unit Power is the War Power of each infantry unit.",
    Infiltrate: "Infiltrate",
-   InfiltrateBelgica: "Infiltrate Belgica",
-   InfiltrateBelgicaDesc: "We have two diplomats - they can sign treaties, improve relations, or infiltrate other provinces. Right click Belgica <i>on the map</i> to open Diplomacy Panel and follow the on-screen instructions to infiltrate Belgica.",
    InfiltratingProvinceIncreasesInfiltrationBy$1PerMonth: "Infiltrating province increases infiltration by $1 per month",
    Infiltration: "Infiltration",
    InfiltrationOnDeclaringWarDesc$1: "When declaring war on a province, gain $1 Infiltration to that province.",
@@ -525,8 +516,6 @@ export const EN = {
    LongLiveTheGallicEmpire: "Long live the Gallic Empire!",
    LookForSpouse: "Look For Spouse",
    LowerArmyMaintenance: "Lower army maintenance",
-   LowerArmyMaintenanceDesc:
-      "After our recent victory, the war has left our treasury depleted. To stabilize the government's finances, we should reduce army maintenance to 80% during peacetime - follow the on-screen instructions.<br>Be aware that reduced maintenance lowers army morale, and morale takes time to recover even after maintenance is raised again.",
    Loyalty: "Loyalty",
    M: "(M)",
    MagisterialExtensions: "Magisterial Extensions",
@@ -536,7 +525,6 @@ export const EN = {
    MakeAnExampleOfTheGuilty: "Make an example of the guilty",
    MakeCore: "Make Core",
    MakeCoreCost: "Make Core Cost",
-   MakeDurocortorumOurCore: "Make Durocortorum our core",
    MakeDurocortorumOurCoreDesc:
       "A newly annexed tile is not our core yet - non-core tiles pay less taxes and require higher governing cost. When our governing cost exceeds capacity, overextension occurs, which negatively affects our province. We need to spend <i>administrative</i> points to integrate the tile and make it our core - follow the on-screen instructions.",
    MakeGovernorGeneral: "Make Governor General",
@@ -775,8 +763,6 @@ export const EN = {
    RangedUnit: "Ranged Unit",
    RangedUnitPower: "Ranged Unit Power",
    RangedUnitPowerIsTheWarPowerOfEachRangedUnit: "Ranged Unit Power is the War Power of each ranged unit.",
-   Reach300MilitaryPointsDesc: "Researching technologies costs <i>administrative</i>, <i>diplomatic</i> or <i>military</i> points - technologies unlock bonuses, buildings and features. Each researched technology increases the cost of future research.",
-   Reach50DiplomaticPointsDesc: "Declaring war costs 50 Diplomatic Points. In addition to monthly government point income, we can also gain government points from events. Events can have a significant impact on our province, so choose wisely.",
    Reach$1DiplomaticPoints: "Reach $1 Diplomatic Points",
    Reach$1GoverningCost: "Reach $1 governing cost",
    Reach$1Manpower: "Reach $1 Manpower",
@@ -835,8 +821,6 @@ export const EN = {
    ResearchCost: "Research Cost",
    Researched: "Researched",
    ResearchedTech: "Researched tech",
-   ResearchHarshPacification: "Research Harsh Pacification",
-   ResearchHarshPacificationDesc: "Open the tech tree and select <i>Harsh Pacification</i> (second column, third row) - follow the on-screen instructions to research the tech - make sure the prerequisites are researched and we have enough military points.",
    Research$1Technologies: "Research $1 technologies",
    Reset: "Reset",
    ResetProduction: "Reset Production",
@@ -861,8 +845,6 @@ export const EN = {
    Score: "Score",
    SelectAdvisor: "Select Advisor",
    SelectFamilyMember: "Select Family Member",
-   SelectTwoRivals: "Select two rivals",
-   SelectTwoRivalsDesc: "Rivals are provinces we compete with, either through war or diplomacy. Follow the on-screen instructions to select two rivals - <i>one of them should be Belgica</i> since we are preparing for war against them.",
    Senate: "Senate",
    SenateAndConsuls: "Senate & Consuls",
    SenateDecrees: "Senate Decrees",
@@ -880,19 +862,11 @@ export const EN = {
    SettleUnrest: "Settle Unrest",
    SettleUnrestAutomaticallyEveryMonth$1: "Settle unrest (i.e. adjust autonomy so that <i>tile unrest</i> is at most $1) automatically every month",
    SettlingUnrestAdjustsAutonomySoThatTileUnrestIsAtMost$1: "Settling unrest adjusts autonomy so that Tile Unrest is at most $1",
-   SetUpATradeWithAquitania: "Set up a trade with Aquitania",
-   SetUpATradeWithAquitaniaDesc:
-      "Each tile produces a certain amount of goods every month. These goods can be used to create higher-value products (unlocked through research) or traded with other provinces.<br>To increase our income, follow the on-screen instructions to export our excess Wood to Aquitania in exchange for Gold. Keep in mind that if a war breaks out between us and Aquitania, the trade will be cancelled and we will lose this income stream.",
-   SetUpLumberProduction: "Set up Lumber production",
-   SetUpLumberProductionDesc:
-      "When we produce higher-value goods, part of the added value is taxed, while the remaining goods can be used for further production or trade. Our province has a limited amount of production capacity (can be increased by research), which we can assign to different types of production.<br>Follow the on-screen instructions to assign 2 capacity to Lumber production.",
    ShareWarSpoilsWithPeople: "Share war spoils with people",
    SheWillJoinHerSpousesFamily: "She will join her spouse's family",
    ShowChroniclePopup: "Show chronicle popup",
    ShowTutorial: "Show tutorial",
    SignPeaceTreaty: "Sign Peace Treaty",
-   SignPeaceTreatyDesc:
-      "Every month, 3 attacks are attempted and the result is the best of 3 attacks (BO3). If the result is successful, we gain 1 war score; otherwise we lose 1 war score.<br>While the war is going on, we can adjust the game speed on the <i>top right panel</i>, or explore the game a bit.<br>Once we have achieved the required war score, the ongoing war icon on the left will bounce. Click that icon and follow on-screen instructions to sign a peace treaty that allows us to occupy <i>Durocortorum</i>.",
    SlashMonth: "/Month",
    SocialClass: "Social Class",
    DominantOrDisloyalSocialClasses: "Dominant or Disloyal Social Classes",
@@ -1594,9 +1568,6 @@ export const EN = {
    UpgradeGeneralSkill: "Upgrade General Skill",
    UpgradeGeneralSkillDesc: "Our general has gained 1 skill point from the victory. Skill points can be spent to improve the general's infantry, ranged, or cavalry skill, each of which increases the power of the corresponding unit type. Follow the on-screen instructions to upgrade the infantry skill.",
    UpgradeInfrastructure: "Upgrade Infrastructure",
-   UpgradeLutetiasProduction: "Upgrade Lutetia's production",
-   UpgradeLutetiasProductionDesc:
-      "To further develop our province, we need to upgrade our tiles. There are three types of upgrades:<br>- Infrastructure upgrades cost <i>administrative</i> points and increase the tile's <i>land tax</i>.<br>- Production upgrades cost <i>diplomatic</i> points and increase the tile's <i>output</i>.<br>- Population upgrades cost <i>military</i> points and increase the tile's <i>manpower</i>.<br>The Tiles & Upgrades screen provides a convenient way to upgrade tiles - follow the on-screen instructions to upgrade Lutetia's production.",
    UpgradePopulation: "Upgrade Population",
    UpgradeProduction: "Upgrade Production",
    UpgradeRations: "Upgrade Rations",
@@ -1613,8 +1584,6 @@ export const EN = {
    ViewPatchNotes: "View Patch Notes",
    Volume: "Volume",
    VoteForConsulElection: "Vote for consul election",
-   VoteForConsulElectionDesc:
-      "Every other year, two consuls are elected from a pool of nine candidates. We may support two of them, and if the candidates we back are elected, we earn consul points, which can be spent on various Senate decrees. Through diplomacy and intelligence, we can improve our chances of supporting the winning candidates. For now, let's back two random candidates - follow the on-screen instructions.",
    WarChanceEstimateOnly: "This is only an estimate as the war power of each participant can change every month and the chances of gaining or losing war score will change accordingly.",
    WarEndedDesc$1$2$3$4$5: "News from far away, governor! After a $1-month fight, the $2-$3 war has come to an end. $4 has emerged victorious and our treaty duty to $5 has been fulfilled.",
    WarGoal: "War Goal",
@@ -1682,8 +1651,6 @@ export const EN = {
    WeHopeTheyveLearnedTheirLesson: "We hope they've learned their lesson",
    WelcomeTheBoyIntoOurFamily: "Welcome the boy into our family",
    WelcomeToRestitutor: "Welcome to Restitutor",
-   WelcomeToRestitutorDesc:
-      "<i>Restitutor</i> is a historical incremental grand strategy game set in the Roman Empire after the death of Commodus in 192 AD, when the empire fractured into rival provinces.<br>As the governor of <i>Lugdunensis</i> province, it is our duty to restore the empire through statecraft, diplomacy, and conquest.<br>This may seem overwhelming, but do not worry, we will walk through the basics step by step.",
    WeMournTheLossOfOurBraveEmperor: "We mourn the loss of our brave emperor",
    WeMustAvengeEmperorValenssDeath: "We must avenge Emperor Valens's death",
    WeMustPrepareForOurRevenge: "We must prepare for our revenge",
@@ -2835,4 +2802,37 @@ export const EN = {
    BountifulCoastlinesDesc$1: "$1 Manpower, Land Tax and Tile Output on each core coastal tile for each coastal edge",
    CoastalAdministration: "Coastal Administration",
    $1GoverningCostOnCoreCoastalTiles: "$1 Governing Cost on core coastal tiles",
+   TutorialWelcomeDesc$1:
+      "<i>Restitutor</i> is a historical incremental grand strategy game set in the Roman Empire after the death of Commodus in 192 AD, when the empire fractured into rival provinces.<br>As the governor of <i>$1</i> province, it is our duty to restore the empire through statecraft, diplomacy, and conquest.<br>This may seem overwhelming, but do not worry, we will walk through the basics step by step.",
+   TutorialSelectRivals$1: "Select $1 rivals",
+   TutorialSelectRivalsDesc$1$2: "Rivals are provinces we compete with, either through war or diplomacy. Follow the on-screen instructions to select $1 rivals - <i>one of them should be $2</i> since we are preparing for war against them.",
+   TutorialIncreaseTargetConscriptionDesc$1$2:
+      "War Power is determined by factors such as standing army size and maintenance. Standing army size is determined by <i>conscription</i>. Follow the on-screen instructions to increase target conscription from $1 to $2. The actual conscription will increase <i>over time</i> until it reaches the target.",
+   TutorialInfiltrate$1: "Infiltrate $1",
+   TutorialInfiltrateDesc$1$2: "We have $1 diplomats - they can sign treaties, improve relations, or infiltrate other provinces. Right click $2 <i>on the map</i> to open the Diplomacy Panel and follow the on-screen instructions to infiltrate it.",
+   TutorialReachDiplomaticPointsDesc$1: "Declaring war costs $1 Diplomatic Points. In addition to monthly government point income, we can also gain government points from events. Events can have a significant impact on our province, so choose wisely.",
+   TutorialDeclareWarOn$1: "Declare war on $1",
+   TutorialDeclareWarDesc$1$2:
+      "Now we are ready for war. Right click $1 <i>on the map</i> to open the Diplomacy Panel and follow the on-screen instructions to declare war.<br>War can place significant strain on our province, so start small: pick <i>$2</i> as the war goal.<br>We should almost always have a <i>casus belli</i> when declaring war. We currently have one and can also fabricate one if needed.",
+   TutorialSignPeaceTreatyDesc$1:
+      "Every month, 3 attacks are attempted and the result is the best of 3 attacks (BO3). If the result is successful, we gain 1 war score; otherwise we lose 1 war score.<br>While the war is going on, we can adjust the game speed on the <i>top right panel</i>, or explore the game a bit.<br>Once we have achieved the required war score, the ongoing war icon on the right will bounce. Click that icon and follow the on-screen instructions to sign a peace treaty that allows us to occupy <i>$1</i>.",
+   TutorialMakeTileOurCore$1: "Make $1 our core",
+   TutorialUpgradeTileProduction$1: "Upgrade $1's production",
+   TutorialUpgradeTileProductionDesc$1:
+      "To further develop our province, we need to upgrade our tiles. There are three types of upgrades:<br>- Infrastructure upgrades cost <i>administrative</i> points and increase the tile's <i>land tax</i>.<br>- Production upgrades cost <i>diplomatic</i> points and increase the tile's <i>output</i>.<br>- Population upgrades cost <i>military</i> points and increase the tile's <i>manpower</i>.<br>The Tiles & Upgrades screen provides a convenient way to upgrade tiles - follow the on-screen instructions to upgrade $1's production.",
+   TutorialLowerArmyMaintenanceDesc$1:
+      "After our recent victory, the war has left our treasury depleted. To stabilize the government's finances, we should reduce army maintenance to $1 during peacetime - follow the on-screen instructions.<br>Be aware that reduced maintenance lowers army morale, and morale takes time to recover even after maintenance is raised again.",
+   TutorialFindGovernorSpouseDesc$1:
+      "Our governor is currently unmarried. To secure the province's future, we should arrange a suitable marriage.<br>A spouse can be chosen from one of our own social classes, which increases that class's <i>loyalty</i>, or from another province's governing family, which improves their <i>attitude toward us</i>.<br>Follow the on-screen instructions to choose a spouse from our province's $1 class.",
+   TutorialSetUpTradeWith$1: "Set up a trade with $1",
+   TutorialSetUpTradeDesc$1$2$3:
+      "Each tile produces a certain amount of goods every month. These goods can be used to create higher-value products (unlocked through research) or traded with other provinces.<br>To increase our income, follow the on-screen instructions to export our excess $1 to $2 in exchange for $3. Keep in mind that a war between us will cancel the trade and we will lose this income stream.",
+   TutorialVoteForConsulElectionDesc$1$2$3:
+      "Every $1 years, two consuls are elected from a pool of $2 candidates. We may support $3 of them, and if the candidates we back are elected, we earn consul points, which can be spent on various Senate decrees. Through diplomacy and intelligence, we can improve our chances of supporting the winning candidates. For now, choose random candidates - follow the on-screen instructions.",
+   TutorialReachMilitaryPointsDesc$1: "Technologies and other military actions require Military Points. We should wait until we have accumulated $1 Military Points before continuing.",
+   TutorialResearch$1: "Research $1",
+   TutorialResearchDesc$1: "Open the tech tree and select <i>$1</i>. Follow the on-screen instructions to research the technology, making sure its prerequisites are researched and we have enough Military Points.",
+   TutorialSetUpProduction$1: "Set up $1 production",
+   TutorialSetUpProductionDesc$1$2:
+      "When we produce higher-value goods, part of the added value is taxed, while the remaining goods can be used for further production or trade. Our province has a limited amount of production capacity (which can be increased by research) that we can assign to different types of production.<br>Follow the on-screen instructions to assign $1 capacity to $2 production.",
 };

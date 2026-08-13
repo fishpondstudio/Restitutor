@@ -171,9 +171,11 @@ export function getCurrentRelations(province: Province, save: SaveGame): Set<Pro
    return result;
 }
 
+export const BaseDiplomats = 2;
+
 export function getDiplomats(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
-   breakdown.add.push({ name: $t(L.BaseValue), value: 2 });
+   breakdown.add.push({ name: $t(L.BaseValue), value: BaseDiplomats });
    attachModifiers("Diplomat", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
