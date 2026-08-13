@@ -18,4 +18,4 @@ jobs:
         working-directory: /home/insraq/Restitutor
       - run: |
           pnpm run test
-          working-directory: /home/insraq/Restitutor/packages/client
+        working-directory: /home/insraq/Restitutor/packages/client
