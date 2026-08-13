@@ -950,6 +950,7 @@ export const HistoricalEvents = {
       name: () => $t(L.AnEmpireEndsInSilence),
       wikipedia: "Fall_of_the_Western_Roman_Empire",
       image: EventImage.Y476,
+      achievement: "FallOfTheWesternEmpire",
       desc: () => $t(L.AnEmpireEndsInSilenceDesc),
       condition: {
          year: [476, 476],
