@@ -1,4 +1,4 @@
-import { filterInPlace, hasFlag } from "@project/shared/src/utils/Helper";
+import { filterInPlace, hasFlag, isNullOrUndefined } from "@project/shared/src/utils/Helper";
 import { InvaderConqueredWarGoalModal } from "../../ui/InvaderConqueredWarGoalModal";
 import { WarEndedModal } from "../../ui/WarEndedModal";
 import { $t, L } from "../../utils/i18n";
@@ -29,8 +29,6 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
          },
       ]),
       effect: ({ headless }) => {
-         const defenderCapital = save.state.provinces[war.defender]?.capital;
-         const capturedCapital = defenderCapital !== undefined && war.tiles.has(defenderCapital);
          for (const tile of war.tiles) {
             const data = save.state.tiles.get(tile);
             if (data) {
@@ -62,7 +60,8 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
          addProvinceStat("victoryCount", 1, war.attacker, save);
          if (war.attacker === save.state.playerProvince && war.tiles.size > 0) {
             unlockAchievement("WinWar");
-            if (capturedCapital) {
+            const defenderCapital = save.state.provinces[war.defender]?.capital;
+            if (!isNullOrUndefined(defenderCapital) && war.tiles.has(defenderCapital)) {
                unlockAchievement("CaptureCapital");
             }
          }

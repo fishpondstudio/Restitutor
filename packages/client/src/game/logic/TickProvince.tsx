@@ -13,6 +13,7 @@ import { GameEventModal } from "../../ui/GameEventModal";
 import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
 import { G, GameFlags } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
+import { unlockAchievement } from "../Achievement";
 import type { IGovernorFamily } from "../definitions/Family";
 import { type Province, ProvinceFlags } from "../definitions/Province";
 import { addProvinceUpgrade, removeProvinceUpgrade } from "../definitions/ProvinceUpgrades";
@@ -311,6 +312,10 @@ export function addGameEvent(event: GameEvent, province: Province, save: SaveGam
    state.events.set(event, { month: save.state.month });
    startTimedAction("GameEventTimer", province, save);
    if (province === save.state.playerProvince) {
+      const achievement = GameEvents[event].achievement;
+      if (achievement) {
+         unlockAchievement(achievement);
+      }
       showGameEventModal(<GameEventModal event={event} />);
    }
 }

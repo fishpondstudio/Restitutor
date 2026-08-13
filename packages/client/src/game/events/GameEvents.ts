@@ -36,6 +36,7 @@ export interface IGameEventConfig {
    desc: () => string;
    type?: GameEventType;
    wikipedia?: string;
+   achievement?: string;
    image: ImageWithCredit;
    condition?: IGameEventCondition;
    buttons: IGameEventButton[];
