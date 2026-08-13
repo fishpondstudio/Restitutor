@@ -28,10 +28,7 @@ test("Buildings are unlocked by exactly one tech", () => {
 test("Goods are unlocked by exactly one appropriate tech", () => {
    forEach(Tech, (tech, config) => {
       config.goods?.forEach((goods) => {
-         expect
-            .soft(Goods[goods].tech, `Goods ${goods} is already unlocked by tech ${Goods[goods].tech}`)
-            .toBeUndefined();
-         Goods[goods].tech = tech;
+         expect.soft(Goods[goods].tech, `Goods ${goods} should be unlocked by tech ${tech}`).toBe(tech);
       });
    });
 
@@ -53,10 +50,7 @@ test("TimedActions have valid, unique tech unlocks", () => {
                .soft(definition.desc, `Timed action ${timedAction} is unlocked by tech ${tech} but has no description`)
                .toBeDefined();
          }
-         expect
-            .soft(definition.tech, `Timed action ${timedAction} is already unlocked by tech ${definition.tech}`)
-            .toBeUndefined();
-         definition.tech = tech;
+         expect.soft(definition.tech, `Timed action ${timedAction} should be unlocked by tech ${tech}`).toBe(tech);
       });
    });
 });
