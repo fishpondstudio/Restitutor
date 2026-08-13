@@ -1,5 +1,4 @@
 import {
-   clamp,
    entriesOf,
    forEach,
    fromEntries,
@@ -22,9 +21,8 @@ import { addAttitudeModifier, getProvincesWithinDiplomaticRange, getRelation } f
 import { tickProduction } from "./logic/ProductionLogic";
 import {
    ConsulCandidatesCount,
-   getProvinceIncome,
    getProvinceOverextension,
-   getProvinceTileCount,
+   getTotalUpgrades,
    initProvince,
    provinceResourceOf,
    resetProvinceResource,
@@ -151,13 +149,9 @@ function initPlayerProvince(save: SaveGame): void {
       }
    }
 }
+const UpgradeTypes = ["infrastructure", "production", "population"] as const;
 
 function initTileUpgrades(save: SaveGame): void {
-   let maxTileCount = 0;
-   for (const [province, data] of entriesOf(save.state.provinces)) {
-      maxTileCount = Math.max(maxTileCount, getProvinceTileCount(province, save));
-   }
-
    for (const [province, data] of entriesOf(save.state.provinces)) {
       const tileData = save.state.tiles.get(data.capital);
       if (tileData) {
@@ -167,83 +161,40 @@ function initTileUpgrades(save: SaveGame): void {
       }
    }
 
+   for (const [tile, data] of save.state.tiles) {
+      data.infrastructure = Math.max(data.infrastructure, 1);
+      data.production = Math.max(data.production, 1);
+      data.population = Math.max(data.population, 1);
+   }
+
+   let maxUpgrades = 0;
    for (const [province, data] of entriesOf(save.state.provinces)) {
-      const tileCount = getProvinceTileCount(province, save);
-      let total = Math.min(maxTileCount * 3, 20 * 3 * tileCount) - 6;
-      while (true) {
-         if (total <= 0) break;
+      maxUpgrades = Math.max(maxUpgrades, getTotalUpgrades(province, save));
+   }
+
+   for (const [province, data] of entriesOf(save.state.provinces)) {
+      let total = maxUpgrades - getTotalUpgrades(province, save);
+      while (total > 0) {
+         let upgraded = false;
          for (const [tile, data] of save.state.tiles) {
             if (data.province !== province) {
                continue;
             }
-            ++data.infrastructure;
-            --total;
-            if (total <= 0) break;
-
-            ++data.production;
-            --total;
-            if (total <= 0) break;
-
-            ++data.population;
-            --total;
-            if (total <= 0) break;
-         }
-      }
-      const incomeTarget = 40;
-      let maxIteration = 1000;
-      while (true) {
-         if (--maxIteration <= 0) {
-            console.warn(`initTileUpgrades (1st pass): max iteration reached for ${province}`);
-            break;
-         }
-         if (getProvinceIncome(province, save).income < incomeTarget) {
-            break;
-         }
-         let hasReachedMinimum = true;
-         for (const [tile, data] of save.state.tiles) {
-            if (data.province === province) {
-               data.infrastructure = clamp(data.infrastructure - 1, 1, Number.POSITIVE_INFINITY);
-               if (getProvinceIncome(province, save).income < incomeTarget) {
+            for (const upgradeType of UpgradeTypes) {
+               if (total <= 0) {
                   break;
                }
-               data.production = clamp(data.production - 1, 1, Number.POSITIVE_INFINITY);
-               if (getProvinceIncome(province, save).income < incomeTarget) {
-                  break;
+               if (data[upgradeType] >= 10) {
+                  continue;
                }
-               if (data.infrastructure > 1 || data.production > 1) {
-                  hasReachedMinimum = false;
-               }
+               ++data[upgradeType];
+               --total;
+               upgraded = true;
             }
          }
-         if (hasReachedMinimum) {
+         if (!upgraded) {
             break;
          }
-         // Clear cache
-         GameStateUpdated.emit();
-      }
-      maxIteration = 1000;
-      while (true) {
-         if (--maxIteration <= 0) {
-            console.warn(`initTileUpgrades (2nd pass): max iteration reached for ${province}`);
-            break;
-         }
-         if (getProvinceIncome(province, save).income > incomeTarget) {
-            break;
-         }
-         for (const [tile, data] of save.state.tiles) {
-            if (data.province === province) {
-               ++data.infrastructure;
-               if (getProvinceIncome(province, save).income > incomeTarget) {
-                  break;
-               }
-               ++data.production;
-               if (getProvinceIncome(province, save).income > incomeTarget) {
-                  break;
-               }
-            }
-         }
-         // Clear cache
-         GameStateUpdated.emit();
       }
       const overextension = getProvinceOverextension(province, save).value;
       if (overextension > 0) {
@@ -252,8 +203,17 @@ function initTileUpgrades(save: SaveGame): void {
    }
 
    for (const [tile, data] of save.state.tiles) {
-      data.population = clamp(data.population, 1, Math.max(data.infrastructure, data.production));
+      if (data.infrastructure < 1 || data.infrastructure > 10) {
+         console.error(`initTileUpgrades: ${tile} has invalid infrastructure: ${data.infrastructure}`);
+      }
+      if (data.production < 1 || data.production > 10) {
+         console.error(`initTileUpgrades: ${tile} has invalid production: ${data.production}`);
+      }
+      if (data.population < 1 || data.population > 10) {
+         console.error(`initTileUpgrades: ${tile} has invalid population: ${data.population}`);
+      }
    }
+   GameStateUpdated.emit();
 }
 
 export function getOriginalTileCount(province: Province): number {

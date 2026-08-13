@@ -717,6 +717,13 @@ function findWarGoal(province: Province, save: SaveGame): { tile: Tile; estimate
          continue;
       }
       const { coAttackers, coDefenders } = getWarParticipants(province, otherProvince, save);
+      const relation = getRelation(province, otherProvince, save);
+      if (!relation) {
+         continue;
+      }
+      if (!relation.casusBelli.has("ConquestMission")) {
+         relation.casusBelli.set("ConquestMission", { monthsLeft: 0 });
+      }
       const action = DeclareWarAction(
          province,
          coAttackers,

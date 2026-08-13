@@ -76,7 +76,7 @@ export function ProvinceListModal(): React.ReactNode {
                            </td>
                            <td>
                               <BreakdownTooltip breakdown={warPower}>
-                                 <div>{colorNumber(warPower.value)}</div>
+                                 <div>{formatNumber(warPower.value)}</div>
                               </BreakdownTooltip>
                            </td>
                         </tr>

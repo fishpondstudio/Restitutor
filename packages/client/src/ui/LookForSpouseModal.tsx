@@ -103,7 +103,7 @@ export function LookForSpouseModal({ family, province }: { family?: IFamily; pro
                   <div className="h1">{$t(L.From$1, getProvinceName(G.save.state.playerProvince, G.save))}</div>
                   <div className="m10" style={Grid3}>
                      {mapOf(SocialClass, (sc) => {
-                        return <LocalSpouseButton family={selectedFamily} socialClass={sc} />;
+                        return <LocalSpouseButton key={sc} family={selectedFamily} socialClass={sc} />;
                      })}
                   </div>
                </div>
