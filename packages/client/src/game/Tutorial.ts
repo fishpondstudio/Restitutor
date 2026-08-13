@@ -308,7 +308,7 @@ export const Tutorial: ITutorial[] = [
       setup: (save) => {
          unlockAchievement("CompleteTutorial");
       },
-      selectors: ["#TopPanel_LegacyUpgrade", "#LegacyUpgradeModal_Rebirth"],
+      selectors: ["#TopPanel_LegacyUpgrade", "#LegacyUpgradeModal_Rebirth", "#RebirthPage_RebirthButton"],
    },
 ] as const;
 

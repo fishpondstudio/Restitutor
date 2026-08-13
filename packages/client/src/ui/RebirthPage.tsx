@@ -151,6 +151,7 @@ export function RebirthPage(): React.ReactNode {
          </div>
          <div className="m10">
             <button
+               id="RebirthPage_RebirthButton"
                disabled={isDemo && !freeProvinces.has(province)}
                className={cls("btn py2 w100")}
                onClick={async () => {

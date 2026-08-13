@@ -1,6 +1,7 @@
 import { AssetPack } from "@assetpack/core";
 import { pixiPipes } from "@assetpack/core/pixi";
 import react from "@vitejs/plugin-react";
+import { playwright } from "@vitest/browser-playwright";
 import { defineConfig, type Plugin, type ResolvedConfig } from "vite";
 
 // https://vite.dev/config/
@@ -8,6 +9,14 @@ export default defineConfig(({ command }) => {
    return {
       base: "",
       plugins: [react(), assetpackPlugin()],
+      test: {
+         browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright(),
+            instances: [{ browser: "chromium" }],
+         },
+      },
       build: {
          target: "es2020",
          rollupOptions: {

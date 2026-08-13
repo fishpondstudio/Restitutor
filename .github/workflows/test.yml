@@ -14,4 +14,8 @@ jobs:
           git submodule update --recursive --remote --init
           pnpm install
           pnpm run build
+          pnpm run check
         working-directory: /home/insraq/Restitutor
+      - run: |
+          pnpm run test
+          working-directory: /home/insraq/Restitutor/packages/client

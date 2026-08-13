@@ -2,7 +2,6 @@ import { forEach, setFlag } from "@project/shared/src/utils/Helper";
 import { jsonDecode } from "@project/shared/src/utils/Serialization";
 import * as Sentry from "@sentry/browser";
 import { Assets, BitmapFont, type Spritesheet, type TextStyleFontWeight, type Texture } from "pixi.js";
-import { checkTextures } from "./CheckTextures";
 import { FontFaces, Fonts } from "./Fonts";
 import { startGameLoop } from "./GameLoop";
 import { addDebugFunctions } from "./game/AddDebugFunctions";
@@ -11,7 +10,6 @@ import { Province } from "./game/definitions/Province";
 import Rome from "./game/definitions/Rome.json?raw";
 import { GameStateFlags, initNewPlayerSaveGame, initSaveGame, SaveGame } from "./game/GameState";
 import { loadGame, saveGame } from "./game/LoadSave";
-import { validateConfig } from "./game/logic/ValidateConfig";
 import { showBootstrapModal } from "./game/ShowBootstrapModal";
 import { getVersion } from "./game/Version";
 import { loadGameScene } from "./LoadGameScene";
@@ -130,8 +128,6 @@ export async function bootstrap(): Promise<void> {
    setLanguage(G.save.options.language);
    loadSounds();
    addDebugFunctions();
-   checkTextures();
-   validateConfig();
    // connectWebSocket();
    // try {
    //    await Promise.race([OnConnectionChanged.toPromise((connected) => connected), rejectIn(10)]);
