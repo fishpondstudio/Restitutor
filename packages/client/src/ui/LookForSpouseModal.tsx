@@ -1,5 +1,5 @@
 import { Select } from "@mantine/core";
-import { formatNumber, keysOf } from "@project/shared/src/utils/Helper";
+import { formatNumber, keysOf, mapOf } from "@project/shared/src/utils/Helper";
 import { Fragment, useEffect, useState } from "react";
 import { LookForLocalSpouseAction, OfferMarriageAction } from "../game/actions/SpouseActions";
 import type { IFamily, IPerson } from "../game/definitions/Family";
@@ -102,9 +102,9 @@ export function LookForSpouseModal({ family, province }: { family?: IFamily; pro
                <div className="box m10">
                   <div className="h1">{$t(L.From$1, getProvinceName(G.save.state.playerProvince, G.save))}</div>
                   <div className="m10" style={Grid3}>
-                     <LocalSpouseButton family={selectedFamily} socialClass="UpperClass" />
-                     <LocalSpouseButton family={selectedFamily} socialClass="MiddleClass" />
-                     <LocalSpouseButton family={selectedFamily} socialClass="LowerClass" />
+                     {mapOf(SocialClass, (sc) => {
+                        return <LocalSpouseButton family={selectedFamily} socialClass={sc} />;
+                     })}
                   </div>
                </div>
                <div className="box m10">
