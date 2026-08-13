@@ -22,6 +22,7 @@ import { tickProduction } from "./logic/ProductionLogic";
 import {
    ConsulCandidatesCount,
    getProvinceOverextension,
+   getProvinceTileCount,
    getTotalUpgrades,
    initProvince,
    provinceResourceOf,
@@ -168,12 +169,15 @@ function initTileUpgrades(save: SaveGame): void {
    }
 
    let maxUpgrades = 0;
+   let maxTileCount = 0;
    for (const [province, data] of entriesOf(save.state.provinces)) {
       maxUpgrades = Math.max(maxUpgrades, getTotalUpgrades(province, save));
+      maxTileCount = Math.max(maxTileCount, getProvinceTileCount(province, save));
    }
 
    for (const [province, data] of entriesOf(save.state.provinces)) {
-      let total = maxUpgrades - getTotalUpgrades(province, save);
+      let total =
+         maxUpgrades - getTotalUpgrades(province, save) - (maxTileCount - getProvinceTileCount(province, save));
       while (total > 0) {
          let upgraded = false;
          for (const [tile, data] of save.state.tiles) {
