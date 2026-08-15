@@ -1,431 +1,952 @@
-import Alliance from "../../assets/images/events/Alliance.webp";
+import AgathaHealing from "../../assets/images/events/AgathaHealing.webp";
 import Alps from "../../assets/images/events/Alps.webp";
-import Annex from "../../assets/images/events/Annex.webp";
+import AmbroseBarsTheodosius from "../../assets/images/events/AmbroseBarsTheodosius.webp";
+import AncientRome from "../../assets/images/events/AncientRome.webp";
 import Aqueduct from "../../assets/images/events/Aqueduct.webp";
-import Aquitania1 from "../../assets/images/events/Aquitania1.webp";
-import Aquitania2 from "../../assets/images/events/Aquitania2.webp";
-import Aquitania3 from "../../assets/images/events/Aquitania3.webp";
-import Aquitania5 from "../../assets/images/events/Aquitania5.webp";
-import Aquitania6 from "../../assets/images/events/Aquitania6.webp";
-import Aquitania7 from "../../assets/images/events/Aquitania7.webp";
-import Aquitania8 from "../../assets/images/events/Aquitania8.webp";
-import Aquitania9 from "../../assets/images/events/Aquitania9.webp";
-import Aquitania10 from "../../assets/images/events/Aquitania10.webp";
 import Arianism from "../../assets/images/events/Arianism.webp";
-import Baetica2 from "../../assets/images/events/Baetica2.webp";
-import Baetica3 from "../../assets/images/events/Baetica3.webp";
-import Baetica5 from "../../assets/images/events/Baetica5.webp";
-import Baetica6 from "../../assets/images/events/Baetica6.webp";
-import Baetica7 from "../../assets/images/events/Baetica7.webp";
-import Baetica9 from "../../assets/images/events/Baetica9.webp";
-import Bath from "../../assets/images/events/Bath.webp";
-import Belgica1 from "../../assets/images/events/Belgica1.webp";
-import Belgica2 from "../../assets/images/events/Belgica2.webp";
-import Belgica3 from "../../assets/images/events/Belgica3.webp";
-import Belgica4 from "../../assets/images/events/Belgica4.webp";
-import Belgica5 from "../../assets/images/events/Belgica5.webp";
-import Belgica7 from "../../assets/images/events/Belgica7.webp";
-import Belgica9 from "../../assets/images/events/Belgica9.webp";
-import Belgica10 from "../../assets/images/events/Belgica10.webp";
-import Bishop from "../../assets/images/events/Bishop.webp";
-import Canal from "../../assets/images/events/Canal.webp";
-import Circus from "../../assets/images/events/Circus.webp";
-import Dancer from "../../assets/images/events/Dancer.webp";
-import DeclareWar from "../..//assets/images/events/DeclareWar.webp";
+import AttilasFeast from "../../assets/images/events/AttilasFeast.webp";
+import AugustineDeath from "../../assets/images/events/AugustineDeath.webp";
+import AugustineDebate from "../../assets/images/events/AugustineDebate.webp";
+import AugustineStudy from "../../assets/images/events/AugustineStudy.webp";
+import AurelianWalls from "../../assets/images/events/AurelianWalls.webp";
+import BarbarianCaptives from "../../assets/images/events/BarbarianCaptives.webp";
+import BarbariansAtRome from "../../assets/images/events/BarbariansAtRome.webp";
+import BattleOfIssus from "../../assets/images/events/BattleOfIssus.webp";
+import BenedictAndTotila from "../../assets/images/events/BenedictAndTotila.webp";
+import BuriedTreasure from "../../assets/images/events/BuriedTreasure.webp";
+import CadaverSynod from "../../assets/images/events/CadaverSynod.webp";
+import CaesarDeath1 from "../../assets/images/events/CaesarDeath1.webp";
+import CaesarDeath2 from "../../assets/images/events/CaesarDeath2.webp";
+import CaesarsTriumph from "../../assets/images/events/CaesarsTriumph.webp";
+import CaptiveTriumph from "../../assets/images/events/CaptiveTriumph.webp";
+import CaracallaBaths from "../../assets/images/events/CaracallaBaths.webp";
+import CarthageCaptured from "../../assets/images/events/CarthageCaptured.webp";
+import CarthageDecline from "../../assets/images/events/CarthageDecline.webp";
+import ChariotRace1 from "../../assets/images/events/ChariotRace1.webp";
+import ChariotRace2 from "../../assets/images/events/ChariotRace2.webp";
+import ChristTeaching from "../../assets/images/events/ChristTeaching.webp";
+import CiceroInSenate from "../../assets/images/events/CiceroInSenate.webp";
+import CircusBattle from "../../assets/images/events/CircusBattle.webp";
+import CivicTriumph from "../../assets/images/events/CivicTriumph.webp";
+import ClaudiusEmperor from "../../assets/images/events/ClaudiusEmperor.webp";
+import ClovisBaptism from "../../assets/images/events/ClovisBaptism.webp";
+import Colosseum from "../../assets/images/events/Colosseum.webp";
+import CommodusDeath from "../../assets/images/events/CommodusDeath.webp";
+import ConstantineBaptism from "../../assets/images/events/ConstantineBaptism.webp";
+import ConstantinopleBuilt from "../../assets/images/events/ConstantinopleBuilt.webp";
+import CopperMine from "../../assets/images/events/CopperMine.webp";
+import CouncilOfTrent from "../../assets/images/events/CouncilOfTrent.webp";
+import DeciusDeath from "../../assets/images/events/DeciusDeath.webp";
+import DelphiOracle from "../../assets/images/events/DelphiOracle.webp";
+import DiocletianStatue from "../../assets/images/events/DiocletianStatue.webp";
 import Donatism from "../../assets/images/events/Donatism.webp";
-import DrawnIntoWar from "../../assets/images/events/DrawnIntoWar.webp";
-import EcumenicalCouncil2 from "../../assets/images/events/EcumenicalCouncil2.webp";
-import EcumenicalCouncil3 from "../../assets/images/events/EcumenicalCouncil3.webp";
-import EcumenicalCouncil4 from "../../assets/images/events/EcumenicalCouncil4.webp";
-import EcumenicalCouncil6 from "../../assets/images/events/EcumenicalCouncil6.webp";
-import EcumenicalCouncil7 from "../../assets/images/events/EcumenicalCouncil7.webp";
-import Emperor from "../../assets/images/events/Emperor.webp";
-import Empire from "../../assets/images/events/Empire.webp";
-import Expedition from "../../assets/images/events/Expedition.webp";
+import DruidRitual from "../../assets/images/events/DruidRitual.webp";
+import EmpireDesolation from "../../assets/images/events/EmpireDesolation.webp";
+import EmpireDestruction from "../../assets/images/events/EmpireDestruction.webp";
+import EucharistDebate from "../../assets/images/events/EucharistDebate.webp";
+import FieldHarvest from "../../assets/images/events/FieldHarvest.webp";
 import Flood from "../../assets/images/events/Flood.webp";
-import Galley from "../../assets/images/events/Galley.webp";
-import Games1 from "../../assets/images/events/Games1.webp";
-import Games2 from "../../assets/images/events/Games2.webp";
-import Germania1 from "../../assets/images/events/Germania1.webp";
-import Germania3 from "../../assets/images/events/Germania3.webp";
-import Germania4 from "../../assets/images/events/Germania4.webp";
-import Germania6 from "../../assets/images/events/Germania6.webp";
-import Germania7 from "../../assets/images/events/Germania7.webp";
-import Germania8 from "../../assets/images/events/Germania8.webp";
-import Germania10 from "../../assets/images/events/Germania10.webp";
+import FrankishKing from "../../assets/images/events/FrankishKing.webp";
+import GallicSack from "../../assets/images/events/GallicSack.webp";
+import GermanicusDeath from "../../assets/images/events/GermanicusDeath.webp";
 import Gibraltar from "../../assets/images/events/Gibraltar.webp";
-import H1 from "../../assets/images/events/H1.webp";
-import H2 from "../../assets/images/events/H2.webp";
-import H3 from "../../assets/images/events/H3.webp";
-import Honorius from "../../assets/images/events/Honorius.webp";
+import GiltCup from "../../assets/images/events/GiltCup.webp";
+import GrapeHarvest from "../../assets/images/events/GrapeHarvest.webp";
+import GreatHunt from "../../assets/images/events/GreatHunt.webp";
+import HeliogabalusRoses from "../../assets/images/events/HeliogabalusRoses.webp";
+import HeroTriumph from "../../assets/images/events/HeroTriumph.webp";
+import HomerReading from "../../assets/images/events/HomerReading.webp";
+import HonoriusCourt from "../../assets/images/events/HonoriusCourt.webp";
+import HoratiiOath from "../../assets/images/events/HoratiiOath.webp";
+import HorsePasture from "../../assets/images/events/HorsePasture.webp";
+import HunnicBattle from "../../assets/images/events/HunnicBattle.webp";
+import HusTrial from "../../assets/images/events/HusTrial.webp";
 import Iconoclasm from "../../assets/images/events/Iconoclasm.webp";
-import InvaderConqueredWarGoal from "../../assets/images/events/InvaderConqueredWarGoal.webp";
-import InvaderSueForWhitePeace from "../../assets/images/events/InvaderSueForWhitePeace.webp";
-import Island from "../../assets/images/events/Island.webp";
-import AurelianWalls from "../../assets/images/events/Italia4.webp";
-import Lusitania3 from "../../assets/images/events/Lusitania3.webp";
-import Lusitania4 from "../../assets/images/events/Lusitania4.webp";
-import Lusitania6 from "../../assets/images/events/Lusitania6.webp";
-import Lusitania7 from "../../assets/images/events/Lusitania7.webp";
+import IdealCity from "../../assets/images/events/IdealCity.webp";
+import ImperialCity from "../../assets/images/events/ImperialCity.webp";
+import ImperialPatronage from "../../assets/images/events/ImperialPatronage.webp";
+import JeromeStudy from "../../assets/images/events/JeromeStudy.webp";
+import JeromeWilderness from "../../assets/images/events/JeromeWilderness.webp";
+import JohnBeheading from "../../assets/images/events/JohnBeheading.webp";
+import JohnCassian from "../../assets/images/events/JohnCassian.webp";
+import JulianDebate from "../../assets/images/events/JulianDebate.webp";
 import Macedonianism from "../../assets/images/events/Macedonianism.webp";
-import Martyrs from "../../assets/images/events/Martyrs.webp";
+import MarcusAureliusDeath from "../../assets/images/events/MarcusAureliusDeath.webp";
+import MartyrsPrayer from "../../assets/images/events/MartyrsPrayer.webp";
 import MediterraneanHarbour from "../../assets/images/events/MediterraneanHarbour.webp";
-import Merchant from "../../assets/images/events/Merchant.webp";
+import MediterraneanIsland from "../../assets/images/events/MediterraneanIsland.webp";
+import Merchant1 from "../../assets/images/events/Merchant1.webp";
 import Merchant2 from "../../assets/images/events/Merchant2.webp";
 import Merchant3 from "../../assets/images/events/Merchant3.webp";
 import Miaphysitism from "../../assets/images/events/Miaphysitism.webp";
-import Mine from "../../assets/images/events/Mine.webp";
+import MilvianBridge from "../../assets/images/events/MilvianBridge.webp";
 import Monothelitism from "../../assets/images/events/Monothelitism.webp";
-import Narbonensis1 from "../../assets/images/events/Narbonensis1.webp";
-import Narbonensis3 from "../../assets/images/events/Narbonensis3.webp";
-import Narbonensis4 from "../../assets/images/events/Narbonensis4.webp";
-import Narbonensis5 from "../../assets/images/events/Narbonensis5.webp";
-import Narbonensis6 from "../../assets/images/events/Narbonensis6.webp";
-import Narbonensis7 from "../../assets/images/events/Narbonensis7.webp";
-import Narbonensis8 from "../../assets/images/events/Narbonensis8.webp";
-import Narbonensis9 from "../../assets/images/events/Narbonensis9.webp";
-import Narbonensis10 from "../../assets/images/events/Narbonensis10.webp";
-import NavalWarfare from "../../assets/images/events/NavalWarfare.webp";
+import MoorlandCanal from "../../assets/images/events/MoorlandCanal.webp";
+import NavalBattle from "../../assets/images/events/NavalBattle.webp";
 import Nestorianism from "../../assets/images/events/Nestorianism.webp";
-import Olive from "../../assets/images/events/Olive.webp";
+import NicaeaCouncil from "../../assets/images/events/NicaeaCouncil.webp";
+import NumantiaFalls from "../../assets/images/events/NumantiaFalls.webp";
+import OliveHarvest from "../../assets/images/events/OliveHarvest.webp";
+import PaulPreaching from "../../assets/images/events/PaulPreaching.webp";
+import PeasantRevolt from "../../assets/images/events/PeasantRevolt.webp";
 import Pelagianism from "../../assets/images/events/Pelagianism.webp";
-import Prosperity from "../../assets/images/events/Prosperity.webp";
+import PhilosophySchool from "../../assets/images/events/PhilosophySchool.webp";
+import PompeiiFalls from "../../assets/images/events/PompeiiFalls.webp";
+import PompeiiRefugees from "../../assets/images/events/PompeiiRefugees.webp";
+import PontDuGard from "../../assets/images/events/PontDuGard.webp";
+import PonteMolle from "../../assets/images/events/PonteMolle.webp";
+import PotteryMarket from "../../assets/images/events/PotteryMarket.webp";
 import Pyrenees from "../../assets/images/events/Pyrenees.webp";
-import Ravenna from "../../assets/images/events/Ravenna.webp";
-import Refugee from "../../assets/images/events/Refugee.webp";
-import Rome from "../../assets/images/events/Rome.webp";
-import Sack from "../../assets/images/events/Sack.webp";
-import Sail from "../../assets/images/events/Sail.webp";
-import Saint from "../../assets/images/events/Saint.webp";
-import Saint2 from "../../assets/images/events/Saint2.webp";
-import School from "../../assets/images/events/School.webp";
-import Senate from "../../assets/images/events/Senate.webp";
-import Sicilia2 from "../../assets/images/events/Sicilia2.webp";
-import Sicilia3 from "../../assets/images/events/Sicilia3.webp";
-import Surrender from "../../assets/images/events/Surrender.webp";
-import Tarraconensis7 from "../../assets/images/events/Tarraconensis7.webp";
-import Tarraconensis9 from "../../assets/images/events/Tarraconensis9.webp";
-import Tarraconensis10 from "../../assets/images/events/Tarraconensis10.webp";
-import Toledo from "../../assets/images/events/Toledo.webp";
-import War1 from "../../assets/images/events/War1.webp";
-import War2 from "../../assets/images/events/War2.webp";
-import WarEnded from "../../assets/images/events/WarEnded.webp";
+import QueenEmbarkation from "../../assets/images/events/QueenEmbarkation.webp";
+import RavennaMosaic from "../../assets/images/events/RavennaMosaic.webp";
+import ReligiousTriumph from "../../assets/images/events/ReligiousTriumph.webp";
+import RomanBathing from "../../assets/images/events/RomanBathing.webp";
+import RomanBathsPlan from "../../assets/images/events/RomanBathsPlan.webp";
+import RomanCampagna from "../../assets/images/events/RomanCampagna.webp";
+import RomanDance from "../../assets/images/events/RomanDance.webp";
+import RomanDefeat from "../../assets/images/events/RomanDefeat.webp";
+import RomanExpedition from "../../assets/images/events/RomanExpedition.webp";
+import RomanForum1 from "../../assets/images/events/RomanForum1.webp";
+import RomanForum2 from "../../assets/images/events/RomanForum2.webp";
+import RomanForum3 from "../../assets/images/events/RomanForum3.webp";
+import RomanInvasion from "../../assets/images/events/RomanInvasion.webp";
+import RomanRuins1 from "../../assets/images/events/RomanRuins1.webp";
+import RomanRuins2 from "../../assets/images/events/RomanRuins2.webp";
+import RomanTriumph1 from "../../assets/images/events/RomanTriumph1.webp";
+import RomanTriumph2 from "../../assets/images/events/RomanTriumph2.webp";
+import RomanVilla from "../../assets/images/events/RomanVilla.webp";
+import RomulusAndRemus from "../../assets/images/events/RomulusAndRemus.webp";
+import RuinedColonnade from "../../assets/images/events/RuinedColonnade.webp";
+import RuinsWithPeasants from "../../assets/images/events/RuinsWithPeasants.webp";
+import SackOfRome1 from "../../assets/images/events/SackOfRome1.webp";
+import SackOfRome2 from "../../assets/images/events/SackOfRome2.webp";
+import Sailor from "../../assets/images/events/Sailor.webp";
+import SaintCharity from "../../assets/images/events/SaintCharity.webp";
+import SaintConsecration from "../../assets/images/events/SaintConsecration.webp";
+import SaintEulalia from "../../assets/images/events/SaintEulalia.webp";
+import SaintGereon from "../../assets/images/events/SaintGereon.webp";
+import SaintHealing from "../../assets/images/events/SaintHealing.webp";
+import SaintPaulinus from "../../assets/images/events/SaintPaulinus.webp";
+import SaintRoderick from "../../assets/images/events/SaintRoderick.webp";
+import SchoolmasterPunished from "../../assets/images/events/SchoolmasterPunished.webp";
+import ScipiosClemency1 from "../../assets/images/events/ScipiosClemency1.webp";
+import ScipiosClemency2 from "../../assets/images/events/ScipiosClemency2.webp";
+import SenecaDeath from "../../assets/images/events/SenecaDeath.webp";
+import SierraMorena from "../../assets/images/events/SierraMorena.webp";
+import StephenDebate from "../../assets/images/events/StephenDebate.webp";
+import StephenStoning from "../../assets/images/events/StephenStoning.webp";
+import StoneBridge from "../../assets/images/events/StoneBridge.webp";
+import SwordfishFishing from "../../assets/images/events/SwordfishFishing.webp";
+import TeutoburgBattle from "../../assets/images/events/TeutoburgBattle.webp";
+import TolbiacBattle from "../../assets/images/events/TolbiacBattle.webp";
+import ToledoBridge from "../../assets/images/events/ToledoBridge.webp";
+import ValerianHumiliation from "../../assets/images/events/ValerianHumiliation.webp";
+import VandalsInItaly from "../../assets/images/events/VandalsInItaly.webp";
+import VercingetorixSurrenders from "../../assets/images/events/VercingetorixSurrenders.webp";
+import Vineyard from "../../assets/images/events/Vineyard.webp";
+import VintageFestival from "../../assets/images/events/VintageFestival.webp";
+import VisigothKing from "../../assets/images/events/VisigothKing.webp";
+import VortigernAndRowena from "../../assets/images/events/VortigernAndRowena.webp";
+import Warship from "../../assets/images/events/Warship.webp";
 import Watchtower from "../../assets/images/events/Watchtower.webp";
+import WaterMarket from "../../assets/images/events/WaterMarket.webp";
+import Weavers from "../../assets/images/events/Weavers.webp";
 import Wedding1 from "../../assets/images/events/Wedding1.webp";
 import Wedding2 from "../../assets/images/events/Wedding2.webp";
-import Y193 from "../../assets/images/events/Y193.webp";
-import Y197 from "../../assets/images/events/Y197.webp";
-import Y198 from "../../assets/images/events/Y198.webp";
-import Y211 from "../../assets/images/events/Y211.webp";
-import Y212 from "../../assets/images/events/Y212.webp";
-import Y217 from "../../assets/images/events/Y217.webp";
-import Y218 from "../../assets/images/events/Y218.webp";
-import Y222 from "../../assets/images/events/Y222.webp";
-import Y224 from "../../assets/images/events/Y224.webp";
-import Y235 from "../../assets/images/events/Y235.webp";
-import Y238 from "../../assets/images/events/Y238.webp";
-import Y248 from "../../assets/images/events/Y248.webp";
-import Y251 from "../../assets/images/events/Y251.webp";
-import Y262 from "../../assets/images/events/Y262.webp";
-import Y270 from "../../assets/images/events/Y270.webp";
-import Y272 from "../../assets/images/events/Y272.webp";
-import Y284 from "../../assets/images/events/Y284.webp";
-import Y293 from "../../assets/images/events/Y293.webp";
-import Y303 from "../../assets/images/events/Y303.webp";
-import Y312 from "../../assets/images/events/Y312.webp";
-import Y313 from "../../assets/images/events/Y313.webp";
-import Y330 from "../../assets/images/events/Y330.webp";
-import Y361 from "../../assets/images/events/Y361.webp";
-import Y378 from "../../assets/images/events/Y378.webp";
-import Y380 from "../../assets/images/events/Y380.webp";
-import Y395 from "../../assets/images/events/Y395.webp";
-import Y400 from "../../assets/images/events/Y400.webp";
-import Y401 from "../../assets/images/events/Y401.webp";
-import Y409 from "../../assets/images/events/Y409.webp";
-import Y410 from "../../assets/images/events/Y410.webp";
-import Y418 from "../../assets/images/events/Y418.webp";
-import Y429 from "../../assets/images/events/Y429.webp";
-import Y439 from "../../assets/images/events/Y439.webp";
-import Y443 from "../../assets/images/events/Y443.webp";
-import Y445 from "../../assets/images/events/Y445.webp";
-import Y446 from "../../assets/images/events/Y446.webp";
-import Y449 from "../../assets/images/events/Y449.webp";
-import Y451 from "../../assets/images/events/Y451.webp";
-import Y453 from "../../assets/images/events/Y453.webp";
-import Y455 from "../../assets/images/events/Y455.webp";
-import Y471 from "../../assets/images/events/Y471.webp";
-import Y476 from "../../assets/images/events/Y476.webp";
+import ZenobiaCaptured from "../../assets/images/events/ZenobiaCaptured.webp";
+import ZenobiaSpeech from "../../assets/images/events/ZenobiaSpeech.webp";
 import type { ImageWithCredit } from "./ImageWithCredit";
 
+interface IEventImage extends ImageWithCredit {
+   keywords: string[];
+}
+
 export const EventImage = {
-   EcumenicalCouncil2: {
-      url: EcumenicalCouncil2,
-      credit: "Christ Among the Doctors, Paolo Veronese (c.1560)",
+   AgathaHealing: {
+      url: AgathaHealing,
+      credit: "St Peter Healing St Agatha, Giovanni Lanfranco (c.1614)",
+      keywords: ["Christianity", "Peter", "Saint", "Miracle"],
    },
-   EcumenicalCouncil3: {
-      url: EcumenicalCouncil3,
+   Alps: {
+      url: Alps,
+      credit: "Aus der Berninagruppe. Typus der Centralalpen, Vogelsang & Kaiser (1890)",
+      keywords: ["Mountains", "Snow", "Landscape", "Europe"],
+   },
+   AmbroseBarsTheodosius: {
+      url: AmbroseBarsTheodosius,
+      credit: "Saint Ambrose barring Theodosius from Milan Cathedral, Anthony van Dyck (c.1620)",
+      keywords: ["Christianity", "Emperor", "Bishop", "Cathedral"],
+   },
+   AncientRome: {
+      url: AncientRome,
+      credit: "Ancient Rome, Giovanni Paolo Panini (1757)",
+      keywords: ["City", "Architecture", "Forum", "Empire"],
+   },
+   Aqueduct: {
+      url: Aqueduct,
+      credit: "Landscape with ruins and an aqueduct, Pierre Antoine Patel the younger",
+      keywords: ["Rome", "Architecture", "Water", "Ruins"],
+   },
+   Arianism: {
+      url: Arianism,
+      credit: "The Baptism of Constantine, Gianfrancesco Penni (c.1520)",
+      keywords: ["Christianity", "Heresy", "Constantine", "Baptism"],
+   },
+   AttilasFeast: {
+      url: AttilasFeast,
+      credit: "A Feast At Attila's Court, Hans Werner Schmidt (1912)",
+      keywords: ["Huns", "Banquet", "Court", "King"],
+   },
+   AugustineDeath: {
+      url: AugustineDeath,
+      credit: "Death of St. Augustine, Benozzo Gozzoli (1465)",
+      keywords: ["Christianity", "Bishop", "Hippo", "Deathbed"],
+   },
+   AugustineDebate: {
+      url: AugustineDebate,
       credit: "Saint Augustine Disputing with the Heretics, Vergós Group (c.1470)",
+      keywords: ["Christianity", "Heresy", "Clergy", "Theology"],
    },
-   EcumenicalCouncil4: {
-      url: EcumenicalCouncil4,
-      credit: "Jan Hus at Constance, Carl Friedrich Lessing (1842)",
+   AugustineStudy: {
+      url: AugustineStudy,
+      credit: "Saint Augustine in His Study, Vittore Carpaccio (1502)",
+      keywords: ["Christianity", "Scholar", "Books", "Bishop"],
    },
-   EcumenicalCouncil6: {
-      url: EcumenicalCouncil6,
-      credit: "Saint Paul Preaching in Athens, Giovanni Paolo Panini (1734)",
+   AurelianWalls: {
+      url: AurelianWalls,
+      credit: "Walls of Rome: The Aurelian Wall, Isaac Weld (1818)",
+      keywords: ["Rome", "Fortification", "Architecture", "Defence"],
    },
-   EcumenicalCouncil7: {
-      url: EcumenicalCouncil7,
-      credit: "The Triumph of Religion in the Arts, Johann Friedrich Overbeck (1834)",
+   BarbarianCaptives: {
+      url: BarbarianCaptives,
+      credit: "Captives, Évariste-Vital Luminais",
+      keywords: ["Prisoners", "Migration", "War", "Tribe"],
    },
-   Arianism: { url: Arianism, credit: "The Baptism of Constantine, Gianfrancesco Penni (c.1520)" },
+   BarbariansAtRome: {
+      url: BarbariansAtRome,
+      credit: "The Barbarians Before Rome, Évariste-Vital Luminais (c.1800s)",
+      keywords: ["Invasion", "Army", "City", "Migration"],
+   },
+   BattleOfIssus: {
+      url: BattleOfIssus,
+      credit: "Alexander and Darius at Issus, Anton Hoffmann (1920)",
+      keywords: ["Alexander", "Darius", "Persia", "War"],
+   },
+   BenedictAndTotila: {
+      url: BenedictAndTotila,
+      credit: "Saint Benedict receiving Totila, King of the Ostrogoths, Gaspar de Crayer (1633)",
+      keywords: ["Ostrogoths", "Saint", "King", "Audience"],
+   },
+   BuriedTreasure: {
+      url: BuriedTreasure,
+      credit: "Hagen versenkt den Nibelungenhort, Peter von Cornelius (1859)",
+      keywords: ["Hagen", "Nibelungs", "Rhine", "Gold"],
+   },
+   CadaverSynod: {
+      url: CadaverSynod,
+      credit: "Pope Formosus and Stephen VI - The Cadaver Synod, Jean-Paul Laurens (1870)",
+      keywords: ["Christianity", "Pope", "Trial", "Corpse"],
+   },
+   CaesarDeath1: {
+      url: CaesarDeath1,
+      credit: "The Assassination of Julius Caesar, Karl von Piloty (1865)",
+      keywords: ["Rome", "Assassination", "Senate", "Conspiracy"],
+   },
+   CaesarDeath2: {
+      url: CaesarDeath2,
+      credit: "The Death of Julius Caesar, Vincenzo Camuccini (1806)",
+      keywords: ["Rome", "Assassination", "Senate", "Conspiracy"],
+   },
+   CaesarsTriumph: {
+      url: CaesarsTriumph,
+      credit: "Caesar's Triumph, Peter Paul Rubens and Erasmus Quellinus II (1600s)",
+      keywords: ["Rome", "Victory", "Procession", "Caesar"],
+   },
+   CaptiveTriumph: {
+      url: CaptiveTriumph,
+      credit: "Thusnelda in the Triumphal Procession of Germanicus, Karl von Piloty (1873)",
+      keywords: ["Rome", "Thusnelda", "Prisoner", "Procession"],
+   },
+   CaracallaBaths: {
+      url: CaracallaBaths,
+      credit: "Baths of Caracalla (Rome), Josef Langl (1883)",
+      keywords: ["Rome", "Bathhouse", "Architecture", "Ruins"],
+   },
+   CarthageCaptured: {
+      url: CarthageCaptured,
+      credit: "The Capture of Carthage, Giovanni Battista Tiepolo (1725)",
+      keywords: ["War", "Siege", "Victory", "Africa"],
+   },
+   CarthageDecline: {
+      url: CarthageDecline,
+      credit: "The Decline of the Carthaginian Empire, J. M. W. Turner (1817)",
+      keywords: ["Africa", "Empire", "Harbour", "Ruins"],
+   },
+   ChariotRace1: {
+      url: ChariotRace1,
+      credit: "Horse racing at the Circus, Hans Werner Schmidt (1912)",
+      keywords: ["Circus", "Horses", "Rome", "Sport"],
+   },
+   ChariotRace2: {
+      url: ChariotRace2,
+      credit: "The Chariot Race, Alexander von Wagner (c. 1882)",
+      keywords: ["Circus", "Horses", "Rome", "Sport"],
+   },
+   ChristTeaching: {
+      url: ChristTeaching,
+      credit: "Christ Among the Doctors, Paolo Veronese (c.1560)",
+      keywords: ["Christianity", "Temple", "Doctors", "Theology"],
+   },
+   CiceroInSenate: {
+      url: CiceroInSenate,
+      credit: "Cicero's tale about Catiline, Hans Werner Schmidt (1912)",
+      keywords: ["Rome", "Catiline", "Politics", "Oratory"],
+   },
+   CircusBattle: {
+      url: CircusBattle,
+      credit: "Rome under the emperors, battles in the circus, Carl H.F. Schmidt (1888)",
+      keywords: ["Rome", "Arena", "Spectacle", "Combat"],
+   },
+   CivicTriumph: {
+      url: CivicTriumph,
+      credit: "Le triomphe de la Ville de Paris, François-Edouard Picot (1842)",
+      keywords: ["Prosperity", "City", "Allegory", "Celebration"],
+   },
+   ClaudiusEmperor: {
+      url: ClaudiusEmperor,
+      credit: "The Praetorian Guard Proclaiming Claudius Emperor, Lawrence Alma-Tadema (1867)",
+      keywords: ["Rome", "PraetorianGuard", "Palace", "Proclamation"],
+   },
+   ClovisBaptism: {
+      url: ClovisBaptism,
+      credit: "The Baptism of Clovis, Master of Saint Giles (c.1500)",
+      keywords: ["Franks", "Christianity", "King", "Conversion"],
+   },
+   Colosseum: {
+      url: Colosseum,
+      credit: "The Colosseum Rome, John Warwick Smith (1802)",
+      keywords: ["Rome", "Amphitheatre", "Ruins", "Architecture"],
+   },
+   CommodusDeath: {
+      url: CommodusDeath,
+      credit: "The Death of Commodus, Fernand Pelez (c. 1899)",
+      keywords: ["Emperor", "Assassination", "Rome", "Bedchamber"],
+   },
+   ConstantineBaptism: {
+      url: ConstantineBaptism,
+      credit: "The Baptism of Constantine, Gianfrancesco Penni (c.1520)",
+      keywords: ["Christianity", "Emperor", "Conversion", "Sacrament"],
+   },
+   ConstantinopleBuilt: {
+      url: ConstantinopleBuilt,
+      credit: "Constantine Directing the Building of Constantinople, Peter Paul Rubens (c.1623)",
+      keywords: ["Constantine", "Construction", "City", "Byzantium"],
+   },
+   CopperMine: {
+      url: CopperMine,
+      credit: "Copper mining, Adolf Hoeffler (1853)",
+      keywords: ["Mining", "Workers", "Industry", "Ore"],
+   },
+   CouncilOfTrent: {
+      url: CouncilOfTrent,
+      credit: "The Council of Trent, Santa Maria Fresco in Trastevere, Rome (1588)",
+      keywords: ["Christianity", "Clergy", "Council", "Theology"],
+   },
+   DeciusDeath: {
+      url: DeciusDeath,
+      credit: "The Death of Decius Mus, Peter Paul Rubens (1618)",
+      keywords: ["Rome", "Emperor", "Battle", "Sacrifice"],
+   },
+   DelphiOracle: {
+      url: DelphiOracle,
+      credit: "The Oracle at Delphi, Hans Werner Schmidt (1920)",
+      keywords: ["Greece", "Pythia", "Prophecy", "Temple"],
+   },
+   DiocletianStatue: {
+      url: DiocletianStatue,
+      credit: "The Emperor Diocletian shows the Statue of Asclepius, Frans Francken the Younger (1624)",
+      keywords: ["Rome", "Emperor", "Asclepius", "Paganism"],
+   },
    Donatism: {
       url: Donatism,
       credit: "St. Augustine Arguing with the Donatists, Charles-André van Loo (18th century)",
+      keywords: ["Christianity", "Heresy", "Augustine", "Debate"],
    },
-   Macedonianism: { url: Macedonianism, credit: "The Pentecost, El Greco (c. 1600)" },
-   Pelagianism: { url: Pelagianism, credit: "A print of Pelagius from an unidentified early modern source (c.1600s)" },
-   Nestorianism: {
-      url: Nestorianism,
-      credit: "Portret van Nestorius, Romeyn de Hooghe (1688)",
-   },
-   Miaphysitism: { url: Miaphysitism, credit: "Fresco in the Chora Church, Istanbul, 14th century" },
-   Monothelitism: {
-      url: Monothelitism,
-      credit: "Byzantine mosaic of Jesus Christ in Basilica of Sant'Apollinare Nuovo in Ravenna",
-   },
-   Iconoclasm: {
-      url: Iconoclasm,
-      credit: "Gli Iconoclasti, Domenico Morelli (1855)",
-   },
-   Y193: { url: Y193, credit: "The Death of Commodus, Fernand Pelez (c. 1899)" },
-   Y197: { url: Y197, credit: "The Battle of the Teutoburg Forest, Otto Albert Koch (1909)" },
-   Y198: { url: Y198, credit: "The Triumph of Titus, Lawrence Alma-Tadema (1885)" },
-   Y211: { url: Y211, credit: "The Death of Germanicus, Nicolas Poussin (1627)" },
-   Y212: { url: Y212, credit: "The Roman Forum, Giovanni Paolo Panini (1740)" },
-   Y217: { url: Y217, credit: "The Assassination of Julius Caesar, Karl von Piloty (1865)" },
-   Y218: { url: Y218, credit: "The Roses of Heliogabalus, Lawrence Alma-Tadema (1888)" },
-   Y222: { url: Y222, credit: "The Praetorian Guard Proclaiming Claudius Emperor, Lawrence Alma-Tadema (1867)" },
-   Y224: {
-      url: Y224,
-      credit: "The Humiliation of Emperor Valerian by Shapur, King of Persia, Hans Holbein the Younger (1521)",
-   },
-   Y235: { url: Y235, credit: "The Death of Julius Caesar, Vincenzo Camuccini (1806)" },
-   Y238: { url: Y238, credit: "Ruines Romaines, Hubert Robert (1776)" },
-   Y248: { url: Y248, credit: "A Roman Triumph, Jacques Grasset de Saint-Sauveur (1796)" },
-   Y251: { url: Y251, credit: "The Death of Decius Mus, Peter Paul Rubens (1618)" },
-   Y262: {
-      url: Y262,
-      credit: "Vercingetorix Throwing down His Weapons at the feet of Julius Caesar, Lionel Royer (1899)",
-   },
-   Y270: { url: Y270, credit: "Queen Zenobia Addressing Her Soldiers, Giovanni Battista Tiepolo (c. 1725)" },
-   Y272: { url: Y272, credit: "Queen Zenobia before the Emperor Aurelian, Giovanni Battista Tiepolo (1717)" },
-   Y284: {
-      url: Y284,
-      credit: "The Emperor Diocletian shows the Statue of Asclepius, Frans Francken the Younger (1624)",
-   },
-   Y293: { url: Y293, credit: "Cross-section of the Baths of Diocletian, Edmond Jean-Baptiste Paulin (1880)" },
-   Y303: { url: Y303, credit: "The Christian Martyrs' Last Prayer, Jean-Léon Gérôme (c.1870)" },
-   Y312: { url: Y312, credit: "The Battle of Milvian Bridge, Giulio Romano (1520)" },
-   Y313: { url: Y313, credit: "The Baptism of Constantine, Gianfrancesco Penni (c.1520)" },
-   Y330: { url: Y330, credit: "Constantine Directing the Building of Constantinople, Peter Paul Rubens (c.1623)" },
-   Y361: { url: Y361, credit: "Julian the Apostate Presiding at a Conference of Sectarians, Edward Armitage (1875)" },
-   Y378: { url: Y378, credit: "Romans Under the Yoke, Charles Gleyre (1858)" },
-   Y380: { url: Y380, credit: "Saint Ambrose barring Theodosius from Milan Cathedral, Anthony van Dyck (c.1620)" },
-   Y395: {
-      url: Y395,
+   DruidRitual: {
+      url: DruidRitual,
       credit:
-         "Blick auf das Forum Romanum mit dem Septimius-Severus-Bogen und dem Tempel der Faustina und des Antonius Pius, Albert Rieger (1880)",
+         "Druid cutting mistletoe on the sixth day of the moon (Druide coupant le gui au sixième jour de la lune), Henri-Paul Motte (1900)",
+      keywords: ["Gaul", "Mistletoe", "Paganism", "Priest"],
    },
-   Y400: { url: Y400, credit: "Das Forum Romanum, J. Bühlmann (1901)" },
-   Y401: { url: Y401, credit: "Extensive landscape in the Roman Campagna, Louis Gurlitt (1844)" },
-   Y409: { url: Y409, credit: "Captives, Évariste-Vital Luminais" },
-   Y410: { url: Y410, credit: "Sac de Rome, Joseph-Noël Sylvestre (1890)" },
-   Y418: { url: Y418, credit: "Walia, rey de los Visigodos, Alejo Vera (1855)" },
-   Y429: { url: Y429, credit: "Death of St. Augustine, Benozzo Gozzoli (1465)" },
-   Y439: { url: Y439, credit: "The Decline of the Carthaginian Empire, J. M. W. Turner (1817)" },
-   Y443: { url: Y443, credit: "Hagen versenkt den Nibelungenhort, Peter von Cornelius (1859)" },
-   Y445: { url: Y445, credit: "A Feast At Attila's Court, Hans Werner Schmidt (1912)" },
-   Y446: { url: Y446, credit: "The Baptism of Clovis, Master of Saint Giles (c.1500)" },
-   Y449: { url: Y449, credit: "Meeting of Vortigern and Rowena, William Hamilton (c.1800)" },
-   Y451: { url: Y451, credit: "Die Hunnenschlacht, Wilhelm von Kaulbach (c.1850)" },
-   Y453: { url: Y453, credit: "The Battle of Tolbiac, Ary Scheffer (1836)" },
-   Y455: { url: Y455, credit: "Plundering of Rome by the Vandals, Heinrich Leutemann (1866)" },
-   Y471: { url: Y471, credit: "Saint Benedict receiving Totila, King of the Ostrogoths, Gaspar de Crayer (1633)" },
-   Y476: { url: Y476, credit: "The Colosseum Rome, John Warwick Smith (1802)" },
-   Merchant: { url: Merchant, credit: "The Orange Merchant In Cairo, Anton Binder (Austrian, 1868-1944)" },
-   Merchant2: { url: Merchant2, credit: "The Street Merchant, Gustavo Simoni (Italian, 1845-1926)" },
-   Merchant3: { url: Merchant3, credit: "The Carpet Merchant, Francesco Ballesio (Italian, 1860-1923)" },
-   School: { url: School, credit: "The School of Athens, Raphael (1509-1511)" },
-   Martyrs: { url: Martyrs, credit: "The Stoning of Saint Stephen, Rembrandt van Rijn (1625)" },
-   Surrender: {
-      url: Surrender,
-      credit: "Camillus Delivers the Schoolmaster of Falerii to His Pupils, Nicolas Poussin (1637)",
+   EmpireDesolation: {
+      url: EmpireDesolation,
+      credit: "The Course of Empire: Desolation, Thomas Cole (1836)",
+      keywords: ["Ruins", "Landscape", "Decay", "Civilization"],
    },
-   Refugee: { url: Refugee, credit: "The Last Days of Pompeii, Karl Bryullov (1830-33)" },
-   Rome: {
-      url: Rome,
-      credit: "A Capriccio View Of Rome With Ancient Ruins And The Flaminian Obelisk, Giovanni Paolo Panini (1736)",
+   EmpireDestruction: {
+      url: EmpireDestruction,
+      credit: "The Course of Empire: Destruction, Thomas Cole (1836)",
+      keywords: ["Ruins", "War", "Fire", "Civilization"],
    },
-   Bishop: {
-      url: Bishop,
-      credit: "Consécration de sainte Geneviève par saint Germain, évêque d'Auxerre, François-Louis Dejuinne (1830)",
+   EucharistDebate: {
+      url: EucharistDebate,
+      credit: "The Disputation of the Holy Sacrament (La Disputa), Raphael (1510)",
+      keywords: ["Christianity", "Theology", "Clergy", "Sacrament"],
    },
-   Annex: { url: Annex, credit: "Thusnelda in the Triumphal Procession of Germanicus, Karl von Piloty (1873)" },
-   Watchtower: { url: Watchtower, credit: "Die Friedberger Warte zu Frankfurt am Main, Anton Radl" },
-   Emperor: {
-      url: Emperor,
-      credit: "Maecenas Presenting the Liberal Arts to Emperor Augustus, Giovanni Battista Tiepolo (1743)",
-   },
-   Saint: {
-      url: Saint,
-      credit: "Sainte Geneviève guérit sa mère aveugle, Pierre-Auguste Pichon (1851-1855)",
-   },
-   Saint2: {
-      url: Saint2,
-      credit: "Saint Martin Dividing his Cloak, Anthony van Dyck (c.1618)",
-   },
-   Sail: { url: Sail, credit: "Sailor on Lake Garda near Malcesine, Michael Zeno Diemer" },
-   H1: { url: H1, credit: "Last Words of the Emperor Marcus Aurelius, Eugène Delacroix (1844)" },
-   H2: { url: H2, credit: "The Death of Seneca, Jacques-Louis David (1773)" },
-   H3: { url: H3, credit: "The finding of Romulus and Remus, Carlo Maratta (1680)" },
-   InvaderConqueredWarGoal: {
-      url: InvaderConqueredWarGoal,
-      credit: "The Capture of Carthage, Giovanni Battista Tiepolo (1725)",
-   },
-   InvaderSueForWhitePeace: {
-      url: InvaderSueForWhitePeace,
-      credit: "Caesar's Triumph, Peter Paul Rubens and Erasmus Quellinus II (1600s)",
-   },
-   WarEnded: {
-      url: WarEnded,
-      credit: "The Continence of Scipio, Nicolas Poussin (1640)",
-   },
-   DeclareWar: {
-      url: DeclareWar,
-      credit: "Oath of the Horatii, Jacques-Louis David (1784)",
-   },
-   DrawnIntoWar: {
-      url: DrawnIntoWar,
-      credit: "The Continence of Scipio, Pompeo Batoni (1771)",
+   FieldHarvest: {
+      url: FieldHarvest,
+      credit: "Harvest in the Czech-Moravian Highlands, Tavík František Šimon (1870)",
+      keywords: ["Agriculture", "Workers", "Countryside", "Crops"],
    },
    Flood: {
       url: Flood,
       credit: "The Flood in the Darling, William Charles Piguenit (1895)",
+      keywords: ["Disaster", "River", "Water", "Landscape"],
    },
-   Aquitania1: {
-      url: Aquitania1,
-      credit: "Young Woman in the Vaudois after the Grape Harvest, Wolfgang Adam Töpffer (1821)",
-   },
-   Aquitania2: { url: Aquitania2, credit: "Villa Farnese, Abraham-Louis-Rodolphe Ducros (c.1780)" },
-   Aquitania3: {
-      url: Aquitania3,
-      credit: "A Capriccio of Roman Ruins with Peasants in the Foreground, Charles-Louis Clérisseau (1773)",
-   },
-   Aquitania5: { url: Aquitania5, credit: "The Disputation of the Holy Sacrament (La Disputa), Raphael (1510)" },
-   Aquitania6: { url: Aquitania6, credit: "Saint Paulinus of Nola. Line engraving" },
-   Aquitania7: { url: Aquitania7, credit: "A Reading from Homer, Lawrence Alma-Tadema (1885)" },
-   Aquitania8: { url: Aquitania8, credit: "A Favourite Custom, Lawrence Alma-Tadema (1909)" },
-   Aquitania9: { url: Aquitania9, credit: "Fashion in a Landscape with Horses Beyond, Henri Delattre (1855)" },
-   Aquitania10: { url: Aquitania10, credit: "Frühsommerlicher Weinberg in Pillnitz, Carl Gustav Carus (c.1830)" },
-   Belgica1: { url: Belgica1, credit: "Ancient Rome, Giovanni Paolo Panini (1757)" },
-   Belgica2: { url: Belgica2, credit: "Las Hilanderas (The Fable of Arachne), Diego Velázquez (c.1657)" },
-   Belgica3: {
-      url: Belgica3,
-      credit: "The Triumph Of A Roman Hero, Possibly Marcus Claudius Marcellus, Vincenzo Camuccini (1816)",
-   },
-   Belgica4: {
-      url: Belgica4,
-      credit:
-         "Druid cutting mistletoe on the sixth day of the moon (Druide coupant le gui au sixième jour de la lune), Henri-Paul Motte (1900)",
-   },
-   Belgica5: { url: Belgica5, credit: "Saint Jerome in His Study, Domenico Ghirlandaio (1480)" },
-   Belgica7: { url: Belgica7, credit: "Still Life with a Gilt Cup, Willem Claesz. Heda (1635)" },
-   Belgica9: { url: Belgica9, credit: "A Colonnade, Partly Ruined, with Figures, Francesco Guardi (c.1780)" },
-   Belgica10: { url: Belgica10, credit: "Harvest in the Czech-Moravian Highlands, Tavík František Šimon (1870)" },
-   Germania1: { url: Germania1, credit: "Am Töpfermarkt, Alfred Steinacker" },
-   Galley: { url: Galley, credit: "A Phoenician warship, H. G. Swanwick (1920)" },
-   Germania3: {
-      url: Germania3,
+   FrankishKing: {
+      url: FrankishKing,
       credit: "Pharamond Is Lifted on the Shield by the Franks, Pierre-Henri Révoil and Michel-Philibert Genod (1845)",
+      keywords: ["Pharamond", "Franks", "Shield", "Coronation"],
    },
-   Germania4: { url: Germania4, credit: "The Course of Empire: Destruction, Thomas Cole (1836)" },
-   Germania6: { url: Germania6, credit: "Saint Gereon with His Entourage, anonymous Cologne master (c. 1460)" },
-   Germania7: {
-      url: Germania7,
-      credit: "A Bridge near Sorrento, Thorald Brendstrup (c.1850)",
+   GallicSack: {
+      url: GallicSack,
+      credit: "The Gauls in Rome, Anton Hoffmann (1920)",
+      keywords: ["Gauls", "Rome", "Plunder", "War"],
    },
-   Germania8: {
-      url: Germania8,
-      credit: "The Romans under Julius Caesar Invading Britain, Edward Armitage (1843)",
+   GermanicusDeath: {
+      url: GermanicusDeath,
+      credit: "The Death of Germanicus, Nicolas Poussin (1627)",
+      keywords: ["Rome", "General", "Mourning", "Deathbed"],
    },
-   Germania10: { url: Germania10, credit: "The Barbarians Before Rome, Évariste-Vital Luminais (c.1800s)" },
-   Narbonensis1: {
-      url: Narbonensis1,
-      credit: "Seaport with the Embarkation of the Queen of Sheba, Claude Lorrain (1648)",
+   Gibraltar: {
+      url: Gibraltar,
+      credit: "Gibraltar. (From the Mainland), Thomas Nelson & Sons (1907)",
+      keywords: ["Spain", "Coast", "Rock", "Landscape"],
    },
-   Narbonensis3: { url: Narbonensis3, credit: "Le Pont du Gard, Hubert Robert (1787)" },
-   Narbonensis4: { url: Narbonensis4, credit: "The Beheading of Saint John the Baptist, Caravaggio (1608)" },
-   Narbonensis5: { url: Narbonensis5, credit: "The Council of Trent, Santa Maria Fresco in Trastevere, Rome (1588)" },
-   Narbonensis6: { url: Narbonensis6, credit: "The Ideal City (Città Ideale), attributed to Fra Carnevale (c.1480)" },
-   Narbonensis7: { url: Narbonensis7, credit: "Landscape with the Ponte Molle, Claude Lorrain (1645)" },
-   Narbonensis8: { url: Narbonensis8, credit: "Saint Jerome in the Wilderness, Giovanni Bellini (c.1480)" },
-   Narbonensis9: { url: Narbonensis9, credit: "Čeština: Saint John Cassian" },
-   Narbonensis10: { url: Narbonensis10, credit: "The Course of Empire: Desolation, Thomas Cole (1836)" },
-   Toledo: { url: Toledo, credit: "Bridge near Toledo, Marius Bauer (1903)" },
-   Canal: { url: Canal, credit: "Moorkanal in der Hammeniederung, Fritz Overbeck (1894)" },
-   Tarraconensis7: { url: Tarraconensis7, credit: "Saint Augustine in His Study, Vittore Carpaccio (1502)" },
-   Tarraconensis9: { url: Tarraconensis9, credit: "The Last Day of Numantia, Alejo Vera (1881)" },
-   Tarraconensis10: {
-      url: Tarraconensis10,
-      credit: "Episode from the Peasants' Revolt: The Fire of Turnhout, Constantin Meunier (c. 1878)",
+   GiltCup: {
+      url: GiltCup,
+      credit: "Still Life with a Gilt Cup, Willem Claesz. Heda (1635)",
+      keywords: ["StillLife", "Luxury", "Tableware", "Wealth"],
    },
-   Lusitania3: { url: Lusitania3, credit: "The Four Elements: Water, Joachim Beuckelaer (1569)" },
-   Lusitania4: { url: Lusitania4, credit: "The Vintage Festival, Lawrence Alma-Tadema (1871)" },
-   Lusitania6: { url: Lusitania6, credit: "Saint Eulalia, John William Waterhouse (1885)" },
-   Lusitania7: { url: Lusitania7, credit: "The Disputation of Saint Stephen, Vittore Carpaccio (1514)" },
-   Olive: { url: Olive, credit: "Women Picking Olives, Vincent van Gogh Dutch (1889)" },
-   Baetica2: { url: Baetica2, credit: "Swordfish fishing off Capri, Christian Frederik Ferdinand Thøming (c.1830)" },
-   Baetica3: { url: Baetica3, credit: "Pass in the Sierra Morena, Charles Hamilton Smith" },
-   Baetica5: { url: Baetica5, credit: "Saint Roderick, Bartolomé Esteban Murillo (c.1646)" },
-   Baetica6: {
-      url: Baetica6,
-      credit: "Pope Formosus and Stephen VI - The Cadaver Synod, Jean-Paul Laurens (1870)",
+   GrapeHarvest: {
+      url: GrapeHarvest,
+      credit: "Young Woman in the Vaudois after the Grape Harvest, Wolfgang Adam Töpffer (1821)",
+      keywords: ["Vineyard", "Woman", "Wine", "Countryside"],
    },
-   Baetica7: { url: Baetica7, credit: "The First Council of Nicaea, Michael Damaskinos (1591)" },
-   Dancer: { url: Dancer, credit: "The Roman Dance, Ettore Forti" },
-   Baetica9: { url: Baetica9, credit: "Gaiseric's Vandals in Italy, Unknown artist (c.1800s)" },
-   Pyrenees: { url: Pyrenees, credit: "Views from Spain towards the High Pyrenees, Charles Hamilton Smith" },
-   Alliance: { url: Alliance, credit: "The Oracle at Delphi, Hans Werner Schmidt (1920)" },
-   NavalWarfare: { url: NavalWarfare, credit: "The Battle of Salamis, Anton Hoffmann (1920)" },
-   Sack: { url: Sack, credit: "The Gauls in Rome, Anton Hoffmann (1920)" },
-   War1: { url: War1, credit: "Alexander and Darius at Issus, Anton Hoffmann (1920)" },
-   Circus: { url: Circus, credit: "Rome under the emperors, battles in the circus, Carl H.F. Schmidt (1888)" },
-   War2: { url: War2, credit: "The Fall of Pompeii, Anton Hoffmann (1920)" },
-   Prosperity: { url: Prosperity, credit: "Le triomphe de la Ville de Paris, François-Edouard Picot (1842)" },
-   Wedding1: { url: Wedding1, credit: "Hymen, oh Hyménée, Juan Luna (1886-87)" },
-   Wedding2: { url: Wedding2, credit: "A Roman Wedding Procession, Edwin Howland Blashfield" },
-   Mine: { url: Mine, credit: "Copper mining, Adolf Hoeffler (1853)" },
-   Games1: { url: Games1, credit: "Horse racing at the Circus, Hans Werner Schmidt (1912)" },
-   Games2: { url: Games2, credit: "The Chariot Race, Alexander von Wagner (c. 1882)" },
-   Empire: { url: Empire, credit: "Marcus Aurelius' expedition from Vindobona, Anton Hoffmann (1920)" },
-   Aqueduct: { url: Aqueduct, credit: "Landscape with ruins and an aqueduct, Pierre Antoine Patel the younger" },
-   Gibraltar: { url: Gibraltar, credit: "Gibraltar. (From the Mainland), Thomas Nelson & Sons (1907)" },
-   Expedition: { url: Expedition, credit: "The Course of Empire: Consummation , Thomas Cole (1836)" },
-   Alps: { url: Alps, credit: "Aus der Berninagruppe. Typus der Centralalpen, Vogelsang & Kaiser (1890)" },
-   Island: { url: Island, credit: "Aften ved Middelhavet. I baggrunden Marseille og øen If, Emanuel Larsen (1854)" },
+   GreatHunt: {
+      url: GreatHunt,
+      credit: "The Great Hunt mosaic, Villa Romana del Casale (4th century)",
+      keywords: ["Sicily", "Mosaic", "Animals", "Hunters"],
+   },
+   HeliogabalusRoses: {
+      url: HeliogabalusRoses,
+      credit: "The Roses of Heliogabalus, Lawrence Alma-Tadema (1888)",
+      keywords: ["Rome", "Emperor", "Banquet", "Flowers"],
+   },
+   HeroTriumph: {
+      url: HeroTriumph,
+      credit: "The Triumph Of A Roman Hero, Possibly Marcus Claudius Marcellus, Vincenzo Camuccini (1816)",
+      keywords: ["Rome", "Marcellus", "Victory", "Procession"],
+   },
+   HomerReading: {
+      url: HomerReading,
+      credit: "A Reading from Homer, Lawrence Alma-Tadema (1885)",
+      keywords: ["Poetry", "Education", "Romans", "Literature"],
+   },
+   HonoriusCourt: {
+      url: HonoriusCourt,
+      credit: "The Favourites of the Emperor Honorius, John William Waterhouse (1883)",
+      keywords: ["Rome", "Emperor", "Palace", "Favourites"],
+   },
+   HoratiiOath: {
+      url: HoratiiOath,
+      credit: "Oath of the Horatii, Jacques-Louis David (1784)",
+      keywords: ["Rome", "War", "Soldiers", "Oath"],
+   },
+   HorsePasture: {
+      url: HorsePasture,
+      credit: "Fashion in a Landscape with Horses Beyond, Henri Delattre (1855)",
+      keywords: ["Horses", "Landscape", "Fashion", "Countryside"],
+   },
+   HunnicBattle: {
+      url: HunnicBattle,
+      credit: "Die Hunnenschlacht, Wilhelm von Kaulbach (c.1850)",
+      keywords: ["Huns", "War", "Cavalry", "CatalaunianPlains"],
+   },
+   HusTrial: {
+      url: HusTrial,
+      credit: "Jan Hus at Constance, Carl Friedrich Lessing (1842)",
+      keywords: ["Christianity", "Council", "Heresy", "Judgment"],
+   },
+   Iconoclasm: {
+      url: Iconoclasm,
+      credit: "Gli Iconoclasti, Domenico Morelli (1855)",
+      keywords: ["Christianity", "Byzantine", "Icons", "Destruction"],
+   },
+   IdealCity: {
+      url: IdealCity,
+      credit: "The Ideal City (Città Ideale), attributed to Fra Carnevale (c.1480)",
+      keywords: ["Renaissance", "Architecture", "Plaza", "Urbanism"],
+   },
+   ImperialCity: {
+      url: ImperialCity,
+      credit: "The Course of Empire: Consummation , Thomas Cole (1836)",
+      keywords: ["Empire", "Prosperity", "Architecture", "Celebration"],
+   },
+   ImperialPatronage: {
+      url: ImperialPatronage,
+      credit: "Maecenas Presenting the Liberal Arts to Emperor Augustus, Giovanni Battista Tiepolo (1743)",
+      keywords: ["Augustus", "Arts", "Emperor", "Court"],
+   },
+   JeromeStudy: {
+      url: JeromeStudy,
+      credit: "Saint Jerome in His Study, Domenico Ghirlandaio (1480)",
+      keywords: ["Christianity", "Scholar", "Books", "Saint"],
+   },
+   JeromeWilderness: {
+      url: JeromeWilderness,
+      credit: "Saint Jerome in the Wilderness, Giovanni Bellini (c.1480)",
+      keywords: ["Christianity", "Hermit", "Saint", "Landscape"],
+   },
+   JohnBeheading: {
+      url: JohnBeheading,
+      credit: "The Beheading of Saint John the Baptist, Caravaggio (1608)",
+      keywords: ["Christianity", "Martyr", "Execution", "Caravaggio"],
+   },
+   JohnCassian: {
+      url: JohnCassian,
+      credit: "Čeština: Saint John Cassian",
+      keywords: ["Christianity", "Monk", "Saint", "Portrait"],
+   },
+   JulianDebate: {
+      url: JulianDebate,
+      credit: "Julian the Apostate Presiding at a Conference of Sectarians, Edward Armitage (1875)",
+      keywords: ["Emperor", "Paganism", "Heresy", "Council"],
+   },
+   Macedonianism: {
+      url: Macedonianism,
+      credit: "The Pentecost, El Greco (c. 1600)",
+      keywords: ["Christianity", "Heresy", "Pentecost", "HolySpirit"],
+   },
+   MarcusAureliusDeath: {
+      url: MarcusAureliusDeath,
+      credit: "Last Words of the Emperor Marcus Aurelius, Eugène Delacroix (1844)",
+      keywords: ["Rome", "Emperor", "Deathbed", "Commodus"],
+   },
+   MartyrsPrayer: {
+      url: MartyrsPrayer,
+      credit: "The Christian Martyrs' Last Prayer, Jean-Léon Gérôme (c.1870)",
+      keywords: ["Christianity", "Persecution", "Arena", "Prayer"],
+   },
    MediterraneanHarbour: {
       url: MediterraneanHarbour,
       credit: "View of a Mediterranean harbour, Hendrik Frans Van Lint",
+      keywords: ["Port", "Ships", "Coast", "Trade"],
    },
-   Bath: { url: Bath, credit: "Baths of Caracalla (Rome), Josef Langl (1883)" },
-   Senate: {
-      url: Senate,
-      credit: "Cicero's tale about Catiline, Hans Werner Schmidt (1912)",
+   MediterraneanIsland: {
+      url: MediterraneanIsland,
+      credit: "Aften ved Middelhavet. I baggrunden Marseille og øen If, Emanuel Larsen (1854)",
+      keywords: ["Sea", "Marseille", "Coast", "Landscape"],
    },
-   AurelianWalls: { url: AurelianWalls, credit: "Walls of Rome: The Aurelian Wall, Isaac Weld (1818)" },
-   Honorius: { url: Honorius, credit: "The Favourites of the Emperor Honorius, John William Waterhouse (1883)" },
-   Ravenna: { url: Ravenna, credit: "Apse Mosaic, Basilica of San Vitale, Ravenna (c.547)" },
-   Sicilia2: { url: Sicilia2, credit: "St Peter Healing St Agatha, Giovanni Lanfranco (c.1614)" },
-   Sicilia3: { url: Sicilia3, credit: "The Great Hunt mosaic, Villa Romana del Casale (4th century)" },
-} as const satisfies Record<string, ImageWithCredit>;
+   Merchant1: {
+      url: Merchant1,
+      credit: "The Orange Merchant In Cairo, Anton Binder (Austrian, 1868-1944)",
+      keywords: ["Trade", "Market", "Orange", "Cairo"],
+   },
+   Merchant2: {
+      url: Merchant2,
+      credit: "The Street Merchant, Gustavo Simoni (Italian, 1845-1926)",
+      keywords: ["Trade", "Market", "Street", "Vendor"],
+   },
+   Merchant3: {
+      url: Merchant3,
+      credit: "The Carpet Merchant, Francesco Ballesio (Italian, 1860-1923)",
+      keywords: ["Trade", "Market", "Carpet", "Vendor"],
+   },
+   Miaphysitism: {
+      url: Miaphysitism,
+      credit: "Fresco in the Chora Church, Istanbul, 14th century",
+      keywords: ["Christianity", "Heresy", "Byzantine", "Mosaic"],
+   },
+   MilvianBridge: {
+      url: MilvianBridge,
+      credit: "The Battle of Milvian Bridge, Giulio Romano (1520)",
+      keywords: ["Rome", "Constantine", "Battle", "Tiber"],
+   },
+   Monothelitism: {
+      url: Monothelitism,
+      credit: "Byzantine mosaic of Jesus Christ in Basilica of Sant'Apollinare Nuovo in Ravenna",
+      keywords: ["Christianity", "Heresy", "Christ", "Mosaic"],
+   },
+   MoorlandCanal: {
+      url: MoorlandCanal,
+      credit: "Moorkanal in der Hammeniederung, Fritz Overbeck (1894)",
+      keywords: ["Waterway", "Landscape", "Marsh", "Boat"],
+   },
+   NavalBattle: {
+      url: NavalBattle,
+      credit: "The Battle of Salamis, Anton Hoffmann (1920)",
+      keywords: ["Salamis", "Warships", "Sea", "War"],
+   },
+   Nestorianism: {
+      url: Nestorianism,
+      credit: "Portret van Nestorius, Romeyn de Hooghe (1688)",
+      keywords: ["Christianity", "Heresy", "Nestorius", "Portrait"],
+   },
+   NicaeaCouncil: {
+      url: NicaeaCouncil,
+      credit: "The First Council of Nicaea, Michael Damaskinos (1591)",
+      keywords: ["Christianity", "Bishops", "Theology", "Constantine"],
+   },
+   NumantiaFalls: {
+      url: NumantiaFalls,
+      credit: "The Last Day of Numantia, Alejo Vera (1881)",
+      keywords: ["Spain", "Siege", "Ruins", "Defeat"],
+   },
+   OliveHarvest: {
+      url: OliveHarvest,
+      credit: "Women Picking Olives, Vincent van Gogh Dutch (1889)",
+      keywords: ["Agriculture", "Women", "Trees", "Mediterranean"],
+   },
+   PaulPreaching: {
+      url: PaulPreaching,
+      credit: "Saint Paul Preaching in Athens, Giovanni Paolo Panini (1734)",
+      keywords: ["Christianity", "Athens", "Sermon", "Apostle"],
+   },
+   PeasantRevolt: {
+      url: PeasantRevolt,
+      credit: "Episode from the Peasants' Revolt: The Fire of Turnhout, Constantin Meunier (c. 1878)",
+      keywords: ["Fire", "Uprising", "Village", "War"],
+   },
+   Pelagianism: {
+      url: Pelagianism,
+      credit: "A print of Pelagius from an unidentified early modern source (c.1600s)",
+      keywords: ["Christianity", "Heresy", "Pelagius", "Portrait"],
+   },
+   PhilosophySchool: {
+      url: PhilosophySchool,
+      credit: "The School of Athens, Raphael (1509-1511)",
+      keywords: ["Athens", "Education", "Scholars", "Philosophy"],
+   },
+   PompeiiFalls: {
+      url: PompeiiFalls,
+      credit: "The Fall of Pompeii, Anton Hoffmann (1920)",
+      keywords: ["Disaster", "Vesuvius", "City", "Destruction"],
+   },
+   PompeiiRefugees: {
+      url: PompeiiRefugees,
+      credit: "The Last Days of Pompeii, Karl Bryullov (1830-33)",
+      keywords: ["Disaster", "Vesuvius", "Flight", "Ruins"],
+   },
+   PontDuGard: {
+      url: PontDuGard,
+      credit: "Le Pont du Gard, Hubert Robert (1787)",
+      keywords: ["Aqueduct", "Rome", "Architecture", "River"],
+   },
+   PonteMolle: {
+      url: PonteMolle,
+      credit: "Landscape with the Ponte Molle, Claude Lorrain (1645)",
+      keywords: ["Bridge", "Rome", "Landscape", "River"],
+   },
+   PotteryMarket: {
+      url: PotteryMarket,
+      credit: "Am Töpfermarkt, Alfred Steinacker",
+      keywords: ["Trade", "Ceramics", "Town", "Craft"],
+   },
+   Pyrenees: {
+      url: Pyrenees,
+      credit: "Views from Spain towards the High Pyrenees, Charles Hamilton Smith",
+      keywords: ["Mountains", "Spain", "France", "Landscape"],
+   },
+   QueenEmbarkation: {
+      url: QueenEmbarkation,
+      credit: "Seaport with the Embarkation of the Queen of Sheba, Claude Lorrain (1648)",
+      keywords: ["Harbour", "Ship", "Sheba", "Travel"],
+   },
+   RavennaMosaic: {
+      url: RavennaMosaic,
+      credit: "Apse Mosaic, Basilica of San Vitale, Ravenna (c.547)",
+      keywords: ["Byzantine", "Christianity", "Church", "SanVitale"],
+   },
+   ReligiousTriumph: {
+      url: ReligiousTriumph,
+      credit: "The Triumph of Religion in the Arts, Johann Friedrich Overbeck (1834)",
+      keywords: ["Christianity", "Art", "Faith", "Procession"],
+   },
+   RomanBathing: {
+      url: RomanBathing,
+      credit: "A Favourite Custom, Lawrence Alma-Tadema (1909)",
+      keywords: ["Bath", "Women", "Leisure", "Romans"],
+   },
+   RomanBathsPlan: {
+      url: RomanBathsPlan,
+      credit: "Cross-section of the Baths of Diocletian, Edmond Jean-Baptiste Paulin (1880)",
+      keywords: ["Rome", "Architecture", "Bathhouse", "CrossSection"],
+   },
+   RomanCampagna: {
+      url: RomanCampagna,
+      credit: "Extensive landscape in the Roman Campagna, Louis Gurlitt (1844)",
+      keywords: ["Rome", "Landscape", "Countryside", "Ruins"],
+   },
+   RomanDance: {
+      url: RomanDance,
+      credit: "The Roman Dance, Ettore Forti",
+      keywords: ["Woman", "Performance", "Entertainment", "Rome"],
+   },
+   RomanDefeat: {
+      url: RomanDefeat,
+      credit: "Romans Under the Yoke, Charles Gleyre (1858)",
+      keywords: ["Rome", "Captives", "Submission", "Barbarians"],
+   },
+   RomanExpedition: {
+      url: RomanExpedition,
+      credit: "Marcus Aurelius' expedition from Vindobona, Anton Hoffmann (1920)",
+      keywords: ["MarcusAurelius", "Army", "Campaign", "Danube"],
+   },
+   RomanForum1: {
+      url: RomanForum1,
+      credit: "The Roman Forum, Giovanni Paolo Panini (1740)",
+      keywords: ["Rome", "Architecture", "Temple", "City"],
+   },
+   RomanForum2: {
+      url: RomanForum2,
+      credit:
+         "Blick auf das Forum Romanum mit dem Septimius-Severus-Bogen und dem Tempel der Faustina und des Antonius Pius, Albert Rieger (1880)",
+      keywords: ["Rome", "Architecture", "Arch", "Temple"],
+   },
+   RomanForum3: {
+      url: RomanForum3,
+      credit: "Das Forum Romanum, J. Bühlmann (1901)",
+      keywords: ["Rome", "Architecture", "Ruins", "City"],
+   },
+   RomanInvasion: {
+      url: RomanInvasion,
+      credit: "The Romans under Julius Caesar Invading Britain, Edward Armitage (1843)",
+      keywords: ["Britain", "Caesar", "Army", "Landing"],
+   },
+   RomanRuins1: {
+      url: RomanRuins1,
+      credit: "Ruines Romaines, Hubert Robert (1776)",
+      keywords: ["Rome", "Architecture", "Landscape", "Decay"],
+   },
+   RomanRuins2: {
+      url: RomanRuins2,
+      credit: "A Capriccio View Of Rome With Ancient Ruins And The Flaminian Obelisk, Giovanni Paolo Panini (1736)",
+      keywords: ["Rome", "Obelisk", "Architecture", "Landscape"],
+   },
+   RomanTriumph1: {
+      url: RomanTriumph1,
+      credit: "The Triumph of Titus, Lawrence Alma-Tadema (1885)",
+      keywords: ["Rome", "Titus", "Procession", "Victory"],
+   },
+   RomanTriumph2: {
+      url: RomanTriumph2,
+      credit: "A Roman Triumph, Jacques Grasset de Saint-Sauveur (1796)",
+      keywords: ["Rome", "Victory", "Procession", "Soldiers"],
+   },
+   RomanVilla: {
+      url: RomanVilla,
+      credit: "Villa Farnese, Abraham-Louis-Rodolphe Ducros (c.1780)",
+      keywords: ["Architecture", "Estate", "Garden", "Italy"],
+   },
+   RomulusAndRemus: {
+      url: RomulusAndRemus,
+      credit: "The finding of Romulus and Remus, Carlo Maratta (1680)",
+      keywords: ["Rome", "Infants", "Shepherd", "Founding"],
+   },
+   RuinedColonnade: {
+      url: RuinedColonnade,
+      credit: "A Colonnade, Partly Ruined, with Figures, Francesco Guardi (c.1780)",
+      keywords: ["Architecture", "Columns", "Figures", "Decay"],
+   },
+   RuinsWithPeasants: {
+      url: RuinsWithPeasants,
+      credit: "A Capriccio of Roman Ruins with Peasants in the Foreground, Charles-Louis Clérisseau (1773)",
+      keywords: ["Rome", "Architecture", "Landscape", "Rural"],
+   },
+   SackOfRome1: {
+      url: SackOfRome1,
+      credit: "Sac de Rome, Joseph-Noël Sylvestre (1890)",
+      keywords: ["Visigoths", "Alaric", "Plunder", "City"],
+   },
+   SackOfRome2: {
+      url: SackOfRome2,
+      credit: "Plundering of Rome by the Vandals, Heinrich Leutemann (1866)",
+      keywords: ["Vandals", "Gaiseric", "Plunder", "City"],
+   },
+   Sailor: {
+      url: Sailor,
+      credit: "Sailor on Lake Garda near Malcesine, Michael Zeno Diemer",
+      keywords: ["Lake", "Boat", "Travel", "Landscape"],
+   },
+   SaintCharity: {
+      url: SaintCharity,
+      credit: "Saint Martin Dividing his Cloak, Anthony van Dyck (c.1618)",
+      keywords: ["Christianity", "Martin", "Cloak", "Beggar"],
+   },
+   SaintConsecration: {
+      url: SaintConsecration,
+      credit: "Consécration de sainte Geneviève par saint Germain, évêque d'Auxerre, François-Louis Dejuinne (1830)",
+      keywords: ["Christianity", "Bishop", "Genevieve", "Ceremony"],
+   },
+   SaintEulalia: {
+      url: SaintEulalia,
+      credit: "Saint Eulalia, John William Waterhouse (1885)",
+      keywords: ["Christianity", "Martyr", "Woman", "Portrait"],
+   },
+   SaintGereon: {
+      url: SaintGereon,
+      credit: "Saint Gereon with His Entourage, anonymous Cologne master (c. 1460)",
+      keywords: ["Christianity", "Soldiers", "Entourage", "Cologne"],
+   },
+   SaintHealing: {
+      url: SaintHealing,
+      credit: "Sainte Geneviève guérit sa mère aveugle, Pierre-Auguste Pichon (1851-1855)",
+      keywords: ["Christianity", "Genevieve", "Miracle", "Blindness"],
+   },
+   SaintPaulinus: {
+      url: SaintPaulinus,
+      credit: "Saint Paulinus of Nola. Line engraving",
+      keywords: ["Christianity", "Bishop", "Portrait", "Nola"],
+   },
+   SaintRoderick: {
+      url: SaintRoderick,
+      credit: "Saint Roderick, Bartolomé Esteban Murillo (c.1646)",
+      keywords: ["Christianity", "Martyr", "Priest", "Portrait"],
+   },
+   SchoolmasterPunished: {
+      url: SchoolmasterPunished,
+      credit: "Camillus Delivers the Schoolmaster of Falerii to His Pupils, Nicolas Poussin (1637)",
+      keywords: ["Camillus", "Falerii", "Children", "Justice"],
+   },
+   ScipiosClemency1: {
+      url: ScipiosClemency1,
+      credit: "The Continence of Scipio, Nicolas Poussin (1640)",
+      keywords: ["Rome", "General", "Mercy", "Captive"],
+   },
+   ScipiosClemency2: {
+      url: ScipiosClemency2,
+      credit: "The Continence of Scipio, Pompeo Batoni (1771)",
+      keywords: ["Rome", "General", "Mercy", "Captive"],
+   },
+   SenecaDeath: {
+      url: SenecaDeath,
+      credit: "The Death of Seneca, Jacques-Louis David (1773)",
+      keywords: ["Rome", "Philosopher", "Suicide", "Nero"],
+   },
+   SierraMorena: {
+      url: SierraMorena,
+      credit: "Pass in the Sierra Morena, Charles Hamilton Smith",
+      keywords: ["Mountains", "Spain", "Pass", "Landscape"],
+   },
+   StephenDebate: {
+      url: StephenDebate,
+      credit: "The Disputation of Saint Stephen, Vittore Carpaccio (1514)",
+      keywords: ["Christianity", "Clergy", "Theology", "Saint"],
+   },
+   StephenStoning: {
+      url: StephenStoning,
+      credit: "The Stoning of Saint Stephen, Rembrandt van Rijn (1625)",
+      keywords: ["Christianity", "Martyr", "Violence", "Saint"],
+   },
+   StoneBridge: {
+      url: StoneBridge,
+      credit: "A Bridge near Sorrento, Thorald Brendstrup (c.1850)",
+      keywords: ["Architecture", "River", "Landscape", "Travel"],
+   },
+   SwordfishFishing: {
+      url: SwordfishFishing,
+      credit: "Swordfish fishing off Capri, Christian Frederik Ferdinand Thøming (c.1830)",
+      keywords: ["Sea", "Boat", "Fishing", "Capri"],
+   },
+   TeutoburgBattle: {
+      url: TeutoburgBattle,
+      credit: "The Battle of the Teutoburg Forest, Otto Albert Koch (1909)",
+      keywords: ["Romans", "Germans", "Forest", "Defeat"],
+   },
+   TolbiacBattle: {
+      url: TolbiacBattle,
+      credit: "The Battle of Tolbiac, Ary Scheffer (1836)",
+      keywords: ["Franks", "Alemanni", "War", "Clovis"],
+   },
+   ToledoBridge: {
+      url: ToledoBridge,
+      credit: "Bridge near Toledo, Marius Bauer (1903)",
+      keywords: ["Spain", "River", "Architecture", "Landscape"],
+   },
+   ValerianHumiliation: {
+      url: ValerianHumiliation,
+      credit: "The Humiliation of Emperor Valerian by Shapur, King of Persia, Hans Holbein the Younger (1521)",
+      keywords: ["Rome", "Persia", "Shapur", "Captive"],
+   },
+   VandalsInItaly: {
+      url: VandalsInItaly,
+      credit: "Gaiseric's Vandals in Italy, Unknown artist (c.1800s)",
+      keywords: ["Invasion", "Gaiseric", "Army", "Migration"],
+   },
+   VercingetorixSurrenders: {
+      url: VercingetorixSurrenders,
+      credit: "Vercingetorix Throwing down His Weapons at the feet of Julius Caesar, Lionel Royer (1899)",
+      keywords: ["Gaul", "Caesar", "Captive", "Weapons"],
+   },
+   Vineyard: {
+      url: Vineyard,
+      credit: "Frühsommerlicher Weinberg in Pillnitz, Carl Gustav Carus (c.1830)",
+      keywords: ["Grapes", "Wine", "Agriculture", "Landscape"],
+   },
+   VintageFestival: {
+      url: VintageFestival,
+      credit: "The Vintage Festival, Lawrence Alma-Tadema (1871)",
+      keywords: ["Wine", "Grapes", "Celebration", "Harvest"],
+   },
+   VisigothKing: {
+      url: VisigothKing,
+      credit: "Walia, rey de los Visigodos, Alejo Vera (1855)",
+      keywords: ["Walia", "Goths", "Monarchy", "Portrait"],
+   },
+   VortigernAndRowena: {
+      url: VortigernAndRowena,
+      credit: "Meeting of Vortigern and Rowena, William Hamilton (c.1800)",
+      keywords: ["Britain", "Saxons", "Meeting", "Royalty"],
+   },
+   Warship: {
+      url: Warship,
+      credit: "A Phoenician warship, H. G. Swanwick (1920)",
+      keywords: ["Phoenician", "Naval", "Oars", "Sea"],
+   },
+   Watchtower: {
+      url: Watchtower,
+      credit: "Die Friedberger Warte zu Frankfurt am Main, Anton Radl",
+      keywords: ["Fortification", "Frontier", "Guard", "Landscape"],
+   },
+   WaterMarket: {
+      url: WaterMarket,
+      credit: "The Four Elements: Water, Joachim Beuckelaer (1569)",
+      keywords: ["Trade", "Fish", "Produce", "Market"],
+   },
+   Weavers: {
+      url: Weavers,
+      credit: "Las Hilanderas (The Fable of Arachne), Diego Velázquez (c.1657)",
+      keywords: ["Textiles", "Arachne", "Workshop", "Women"],
+   },
+   Wedding1: {
+      url: Wedding1,
+      credit: "Hymen, oh Hyménée, Juan Luna (1886-87)",
+      keywords: ["Marriage", "Hymen", "Ceremony", "Couple"],
+   },
+   Wedding2: {
+      url: Wedding2,
+      credit: "A Roman Wedding Procession, Edwin Howland Blashfield",
+      keywords: ["Marriage", "Rome", "Procession", "Ceremony"],
+   },
+   ZenobiaCaptured: {
+      url: ZenobiaCaptured,
+      credit: "Queen Zenobia before the Emperor Aurelian, Giovanni Battista Tiepolo (1717)",
+      keywords: ["Palmyra", "Aurelian", "Queen", "Prisoner"],
+   },
+   ZenobiaSpeech: {
+      url: ZenobiaSpeech,
+      credit: "Queen Zenobia Addressing Her Soldiers, Giovanni Battista Tiepolo (c. 1725)",
+      keywords: ["Palmyra", "Queen", "Soldiers", "Army"],
+   },
+} as const satisfies Record<string, IEventImage>;

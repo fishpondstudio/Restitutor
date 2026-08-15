@@ -21,7 +21,7 @@ export const ItaliaEvent = {
    Italia1: {
       name: () => $t(L.TheSecularGamesOfSeptimiusSeverus),
       wikipedia: "Secular_Games",
-      image: EventImage.Games1,
+      image: EventImage.ChariotRace1,
       desc: () => $t(L.TheSecularGamesOfSeptimiusSeverusDesc),
       condition: {
          province: ["Italia"],
@@ -47,7 +47,7 @@ export const ItaliaEvent = {
    Italia2: {
       name: () => $t(L.TheBathsOfCaracalla),
       wikipedia: "Baths_of_Caracalla",
-      image: EventImage.Bath,
+      image: EventImage.CaracallaBaths,
       desc: () => $t(L.TheBathsOfCaracallaDesc),
       condition: {
          province: ["Italia"],
@@ -101,7 +101,7 @@ export const ItaliaEvent = {
    Italia4: {
       name: () => $t(L.TheSenatesLastEmperor),
       wikipedia: "Tacitus_(emperor)",
-      image: EventImage.Senate,
+      image: EventImage.CiceroInSenate,
       desc: () => $t(L.TheSenatesLastEmperorDesc),
       condition: {
          province: ["Italia"],
@@ -129,7 +129,7 @@ export const ItaliaEvent = {
    Italia5: {
       name: () => $t(L.AnImperialCourtAtMediolanum),
       wikipedia: "Mediolanum",
-      image: EventImage.Emperor,
+      image: EventImage.ImperialPatronage,
       desc: () => $t(L.AnImperialCourtAtMediolanumDesc),
       condition: {
          province: ["Italia"],
@@ -157,7 +157,7 @@ export const ItaliaEvent = {
    Italia6: {
       name: () => $t(L.TheArchOfConstantine),
       wikipedia: "Arch_of_Constantine",
-      image: EventImage.Y198,
+      image: EventImage.RomanTriumph1,
       desc: () => $t(L.TheArchOfConstantineDesc),
       condition: {
          province: ["Italia"],
@@ -185,7 +185,7 @@ export const ItaliaEvent = {
    Italia7: {
       name: () => $t(L.TheAltarOfVictory),
       wikipedia: "Altar_of_Victory",
-      image: EventImage.Y380,
+      image: EventImage.AmbroseBarsTheodosius,
       desc: () => $t(L.TheAltarOfVictoryDesc),
       condition: {
          province: ["Italia"],
@@ -213,7 +213,7 @@ export const ItaliaEvent = {
    Italia8: {
       name: () => $t(L.TheCourtWithdrawsToRavenna),
       wikipedia: "Ravenna",
-      image: EventImage.Ravenna,
+      image: EventImage.RavennaMosaic,
       desc: () => $t(L.TheCourtWithdrawsToRavennaDesc),
       condition: {
          province: ["Italia"],
@@ -268,7 +268,7 @@ export const ItaliaEvent = {
    Italia10: {
       name: () => $t(L.TheMurderOfAetius),
       wikipedia: "Flavius_Aetius",
-      image: EventImage.Y217,
+      image: EventImage.CaesarDeath1,
       desc: () => $t(L.TheMurderOfAetiusDesc),
       condition: {
          province: ["Italia"],
@@ -329,7 +329,7 @@ export const ItaliaEvent = {
    },
    Italia12: {
       name: () => $t(L.CorsicaBeneathOurProtection),
-      image: EventImage.WarEnded,
+      image: EventImage.ScipiosClemency1,
       desc: () => $t(L.CorsicaBeneathOurProtectionDesc),
       condition: {
          province: ["Italia"],
@@ -423,7 +423,7 @@ export const ItaliaEvent = {
    },
    Italia15: {
       name: () => $t(L.CloseTheAdriatic),
-      image: EventImage.NavalWarfare,
+      image: EventImage.NavalBattle,
       desc: () => $t(L.CloseTheAdriaticDesc),
       condition: {
          province: ["Italia"],
@@ -448,7 +448,7 @@ export const ItaliaEvent = {
    },
    Italia16: {
       name: () => $t(L.MasteryOfTheMiddleSea),
-      image: EventImage.Narbonensis1,
+      image: EventImage.QueenEmbarkation,
       desc: () => $t(L.MasteryOfTheMiddleSeaDesc),
       condition: {
          province: ["Italia"],

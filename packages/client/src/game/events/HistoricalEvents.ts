@@ -11,7 +11,7 @@ export const HistoricalEvents = {
    Y193: {
       name: () => $t(L.YearOfTheFiveEmperors),
       wikipedia: "Year_of_the_Five_Emperors",
-      image: EventImage.Y193,
+      image: EventImage.CommodusDeath,
       desc: () => $t(L.YearOfTheFiveEmperorsDesc),
       condition: {
          year: [193, 193],
@@ -67,7 +67,7 @@ export const HistoricalEvents = {
    Y197: {
       name: () => $t(L.BattleOfLugdunum),
       wikipedia: "Battle_of_Lugdunum",
-      image: EventImage.Y197,
+      image: EventImage.TeutoburgBattle,
       desc: () => $t(L.BattleOfLugdunumDesc),
       condition: {
          year: [197, 197],
@@ -90,7 +90,7 @@ export const HistoricalEvents = {
    Y198: {
       name: () => $t(L.GoodNewsFromTheEast),
       wikipedia: "Battle_of_Ctesiphon_(198)",
-      image: EventImage.Y198,
+      image: EventImage.RomanTriumph1,
       desc: () => $t(L.GoodNewsFromTheEastDesc),
       condition: {
          year: [198, 198],
@@ -111,7 +111,7 @@ export const HistoricalEvents = {
    Y211: {
       name: () => $t(L.LongLiveTheEmperorSeptimiusSeverus),
       wikipedia: "Septimius_Severus",
-      image: EventImage.Y211,
+      image: EventImage.GermanicusDeath,
       desc: () => $t(L.LongLiveTheEmperorSeptimiusSeverusDesc),
       condition: {
          year: [211, 211],
@@ -136,7 +136,7 @@ export const HistoricalEvents = {
    Y212: {
       name: () => $t(L.AllAreRomanCitizens),
       wikipedia: "Constitutio_Antoniniana",
-      image: EventImage.Y212,
+      image: EventImage.RomanForum1,
       desc: () => $t(L.AllAreRomanCitizensDesc),
       condition: {
          year: [212, 212],
@@ -158,7 +158,7 @@ export const HistoricalEvents = {
    Y217: {
       name: () => $t(L.BloodOnTheRoadToCarrhae),
       wikipedia: "Caracalla",
-      image: EventImage.Y217,
+      image: EventImage.CaesarDeath1,
       desc: () => $t(L.BloodOnTheRoadToCarrhaeDesc),
       condition: {
          year: [217, 217],
@@ -183,7 +183,7 @@ export const HistoricalEvents = {
    Y218: {
       name: () => $t(L.TheGodFromTheEast),
       wikipedia: "Elagabalus",
-      image: EventImage.Y218,
+      image: EventImage.HeliogabalusRoses,
       desc: () => $t(L.TheGodFromTheEastDesc),
       condition: {
          year: [218, 218],
@@ -202,7 +202,7 @@ export const HistoricalEvents = {
    Y222: {
       name: () => $t(L.ThePraetoriansDecide),
       wikipedia: "Alexander_Severus",
-      image: EventImage.Y222,
+      image: EventImage.ClaudiusEmperor,
       desc: () => $t(L.ThePraetoriansDecideDesc),
       condition: {
          year: [222, 222],
@@ -221,7 +221,7 @@ export const HistoricalEvents = {
    Y224: {
       name: () => $t(L.ANewPersiaRises),
       wikipedia: "Sasanian_Empire",
-      image: EventImage.Y224,
+      image: EventImage.ValerianHumiliation,
       desc: () => $t(L.ANewPersiaRisesDesc),
       condition: {
          year: [224, 224],
@@ -245,7 +245,7 @@ export const HistoricalEvents = {
    Y235: {
       name: () => $t(L.TheAgeOfSoldiers),
       wikipedia: "Severus_Alexander",
-      image: EventImage.Y235,
+      image: EventImage.CaesarDeath2,
       desc: () => $t(L.TheAgeOfSoldiersDesc),
       condition: {
          year: [235, 235],
@@ -266,7 +266,7 @@ export const HistoricalEvents = {
    Y238: {
       name: () => $t(L.YearOfTheSixEmperors),
       wikipedia: "Year_of_the_Six_Emperors",
-      image: EventImage.Y238,
+      image: EventImage.RomanRuins1,
       desc: () => $t(L.YearOfTheSixEmperorsDesc),
       condition: {
          year: [238, 238],
@@ -287,7 +287,7 @@ export const HistoricalEvents = {
    Y248: {
       name: () => $t(L.OneThousandYearsOfRome),
       wikipedia: "Secular_Games",
-      image: EventImage.Y248,
+      image: EventImage.RomanTriumph2,
       desc: () => $t(L.OneThousandYearsOfRomeDesc),
       condition: {
          year: [248, 248],
@@ -312,7 +312,7 @@ export const HistoricalEvents = {
    Y251: {
       name: () => $t(L.TheEmperorWhoFellInBattle),
       wikipedia: "Battle_of_Abritus",
-      image: EventImage.Y251,
+      image: EventImage.DeciusDeath,
       desc: () => $t(L.TheEmperorWhoFellInBattleDesc),
       condition: {
          year: [251, 251],
@@ -335,7 +335,7 @@ export const HistoricalEvents = {
    Y260: {
       name: () => $t(L.TheCaptiveEmperor),
       wikipedia: "Valerian_(emperor)",
-      image: EventImage.Y224,
+      image: EventImage.ValerianHumiliation,
       desc: () => $t(L.TheCaptiveEmperorDesc),
       condition: {
          year: [260, 260],
@@ -354,7 +354,7 @@ export const HistoricalEvents = {
    Y262: {
       name: () => $t(L.TheSunderingOfTheWest),
       wikipedia: "Gallic_Empire",
-      image: EventImage.Y262,
+      image: EventImage.VercingetorixSurrenders,
       desc: () => $t(L.TheSunderingOfTheWestDesc),
       condition: {
          year: [262, 262],
@@ -380,7 +380,7 @@ export const HistoricalEvents = {
    Y270: {
       name: () => $t(L.TheQueenOfTheEast),
       wikipedia: "Palmyrene_Empire",
-      image: EventImage.Y270,
+      image: EventImage.ZenobiaSpeech,
       desc: () => $t(L.TheQueenOfTheEastDesc),
       condition: {
          year: [270, 270],
@@ -406,7 +406,7 @@ export const HistoricalEvents = {
    Y272: {
       name: () => $t(L.RestitutorOrbis),
       wikipedia: "Aurelian",
-      image: EventImage.Y272,
+      image: EventImage.ZenobiaCaptured,
       desc: () => $t(L.RestitutorOrbisDesc),
       condition: {
          year: [272, 272],
@@ -425,7 +425,7 @@ export const HistoricalEvents = {
    Y284: {
       name: () => $t(L.TheRiseOfDiocletian),
       wikipedia: "Diocletian",
-      image: EventImage.Y284,
+      image: EventImage.DiocletianStatue,
       desc: () => $t(L.TheRiseOfDiocletianDesc),
       condition: {
          year: [284, 284],
@@ -452,7 +452,7 @@ export const HistoricalEvents = {
    Y293: {
       name: () => $t(L.TheRuleOfFour),
       wikipedia: "Tetrarchy",
-      image: EventImage.Y293,
+      image: EventImage.RomanBathsPlan,
       desc: () => $t(L.TheRuleOfFourDesc),
       condition: {
          year: [293, 293],
@@ -480,7 +480,7 @@ export const HistoricalEvents = {
    Y303: {
       name: () => $t(L.TheGreatPersecution),
       wikipedia: "Diocletianic_Persecution",
-      image: EventImage.Y303,
+      image: EventImage.MartyrsPrayer,
       desc: () => $t(L.TheGreatPersecutionDesc),
       condition: {
          year: [303, 303],
@@ -511,7 +511,7 @@ export const HistoricalEvents = {
    Y312: {
       name: () => $t(L.InThisSignYouShallConquer),
       wikipedia: "Battle_of_the_Milvian_Bridge",
-      image: EventImage.Y312,
+      image: EventImage.MilvianBridge,
       desc: () => $t(L.InThisSignYouShallConquerDesc),
       condition: {
          year: [312, 312],
@@ -559,7 +559,7 @@ export const HistoricalEvents = {
    Y313: {
       name: () => $t(L.TheEdictOfMilan),
       wikipedia: "Edict_of_Milan",
-      image: EventImage.Y313,
+      image: EventImage.ConstantineBaptism,
       desc: () => $t(L.TheEdictOfMilanDesc),
       condition: {
          year: [313, 313],
@@ -585,7 +585,7 @@ export const HistoricalEvents = {
    Y330: {
       name: () => $t(L.TheNewRomeRises),
       wikipedia: "Constantinople",
-      image: EventImage.Y330,
+      image: EventImage.ConstantinopleBuilt,
       desc: () => $t(L.TheNewRomeRisesDesc),
       condition: {
          year: [330, 330],
@@ -610,7 +610,7 @@ export const HistoricalEvents = {
    Y361: {
       name: () => $t(L.TheLastPaganEmperor),
       wikipedia: "Julian_(emperor)",
-      image: EventImage.Y361,
+      image: EventImage.JulianDebate,
       desc: () => $t(L.TheLastPaganEmperorDesc),
       condition: {
          year: [361, 361],
@@ -637,7 +637,7 @@ export const HistoricalEvents = {
    Y378: {
       name: () => $t(L.TheCatastropheAtAdrianople),
       wikipedia: "Battle_of_Adrianople",
-      image: EventImage.Y378,
+      image: EventImage.RomanDefeat,
       desc: () => $t(L.TheCatastropheAtAdrianopleDesc),
       condition: {
          year: [378, 378],
@@ -662,7 +662,7 @@ export const HistoricalEvents = {
    Y380: {
       name: () => $t(L.TheEdictOfThessalonica),
       wikipedia: "Edict_of_Thessalonica",
-      image: EventImage.Y380,
+      image: EventImage.AmbroseBarsTheodosius,
       desc: () => $t(L.TheEdictOfThessalonicaDesc),
       condition: {
          year: [380, 380],
@@ -695,7 +695,7 @@ export const HistoricalEvents = {
    Y395: {
       name: () => $t(L.TheFinalDivision),
       wikipedia: "Theodosius_I",
-      image: EventImage.Y395,
+      image: EventImage.RomanForum2,
       desc: () => $t(L.TheFinalDivisionDesc),
       condition: {
          year: [395, 395],
@@ -714,7 +714,7 @@ export const HistoricalEvents = {
    Y409: {
       name: () => $t(L.TheSuebiSettleGallaecia),
       wikipedia: "Kingdom_of_the_Suebi",
-      image: EventImage.Y409,
+      image: EventImage.BarbarianCaptives,
       desc: () => $t(L.TheSuebiSettleGallaeciaDesc),
       condition: {
          year: [409, 409],
@@ -729,7 +729,7 @@ export const HistoricalEvents = {
    Y410: {
       name: () => $t(L.TheEternalCityFalls),
       wikipedia: "Sack_of_Rome_(410)",
-      image: EventImage.Y410,
+      image: EventImage.SackOfRome1,
       desc: () => $t(L.TheEternalCityFallsDesc),
       condition: {
          year: [410, 410],
@@ -758,7 +758,7 @@ export const HistoricalEvents = {
    Y418: {
       name: () => $t(L.AKingdomWithinTheEmpire),
       wikipedia: "Visigothic_Kingdom",
-      image: EventImage.Y418,
+      image: EventImage.VisigothKing,
       desc: () => $t(L.AKingdomWithinTheEmpireDesc),
       condition: {
          year: [418, 418],
@@ -773,7 +773,7 @@ export const HistoricalEvents = {
    Y429: {
       name: () => $t(L.TheVandalsCrossToAfrica),
       wikipedia: "Gaiseric",
-      image: EventImage.Y429,
+      image: EventImage.AugustineDeath,
       desc: () => $t(L.TheVandalsCrossToAfricaDesc),
       condition: {
          year: [429, 429],
@@ -792,7 +792,7 @@ export const HistoricalEvents = {
    Y439: {
       name: () => $t(L.CarthageHasFallenAgain),
       wikipedia: "Vandalic_Kingdom",
-      image: EventImage.Y439,
+      image: EventImage.CarthageDecline,
       desc: () => $t(L.CarthageHasFallenAgainDesc),
       condition: {
          year: [439, 439],
@@ -807,7 +807,7 @@ export const HistoricalEvents = {
    Y443: {
       name: () => $t(L.TheBurgundiansOfSapaudia),
       wikipedia: "Kingdom_of_the_Burgundians",
-      image: EventImage.Y443,
+      image: EventImage.BuriedTreasure,
       desc: () => $t(L.TheBurgundiansOfSapaudiaDesc),
       condition: {
          year: [443, 443],
@@ -822,7 +822,7 @@ export const HistoricalEvents = {
    Y445: {
       name: () => $t(L.TheCourtOfAttila),
       wikipedia: "Attila",
-      image: EventImage.Y445,
+      image: EventImage.AttilasFeast,
       desc: () => $t(L.TheCourtOfAttilaDesc),
       condition: {
          year: [445, 445],
@@ -837,7 +837,7 @@ export const HistoricalEvents = {
    Y446: {
       name: () => $t(L.TheLongHairedKings),
       wikipedia: "Franks",
-      image: EventImage.Y446,
+      image: EventImage.ClovisBaptism,
       desc: () => $t(L.TheLongHairedKingsDesc),
       condition: {
          year: [446, 446],
@@ -852,7 +852,7 @@ export const HistoricalEvents = {
    Y449: {
       name: () => $t(L.TheSaxonShoreBreaks),
       wikipedia: "Anglo-Saxon_settlement_of_Britain",
-      image: EventImage.Y449,
+      image: EventImage.VortigernAndRowena,
       desc: () => $t(L.TheSaxonShoreBreaksDesc),
       condition: {
          year: [449, 449],
@@ -867,7 +867,7 @@ export const HistoricalEvents = {
    Y451: {
       name: () => $t(L.TheScourgeOfGodIsHalted),
       wikipedia: "Battle_of_the_Catalaunian_Plains",
-      image: EventImage.Y451,
+      image: EventImage.HunnicBattle,
       desc: () => $t(L.TheScourgeOfGodIsHaltedDesc),
       condition: {
          year: [451, 451],
@@ -892,7 +892,7 @@ export const HistoricalEvents = {
    Y453: {
       name: () => $t(L.TheAlemanniCrossTheRhine),
       wikipedia: "Alemanni",
-      image: EventImage.Y453,
+      image: EventImage.TolbiacBattle,
       desc: () => $t(L.TheAlemanniCrossTheRhineDesc),
       condition: {
          year: [453, 453],
@@ -907,7 +907,7 @@ export const HistoricalEvents = {
    Y455: {
       name: () => $t(L.FourteenDaysOfPlunder),
       wikipedia: "Sack_of_Rome_(455)",
-      image: EventImage.Y455,
+      image: EventImage.SackOfRome2,
       desc: () => $t(L.FourteenDaysOfPlunderDesc),
       condition: {
          year: [455, 455],
@@ -934,7 +934,7 @@ export const HistoricalEvents = {
    Y471: {
       name: () => $t(L.TheKingOfTheOstrogoths),
       wikipedia: "Theodoric_the_Great",
-      image: EventImage.Y471,
+      image: EventImage.BenedictAndTotila,
       desc: () => $t(L.TheKingOfTheOstrogothsDesc),
       condition: {
          year: [471, 471],
@@ -949,7 +949,7 @@ export const HistoricalEvents = {
    Y476: {
       name: () => $t(L.AnEmpireEndsInSilence),
       wikipedia: "Fall_of_the_Western_Roman_Empire",
-      image: EventImage.Y476,
+      image: EventImage.Colosseum,
       achievement: "FallOfTheWesternEmpire",
       desc: () => $t(L.AnEmpireEndsInSilenceDesc),
       condition: {

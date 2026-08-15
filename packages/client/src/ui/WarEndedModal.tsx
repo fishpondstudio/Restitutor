@@ -14,8 +14,8 @@ export function WarEndedModal({ war }: { war: IWar }): React.ReactNode {
       <GenericEventModal
          title={$t(L.$1$2WarEnded, war.attacker, war.defender)}
          content={$t(L.WarEndedDesc$1$2$3$4$5, war.log.length, war.attacker, war.defender, victor, ourAlly)}
-         image={EventImage.WarEnded.url}
-         titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.WarEnded.credit)}</div>}
+         image={EventImage.ScipiosClemency1.url}
+         titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.ScipiosClemency1.credit)}</div>}
          buttons={[
             <GameEventButton
                key="0"

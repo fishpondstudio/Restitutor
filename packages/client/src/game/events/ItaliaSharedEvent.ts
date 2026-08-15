@@ -5,7 +5,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const ItaliaSharedEvent = {
    ItaliaShared1: {
       name: () => $t(L.AnAfricanBridgehead),
-      image: EventImage.NavalWarfare,
+      image: EventImage.NavalBattle,
       desc: () => $t(L.AnAfricanBridgeheadDesc),
       condition: {
          province: ["Italia", "Sicilia", "Corsica", "Sardinia"],
@@ -37,7 +37,7 @@ export const ItaliaSharedEvent = {
    },
    ItaliaShared2: {
       name: () => $t(L.AFootholdInNarbonensis),
-      image: EventImage.NavalWarfare,
+      image: EventImage.NavalBattle,
       desc: () => $t(L.AFootholdInNarbonensisDesc),
       condition: {
          province: ["Italia", "Sicilia", "Corsica", "Sardinia"],
@@ -60,7 +60,7 @@ export const ItaliaSharedEvent = {
    },
    ItaliaShared3: {
       name: () => $t(L.GatewayToHispania),
-      image: EventImage.NavalWarfare,
+      image: EventImage.NavalBattle,
       desc: () => $t(L.GatewayToHispaniaDesc),
       condition: {
          province: ["Italia", "Sicilia", "Corsica", "Sardinia"],

@@ -138,7 +138,7 @@ export const ReligiousEvents = {
    EcumenicalCouncil1: {
       name: () => $t(L.TheFirstCouncilOfNicaea),
       wikipedia: "First_Council_of_Nicaea",
-      image: EventImage.Aquitania5,
+      image: EventImage.EucharistDebate,
       desc: () => $t(L.FirstCouncilOfNicaeaDesc),
       condition: {
          year: [325, 325],
@@ -164,7 +164,7 @@ export const ReligiousEvents = {
    EcumenicalCouncil2: {
       name: () => $t(L.TheFirstCouncilOfConstantinople),
       wikipedia: "First_Council_of_Constantinople",
-      image: EventImage.EcumenicalCouncil2,
+      image: EventImage.ChristTeaching,
       desc: () => $t(L.FirstCouncilOfConstantinopleDesc),
       condition: {
          year: [381, 381],
@@ -190,7 +190,7 @@ export const ReligiousEvents = {
    EcumenicalCouncil3: {
       name: () => $t(L.TheCouncilOfEphesus),
       wikipedia: "Council_of_Ephesus",
-      image: EventImage.EcumenicalCouncil3,
+      image: EventImage.AugustineDebate,
       desc: () => $t(L.CouncilOfEphesusDesc),
       condition: {
          year: [431, 431],
@@ -216,7 +216,7 @@ export const ReligiousEvents = {
    EcumenicalCouncil4: {
       name: () => $t(L.TheCouncilOfChalcedon),
       wikipedia: "Council_of_Chalcedon",
-      image: EventImage.EcumenicalCouncil4,
+      image: EventImage.HusTrial,
       desc: () => $t(L.CouncilOfChalcedonDesc),
       condition: {
          year: [451, 451],
@@ -242,7 +242,7 @@ export const ReligiousEvents = {
    EcumenicalCouncil5: {
       name: () => $t(L.TheSecondCouncilOfConstantinople),
       wikipedia: "Second_Council_of_Constantinople",
-      image: EventImage.Lusitania7,
+      image: EventImage.StephenDebate,
       desc: () => $t(L.SecondCouncilOfConstantinopleDesc),
       condition: {
          year: [553, 553],
@@ -268,7 +268,7 @@ export const ReligiousEvents = {
    EcumenicalCouncil6: {
       name: () => $t(L.TheThirdCouncilOfConstantinople),
       wikipedia: "Third_Council_of_Constantinople",
-      image: EventImage.EcumenicalCouncil6,
+      image: EventImage.PaulPreaching,
       desc: () => $t(L.ThirdCouncilOfConstantinopleDesc),
       condition: {
          year: [680, 680],
@@ -294,7 +294,7 @@ export const ReligiousEvents = {
    EcumenicalCouncil7: {
       name: () => $t(L.TheSecondCouncilOfNicaea),
       wikipedia: "Second_Council_of_Nicaea",
-      image: EventImage.EcumenicalCouncil7,
+      image: EventImage.ReligiousTriumph,
       desc: () => $t(L.SecondCouncilOfNicaeaDesc),
       condition: {
          year: [787, 787],

@@ -150,7 +150,7 @@ export const HispaniaEvent = {
    },
    Hispania5: {
       name: () => $t(L.HispaniaUnited),
-      image: EventImage.Empire,
+      image: EventImage.RomanExpedition,
       desc: () => $t(L.HispaniaUnitedDesc),
       condition: {
          province: HispaniaProvinces,

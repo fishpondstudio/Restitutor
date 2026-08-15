@@ -35,7 +35,7 @@ export const LusitaniaEvent = {
    },
    Lusitania2: {
       name: () => $t(L.TheHorsesOfTheLusitanianPlains),
-      image: EventImage.Aquitania9,
+      image: EventImage.HorsePasture,
       desc: () => $t(L.TheHorsesOfTheLusitanianPlainsDesc),
       condition: {
          province: ["Lusitania"],
@@ -60,7 +60,7 @@ export const LusitaniaEvent = {
    },
    Lusitania3: {
       name: () => $t(L.TheFishSaltingHousesOfOlisipo),
-      image: EventImage.Lusitania3,
+      image: EventImage.WaterMarket,
       desc: () => $t(L.TheFishSaltingHousesOfOlisipoDesc),
       condition: {
          province: ["Lusitania"],
@@ -86,7 +86,7 @@ export const LusitaniaEvent = {
    },
    Lusitania4: {
       name: () => $t(L.TheVillasOfTheAlentejo),
-      image: EventImage.Lusitania4,
+      image: EventImage.VintageFestival,
       desc: () => $t(L.TheVillasOfTheAlentejoDesc),
       condition: {
          province: ["Lusitania"],
@@ -112,7 +112,7 @@ export const LusitaniaEvent = {
    Lusitania5: {
       name: () => $t(L.EmeritaSeatOfTheDiocese),
       wikipedia: "Diocese_of_Hispania",
-      image: EventImage.Y284,
+      image: EventImage.DiocletianStatue,
       desc: () => $t(L.EmeritaSeatOfTheDioceseDesc),
       condition: {
          province: ["Lusitania"],
@@ -138,7 +138,7 @@ export const LusitaniaEvent = {
    Lusitania6: {
       name: () => $t(L.EulaliaDefiesTheMagistrate),
       wikipedia: "Eulalia_of_M%C3%A9rida",
-      image: EventImage.Lusitania6,
+      image: EventImage.SaintEulalia,
       desc: () => $t(L.EulaliaDefiesTheMagistrateDesc),
       condition: {
          province: ["Lusitania"],
@@ -165,7 +165,7 @@ export const LusitaniaEvent = {
    Lusitania7: {
       name: () => $t(L.ThePriscillianistControversy),
       wikipedia: "Priscillian",
-      image: EventImage.Lusitania7,
+      image: EventImage.StephenDebate,
       desc: () => $t(L.ThePriscillianistControversyDesc),
       condition: {
          province: ["Lusitania"],
@@ -197,7 +197,7 @@ export const LusitaniaEvent = {
    Lusitania8: {
       name: () => $t(L.LusitaniaIsGrantedToTheAlans),
       wikipedia: "Alans",
-      image: EventImage.War2,
+      image: EventImage.PompeiiFalls,
       desc: () => $t(L.LusitaniaIsGrantedToTheAlansDesc),
       condition: {
          province: ["Lusitania"],
@@ -224,7 +224,7 @@ export const LusitaniaEvent = {
    Lusitania9: {
       name: () => $t(L.GothAndAlanContestTheProvince),
       wikipedia: "Alans",
-      image: EventImage.Y453,
+      image: EventImage.TolbiacBattle,
       desc: () => $t(L.GothAndAlanContestTheProvinceDesc),
       condition: {
          province: ["Lusitania"],
@@ -285,7 +285,7 @@ export const LusitaniaEvent = {
    },
    Lusitania11: {
       name: () => $t(L.TheFruitsOfTarraconensianFriendship),
-      image: EventImage.Y453,
+      image: EventImage.TolbiacBattle,
       desc: () => $t(L.TheFruitsOfTarraconensianFriendshipDesc),
       condition: {
          province: ["Lusitania"],
@@ -314,7 +314,7 @@ export const LusitaniaEvent = {
    },
    Lusitania12: {
       name: () => $t(L.AFootholdInBaetica),
-      image: EventImage.Y453,
+      image: EventImage.TolbiacBattle,
       desc: () => $t(L.LusitaniaFootholdInBaeticaDesc),
       condition: {
          province: ["Lusitania"],
@@ -341,7 +341,7 @@ export const LusitaniaEvent = {
    },
    Lusitania13: {
       name: () => $t(L.TheDistressOfTarraconensis),
-      image: EventImage.Aquitania3,
+      image: EventImage.RuinsWithPeasants,
       desc: () => $t(L.TheDistressOfTarraconensisDesc),
       condition: {
          province: ["Lusitania"],
@@ -384,7 +384,7 @@ export const LusitaniaEvent = {
    },
    Lusitania14: {
       name: () => $t(L.TheWealthOfEmerita),
-      image: EventImage.Aquitania3,
+      image: EventImage.RuinsWithPeasants,
       desc: () => $t(L.TheWealthOfEmeritaDesc),
       condition: {
          province: ["Lusitania"],
@@ -406,7 +406,7 @@ export const LusitaniaEvent = {
    },
    Lusitania15: {
       name: () => $t(L.TheGoldenCoffersOfEmerita),
-      image: EventImage.Aquitania3,
+      image: EventImage.RuinsWithPeasants,
       desc: () => $t(L.TheGoldenCoffersOfEmeritaDesc),
       condition: {
          province: ["Lusitania"],

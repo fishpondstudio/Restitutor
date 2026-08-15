@@ -17,7 +17,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const NarbonensisEvent = {
    Narbonensis1: {
       name: () => $t(L.TheGarumAndOilTradeOfNarbo),
-      image: EventImage.Narbonensis1,
+      image: EventImage.QueenEmbarkation,
       desc: () => $t(L.TheGarumAndOilTradeOfNarboDesc),
       condition: {
          province: ["Narbonensis"],
@@ -43,7 +43,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis2: {
       name: () => $t(L.TheGreekMerchantsOfMassilia),
-      image: EventImage.Sail,
+      image: EventImage.Sailor,
       desc: () => $t(L.TheGreekMerchantsOfMassiliaDesc),
       condition: {
          province: ["Narbonensis"],
@@ -69,7 +69,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis3: {
       name: () => $t(L.TheWatersOfNemausus),
-      image: EventImage.Narbonensis3,
+      image: EventImage.PontDuGard,
       desc: () => $t(L.TheWatersOfNemaususDesc),
       condition: {
          province: ["Narbonensis"],
@@ -95,7 +95,7 @@ export const NarbonensisEvent = {
    Narbonensis4: {
       name: () => $t(L.TheMartyrdomOfGenesiusAtArelate),
       wikipedia: "Genesius_of_Arles",
-      image: EventImage.Narbonensis4,
+      image: EventImage.JohnBeheading,
       desc: () => $t(L.TheMartyrdomOfGenesiusAtArelateDesc),
       condition: {
          province: ["Narbonensis"],
@@ -128,7 +128,7 @@ export const NarbonensisEvent = {
    Narbonensis5: {
       name: () => $t(L.TheCouncilOfArles),
       wikipedia: "Synod_of_Arles",
-      image: EventImage.Narbonensis5,
+      image: EventImage.CouncilOfTrent,
       desc: () => $t(L.TheCouncilOfArlesDesc),
       condition: {
          province: ["Narbonensis"],
@@ -154,7 +154,7 @@ export const NarbonensisEvent = {
    Narbonensis6: {
       name: () => $t(L.ArelateTheRomeOfGaul),
       wikipedia: "Praetorian_prefecture_of_Gaul",
-      image: EventImage.Narbonensis6,
+      image: EventImage.IdealCity,
       desc: () => $t(L.ArelateTheRomeOfGaulDesc),
       condition: {
          province: ["Narbonensis"],
@@ -180,7 +180,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis7: {
       name: () => $t(L.TheBridgeOfBoatsAtArelate),
-      image: EventImage.Narbonensis7,
+      image: EventImage.PonteMolle,
       desc: () => $t(L.TheBridgeOfBoatsAtArelateDesc),
       condition: {
          province: ["Narbonensis"],
@@ -207,7 +207,7 @@ export const NarbonensisEvent = {
    Narbonensis8: {
       name: () => $t(L.TheMonksOfLerins),
       wikipedia: "L%C3%A9rins_Abbey",
-      image: EventImage.Narbonensis8,
+      image: EventImage.JeromeWilderness,
       desc: () => $t(L.TheMonksOfLerinsDesc),
       condition: {
          province: ["Narbonensis"],
@@ -240,7 +240,7 @@ export const NarbonensisEvent = {
    Narbonensis9: {
       name: () => $t(L.CassianBringsTheDesertToMassilia),
       wikipedia: "John_Cassian",
-      image: EventImage.Narbonensis9,
+      image: EventImage.JohnCassian,
       desc: () => $t(L.CassianBringsTheDesertToMassiliaDesc),
       condition: {
          province: ["Narbonensis"],
@@ -272,7 +272,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis10: {
       name: () => $t(L.TheSiltingOfTheHarbor),
-      image: EventImage.Narbonensis10,
+      image: EventImage.EmpireDesolation,
       desc: () => $t(L.TheSiltingOfTheHarborDesc),
       condition: {
          province: ["Narbonensis"],
@@ -298,7 +298,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis11: {
       name: () => $t(L.TheFruitsOfItalianFriendship),
-      image: EventImage.Alliance,
+      image: EventImage.DelphiOracle,
       desc: () => $t(L.TheFruitsOfItalianFriendshipDesc),
       condition: {
          province: ["Narbonensis"],
@@ -323,7 +323,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis12: {
       name: () => $t(L.TheFruitsOfAquitanianFriendship),
-      image: EventImage.Alliance,
+      image: EventImage.DelphiOracle,
       desc: () => $t(L.TheFruitsOfAquitanianFriendshipDesc),
       condition: {
          province: ["Narbonensis"],
@@ -354,7 +354,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis13: {
       name: () => $t(L.TheGoldenCoffersOfNarbo),
-      image: EventImage.Prosperity,
+      image: EventImage.CivicTriumph,
       desc: () => $t(L.TheGoldenCoffersOfNarboDesc),
       condition: {
          province: ["Narbonensis"],
@@ -415,7 +415,7 @@ export const NarbonensisEvent = {
    },
    Narbonensis15: {
       name: () => $t(L.AnAlpineExchange),
-      image: EventImage.Narbonensis10,
+      image: EventImage.EmpireDesolation,
       desc: () => $t(L.AnAlpineExchangeDesc),
       condition: {
          province: ["Narbonensis"],

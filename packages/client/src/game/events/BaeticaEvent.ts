@@ -24,7 +24,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const BaeticaEvent = {
    Baetica1: {
       name: () => $t(L.TheOliveFleetOfTheBaetis),
-      image: EventImage.Olive,
+      image: EventImage.OliveHarvest,
       desc: () => $t(L.TheOliveFleetOfTheBaetisDesc),
       condition: {
          province: ["Baetica"],
@@ -50,7 +50,7 @@ export const BaeticaEvent = {
    },
    Baetica2: {
       name: () => $t(L.TheGarumVatsOfGades),
-      image: EventImage.Baetica2,
+      image: EventImage.SwordfishFishing,
       desc: () => $t(L.TheGarumVatsOfGadesDesc),
       condition: {
          province: ["Baetica"],
@@ -76,7 +76,7 @@ export const BaeticaEvent = {
    },
    Baetica3: {
       name: () => $t(L.TheMinesOfTheSierraMorena),
-      image: EventImage.Baetica3,
+      image: EventImage.SierraMorena,
       desc: () => $t(L.TheMinesOfTheSierraMorenaDesc),
       condition: {
          province: ["Baetica"],
@@ -102,7 +102,7 @@ export const BaeticaEvent = {
    },
    Baetica4: {
       name: () => $t(L.TheAncestralGloryOfItalica),
-      image: EventImage.Y238,
+      image: EventImage.RomanRuins1,
       desc: () => $t(L.TheAncestralGloryOfItalicaDesc),
       condition: {
          province: ["Baetica"],
@@ -130,7 +130,7 @@ export const BaeticaEvent = {
    Baetica5: {
       name: () => $t(L.TheMartyrsOfCorduba),
       wikipedia: "Acisclus",
-      image: EventImage.Baetica5,
+      image: EventImage.SaintRoderick,
       desc: () => $t(L.TheMartyrsOfCordubaDesc),
       condition: {
          province: ["Baetica"],
@@ -157,7 +157,7 @@ export const BaeticaEvent = {
    Baetica6: {
       name: () => $t(L.TheCouncilOfElvira),
       wikipedia: "Synod_of_Elvira",
-      image: EventImage.Baetica6,
+      image: EventImage.CadaverSynod,
       desc: () => $t(L.TheCouncilOfElviraDesc),
       condition: {
          province: ["Baetica"],
@@ -185,7 +185,7 @@ export const BaeticaEvent = {
    Baetica7: {
       name: () => $t(L.HosiusReturnsFromNicaea),
       wikipedia: "Hosius_of_Corduba",
-      image: EventImage.Baetica7,
+      image: EventImage.NicaeaCouncil,
       desc: () => $t(L.HosiusReturnsFromNicaeaDesc),
       condition: {
          province: ["Baetica"],
@@ -215,7 +215,7 @@ export const BaeticaEvent = {
    },
    Baetica8: {
       name: () => $t(L.TheDancersOfGades),
-      image: EventImage.Dancer,
+      image: EventImage.RomanDance,
       desc: () => $t(L.TheDancersOfGadesDesc),
       condition: {
          province: ["Baetica"],
@@ -242,7 +242,7 @@ export const BaeticaEvent = {
    Baetica9: {
       name: () => $t(L.TheVandalsReceiveBaetica),
       wikipedia: "Silingi",
-      image: EventImage.Baetica9,
+      image: EventImage.VandalsInItaly,
       desc: () => $t(L.TheVandalsReceiveBaeticaDesc),
       condition: {
          province: ["Baetica"],
@@ -269,7 +269,7 @@ export const BaeticaEvent = {
    Baetica10: {
       name: () => $t(L.TheEmptyHarborsAfterTheCrossing),
       wikipedia: "Vandal_conquest_of_Roman_Africa",
-      image: EventImage.Narbonensis10,
+      image: EventImage.EmpireDesolation,
       desc: () => $t(L.TheEmptyHarborsAfterTheCrossingDesc),
       condition: {
          province: ["Baetica"],
@@ -302,7 +302,7 @@ export const BaeticaEvent = {
    },
    Baetica11: {
       name: () => $t(L.TheLusitanianCounterweight),
-      image: EventImage.Alliance,
+      image: EventImage.DelphiOracle,
       desc: () => $t(L.TheLusitanianCounterweightDesc),
       condition: {
          province: ["Baetica"],
@@ -361,7 +361,7 @@ export const BaeticaEvent = {
    },
    Baetica13: {
       name: () => $t(L.BaeticaAscendant),
-      image: EventImage.Prosperity,
+      image: EventImage.CivicTriumph,
       desc: () => $t(L.BaeticaAscendantDesc),
       condition: {
          province: ["Baetica"],
@@ -384,7 +384,7 @@ export const BaeticaEvent = {
    },
    Baetica14: {
       name: () => $t(L.TheAppealOfPalma),
-      image: EventImage.Island,
+      image: EventImage.MediterraneanIsland,
       desc: () => $t(L.TheAppealOfPalmaDesc),
       condition: {
          province: ["Baetica"],

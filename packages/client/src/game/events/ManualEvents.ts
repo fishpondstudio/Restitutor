@@ -6,7 +6,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const ManualEvents = {
    Manual1: {
       name: () => $t(L.ANewGovernor),
-      image: EventImage.H1,
+      image: EventImage.MarcusAureliusDeath,
       desc: () => $t(L.ANewGovernorDesc),
       type: "manual",
       buttons: [
@@ -39,7 +39,7 @@ export const ManualEvents = {
    },
    Manual2: {
       name: () => $t(L.ANewGovernor),
-      image: EventImage.H2,
+      image: EventImage.SenecaDeath,
       desc: () => $t(L.TheGovernorDiesWithoutAnHeirAndForAMomentNoOneRulesDesc),
       type: "manual",
       buttons: [
@@ -73,7 +73,7 @@ export const ManualEvents = {
    },
    Manual3: {
       name: () => $t(L.ANewHeirIsBorn),
-      image: EventImage.H3,
+      image: EventImage.RomulusAndRemus,
       desc: () => $t(L.ANewHeirIsBornDesc),
       type: "manual",
       buttons: [

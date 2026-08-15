@@ -17,7 +17,7 @@ export const SiciliaEvent = {
    Sicilia1: {
       name: () => $t(L.TheGranariesOfRome),
       wikipedia: "Cura_annonae",
-      image: EventImage.Belgica10,
+      image: EventImage.FieldHarvest,
       desc: () => $t(L.TheGranariesOfRomeDesc),
       condition: {
          province: ["Sicilia"],
@@ -43,7 +43,7 @@ export const SiciliaEvent = {
    Sicilia2: {
       name: () => $t(L.TheVeilBeforeTheFire),
       wikipedia: "Agatha_of_Sicily",
-      image: EventImage.Sicilia2,
+      image: EventImage.AgathaHealing,
       desc: () => $t(L.TheVeilBeforeTheFireDesc),
       condition: {
          province: ["Sicilia"],
@@ -71,7 +71,7 @@ export const SiciliaEvent = {
    Sicilia3: {
       name: () => $t(L.TheVillaOfTheGreatHunt),
       wikipedia: "Villa_Romana_del_Casale",
-      image: EventImage.Sicilia3,
+      image: EventImage.GreatHunt,
       desc: () => $t(L.TheVillaOfTheGreatHuntDesc),
       condition: {
          province: ["Sicilia"],
@@ -153,7 +153,7 @@ export const SiciliaEvent = {
    Sicilia6: {
       name: () => $t(L.WhenAfricaWithholdsItsGrain),
       wikipedia: "Gildonic_War",
-      image: EventImage.Honorius,
+      image: EventImage.HonoriusCourt,
       desc: () => $t(L.WhenAfricaWithholdsItsGrainDesc),
       condition: {
          province: ["Sicilia"],
@@ -180,7 +180,7 @@ export const SiciliaEvent = {
    Sicilia7: {
       name: () => $t(L.TheVandalSiegeOfPanormus),
       wikipedia: "Vandals",
-      image: EventImage.Baetica9,
+      image: EventImage.VandalsInItaly,
       desc: () => $t(L.TheVandalSiegeOfPanormusDesc),
       condition: {
          province: ["Sicilia"],
@@ -207,7 +207,7 @@ export const SiciliaEvent = {
    Sicilia8: {
       name: () => $t(L.TheFleetRecalledEast),
       wikipedia: "Vandals",
-      image: EventImage.Narbonensis1,
+      image: EventImage.QueenEmbarkation,
       desc: () => $t(L.TheFleetRecalledEastDesc),
       condition: {
          province: ["Sicilia"],
@@ -235,7 +235,7 @@ export const SiciliaEvent = {
    Sicilia9: {
       name: () => $t(L.TheArmadaThatNeverReturned),
       wikipedia: "Battle_of_Cape_Bon_(468)",
-      image: EventImage.NavalWarfare,
+      image: EventImage.NavalBattle,
       desc: () => $t(L.TheArmadaThatNeverReturnedDesc),
       condition: {
          province: ["Sicilia"],
@@ -261,7 +261,7 @@ export const SiciliaEvent = {
    Sicilia10: {
       name: () => $t(L.ThePerpetualPeace),
       wikipedia: "Gaiseric",
-      image: EventImage.WarEnded,
+      image: EventImage.ScipiosClemency1,
       desc: () => $t(L.ThePerpetualPeaceDesc),
       condition: {
          province: ["Sicilia"],
@@ -313,7 +313,7 @@ export const SiciliaEvent = {
    },
    Sicilia12: {
       name: () => $t(L.RomeAnswersToSicilia),
-      image: EventImage.Belgica10,
+      image: EventImage.FieldHarvest,
       desc: () => $t(L.RomeAnswersToSiciliaDesc),
       condition: {
          province: ["Sicilia"],
@@ -335,7 +335,7 @@ export const SiciliaEvent = {
    },
    Sicilia13: {
       name: () => $t(L.TheSardinianMarriageSettlement),
-      image: EventImage.NavalWarfare,
+      image: EventImage.NavalBattle,
       desc: () => $t(L.TheSardinianMarriageSettlementDesc),
       condition: {
          province: ["Sicilia"],
@@ -365,7 +365,7 @@ export const SiciliaEvent = {
    },
    Sicilia14: {
       name: () => $t(L.CorsicaLooksSouth),
-      image: EventImage.NavalWarfare,
+      image: EventImage.NavalBattle,
       desc: () => $t(L.CorsicaLooksSouthDesc),
       condition: {
          province: ["Sicilia"],
@@ -395,7 +395,7 @@ export const SiciliaEvent = {
    },
    Sicilia15: {
       name: () => $t(L.APactAcrossTheStrait),
-      image: EventImage.NavalWarfare,
+      image: EventImage.NavalBattle,
       desc: () => $t(L.APactAcrossTheStraitDesc),
       condition: {
          province: ["Sicilia"],

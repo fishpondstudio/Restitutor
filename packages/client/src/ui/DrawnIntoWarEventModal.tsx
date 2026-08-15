@@ -19,8 +19,8 @@ export function DrawnIntoWarModal({ war }: { war: IWar }): React.ReactNode {
             getProvinceName(war.defender, G.save),
             getProvinceName(ourAlly, G.save),
          )}
-         image={EventImage.DrawnIntoWar.url}
-         titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.DrawnIntoWar.credit)}</div>}
+         image={EventImage.ScipiosClemency2.url}
+         titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.ScipiosClemency2.credit)}</div>}
          buttons={[
             <GameEventButton
                key="0"

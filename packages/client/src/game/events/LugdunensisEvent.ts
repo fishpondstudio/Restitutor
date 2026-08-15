@@ -27,7 +27,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const LugdunensisEvent = {
    Lugdunensis1: {
       name: () => $t(L.BlitzkriegAgainstBelgica),
-      image: EventImage.InvaderConqueredWarGoal,
+      image: EventImage.CarthageCaptured,
       desc: () => $t(L.BlitzkriegAgainstBelgicaDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -66,7 +66,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis2: {
       name: () => $t(L.AProsperousLugdunensis),
-      image: EventImage.Y293,
+      image: EventImage.RomanBathsPlan,
       desc: () => $t(L.AProsperousLugdunensisDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -88,7 +88,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis3: {
       name: () => $t(L.ThePrideOfGaulRidesForth),
-      image: EventImage.Y262,
+      image: EventImage.VercingetorixSurrenders,
       desc: () => $t(L.ThePrideOfGaulRidesForthDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -106,7 +106,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis4: {
       name: () => $t(L.AWeakenedBelgica),
-      image: EventImage.InvaderConqueredWarGoal,
+      image: EventImage.CarthageCaptured,
       desc: () => $t(L.AWeakenedBelgicaDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -170,7 +170,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis5: {
       name: () => $t(L.BoundByBloodAndOath),
-      image: EventImage.Emperor,
+      image: EventImage.ImperialPatronage,
       desc: () => $t(L.BoundByBloodAndOathDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -202,7 +202,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis6: {
       name: () => $t(L.TheImperialMintInCrisis),
-      image: EventImage.Y212,
+      image: EventImage.RomanForum1,
       desc: () => $t(L.TheImperialMintInCrisisDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -239,7 +239,7 @@ export const LugdunensisEvent = {
    Lugdunensis7: {
       name: () => $t(L.TheLegacyOfIrenaeus),
       wikipedia: "Irenaeus",
-      image: EventImage.Saint,
+      image: EventImage.SaintHealing,
       desc: () => $t(L.TheLegacyOfIrenaeusDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -278,7 +278,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis8: {
       name: () => $t(L.PilgrimsFromAquitania),
-      image: EventImage.Martyrs,
+      image: EventImage.StephenStoning,
       desc: () => $t(L.PilgrimsFromAquitaniaDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -358,7 +358,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis10: {
       name: () => $t(L.TheArmoricanSmugglers),
-      image: EventImage.Sail,
+      image: EventImage.Sailor,
       desc: () => $t(L.TheArmoricanSmugglersDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -399,7 +399,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis11: {
       name: () => $t(L.TheDeclineOfLugdunum),
-      image: EventImage.Y212,
+      image: EventImage.RomanForum1,
       desc: () => $t(L.TheDeclineOfLugdunumDesc),
 
       condition: {
@@ -478,7 +478,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis13: {
       name: () => $t(L.TheShepherdRisesOverLugdunensis),
-      image: EventImage.Bishop,
+      image: EventImage.SaintConsecration,
       desc: () => $t(L.TheShepherdRisesOverLugdunensisDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -518,7 +518,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis14: {
       name: () => $t(L.TheBirthOfTheArmoricanConfederacy),
-      image: EventImage.Rome,
+      image: EventImage.RomanRuins2,
       desc: () => $t(L.TheBirthOfTheArmoricanConfederacyDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -554,7 +554,7 @@ export const LugdunensisEvent = {
    Lugdunensis15: {
       name: () => $t(L.MartinOfToursAndTheCloak),
       wikipedia: "Martin_of_Tours",
-      image: EventImage.Saint2,
+      image: EventImage.SaintCharity,
       desc: () => $t(L.MartinOfToursAndTheCloakDesc),
       condition: {
          province: ["Lugdunensis"],
@@ -587,7 +587,7 @@ export const LugdunensisEvent = {
    },
    Lugdunensis16: {
       name: () => $t(L.TheTideOfRefugeesAtTheRhine),
-      image: EventImage.Refugee,
+      image: EventImage.PompeiiRefugees,
       desc: () => $t(L.TheTideOfRefugeesAtTheRhineDesc),
       condition: {
          province: ["Lugdunensis"],

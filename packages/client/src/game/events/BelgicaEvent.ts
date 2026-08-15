@@ -9,7 +9,7 @@ export const BelgicaEvent = {
    Belgica1: {
       name: () => $t(L.AugustaTreverorumCityOfEmperors),
       wikipedia: "Trier",
-      image: EventImage.Belgica1,
+      image: EventImage.AncientRome,
       desc: () => $t(L.AugustaTreverorumCityOfEmperorsDesc),
       condition: {
          province: ["Belgica"],
@@ -35,7 +35,7 @@ export const BelgicaEvent = {
    },
    Belgica2: {
       name: () => $t(L.TheWeavingHousesOfTrier),
-      image: EventImage.Belgica2,
+      image: EventImage.Weavers,
       desc: () => $t(L.TheWeavingHousesOfTrierDesc),
       condition: {
          province: ["Belgica"],
@@ -63,7 +63,7 @@ export const BelgicaEvent = {
    },
    Belgica3: {
       name: () => $t(L.ThePurpleIsRaisedAtTrier),
-      image: EventImage.Belgica3,
+      image: EventImage.HeroTriumph,
       desc: () => $t(L.ThePurpleIsRaisedAtTrierDesc),
       condition: {
          province: ["Belgica"],
@@ -90,7 +90,7 @@ export const BelgicaEvent = {
    },
    Belgica4: {
       name: () => $t(L.TheOldGodsOfTheTreveri),
-      image: EventImage.Belgica4,
+      image: EventImage.DruidRitual,
       desc: () => $t(L.TheOldGodsOfTheTreveriDesc),
       condition: {
          province: ["Belgica"],
@@ -129,7 +129,7 @@ export const BelgicaEvent = {
    Belgica5: {
       name: () => $t(L.AthanasiusInExileAtTrier),
       wikipedia: "Athanasius_of_Alexandria",
-      image: EventImage.Belgica5,
+      image: EventImage.JeromeStudy,
       desc: () => $t(L.AthanasiusInExileAtTrierDesc),
       condition: {
          province: ["Belgica"],
@@ -186,7 +186,7 @@ export const BelgicaEvent = {
    },
    Belgica7: {
       name: () => $t(L.TheGlassworksOfTheRhineland),
-      image: EventImage.Belgica7,
+      image: EventImage.GiltCup,
       desc: () => $t(L.TheGlassworksOfTheRhinelandDesc),
       condition: {
          province: ["Belgica"],
@@ -213,7 +213,7 @@ export const BelgicaEvent = {
    Belgica8: {
       name: () => $t(L.TheMartyrdomOfNicasiusAtReims),
       wikipedia: "Nicasius_of_Rheims",
-      image: EventImage.Martyrs,
+      image: EventImage.StephenStoning,
       desc: () => $t(L.TheMartyrdomOfNicasiusAtReimsDesc),
       condition: {
          province: ["Belgica"],
@@ -245,7 +245,7 @@ export const BelgicaEvent = {
    Belgica9: {
       name: () => $t(L.TheCourtDepartsTrier),
       wikipedia: "Praetorian_prefecture_of_Gaul",
-      image: EventImage.Belgica9,
+      image: EventImage.RuinedColonnade,
       desc: () => $t(L.TheCourtDepartsTrierDesc),
       condition: {
          province: ["Belgica"],
@@ -278,7 +278,7 @@ export const BelgicaEvent = {
    },
    Belgica10: {
       name: () => $t(L.TheGranariesOfTheRhineArmy),
-      image: EventImage.Belgica10,
+      image: EventImage.FieldHarvest,
       desc: () => $t(L.TheGranariesOfTheRhineArmyDesc),
       condition: {
          province: ["Belgica"],
@@ -305,7 +305,7 @@ export const BelgicaEvent = {
    },
    Belgica11: {
       name: () => $t(L.SouthwardIntoLugdunensis),
-      image: EventImage.War1,
+      image: EventImage.BattleOfIssus,
       desc: () => $t(L.SouthwardIntoLugdunensisDesc),
       condition: {
          province: ["Belgica"],
@@ -335,7 +335,7 @@ export const BelgicaEvent = {
    },
    Belgica12: {
       name: () => $t(L.NorthwardIntoGermania),
-      image: EventImage.War2,
+      image: EventImage.PompeiiFalls,
       desc: () => $t(L.NorthwardIntoGermaniaDesc),
       condition: {
          province: ["Belgica"],
@@ -365,7 +365,7 @@ export const BelgicaEvent = {
    },
    Belgica13: {
       name: () => $t(L.AcrossTheSeaToBritannia),
-      image: EventImage.NavalWarfare,
+      image: EventImage.NavalBattle,
       desc: () => $t(L.AcrossTheSeaToBritanniaDesc),
       condition: {
          province: ["Belgica"],
@@ -395,7 +395,7 @@ export const BelgicaEvent = {
    },
    Belgica14: {
       name: () => $t(L.BelgicaAscendant),
-      image: EventImage.Prosperity,
+      image: EventImage.CivicTriumph,
       desc: () => $t(L.BelgicaAscendantDesc),
       condition: {
          province: ["Belgica"],

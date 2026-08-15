@@ -10,7 +10,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const RandomEvents = {
    Random1: {
       name: () => $t(L.AQuestionOfLegitimacy),
-      image: EventImage.H3,
+      image: EventImage.RomulusAndRemus,
       desc: () => $t(L.AQuestionOfLegitimacyDesc),
       type: "random",
       condition: {
@@ -74,7 +74,7 @@ export const RandomEvents = {
    },
    Random2: {
       name: () => $t(L.ALearnedStrangerArrives),
-      image: EventImage.School,
+      image: EventImage.PhilosophySchool,
       desc: () => $t(L.ALearnedStrangerArrivesDesc),
       type: "random",
       condition: {},
@@ -91,7 +91,7 @@ export const RandomEvents = {
    },
    Random3: {
       name: () => $t(L.HiddenLandsUnveiled),
-      image: EventImage.Y401,
+      image: EventImage.RomanCampagna,
       desc: () => $t(L.HiddenLandsUnveiledDesc),
       type: "random",
       condition: {},
@@ -114,7 +114,7 @@ export const RandomEvents = {
    },
    Random4: {
       name: () => $t(L.MerchantsAccusedOfMalfeasance),
-      image: EventImage.Merchant,
+      image: EventImage.Merchant1,
       desc: () => $t(L.MerchantsAccusedOfMalfeasanceDesc),
       type: "random",
       condition: {},
@@ -137,7 +137,7 @@ export const RandomEvents = {
    },
    Random5: {
       name: () => $t(L.TheArmyDemandsItsDue),
-      image: EventImage.Y211,
+      image: EventImage.GermanicusDeath,
       desc: () => $t(L.TheArmyDemandsItsDueDesc),
       type: "random",
       condition: {},
@@ -160,7 +160,7 @@ export const RandomEvents = {
    },
    Random6: {
       name: () => $t(L.ThePriceOfWiseCounsel),
-      image: EventImage.Y330,
+      image: EventImage.ConstantinopleBuilt,
       desc: () => $t(L.ThePriceOfWiseCounselDesc),
       type: "random",
       condition: {},

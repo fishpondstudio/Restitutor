@@ -18,7 +18,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const AquitaniaEvent = {
    Aquitania1: {
       name: () => $t(L.TheWineFleetOfBurdigala),
-      image: EventImage.Aquitania1,
+      image: EventImage.GrapeHarvest,
       desc: () => $t(L.TheWineFleetOfBurdigalaDesc),
       condition: {
          province: ["Aquitania"],
@@ -44,7 +44,7 @@ export const AquitaniaEvent = {
    },
    Aquitania2: {
       name: () => $t(L.TheGreatEstatesOfTheGaronne),
-      image: EventImage.Aquitania2,
+      image: EventImage.RomanVilla,
       desc: () => $t(L.TheGreatEstatesOfTheGaronneDesc),
       condition: {
          province: ["Aquitania"],
@@ -70,7 +70,7 @@ export const AquitaniaEvent = {
    Aquitania3: {
       name: () => $t(L.TheBagaudaeRiseInTheCountryside),
       wikipedia: "Bagaudae",
-      image: EventImage.Aquitania3,
+      image: EventImage.RuinsWithPeasants,
       desc: () => $t(L.TheBagaudaeRiseInTheCountrysideDesc),
       condition: {
          province: ["Aquitania"],
@@ -108,7 +108,7 @@ export const AquitaniaEvent = {
    },
    Aquitania4: {
       name: () => $t(L.TheSchoolsOfBordeaux),
-      image: EventImage.School,
+      image: EventImage.PhilosophySchool,
       desc: () => $t(L.TheSchoolsOfBordeauxDesc),
       condition: {
          province: ["Aquitania"],
@@ -134,7 +134,7 @@ export const AquitaniaEvent = {
    Aquitania5: {
       name: () => $t(L.HilaryOfPoitiersDefiesTheArians),
       wikipedia: "Hilary_of_Poitiers",
-      image: EventImage.Aquitania5,
+      image: EventImage.EucharistDebate,
       desc: () => $t(L.HilaryOfPoitiersDefiesTheAriansDesc),
       condition: {
          province: ["Aquitania"],
@@ -174,7 +174,7 @@ export const AquitaniaEvent = {
    Aquitania6: {
       name: () => $t(L.PaulinusForsakesTheWorld),
       wikipedia: "Paulinus_of_Nola",
-      image: EventImage.Aquitania6,
+      image: EventImage.SaintPaulinus,
       desc: () => $t(L.PaulinusForsakesTheWorldDesc),
       condition: {
          province: ["Aquitania"],
@@ -206,7 +206,7 @@ export const AquitaniaEvent = {
    Aquitania7: {
       name: () => $t(L.AusoniusReturnsToHisVilla),
       wikipedia: "Ausonius",
-      image: EventImage.Aquitania7,
+      image: EventImage.HomerReading,
       desc: () => $t(L.AusoniusReturnsToHisVillaDesc),
       condition: {
          province: ["Aquitania"],
@@ -231,7 +231,7 @@ export const AquitaniaEvent = {
    },
    Aquitania8: {
       name: () => $t(L.TheSpringsOfAquae),
-      image: EventImage.Aquitania8,
+      image: EventImage.RomanBathing,
       desc: () => $t(L.TheSpringsOfAquaeDesc),
       condition: {
          province: ["Aquitania"],
@@ -257,7 +257,7 @@ export const AquitaniaEvent = {
    },
    Aquitania9: {
       name: () => $t(L.TheHorseBreedersOfAquitania),
-      image: EventImage.Aquitania9,
+      image: EventImage.HorsePasture,
       desc: () => $t(L.TheHorseBreedersOfAquitaniaDesc),
       condition: {
          province: ["Aquitania"],
@@ -282,7 +282,7 @@ export const AquitaniaEvent = {
    },
    Aquitania10: {
       name: () => $t(L.TheVineyardsFallFallow),
-      image: EventImage.Aquitania10,
+      image: EventImage.Vineyard,
       desc: () => $t(L.TheVineyardsFallFallowDesc),
       condition: {
          province: ["Aquitania"],
@@ -307,7 +307,7 @@ export const AquitaniaEvent = {
    },
    Aquitania11: {
       name: () => $t(L.AGallicAlliance),
-      image: EventImage.Alliance,
+      image: EventImage.DelphiOracle,
       desc: () => $t(L.AGallicAllianceDesc),
       condition: {
          province: ["Aquitania"],
@@ -370,7 +370,7 @@ export const AquitaniaEvent = {
    },
    Aquitania13: {
       name: () => $t(L.TheSubmissionOfNarbonensis),
-      image: EventImage.Annex,
+      image: EventImage.CaptiveTriumph,
       desc: () => $t(L.TheSubmissionOfNarbonensisDesc),
       condition: {
          province: ["Aquitania"],

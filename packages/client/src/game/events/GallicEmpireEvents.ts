@@ -15,7 +15,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const GallicEmpireEvents = {
    Gallic1: {
       name: () => $t(L.GallicEmpireProclaimed),
-      image: EventImage.Y400,
+      image: EventImage.RomanForum3,
       desc: () => $t(L.GallicEmpireProclaimedDesc),
       condition: {
          province: GallicEmpireProvinces,
@@ -45,7 +45,7 @@ export const GallicEmpireEvents = {
    },
    Gallic2: {
       name: () => $t(L.TheSubmissionOfBritannia),
-      image: EventImage.Surrender,
+      image: EventImage.SchoolmasterPunished,
       desc: () => $t(L.TheSubmissionOfBritanniaDesc),
       condition: {
          nameOverride: "GallicEmpire",

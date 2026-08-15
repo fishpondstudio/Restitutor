@@ -20,7 +20,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const TarraconensisEvent = {
    Tarraconensis1: {
       name: () => $t(L.TheSilverOfCarthagoNova),
-      image: EventImage.Mine,
+      image: EventImage.CopperMine,
       desc: () => $t(L.TheSilverOfCarthagoNovaDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -46,7 +46,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis2: {
       name: () => $t(L.TheGamesOfTarraco),
-      image: EventImage.Games2,
+      image: EventImage.ChariotRace2,
       desc: () => $t(L.TheGamesOfTarracoDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -73,7 +73,7 @@ export const TarraconensisEvent = {
    Tarraconensis3: {
       name: () => $t(L.TheMartyrdomOfFructuosus),
       wikipedia: "Fructuosus",
-      image: EventImage.Y303,
+      image: EventImage.MartyrsPrayer,
       desc: () => $t(L.TheMartyrdomOfFructuosusDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -105,7 +105,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis4: {
       name: () => $t(L.WallsForBarcino),
-      image: EventImage.Toledo,
+      image: EventImage.ToledoBridge,
       desc: () => $t(L.WallsForBarcinoDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -132,7 +132,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis5: {
       name: () => $t(L.TheNewTaxSurvey),
-      image: EventImage.Y284,
+      image: EventImage.DiocletianStatue,
       desc: () => $t(L.TheNewTaxSurveyDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -159,7 +159,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis6: {
       name: () => $t(L.TheIrrigatorsOfTheEbro),
-      image: EventImage.Canal,
+      image: EventImage.MoorlandCanal,
       desc: () => $t(L.TheIrrigatorsOfTheEbroDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -186,7 +186,7 @@ export const TarraconensisEvent = {
    Tarraconensis7: {
       name: () => $t(L.PrudentiusSingsOfChristianRome),
       wikipedia: "Prudentius",
-      image: EventImage.Tarraconensis7,
+      image: EventImage.AugustineStudy,
       desc: () => $t(L.PrudentiusSingsOfChristianRomeDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -215,7 +215,7 @@ export const TarraconensisEvent = {
    Tarraconensis8: {
       name: () => $t(L.MaximusTakesThePurpleInHispania),
       wikipedia: "Maximus_of_Hispania",
-      image: EventImage.Y222,
+      image: EventImage.ClaudiusEmperor,
       desc: () => $t(L.MaximusTakesThePurpleInHispaniaDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -241,7 +241,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis9: {
       name: () => $t(L.TheLastRomanProvinceInHispania),
-      image: EventImage.Tarraconensis9,
+      image: EventImage.NumantiaFalls,
       desc: () => $t(L.TheLastRomanProvinceInHispaniaDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -268,7 +268,7 @@ export const TarraconensisEvent = {
    Tarraconensis10: {
       name: () => $t(L.TheBagaudaeOfTheEbro),
       wikipedia: "Bagaudae",
-      image: EventImage.Tarraconensis10,
+      image: EventImage.PeasantRevolt,
       desc: () => $t(L.TheBagaudaeOfTheEbroDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -301,7 +301,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis11: {
       name: () => $t(L.AFootholdInBaetica),
-      image: EventImage.Expedition,
+      image: EventImage.ImperialCity,
       desc: () => $t(L.AFootholdInBaeticaDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -331,7 +331,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis12: {
       name: () => $t(L.BaeticaLiesExposed),
-      image: EventImage.Belgica3,
+      image: EventImage.HeroTriumph,
       desc: () => $t(L.BaeticaLiesExposedDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -356,7 +356,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis13: {
       name: () => $t(L.AnAccordWithLusitania),
-      image: EventImage.Alliance,
+      image: EventImage.DelphiOracle,
       desc: () => $t(L.AnAccordWithLusitaniaDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -412,7 +412,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis14: {
       name: () => $t(L.TheDistressOfLusitania),
-      image: EventImage.Aquitania3,
+      image: EventImage.RuinsWithPeasants,
       desc: () => $t(L.TheDistressOfLusitaniaDesc),
       condition: {
          province: ["Tarraconensis"],
@@ -466,7 +466,7 @@ export const TarraconensisEvent = {
    },
    Tarraconensis15: {
       name: () => $t(L.LusitaniaUnderOurProtection),
-      image: EventImage.Emperor,
+      image: EventImage.ImperialPatronage,
       desc: () => $t(L.LusitaniaUnderOurProtectionDesc),
       condition: {
          province: ["Tarraconensis"],

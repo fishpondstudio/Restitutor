@@ -16,7 +16,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const GermaniaEvent = {
    Germania1: {
       name: () => $t(L.TheKilnsOfRheinzabern),
-      image: EventImage.Germania1,
+      image: EventImage.PotteryMarket,
       desc: () => $t(L.TheKilnsOfRheinzabernDesc),
       condition: {
          province: ["Germania"],
@@ -42,7 +42,7 @@ export const GermaniaEvent = {
    },
    Germania2: {
       name: () => $t(L.TheRhineFleetAtColonia),
-      image: EventImage.Galley,
+      image: EventImage.Warship,
       desc: () => $t(L.TheRhineFleetAtColoniaDesc),
       condition: {
          province: ["Germania"],
@@ -70,7 +70,7 @@ export const GermaniaEvent = {
    Germania3: {
       name: () => $t(L.PostumusIsRaisedUponTheShield),
       wikipedia: "Postumus",
-      image: EventImage.Germania3,
+      image: EventImage.FrankishKing,
       desc: () => $t(L.PostumusIsRaisedUponTheShieldDesc),
       condition: {
          province: ["Germania"],
@@ -97,7 +97,7 @@ export const GermaniaEvent = {
    Germania4: {
       name: () => $t(L.TheLimesGivesWay),
       wikipedia: "Limesfall",
-      image: EventImage.Germania4,
+      image: EventImage.EmpireDestruction,
       desc: () => $t(L.TheLimesGivesWayDesc),
       condition: {
          province: ["Germania"],
@@ -130,7 +130,7 @@ export const GermaniaEvent = {
    },
    Germania5: {
       name: () => $t(L.VinesBeyondTheAlps),
-      image: EventImage.Aquitania1,
+      image: EventImage.GrapeHarvest,
       desc: () => $t(L.VinesBeyondTheAlpsDesc),
       condition: {
          province: ["Germania"],
@@ -159,7 +159,7 @@ export const GermaniaEvent = {
    Germania6: {
       name: () => $t(L.GereonAndTheMartyrsOfColonia),
       wikipedia: "Gereon",
-      image: EventImage.Germania6,
+      image: EventImage.SaintGereon,
       desc: () => $t(L.GereonAndTheMartyrsOfColoniaDesc),
       condition: {
          province: ["Germania"],
@@ -197,7 +197,7 @@ export const GermaniaEvent = {
    },
    Germania7: {
       name: () => $t(L.ConstantineBridgesTheRhine),
-      image: EventImage.Germania7,
+      image: EventImage.StoneBridge,
       desc: () => $t(L.ConstantineBridgesTheRhineDesc),
       condition: {
          province: ["Germania"],
@@ -224,7 +224,7 @@ export const GermaniaEvent = {
    Germania8: {
       name: () => $t(L.TheVictoryAtArgentoratum),
       wikipedia: "Battle_of_Strasbourg",
-      image: EventImage.Germania8,
+      image: EventImage.RomanInvasion,
       desc: () => $t(L.TheVictoryAtArgentoratumDesc),
       condition: {
          province: ["Germania"],
@@ -276,7 +276,7 @@ export const GermaniaEvent = {
    Germania10: {
       name: () => $t(L.TheRhineIsCrossed),
       wikipedia: "Crossing_of_the_Rhine",
-      image: EventImage.Germania10,
+      image: EventImage.BarbariansAtRome,
       desc: () => $t(L.TheRhineIsCrossedDesc),
       condition: {
          province: ["Germania"],
@@ -310,7 +310,7 @@ export const GermaniaEvent = {
    },
    Germania11: {
       name: () => $t(L.BeyondTheRhineFrontier),
-      image: EventImage.Expedition,
+      image: EventImage.ImperialCity,
       desc: () => $t(L.BeyondTheRhineFrontierDesc),
       condition: {
          province: ["Germania"],
@@ -348,7 +348,7 @@ export const GermaniaEvent = {
    },
    Germania12: {
       name: () => $t(L.$1SeeksOurProtection, Province.Raetia.name()),
-      image: EventImage.Annex,
+      image: EventImage.CaptiveTriumph,
       desc: () => $t(L.RaetiaSeeksOurProtectionDesc),
       condition: {
          province: ["Germania"],
@@ -376,7 +376,7 @@ export const GermaniaEvent = {
    },
    Germania13: {
       name: () => $t(L.$1SeeksOurProtection, Province.Belgica.name()),
-      image: EventImage.Emperor,
+      image: EventImage.ImperialPatronage,
       desc: () => $t(L.BelgicaSeeksOurProtectionDesc),
       condition: {
          province: ["Germania"],
@@ -468,7 +468,7 @@ export const GermaniaEvent = {
    },
    Germania15: {
       name: () => $t(L.GermaniaAscendant),
-      image: EventImage.Empire,
+      image: EventImage.RomanExpedition,
       desc: () => $t(L.GermaniaAscendantDesc),
       condition: {
          province: ["Germania"],

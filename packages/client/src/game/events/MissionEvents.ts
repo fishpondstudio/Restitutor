@@ -8,7 +8,7 @@ import type { IGameEventConfig } from "./GameEvents";
 export const MissionEvents = {
    Mission1: {
       name: () => $t(L.AStrongAlliance),
-      image: EventImage.WarEnded,
+      image: EventImage.ScipiosClemency1,
       desc: () => $t(L.AStrongAllianceDesc),
       condition: {
          conditions: (province, save) => [allyCountCondition(2, province, save)],
@@ -30,7 +30,7 @@ export const MissionEvents = {
    },
    Mission2: {
       name: () => $t(L.ANewHegemonRises),
-      image: EventImage.Y272,
+      image: EventImage.ZenobiaCaptured,
       desc: () => $t(L.ANewHegemonRisesDesc),
       condition: {
          conditions: (province, save) => [
@@ -57,7 +57,7 @@ export const MissionEvents = {
    },
    Mission3: {
       name: () => $t(L.TheIncorporationOfHispania),
-      image: EventImage.Annex,
+      image: EventImage.CaptiveTriumph,
       desc: () => $t(L.TheIncorporationOfHispaniaDesc),
       condition: {
          annexAndCore: {
