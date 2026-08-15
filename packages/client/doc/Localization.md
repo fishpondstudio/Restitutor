@@ -7,26 +7,36 @@ This document describes how to extract hardcoded user-facing strings in the Rest
 | Item | Location |
 |------|----------|
 | Source files to localize | `packages/client/src/**/*.ts` and `packages/client/src/**/*.tsx` |
-| English language file | `packages/client/src/languages/en.ts` |
-| Other language files | `packages/client/src/languages/*.ts` (synced from `en.ts`) |
+| Language files and ownership | See [Language Registry](#language-registry) |
 | Translation runtime | `packages/client/src/utils/i18n.ts` |
 | Language switching | `packages/client/src/utils/Global.tsx` (`setLanguage`) |
 | HTML rendering helper | `packages/client/src/ui/components/RenderHTMLComp.tsx` |
 | Chronicle markup parser | `packages/client/src/ui/ParseMarkup.tsx` |
 | Format helpers | `@project/shared/src/utils/Helper` (`formatNumber`, `formatDelta`, `formatPercent`, `formatPercentDelta`) |
-| Translate & sync script | `scripts/Translate.js` (run via `pnpm run translate` at repo root; syncs to other languages, removes unused keys, and validates) |
+| Translate & sync script | `scripts/Translate.js` (run via `pnpm run translate` at repo root; syncs files in the [Language Registry](#language-registry), removes unused keys, and validates) |
+
+## Language Registry
+
+This registry is the single source of truth for language files and their ownership. Follow its ownership column whenever adding, translating, reviewing, correcting, or synchronizing localization content.
+
+| Language | File | Ownership | Handling |
+|----------|------|-----------|----------|
+| English | `packages/client/src/languages/en.ts` | **Base** | Source of truth for keys, English content, and validation. |
+| Russian | `packages/client/src/languages/ru.ts` | **Machine** | String values are translated and maintained through machine translation. |
+| Simplified Chinese | `packages/client/src/languages/zh-CN.ts` | **Machine** | String values are translated and maintained through machine translation. |
+| French | `packages/client/src/languages/fr.ts` | **External** | String values are reserved for the external translator. Keys may be synchronized mechanically, but string values must not be translated, reviewed, corrected, or otherwise revised. |
 
 ## Workflow
 
 For each hardcoded user-facing string:
 
 1. **Decide** whether the string should be localized (see [Scope](#scope) below). If unsure, flag it and skip.
-2. **Search** `packages/client/src/languages/en.ts` for an existing key with the same content. Reuse it if found.
+2. **Search** `en.ts` in the [Language Registry](#language-registry) for an existing key with the same content. Reuse it if found.
 3. **Add** a new entry to `en.ts` (or reuse an existing key). **Always append new keys at the end of the file** — do not manually interleave them alphabetically. This keeps review diffs clean and focused on the actual additions.
 4. **Replace** the hardcoded string in source with `$t(L.KeyName, ...args)`.
 5. **Add imports** if the file does not already import `$t` and `L` from `../utils/i18n` (adjust relative path as needed).
-6. **Run `pnpm run translate`** (see [Verification](#verification)). This syncs new keys to all other language files (`packages/client/src/languages/*.ts`), adding them with their English values as placeholders.
-7. **Translate the new keys** in each non-English language file (`ru.ts`, `zh-CN.ts`, etc.) by replacing the English placeholder values with appropriate translations (see [Translating to Other Languages](#translating-to-other-languages)).
+6. **Run `pnpm run translate`** (see [Verification](#verification)). This syncs new keys from `en.ts` to the other files in the [Language Registry](#language-registry), adding English values as placeholders.
+7. **Translate the new keys** only in files marked **Machine** in the [Language Registry](#language-registry), replacing the English placeholders with appropriate translations (see [Translating to Other Languages](#translating-to-other-languages)). Follow the registry's handling rules for every other ownership type.
 8. **Run all checks** again (see [Verification](#verification)).
 
 ### Minimal Example
@@ -298,12 +308,12 @@ Before adding a new key, search `en.ts` for an existing entry with the same Engl
 
 ## Translating to Other Languages
 
-This section is for agents and contributors translating `en.ts` into other language files under `packages/client/src/languages/`.
+This section describes how localization files are translated. The [Language Registry](#language-registry) determines which files may be machine-translated.
 
 ### Overview
 
-- **English (`en.ts`) is the source of truth** for all keys and for validation.
-- Each language file exports a constant with the same keys as `en.ts`. The export name is derived from the filename: `de.ts` → `export const DE`, `zh-CN.ts` → `export const ZH_CN`.
+- `en.ts` is the source of truth for all keys and for validation, as recorded in the [Language Registry](#language-registry).
+- Each file listed in the [Language Registry](#language-registry) exports a constant with the same keys as `en.ts`. The export name is the uppercased filename with hyphens replaced by underscores.
 - At runtime, `setLanguage()` in `Global.tsx` copies the selected language object into `L`; `$t` then interpolates tokens from that translation.
 
 ### What to Translate
@@ -311,7 +321,7 @@ This section is for agents and contributors translating `en.ts` into other langu
 - Translate only the **string values** (the text in double quotes).
 - **Do not rename keys.** Key names are code identifiers shared across all languages.
 - **Do not translate or remove `$1`, `$2`, … tokens.** These are placeholders filled in at runtime.
-- **Do not translate** `$$Language`, `$$Credits`, or other `$$` metadata values unless you are setting the display name for that language (e.g. `$$Language: "Deutsch"` in a German file).
+- **Do not translate** `$$Language`, `$$Credits`, or other `$$` metadata values unless you are setting the display name for that language (e.g. `$$Language: "Русский"` in the Russian file).
 - **Preserve HTML and Chronicle tags** (`<i>`, `<b>`, `<Province>`, `<Tile>`, etc.) and keep their structure intact.
 
 ### Ensuring Consistent Terminology
@@ -345,9 +355,9 @@ Reusing a token to repeat a value is also allowed in translations (e.g. repeat `
 
 ### After Translation
 
-Run the same checks in [Verification](#verification). `pnpm run translate` validates token rules against **English only**; still follow the same `$1`…`$N` rules in your language file.
+Run the same checks in [Verification](#verification). `pnpm run translate` validates token rules against `en.ts` only; still follow the same `$1`…`$N` rules in your language file.
 
-To initialize or fully reset a non-English file to English placeholders: `pnpm run translate --reset`.
+To initialize or fully reset every non-English file to English placeholders: `pnpm run translate --reset`. Before using it, consult the [Language Registry](#language-registry): files reserved for external translation are also reset by this command.
 
 To alphabetically sort keys in `en.ts`: `pnpm run translate --sort` (optional; not used in normal workflow).
 
@@ -398,19 +408,19 @@ pnpm run translate  # Validate token consecutiveness, arg counts, key-name match
 ### What `pnpm run translate` Does
 
 1. Scans all `.ts`/`.tsx` files under `packages/` (excluding `languages/`) for `L.KeyName` references and `$t(L.KeyName, ...)` calls.
-2. **Validates token consecutiveness** (English) — checks every key's value for `$N` tokens: they must start from `$1` and be consecutive with no gaps (e.g. `$1 $2 $3` ✓, `$1 $3 $4` ✗, `$2 $3 $4` ✗). Skips `$$` metadata keys.
-3. **Validates key-content token match** (English) — verifies that the `$1`, `$2`, ... tokens in the key name appear in the same order as in the content value.
+2. **Validates token consecutiveness** (`en.ts`) — checks every key's value for `$N` tokens: they must start from `$1` and be consecutive with no gaps (e.g. `$1 $2 $3` ✓, `$1 $3 $4` ✗, `$2 $3 $4` ✗). Skips `$$` metadata keys.
+3. **Validates key-content token match** (`en.ts`) — verifies that the `$1`, `$2`, ... tokens in the key name appear in the same order as in the content value.
 4. **Validates argument counts** — checks that the highest `$N` index in each key's value matches the number of arguments passed to `$t` (reusing the same token number does not require duplicate arguments).
-5. **Validates `html()` wrapper** — if a key's content contains `<i>`, `<b>`, `<q>`, or `<br>`, the `$t()` call site in `.tsx` files must be wrapped in `html()` from `RenderHTMLComp`. Chronicle tags (`<Province>`, `<Tile>`) are excluded. Keys used only in `.ts` files are exempt because callers wrap the result. Add new tag names to `HTML_TAGS` in `scripts/Translate.js` when introducing other inline HTML in `en.ts`.
+5. **Validates `html()` wrapper** — if a key's content in `en.ts` contains `<i>`, `<b>`, `<q>`, or `<br>`, the `$t()` call site in `.tsx` files must be wrapped in `html()` from `RenderHTMLComp`. Chronicle tags (`<Province>`, `<Tile>`) are excluded. Keys used only in `.ts` files are exempt because callers wrap the result. Add new tag names to `HTML_TAGS` in `scripts/Translate.js` when introducing other inline HTML in `en.ts`.
 6. Removes unused keys from `en.ts` (keys starting with `$` are never removed).
-7. Syncs non-English language files under `packages/client/src/languages/` to match `en.ts` keys.
+7. Syncs every other file in the [Language Registry](#language-registry) to match the keys in `en.ts`. Key synchronization does not change a file's ownership or permit edits to its translated values.
 8. Formats language files with biome.
 
 If any validation fails, the script prints details (file, line, key, expected vs. actual), exits with code 1, and **does not** modify language files.
 
 ### After Changing Localization Content
 
-Whenever you change a string's English content, also update its key name to match (if ≤ 64 characters). Otherwise, verify the existing key name is still descriptive; rename if not.
+Whenever you change a string's English content in `en.ts`, also update its key name to match (if ≤ 64 characters). Otherwise, verify the existing key name is still descriptive; rename if not.
 
 ## Flagging Uncertain Cases
 
