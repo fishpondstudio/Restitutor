@@ -23,6 +23,7 @@ import {
    getProvinceOverextension,
    getProvinceStability,
    getProvinceStat,
+   hasStraitOfGibraltar,
 } from "./ProvinceLogic";
 import { getBuildingTech, hasResearched } from "./TechLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
@@ -329,6 +330,27 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.LandTax, breakdown);
    attachModifiers("LandTax", breakdown, data.province, save);
+   if (hasProvinceUpgrade("TheTwoShores", data.province, save) && hasStraitOfGibraltar(data.province, save)) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.TheTwoShores.name(), value: 0.3 });
+   }
+   if (hasProvinceUpgrade("LittoralTaxDistricts", data.province, save)) {
+      let tileCount = 0;
+      for (const [provinceTile, provinceTileData] of save.state.tiles) {
+         if (
+            provinceTileData.province === data.province &&
+            provinceTileData.coreProvinces.has(data.province) &&
+            getCoastalEdgeCount(provinceTile) >= 3
+         ) {
+            tileCount++;
+         }
+      }
+      if (tileCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.LittoralTaxDistricts.name(),
+            value: tileCount * 0.01,
+         });
+      }
+   }
    if (
       hasProvinceUpgrade("OpulentPortCities", data.province, save) &&
       data.coreProvinces.has(data.province) &&
@@ -416,6 +438,24 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.GoodsTax, breakdown);
    attachModifiers("TileOutput", breakdown, data.province, save);
+   if (hasProvinceUpgrade("GranaryOfTheEmpire", data.province, save)) {
+      let grainTileCount = 0;
+      for (const [, provinceTileData] of save.state.tiles) {
+         if (
+            provinceTileData.province === data.province &&
+            provinceTileData.coreProvinces.has(data.province) &&
+            provinceTileData.goods === "grain"
+         ) {
+            grainTileCount++;
+         }
+      }
+      if (grainTileCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.GranaryOfTheEmpire.name(),
+            value: Math.min(grainTileCount * 0.01, 0.5),
+         });
+      }
+   }
    if (hasProvinceUpgrade("BountifulCoastlines", data.province, save) && data.coreProvinces.has(data.province)) {
       const coastalEdgeCount = getCoastalEdgeCount(tile);
       if (coastalEdgeCount > 0) {

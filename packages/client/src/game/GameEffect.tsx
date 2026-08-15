@@ -14,7 +14,7 @@ import { CasusBelli } from "./definitions/CasusBelli";
 import { Goods } from "./definitions/Goods";
 import {
    durationToString,
-   type IModifier,
+   type IBaseModifier,
    type Modifier,
    modifierToString,
    modifierValueToString,
@@ -53,9 +53,9 @@ export interface IGameEffect {
    infiltration?: Partial<Record<Province, number>>;
    trades?: Partial<Record<Province, IEventTrade>>;
    provinceUpgrades?: ProvinceUpgrade[];
-   modifiers?: Partial<Record<Modifier, Omit<IModifier, "name">>>;
-   provinceModifiers?: (Omit<IModifier, "name"> & { modifier: Modifier; province: Province })[];
-   attitudes?: Partial<Record<Province, Omit<IModifier, "name"> & { duration: number }>>;
+   modifiers?: Partial<Record<Modifier, IBaseModifier>>;
+   provinceModifiers?: (IBaseModifier & { modifier: Modifier; province: Province })[];
+   attitudes?: Partial<Record<Province, IBaseModifier & { duration: number }>>;
    casusBelli?: Partial<Record<Province, { casusBelli: CasusBelli; duration: number }>>;
    spawnProvinces?: SpawnedProvince[];
    spawnHeresies?: ChristianHeresy[];

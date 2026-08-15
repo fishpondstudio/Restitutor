@@ -278,6 +278,12 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.TileUpgrades), value: getTotalUpgrades(province, save) });
    attachModifiers("Prestige", breakdown, province, save);
+   if (hasProvinceUpgrade("MaritimeRenown", province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.MaritimeRenown.name(),
+         value: Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.01, 0.5),
+      });
+   }
    if (hasProvinceUpgrade("CaputMundi", province, save) && save.state.provinces[province]?.capital === Tiles.Rome) {
       breakdown.multiply.push({ name: ProvinceUpgrades.CaputMundi.name(), value: 0.1 });
    }
@@ -771,6 +777,24 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
          value: getNeighborProvinces(province, save).size * 0.05,
       });
    }
+   if (hasProvinceUpgrade("MoorishMuster", province, save)) {
+      const coreTileGroups = Math.floor(getProvinceCoreTileCount(province, save) / 10);
+      if (coreTileGroups > 0) {
+         result.multiply.push({
+            name: ProvinceUpgrades.MoorishMuster.name(),
+            value: coreTileGroups * 0.05,
+         });
+      }
+   }
+   if (hasProvinceUpgrade("MercantileMobilization", province, save)) {
+      const tradeCount = getProvinceTrades(province, save).size;
+      if (tradeCount > 0) {
+         result.multiply.push({
+            name: ProvinceUpgrades.MercantileMobilization.name(),
+            value: tradeCount * 0.1,
+         });
+      }
+   }
    if (hasProvinceUpgrade("ExperiencedCommand", province, save)) {
       const generalSkill =
          getProvinceStat("infantrySkill", province, save) +
@@ -970,7 +994,7 @@ export function getProvinceTradeCapacity(province: Province, save: SaveGame): IV
    return finalizeBreakdown(result);
 }
 
-function hasStraitOfGibraltar(province: Province, save: SaveGame): boolean {
+export function hasStraitOfGibraltar(province: Province, save: SaveGame): boolean {
    return StraitOfGibraltarTiles.every((tile) => {
       const data = save.state.tiles.get(tile);
       return data?.province === province && data.coreProvinces.has(province);

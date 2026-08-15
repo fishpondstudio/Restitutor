@@ -453,7 +453,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
          <div className="h1 row">
             <div className="f1">{$t(L.Treaties)}</div>
             <FloatingTip
-               fixedWidth
+               style={{ maxWidth: "25rem" }}
                label={
                   <>
                      <div className="text-sm">{$t(L.ObligationOfOtherPartyInCaseOfWar)}</div>
@@ -1326,7 +1326,7 @@ function AllianceTableComp(): React.ReactNode {
             <div className="mi sm inline">check</div> {$t(L.ObligationToJoinWar)}
          </div>
          <div>
-            <div className="mi sm inline">question_mark</div> {html($t(L.CallToArmsCanBeIgnoredWithPenalty))}
+            <div className="mi sm inline">question_mark</div> {$t(L.CallToArmsCanBeIgnoredWithPenalty)}
          </div>
          <div>
             <div className="mi sm inline">remove</div> {$t(L.ActionNotAvailable)}

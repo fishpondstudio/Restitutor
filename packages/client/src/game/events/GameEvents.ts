@@ -5,6 +5,7 @@ import type { Religion } from "../definitions/Religion";
 import type { Tech } from "../definitions/Tech";
 import type { ICustomEffect, IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
+import { AfricaEvent } from "./AfricaEvent";
 import { AquitaniaEvent } from "./AquitaniaEvent";
 import { BaeticaEvent } from "./BaeticaEvent";
 import { BelgicaEvent } from "./BelgicaEvent";
@@ -18,6 +19,7 @@ import { ItaliaSharedEvent } from "./ItaliaSharedEvent";
 import { LugdunensisEvent } from "./LugdunensisEvent";
 import { LusitaniaEvent } from "./LusitaniaEvent";
 import { ManualEvents } from "./ManualEvents";
+import { MauretaniaEvent } from "./MauretaniaEvent";
 import { MissionEvents } from "./MissionEvents";
 import { NarbonensisEvent } from "./NarbonensisEvent";
 import { RandomEvents } from "./RandomEvents";
@@ -64,6 +66,8 @@ const _GameEvents = {
    ...TarraconensisEvent,
    ...LusitaniaEvent,
    ...BaeticaEvent,
+   ...MauretaniaEvent,
+   ...AfricaEvent,
    ...ItaliaEvent,
    ...SiciliaEvent,
    ...ItaliaSharedEvent,

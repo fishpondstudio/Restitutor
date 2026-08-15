@@ -227,6 +227,30 @@ const _ProvinceUpgrades = {
       name: () => $t(L.CoastalAdministration),
       desc: () => $t(L.$1GoverningCostOnCoreCoastalTiles, "-20%"),
    },
+   TheTwoShores: {
+      name: () => $t(L.TheTwoShores),
+      desc: () => $t(L.$1LandTaxWhileBaeloAndTingiAreAnnexedAndCored, "+30%"),
+   },
+   MoorishMuster: {
+      name: () => $t(L.MoorishMuster),
+      desc: () => $t(L.$1WarPowerForEvery$2CoreTiles, "+5%", "10"),
+   },
+   MaritimeRenown: {
+      name: () => $t(L.MaritimeRenown),
+      desc: () => $t(L.$1PrestigeForEachCoreCoastalTileUpTo$2, "+1%", "+50%"),
+   },
+   LittoralTaxDistricts: {
+      name: () => $t(L.LittoralTaxDistricts),
+      desc: () => $t(L.LittoralTaxDistrictsDesc$1$2, "+1%", "3"),
+   },
+   MercantileMobilization: {
+      name: () => $t(L.MercantileMobilization),
+      desc: () => $t(L.$1WarPowerForEachActiveTrade, "+10%"),
+   },
+   GranaryOfTheEmpire: {
+      name: () => $t(L.GranaryOfTheEmpire),
+      desc: () => $t(L.GranaryOfTheEmpireDesc$1$2, "+1%", "+50%"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

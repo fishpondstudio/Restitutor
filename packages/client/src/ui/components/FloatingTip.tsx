@@ -122,8 +122,8 @@ export const FloatingTip = factory<
                      ...style,
                      top: (y && Math.round(y)) ?? "",
                      left: (x && Math.round(x)) ?? "",
-                     width: fixedWidth ? "18.75rem" : undefined,
-                     maxWidth: fixedWidth ? "18.75rem" : undefined,
+                     width: fixedWidth ? "18.75rem" : style?.width,
+                     maxWidth: fixedWidth ? "18.75rem" : style?.maxWidth,
                   }}
                   ref={floating}
                >

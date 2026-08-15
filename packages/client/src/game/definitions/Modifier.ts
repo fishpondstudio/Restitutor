@@ -17,11 +17,11 @@ import { TimedActions } from "./TimedAction";
 export interface IBaseModifier {
    type: "add" | "multiply";
    value: number;
+   duration?: number;
 }
 
 export interface IModifier extends IBaseModifier {
    name: string;
-   duration?: number;
 }
 
 interface IModifierDefinition {
@@ -202,14 +202,14 @@ export const Modifiers = {
 
 export type Modifier = keyof typeof Modifiers;
 
-export function modifierToString(mod: Modifier, data: Omit<IModifier, "name">): string {
+export function modifierToString(mod: Modifier, data: IBaseModifier): string {
    if (data.duration) {
       return `${modifierValueToString(data)} ${Modifiers[mod].name()} (${durationToString(data.duration)})`;
    }
    return `${modifierValueToString(data)} ${Modifiers[mod].name()}`;
 }
 
-export function modifierValueToString(data: Omit<IModifier, "name">): string {
+export function modifierValueToString(data: IBaseModifier): string {
    return data.type === "add" ? formatDelta(data.value) : formatPercentDelta(data.value);
 }
 

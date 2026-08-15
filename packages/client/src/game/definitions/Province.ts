@@ -234,7 +234,12 @@ interface IProvinceConfig {
 export const Province = {
    Achaia: { name: () => $t(L.ProvinceAchaia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
    Aegyptus: { name: () => $t(L.ProvinceAegyptus), culture: "Egyptian", religion: "Egyptian", upgrades: [] },
-   Africa: { name: () => $t(L.ProvinceAfrica), culture: "Punic", religion: "GrecoRoman", upgrades: [] },
+   Africa: {
+      name: () => $t(L.ProvinceAfrica),
+      culture: "Punic",
+      religion: "GrecoRoman",
+      upgrades: ["LittoralTaxDistricts", "MercantileMobilization", "GranaryOfTheEmpire"],
+   },
    Aquitania: {
       name: () => $t(L.ProvinceAquitania),
       culture: "Gallic",
@@ -291,7 +296,12 @@ export const Province = {
       upgrades: ["CavalryWarPower", "TradeProfitForEachTrade", "ChristianFervor"],
    },
    Macedonia: { name: () => $t(L.ProvinceMacedonia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
-   Mauretania: { name: () => $t(L.ProvinceMauretania), culture: "Berber", religion: "Berber", upgrades: [] },
+   Mauretania: {
+      name: () => $t(L.ProvinceMauretania),
+      culture: "Berber",
+      religion: "Berber",
+      upgrades: ["TheTwoShores", "MoorishMuster", "MaritimeRenown"],
+   },
    Moesia: { name: () => $t(L.ProvinceMoesia), culture: "Thracian", religion: "GrecoRoman", upgrades: [] },
    Narbonensis: {
       name: () => $t(L.ProvinceNarbonensis),
@@ -341,6 +351,8 @@ export const EnabledProvinces: Province[] = [
    "Baetica",
    "Italia",
    "Sicilia",
+   "Mauretania",
+   "Africa",
 ];
 EnabledProvinces.sort();
 export const AlwaysFreeProvinces: Province[] = ["Lugdunensis", "Italia", "Sicilia"];
