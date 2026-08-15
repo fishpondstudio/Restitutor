@@ -405,6 +405,12 @@ pnpm run check      # Formatting, linting, import sorting (biome)
 pnpm run translate  # Validate token consecutiveness, arg counts, key-name match, remove unused keys, sync other language files, format
 ```
 
+Then run the client test suite from `packages/client`:
+
+```sh
+pnpm test run
+```
+
 ### What `pnpm run translate` Does
 
 1. Scans all `.ts`/`.tsx` files under `packages/` (excluding `languages/`) for `L.KeyName` references and `$t(L.KeyName, ...)` calls.
