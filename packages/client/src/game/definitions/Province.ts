@@ -355,7 +355,7 @@ export const EnabledProvinces: Province[] = [
    "Africa",
 ];
 EnabledProvinces.sort();
-export const AlwaysFreeProvinces: Province[] = ["Lugdunensis", "Italia", "Sicilia"];
+export const AlwaysFreeProvinces: Province[] = ["Lugdunensis", "Africa", "Italia"];
 
 export const ProvinceExtraGoverningCapacity: Partial<Record<Province, number>> = {
    Africa: 100,
