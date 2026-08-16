@@ -16,9 +16,10 @@ import { RomeMap } from "../game/RomeMap";
 import { WorldScene } from "../scenes/WorldScene";
 import { G, GameFlags } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
-import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
+import { SidebarComp, SidebarImageHeader } from "./common/SidebarComp";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
+import { HeaderImages } from "./HeaderImages";
 import { renderMarkup } from "./ParseMarkup";
 
 export function RebirthPage(): React.ReactNode {
@@ -46,7 +47,7 @@ export function RebirthPage(): React.ReactNode {
          });
    }, [isDemo]);
    return (
-      <SidebarComp title={<SidebarHeader title={$t(L.Rebirth)} />}>
+      <SidebarComp title={<SidebarImageHeader image={HeaderImages.Rebirth} title={$t(L.Rebirth)} />}>
          <div className="h1">{$t(L.LegacyPoint)}</div>
          <div className="mx10 my5 row">
             <div className="f1">{$t(L.TilesAnnexedAndCored)}</div>
