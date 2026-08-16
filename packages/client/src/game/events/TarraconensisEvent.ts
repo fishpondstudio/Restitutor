@@ -3,7 +3,7 @@ import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActi
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { maxCoreTileCondition, provinceResourceCondition } from "../logic/MissionLogic";
+import { annexTiles, maxCoreTileCondition, provinceResourceCondition } from "../logic/MissionLogic";
 import { getProvinceName, getProvinceResource } from "../logic/ProvinceLogic";
 import { isCoreTileCondition } from "../logic/TileLogic";
 import {
@@ -433,10 +433,7 @@ export const TarraconensisEvent = {
                {
                   desc: (province, save) => $t(L.$1Annexes$2, getProvinceName(province, save), getTileName(8585296)),
                   effect: (province, save) => {
-                     const tileData = save.state.tiles.get(8585296);
-                     if (tileData) {
-                        tileData.province = province;
-                     }
+                     annexTiles({ tiles: [8585296], province, save });
                   },
                },
             ],

@@ -1,4 +1,4 @@
-import { formatNumber } from "@project/shared/src/utils/Helper";
+import { formatNumber, type Tile } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
 import {
@@ -8,6 +8,7 @@ import {
    type ProvinceStat,
    ProvinceStatNames,
 } from "../definitions/Province";
+import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getMarriageAlliance } from "./DiplomacyLogic";
 import {
@@ -136,4 +137,27 @@ export function marriageCondition(province1: Province, province2: Province, save
       name: $t(L.$1HasAMarriageWith$2, getProvinceName(province1, save), getProvinceName(province2, save)),
       value: getMarriageAlliance(province1, province2, save).length > 0,
    };
+}
+
+export function annexTiles({
+   tiles,
+   core = false,
+   province,
+   save,
+}: {
+   tiles: Tile[];
+   core?: boolean;
+   province: Province;
+   save: SaveGame;
+}): void {
+   for (const tile of tiles) {
+      const tileData = save.state.tiles.get(tile);
+      if (tileData) {
+         tileData.province = province;
+         if (core) {
+            tileData.coreProvinces.add(province);
+         }
+      }
+   }
+   RefreshTiles.emit({ tiles, options: { indicator: true, visual: true } });
 }

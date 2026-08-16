@@ -1,6 +1,11 @@
 import { $t, L } from "../../utils/i18n";
 import { getTileName } from "../definitions/TileName";
-import { minCoreTileCondition, provinceResourceCondition, provinceRevenueCondition } from "../logic/MissionLogic";
+import {
+   annexTiles,
+   minCoreTileCondition,
+   provinceResourceCondition,
+   provinceRevenueCondition,
+} from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
 import { allCoreTileCondition } from "../logic/TileLogic";
 import { requireAnyTreatyBetween } from "../logic/TreatyLogic";
@@ -364,12 +369,7 @@ export const LusitaniaEvent = {
                      return $t(L.$1Annexes$2, getProvinceName(province, save), tileNames);
                   },
                   effect: (province, save) => {
-                     [8519758, 8585295].forEach((tile) => {
-                        const tileData = save.state.tiles.get(tile);
-                        if (tileData) {
-                           tileData.province = province;
-                        }
-                     });
+                     annexTiles({ tiles: [8519758, 8585295], province, save });
                   },
                },
             ],

@@ -4,6 +4,7 @@ import { Province } from "../definitions/Province";
 import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import {
+   annexTiles,
    marriageCondition,
    maxCoreTileCondition,
    minCoreTileCondition,
@@ -408,12 +409,7 @@ export const BaeticaEvent = {
                      return $t(L.$1Annexes$2, getProvinceName(province, save), tileNames);
                   },
                   effect: (province, save) => {
-                     [8978513].forEach((tile) => {
-                        const tileData = save.state.tiles.get(tile);
-                        if (tileData) {
-                           tileData.province = province;
-                        }
-                     });
+                     annexTiles({ tiles: [8978513], province, save });
                   },
                },
             ],

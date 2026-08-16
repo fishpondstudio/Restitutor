@@ -2,8 +2,12 @@ import { $t, L } from "../../utils/i18n";
 import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
-import { RefreshTiles } from "../Events";
-import { marriageCondition, provinceResourceCondition, provinceRevenueCondition } from "../logic/MissionLogic";
+import {
+   annexTiles,
+   marriageCondition,
+   provinceResourceCondition,
+   provinceRevenueCondition,
+} from "../logic/MissionLogic";
 import { getProvinceResource } from "../logic/ProvinceLogic";
 import {
    dissolveAllTreaties,
@@ -449,17 +453,8 @@ export const NarbonensisEvent = {
                         Province.Narbonensis.name(),
                      ),
                   effect: (province, save) => {
-                     const AugustaPraetoria = save.state.tiles.get(9175112);
-                     if (AugustaPraetoria) {
-                        AugustaPraetoria.province = "Italia";
-                        AugustaPraetoria.coreProvinces.add("Italia");
-                     }
-                     const Taurinorum = save.state.tiles.get(9175113);
-                     if (Taurinorum) {
-                        Taurinorum.province = province;
-                        Taurinorum.coreProvinces.add(province);
-                     }
-                     RefreshTiles.emit({ tiles: [9175112, 9175113], options: { visual: true, indicator: true } });
+                     annexTiles({ tiles: [9175112], core: true, province: "Italia", save });
+                     annexTiles({ tiles: [9175113], core: true, province, save });
                   },
                },
             ],

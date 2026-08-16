@@ -2,8 +2,7 @@ import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
-import { RefreshTiles } from "../Events";
-import { minCoreTileCondition, provinceResourceCondition } from "../logic/MissionLogic";
+import { annexTiles, minCoreTileCondition, provinceResourceCondition } from "../logic/MissionLogic";
 import { allCoreTileCondition, isCoreTileCondition } from "../logic/TileLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -444,12 +443,7 @@ export const MauretaniaEvent = {
                {
                   desc: () => $t(L.$1Becomes$2sCoreTile, getTileName(8978513), Province.Mauretania.name()),
                   effect: (province, save) => {
-                     const Palma = save.state.tiles.get(8978513);
-                     if (Palma) {
-                        Palma.province = province;
-                        Palma.coreProvinces.add(province);
-                     }
-                     RefreshTiles.emit({ tiles: [8978513], options: { visual: true, indicator: true } });
+                     annexTiles({ tiles: [8978513], core: true, province, save });
                   },
                },
             ],
