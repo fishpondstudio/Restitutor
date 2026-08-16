@@ -1,75 +1,66 @@
 Hi,
 
-Before the patch notes, I have some exciting news to share: Restitutor will launch in Early Access on September 8, 2026, priced at $5.99 / €5.99 / CN¥26.00. A 20% launch discount will be available for the first two weeks. It will also join the "Presented By Fish Pond Collection," where owners of my other games can receive an additional 20% discount.
-
-Restitutor has now been in development for more than a year and in playtesting for over six months. At the Early Access launch, its historical narrative will span 192 A.D. to 476 A.D., and most provinces of the Western Roman Empire will be playable, each with unique narrative events, missions, and Provincial Spirits.
-
-After the Early Access launch, I will turn east, adding unique provincial content for the Eastern Empire and extending the historical narrative beyond 476 A.D.
-
-I am also pleased to present Patch 0.13, bringing Restitutor into the heart of the western Empire with two new playable provinces: Italia and Sicilia. Each has its own historical narrative, missions, and Provincial Spirits, while three shared Mediterranean missions reward expansion into Africa, Gaul, and Hispania. This update also expands the Tech Tree with new cultural, religious, and military technologies. Italia and Sicilia are now available for free in the demo, replacing some of the provinces previously featured in the rotation.
+I am pleased to present Patch 0.14 - the last content patch before Early Access release. This patch adds two new playable provinces: Mauretania and Africa,  each with its own historical narrative, missions, and Provincial Spirits, with campaigns built around the Strait of Gibraltar, the wealth of Carthage, the African grain trade, and the struggle for control of the western Mediterranean. I have also added Steam achievements support in this patch.
 
 [h2]Two New Playable Provinces[/h2]
 
-Italia and Sicilia are now available for new runs and Rebirth. Italia begins at the political and symbolic center of the Roman world, balancing the authority of the Senate, the command of the legions, and the prestige of Rome itself. Sicilia begins at the crossroads of the central Mediterranean, where fertile estates, exposed coastlines, and control of the sea shape every path to power.
+Mauretania and Africa are now available for new runs and Rebirth. Both receive an additional 100 Governing Capacity to support their campaigns across the broad territories and sea lanes of Roman Africa.
 
-[h3]Italia: Heart of the Roman World[/h3]
+[h3]Mauretania: Between Ocean and Inland Frontier[/h3]
 
-Italia receives ten historical events following the Secular Games of Septimius Severus, the Baths of Caracalla, the Aurelian Walls, the Senate's last emperor, the rise of Mediolanum as an imperial residence, the Arch of Constantine, the Altar of Victory, the court's withdrawal to Ravenna, the marriage of Galla Placidia and Constantius, and the murder of Aetius.
+Mauretania receives ten historical events following the Bavares crossing the frontier, Maximian's Atlas campaign, the first Council of Cirta, the Macarian mission, the return of the Donatists, the revolt of Firmus, the collapse of Gildo's cause, the siege and treaty of Hippo Regius, and the provinces left beyond the Vandal settlement.
 
-Its six missions reward the reunification of Italia and Sicilia, the peaceful clientage of Corsica and Sardinia, expansion through the Alpine passes, control of the Adriatic approaches, and mastery of the Mediterranean coast. A united Italia can choose whether to advance into Narbonensis, Raetia, or Noricum, while an alliance with Macedonia can open a campaign against Dalmatia.
+Its six missions connect the African and Hispanic shores of the Strait of Gibraltar, reward the conquest of Baetica, offer the chance to purchase Palma, open an eastward campaign into Africa, and ultimately carry Mauretanian power toward Sardinia and Sicilia. A sufficiently large Mauretania can also claim the right to conquer Africa directly.
 
-Italia has four Provincial Spirits:
+Mauretania has three Provincial Spirits:
 
 [list]
-[*][b]Senatorial Authority[/b] - Gain +1 Consul Point after each Consul Election.
-[*][b]Inclusive Citizenship[/b] - Gain +1 Tolerated Culture slot.
-[*][b]Caput Mundi[/b] - Gain +10% Prestige while Rome is the provincial capital.
-[*][b]Experienced Command[/b] - Gain +2% War Power for each General Skill Level across Infantry, Ranged, and Cavalry.
+[*][b]The Two Shores[/b] - Gain +30% Land Tax while Baelo and Tingi are annexed and cored.
+[*][b]Moorish Muster[/b] - Gain +5% War Power for every 10 core tiles.
+[*][b]Maritime Renown[/b] - Gain +1% Prestige for each core coastal tile, up to +50%.
 [/list]
 
-[h3]Sicilia: Crossroads of the Mediterranean[/h3]
+[h3]Africa: Granary of the Empire[/h3]
 
-Sicilia receives ten historical events centered on the island's grain trade, Saint Agatha and the eruption of Etna, the Villa Romana del Casale, the Council of Arles, the earthquake and tsunami of 365 A.D., the Gildonic revolt, Vandal attacks on Panormus, the recalled eastern fleet of 441 A.D., the failed Cape Bon expedition, and the peace with Geiseric.
+Africa receives ten historical events centered on Perpetua and Felicity, Cyprian of Carthage, the martyrs of Abitina, the earthquake of 365 A.D., Gildo's grain blockade, the Conference of Carthage, Heraclian's armada, the Vandal land settlement, the charity of Deogratias, and the fire ships at Cape Bon.
 
-Its five missions turn Sicilia toward the Italian mainland and the islands and shores around it. Securing southern Italia opens the way to Rome, while a strong and well-connected Sicilia can receive weakened Sardinia, Corsica, or Africa as clients through treaties and marriage alliances.
+Its five missions can bring Sardinia and Corsica peacefully under African protection, launch invasions of Sicilia and Italia, or transform a large realm into a more inclusive state. Africa's choices emphasize trade, grain, coastal administration, and control of the central Mediterranean.
+
+Africa has three Provincial Spirits:
 
 [list]
-[*][b]Mediterranean Ambition[/b] - Reduce required War Score by 20% when declaring war against a province within 10 Diplomatic Distance.
-[*][b]Bountiful Coastlines[/b] - Core coastal tiles gain +10% Manpower, Land Tax, and Tile Output for each coastal edge.
-[*][b]Coastal Administration[/b] - Core coastal tiles receive -20% Governing Cost.
+[*][b]Littoral Tax Districts[/b] - Gain +1% Land Tax on all tiles for each core coastal tile with at least three coastal edges.
+[*][b]Mercantile Mobilization[/b] - Gain +10% War Power for each active trade.
+[*][b]Granary of the Empire[/b] - Gain +1% Tile Output on all tiles for each core tile producing Grain, up to +50%.
 [/list]
 
-[h2]Mediterranean Missions[/h2]
+[h2]Steam Achievements[/h2]
 
-Three new regional missions are available to Italia and Sicilia. Establishing footholds in Africa, Narbonensis, and Tarraconensis now grants choices suited to the direction of the campaign.
+14 Steam achievements are now available, covering the tutorial, diplomacy, warfare, Rebirth, religion, and major campaign milestones:
 
 [list]
-[*][b]An African Bridgehead[/b] - Develop African estates, establish a second center of government, or fortify the conquered shore.
-[*][b]A Foothold in Narbonensis[/b] - Tax the new province, welcome its notables, or reward the conquering commanders.
-[*][b]Gateway to Hispania[/b] - Prepare for further conquest, reconcile local communities, or proclaim a western triumph.
+[*][b]The Die Is Cast[/b] - Complete the tutorial.
+[*][b]Casus Belli[/b] - Declare war on another province.
+[*][b]Rome Reborn[/b] - Begin a new run through Rebirth.
+[*][b]Woe to the Vanquished[/b] - Win a war and gain at least one tile.
+[*][b]The Walls Hold[/b] - End a defensive war without losing any tiles.
+[*][b]Bound by Treaty[/b] - Form an alliance.
+[*][b]Under Our Protection[/b] - Make another province a client.
+[*][b]First Among Equals[/b] - Become a Great Power.
+[*][b]Empire Without End[/b] - Successfully demand a tile.
+[*][b]The City Is Ours[/b] - Capture an enemy provincial capital in a peace treaty.
+[*][b]In This Sign[/b] - Convert the province to Christianity.
+[*][b]All Hispania[/b] - Complete the Hispania United mission.
+[*][b]Postumus's Legacy[/b] - Proclaim the Gallic Empire.
+[*][b]The Last Emperor[/b] - Complete An Empire Ends in Silence.
 [/list]
 
-[h2]Tech Tree Expansion[/h2]
-
-The Tech Tree now extends to a new final tier with three technologies:
+[h2]Balance and Fixes[/h2]
 
 [list]
-[*][b]Cultural Policy[/b] - Gain +1 Tolerated Culture slot and +100 Governing Capacity.
-[*][b]Religious Policy[/b] - Gain +1 Tolerated Religion slot and +10% Prestige.
-[*][b]Ranged Doctrine[/b] - Gain +1 Ranged Unit Power and +10% War Power.
-[/list]
-
-Curial Reform now grants a Tolerated Culture slot. Its former Building Slot reward and the tree's Governing Capacity bonuses have been redistributed through Urban Planning and Land Surveying. Several techs have also been renamed, including Social Policy, Sacred Offices, Trade Networks, Civic Assembly, Fortifications, Legal Code, Envoy Missions, Craft Workshops, Army Intel, and Army Logistics.
-
-[h2]Free Demo[/h2]
-
-The game now distinguishes automatically between the free demo and the full Steam release. The Rebirth page marks the provinces available in the demo, prevents starting an unavailable province, and offers an additional province that rotates every two weeks alongside the demo's permanent selection. The version watermark now also identifies whether the current build is the demo or retail release.
-
-[h2]Other Changes[/h2]
-
-[list]
-[*]Province names on the world map now seek wider, more central interior space, reducing labels placed against borders or across narrow parts of a province.
-[*]Tolerated Culture and Tolerated Religion selection lists are now sorted alphabetically and scroll when the list is too long for the interface.
-[*]Legacy Points now transfer correctly to the selected province when using Rebirth to begin a run as a different province.
-[*]Client-offer events now require the target province to be at peace and not already under the player's patronage, preventing invalid or repeated client events.
+[*]Starting tile upgrades is now distributed more consistently across provinces.
+[*]Update tutorial text to reflect the update mechanics.
+[*]Fixed researched technologies sometimes failing to unlock their associated manufactured goods and timed actions.
+[*]Fixed NPC provinces becoming too passive and failing to evaluate and declare wars.
+[*]Clergy and Military candidates are now available when seeking a local spouse, alongside Senate, Equites, and Plebs candidates.
 [/list]
