@@ -18,6 +18,37 @@ export const AnatoliaProvinces: Province[] = ["Asia", "Bithynia", "Cappadocia", 
 export const LevantProvinces: Province[] = ["Judea", "Syria"] as const;
 export const AegyptusProvinces: Province[] = ["Aegyptus", "Cyrenaica"] as const;
 export const AfricaProvinces: Province[] = ["Africa", "Mauretania"] as const;
+export const WesternMediterraneanProvinces: Province[] = [
+   "Baetica",
+   "Tarraconensis",
+   "Narbonensis",
+   "Italia",
+   "Sicilia",
+   "Corsica",
+   "Sardinia",
+   "Dalmatia",
+   "Africa",
+   "Mauretania",
+] as const;
+
+export const EasternMediterraneanProvinces: Province[] = [
+   "Macedonia",
+   "Epirus",
+   "Achaia",
+   "Thracia",
+   "Asia",
+   "Lycia",
+   "Cilicia",
+   "Syria",
+   "Judea",
+   "Aegyptus",
+   "Cyrenaica",
+] as const;
+
+export const MediterraneanProvinces: Province[] = [
+   ...WesternMediterraneanProvinces,
+   ...EasternMediterraneanProvinces,
+] as const;
 
 export const ExpandedGallicEmpireProvinces: Province[] = [
    ...GallicEmpireProvinces,

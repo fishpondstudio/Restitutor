@@ -1,7 +1,15 @@
+import { fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
+import { ProvinceNameOverrides } from "../definitions/Province";
+import {
+   EasternMediterraneanProvinces,
+   WesternMediterraneanProvinces,
+   WesternRomanEmpireProvinces,
+} from "../definitions/TileConstants";
+import { RefreshTiles } from "../Events";
 import { getOriginalTileCount } from "../GameState";
 import { allyCountCondition, minCoreTileCondition } from "../logic/MissionLogic";
-import { isGreatPowerCondition } from "../logic/ProvinceLogic";
+import { isGreatPowerCondition, setProvinceNameOverride } from "../logic/ProvinceLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -56,23 +64,104 @@ export const MissionEvents = {
       ],
    },
    Mission3: {
-      name: () => $t(L.TheIncorporationOfHispania),
-      image: EventImage.CaptiveTriumph,
-      desc: () => $t(L.TheIncorporationOfHispaniaDesc),
+      name: () => $t(L.TheWesternRomanEmpireRestored),
+      image: EventImage.CaesarsTriumph,
+      desc: () => $t(L.WesternRomanEmpireRestoredDesc),
       condition: {
-         annexAndCore: {
-            Tarraconensis: Number.POSITIVE_INFINITY,
-            Lusitania: Number.POSITIVE_INFINITY,
-            Baetica: Number.POSITIVE_INFINITY,
-         },
+         province: WesternRomanEmpireProvinces,
+         annexAndCore: fromEntries(WesternRomanEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
+      achievement: "RestoreWesternRomanEmpire",
+      wikipedia: "Western_Roman_Empire",
       buttons: [
          {
-            label: () => $t(L.WeShallBringProsperityToHispania),
+            label: () => $t(L.TheWestIsRomanOnceMore),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 200 },
+               AdministrativePoint: { type: "add", value: 1 },
+               DiplomaticPoint: { type: "add", value: 1 },
+               MilitaryPoint: { type: "add", value: 1 },
+            },
+            custom: [
+               {
+                  effect: (province, save) => {
+                     setProvinceNameOverride(province, "WesternRomanEmpire", save);
+                     RefreshTiles.emit({ tiles: [], options: { visual: true } });
+                  },
+                  desc: () => {
+                     return $t(L.OurProvinceIsNowKnownAsThe$1, ProvinceNameOverrides.WesternRomanEmpire());
+                  },
+               },
+            ],
+         },
+      ],
+   },
+   Mission4: {
+      name: () => $t(L.DominionOfTheWesternSea),
+      image: EventImage.NavalBattle,
+      desc: () => $t(L.DominionOfTheWesternSeaDesc),
+      condition: {
+         province: WesternMediterraneanProvinces,
+         annexAndCore: fromEntries(
+            WesternMediterraneanProvinces.map((province) => [province, Number.POSITIVE_INFINITY]),
+         ),
+      },
+      achievement: "DominateWesternMediterranean",
+      buttons: [
+         {
+            label: () => $t(L.GovernTheShoresThroughLaw),
             modifiers: {
                GoverningCapacity: { type: "add", value: 100 },
-               LandTax: { type: "multiply", value: 0.1 },
-               TileOutput: { type: "multiply", value: 0.1 },
+               AdministrativePoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.BindThePortsThroughDiplomacy),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 100 },
+               DiplomaticPoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.EntrustTheSeaToOurFleets),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 100 },
+               MilitaryPoint: { type: "add", value: 1 },
+            },
+         },
+      ],
+   },
+   Mission5: {
+      name: () => $t(L.DominionOfTheEasternSea),
+      image: EventImage.ConstantinopleBuilt,
+      desc: () => $t(L.DominionOfTheEasternSeaDesc),
+      condition: {
+         province: EasternMediterraneanProvinces,
+         annexAndCore: fromEntries(
+            EasternMediterraneanProvinces.map((province) => [province, Number.POSITIVE_INFINITY]),
+         ),
+      },
+      achievement: "DominateEasternMediterranean",
+      buttons: [
+         {
+            label: () => $t(L.GovernTheEasternShoresByLaw),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 100 },
+               AdministrativePoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.BindTheEasternPortsByTreaty),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 100 },
+               DiplomaticPoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.EntrustTheEastToOurFleets),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 100 },
+               MilitaryPoint: { type: "add", value: 1 },
             },
          },
       ],

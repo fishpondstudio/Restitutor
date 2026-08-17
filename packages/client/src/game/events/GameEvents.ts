@@ -26,7 +26,6 @@ import { RandomEvents } from "./RandomEvents";
 import { ReligiousEvents } from "./ReligiousEvents";
 import { SiciliaEvent } from "./SiciliaEvent";
 import { TarraconensisEvent } from "./TarraconensisEvent";
-import { WesternRomanEmpireEvents } from "./WesternRomanEmpireEvents";
 
 export interface IGameEventButton extends IGameEffect {
    label: () => string;
@@ -73,9 +72,8 @@ const _GameEvents = {
    ...ItaliaSharedEvent,
    ...GallicEmpireEvents,
    ...HispaniaEvent,
-   ...MissionEvents,
-   ...WesternRomanEmpireEvents,
    ...ReligiousEvents,
+   ...MissionEvents,
    // These should not appear in `MissionPage`
    ...HistoricalEvents,
    ...ManualEvents,

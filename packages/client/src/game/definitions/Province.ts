@@ -163,6 +163,7 @@ export interface IProvince {
 
 export const ProvinceNameOverrides = {
    GallicEmpire: () => $t(L.GallicEmpire),
+   WesternRomanEmpire: () => $t(L.ProvinceWesternRomanEmpire),
 } as const satisfies Record<string, () => string>;
 
 export type ProvinceNameOverride = keyof typeof ProvinceNameOverrides;

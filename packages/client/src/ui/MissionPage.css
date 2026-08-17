@@ -1,0 +1,22 @@
+.mission-page-event-container {
+   position: relative;
+
+   .collapse-control {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
+      cursor: pointer;
+      .mi {
+         position: absolute;
+         right: 0;
+         bottom: 0;
+         left: 0;
+         text-align: center;
+      }
+      &:hover .mi {
+         color: var(--mantine-color-white);
+      }
+   }
+}
