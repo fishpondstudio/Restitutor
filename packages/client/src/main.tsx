@@ -97,6 +97,7 @@ if (isDev()) {
 }
 
 G.pixi = app;
+G.params = new URLSearchParams(window.location.search);
 document.body.appendChild(app.view as HTMLCanvasElement);
 document.title = `Restitutor ${getVersion()}`;
 bootstrap();

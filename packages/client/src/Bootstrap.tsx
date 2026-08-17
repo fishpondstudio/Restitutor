@@ -72,6 +72,9 @@ export async function bootstrap(): Promise<void> {
    let isNewPlayer = false;
 
    try {
+      if (import.meta.env.DEV && G.params.has("reset")) {
+         throw new Error("Requested save game reset");
+      }
       G.save = await loadGame();
       migrateSave(G.save);
       if (G.save.options.version !== SupportedSaveVersion) {
@@ -94,27 +97,6 @@ export async function bootstrap(): Promise<void> {
          data.culture = Province[data.province].culture;
          data.religion = Province[data.province].religion;
       });
-      // console.log(jsonEncode(G.tileEditor));
-      // G.tileEditor = new Map<Tile, ITileData>();
-      // const saved = await idbGet<Map<Tile, ITileData>>("TileEditor");
-      // if (saved) {
-      //    const provinces = new Set<Province>(Province);
-      //    saved.forEach((data, tile) => {
-      //       if (!data.terrain || !Terrain.includes(data.terrain)) {
-      //          data.terrain = "Plain";
-      //       }
-      //       if (data.province && !Province.includes(data.province)) {
-      //          data.province = undefined;
-      //       }
-      //       if (data.province) {
-      //          provinces.delete(data.province);
-      //       }
-      //    });
-      //    G.tileEditor = saved;
-      //    idbSet("TileEditor", G.tileEditor);
-      //    console.log(jsonEncode(G.tileEditor));
-      //    console.log(provinces);
-      // }
    }
 
    if (isNewPlayer) {

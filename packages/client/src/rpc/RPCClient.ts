@@ -35,8 +35,7 @@ export const RPCClient = rpcClient<IServer>({
 
 export function getServerAddress(): string {
    if (import.meta.env.DEV) {
-      const url = new URLSearchParams(window.location.search);
-      return url.get("server") ?? "ws://localhost:8001";
+      return G.params.get("server") ?? "ws://localhost:8001";
    }
    return "wss://si.fishpondstudio.com";
 }

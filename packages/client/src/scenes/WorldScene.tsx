@@ -209,8 +209,7 @@ export class WorldScene extends Scene {
       this._selectedProvince = G.save.state.playerProvince;
       this.drawProvinceOutline(G.save.state.playerProvince);
 
-      const params = new URLSearchParams(location.href.split("?")[1]);
-      this._isEditor = params.has("editor");
+      this._isEditor = G.params.has("editor");
       if (this._isEditor) {
          this._enableTileEditor();
       }

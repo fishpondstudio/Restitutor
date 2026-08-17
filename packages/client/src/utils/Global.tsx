@@ -17,6 +17,7 @@ export const GameFlags = {
 export type GameFlags = ValueOf<typeof GameFlags>;
 
 export const G: IGlobals = {
+   params: null!,
    scene: null!,
    textures: null!,
    atlasUrl: null!,
@@ -28,6 +29,7 @@ export const G: IGlobals = {
 };
 
 export interface IGlobals {
+   params: URLSearchParams;
    scene: SceneManager;
    textures: Map<string, Texture>;
    atlasUrl: Map<string, string>;

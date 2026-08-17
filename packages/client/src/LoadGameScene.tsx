@@ -12,12 +12,10 @@ import { LegacyUpgradeModal } from "./ui/LegacyUpgradeModal";
 import { G, GameFlags, setSpeed } from "./utils/Global";
 
 export function loadGameScene() {
-   const params = new URLSearchParams(location.href.split("?")[1]);
-
-   if (params.has("sandbox")) {
+   if (G.params.has("sandbox")) {
       G.flags = setFlag(G.flags, GameFlags.Sandbox);
       G.save.options.flag = setFlag(G.save.options.flag, GameOptionFlag.HideTutorial);
-      const sandbox = params.get("sandbox");
+      const sandbox = G.params.get("sandbox");
       if (sandbox && Provinces.includes(sandbox as Province)) {
          G.save.state.playerProvince = sandbox as Province;
       }
@@ -26,7 +24,7 @@ export function loadGameScene() {
       setSpeed(0);
    }
 
-   if (params.has("nodev")) {
+   if (G.params.has("nodev")) {
       G.flags = setFlag(G.flags, GameFlags.NoDev);
    }
 
@@ -42,16 +40,16 @@ export function loadGameScene() {
       });
    }
 
-   if (params.has("legacy")) {
+   if (G.params.has("legacy")) {
       showPanel(<LegacyUpgradeModal />);
    }
 
-   if (params.has("council")) {
+   if (G.params.has("council")) {
       startTimedAction("EcumenicalCouncil2", G.save.state.playerProvince, G.save);
       showPanel(<EcumenicalCouncilPage />);
    }
 
-   const scene = params.get("scene")?.toLowerCase();
+   const scene = G.params.get("scene")?.toLowerCase();
    switch (scene) {
       case "tech": {
          G.scene.loadScene(TechTreeScene);
