@@ -73,6 +73,9 @@ export async function bootstrap(): Promise<void> {
 
    try {
       if (import.meta.env.DEV && G.params.has("reset")) {
+         const params = new URLSearchParams(location.search);
+         params.delete("reset");
+         window.location.search = params.toString();
          throw new Error("Requested save game reset");
       }
       G.save = await loadGame();
