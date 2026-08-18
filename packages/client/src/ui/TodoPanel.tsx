@@ -40,12 +40,11 @@ import { getCurrentRelations, getDiplomats, getRelations } from "../game/logic/D
 import { getOngoingEcumenicalCouncil } from "../game/logic/EcumenicalCouncilLogic";
 import { getEligibleForMarriage } from "../game/logic/GovernorLogic";
 import { getLegacyUpgradeCost } from "../game/logic/LegacyUpgradeLogic";
+import { getProvinceProductionCapacity, getProvinceUsedProductionCapacity } from "../game/logic/ProductionLogic";
 import {
    getProvinceName,
    getProvinceOverextension,
-   getProvinceProductionCapacity,
    getProvinceResource,
-   getProvinceUsedProductionCapacity,
    monthsToNextConsulElection,
 } from "../game/logic/ProvinceLogic";
 import { isSocialClassDisloyal, isSocialClassDominant } from "../game/logic/SocialClassLogic";

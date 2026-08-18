@@ -3,13 +3,14 @@ import { Handle, type Node, type NodeProps, Position } from "@xyflow/react";
 import { Goods, Price } from "../game/definitions/Goods";
 import { Tech } from "../game/definitions/Tech";
 import { GameStateUpdated } from "../game/Events";
-import { getGoodsConsumed, getGoodsTraded, getInsufficientInput } from "../game/logic/ProductionLogic";
 import {
+   getGoodsConsumed,
+   getGoodsTraded,
+   getInsufficientInput,
    getProvinceProductionCapacity,
-   getProvinceResource,
-   getProvinceStat,
    getProvinceUsedProductionCapacity,
-} from "../game/logic/ProvinceLogic";
+} from "../game/logic/ProductionLogic";
+import { getProvinceResource, getProvinceStat } from "../game/logic/ProvinceLogic";
 import { hasResearched } from "../game/logic/TechLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";

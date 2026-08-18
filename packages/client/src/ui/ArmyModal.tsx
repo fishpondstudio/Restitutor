@@ -18,6 +18,7 @@ import {
    getWarPower,
    provinceResourceOf,
    setProvinceStat,
+   setProvinceTargetConscription,
 } from "../game/logic/ProvinceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
@@ -61,10 +62,7 @@ export function ArmyModal(): React.ReactNode {
             className="m10"
             value={targetConscription}
             onChange={(value) => {
-               if (value < getProvinceStat("actualConscription", G.save.state.playerProvince, G.save)) {
-                  setProvinceStat("actualConscription", value, G.save.state.playerProvince, G.save);
-               }
-               setProvinceStat("targetConscription", value, G.save.state.playerProvince, G.save);
+               setProvinceTargetConscription(value, G.save.state.playerProvince, G.save);
                GameStateUpdated.emit();
             }}
             min={MinConscription}

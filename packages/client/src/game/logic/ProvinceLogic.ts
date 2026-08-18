@@ -9,7 +9,6 @@ import {
    pointToTile,
    range,
    shuffle,
-   sizeOf,
    type Tile,
    tileToPoint,
 } from "@project/shared/src/utils/Helper";
@@ -79,6 +78,8 @@ import {
    getInfantryUnitWarPower,
    getRangedUnitWarPower,
    getWarPowerPerTile,
+   MaxConscription,
+   MinConscription,
    MonthlyExtraArmyMaintenancePct,
 } from "./WarLogic";
 
@@ -944,33 +945,6 @@ export function fillOfferAmount(offer: TradeOfferBase): TradeOffer {
    return result;
 }
 
-export function getProvinceProductionCapacity(province: Province, save: SaveGame): IValueBreakdown {
-   const result = makeValueBreakdown();
-   result.add.push({ name: $t(L.BaseValue), value: 5 });
-   attachModifiers("ProductionCapacity", result, province, save);
-   let workshop = 0;
-   for (const [tile, data] of save.state.tiles) {
-      if (data.province === province && data.buildings.has("Workshop")) {
-         ++workshop;
-      }
-   }
-   if (workshop > 0) {
-      result.add.push({ name: Buildings.Workshop.name(), value: workshop });
-   }
-   return finalizeBreakdown(result);
-}
-
-export function getProvinceUsedProductionCapacity(province: Province, save: SaveGame): number {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return 0;
-   }
-   return entriesOf(state.production).reduce(
-      (acc, [goods, data]) => acc + (sizeOf(Goods[goods].input) > 0 ? data.capacity : 0),
-      0,
-   );
-}
-
 export function getProvinceTradeCapacity(province: Province, save: SaveGame): IValueBreakdown {
    const result = makeValueBreakdown();
    result.add.push({ name: $t(L.BaseValue), value: 1 });
@@ -1295,4 +1269,16 @@ export function changeProvinceCulture(culture: Culture, province: Province, save
       state.toleratedCultures.delete(culture);
    }
    state.culture = culture;
+}
+
+export function setProvinceTargetConscription(value: number, province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   const targetConscription = clamp(value, MinConscription, MaxConscription);
+   if (targetConscription < getProvinceStat("actualConscription", province, save)) {
+      setProvinceStat("actualConscription", targetConscription, province, save);
+   }
+   setProvinceStat("targetConscription", targetConscription, province, save);
 }

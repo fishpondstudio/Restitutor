@@ -9,7 +9,7 @@ import { SentryDSN, SupportedSaveVersion } from "./game/definitions/Constant";
 import { Province } from "./game/definitions/Province";
 import Rome from "./game/definitions/Rome.json?raw";
 import { GameStateFlags, initNewPlayerSaveGame, initSaveGame, SaveGame } from "./game/GameState";
-import { loadGame, saveGame } from "./game/LoadSave";
+import { loadGame, resetGame, saveGame } from "./game/LoadSave";
 import { showBootstrapModal } from "./game/ShowBootstrapModal";
 import { getVersion } from "./game/Version";
 import { loadGameScene } from "./LoadGameScene";
@@ -71,13 +71,15 @@ export async function bootstrap(): Promise<void> {
 
    let isNewPlayer = false;
 
+   if (import.meta.env.DEV && G.params.has("reset")) {
+      await resetGame();
+      const params = new URLSearchParams(location.search);
+      params.delete("reset");
+      window.location.search = params.toString();
+      return;
+   }
+
    try {
-      if (import.meta.env.DEV && G.params.has("reset")) {
-         const params = new URLSearchParams(location.search);
-         params.delete("reset");
-         window.location.search = params.toString();
-         throw new Error("Requested save game reset");
-      }
       G.save = await loadGame();
       migrateSave(G.save);
       if (G.save.options.version !== SupportedSaveVersion) {

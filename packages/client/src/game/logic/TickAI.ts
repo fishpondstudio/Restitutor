@@ -53,20 +53,25 @@ import {
    improveRelations,
 } from "./DiplomacyLogic";
 import { getGameDate } from "./GameDateTime";
-import { optimizeProduction } from "./ProductionLogic";
+import {
+   ensureProductionCapacity,
+   getProvinceProductionCapacity,
+   getProvinceUsedProductionCapacity,
+   isProductionSelfSufficient,
+   optimizeProduction,
+} from "./ProductionLogic";
 import {
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,
    getProvinceIncome,
-   getProvinceProductionCapacity,
    getProvinceResource,
    getProvinceStat,
    getProvincesByDistance,
    getProvincesInRange,
-   getProvinceUsedProductionCapacity,
    hasEnoughProvinceResources,
    pledgeProvinceConsulVotes,
    setProvinceStat,
+   setProvinceTargetConscription,
    trySpendProvinceResources,
 } from "./ProvinceLogic";
 import { getCheapestLockedTech } from "./TechLogic";
@@ -87,6 +92,7 @@ import {
    getWarScore,
    getWarSuccessChance,
    getWarTiles,
+   MaxConscription,
    MinConscription,
 } from "./WarLogic";
 
@@ -243,12 +249,17 @@ export function tickAI(save: SaveGame): void {
       if (state.loans.length <= 0) {
          if (getCurrentWars(province, save).length <= 0) {
             const averageUnrest = getAverageUnrest(province, save);
+            const maxTargetConscription = clamp(
+               Math.floor(getProvinceStat("actualConscription", province, save) - averageUnrest),
+               MinConscription,
+               MaxConscription,
+            );
             const targetConscription = clamp(
                DefaultConscription + getProvinceStat("defendCount", province, save) * MinConscription,
                MinConscription,
-               getProvinceStat("actualConscription", province, save) - averageUnrest,
+               maxTargetConscription,
             );
-            setProvinceStat("targetConscription", targetConscription, province, save);
+            setProvinceTargetConscription(targetConscription, province, save);
          }
          constructBuildings(province, save);
          tryDoHeadless(RecruitGeneralAction(province, save), "RecruitGeneral", province, save);
@@ -279,7 +290,11 @@ function doGeneralUpgrade(province: Province, save: SaveGame): void {
 }
 
 function doProduction(province: Province, save: SaveGame): void {
-   if (getProvinceUsedProductionCapacity(province, save) < getProvinceProductionCapacity(province, save).value) {
+   ensureProductionCapacity(province, save);
+   if (
+      getProvinceUsedProductionCapacity(province, save) < getProvinceProductionCapacity(province, save).value ||
+      !isProductionSelfSufficient(province, save)
+   ) {
       optimizeProduction(province, save);
    }
 }
@@ -560,9 +575,7 @@ function doTreaties(province: Province, candidates: Province[], save: SaveGame):
          continue;
       }
       if (tryDoHeadless(OfferDefensePactAction(province, candidate, save), "OfferTreaty", province, save)) {
-         continue;
       }
-      break;
    }
 }
 
@@ -574,8 +587,8 @@ function constructBuildings(province: Province, save: SaveGame): void {
       .sort(([tileA, tileDataA], [tileB, tileDataB]) => {
          return tileDataA.buildings.size - tileDataB.buildings.size;
       });
-   const income = getProvinceIncome(province, save).income;
-   if (income < 0) {
+   let budget = getProvinceIncome(province, save).income;
+   if (budget < 0) {
       return;
    }
    for (const [tile, tileData] of tiles) {
@@ -595,14 +608,17 @@ function constructBuildings(province: Province, save: SaveGame): void {
          if (tileData.buildings.has(building)) {
             continue;
          }
-         if (income < (Buildings[building].maintenance.gold ?? 0)) {
+         const maintenance = Buildings[building].maintenance.gold ?? 0;
+         if (budget < maintenance) {
             continue;
          }
          const action = ConstructBuildingAction(building, tile, province, save);
          if (action.cost && !hasEnoughProvinceResources(action.cost, province, save)) {
             return;
          }
-         tryDoHeadless(action, "Construct", province, save);
+         if (tryDoHeadless(action, "Construct", province, save)) {
+            budget -= maintenance;
+         }
       }
    }
 }
@@ -705,7 +721,6 @@ function findWarGoal(province: Province, save: SaveGame): { tile: Tile; estimate
       neighbors = getProvincesInRange(2, province, save);
    }
    let bestTile: Tile | undefined;
-   let bestIsOriginalTile = false;
    let bestEstimatedTime = Number.POSITIVE_INFINITY;
    const warTiles = getWarTiles(save);
    for (const [otherProvince, otherTiles] of neighbors) {
@@ -724,12 +739,13 @@ function findWarGoal(province: Province, save: SaveGame): { tile: Tile; estimate
       if (!relation.casusBelli.has("ConquestMission")) {
          relation.casusBelli.set("ConquestMission", { monthsLeft: 0 });
       }
+      const filteredTiles = otherTiles.filter((tile) => !warTiles.has(tile));
       const action = DeclareWarAction(
          province,
          coAttackers,
          otherProvince,
          coDefenders,
-         new Set(otherTiles),
+         new Set(filteredTiles),
          "ConquestMission",
          save,
       );
@@ -740,18 +756,15 @@ function findWarGoal(province: Province, save: SaveGame): { tile: Tile; estimate
       if (successChance <= 0.5) {
          continue;
       }
-      for (const otherTile of shuffle(otherTiles)) {
+      for (const otherTile of shuffle(filteredTiles)) {
          if (warTiles.has(otherTile)) {
             continue;
          }
-         const otherTileData = save.state.tiles.get(otherTile);
          const warScore = getWarScore(province, otherProvince, new Set([otherTile]), "ConquestMission", save).value;
          const estimatedTime = getWarEstimatedTime(warScore, successChance);
-         const isOriginalTile = otherTileData?.originalProvince === province;
-         if (estimatedTime < bestEstimatedTime && (!bestIsOriginalTile || isOriginalTile)) {
+         if (estimatedTime < bestEstimatedTime) {
             bestEstimatedTime = estimatedTime;
             bestTile = otherTile;
-            bestIsOriginalTile = isOriginalTile;
          }
       }
    }

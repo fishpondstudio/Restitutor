@@ -6,12 +6,14 @@ import { cls, formatNumber, formatPercent } from "@project/shared/src/utils/Help
 import { Controls, ReactFlow, SmoothStepEdge } from "@xyflow/react";
 import { Modifiers } from "../game/definitions/Modifier";
 import { GameStateUpdated } from "../game/Events";
-import { makeProductionTree, optimizeProduction, resetProduction } from "../game/logic/ProductionLogic";
 import {
    getProvinceProductionCapacity,
-   getProvinceStat,
    getProvinceUsedProductionCapacity,
-} from "../game/logic/ProvinceLogic";
+   makeProductionTree,
+   optimizeProduction,
+   resetProduction,
+} from "../game/logic/ProductionLogic";
+import { getProvinceStat } from "../game/logic/ProvinceLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";

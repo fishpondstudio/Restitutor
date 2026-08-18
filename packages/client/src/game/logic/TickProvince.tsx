@@ -237,6 +237,8 @@ export function tickProvince(province: Province, save: SaveGame): void {
    const actualConscription = getProvinceStat("actualConscription", province, save);
    if (targetConscription > actualConscription) {
       setProvinceStat("actualConscription", clamp(actualConscription + 1, 0, targetConscription), province, save);
+   } else {
+      setProvinceStat("actualConscription", targetConscription, province, save);
    }
 
    const morale = getProvinceStat("armyMorale", province, save);

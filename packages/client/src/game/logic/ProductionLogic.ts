@@ -8,13 +8,16 @@ import {
    ProductionNodeSpacingY,
    ProductionNodeWidth,
 } from "../../ui/UIConstant";
-import { Goods, Price } from "../definitions/Goods";
+import { $t, L } from "../../utils/i18n";
+import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
+import { Buildings } from "../definitions/Building";
+import { Goods, Price, Tier } from "../definitions/Goods";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { getRelations } from "./DiplomacyLogic";
+import { attachModifiers } from "./ModifierLogic";
 import {
    addProvinceResource,
-   getProvinceProductionCapacity,
    getProvinceResource,
    getProvinceStat,
    hasEnoughProvinceResources,
@@ -139,6 +142,7 @@ export function tickProduction(province: Province, save: SaveGame): void {
    }
 
    // Production
+   ensureProductionCapacity(province, save);
    const goodsTaxRate = getProvinceStat("goodsTaxRate", province, save) / 100;
    forEach(Goods, (goods, def) => {
       const capacity = state.production[goods].capacity;
@@ -262,7 +266,7 @@ export function resetProduction(province: Province, save: SaveGame): void {
    }
 }
 
-function isProductionSelfSufficient(province: Province, save: SaveGame): boolean {
+export function isProductionSelfSufficient(province: Province, save: SaveGame): boolean {
    const state = save.state.provinces[province];
    if (!state) {
       return false;
@@ -275,4 +279,54 @@ function isProductionSelfSufficient(province: Province, save: SaveGame): boolean
       }
    }
    return true;
+}
+
+export function getProvinceProductionCapacity(province: Province, save: SaveGame): IValueBreakdown {
+   const result = makeValueBreakdown();
+   result.add.push({ name: $t(L.BaseValue), value: 5 });
+   attachModifiers("ProductionCapacity", result, province, save);
+   let workshop = 0;
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province === province && data.buildings.has("Workshop")) {
+         ++workshop;
+      }
+   }
+   if (workshop > 0) {
+      result.add.push({ name: Buildings.Workshop.name(), value: workshop });
+   }
+   return finalizeBreakdown(result);
+}
+
+export function getProvinceUsedProductionCapacity(province: Province, save: SaveGame): number {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return 0;
+   }
+   return entriesOf(state.production).reduce(
+      (acc, [goods, data]) => acc + (sizeOf(Goods[goods].input) > 0 ? data.capacity : 0),
+      0,
+   );
+}
+
+export function ensureProductionCapacity(province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   let excessCapacity =
+      getProvinceUsedProductionCapacity(province, save) - getProvinceProductionCapacity(province, save).value;
+   if (excessCapacity <= 0) {
+      return;
+   }
+   const sorted = entriesOf(state.production)
+      .filter(([goods, data]) => sizeOf(Goods[goods].input) > 0 && data.capacity > 0)
+      .sort(([goodsA], [goodsB]) => Tier[goodsB] - Tier[goodsA]);
+   for (const [_, data] of sorted) {
+      const reduction = Math.min(data.capacity, excessCapacity);
+      data.capacity -= reduction;
+      excessCapacity -= reduction;
+      if (excessCapacity <= 0) {
+         break;
+      }
+   }
 }
