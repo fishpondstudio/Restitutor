@@ -1,6 +1,7 @@
 import type { Language } from "@project/shared/src/rpc/ServerMessageTypes";
 import type { CountryCode } from "@project/shared/src/utils/CountryCode";
 import { EN } from "../languages/en";
+import { FR } from "../languages/fr";
 import { RU } from "../languages/ru";
 import { ZH_CN } from "../languages/zh-CN";
 
@@ -8,10 +9,12 @@ export const Languages = {
    en: EN,
    "zh-CN": ZH_CN,
    ru: RU,
+   fr: FR,
 } as const satisfies Record<Language, Record<string, string>>;
 
 export const LanguagesImage = {
    en: "GB",
    "zh-CN": "CN",
    ru: "RU",
+   fr: "FR",
 } as const satisfies Record<Language, keyof typeof CountryCode>;
