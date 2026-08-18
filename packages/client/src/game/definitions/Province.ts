@@ -178,6 +178,7 @@ export const AIActions = [
    "Upgrade",
    "Research",
    "Construct",
+   "Appease",
    "CrackDown",
    "ChangeTileGoods",
    "LookForSpouse",

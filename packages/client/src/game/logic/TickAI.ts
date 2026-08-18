@@ -10,6 +10,7 @@ import {
    type Tile,
 } from "@project/shared/src/utils/Helper";
 import { G, GameFlags, isDev } from "../../utils/Global";
+import { AppeaseAction } from "../actions/AppeaseAction";
 import { RecruitGeneralAction, UpgradeGeneralSkillAction } from "../actions/ArmyGeneralAction";
 import { ConstructBuildingAction } from "../actions/BuildingActions";
 import { ConvertToChristianityAction } from "../actions/ConvertToChristianityAction";
@@ -30,6 +31,7 @@ import {
 } from "../actions/UpgradeActions";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../definitions/Advisor";
 import { type Building, Buildings } from "../definitions/Building";
+import type { Culture } from "../definitions/Culture";
 import type { IFamily } from "../definitions/Family";
 import {
    type AIAction,
@@ -40,6 +42,7 @@ import {
    type ProvinceResourceCosts,
    Provinces,
 } from "../definitions/Province";
+import type { Religion } from "../definitions/Religion";
 import { SocialClass } from "../definitions/SocialClass";
 import { MaxRaidMonths, SpawnedProvinces } from "../definitions/SpawnedProvince";
 import type { SaveGame } from "../GameState";
@@ -68,6 +71,8 @@ import {
    getProvinceStat,
    getProvincesByDistance,
    getProvincesInRange,
+   getToleratedCulture,
+   getToleratedReligion,
    hasEnoughProvinceResources,
    pledgeProvinceConsulVotes,
    setProvinceStat,
@@ -213,6 +218,13 @@ export function tickAI(save: SaveGame): void {
                militaryActions.clear();
             }
             tryDoHeadless(action, "CrackDown", province, save);
+         } else if (tileData.rebellion >= 5) {
+            const action = AppeaseAction(tile, province, save);
+            if (action.cost && !hasEnoughProvinceResources(action.cost, province, save)) {
+               administrativeActions.clear();
+               diplomaticActions.clear();
+            }
+            tryDoHeadless(action, "Appease", province, save);
          }
       }
       switch (getPreferredActionForResource("military", militaryActions, state.blackboard.resources)) {
@@ -264,6 +276,22 @@ export function tickAI(save: SaveGame): void {
          constructBuildings(province, save);
          tryDoHeadless(RecruitGeneralAction(province, save), "RecruitGeneral", province, save);
       }
+      const toleratedCultureSlots = getToleratedCulture(province, save).value;
+      const toleratedReligionSlots = getToleratedReligion(province, save).value;
+      while (state.toleratedCultures.size < toleratedCultureSlots) {
+         const culture = getCultureToTolerate(province, save);
+         if (!culture) {
+            break;
+         }
+         state.toleratedCultures.add(culture);
+      }
+      while (state.toleratedReligions.size < toleratedReligionSlots) {
+         const religion = getReligionToTolerate(province, save);
+         if (!religion) {
+            break;
+         }
+         state.toleratedReligions.add(religion);
+      }
       selectAdvisor(province, save);
       doProduction(province, save);
       doTrade(province, save);
@@ -281,6 +309,58 @@ export function tickAI(save: SaveGame): void {
       tryDoHeadless(makeGameAction("AppointEnvoy", province, save), "AppointPontiffEnvoyArmyStaff", province, save);
       tryDoHeadless(makeGameAction("AppointArmyStaff", province, save), "AppointPontiffEnvoyArmyStaff", province, save);
    });
+}
+
+function getCultureToTolerate(province: Province, save: SaveGame): Culture | undefined {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return undefined;
+   }
+   const counts = new Map<Culture, number>();
+   let mostCommon: Culture | undefined;
+   let highestCount = 0;
+   for (const tileData of save.state.tiles.values()) {
+      if (
+         tileData.province !== province ||
+         tileData.culture === state.culture ||
+         state.toleratedCultures.has(tileData.culture)
+      ) {
+         continue;
+      }
+      const count = (counts.get(tileData.culture) ?? 0) + 1;
+      counts.set(tileData.culture, count);
+      if (count > highestCount) {
+         highestCount = count;
+         mostCommon = tileData.culture;
+      }
+   }
+   return mostCommon;
+}
+
+function getReligionToTolerate(province: Province, save: SaveGame): Religion | undefined {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return undefined;
+   }
+   const counts = new Map<Religion, number>();
+   let mostCommon: Religion | undefined;
+   let highestCount = 0;
+   for (const tileData of save.state.tiles.values()) {
+      if (
+         tileData.province !== province ||
+         tileData.religion === state.religion ||
+         state.toleratedReligions.has(tileData.religion)
+      ) {
+         continue;
+      }
+      const count = (counts.get(tileData.religion) ?? 0) + 1;
+      counts.set(tileData.religion, count);
+      if (count > highestCount) {
+         highestCount = count;
+         mostCommon = tileData.religion;
+      }
+   }
+   return mostCommon;
 }
 
 function doGeneralUpgrade(province: Province, save: SaveGame): void {
