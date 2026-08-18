@@ -242,7 +242,13 @@ export function getWarScore(
          if (casusBelli === "Reconquista" && data.originalProvince === attacker) {
             result.add.push({
                name: $t(L.Reconquista$1, getTileName(tile)),
-               value: -0.5 * defense.value,
+               value: -0.3 * defense.value,
+            });
+         }
+         if (data.coreProvinces.has(attacker)) {
+            result.add.push({
+               name: $t(L.$1IsOurCoreTile, getTileName(tile)),
+               value: -0.2 * defense.value,
             });
          }
       }

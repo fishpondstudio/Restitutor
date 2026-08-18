@@ -35,7 +35,7 @@ export const _CasusBelli = {
    },
    Reconquista: {
       name: () => $t(L.Reconquista),
-      effect: () => $t(L.TilesOriginallyOwnedByUsContribute$1LessToWarScore, "50%"),
+      effect: () => $t(L.TilesOriginallyOwnedByUsContribute$1LessToWarScore, "30%"),
    },
    BarbarianRaid: {
       name: () => $t(L.BarbarianRaid),

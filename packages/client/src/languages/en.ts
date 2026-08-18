@@ -3016,4 +3016,5 @@ export const EN = {
    GovernTheEasternShoresByLaw: "Govern the eastern shores by law",
    BindTheEasternPortsByTreaty: "Bind the eastern ports by treaty",
    EntrustTheEastToOurFleets: "Entrust the east to our fleets",
+   $1IsOurCoreTile: "$1 is our core tile",
 };

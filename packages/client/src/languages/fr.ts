@@ -1565,7 +1565,8 @@ export const FR = {
    Upg: "Amél.",
    UpgradeArmyGeneral: "Améliorer le général de l'armée",
    UpgradeGeneralSkill: "Améliorer la compétence du général",
-   UpgradeGeneralSkillDesc: "Notre général a gagné 1 point de compétence grâce à la victoire. Les points de compétence peuvent être dépensés pour améliorer les compétences du général en infanterie, armes à distance ou cavalerie, chacune augmentant la puissance du type d'unité correspondant. Suivez les instructions à l'écran pour améliorer la compétence en infanterie.",
+   UpgradeGeneralSkillDesc:
+      "Notre général a gagné 1 point de compétence grâce à la victoire. Les points de compétence peuvent être dépensés pour améliorer les compétences du général en infanterie, armes à distance ou cavalerie, chacune augmentant la puissance du type d'unité correspondant. Suivez les instructions à l'écran pour améliorer la compétence en infanterie.",
    UpgradeInfrastructure: "Améliorer l'infrastructure",
    UpgradePopulation: "Améliorer la population",
    UpgradeProduction: "Améliorer la production",
@@ -1938,7 +1939,7 @@ export const FR = {
    ProvinceHuns: "Huns",
    CultureHunnic: "Hunnic",
    ReligionHunnic: "Hunnic",
-      OurOwnDestiny: "Notre propre destin",
+   OurOwnDestiny: "Notre propre destin",
    OurOwnDestinyDesc: "Ne plus participer aux élections du Sénat",
    WeHaveEnacted$1: "Nous avons adopté $1",
    WeHaventEnacted$1: "Nous n'avons pas adopté $1",
@@ -2049,7 +2050,7 @@ export const FR = {
    TheSpringsOfAquae: "Les sources d'Aquae",
    TheSpringsOfAquaeDesc: "Les sources chaudes d'Aquae Tarbellicae attirent les malades et les riches désœuvrés, leurs eaux étant réputées pour leurs vertus curatives. Les thermes apportent richesse et renommée à la province, ainsi qu'une part non négligeable de vices.",
    PatronizeTheHealingBaths: "Soutenir les thermes curatifs",
-     TaxTheWealthyBathers: "Taxer les riches curistes",
+   TaxTheWealthyBathers: "Taxer les riches curistes",
    TheHorseBreedersOfAquitania: "Les éleveurs de chevaux d'Aquitania",
    TheHorseBreedersOfAquitaniaDesc: "Les pâturages d'Aquitania élèvent des chevaux réputés dans toute la Gaule, des montures rapides recherchées aussi bien par les généraux que par les grands. Nos haras pourraient fournir de la cavalerie aux légions ou rapporter un bon prix sur le marché libre.",
    RaiseMountsForTheCavalry: "Élever des montures pour la cavalerie",
@@ -2141,7 +2142,8 @@ export const FR = {
    DredgeTheChannels: "Draguer les chenaux",
    LetTradeMoveToOtherPorts: "Laisser le commerce se déplacer vers d'autres ports",
    AGallicAlliance: "Une alliance gauloise",
-   AGallicAllianceDesc: "À travers la Loire, la Lugdunensis considère l'Aquitaine comme un partenaire naturel - deux grandes provinces de Gaule, liées par le commerce, la parenté et une méfiance commune envers Rome et son pouvoir lointain. Les émissaires murmurent déjà que leurs bannières pourraient bientôt flotter côte à côte.",
+   AGallicAllianceDesc:
+      "À travers la Loire, la Lugdunensis considère l'Aquitaine comme un partenaire naturel - deux grandes provinces de Gaule, liées par le commerce, la parenté et une méfiance commune envers Rome et son pouvoir lointain. Les émissaires murmurent déjà que leurs bannières pourraient bientôt flotter côte à côte.",
    $1ShallStandAsOurAlly: "$1 sera notre allié",
    $1BecomesOurAlly: "$1 devient notre allié",
    APortOnTheMediterranean: "Un port sur la Méditerranée",
@@ -2210,7 +2212,8 @@ export const FR = {
    FortifyEveryCrossing: "Fortifier chaque passage",
    MaintainAMobileFieldArmy: "Maintenir une armée de campagne mobile",
    TheRhineIsCrossed: "Le Rhin est franchi",
-   TheRhineIsCrossedDesc: "Par un hiver rigoureux, Vandales, Alains et Suèves ont franchi la frontière du Rhin. Les villes réclament désespérément des soldats tandis que les officiers impériaux débattent encore de la possibilité de diviser certains de ces nouveaux venus, de les installer ou de les retourner contre les autres.",
+   TheRhineIsCrossedDesc:
+      "Par un hiver rigoureux, Vandales, Alains et Suèves ont franchi la frontière du Rhin. Les villes réclament désespérément des soldats tandis que les officiers impériaux débattent encore de la possibilité de diviser certains de ces nouveaux venus, de les installer ou de les retourner contre les autres.",
    ContestEveryCrossing: "Défendre chaque passage",
    AdmitSelectedFederates: "Accueillir certains fédérés",
    EvacuateTheExposedFrontier: "Évacuer la frontière exposée",
@@ -2305,7 +2308,8 @@ export const FR = {
    RaiseBarcinosCircuitOfTowers: "Élever la nouvelle enceinte de tours de Barcino",
    ConcentrateResourcesAtTarraco: "Concentrer les ressources à Tarraco",
    TheNewTaxSurvey: "Le nouveau recensement fiscal",
-   TheNewTaxSurveyDesc: "Les réformes fiscales de Dioclétien exigent que chaque domaine, chaque champ et chaque contribuable de Tarraconaise soit inscrit sur de nouveaux registres d'imposition. Un recensement rigoureux garantirait des revenus prévisibles, mais les villes déjà accablées de réquisitions demandent de la clémence.",
+   TheNewTaxSurveyDesc:
+      "Les réformes fiscales de Dioclétien exigent que chaque domaine, chaque champ et chaque contribuable de Tarraconaise soit inscrit sur de nouveaux registres d'imposition. Un recensement rigoureux garantirait des revenus prévisibles, mais les villes déjà accablées de réquisitions demandent de la clémence.",
    SurveyEveryEstate: "Recenser chaque domaine",
    GrantTheCitiesALighterAssessment: "Accorder une imposition allégée aux villes",
    TheIrrigatorsOfTheEbro: "Les irrigateurs de l'Èbre",
@@ -2419,7 +2423,8 @@ export const FR = {
    SupportTheGothicCampaign: "Soutenir la campagne gothique",
    PlayTheTwoPeoplesAgainstEachOther: "Jouer les deux peuples l'un contre l'autre",
    TheShipyardsOfOlisipo: "Les chantiers navals d'Olisipo",
-   TheShipyardsOfOlisipoDesc: "Les chantiers navals d'Olisipo regorgent de charpentiers qualifiés et de coques attendant leur bois. Les marchands demandent à la province de financer une nouvelle flotte commerciale atlantique, les officiers de marine réclament des navires de patrouille pour la côte et les fonctionnaires du trésor proposent de taxer chaque navire mis à l'eau.",
+   TheShipyardsOfOlisipoDesc:
+      "Les chantiers navals d'Olisipo regorgent de charpentiers qualifiés et de coques attendant leur bois. Les marchands demandent à la province de financer une nouvelle flotte commerciale atlantique, les officiers de marine réclament des navires de patrouille pour la côte et les fonctionnaires du trésor proposent de taxer chaque navire mis à l'eau.",
    SubsidizeTheMerchantFleet: "Subventionner la flotte marchande",
    FitOutGalleysForCoastalPatrols: "Armer des galères pour les patrouilles côtières",
    TaxEveryShipLaunched: "Taxer chaque navire mis à l'eau",
@@ -2449,7 +2454,8 @@ export const FR = {
    OpulentPortCitiesDesc: "+2 emplacements de bâtiment, +30 % d'impôt foncier et +30 % de production des cases côtières centrales",
    WorkshopOfTheWest: "Atelier de l'Occident",
    TheOliveFleetOfTheBaetis: "La flotte d'olives du Baetis",
-   TheOliveFleetOfTheBaetisDesc: "Des barges chargées d'amphores transportent l'huile d'olive de Bétique sur le Baetis puis jusqu'à Rome. Les producteurs demandent de nouveaux pressoirs et entrepôts pour accroître les exportations, tandis que les fonctionnaires soulignent les fortunes déjà amassées grâce à la demande impériale.",
+   TheOliveFleetOfTheBaetisDesc:
+      "Des barges chargées d'amphores transportent l'huile d'olive de Bétique sur le Baetis puis jusqu'à Rome. Les producteurs demandent de nouveaux pressoirs et entrepôts pour accroître les exportations, tandis que les fonctionnaires soulignent les fortunes déjà amassées grâce à la demande impériale.",
    ExpandTheOilworks: "Agrandir les huileries",
    IncreaseTheOilLevy: "Augmenter la taxe sur l'huile",
    TheGarumVatsOfGades: "Les cuves de garum de Gades",
@@ -2469,7 +2475,8 @@ export const FR = {
    HonorTheCordubanMartyrs: "Honorer les martyrs de Corduba",
    EnforceTheImperialEdicts: "Faire appliquer les édits impériaux",
    TheCouncilOfElvira: "Le concile d'Elvire",
-   TheCouncilOfElviraDesc: "Des évêques et des membres du clergé réunis à Elvire ont édicté des règles sévères pour une Église sortant de la persécution. Leur discipline pourrait renforcer les institutions chrétiennes, mais de nombreux foyers résistent à des commandements qui condamnent les coutumes et compromis familiers.",
+   TheCouncilOfElviraDesc:
+      "Des évêques et des membres du clergé réunis à Elvire ont édicté des règles sévères pour une Église sortant de la persécution. Leur discipline pourrait renforcer les institutions chrétiennes, mais de nombreux foyers résistent à des commandements qui condamnent les coutumes et compromis familiers.",
    EnforceTheCouncilsDiscipline: "Faire respecter la discipline du concile",
    SeekCompromiseWithOldCustoms: "Chercher un compromis avec les anciennes coutumes",
    HosiusReturnsFromNicaea: "Hosius revient de Nicée",
@@ -2486,7 +2493,8 @@ export const FR = {
    RecognizeThemAsFederates: "Les reconnaître comme fédérés",
    RallyTheCitiesAgainstThem: "Rallier les villes contre eux",
    TheEmptyHarborsAfterTheCrossing: "Les ports désertés après la traversée",
-   TheEmptyHarborsAfterTheCrossingDesc: "L'armée vandale a franchi le détroit vers l'Afrique, laissant derrière elle des camps abandonnés, des navires inactifs et des communautés côtières déstabilisées. La Bétique peut s'emparer de ce qui reste, rétablir le commerce légitime ou se fortifier contre ceux qui pourraient revenir.",
+   TheEmptyHarborsAfterTheCrossingDesc:
+      "L'armée vandale a franchi le détroit vers l'Afrique, laissant derrière elle des camps abandonnés, des navires inactifs et des communautés côtières déstabilisées. La Bétique peut s'emparer de ce qui reste, rétablir le commerce légitime ou se fortifier contre ceux qui pourraient revenir.",
    SeizeTheVandalStores: "S'emparer des réserves vandales",
    RestoreTheCoastalTrade: "Rétablir le commerce côtier",
    FortifyTheCoastalStraits: "Fortifier les détroits côtiers",
@@ -2507,7 +2515,8 @@ export const FR = {
    BringPalmaUnderOurProtection: "Placer Palma sous notre protection",
    CondemnTarraconensissNeglect: "Condamner la négligence de la Tarraconaise",
    TheLusitanianMarriageSettlement: "L'union matrimoniale lusitanienne",
-   TheLusitanianMarriageSettlementDesc: "Le mariage a uni les grandes maisons de Bétique et de Lusitanie, alors même que la puissance de cette dernière s'est réduite à une poignée de villes. Ses nobles recherchent désormais notre protection officielle, bien que certains nous exhortent à préserver cette union comme un partenariat entre égaux.",
+   TheLusitanianMarriageSettlementDesc:
+      "Le mariage a uni les grandes maisons de Bétique et de Lusitanie, alors même que la puissance de cette dernière s'est réduite à une poignée de villes. Ses nobles recherchent désormais notre protection officielle, bien que certains nous exhortent à préserver cette union comme un partenariat entre égaux.",
    RenewTheUnionBetweenEquals: "Renouveler l'union entre égaux",
    InheritedRegionalEvents: "*Événements régionaux hérités",
    ProvincialEvents: "Événements provinciaux",
@@ -2555,7 +2564,8 @@ export const FR = {
    NestoriusRejectsTheotokosDesc: "Nestorius, récemment installé comme évêque de Constantinople, s'oppose à ce que Marie soit appelée Theotokos, la Mère de Dieu. Ses sermons déclenchent une querelle plus vaste sur l'union des natures humaine et divine du Christ, et la dispute se répand dans l'Église orientale.",
    ThePulpitsRingWithControversy: "Les chaires résonnent de controverse",
    ChalcedonDividesTheEast: "Chalcédoine divise l'Orient",
-   ChalcedonDividesTheEastDesc: "Le concile de Chalcédoine a proclamé que le Christ est une seule personne en deux natures, mais de nombreux chrétiens d'Égypte et de Syrie rejettent cette formule. Ils défendent l'unique nature incarnée et unie du Verbe et dénoncent cet accord comme une trahison de Cyrille d'Alexandrie.",
+   ChalcedonDividesTheEastDesc:
+      "Le concile de Chalcédoine a proclamé que le Christ est une seule personne en deux natures, mais de nombreux chrétiens d'Égypte et de Syrie rejettent cette formule. Ils défendent l'unique nature incarnée et unie du Verbe et dénoncent cet accord comme une trahison de Cyrille d'Alexandrie.",
    TheCouncilHasNotBroughtPeace: "Le concile n'a pas apporté la paix",
    OneWillInChrist: "Une seule volonté dans le Christ",
    OneWillInChristDesc: "L'empereur Héraclius a approuvé une nouvelle formule déclarant que le Christ possède deux natures mais une seule volonté. Destinée à réconcilier Chalcédoniens et Miaophysites, la doctrine suscite au contraire une nouvelle résistance, de Rome aux patriarcats orientaux.",
@@ -2650,7 +2660,8 @@ export const FR = {
    EndowTheBathsInPerpetuity: "Doter les thermes pour l'éternité",
    ChargeTheWealthyForTheirLuxuries: "Faire payer leurs plaisirs aux riches",
    TheWallsOfAurelian: "Les Murs d'Aurélien",
-   TheWallsOfAurelianDesc: "Rome a depuis longtemps dépassé l'ancienne enceinte républicaine, et les raids venus du nord ont montré que même l'Italie n'est plus à l'abri des attaques. Aurélien ordonne l'édification de remparts revêtus de briques autour de la capitale, intégrant aqueducs, casernes, jardins et tombeaux dans un circuit construit à marche forcée.",
+   TheWallsOfAurelianDesc:
+      "Rome a depuis longtemps dépassé l'ancienne enceinte républicaine, et les raids venus du nord ont montré que même l'Italie n'est plus à l'abri des attaques. Aurélien ordonne l'édification de remparts revêtus de briques autour de la capitale, intégrant aqueducs, casernes, jardins et tombeaux dans un circuit construit à marche forcée.",
    EveryGuildShallLendItsHands: "Que chaque guilde prête ses bras",
    FortifyTheVulnerableApproaches: "Fortifier les accès vulnérables",
    TheSenatesLastEmperor: "Le dernier empereur du Sénat",
@@ -2674,11 +2685,13 @@ export const FR = {
    TheOldRitesHaveHadTheirDay: "Les anciens rites ont fait leur temps",
    RestoreTheAltarForConcord: "Restaurer l'autel pour la concorde",
    TheCourtWithdrawsToRavenna: "La cour se retire à Ravenne",
-   TheCourtWithdrawsToRavennaDesc: "Alors qu'Alaric traverse l'Italie du Nord, Honorius abandonne Mediolanum pour Ravenne, entourée de marais. La nouvelle capitale est plus facile à défendre et ouverte à la flotte de l'Adriatique, mais ses lagunes éloignent la cour des routes, des greniers et des citoyens inquiets de Rome.",
+   TheCourtWithdrawsToRavennaDesc:
+      "Alors qu'Alaric traverse l'Italie du Nord, Honorius abandonne Mediolanum pour Ravenne, entourée de marais. La nouvelle capitale est plus facile à défendre et ouverte à la flotte de l'Adriatique, mais ses lagunes éloignent la cour des routes, des greniers et des citoyens inquiets de Rome.",
    TurnRavennaIntoAnImpregnableCapital: "Faire de Ravenne une capitale imprenable",
    TheCourtMustRemainCloseToRome: "La cour doit rester proche de Rome",
    TheMarriageAtRavenna: "Le mariage de Ravenne",
-   TheMarriageAtRavennaDesc: "Galla Placidia est revenue de captivité chez les Wisigoths et, sur ordre d'Honorius, a épousé le général Constance à Ravenne. Cette union lie la maison théodosienne au soldat qui a restauré une grande partie de l'Occident, mais la réticence de la mariée n'est un secret pour personne à la cour.",
+   TheMarriageAtRavennaDesc:
+      "Galla Placidia est revenue de captivité chez les Wisigoths et, sur ordre d'Honorius, a épousé le général Constance à Ravenne. Cette union lie la maison théodosienne au soldat qui a restauré une grande partie de l'Occident, mais la réticence de la mariée n'est un secret pour personne à la cour.",
    CelebrateTheUnionOfDynastyAndArmy: "Célébrer l'union de la dynastie et de l'armée",
    RewardConstantiusWithGreaterCommand: "Récompenser Constance par un commandement accru",
    TheMurderOfAetius: "Le meurtre d'Aetius",
@@ -2691,13 +2704,16 @@ export const FR = {
    BindTheIslandThroughGrainAndLaw: "Unir l'île par le grain et la loi",
    MakeSiciliaAPillarOfGovernment: "Faire de Sicilia un pilier du gouvernement",
    CorsicaBeneathOurProtection: "La Corsica sous notre protection",
-   CorsicaBeneathOurProtectionDesc: "La puissance de l'Italia atteint désormais tous les ports de la mer Tyrrhénienne, tandis que l'amitié avec la Corsica a ouvert l'île sans effusion de sang. Ses dirigeants sont prêts à échanger une indépendance incertaine contre la protection romaine et une place sûre dans notre ordre maritime.",
+   CorsicaBeneathOurProtectionDesc:
+      "La puissance de l'Italia atteint désormais tous les ports de la mer Tyrrhénienne, tandis que l'amitié avec la Corsica a ouvert l'île sans effusion de sang. Ses dirigeants sont prêts à échanger une indépendance incertaine contre la protection romaine et une place sûre dans notre ordre maritime.",
    ReceiveCorsicaAsOurLoyalClient: "Accueillir la Corsica comme cliente fidèle",
    BondsOfBloodAndSea: "Liens de sang et de mer",
-   BondsOfBloodAndSeaDesc: "Le mariage a uni les grandes familles de l'Italia et de la Sardinia, et l'alliance a habitué leurs flottes à naviguer aux côtés des nôtres. Ce qui a commencé comme une parenté peut désormais devenir un accord durable, plaçant l'île sous le patronage de l'Italia sans rompre la paix maritime.",
+   BondsOfBloodAndSeaDesc:
+      "Le mariage a uni les grandes familles de l'Italia et de la Sardinia, et l'alliance a habitué leurs flottes à naviguer aux côtés des nôtres. Ce qui a commencé comme une parenté peut désormais devenir un accord durable, plaçant l'île sous le patronage de l'Italia sans rompre la paix maritime.",
    WelcomeSardiniaIntoOurClientRealm: "Accueillir la Sardinia dans notre royaume de provinces clientes",
    BeyondTheAlpineGates: "Au-delà des portes alpines",
-   BeyondTheAlpineGatesDesc: "La Corsica, la Sardinia et la Sicilia sécurisent les flancs de l'Italia, libérant nos armées pour regarder au-delà des montagnes. Les arpenteurs ont cartographié les routes occidentales et les cols orientaux ; une frontière voisine peut être frappée avant que ses défenses ne se rétablissent. Nous devons choisir où passeront les aigles.",
+   BeyondTheAlpineGatesDesc:
+      "La Corsica, la Sardinia et la Sicilia sécurisent les flancs de l'Italia, libérant nos armées pour regarder au-delà des montagnes. Les arpenteurs ont cartographié les routes occidentales et les cols orientaux ; une frontière voisine peut être frappée avant que ses défenses ne se rétablissent. Nous devons choisir où passeront les aigles.",
    CrossWestIntoNarbonensis: "Traverser vers l'ouest en Narbonensis",
    ForceThePassesIntoRaetia: "Forcer les cols vers la Raetia",
    DescendUponNoricum: "Fondre sur le Noricum",
@@ -2710,30 +2726,36 @@ export const FR = {
    LetOurFleetsDisplayItaliasMajesty: "Que nos flottes affichent la majesté de l'Italia",
    RecruitTheSeasFinestOfficials: "Recruter les meilleurs fonctionnaires de la mer",
    AnAfricanBridgehead: "Une tête de pont en Afrique",
-   AnAfricanBridgeheadDesc: "Notre autorité a traversé la Méditerranée et pris racine sur la côte africaine. Des ports sûrs et des territoires loyaux peuvent enrichir nos domaines, soutenir un second centre de gouvernement ou entretenir les armées destinées à l'intérieur des terres. La vocation de cette tête de pont doit maintenant être définie.",
+   AnAfricanBridgeheadDesc:
+      "Notre autorité a traversé la Méditerranée et pris racine sur la côte africaine. Des ports sûrs et des territoires loyaux peuvent enrichir nos domaines, soutenir un second centre de gouvernement ou entretenir les armées destinées à l'intérieur des terres. La vocation de cette tête de pont doit maintenant être définie.",
    PlantEstatesAlongTheAfricanShore: "Établir des domaines le long de la côte africaine",
    BuildASecondCenterOfGovernment: "Bâtir un second centre de gouvernement",
    FortifyTheAfricanBridgehead: "Fortifier la tête de pont africaine",
    AFootholdInNarbonensis: "Une tête de pont en Narbonensis",
-   AFootholdInNarbonensisDesc: "Nos bannières flottent désormais sur une tête de pont sûre en Narbonensis. Ses ports prospères, ses élites civiques influentes et ses routes vers l'intérieur de la Gaule offrent des possibilités qui dépassent la simple conquête. Nous devons décider comment ces nouvelles possessions serviront notre royaume grandissant.",
+   AFootholdInNarbonensisDesc:
+      "Nos bannières flottent désormais sur une tête de pont sûre en Narbonensis. Ses ports prospères, ses élites civiques influentes et ses routes vers l'intérieur de la Gaule offrent des possibilités qui dépassent la simple conquête. Nous devons décider comment ces nouvelles possessions serviront notre royaume grandissant.",
    SurveyAndTaxTheNewProvince: "Recenser et imposer la nouvelle province",
    WelcomeTheProvincialNotables: "Accueillir les notables provinciaux",
    RewardTheConqueringCommanders: "Récompenser les commandants victorieux",
    GatewayToHispania: "Porte de l'Hispania",
-   GatewayToHispaniaDesc: "Notre royaume contrôle désormais une tête de pont sûre en Tarraconensis, la porte nord-est de l'Hispania. Sa longue côte, ses villes prospères et ses routes vers l'intérieur accidenté peuvent servir de tremplin à la conquête, de frontière stabilisée ou de monument à notre autorité grandissante.",
+   GatewayToHispaniaDesc:
+      "Notre royaume contrôle désormais une tête de pont sûre en Tarraconensis, la porte nord-est de l'Hispania. Sa longue côte, ses villes prospères et ses routes vers l'intérieur accidenté peuvent servir de tremplin à la conquête, de frontière stabilisée ou de monument à notre autorité grandissante.",
    PressDeeperIntoHispania: "Pousser plus loin en Hispania",
    ReconcileTheConqueredCommunities: "Réconcilier les communautés conquises",
    ProclaimOurWesternTriumph: "Proclamer notre triomphe occidental",
    TheGranariesOfRome: "Les greniers de Rome",
-   TheGranariesOfRomeDesc: "Dans les vastes domaines de Sicilia, les métayers récoltent du grain destiné moins aux tables locales qu'aux entrepôts de Rome. Les marchands réclament des cargaisons plus importantes et les propriétaires fonciers exigent de nouvelles concessions. L'annone promet des richesses régulières, mais dépendre d'un seul marché peut devenir une chaîne.",
+   TheGranariesOfRomeDesc:
+      "Dans les vastes domaines de Sicilia, les métayers récoltent du grain destiné moins aux tables locales qu'aux entrepôts de Rome. Les marchands réclament des cargaisons plus importantes et les propriétaires fonciers exigent de nouvelles concessions. L'annone promet des richesses régulières, mais dépendre d'un seul marché peut devenir une chaîne.",
    ExpandTheExportEstates: "Étendre les domaines d'exportation",
    ReserveGrainForTheIsland: "Réserver le grain pour l'île",
    TheVeilBeforeTheFire: "Le voile face au feu",
-   TheVeilBeforeTheFireDesc: "Un an après la mort d'Agathe, l'Etna déverse un fleuve de feu vers Catana. Les habitants portent le voile depuis son tombeau à la rencontre de la lave, et lorsque la coulée s'arrête, ils acclament la jeune martyre comme leur protectrice. Les autorités doivent désormais composer avec un culte local né du désastre et de la délivrance.",
+   TheVeilBeforeTheFireDesc:
+      "Un an après la mort d'Agathe, l'Etna déverse un fleuve de feu vers Catana. Les habitants portent le voile depuis son tombeau à la rencontre de la lave, et lorsque la coulée s'arrête, ils acclament la jeune martyre comme leur protectrice. Les autorités doivent désormais composer avec un culte local né du désastre et de la délivrance.",
    LetCatanaHonorItsProtector: "Laisser Catana honorer sa protectrice",
    RebuildWithoutEndorsingAMiracle: "Reconstruire sans cautionner un miracle",
    TheVillaOfTheGreatHunt: "La villa de la Grande Chasse",
-   TheVillaOfTheGreatHuntDesc: "Dans les collines près de Piazza Armerina, un domaine rural somptueux se pare de mosaïques représentant des chasseurs capturant des bêtes venues de tous les confins du monde connu. Ses thermes, ses salles et ses ateliers témoignent de la fortune que les grands domaines de Sicilia peuvent amasser, même en des temps troublés.",
+   TheVillaOfTheGreatHuntDesc:
+      "Dans les collines près de Piazza Armerina, un domaine rural somptueux se pare de mosaïques représentant des chasseurs capturant des bêtes venues de tous les confins du monde connu. Ses thermes, ses salles et ses ateliers témoignent de la fortune que les grands domaines de Sicilia peuvent amasser, même en des temps troublés.",
    InviteTheGreatEstatesToBuild: "Inviter les grands domaines à bâtir",
    AssessTheseFortunesForTaxation: "Évaluer ces fortunes pour l'impôt",
    ABishopSummonedFromSyracuse: "Un évêque convoqué de Syracuse",
@@ -2742,7 +2764,8 @@ export const FR = {
    SendChrestusWithAFullDelegation: "Envoyer Chrestus avec une délégation complète",
    KeepSiciliaOutOfTheAfricanQuarrel: "Tenir Sicilia à l'écart de la querelle africaine",
    TheSeaWithdraws: "La mer se retire",
-   TheSeaWithdrawsDesc: "Un violent séisme secoue la Méditerranée centrale. Sur la côte orientale de Sicilia, la mer se retire des ports, laissant les navires échoués au milieu de poissons frétillants, avant de revenir sous la forme d'un mur d'eau. Les quais s'effondrent, l'eau salée envahit les champs et les survivants fouillent les épaves à la recherche de leurs proches.",
+   TheSeaWithdrawsDesc:
+      "Un violent séisme secoue la Méditerranée centrale. Sur la côte orientale de Sicilia, la mer se retire des ports, laissant les navires échoués au milieu de poissons frétillants, avant de revenir sous la forme d'un mur d'eau. Les quais s'effondrent, l'eau salée envahit les champs et les survivants fouillent les épaves à la recherche de leurs proches.",
    RebuildTheHarborsStrongerThanBefore: "Reconstruire les ports plus solides qu'avant",
    RelieveTheRuinedCoastalTowns: "Secourir les villes côtières dévastées",
    WhenAfricaWithholdsItsGrain: "Quand l'Afrique retient son grain",
@@ -2761,7 +2784,8 @@ export const FR = {
    ProvisionTheFleetUntilDangerPasses: "Ravitailler la flotte jusqu'à ce que le danger passe",
    KeepPartOfTheFleetInSicilia: "Garder une partie de la flotte en Sicilia",
    TheArmadaThatNeverReturned: "L'armada qui ne revint jamais",
-   TheArmadaThatNeverReturnedDesc: "La plus grande flotte réunie de mémoire d'homme a longé Sicilia pour écraser le royaume vandale. Désormais, des coques brûlées et des survivants dispersés dérivent depuis le cap Bon. L'empire a englouti un trésor dans une catastrophe, et la maîtrise de la mer par Genséric semble intacte.",
+   TheArmadaThatNeverReturnedDesc:
+      "La plus grande flotte réunie de mémoire d'homme a longé Sicilia pour écraser le royaume vandale. Désormais, des coques brûlées et des survivants dispersés dérivent depuis le cap Bon. L'empire a englouti un trésor dans une catastrophe, et la maîtrise de la mer par Genséric semble intacte.",
    SalvageTheFleetForAnotherCampaign: "Récupérer la flotte pour une autre campagne",
    FortifySiciliaAndAbandonAfrica: "Fortifier Sicilia et abandonner l'Afrique",
    ThePerpetualPeace: "La paix perpétuelle",
@@ -2954,13 +2978,14 @@ export const FR = {
    SeizeAfricaByForceOfArms: "S'emparer de l'Afrique par les armes",
    ProclaimOurRightToAfrica: "Proclamer notre droit sur l'Afrique",
    MarshalTheRealmForInvasion: "Mobiliser le royaume pour l'invasion",
-   ThePassionOfPerpetuaAndFelicityDesc:
-      "À Carthage, la jeune noble Perpétue, l'esclave Félicité et leurs compagnons ont été condamnés dans l'amphithéâtre. Leur témoignage en prison circule déjà parmi les chrétiens, tandis que la foule attend la tenue des jeux. Quelle place leur mémoire doit-elle occuper en Afrique ?",
+   ThePassionOfPerpetuaAndFelicityDesc: "À Carthage, la jeune noble Perpétue, l'esclave Félicité et leurs compagnons ont été condamnés dans l'amphithéâtre. Leur témoignage en prison circule déjà parmi les chrétiens, tandis que la foule attend la tenue des jeux. Quelle place leur mémoire doit-elle occuper en Afrique ?",
    CyprianBeforeTheProconsulDesc: "Cyprien, évêque de Carthage, est revenu d'exil et a refusé l'ordre de sacrifier. Le proconsul l'a condamné à mort hors de la ville, mais sa congrégation se rassemble déjà pour préserver ses écrits et son lieu de sépulture.",
-   ThePrisonersOfAbitinaDesc: "À Abitina, les autorités ont arrêté une communauté chrétienne réunie avec ses Écritures malgré l'interdiction impériale. Les prisonniers affirment qu'ils ne peuvent vivre sans leur assemblée dominicale, contraignant les magistrats africains à choisir entre la paix locale et la lettre des édits.",
+   ThePrisonersOfAbitinaDesc:
+      "À Abitina, les autorités ont arrêté une communauté chrétienne réunie avec ses Écritures malgré l'interdiction impériale. Les prisonniers affirment qu'ils ne peuvent vivre sans leur assemblée dominicale, contraignant les magistrats africains à choisir entre la paix locale et la lettre des édits.",
    TheBrokenQuaysOfLepcisDesc: "Un violent séisme méditerranéen accompagné d'une submersion marine a frappé la côte. À Lepcis Magna, déjà accablée par l'envasement et la négligence des autorités, les quais endommagés et les quartiers inondés ont relancé le débat sur la possibilité de sauver encore l'ancien port.",
    GildoWithholdsTheGrainDesc: "Gildon, comte d'Afrique, a rompu avec Honorius et arrêté la flotte céréalière destinée à Rome. Propriétaires fonciers, responsables portuaires et conseils municipaux doivent décider si la récolte africaine doit soutenir la rébellion, l'empereur ou son propre peuple.",
-   TheConferenceOfCarthageDesc: "Des centaines d'évêques catholiques et donatistes se sont réunis à Carthage devant un commissaire impérial. Les audiences pourraient régler la propriété légale des églises d'Afrique, mais un verdict imposé d'en haut pourrait aggraver les anciennes divisions dans les villes et les campagnes.",
+   TheConferenceOfCarthageDesc:
+      "Des centaines d'évêques catholiques et donatistes se sont réunis à Carthage devant un commissaire impérial. Les audiences pourraient régler la propriété légale des églises d'Afrique, mais un verdict imposé d'en haut pourrait aggraver les anciennes divisions dans les villes et les campagnes.",
    HeracliansArmadaDesc: "Héraclien, gouverneur d'Afrique, s'est proclamé consul et a rassemblé une flotte pour l'Italie. L'expédition mobilise navires, impôts et recrues de tous les ports africains, tandis que ses rivaux avertissent qu'une défaite laisserait la province exposée.",
    TheVandalLandSettlementDesc: "Le traité avec Valentinien a reconnu la possession par Genséric des provinces les plus riches d'Afrique. Des arpenteurs arrivent désormais pour répartir les domaines royaux, militaires et privés, tandis que propriétaires romains et partisans vandales font valoir leurs droits.",
    TheLastAlmsOfDeogratiasDesc: "L'évêque Deogratias a épuisé le trésor de l'Église de Carthage pour racheter les captifs ramenés après le sac de Rome. À sa mort, les basiliques restent remplies de malades et de déplacés, tandis que la cour vandale laisse le siège épiscopal vacant.",
@@ -2970,21 +2995,29 @@ export const FR = {
    AnAfricanFootholdInSiciliaDesc: "Nos premières forteresses en Sicilia sont sécurisées, nous donnant des mouillages protégés au-delà de la haute mer. Les villes restantes observent nos préparatifs avec inquiétude tandis que Carthage débat de la meilleure façon d'achever la conquête de l'île.",
    TheRoadFromCarthageToRomeDesc: "Toute Sicilia répond désormais à Carthage. Ses ports placent nos flottes à portée de l'Italie, tandis que soldats et hommes d'État affirment que la maîtrise de la mer intérieure doit être couronnée par une campagne dans la péninsule.",
    ARealmOfManyPeoplesDesc: "L'autorité de Carthage s'étend désormais sur un vaste royaume de villes, de tribus, de langues et de croyances. L'uniformité n'est plus possible ; la pérennité de notre domination dépendra de notre capacité à décider quelles différences l'État est prêt à accepter.",
-   TheBavaresCrossTheFrontierDesc: "Les Bavares et les Quinquegentiani pillent les districts autour d'Auzia tandis que les garnisons frontalières peinent à couvrir les routes et les fermes. Certains conseils municipaux réclament des fortifications ; d'autres affirment que seuls des accords avec les peuples des montagnes peuvent rétablir l'ordre.",
-   MaximiansAtlasCampaignDesc: "L'empereur Maximien a amené des troupes d'Hispania pour écraser les Quinquegentiani et d'autres confédérations dans les montagnes de Maurétanie. Ses officiers réclament des guides et des vivres pour une difficile campagne intérieure dont les représailles pourraient survivre à la victoire.",
-   TheCouncilInTheHouseAtCirtaDesc: "La basilique de Cirta étant toujours en ruines, les évêques numides se sont réunis dans une maison privée pour élire un successeur. Les accusations selon lesquelles plusieurs évêques auraient livré les Écritures pendant les persécutions menacent de discréditer l'assemblée et d'aggraver les divisions de l'Église africaine.",
+   TheBavaresCrossTheFrontierDesc:
+      "Les Bavares et les Quinquegentiani pillent les districts autour d'Auzia tandis que les garnisons frontalières peinent à couvrir les routes et les fermes. Certains conseils municipaux réclament des fortifications ; d'autres affirment que seuls des accords avec les peuples des montagnes peuvent rétablir l'ordre.",
+   MaximiansAtlasCampaignDesc:
+      "L'empereur Maximien a amené des troupes d'Hispania pour écraser les Quinquegentiani et d'autres confédérations dans les montagnes de Maurétanie. Ses officiers réclament des guides et des vivres pour une difficile campagne intérieure dont les représailles pourraient survivre à la victoire.",
+   TheCouncilInTheHouseAtCirtaDesc:
+      "La basilique de Cirta étant toujours en ruines, les évêques numides se sont réunis dans une maison privée pour élire un successeur. Les accusations selon lesquelles plusieurs évêques auraient livré les Écritures pendant les persécutions menacent de discréditer l'assemblée et d'aggraver les divisions de l'Église africaine.",
    TheMacarianMissionDesc: "Les commissaires impériaux Macaire et Paulus sont arrivés avec des aumônes et des soldats pour imposer l'unité de l'Église. La résistance donatiste se rassemble autour de Bagai, où une mission présentée comme une réconciliation pourrait se transformer en siège.",
    TheDonatistsReturnFromExileDesc: "L'empereur Julien a autorisé le retour en Afrique du clergé donatiste exilé. Leurs communautés récupèrent désormais les églises et les propriétés transférées pendant les années de répression, et les évêques rivaux se tournent vers les magistrats pour trouver un règlement.",
-   FirmusRaisesTheKabylianHousesDesc: "Après avoir tué son demi-frère Zammac, Firmus a rallié des parents, des communautés montagnardes et des villes mécontentes contre le comte corrompu Romanus. Les élites divisées de Maurétanie doivent choisir entre la rébellion, la loyauté impériale et une dernière tentative d'arbitrage.",
+   FirmusRaisesTheKabylianHousesDesc:
+      "Après avoir tué son demi-frère Zammac, Firmus a rallié des parents, des communautés montagnardes et des villes mécontentes contre le comte corrompu Romanus. Les élites divisées de Maurétanie doivent choisir entre la rébellion, la loyauté impériale et une dernière tentative d'arbitrage.",
    TheDefectionFromGildoDesc: "L'expédition de Mascezel a rencontré Gildon près de la frontière numide, où de nombreux contingents maures ont refusé de combattre et abandonné le rebelle. Les villes et les grands domaines de Maurétanie doivent maintenant préparer le règlement impérial de la défaite de Gildon.",
    TheSiegeOfHippoRegiusDesc: "Les Vandales de Genséric ont encerclé Hippo Regius, où Boniface et son armée de campagne restante se sont réfugiés derrière les murailles. Les réfugiés s'entassent dans le port et les greniers tandis que le siège menace la dernière défense romaine organisée de la région.",
    TheFoedusOfHippoDesc: "Rome a reconnu les Vandales de Genséric comme fédérés et leur a concédé la possession de terres maurétaniennes et numides. Les arpenteurs doivent désormais concilier les nouveaux établissements militaires avec les chartes municipales, les domaines et la frontière impériale restante.",
-   TheProvincesBeyondTheSettlementDesc: "Le traité entre Genséric et Valentinien a divisé l'Afrique romaine, mais une grande partie de la Maurétanie se trouve au-delà des plus riches territoires attribués au royaume vandale. Fonctionnaires impériaux, conseils municipaux et chefs frontaliers rivalisent désormais pour combler le vide d'autorité grandissant.",
-   TheTwoShoresOfThePillarsDesc: "Nos bannières flottent désormais au-dessus de Tingi et Baelo, réunissant les rives africaine et hispanique du détroit. Marchands, magistrats et commandants envisagent chacun un avenir différent pour ce passage étroit : une frontière imposable, un lieu de rencontre ou la porte vers de nouvelles conquêtes.",
+   TheProvincesBeyondTheSettlementDesc:
+      "Le traité entre Genséric et Valentinien a divisé l'Afrique romaine, mais une grande partie de la Maurétanie se trouve au-delà des plus riches territoires attribués au royaume vandale. Fonctionnaires impériaux, conseils municipaux et chefs frontaliers rivalisent désormais pour combler le vide d'autorité grandissant.",
+   TheTwoShoresOfThePillarsDesc:
+      "Nos bannières flottent désormais au-dessus de Tingi et Baelo, réunissant les rives africaine et hispanique du détroit. Marchands, magistrats et commandants envisagent chacun un avenir différent pour ce passage étroit : une frontière imposable, un lieu de rencontre ou la porte vers de nouvelles conquêtes.",
    BaeticaUnderMauretanianRuleDesc:
       "Toute la Baetica répond désormais à des gouverneurs venus de l'autre rive. Ses domaines, ses mines et ses ports donnent à la Maurétanie une puissante base en Hispania, tandis que les routes vers la Lusitania et la Tarraconensis sont ouvertes. Nous pouvons tirer des richesses de la nouvelle province pour soutenir notre avancée ou préparer chaque branche du gouvernement à une conquête plus vaste.",
-   ThePriceOfPalmaDesc: "La Tarraconensis a proposé de céder Palma contre une indemnité princière. Son port ancrerait nos routes vers la Méditerranée centrale, mais accepter ce prix épuiserait le trésor. Une subvention moindre pourrait préserver le gouvernement tarraconésien et gagner durablement la faveur du gouverneur.",
-   TheRoadEastThroughAfricaDesc: "Les districts occidentaux de l'Afrique répondent désormais à la Maurétanie. Au-delà se trouvent les domaines et les ports autour de Carthage ; notre tête de pont assurée, la cour doit décider si la prochaine avancée reposera sur la force militaire, une revendication de leadership africain ou une préparation minutieuse.",
+   ThePriceOfPalmaDesc:
+      "La Tarraconensis a proposé de céder Palma contre une indemnité princière. Son port ancrerait nos routes vers la Méditerranée centrale, mais accepter ce prix épuiserait le trésor. Une subvention moindre pourrait préserver le gouvernement tarraconésien et gagner durablement la faveur du gouverneur.",
+   TheRoadEastThroughAfricaDesc:
+      "Les districts occidentaux de l'Afrique répondent désormais à la Maurétanie. Au-delà se trouvent les domaines et les ports autour de Carthage ; notre tête de pont assurée, la cour doit décider si la prochaine avancée reposera sur la force militaire, une revendication de leadership africain ou une préparation minutieuse.",
    FromOceanToTheCentralSeaDesc:
       "Avec les villes et les greniers d'Afrique réunis à la Maurétanie, notre royaume contrôle les routes maritimes méridionales, de l'Océan au cap Bon. Sardinia et Sicilia se dressent entre ces ports et la Méditerranée centrale ; nous devons décider si la loi, la diplomatie ou la flotte portera notre autorité jusqu'aux îles.",
    MauretaniaAscendantDesc:
@@ -3017,4 +3050,5 @@ export const FR = {
    GovernTheEasternShoresByLaw: "Gouverner les rives orientales par la loi",
    BindTheEasternPortsByTreaty: "Unir les ports orientaux par traité",
    EntrustTheEastToOurFleets: "Confier l'Orient à nos flottes",
+   $1IsOurCoreTile: "$1 is our core tile",
 };

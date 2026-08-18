@@ -3011,4 +3011,5 @@ export const RU = {
    GovernTheEasternShoresByLaw: "Управлять восточными берегами силой закона",
    BindTheEasternPortsByTreaty: "Связать восточные порты договорами",
    EntrustTheEastToOurFleets: "Вверить Восток нашим флотам",
+   $1IsOurCoreTile: "$1 является нашим ядровым владением",
 };

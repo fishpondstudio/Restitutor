@@ -2984,4 +2984,5 @@ export const ZH_CN = {
    GovernTheEasternShoresByLaw: "以法律治理东方海岸",
    BindTheEasternPortsByTreaty: "以条约联结东方港口",
    EntrustTheEastToOurFleets: "将东方托付给我们的舰队",
+   $1IsOurCoreTile: "$1 是我们的核心地块",
 };
