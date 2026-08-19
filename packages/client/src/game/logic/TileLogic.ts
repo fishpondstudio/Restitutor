@@ -4,6 +4,7 @@ import { $t, L } from "../../utils/i18n";
 import type { ICondition, IConditionBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { type Building, Buildings } from "../definitions/Building";
+import type { CultureReligionStatus } from "../definitions/CultureReligionStatus";
 import { Price } from "../definitions/Goods";
 import { getProvinceTraits } from "../definitions/PersonTrait";
 import type { GovernorPower, Province } from "../definitions/Province";
@@ -206,6 +207,9 @@ export function _getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (isCapital(tile, save)) {
       breakdown.multiply.push({ name: $t(L.IsCurrentCapital), value: +0.1 });
+   }
+   if (!isConnectedToCapital(tile, save)) {
+      breakdown.multiply.push({ name: $t(L.NotConnectedToCapital), value: -0.1 });
    }
    if (data.religion in ChristianHeresy) {
       const heresy = data.religion as ChristianHeresy;
@@ -866,4 +870,80 @@ export function allCoreTileCondition(tiles: Iterable<Tile>, province: Province, 
       value: tileList.every((tile) => isCoreTile(tile, province, save)),
       progress: [tileList.filter((tile) => isCoreTile(tile, province, save)).length, tileList.length],
    };
+}
+
+export function getReligionStatus(tile: Tile, save: SaveGame): CultureReligionStatus {
+   const data = save.state.tiles.get(tile);
+   if (!data) {
+      return "Minor";
+   }
+   const state = save.state.provinces[data.province];
+   if (!state) {
+      return "Minor";
+   }
+   if (data.religion === state.religion) {
+      return "Dominant";
+   }
+   if (state.toleratedReligions.has(data.religion)) {
+      return "Tolerated";
+   }
+   return "Minor";
+}
+
+export function getCultureStatus(tile: Tile, save: SaveGame): CultureReligionStatus {
+   const data = save.state.tiles.get(tile);
+   if (!data) {
+      return "Minor";
+   }
+   const state = save.state.provinces[data.province];
+   if (!state) {
+      return "Minor";
+   }
+   if (data.culture === state.culture) {
+      return "Dominant";
+   }
+   if (state.toleratedCultures.has(data.culture)) {
+      return "Tolerated";
+   }
+   return "Minor";
+}
+
+const _tilesConnectedToCapital = new Map<Province, Set<Tile>>();
+
+export function calculateTilesConnectedToCapital(province: Province, save: SaveGame): void {
+   const connectedTiles = new Set<Tile>();
+   _tilesConnectedToCapital.set(province, connectedTiles);
+
+   const capital = save.state.provinces[province]?.capital;
+   if (capital === undefined || save.state.tiles.get(capital)?.province !== province) {
+      return;
+   }
+
+   connectedTiles.add(capital);
+   const queue: Tile[] = [capital];
+   for (let i = 0; i < queue.length; i++) {
+      for (const neighborPoint of MapGrid.getNeighbors(tileToPoint(queue[i]))) {
+         const neighbor = pointToTile(neighborPoint);
+         if (!connectedTiles.has(neighbor) && save.state.tiles.get(neighbor)?.province === province) {
+            connectedTiles.add(neighbor);
+            queue.push(neighbor);
+         }
+      }
+   }
+}
+
+export function isConnectedToCapital(tile: Tile, save: SaveGame): boolean {
+   const province = save.state.tiles.get(tile)?.province;
+   if (province === undefined) {
+      return false;
+   }
+   let cache = _tilesConnectedToCapital.get(province);
+   if (cache === undefined) {
+      calculateTilesConnectedToCapital(province, save);
+   }
+   cache = _tilesConnectedToCapital.get(province);
+   if (cache === undefined) {
+      return false;
+   }
+   return cache.has(tile);
 }

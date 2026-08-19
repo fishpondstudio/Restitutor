@@ -3,6 +3,7 @@ import { clamp, formatNumber, formatPercent, type Tile } from "@project/shared/s
 import { finalizeCondition } from "../game/actions/GameAction";
 import { Buildings } from "../game/definitions/Building";
 import { Culture } from "../game/definitions/Culture";
+import { CultureReligionStatus } from "../game/definitions/CultureReligionStatus";
 import { Goods, Price } from "../game/definitions/Goods";
 import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
@@ -12,6 +13,8 @@ import { GameStateUpdated } from "../game/Events";
 import { MapBackgroundColors } from "../game/logic/MapColor";
 import { getProvinceName, getProvinceStat } from "../game/logic/ProvinceLogic";
 import {
+   getCultureStatus,
+   getReligionStatus,
    getTileDefense,
    getTileGoodsTax,
    getTileGoverningCost,
@@ -33,6 +36,7 @@ import { ActionButton } from "./ActionButton";
 import { AppeaseButton } from "./AppeaseButton";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
 import { CrackDownButton } from "./CrackDownButton";
+import { CircleComp } from "./common/CircleComp";
 import { showPanel } from "./common/ShowPanel";
 import { SidebarComp, SidebarImageHeader } from "./common/SidebarComp";
 import { colorNumberReverse } from "./components/ColorNumber";
@@ -89,21 +93,33 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             <div className="row my5">
                <div className="f1">{$t(L.Core)}</div>
                <MakeCoreButton className="text-sm" tile={tile} />
-               <div>
-                  {tileData.coreProvinces.has(tileData.province) ? (
-                     <div className="mi sm text-green">check_circle</div>
-                  ) : (
-                     <div className="mi sm text-red">cancel</div>
+               <FloatingTip
+                  label={$t(
+                     L.ProvincesWithACoreClaimOnThisTile$1,
+                     Array.from(tileData.coreProvinces)
+                        .map((province) => getProvinceName(province, G.save))
+                        .join(", "),
                   )}
-               </div>
+               >
+                  <div>
+                     {tileData.coreProvinces.has(tileData.province) ? (
+                        <div className="mi sm text-green">check_circle</div>
+                     ) : (
+                        <div className="mi sm text-red">cancel</div>
+                     )}
+                  </div>
+               </FloatingTip>
             </div>
             <div className="row my5">
                <div className="f1">{$t(L.Terrain)}</div>
                <div>{tileData.terrain}</div>
             </div>
-            <div className="row my5">
+            <div className="row my5 g5">
                <div className="f1">{$t(L.Culture)}</div>
                <div>{Culture[tileData.culture].name()}</div>
+               <FloatingTip label={CultureReligionStatus[getCultureStatus(tile, G.save)].name()}>
+                  <CircleComp color={CultureReligionStatus[getCultureStatus(tile, G.save)].color} />
+               </FloatingTip>
             </div>
             <div className="row g5 my5">
                <div className="f1">{$t(L.Religion)}</div>
@@ -139,6 +155,9 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   </ActionButton>
                )}
                <div>{Religion[tileData.religion].name()}</div>
+               <FloatingTip label={CultureReligionStatus[getReligionStatus(tile, G.save)].name()}>
+                  <CircleComp color={CultureReligionStatus[getReligionStatus(tile, G.save)].color} />
+               </FloatingTip>
             </div>
             {war && (
                <FloatingTip

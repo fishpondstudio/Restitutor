@@ -2985,4 +2985,9 @@ export const ZH_CN = {
    BindTheEasternPortsByTreaty: "以条约联结东方港口",
    EntrustTheEastToOurFleets: "将东方托付给我们的舰队",
    $1IsOurCoreTile: "$1 是我们的核心地块",
+   CultureReligionStatusDominant: "主流",
+   CultureReligionStatusTolerated: "相容",
+   CultureReligionStatusMinor: "少数",
+   NotConnectedToCapital: "未与首都相连",
+   ProvincesWithACoreClaimOnThisTile$1: "将此地块视为核心的行省：$1",
 };

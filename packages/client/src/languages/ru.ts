@@ -3012,4 +3012,9 @@ export const RU = {
    BindTheEasternPortsByTreaty: "Связать восточные порты договорами",
    EntrustTheEastToOurFleets: "Вверить Восток нашим флотам",
    $1IsOurCoreTile: "$1 является нашим ядровым владением",
+   CultureReligionStatusDominant: "Господствующая",
+   CultureReligionStatusTolerated: "Признанная",
+   CultureReligionStatusMinor: "Малая",
+   NotConnectedToCapital: "Нет связи со столицей",
+   ProvincesWithACoreClaimOnThisTile$1: "Провинции, для которых это владение является ядровым: $1",
 };

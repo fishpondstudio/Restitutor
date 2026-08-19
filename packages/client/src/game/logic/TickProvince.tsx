@@ -46,7 +46,7 @@ import {
    spendProvinceResource,
 } from "./ProvinceLogic";
 import { TickFamilyMonth } from "./TickLogic";
-import { getTileUnrest } from "./TileLogic";
+import { calculateTilesConnectedToCapital, getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
 import { ArmyMoraleMonthlyIncrease } from "./WarLogic";
 
@@ -61,6 +61,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
       cleanUpProvince(province, save);
       return;
    }
+   calculateTilesConnectedToCapital(province, save);
    addProvinceResource(
       "administrative",
       getProvinceGovernmentPoint("administrative", province, save).value,

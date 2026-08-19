@@ -3017,4 +3017,9 @@ export const EN = {
    BindTheEasternPortsByTreaty: "Bind the eastern ports by treaty",
    EntrustTheEastToOurFleets: "Entrust the east to our fleets",
    $1IsOurCoreTile: "$1 is our core tile",
+   CultureReligionStatusDominant: "Dominant",
+   CultureReligionStatusTolerated: "Tolerated",
+   CultureReligionStatusMinor: "Minor",
+   NotConnectedToCapital: "Not connected to capital",
+   ProvincesWithACoreClaimOnThisTile$1: "Provinces with a core claim on this tile: $1",
 };
