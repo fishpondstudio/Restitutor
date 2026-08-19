@@ -238,6 +238,9 @@ export function _getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
    } else {
       breakdown.multiply.push({ name: $t(L.NotCore), value: -0.1 });
    }
+   if (data.rebellion >= 10) {
+      breakdown.multiply.push({ name: $t(L.Rebellion), value: -0.2 });
+   }
    const unrest = getTileUnrest(tile, save);
    if (unrest.value > 0) {
       breakdown.multiply.push({ name: $t(L.UnrestMax50), value: -clamp(unrest.value / 100, 0, 0.5) });
