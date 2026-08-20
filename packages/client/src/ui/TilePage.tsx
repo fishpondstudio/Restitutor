@@ -128,7 +128,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                {isMyProvince && (
                   <ActionButton
                      action={{
-                        cost: { administrative: 10 * totalUpgrades },
+                        cost: { christianity: totalUpgrades },
                         condition: finalizeCondition([
                            ...timedActionConditions({ action: "EvangelizeTile" }, G.save.state.playerProvince, G.save),
                            tileIsOurCoreCondition(tile, G.save.state.playerProvince, G.save),
