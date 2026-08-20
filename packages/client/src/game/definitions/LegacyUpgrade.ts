@@ -371,11 +371,25 @@ export class LegacyUpgradeDefinitions {
          TileMaintenance: { type: "multiply", value: -0.1 },
       },
    } as const;
+   ToleratedCulture1: ILegacyUpgradeModifier = {
+      requires: ["TileMaintenance1"],
+      position: [-3, -5],
+      modifiers: {
+         ToleratedCulture: { type: "add", value: 1 },
+      },
+   } as const;
    ResearchCost1: ILegacyUpgradeModifier = {
       requires: ["TradeProfitForAttitude"],
       position: [3, -4],
       modifiers: {
          ResearchCost: { type: "multiply", value: -0.1 },
+      },
+   } as const;
+   ToleratedReligion1: ILegacyUpgradeModifier = {
+      requires: ["ResearchCost1"],
+      position: [3, -5],
+      modifiers: {
+         ToleratedReligion: { type: "add", value: 1 },
       },
    } as const;
    LandTax1: ILegacyUpgradeModifier = {
