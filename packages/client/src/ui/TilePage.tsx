@@ -60,6 +60,8 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
    if (!state) {
       return null;
    }
+   const cultureStatus = CultureReligionStatus[getCultureStatus(tile, G.save)];
+   const religionStatus = CultureReligionStatus[getReligionStatus(tile, G.save)];
    const totalUpgrades = tileData.infrastructure + tileData.production + tileData.population;
    const isMyProvince = tileData.province === G.save.state.playerProvince;
    const war = getWarForTile(tile, G.save);
@@ -117,8 +119,8 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             <div className="row my5 g5">
                <div className="f1">{$t(L.Culture)}</div>
                <div>{Culture[tileData.culture].name()}</div>
-               <FloatingTip label={CultureReligionStatus[getCultureStatus(tile, G.save)].name()}>
-                  <CircleComp color={CultureReligionStatus[getCultureStatus(tile, G.save)].color} />
+               <FloatingTip label={cultureStatus.name()}>
+                  <CircleComp color={cultureStatus.color} />
                </FloatingTip>
             </div>
             <div className="row g5 my5">
@@ -155,8 +157,8 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   </ActionButton>
                )}
                <div>{Religion[tileData.religion].name()}</div>
-               <FloatingTip label={CultureReligionStatus[getReligionStatus(tile, G.save)].name()}>
-                  <CircleComp color={CultureReligionStatus[getReligionStatus(tile, G.save)].color} />
+               <FloatingTip label={religionStatus.name()}>
+                  <CircleComp color={religionStatus.color} />
                </FloatingTip>
             </div>
             {war && (
