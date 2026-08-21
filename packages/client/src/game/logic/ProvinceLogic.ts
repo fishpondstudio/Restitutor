@@ -78,8 +78,6 @@ import {
    getInfantryUnitWarPower,
    getRangedUnitWarPower,
    getWarPowerPerTile,
-   MaxConscription,
-   MinConscription,
    MonthlyExtraArmyMaintenancePct,
 } from "./WarLogic";
 
@@ -1269,16 +1267,4 @@ export function changeProvinceCulture(culture: Culture, province: Province, save
       state.toleratedCultures.delete(culture);
    }
    state.culture = culture;
-}
-
-export function setProvinceTargetConscription(value: number, province: Province, save: SaveGame): void {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   const targetConscription = clamp(value, MinConscription, MaxConscription);
-   if (targetConscription < getProvinceStat("actualConscription", province, save)) {
-      setProvinceStat("actualConscription", targetConscription, province, save);
-   }
-   setProvinceStat("targetConscription", targetConscription, province, save);
 }

@@ -193,8 +193,8 @@ export function _getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    breakdown.multiply.push({
       name: $t(L.Infrastructure),
-      desc: $t(L.$1PerInfrastructureLevel, "0.5%"),
-      value: data.infrastructure * 0.005,
+      desc: $t(L.$1PerInfrastructureLevel, "1%"),
+      value: data.infrastructure * 0.01,
    });
    if (data.terrain === "Mountain") {
       breakdown.multiply.push({ name: $t(L.TerrainMountain), value: +0.1 });

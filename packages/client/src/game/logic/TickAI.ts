@@ -75,8 +75,6 @@ import {
    getToleratedReligion,
    hasEnoughProvinceResources,
    pledgeProvinceConsulVotes,
-   setProvinceStat,
-   setProvinceTargetConscription,
    trySpendProvinceResources,
 } from "./ProvinceLogic";
 import { getCheapestLockedTech } from "./TechLogic";
@@ -97,8 +95,12 @@ import {
    getWarScore,
    getWarSuccessChance,
    getWarTiles,
+   MaxArmyMaintenance,
    MaxConscription,
+   MinArmyMaintenance,
    MinConscription,
+   setProvinceArmyMaintenance,
+   setProvinceTargetConscription,
 } from "./WarLogic";
 
 const AIDeclareWarChance = 0.2;
@@ -249,7 +251,8 @@ export function tickAI(save: SaveGame): void {
       }
 
       if (state.loans.length > 0) {
-         setProvinceStat("targetConscription", MinConscription, province, save);
+         setProvinceTargetConscription(MinConscription, province, save);
+         setProvinceArmyMaintenance(MinArmyMaintenance, province, save);
          filterInPlace(state.loans, (loan) => {
             if (trySpendProvinceResources({ gold: loan.principal + loan.interest }, province, save)) {
                return false;
@@ -272,6 +275,7 @@ export function tickAI(save: SaveGame): void {
                maxTargetConscription,
             );
             setProvinceTargetConscription(targetConscription, province, save);
+            setProvinceArmyMaintenance(MaxArmyMaintenance, province, save);
          }
          constructBuildings(province, save);
          tryDoHeadless(RecruitGeneralAction(province, save), "RecruitGeneral", province, save);
@@ -806,6 +810,7 @@ function findWarGoal(province: Province, save: SaveGame): { tile: Tile; estimate
    for (const [otherProvince, otherTiles] of neighbors) {
       // NPC should not attack the player until they have declared their 2nd war!
       if (
+         !hasFlag(G.flags, GameFlags.Sandbox) &&
          otherProvince === save.state.playerProvince &&
          getProvinceStat("attackCount", save.state.playerProvince, save) <= 1
       ) {

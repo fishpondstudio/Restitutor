@@ -89,6 +89,8 @@ export const WarResultNames: Record<WarResult, () => string> = {
 
 export const MaxConscription = 50;
 export const MinConscription = 5;
+export const MinArmyMaintenance = 50;
+export const MaxArmyMaintenance = 100;
 export const ArmyMoraleMonthlyIncrease = 10;
 
 function getCoDefenders(attacker: Province, defender: Province, save: SaveGame): Map<Province, IConditionBreakdown> {
@@ -651,4 +653,22 @@ export function getWarPowerPerTile(province: Province, save: SaveGame): number {
       return 0;
    }
    return getWarPower(province, save).value / tileCount;
+}
+export function setProvinceArmyMaintenance(value: number, province: Province, save: SaveGame): void {
+   value = clamp(value, MinArmyMaintenance, MaxArmyMaintenance);
+   if (value < getProvinceStat("armyMorale", province, save)) {
+      setProvinceStat("armyMorale", value, province, save);
+   }
+   setProvinceStat("armyMaintenance", value, province, save);
+}
+export function setProvinceTargetConscription(value: number, province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   const targetConscription = clamp(value, MinConscription, MaxConscription);
+   if (targetConscription < getProvinceStat("actualConscription", province, save)) {
+      setProvinceStat("actualConscription", targetConscription, province, save);
+   }
+   setProvinceStat("targetConscription", targetConscription, province, save);
 }

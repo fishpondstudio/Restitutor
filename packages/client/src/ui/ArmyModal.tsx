@@ -18,7 +18,6 @@ import {
    getWarPower,
    provinceResourceOf,
    setProvinceStat,
-   setProvinceTargetConscription,
 } from "../game/logic/ProvinceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
@@ -29,8 +28,12 @@ import {
    getInfantryUnitWarPower,
    getRangedUnitWarPower,
    hasGeneralCondition,
+   MaxArmyMaintenance,
    MaxConscription,
+   MinArmyMaintenance,
    MinConscription,
+   setProvinceArmyMaintenance,
+   setProvinceTargetConscription,
 } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -275,14 +278,11 @@ export function ArmyModal(): React.ReactNode {
             className="m10"
             value={armyMaintenance}
             onChange={(value) => {
-               if (value < getProvinceStat("armyMorale", G.save.state.playerProvince, G.save)) {
-                  setProvinceStat("armyMorale", value, G.save.state.playerProvince, G.save);
-               }
-               setProvinceStat("armyMaintenance", value, G.save.state.playerProvince, G.save);
+               setProvinceArmyMaintenance(value, G.save.state.playerProvince, G.save);
                GameStateUpdated.emit();
             }}
-            min={50}
-            max={100}
+            min={MinArmyMaintenance}
+            max={MaxArmyMaintenance}
             marks={[
                { value: 50, label: "50%" },
                { value: 60, label: "60%" },
