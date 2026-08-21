@@ -1,66 +1,78 @@
 Hi,
 
-I am pleased to present Patch 0.14 - the last content patch before Early Access release. This patch adds two new playable provinces: Mauretania and Africa,  each with its own historical narrative, missions, and Provincial Spirits, with campaigns built around the Strait of Gibraltar, the wealth of Carthage, the African grain trade, and the struggle for control of the western Mediterranean. I have also added Steam achievements support in this patch.
+I am pleased to present Patch 0.15. This patch expands the endgame with three grand missions - restoring the Western Roman Empire and dominating the western and eastern Mediterranean - each accompanied by new achievements. It also introduces two new Senate Actions, new Legacy upgrades for tolerated cultures and religions, clearer tile information with culture and religion status, and a round of warfare, AI, and production balancing.
 
-[h2]Two New Playable Provinces[/h2]
+[h2]New Missions and Achievements[/h2]
 
-Mauretania and Africa are now available for new runs and Rebirth. Both receive an additional 100 Governing Capacity to support their campaigns across the broad territories and sea lanes of Roman Africa.
-
-[h3]Mauretania: Between Ocean and Inland Frontier[/h3]
-
-Mauretania receives ten historical events following the Bavares crossing the frontier, Maximian's Atlas campaign, the first Council of Cirta, the Macarian mission, the return of the Donatists, the revolt of Firmus, the collapse of Gildo's cause, the siege and treaty of Hippo Regius, and the provinces left beyond the Vandal settlement.
-
-Its six missions connect the African and Hispanic shores of the Strait of Gibraltar, reward the conquest of Baetica, offer the chance to purchase Palma, open an eastward campaign into Africa, and ultimately carry Mauretanian power toward Sardinia and Sicilia. A sufficiently large Mauretania can also claim the right to conquer Africa directly.
-
-Mauretania has three Provincial Spirits:
+Three new grand missions are available for late-game campaigns, replacing the old Incorporation of Hispania mission:
 
 [list]
-[*][b]The Two Shores[/b] - Gain +30% Land Tax while Baelo and Tingi are annexed and cored.
-[*][b]Moorish Muster[/b] - Gain +5% War Power for every 10 core tiles.
-[*][b]Maritime Renown[/b] - Gain +1% Prestige for each core coastal tile, up to +50%.
+[*][b]The Western Roman Empire Restored[/b] - Annex and core every province of the Western Roman Empire, from Britannia to Africa. Completing it renames your province to the Western Roman Empire and grants +200 Governing Capacity plus one point of each type. Unlocks the achievement Renovatio Imperii.
+[*][b]Dominion of the Western Sea[/b] - Bring every port and island from the Pillars of Hercules to the Adriatic under your rule, including Baetica, Tarraconensis, Narbonensis, Italia, Sicilia, Corsica, Sardinia, Dalmatia, Africa, and Mauretania. Choose to govern through law, bind the ports through diplomacy, or entrust the sea to our fleets. Unlocks the achievement Mare Nostrum.
+[*][b]Dominion of the Eastern Sea[/b] - Control the great ports and islands from the Adriatic to the Nile, spanning Macedonia, Achaia, Asia, Syria, Judea, Aegyptus, and more. As with the western dominion, law, treaty, and fleets offer three paths to +100 Governing Capacity and a point of your chosen kind. Unlocks the achievement Queen of Cities.
 [/list]
 
-[h3]Africa: Granary of the Empire[/h3]
+Mission event lists on the Mission page can now be collapsed for easier navigation.
 
-Africa receives ten historical events centered on Perpetua and Felicity, Cyprian of Carthage, the martyrs of Abitina, the earthquake of 365 A.D., Gildo's grain blockade, the Conference of Carthage, Heraclian's armada, the Vandal land settlement, the charity of Deogratias, and the fire ships at Cape Bon.
-
-Its five missions can bring Sardinia and Corsica peacefully under African protection, launch invasions of Sicilia and Italia, or transform a large realm into a more inclusive state. Africa's choices emphasize trade, grain, coastal administration, and control of the central Mediterranean.
-
-Africa has three Provincial Spirits:
+[h2]New Senate Actions[/h2]
 
 [list]
-[*][b]Littoral Tax Districts[/b] - Gain +1% Land Tax on all tiles for each core coastal tile with at least three coastal edges.
-[*][b]Mercantile Mobilization[/b] - Gain +10% War Power for each active trade.
-[*][b]Granary of the Empire[/b] - Gain +1% Tile Output on all tiles for each core tile producing Grain, up to +50%.
+[*][b]Nullify Truce[/b] - Immediately ends one of our active truces, opening the path to declaring a new war. Available once every 24 months.
+[*][b]Bolster Dignitas[/b] - Gain +20% Prestige for 12 months at the cost of 1 Consul point.
 [/list]
 
-[h2]Steam Achievements[/h2]
-
-14 Steam achievements are now available, covering the tutorial, diplomacy, warfare, Rebirth, religion, and major campaign milestones:
+Existing timed actions were also rebalanced
 
 [list]
-[*][b]The Die Is Cast[/b] - Complete the tutorial.
-[*][b]Casus Belli[/b] - Declare war on another province.
-[*][b]Rome Reborn[/b] - Begin a new run through Rebirth.
-[*][b]Woe to the Vanquished[/b] - Win a war and gain at least one tile.
-[*][b]The Walls Hold[/b] - End a defensive war without losing any tiles.
-[*][b]Bound by Treaty[/b] - Form an alliance.
-[*][b]Under Our Protection[/b] - Make another province a client.
-[*][b]First Among Equals[/b] - Become a Great Power.
-[*][b]Empire Without End[/b] - Successfully demand a tile.
-[*][b]The City Is Ours[/b] - Capture an enemy provincial capital in a peace treaty.
-[*][b]In This Sign[/b] - Convert the province to Christianity.
-[*][b]All Hispania[/b] - Complete the Hispania United mission.
-[*][b]Postumus's Legacy[/b] - Proclaim the Gallic Empire.
-[*][b]The Last Emperor[/b] - Complete An Empire Ends in Silence.
+[*]Declare Mobilization now provides +20% War Power (up from 10%).
+[*]Affirm Civic Unity now grants +20 Stability (up from 10).
 [/list]
 
-[h2]Balance and Fixes[/h2]
+[h2]Legacy Upgrades[/h2]
+
+Two new Legacy upgrades extend the legacy tree branches:
 
 [list]
-[*]Starting tile upgrades is now distributed more consistently across provinces.
-[*]Update tutorial text to reflect the update mechanics.
-[*]Fixed researched technologies sometimes failing to unlock their associated manufactured goods and timed actions.
-[*]Fixed NPC provinces becoming too passive and failing to evaluate and declare wars.
-[*]Clergy and Military candidates are now available when seeking a local spouse, alongside Senate, Equites, and Plebs candidates.
+[*]+1 Tolerated Culture.
+[*]+1 Tolerated Religion.
+[/list]
+
+[h2]Tile Information and Defense[/h2]
+
+[list]
+[*]Tiles now display their culture and religion status as Dominant, Tolerated, or Minor.
+[*]Tiles not connected to the provincial capital by land receive -10% Tile Defense.
+[*]Tiles in open rebellion (rebellion 10 or higher) receive -20% Tile Defense.
+[*]Infrastructure now grants +1% Tile Defense per level (up from 0.5%).
+[*]Tiles show which provinces have a core claim on them.
+[/list]
+
+[h2]Warfare Balance[/h2]
+
+[list]
+[*]Under a Reconquista casus belli, tiles originally owned by us now contribute 30% less to war score (down from 50%).
+[*]Conquering tiles that is our core contribute 30% less to war score (down from 50%).
+[/list]
+
+[h2]NPC Improvements[/h2]
+
+[list]
+[*]NPC provinces now fill their tolerated culture and religion slots based on the makeup of their tiles.
+[*]NPC provinces now use Appease to calm heavily rebellious tiles before unrest escalates.
+[*]NPC provinces manage army maintenance between peacetime and wartime, keeping forces affordable in peace and effective in war.
+[*]Fixed NPC conscription targets potentially exceeding valid bounds.
+[/list]
+
+[h2]Other Changes[/h2]
+
+[list]
+[*]Evangelize now costs Christianity instead of Administrative Power.
+[*]Added French language support, translated by community contributors (@vergiiiCIV)
+[*]The Chronicle page is now virtualized, improving performance in long campaigns.
+[/list]
+
+[h2]Bug Fixes[/h2]
+
+[list]
+[*]Fixed production capacity being over-allocated beyond the province's limit; excess capacity is now automatically reduced, prioritizing higher-tier goods.
 [/list]
