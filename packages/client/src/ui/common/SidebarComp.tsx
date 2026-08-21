@@ -9,7 +9,12 @@ export function SidebarComp({
    title,
    children,
    width = SidebarWidth,
-}: React.PropsWithChildren<{ title: React.ReactNode; width?: string }>): React.ReactElement {
+   scrollViewportRef,
+}: React.PropsWithChildren<{
+   title: React.ReactNode;
+   width?: string;
+   scrollViewportRef?: React.Ref<HTMLDivElement>;
+}>): React.ReactElement {
    return (
       <div
          className="panel"
@@ -22,7 +27,7 @@ export function SidebarComp({
          }}
       >
          {title}
-         <ScrollArea scrollbars="y" className="f1">
+         <ScrollArea scrollbars="y" className="f1" viewportRef={scrollViewportRef}>
             {children}
             <div className="h10" />
          </ScrollArea>
