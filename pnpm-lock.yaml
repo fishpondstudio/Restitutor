@@ -39,8 +39,8 @@ importers:
         specifier: ^0.27.8
         version: 0.27.12(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@mantine/charts':
-        specifier: ^9.4.0
-        version: 9.4.0(@mantine/core@9.5.1(@mantine/hooks@9.5.1(react@19.2.5))(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@mantine/hooks@9.5.1(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(recharts@3.9.0(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react-is@16.13.1)(react@19.2.5)(redux@5.0.1))
+        specifier: ^9.5.1
+        version: 9.5.1(@mantine/core@9.5.1(@mantine/hooks@9.5.1(react@19.2.5))(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@mantine/hooks@9.5.1(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(recharts@3.9.0(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react-is@16.13.1)(react@19.2.5)(redux@5.0.1))
       '@mantine/core':
         specifier: ^9.5.1
         version: 9.5.1(@mantine/hooks@9.5.1(react@19.2.5))(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -68,9 +68,6 @@ importers:
       '@sentry/browser':
         specifier: ^9.27.0
         version: 9.27.0
-      '@tanstack/react-virtual':
-        specifier: ^3.13.10
-        version: 3.13.10(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@xyflow/react':
         specifier: ^12.10.1
         version: 12.10.1(@types/react@19.2.9)(immer@11.1.8)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -96,8 +93,8 @@ importers:
         specifier: ^19.2.5
         version: 19.2.5(react@19.2.5)
       react-virtuoso:
-        specifier: ^4.18.7
-        version: 4.18.7(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: ^4.18.12
+        version: 4.18.12(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       recharts:
         specifier: ^3.9.0
         version: 3.9.0(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react-is@16.13.1)(react@19.2.5)(redux@5.0.1)
@@ -1395,11 +1392,11 @@ packages:
     resolution: {integrity: sha512-1DpKU0Z5ThltBwjNySMC14g0CkbyhCaz9FkhxqNsZI6uAPJXFS8cMXlBKo26FJ8ZuW6S9GCMcR9IO5k2X5/9Fg==}
     engines: {node: '>= 12.13.0'}
 
-  '@mantine/charts@9.4.0':
-    resolution: {integrity: sha512-bcymoPmIejo/p/p+PZAzKqly61QUzhp9T9/UgKcpsGlDlVScallD+1DhfS+chlQkPct7Ii6JPAEm0UT18p56LA==}
+  '@mantine/charts@9.5.1':
+    resolution: {integrity: sha512-JLa02nNyct+XVA3YSKGOVHoAMzO6Wg44uUB44SifDTejVFAiehHAM2GOcTqrYBAmYf/uodM/bdZktwNAug5irA==}
     peerDependencies:
-      '@mantine/core': 9.4.0
-      '@mantine/hooks': 9.4.0
+      '@mantine/core': 9.5.1
+      '@mantine/hooks': 9.5.1
       react: ^19.2.0
       react-dom: ^19.2.0
       recharts: '>=3.2.1'
@@ -2172,15 +2169,6 @@ packages:
   '@szmarczak/http-timer@4.0.6':
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
     engines: {node: '>=10'}
-
-  '@tanstack/react-virtual@3.13.10':
-    resolution: {integrity: sha512-nvrzk4E9mWB4124YdJ7/yzwou7IfHxlSef6ugCFcBfRmsnsma3heciiiV97sBNxyc3VuwtZvmwXd0aB5BpucVw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  '@tanstack/virtual-core@3.13.10':
-    resolution: {integrity: sha512-sPEDhXREou5HyZYqSWIqdU580rsF6FGeN7vpzijmP3KTiOGjOMZASz4Y6+QKjiFQwhWrR58OP8izYaNGVxvViA==}
 
   '@tokenizer/token@0.3.0':
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
@@ -4498,8 +4486,8 @@ packages:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
 
-  react-virtuoso@4.18.7:
-    resolution: {integrity: sha512-xNF5zDGEEIMB7cKwcen/pLig0YDf6OnfFrVgKFa7sHPf9fRem0CaLshyObbBcP88jzn0enavL39EgplgdyT21g==}
+  react-virtuoso@4.18.12:
+    resolution: {integrity: sha512-6c1SnRicSBfG+WnbhcyJUxzDHvvxD3vsux/EpcfVbgB7clyP1Od2r81TAGTgwbL7U2qP889RR4u+CH6WjgpW0g==}
     peerDependencies:
       react: '>=16 || >=17 || >= 18 || >= 19'
       react-dom: '>=16 || >=17 || >= 18 || >=19'
@@ -6699,7 +6687,7 @@ snapshots:
     dependencies:
       cross-spawn: 7.0.6
 
-  '@mantine/charts@9.4.0(@mantine/core@9.5.1(@mantine/hooks@9.5.1(react@19.2.5))(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@mantine/hooks@9.5.1(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(recharts@3.9.0(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react-is@16.13.1)(react@19.2.5)(redux@5.0.1))':
+  '@mantine/charts@9.5.1(@mantine/core@9.5.1(@mantine/hooks@9.5.1(react@19.2.5))(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@mantine/hooks@9.5.1(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(recharts@3.9.0(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react-is@16.13.1)(react@19.2.5)(redux@5.0.1))':
     dependencies:
       '@mantine/core': 9.5.1(@mantine/hooks@9.5.1(react@19.2.5))(@types/react@19.2.9)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@mantine/hooks': 9.5.1(react@19.2.5)
@@ -7358,14 +7346,6 @@ snapshots:
   '@szmarczak/http-timer@4.0.6':
     dependencies:
       defer-to-connect: 2.0.1
-
-  '@tanstack/react-virtual@3.13.10(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
-    dependencies:
-      '@tanstack/virtual-core': 3.13.10
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
-
-  '@tanstack/virtual-core@3.13.10': {}
 
   '@tokenizer/token@0.3.0': {}
 
@@ -9787,7 +9767,7 @@ snapshots:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
 
-  react-virtuoso@4.18.7(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
+  react-virtuoso@4.18.12(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
     dependencies:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
