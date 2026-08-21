@@ -2,12 +2,10 @@ import { clearFlag, setFlag } from "@project/shared/src/utils/Helper";
 import { RetailSteamId } from "./game/definitions/Constant.ts";
 import { type Province, Provinces } from "./game/definitions/Province";
 import { GameOptionFlag } from "./game/GameOption";
-import { startTimedAction } from "./game/logic/TimedActionLogic";
 import { isSteam, SteamClient } from "./rpc/SteamClient";
 import { TechTreeScene } from "./scenes/TechTreeScene";
 import { WorldScene } from "./scenes/WorldScene";
 import { showPanel } from "./ui/common/ShowPanel";
-import { EcumenicalCouncilPage } from "./ui/EcumenicalCouncilPage";
 import { LegacyUpgradeModal } from "./ui/LegacyUpgradeModal";
 import { G, GameFlags, setSpeed } from "./utils/Global";
 
@@ -42,11 +40,6 @@ export function loadGameScene() {
 
    if (G.params.has("legacy")) {
       showPanel(<LegacyUpgradeModal />);
-   }
-
-   if (G.params.has("council")) {
-      startTimedAction("EcumenicalCouncil2", G.save.state.playerProvince, G.save);
-      showPanel(<EcumenicalCouncilPage />);
    }
 
    const scene = G.params.get("scene")?.toLowerCase();

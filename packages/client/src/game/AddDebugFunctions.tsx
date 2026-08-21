@@ -11,6 +11,7 @@ import { InvaderSueForWhitePeaceModal } from "../ui/InvaderSueForWhitePeaceModal
 import { RestorationBonusModal } from "../ui/RestorationBonusModal";
 import { WarEndedModal } from "../ui/WarEndedModal";
 import { G, isDev } from "../utils/Global";
+import { renderMap } from "./ASCIIMapRenderer";
 import { type IFamily, PersonFlags } from "./definitions/Family";
 import type { Province } from "./definitions/Province";
 import { SpawnedProvinces } from "./definitions/SpawnedProvince";
@@ -192,6 +193,16 @@ export function addDebugFunctions(): void {
          return;
       }
       doAddChild(governor, female);
+   };
+
+   // @ts-expect-error
+   globalThis.printSquare = () => {
+      console.log(renderMap(G.save, false));
+   };
+
+   // @ts-expect-error
+   globalThis.printHex = () => {
+      console.log(renderMap(G.save, true));
    };
 
    function doAddChild(family: IFamily, female: boolean): void {

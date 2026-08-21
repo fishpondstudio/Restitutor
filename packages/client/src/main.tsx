@@ -10,6 +10,7 @@ import { bootstrap } from "./Bootstrap";
 import "./css/main.css";
 import { Fonts } from "./Fonts";
 import { getVersion } from "./game/Version";
+import { ASCIIMapPanel } from "./ui/ASCIIMapPanel";
 import { BottomPanel } from "./ui/BottomPanel";
 import { Popover } from "./ui/common/Popover";
 import { Sidebar } from "./ui/common/SidebarManager";
@@ -74,7 +75,7 @@ createRoot(root).render(
       <TopPanel />
       <BottomPanel />
       <TutorialPanel />
-      {/* <ChatPanel /> */}
+      <ASCIIMapPanel />
       <Popover />
       <ModalManager />
       <LoadingComp />

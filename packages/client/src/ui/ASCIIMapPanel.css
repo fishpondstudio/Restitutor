@@ -1,0 +1,29 @@
+.ascii-map {
+   font-family: "MonospaceFont", monospace;
+   font-size: 10px;
+   line-height: 1.6;
+
+   position: absolute;
+   right: 0.625rem;
+   top: 0.625rem;
+
+   .ascii-map-options {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.625rem 0.625rem 0;
+   }
+
+   pre {
+      margin: 0.625rem;
+   }
+}
+
+.ascii-map-tile-at-war {
+   animation: ascii-map-war-blink 0.5s step-end infinite;
+}
+
+@keyframes ascii-map-war-blink {
+   50% {
+      opacity: 0.5;
+   }
+}
