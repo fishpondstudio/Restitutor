@@ -2990,4 +2990,8 @@ export const ZH_CN = {
    CultureReligionStatusMinor: "少数",
    NotConnectedToCapital: "未与首都相连",
    ProvincesWithACoreClaimOnThisTile$1: "将此地块视为核心的行省：$1",
+   BolsterDignitas: "提升尊严",
+   NoActiveTrucesToNullify: "无可废除的生效停战协议",
+   NullifyTruce: "废除停战协议",
+   TimedActionNullifyTruceDesc: "废除停战协议会立即终止我方一项生效的停战协议。",
 };

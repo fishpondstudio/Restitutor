@@ -345,7 +345,20 @@ class TimedActionDefinitions {
          };
       },
       modifiers: {
-         WarPower: { type: "multiply", value: 0.1 },
+         WarPower: { type: "multiply", value: 0.2 },
+      },
+   };
+   BolsterDignitas: ITimedEffectAction = {
+      name: () => $t(L.BolsterDignitas),
+      duration: 12,
+      cooldown: 12,
+      costCondition: (province, save) => {
+         return {
+            cost: { consulPoint: 1 },
+         };
+      },
+      modifiers: {
+         Prestige: { type: "multiply", value: 0.2 },
       },
    };
    AffirmCivicUnity: ITimedEffectAction = {
@@ -358,7 +371,7 @@ class TimedActionDefinitions {
          };
       },
       modifiers: {
-         Stability: { type: "add", value: 10 },
+         Stability: { type: "add", value: 20 },
       },
    };
    PublicEnemy: ITimedAction = {
@@ -382,6 +395,12 @@ class TimedActionDefinitions {
    DissolveTreaty: ITimedAction = {
       name: () => $t(L.DissolveTreaty),
       desc: () => $t(L.TimedActionDissolveTreatyDesc),
+      duration: 0,
+      cooldown: 24,
+   };
+   NullifyTruce: ITimedAction = {
+      name: () => $t(L.NullifyTruce),
+      desc: () => $t(L.TimedActionNullifyTruceDesc),
       duration: 0,
       cooldown: 24,
    };

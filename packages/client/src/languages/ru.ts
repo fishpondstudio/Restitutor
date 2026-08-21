@@ -3017,4 +3017,8 @@ export const RU = {
    CultureReligionStatusMinor: "Малая",
    NotConnectedToCapital: "Нет связи со столицей",
    ProvincesWithACoreClaimOnThisTile$1: "Провинции, для которых это владение является ядровым: $1",
+   BolsterDignitas: "Укрепить достоинство",
+   NoActiveTrucesToNullify: "Нет действующих перемирий для аннулирования",
+   NullifyTruce: "Аннулировать перемирие",
+   TimedActionNullifyTruceDesc: "Аннулирование перемирия немедленно прекращает одно из наших действующих перемирий.",
 };

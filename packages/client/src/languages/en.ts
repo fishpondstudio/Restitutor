@@ -3022,4 +3022,8 @@ export const EN = {
    CultureReligionStatusMinor: "Minor",
    NotConnectedToCapital: "Not connected to capital",
    ProvincesWithACoreClaimOnThisTile$1: "Provinces with a core claim on this tile: $1",
+   BolsterDignitas: "Bolster Dignitas",
+   NoActiveTrucesToNullify: "No active truces to nullify",
+   NullifyTruce: "Nullify Truce",
+   TimedActionNullifyTruceDesc: "Nullifying a truce immediately ends one of our active truces.",
 };

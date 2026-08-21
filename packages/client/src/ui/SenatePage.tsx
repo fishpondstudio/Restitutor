@@ -24,6 +24,7 @@ import { html } from "./components/RenderHTMLComp";
 import { DissolveTreatyModal } from "./DissolveTreatyModal";
 import { HeaderImages } from "./HeaderImages";
 import { NamePublicEnemyModal } from "./NamePublicEnemyModal";
+import { NullifyTruceModal } from "./NullifyTruceModal";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid2 } from "./UIConstant";
 
@@ -53,11 +54,15 @@ export function SenatePage(): React.ReactNode {
             <TimedActionButton timedAction="EnactSenateOversight" />
             <TimedActionButton timedAction="AffirmCivicUnity" />
             <TimedActionButton timedAction="DeclareMobilization" />
+            <TimedActionButton timedAction="BolsterDignitas" />
             <button className="btn" onClick={() => showPanel(<NamePublicEnemyModal />)}>
                {TimedActions.PublicEnemy.name()}
             </button>
             <button className="btn" onClick={() => showPanel(<DissolveTreatyModal />)}>
                {TimedActions.DissolveTreaty.name()}
+            </button>
+            <button className="btn" onClick={() => showPanel(<NullifyTruceModal />)}>
+               {TimedActions.NullifyTruce.name()}
             </button>
          </div>
          <div className="h1">{$t(L.ElectedConsulsOf$1Ad, thisYear)}</div>

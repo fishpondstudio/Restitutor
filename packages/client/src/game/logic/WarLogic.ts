@@ -318,6 +318,16 @@ export function getTruceMonthsLeft(fromProvince: Province, toProvince: Province,
    return clamp(truceUntil - save.state.month, 0, Number.POSITIVE_INFINITY);
 }
 
+export function nullifyTruce(fromProvince: Province, toProvince: Province, save: SaveGame): void {
+   const fromTo = getRelation(fromProvince, toProvince, save);
+   const toFrom = getRelation(toProvince, fromProvince, save);
+   if (!fromTo || !toFrom) {
+      return;
+   }
+   fromTo.truceUntil = 0;
+   toFrom.truceUntil = 0;
+}
+
 export function getTruceDuration(war: IWar, save: SaveGame): IValueBreakdown {
    const result = makeValueBreakdown();
    result.add.push({
