@@ -25,7 +25,6 @@ import {
    getTileManpower,
    getTileOutput,
    getTileUnrest,
-   isCapital,
    tileIsOurCoreCondition,
 } from "../game/logic/TileLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
@@ -88,11 +87,16 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   {getProvinceName(tileData.province, G.save)}
                </div>
             </div>
-            <div className="row my5">
-               <div className="f1">{$t(L.Capital)}</div>
-               {isCapital(tile, G.save) ? (
+            {state.capital === tile && (
+               <div className="row my5">
+                  <div className="f1">{$t(L.Capital)}</div>
                   <div className="mi sm text-green">check_circle</div>
-               ) : (
+               </div>
+            )}
+            <div className="row my5">
+               <div className="f1">{$t(L.Core)}</div>
+               <MakeCoreButton className="text-sm" tile={tile} />
+               {isMyProvince && state.capital !== tile && (
                   <ActionButton
                      className="text-sm"
                      action={{
@@ -130,10 +134,6 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                      {$t(L.RelocateCapital)}
                   </ActionButton>
                )}
-            </div>
-            <div className="row my5">
-               <div className="f1">{$t(L.Core)}</div>
-               <MakeCoreButton className="text-sm" tile={tile} />
                <FloatingTip
                   label={$t(
                      L.ProvincesWithACoreClaimOnThisTile$1,
