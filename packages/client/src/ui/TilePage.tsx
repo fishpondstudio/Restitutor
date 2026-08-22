@@ -5,12 +5,14 @@ import { Buildings } from "../game/definitions/Building";
 import { Culture } from "../game/definitions/Culture";
 import { CultureReligionStatus } from "../game/definitions/CultureReligionStatus";
 import { Goods, Price } from "../game/definitions/Goods";
+import { modifierToString } from "../game/definitions/Modifier";
 import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
 import { getTileName } from "../game/definitions/TileName";
-import { TimedActions } from "../game/definitions/TimedAction";
-import { GameStateUpdated } from "../game/Events";
+import { RelocateCapitalModifier, TimedActions } from "../game/definitions/TimedAction";
+import { GameStateUpdated, RefreshTiles } from "../game/Events";
 import { MapBackgroundColors } from "../game/logic/MapColor";
+import { addModifier } from "../game/logic/ModifierLogic";
 import { getProvinceName, getProvinceStat } from "../game/logic/ProvinceLogic";
 import {
    getCultureStatus,
@@ -27,7 +29,7 @@ import {
    tileIsOurCoreCondition,
 } from "../game/logic/TileLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
-import { timedActionConditions } from "../game/logic/TimedActionLogic";
+import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { getWarForTile } from "../game/logic/WarLogic";
 import { G, isDev } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -86,12 +88,49 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   {getProvinceName(tileData.province, G.save)}
                </div>
             </div>
-            {isCapital(tile, G.save) && (
-               <div className="row my5">
-                  <div className="f1">{$t(L.Capital)}</div>
+            <div className="row my5">
+               <div className="f1">{$t(L.Capital)}</div>
+               {isCapital(tile, G.save) ? (
                   <div className="mi sm text-green">check_circle</div>
-               </div>
-            )}
+               ) : (
+                  <ActionButton
+                     className="text-sm"
+                     action={{
+                        cost: { capitalRelocationPoint: 1 },
+                        condition: finalizeCondition([
+                           ...timedActionConditions({ action: "RelocateCapital" }, G.save.state.playerProvince, G.save),
+                           tileIsOurCoreCondition(tile, G.save.state.playerProvince, G.save),
+                           { name: $t(L.TileIsNotAtWar), value: !war },
+                        ]),
+                        effect: () => {
+                           startTimedAction("RelocateCapital", tileData.province, G.save);
+                           addModifier({
+                              ...RelocateCapitalModifier,
+                              name: TimedActions.RelocateCapital.name(),
+                              province: tileData.province,
+                              save: G.save,
+                           });
+                           const oldCapital = state.capital;
+                           state.capital = tile;
+                           RefreshTiles.emit({ tiles: [tile, oldCapital], options: { indicator: true, visual: true } });
+                        },
+                     }}
+                     tooltip={(element) => (
+                        <>
+                           <div className="m10">
+                              <div className="my5">{$t(L.RelocatingOurProvincialCapitalHasTheFollowingEffect)}</div>
+                              <div className="my5">
+                                 {modifierToString(RelocateCapitalModifier.modifier, RelocateCapitalModifier)}
+                              </div>
+                           </div>
+                           {element}
+                        </>
+                     )}
+                  >
+                     {$t(L.RelocateCapital)}
+                  </ActionButton>
+               )}
+            </div>
             <div className="row my5">
                <div className="f1">{$t(L.Core)}</div>
                <MakeCoreButton className="text-sm" tile={tile} />

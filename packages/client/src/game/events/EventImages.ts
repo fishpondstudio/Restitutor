@@ -490,7 +490,7 @@ export const EventImage = {
    },
    ImperialCity: {
       url: ImperialCity,
-      credit: "The Course of Empire: Consummation , Thomas Cole (1836)",
+      credit: "The Course of Empire: Consummation, Thomas Cole (1836)",
       keywords: ["Empire", "Prosperity", "Architecture", "Celebration"],
    },
    ImperialPatronage: {

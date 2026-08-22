@@ -3026,4 +3026,9 @@ export const EN = {
    NoActiveTrucesToNullify: "No active truces to nullify",
    NullifyTruce: "Nullify Truce",
    TimedActionNullifyTruceDesc: "Nullifying a truce immediately ends one of our active truces.",
+   CapitalRelocationPoint: "Capital Relocation Point",
+   RelocateCapital: "Relocate Capital",
+   TimedActionRelocateCapitalDesc: "Relocate our provincial capital to this tile",
+   TileIsNotAtWar: "Tile is not at war",
+   RelocatingOurProvincialCapitalHasTheFollowingEffect: "Relocating our provincial capital has the following effect:",
 };

@@ -25,6 +25,7 @@ import { applyGameEventButton, getEventButtons, getGameEventCondition } from "..
 import { type GameEvent, GameEvents } from "../events/GameEvents";
 import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
+import { calculateTilesConnectedToCapital } from "./CacheLogic";
 import { cleanUpProvince } from "./CleanupProvince";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
 import { getGameDate } from "./GameDateTime";
@@ -46,7 +47,7 @@ import {
    spendProvinceResource,
 } from "./ProvinceLogic";
 import { TickFamilyMonth } from "./TickLogic";
-import { calculateTilesConnectedToCapital, getTileUnrest } from "./TileLogic";
+import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
 import { ArmyMoraleMonthlyIncrease } from "./WarLogic";
 

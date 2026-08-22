@@ -3021,4 +3021,9 @@ export const RU = {
    NoActiveTrucesToNullify: "Нет действующих перемирий для аннулирования",
    NullifyTruce: "Аннулировать перемирие",
    TimedActionNullifyTruceDesc: "Аннулирование перемирия немедленно прекращает одно из наших действующих перемирий.",
+   CapitalRelocationPoint: "Очки переноса столицы",
+   RelocateCapital: "Перенести столицу",
+   TimedActionRelocateCapitalDesc: "Перенести столицу нашей провинции в это владение",
+   TileIsNotAtWar: "Владение не оспаривается в войне",
+   RelocatingOurProvincialCapitalHasTheFollowingEffect: "Перенос столицы нашей провинции даёт следующий эффект:",
 };

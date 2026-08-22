@@ -17,6 +17,7 @@ export interface ITimedAction {
    cooldown: number;
    duration: number;
    tech?: Tech;
+   onStart?: (province: Province, save: SaveGame) => void;
    onEnd?: (province: Province, save: SaveGame) => void;
 }
 
@@ -634,7 +635,20 @@ class TimedActionDefinitions {
       duration: 0,
       cooldown: 6,
    };
+   RelocateCapital: ITimedAction = {
+      name: () => $t(L.RelocateCapital),
+      desc: () => $t(L.TimedActionRelocateCapitalDesc),
+      duration: 24,
+      cooldown: 24,
+   };
 }
+
+export const RelocateCapitalModifier: { modifier: Modifier } & IBaseModifier = {
+   modifier: "Stability",
+   type: "add",
+   value: -10,
+   duration: 24,
+};
 
 export type TimedAction = keyof TimedActionDefinitions;
 export type TimedEffectAction = {

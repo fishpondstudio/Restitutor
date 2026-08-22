@@ -1,5 +1,6 @@
 import { keysOf, numberToRoman, shuffle } from "@project/shared/src/utils/Helper";
 import { srand } from "@project/shared/src/utils/Random";
+import { useMemo } from "react";
 import { RestorationBonus } from "../game/definitions/RestorationBonus";
 import { GameStateUpdated } from "../game/Events";
 import { applyGameEffect, getGameEffectDesc } from "../game/GameEffect";
@@ -14,11 +15,16 @@ import { Grid3 } from "./UIConstant";
 
 export function RestorationBonusModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
-   const usedRestoration = getProvinceStat("usedRestoration", G.save.state.playerProvince, G.save);
-   const candidates = shuffle(
-      keysOf(RestorationBonus),
-      srand(`${G.save.state.seed},UsedRestoration:${usedRestoration}`),
-   ).slice(0, 3);
+   const candidates = useMemo(
+      () =>
+         shuffle(
+            keysOf(RestorationBonus),
+            srand(
+               `${G.save.state.seed},Restoration:${getProvinceStat("usedRestoration", G.save.state.playerProvince, G.save)}`,
+            ),
+         ).slice(0, 3),
+      [],
+   );
    return (
       <div className="modal xl">
          <div className="text-center text-roman text-lg text-white text-shadow">{$t(L.PickYourRestorationBonus)}</div>

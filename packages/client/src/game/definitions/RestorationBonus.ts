@@ -1,3 +1,4 @@
+import CapitalRelocationPoint from "../../assets/images/modifiers/CapitalRelocationPoint.webp";
 import GeneralSkillPoint from "../../assets/images/modifiers/GeneralSkillPoint.webp";
 import GoverningCapacity from "../../assets/images/modifiers/GoverningCapacity.webp";
 import LandTax from "../../assets/images/modifiers/LandTax.webp";
@@ -26,7 +27,7 @@ export const RestorationBonus = {
          url: GoverningCapacity,
          credit: "Cicero's tale about Catiline, Hans Werner Schmidt (1912)",
       },
-   } as IRestorationBonus,
+   },
    Stability: {
       effect: {
          modifiers: {
@@ -37,7 +38,18 @@ export const RestorationBonus = {
          url: Stability,
          credit: "Das Forum Romanum, J. Bühlmann (1901)",
       },
-   } as IRestorationBonus,
+   },
+   CapitalRelocationPoint: {
+      effect: {
+         resources: {
+            capitalRelocationPoint: 1,
+         },
+      },
+      image: {
+         url: CapitalRelocationPoint,
+         credit: "The Course of Empire: Consummation, Thomas Cole (1836)",
+      },
+   },
    WarPower: {
       effect: {
          modifiers: {
@@ -48,7 +60,7 @@ export const RestorationBonus = {
          url: WarPower,
          credit: "Julius Caesar's triumphal procession, Weimar (c.1800s)",
       },
-   } as IRestorationBonus,
+   },
    Prestige: {
       effect: {
          modifiers: {
@@ -59,7 +71,7 @@ export const RestorationBonus = {
          url: Prestige,
          credit: "The Age of Augustus, the Birth of Christ, Jean-Léon Gérôme (1852)",
       },
-   } as IRestorationBonus,
+   },
    LandTax: {
       effect: {
          modifiers: {
@@ -70,7 +82,7 @@ export const RestorationBonus = {
          url: LandTax,
          credit: "Cincinnatus behind the plow, Anton Hoffmann (1920)",
       },
-   } as IRestorationBonus,
+   },
    TileOutput: {
       effect: {
          modifiers: {
@@ -81,7 +93,7 @@ export const RestorationBonus = {
          url: TileOutput,
          credit: "A Forge, Antonio Zucchi (c.1700s)",
       },
-   } as IRestorationBonus,
+   },
    Manpower: {
       effect: {
          modifiers: {
@@ -93,7 +105,7 @@ export const RestorationBonus = {
          credit:
             "Inneres eines römischen Hauses. Haus des Cornelius Rufus in Pompeji (Rekonstruktion), Adolf Lehmann (1906)",
       },
-   } as IRestorationBonus,
+   },
    TradeProfit: {
       effect: {
          modifiers: {
@@ -104,7 +116,7 @@ export const RestorationBonus = {
          url: TradeProfit,
          credit: "In der Wüste, Adolf Lehmann (c.1900s)",
       },
-   } as IRestorationBonus,
+   },
    GeneralSkillPoint: {
       effect: {
          resources: {
@@ -115,7 +127,7 @@ export const RestorationBonus = {
          url: GeneralSkillPoint,
          credit: "Gaius Mucius Scaevola, Hans Werner Schmidt (1920)",
       },
-   } as IRestorationBonus,
+   },
 } as const satisfies Record<string, IRestorationBonus>;
 
 export type RestorationBonus = keyof typeof RestorationBonus;

@@ -74,6 +74,7 @@ export function startTimedAction(action: TimedAction, province: Province, save: 
    if (!state) {
       return;
    }
+   TimedActions[action].onStart?.(province, save);
    state.timedActions.set(action, save.state.month);
 }
 

@@ -15,7 +15,7 @@ import { Tech } from "../definitions/Tech";
 import { TimedActions } from "../definitions/TimedAction";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
-import { cacheTile } from "./CacheLogic";
+import { cacheTile, isConnectedToCapital } from "./CacheLogic";
 import { EcumenicalCouncilPct } from "./EcumenicalCouncilLogic";
 import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
 import {
@@ -909,44 +909,4 @@ export function getCultureStatus(tile: Tile, save: SaveGame): CultureReligionSta
       return "Tolerated";
    }
    return "Minor";
-}
-
-const _tilesConnectedToCapital = new Map<Province, Set<Tile>>();
-
-export function calculateTilesConnectedToCapital(province: Province, save: SaveGame): void {
-   const connectedTiles = new Set<Tile>();
-   _tilesConnectedToCapital.set(province, connectedTiles);
-
-   const capital = save.state.provinces[province]?.capital;
-   if (capital === undefined || save.state.tiles.get(capital)?.province !== province) {
-      return;
-   }
-
-   connectedTiles.add(capital);
-   const queue: Tile[] = [capital];
-   for (let i = 0; i < queue.length; i++) {
-      for (const neighborPoint of MapGrid.getNeighbors(tileToPoint(queue[i]))) {
-         const neighbor = pointToTile(neighborPoint);
-         if (!connectedTiles.has(neighbor) && save.state.tiles.get(neighbor)?.province === province) {
-            connectedTiles.add(neighbor);
-            queue.push(neighbor);
-         }
-      }
-   }
-}
-
-export function isConnectedToCapital(tile: Tile, save: SaveGame): boolean {
-   const province = save.state.tiles.get(tile)?.province;
-   if (province === undefined) {
-      return false;
-   }
-   let cache = _tilesConnectedToCapital.get(province);
-   if (cache === undefined) {
-      calculateTilesConnectedToCapital(province, save);
-   }
-   cache = _tilesConnectedToCapital.get(province);
-   if (cache === undefined) {
-      return false;
-   }
-   return cache.has(tile);
 }
