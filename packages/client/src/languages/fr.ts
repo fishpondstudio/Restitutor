@@ -3065,4 +3065,9 @@ export const FR = {
    TimedActionRelocateCapitalDesc: "Relocate our provincial capital to this tile",
    TileIsNotAtWar: "Tile is not at war",
    RelocatingOurProvincialCapitalHasTheFollowingEffect: "Relocating our provincial capital has the following effect:",
+   AProvinceTransformed: "A Province Transformed",
+   AProvinceTransformedDesc: "Our province now commands twice the territory it once held. New cities and peoples look to the governor's seat for order; we must decide how best to turn this growth to our advantage.",
+   PlanANewProvincialCapital: "Plan a new provincial capital",
+   SecureAlliesInTheSenate: "Secure allies in the Senate",
+   EmpowerTheProvincialGovernment: "Empower the provincial government",
 };

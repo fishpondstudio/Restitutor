@@ -2999,4 +2999,9 @@ export const ZH_CN = {
    TimedActionRelocateCapitalDesc: "将我们的行省首府迁至该地块",
    TileIsNotAtWar: "地块未处于战争争夺中",
    RelocatingOurProvincialCapitalHasTheFollowingEffect: "迁移我们的行省首府会产生以下效果：",
+   AProvinceTransformed: "行省新貌",
+   AProvinceTransformedDesc: "我们的行省如今统辖的疆域已扩大一倍。新的城市与民族仰赖总督府维持秩序；我们必须决定如何充分利用这一增长。",
+   PlanANewProvincialCapital: "规划新的行省首府",
+   SecureAlliesInTheSenate: "在元老院争取盟友",
+   EmpowerTheProvincialGovernment: "加强行省政府",
 };

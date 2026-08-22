@@ -63,6 +63,36 @@ export const MissionEvents = {
          },
       ],
    },
+   Mission6: {
+      name: () => $t(L.AProvinceTransformed),
+      image: EventImage.ImperialCity,
+      desc: () => $t(L.AProvinceTransformedDesc),
+      condition: {
+         conditions: (province, save) => [minCoreTileCondition(getOriginalTileCount(province) * 2, province, save)],
+      },
+      buttons: [
+         {
+            label: () => $t(L.PlanANewProvincialCapital),
+            resources: {
+               capitalRelocationPoint: 1,
+            },
+         },
+         {
+            label: () => $t(L.SecureAlliesInTheSenate),
+            resources: {
+               consulPoint: 5,
+            },
+         },
+         {
+            label: () => $t(L.EmpowerTheProvincialGovernment),
+            resources: {
+               administrative: 60,
+               diplomatic: 60,
+               military: 60,
+            },
+         },
+      ],
+   },
    Mission3: {
       name: () => $t(L.TheWesternRomanEmpireRestored),
       image: EventImage.CaesarsTriumph,

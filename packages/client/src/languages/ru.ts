@@ -3026,4 +3026,9 @@ export const RU = {
    TimedActionRelocateCapitalDesc: "Перенести столицу нашей провинции в это владение",
    TileIsNotAtWar: "Владение не оспаривается в войне",
    RelocatingOurProvincialCapitalHasTheFollowingEffect: "Перенос столицы нашей провинции даёт следующий эффект:",
+   AProvinceTransformed: "Преображённая провинция",
+   AProvinceTransformedDesc: "Наша провинция теперь владеет вдвое большей территорией, чем прежде. Новые города и народы ждут порядка от резиденции наместника; мы должны решить, как лучше обратить этот рост себе на пользу.",
+   PlanANewProvincialCapital: "Спланировать новую столицу провинции",
+   SecureAlliesInTheSenate: "Найти союзников в Сенате",
+   EmpowerTheProvincialGovernment: "Расширить полномочия провинциального правительства",
 };
