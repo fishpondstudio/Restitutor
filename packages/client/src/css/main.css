@@ -337,6 +337,18 @@ u {
    }
 }
 
-.mantine-Progress-section {
-   background: linear-gradient(to right, var(--mantine-color-roman-9), var(--mantine-color-roman-7));
+.mantine-Progress-section,
+.mantine-Slider-bar {
+   background-color: var(--mantine-color-roman-7);
+   background-image:
+      linear-gradient(
+         to bottom,
+         rgba(255, 255, 255, 0.1) 0%,
+         rgba(255, 255, 255, 0.05) 50%,
+         rgba(0, 0, 0, 0.05) 55%,
+         rgba(0, 0, 0, 0.1) 100%
+      ),
+      linear-gradient(to right, var(--mantine-color-roman-8), var(--mantine-color-roman-6));
+   background-repeat: no-repeat;
+   background-size: 100% 100%;
 }
