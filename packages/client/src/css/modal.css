@@ -72,25 +72,25 @@
 
 .modal.xl {
    max-width: 90vw;
-   width: 50rem;
+   width: 65rem;
 }
 
 .modal.lg {
    max-width: 90vw;
-   width: 40.625rem;
+   width: 45rem;
 }
 
 .modal.md {
    max-width: 90vw;
-   width: 31.25rem;
+   width: 35rem;
 }
 
 .modal.sm {
    max-width: 90vw;
-   width: 25rem;
+   width: 30rem;
 }
 
 .modal.xs {
    max-width: 90vw;
-   width: 18.75rem;
+   width: 25rem;
 }
