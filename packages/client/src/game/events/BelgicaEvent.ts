@@ -1,7 +1,7 @@
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
-import { minCoreTileCondition, warPowerCondition } from "../logic/MissionLogic";
-import { getProvinceResource, getProvinceStat } from "../logic/ProvinceLogic";
+import { minCoreTileCondition, victoryCountCondition, warPowerCondition } from "../logic/MissionLogic";
+import { getProvinceResource } from "../logic/ProvinceLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -339,8 +339,7 @@ export const BelgicaEvent = {
       desc: () => $t(L.NorthwardIntoGermaniaDesc),
       condition: {
          province: ["Belgica"],
-         year: [Number.NEGATIVE_INFINITY, 210],
-         annexAndCore: { Germania: 2 },
+         annexAndCore: { Germania: 4 },
       },
       buttons: [
          {
@@ -369,8 +368,7 @@ export const BelgicaEvent = {
       desc: () => $t(L.AcrossTheSeaToBritanniaDesc),
       condition: {
          province: ["Belgica"],
-         year: [Number.NEGATIVE_INFINITY, 220],
-         annexAndCore: { Britannia: 2 },
+         annexAndCore: { Britannia: 4 },
       },
       buttons: [
          {
@@ -402,10 +400,7 @@ export const BelgicaEvent = {
          conditions: (province, save) => [
             minCoreTileCondition(20, province, save),
             warPowerCondition(10_000, province, save),
-            {
-               name: $t(L.Win$1Wars, "10"),
-               value: getProvinceStat("victoryCount", province, save) >= 10,
-            },
+            victoryCountCondition(10, province, save),
          ],
       },
       buttons: [

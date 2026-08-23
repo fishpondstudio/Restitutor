@@ -21,6 +21,7 @@ import {
    getProvinceResource,
    getProvinceStat,
    getWarPower,
+   provinceResourceOf,
 } from "./ProvinceLogic";
 import { getAllies } from "./TreatyLogic";
 
@@ -66,6 +67,15 @@ export function warPowerCondition(minimum: number, province: Province, save: Sav
       name: $t(L.Reach$1WarPower, formatNumber(minimum)),
       value: warPower >= minimum,
       progress: [warPower, minimum],
+   };
+}
+
+export function victoryCountCondition(minimum: number, province: Province, save: SaveGame): ICondition {
+   const victoryCount = getProvinceStat("victoryCount", province, save);
+   return {
+      name: $t(L.Win$1Wars, formatNumber(minimum)),
+      value: victoryCount >= minimum,
+      progress: [victoryCount, minimum],
    };
 }
 
@@ -115,6 +125,34 @@ export function provinceResourceCondition(
       name: $t(L.HaveAtLeast$1$2, formatNumber(minimum), ProvinceResourceNames[resource]()),
       value: available >= minimum,
       progress: [available, minimum],
+   };
+}
+
+export function provinceTotalResourceCondition(
+   resource: ProvinceResource,
+   minimum: number,
+   province: Province,
+   save: SaveGame,
+): ICondition {
+   const [total, used] = provinceResourceOf(resource, province, save);
+   return {
+      name: $t(L.GenerateAtLeast$1$2, formatNumber(minimum), ProvinceResourceNames[resource]()),
+      value: total >= minimum,
+      progress: [total, minimum],
+   };
+}
+
+export function provinceUsedResourceCondition(
+   resource: ProvinceResource,
+   minimum: number,
+   province: Province,
+   save: SaveGame,
+): ICondition {
+   const [total, used] = provinceResourceOf(resource, province, save);
+   return {
+      name: $t(L.SpendAtLeast$1$2, formatNumber(minimum), ProvinceResourceNames[resource]()),
+      value: used >= minimum,
+      progress: [used, minimum],
    };
 }
 

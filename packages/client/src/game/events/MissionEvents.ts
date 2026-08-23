@@ -1,6 +1,7 @@
-import { fromEntries } from "@project/shared/src/utils/Helper";
+import { fromEntries, sizeOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { ProvinceNameOverrides } from "../definitions/Province";
+import { Tech } from "../definitions/Tech";
 import {
    EasternMediterraneanProvinces,
    WesternMediterraneanProvinces,
@@ -8,7 +9,7 @@ import {
 } from "../definitions/TileConstants";
 import { RefreshTiles } from "../Events";
 import { getOriginalTileCount } from "../GameState";
-import { allyCountCondition, minCoreTileCondition } from "../logic/MissionLogic";
+import { allyCountCondition, minCoreTileCondition, techCountCondition } from "../logic/MissionLogic";
 import { isGreatPowerCondition, setProvinceNameOverride } from "../logic/ProvinceLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -85,6 +86,37 @@ export const MissionEvents = {
          },
          {
             label: () => $t(L.EmpowerTheProvincialGovernment),
+            resources: {
+               administrative: 60,
+               diplomatic: 60,
+               military: 60,
+            },
+         },
+      ],
+   },
+   Mission7: {
+      name: () => $t(L.EveryArtMastered),
+      image: EventImage.PhilosophySchool,
+      desc: () => $t(L.EveryArtMasteredDesc),
+      condition: {
+         conditions: (province, save) => [techCountCondition(sizeOf(Tech), province, save)],
+      },
+      achievement: "ResearchAllTechs",
+      buttons: [
+         {
+            label: () => $t(L.FoundACapitalOfLearning),
+            resources: {
+               capitalRelocationPoint: 1,
+            },
+         },
+         {
+            label: () => $t(L.GiveScholarsAVoiceInTheSenate),
+            resources: {
+               consulPoint: 5,
+            },
+         },
+         {
+            label: () => $t(L.DispatchExpertsAcrossTheProvince),
             resources: {
                administrative: 60,
                diplomatic: 60,

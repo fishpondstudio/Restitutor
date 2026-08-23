@@ -4,16 +4,21 @@ import { OfferPatronageAction } from "../actions/TreatyActions";
 import { CasusBelli } from "../definitions/CasusBelli";
 import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
+import { getOriginalTileCount } from "../GameState";
 import { availableDiplomatCondition, getRelation } from "../logic/DiplomacyLogic";
 import {
    manpowerCondition,
    marriageCondition,
    maxCoreTileCondition,
+   minCoreCoastalTileCondition,
    provinceRevenueCondition,
+   provinceUsedResourceCondition,
    techCountCondition,
+   victoryCountCondition,
    warPowerCondition,
 } from "../logic/MissionLogic";
 import { getProvinceName, getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
+import { allCoreTileCondition, anyCoreTileCondition } from "../logic/TileLogic";
 import {
    dissolveAllTreaties,
    requireMinimumAttitude,
@@ -92,8 +97,11 @@ export const LugdunensisEvent = {
       desc: () => $t(L.ThePrideOfGaulRidesForthDesc),
       condition: {
          province: ["Lugdunensis"],
-         year: [200, 205],
-         conditions: (province, save) => [warPowerCondition(8000, province, save), hasGeneralCondition(province, save)],
+         conditions: (province, save) => [
+            victoryCountCondition(2, province, save),
+            warPowerCondition(10_000, province, save),
+            hasGeneralCondition(province, save),
+         ],
       },
       buttons: [
          {
@@ -111,7 +119,7 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          annexAndCore: { Belgica: 6 },
-         year: [200, 220],
+         conditions: (province, save) => [maxCoreTileCondition(4, "Belgica", save)],
       },
       buttons: [
          {
@@ -174,8 +182,6 @@ export const LugdunensisEvent = {
       desc: () => $t(L.BoundByBloodAndOathDesc),
       condition: {
          province: ["Lugdunensis"],
-         annexAndCore: { Belgica: 6 },
-         year: [220, 250],
          conditions: (province, save) => [
             requireNoTreatyBetween(["Patron"], province, "Belgica", save),
             requirePeaceBetween(province, "Belgica", save),
@@ -197,6 +203,186 @@ export const LugdunensisEvent = {
                   desc: (province, save) => $t(L.$1BecomesOurClient, Province.Belgica.name()),
                },
             ],
+         },
+      ],
+   },
+   Lugdunensis17: {
+      name: () => $t(L.MastersOfTheRhineFrontier),
+      image: EventImage.CaptiveTriumph,
+      desc: () => $t(L.MastersOfTheRhineFrontierDesc),
+      condition: {
+         province: ["Lugdunensis"],
+         annexAndCore: { Germania: 8 },
+      },
+      buttons: [
+         {
+            label: () => $t(L.RewardTheFrontierCommanders),
+            resources: {
+               generalSkillPoint: 2,
+            },
+         },
+         {
+            label: () => $t(L.SeekInfluenceInTheSenate),
+            resources: {
+               consulPoint: 2,
+            },
+         },
+         {
+            label: () => $t(L.CollectTributeFromGermania),
+            resources: {
+               gold: 10_000,
+            },
+         },
+      ],
+   },
+   Lugdunensis18: {
+      name: () => $t(L.TheSouthernGateway),
+      image: EventImage.MediterraneanHarbour,
+      desc: () => $t(L.TheSouthernGatewayDesc),
+      condition: {
+         province: ["Lugdunensis"],
+         annexAndCore: { Narbonensis: 5 },
+         conditions: (province, save) => [
+            anyCoreTileCondition([8978508, 8978507, 9044043, 9109579, 9175115], province, save),
+         ],
+      },
+      buttons: [
+         {
+            label: () => $t(L.GrantPrivilegesToTheMerchants),
+            modifiers: {
+               LandTax: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               TileOutput: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               DiplomaticPoint: { type: "add", value: 1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.UnifyThePortsCivicInstitutions),
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+               Prestige: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               AdministrativePoint: { type: "add", value: 1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.BuildArsenalsAlongTheWaterfront),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               Manpower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               MilitaryPoint: { type: "add", value: 1, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Lugdunensis19: {
+      name: () => $t(L.TheRoadToBritannia),
+      image: EventImage.RomanInvasion,
+      desc: () => $t(L.TheRoadToBritanniaDesc),
+      condition: {
+         province: ["Lugdunensis"],
+         conditions: (province, save) => [
+            allCoreTileCondition([9109568, 9044033, 8978497, 8978498, 8912963, 8847427], province, save),
+         ],
+      },
+      buttons: [
+         {
+            label: () => $t(L.DrillTheInvasionLegions),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Britannia: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.RallyGaulBehindTheExpedition),
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Britannia: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.StockpileSuppliesForTheCrossing),
+            modifiers: {
+               ArmyMaintenance: { type: "multiply", value: -0.1, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Britannia: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+      ],
+   },
+   Lugdunensis20: {
+      name: () => $t(L.ACoastBoundTogether),
+      image: EventImage.QueenEmbarkation,
+      desc: () => $t(L.ACoastBoundTogetherDesc),
+      condition: {
+         province: ["Lugdunensis"],
+         conditions: (province, save) => [
+            minCoreCoastalTileCondition(15, province, save),
+            provinceUsedResourceCondition("gold", 20_000, province, save),
+            provinceUsedResourceCondition("administrative", 2000, province, save),
+            provinceUsedResourceCondition("diplomatic", 2000, province, save),
+            provinceUsedResourceCondition("military", 2000, province, save),
+         ],
+      },
+      buttons: [
+         {
+            label: () => $t(L.OpenTheHarboursToCommerce),
+            modifiers: {
+               LandTax: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               TileOutput: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               DiplomaticPoint: { type: "add", value: 1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.StandardizeLawAlongTheCoast),
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+               Prestige: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               AdministrativePoint: { type: "add", value: 1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.StationFleetsInEveryHarbour),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               Manpower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               MilitaryPoint: { type: "add", value: 1, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Lugdunensis21: {
+      name: () => $t(L.TheIntegrationOfAquitania),
+      image: EventImage.RomanVilla,
+      desc: () => $t(L.TheIntegrationOfAquitaniaDesc),
+      condition: {
+         province: ["Lugdunensis"],
+         annexAndCore: { Aquitania: Math.floor(getOriginalTileCount("Aquitania") * 0.8) },
+      },
+      buttons: [
+         {
+            label: () => $t(L.KeepTheAquitanianCivilService),
+            modifiers: {
+               InfrastructureUpgradeCost: { type: "multiply", value: -0.2, duration: 2 * 12 },
+               AdvisorCost: { type: "multiply", value: -0.2, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.SupplyTheArmyFromLocalWorkshops),
+            modifiers: {
+               ProductionUpgradeCost: { type: "multiply", value: -0.2, duration: 2 * 12 },
+               ArmyMaintenance: { type: "multiply", value: -0.2, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.SurveyAndSettleTheCountryside),
+            modifiers: {
+               PopulationUpgradeCost: { type: "multiply", value: -0.2, duration: 2 * 12 },
+               TileMaintenance: { type: "multiply", value: -0.2, duration: 2 * 12 },
+            },
          },
       ],
    },
