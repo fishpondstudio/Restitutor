@@ -492,7 +492,7 @@ export const LugdunensisEvent = {
       },
       buttons: [
          {
-            label: () => $t(L.GrantBishopExpandedAuthority),
+            label: () => $t(L.GrantTheBishopExpandedAuthority),
             modifiers: {
                Stability: { type: "add", value: 10, duration: 2 * 12 },
                LandTax: { type: "multiply", value: -0.1, duration: 2 * 12 },

@@ -101,7 +101,7 @@ export const HistoricalEvents = {
             resources: { gold: 1000 },
          },
          {
-            label: () => $t(L.ShareWarSpoilsWithPeople),
+            label: () => $t(L.ShareTheSpoilsWithThePeople),
             modifiers: {
                Stability: { type: "add", value: 10, duration: 12 },
             },
@@ -459,7 +459,7 @@ export const HistoricalEvents = {
       },
       buttons: [
          {
-            label: () => $t(L.ItsTimeWeAdoptTheTetrarchy),
+            label: () => $t(L.ItsTimeToAdoptTheTetrarchy),
             modifiers: {
                MakeCoreCost: { type: "multiply", value: -0.5 },
                ArmyMaintenance: { type: "multiply", value: -0.25 },
@@ -780,7 +780,7 @@ export const HistoricalEvents = {
       },
       buttons: [
          {
-            label: () => $t(L.AfricaMustBeDefendedAtAllCost),
+            label: () => $t(L.AfricaMustBeDefendedAtAllCosts),
             resources: { military: -50 },
          },
          {
