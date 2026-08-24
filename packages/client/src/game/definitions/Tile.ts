@@ -16,11 +16,10 @@ export interface ITileConfig {
    province?: Province;
    name?: string;
    isCapital?: boolean;
-   culture?: Culture;
-   religion?: Religion;
 }
 
 export interface ITileData {
+   nameOverride?: string;
    terrain: Terrain;
    province: Province;
    coreProvinces: Set<Province>;
@@ -64,7 +63,7 @@ export function getBorderingProvinces(tile: Tile, save: SaveGame): Province[] {
    return result;
 }
 
-const TerrainToGoods: Record<Terrain, Goods[]> = {
+export const TerrainToGoods: Record<Terrain, Goods[]> = {
    Forest: ["wood"],
    Mountain: ["ironOre", "wood"],
    Hill: ["ironOre", "livestock", "wood"],
@@ -81,32 +80,41 @@ export function initTiles(): Map<Tile, ITileData> {
          const { x, y } = tileToPoint(tile);
          const random = (noise(x, y) + 1) / 2;
          const goods = TerrainToGoods[config.terrain];
-         const data: ITileData = {
-            province: config.province,
-            coreProvinces: new Set([config.province]),
-            originalProvince: config.province,
-            terrain: config.terrain,
-            culture: config.culture ?? Province[config.province].culture,
-            religion: config.religion ?? Province[config.province].religion,
-            goods: goods[Math.floor(random * goods.length)],
-            buildings: new Set(),
-            infrastructure: 0,
-            production: 0,
-            population: 0,
-            upgradeCount: 0,
-            rebellion: 0,
-            autonomy: 0,
-            modifiers: {
-               GoverningCapacity: [],
-               Defense: [],
-               Manpower: [],
-               LandTax: [],
-               GoodsTax: [],
-               Maintenance: [],
-               Unrest: [],
-            },
-         };
+         const data: ITileData = initTileData(
+            config.province,
+            config.terrain,
+            goods[Math.floor(random * goods.length)],
+         );
          return [tile, data];
       }),
    );
+}
+
+export function initTileData(province: Province, terrain: Terrain, goods: Goods): ITileData {
+   const provinceConfig = Province[province];
+   return {
+      province: province,
+      coreProvinces: new Set([province]),
+      originalProvince: province,
+      terrain: terrain,
+      culture: provinceConfig.culture,
+      religion: provinceConfig.religion,
+      goods: goods,
+      buildings: new Set(),
+      infrastructure: 0,
+      production: 0,
+      population: 0,
+      upgradeCount: 0,
+      rebellion: 0,
+      autonomy: 0,
+      modifiers: {
+         GoverningCapacity: [],
+         Defense: [],
+         Manpower: [],
+         LandTax: [],
+         GoodsTax: [],
+         Maintenance: [],
+         Unrest: [],
+      },
+   };
 }

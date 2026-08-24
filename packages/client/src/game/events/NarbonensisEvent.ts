@@ -429,11 +429,11 @@ export const NarbonensisEvent = {
             return [
                requireAnyTreatyBetween(["Alliance"], province, "Italia", save),
                {
-                  name: $t(L.$1IsCoreTileOf$2, getTileName(9175112), Province.Narbonensis.name()),
+                  name: $t(L.$1IsCoreTileOf$2, getTileName(9175112, save), Province.Narbonensis.name()),
                   value: AugustaPraetoria?.province === province && AugustaPraetoria?.coreProvinces.has(province),
                },
                {
-                  name: $t(L.$1IsCoreTileOf$2, getTileName(9175113), Province.Italia.name()),
+                  name: $t(L.$1IsCoreTileOf$2, getTileName(9175113, save), Province.Italia.name()),
                   value: Taurinorum?.province === "Italia" && Taurinorum?.coreProvinces.has("Italia"),
                },
             ];
@@ -444,12 +444,12 @@ export const NarbonensisEvent = {
             label: () => $t(L.AgreeToTheExchange),
             custom: [
                {
-                  desc: () =>
+                  desc: (province, save) =>
                      $t(
                         L.$1Becomes$2CoreTileAnd$3Becomes$4CoreTile,
-                        getTileName(9175112),
+                        getTileName(9175112, save),
                         Province.Italia.name(),
-                        getTileName(9175113),
+                        getTileName(9175113, save),
                         Province.Narbonensis.name(),
                      ),
                   effect: (province, save) => {

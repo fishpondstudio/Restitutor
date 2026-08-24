@@ -446,7 +446,7 @@ export function InternalAffairsPage(): React.ReactNode {
             return (
                <div className="box m10 text-sm" key={tile}>
                   <div className="h3 row">
-                     {getTileName(tile)}
+                     {getTileName(tile, G.save)}
                      {isCapital(tile, G.save) && <div className="mi sm text-yellow">stars</div>}
                      <div className="f1" />
                      <div

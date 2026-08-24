@@ -419,8 +419,14 @@ export const GermaniaEvent = {
             },
             custom: [
                {
-                  desc: () =>
-                     $t(L.$1TileDefenseFor$2And$3For$4Years, "-10%", getTileName(9175112), getTileName(9109577), "5"),
+                  desc: (province, save) =>
+                     $t(
+                        L.$1TileDefenseFor$2And$3For$4Years,
+                        "-10%",
+                        getTileName(9175112, save),
+                        getTileName(9109577, save),
+                        "5",
+                     ),
                   effect: (province, save) => {
                      save.state.tiles.get(9175112)?.modifiers.Defense.push({
                         type: "multiply",
@@ -445,8 +451,14 @@ export const GermaniaEvent = {
             },
             custom: [
                {
-                  desc: () =>
-                     $t(L.$1TileDefenseFor$2And$3For$4Years, "-10%", getTileName(9240648), getTileName(9175113), "5"),
+                  desc: (province, save) =>
+                     $t(
+                        L.$1TileDefenseFor$2And$3For$4Years,
+                        "-10%",
+                        getTileName(9240648, save),
+                        getTileName(9175113, save),
+                        "5",
+                     ),
                   effect: (province, save) => {
                      save.state.tiles.get(9240648)?.modifiers.Defense.push({
                         type: "multiply",

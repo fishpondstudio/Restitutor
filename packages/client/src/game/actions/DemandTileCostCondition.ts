@@ -51,15 +51,15 @@ export function canDemandTile(tile: Tile, ourProvince: Province, save: SaveGame)
    }
    return [
       {
-         name: $t(L.$1IsNotContestedInAWar, getTileName(tile)),
+         name: $t(L.$1IsNotContestedInAWar, getTileName(tile, save)),
          value: getWarForTile(tile, save) === undefined,
       },
       {
-         name: $t(L.$1IsNotTheirCapital, getTileName(tile)),
+         name: $t(L.$1IsNotTheirCapital, getTileName(tile, save)),
          value: save.state.provinces[tileData.province]?.capital !== tile,
       },
       {
-         name: $t(L.$1BordersOurProvince, getTileName(tile)),
+         name: $t(L.$1BordersOurProvince, getTileName(tile, save)),
          value: getBorderingProvinces(tile, save).includes(ourProvince),
       },
    ];

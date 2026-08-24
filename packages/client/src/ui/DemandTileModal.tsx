@@ -47,7 +47,7 @@ export function DemandTileModal({ province }: { province: Province }): React.Rea
                .map(([tile, data]) => {
                   return {
                      value: tile.toString(),
-                     label: getTileName(tile),
+                     label: getTileName(tile, G.save),
                   };
                })}
             value={selectedTile ? String(selectedTile) : null}
@@ -132,7 +132,7 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
                      <div>{formatNumber(prestige.value)}</div>
                   </div>
                ))}
-               <div className="h2">{$t(L.TotalUpgradesOf$1, getTileName(tile))}</div>
+               <div className="h2">{$t(L.TotalUpgradesOf$1, getTileName(tile, G.save))}</div>
                <div className="row mx10 my5">
                   <div className="f1">{$t(L.TotalUpgrades)}</div>
                   <div>{tileUpgrades}</div>
@@ -208,7 +208,7 @@ function DemandAcceptedConsequences({ tile }: { tile: Tile }): React.ReactNode {
                $t(
                   L.$1ShallCede$2To$3,
                   getProvinceName(tileData.province, G.save),
-                  getTileName(tile),
+                  getTileName(tile, G.save),
                   getProvinceName(G.save.state.playerProvince, G.save),
                ),
             )}

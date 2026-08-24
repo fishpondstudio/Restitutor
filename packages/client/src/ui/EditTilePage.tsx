@@ -2,9 +2,7 @@ import { Select, Switch, TextInput } from "@mantine/core";
 import { useForceUpdate } from "@mantine/hooks";
 import { iFirstOf, keysOf, mapSafePush, type Tile, tileToString } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
-import { Cultures } from "../game/definitions/Culture";
 import { Provinces } from "../game/definitions/Province";
-import { Religions } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
 import type { ITileConfig } from "../game/definitions/Tile";
 import { RefreshTiles } from "../game/Events";
@@ -113,42 +111,6 @@ export function EditTilePage({ tiles }: { tiles: Set<Tile> }): React.ReactNode {
                         oldData = {};
                      }
                      oldData.province = value;
-                     G.tileEditor.set(tile, oldData);
-                     RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
-                  });
-                  idbSet("TileEditor", G.tileEditor);
-                  forceUpdate();
-               }}
-            />
-            <div className="h10" />
-            <SelectComp
-               value={data.culture}
-               data={Array.from(Cultures)}
-               onChange={(value) => {
-                  tiles.forEach((tile) => {
-                     let oldData = G.tileEditor.get(tile);
-                     if (!oldData) {
-                        oldData = {};
-                     }
-                     oldData.culture = value;
-                     G.tileEditor.set(tile, oldData);
-                     RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
-                  });
-                  idbSet("TileEditor", G.tileEditor);
-                  forceUpdate();
-               }}
-            />
-            <div className="h10" />
-            <SelectComp
-               value={data.religion}
-               data={Array.from(Religions)}
-               onChange={(value) => {
-                  tiles.forEach((tile) => {
-                     let oldData = G.tileEditor.get(tile);
-                     if (!oldData) {
-                        oldData = {};
-                     }
-                     oldData.religion = value;
                      G.tileEditor.set(tile, oldData);
                      RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
                   });

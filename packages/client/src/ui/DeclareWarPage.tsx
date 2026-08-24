@@ -126,7 +126,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
                   }
                >
                   <div className="mi sm">{selectedTiles.has(tile) ? "check_box" : "check_box_outline_blank"}</div>
-                  {getTileName(tile)}
+                  {getTileName(tile, G.save)}
                   {defenderState?.capital === tile ? <div className="mi xs">stars</div> : null}
                </div>
             ))}

@@ -215,7 +215,7 @@ function _getProvinceManpower(province: Province, save: SaveGame): IValueBreakdo
    const breakdown: IValueBreakdown = makeValueBreakdown();
    for (const [tile, data] of save.state.tiles) {
       if (data.province === province) {
-         breakdown.add.push({ name: getTileName(tile), value: getTileManpower(tile, save).value });
+         breakdown.add.push({ name: getTileName(tile, save), value: getTileManpower(tile, save).value });
       }
    }
    return finalizeBreakdown(breakdown);

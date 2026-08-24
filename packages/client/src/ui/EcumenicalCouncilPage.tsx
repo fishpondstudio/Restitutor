@@ -226,7 +226,7 @@ function ReconcilePanel(): React.ReactNode {
                               }}
                            >
                               <div className="mi sm">open_in_new</div>
-                              <div className="f1">{getTileName(tile)}</div>
+                              <div className="f1">{getTileName(tile, G.save)}</div>
                            </div>
                         </td>
                         <td>{Religion[tileData.religion].name()}</td>
@@ -255,7 +255,7 @@ function ReconcilePanel(): React.ReactNode {
                                     <div className="m10">
                                        {$t(
                                           L.Convert$1From$2To$3,
-                                          getTileName(tile),
+                                          getTileName(tile, G.save),
                                           Religion[tileData.religion].name(),
                                           Religion[state.religion].name(),
                                        )}

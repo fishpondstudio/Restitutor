@@ -441,7 +441,8 @@ export const MauretaniaEvent = {
             resources: { gold: -10_000 },
             custom: [
                {
-                  desc: () => $t(L.$1Becomes$2sCoreTile, getTileName(8978513), Province.Mauretania.name()),
+                  desc: (province, save) =>
+                     $t(L.$1Becomes$2sCoreTile, getTileName(8978513, save), Province[province].name()),
                   effect: (province, save) => {
                      annexTiles({ tiles: [8978513], core: true, province, save });
                   },

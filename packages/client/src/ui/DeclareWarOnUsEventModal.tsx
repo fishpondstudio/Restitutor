@@ -2,6 +2,7 @@ import { CasusBelli } from "../game/definitions/CasusBelli";
 import { getTileName } from "../game/definitions/TileName";
 import { EventImage } from "../game/events/EventImages";
 import type { IWar } from "../game/logic/WarLogic";
+import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
 import { html } from "./components/RenderHTMLComp";
@@ -11,7 +12,7 @@ import { playClick } from "./Sound";
 
 export function DeclareWarOnUsModal({ war }: { war: IWar }): React.ReactNode {
    const warGoal = Array.from(war.tiles)
-      .map((tile) => getTileName(tile))
+      .map((tile) => getTileName(tile, G.save))
       .join(", ");
    return (
       <GenericEventModal

@@ -74,7 +74,7 @@ function _TileListRow({ tile }: { tile: Tile }): React.ReactNode {
       <tr>
          <td>
             <div className="row g5">
-               {getTileName(tile)}
+               {getTileName(tile, G.save)}
                {isCapital(tile, G.save) && <div className="mi sm text-yellow">stars</div>}
                <div className="f1" />
             </div>

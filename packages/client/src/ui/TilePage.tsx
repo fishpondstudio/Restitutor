@@ -73,7 +73,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
       console.assert(goodsTax === getTileGoodsTax(tile, G.save), "Goods tax calculation is correct");
    }
    return (
-      <SidebarComp title={<SidebarImageHeader image={Terrains[tileData.terrain].image} title={getTileName(tile)} />}>
+      <SidebarComp title={<SidebarImageHeader image={Terrains[tileData.terrain].image} title={getTileName(tile, G.save)} />}>
          <div className="m10">
             <div className="row my5">
                <div className="f1">{$t(L.Province)}</div>
@@ -206,7 +206,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   fixedWidth
                   label={
                      <>
-                        <div className="m10">{$t(L.$1IsCurrentlyContestedInAnOngoingWar, getTileName(tile))}</div>
+                        <div className="m10">{$t(L.$1IsCurrentlyContestedInAnOngoingWar, getTileName(tile, G.save))}</div>
                         <WarTooltip war={war} />
                      </>
                   }
@@ -395,7 +395,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
          </FloatingTip>
          <div className="h1 my10">{$t(L.Rebellion)}</div>
          {tileData.rebellion >= 10 && (
-            <div className="mx10 my5 text-red">{$t(L.$1IsInCurrentRebellion, getTileName(tile))}</div>
+            <div className="mx10 my5 text-red">{$t(L.$1IsInCurrentRebellion, getTileName(tile, G.save))}</div>
          )}
          <div className="mx10">
             <BreakdownRow

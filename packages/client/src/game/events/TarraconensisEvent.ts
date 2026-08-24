@@ -431,7 +431,7 @@ export const TarraconensisEvent = {
             resources: { gold: -5000 },
             custom: [
                {
-                  desc: (province, save) => $t(L.$1Annexes$2, getProvinceName(province, save), getTileName(8585296)),
+                  desc: (province, save) => $t(L.$1Annexes$2, getProvinceName(province, save), getTileName(8585296, save)),
                   effect: (province, save) => {
                      annexTiles({ tiles: [8585296], province, save });
                   },

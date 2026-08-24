@@ -22,6 +22,7 @@ import { monthToDate } from "./logic/GameDateTime";
 import { rebirth } from "./logic/LegacyUpgradeLogic";
 import { addProvinceResource, GovernorMaxExcl, GovernorMinIncl, spawnProvince } from "./logic/ProvinceLogic";
 import { addGameEvent } from "./logic/TickProvince";
+import { settleTile } from "./logic/TileLogic";
 import { startTimedAction } from "./logic/TimedActionLogic";
 import { type IWar, WarFlag, WarLogFlag } from "./logic/WarLogic";
 import { randomFemaleName, randomMaleName } from "./RomanNames";
@@ -203,6 +204,11 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.printHex = () => {
       console.log(renderMap(G.save, true));
+   };
+
+   // @ts-expect-error
+   globalThis.settle = (tile: Tile, province: Province) => {
+      settleTile(tile, province, G.save);
    };
 
    function doAddChild(family: IFamily, female: boolean): void {

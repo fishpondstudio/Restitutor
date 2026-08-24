@@ -9,7 +9,6 @@ import {
    type FederatedPointerEvent,
    LINE_CAP,
    LINE_JOIN,
-   ParticleContainer,
    Sprite,
    type Texture,
 } from "pixi.js";
@@ -25,13 +24,14 @@ import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { getTileDefense, getTileMaintenanceCost, getTileWar, isCapital } from "../game/logic/TileLogic";
 import { MapGrid, TileHeight, TileWidth } from "../game/MapGrid";
 import { showPanel } from "../ui/common/ShowPanel";
+import { hideSidebar } from "../ui/common/SidebarManager";
 import { DiplomacyPage } from "../ui/DiplomacyPage";
 import { EditTilePage } from "../ui/EditTilePage";
 import { TilePage } from "../ui/TilePage";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
 import { G, GameFlags, isDev } from "../utils/Global";
-import { MapContainer } from "../utils/KeyedContainer";
+import { MapContainer, MapParticleContainer } from "../utils/KeyedContainer";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
 import { getOverlay } from "./Overlays";
@@ -48,7 +48,7 @@ export class WorldScene extends Scene {
    private _tileContainer: MapContainer<Tile, Sprite>;
    private _capitalContainer: MapContainer<Tile, Sprite>;
    private _overlayContainer: MapContainer<Tile, DisplayObject>;
-   private _emptyTileContainer: ParticleContainer;
+   private _emptyTileContainer: MapParticleContainer<Tile, Sprite>;
    private _labelContainer: Container;
    private _selectors: Container<Sprite>;
    private _selectedTiles = new Set<Tile>();
@@ -71,7 +71,9 @@ export class WorldScene extends Scene {
       const max = MapGrid.maxPosition();
       this.viewport.setWorldSize(max.x + MarginX * 2, max.y);
 
-      this._emptyTileContainer = this.viewport.addChild(new ParticleContainer(MapGrid.maxX * MapGrid.maxY, {}));
+      this._emptyTileContainer = this.viewport.addChild(
+         new MapParticleContainer<Tile, Sprite>(MapGrid.maxX * MapGrid.maxY, {}),
+      );
       this._emptyTileContainer.position.set(MarginX, 0);
 
       this._tileContainer = this.viewport.addChild(new MapContainer<Tile, Sprite>());
@@ -120,7 +122,7 @@ export class WorldScene extends Scene {
                maxPos.y = Math.max(maxPos.y, position.y + TileHeight / 2);
             } else {
                const textureHeight = 256;
-               const sprite = this._emptyTileContainer.addChild(new Sprite(G.textures.get("Tile/Background")));
+               const sprite = this._emptyTileContainer.map.set(tile, new Sprite(G.textures.get("Tile/Background")));
                sprite.scale.set(TileHeight / textureHeight);
                sprite.position.set(position.x, position.y);
                sprite.anchor.set(0.5, 0.5);
@@ -146,7 +148,13 @@ export class WorldScene extends Scene {
 
       RefreshTiles.on(({ tiles, options }) => {
          for (const tile of tiles) {
+            const tileData = G.save.state.tiles.get(tile);
             const visual = this._tileContainer.map.get(tile);
+            if (tileData && !visual) {
+               this._emptyTileContainer.map.delete(tile);
+               this._makeTile(tile);
+               this._drawIndicator(tile);
+            }
             if (visual) {
                if (options.indicator) {
                   this._drawIndicator(tile);
@@ -351,12 +359,23 @@ export class WorldScene extends Scene {
       const point = MapGrid.positionToGrid(pos);
       const tile = pointToTile(point);
 
-      if (!this._tileContainer.map.has(tile)) {
+      if (!this._landTiles.has(tile)) {
          return;
       }
 
       if (this._clickTileHandler) {
          this._clickTileHandler(tile, e);
+         return;
+      }
+
+      if (!this._tileContainer.map.has(tile)) {
+         this._selectedTiles.clear();
+         this._selectedTiles.add(tile);
+         this.drawSelectors(this._selectedTiles);
+         if (isDev()) {
+            console.log(tile);
+         }
+         hideSidebar();
          return;
       }
 

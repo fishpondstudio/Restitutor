@@ -24,8 +24,8 @@ const TutorialWarGoal: Tile = Tiles.Durocortorum;
 
 export interface ITutorial {
    id: string;
-   name: () => string;
-   desc: () => string;
+   name: (save: SaveGame) => string;
+   desc: (save: SaveGame) => string;
    progress: (save: SaveGame) => [number, number];
    selectors: string[];
    button?: () => string;
@@ -132,8 +132,8 @@ export const Tutorial: ITutorial[] = [
    {
       id: "DeclareWar",
       name: () => $t(L.TutorialDeclareWarOn$1, Province[TutorialEnemyProvince].name()),
-      desc: () =>
-         $t(L.TutorialDeclareWarDesc$1$2, Province[TutorialEnemyProvince].name(), getTileName(TutorialWarGoal)),
+      desc: (save) =>
+         $t(L.TutorialDeclareWarDesc$1$2, Province[TutorialEnemyProvince].name(), getTileName(TutorialWarGoal, save)),
       progress: (save) => {
          if (
             getCurrentWars(save.state.playerProvince, save).find(
@@ -153,7 +153,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "SignPeaceTreaty",
       name: () => $t(L.SignPeaceTreaty),
-      desc: () => $t(L.TutorialSignPeaceTreatyDesc$1, getTileName(TutorialWarGoal)),
+      desc: (save) => $t(L.TutorialSignPeaceTreatyDesc$1, getTileName(TutorialWarGoal, save)),
       progress: (save) => {
          if (save.state.tiles.get(TutorialWarGoal)?.province === save.state.playerProvince) {
             return [1, 1];
@@ -164,7 +164,7 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "MakeCore",
-      name: () => $t(L.TutorialMakeTileOurCore$1, getTileName(TutorialWarGoal)),
+      name: (save) => $t(L.TutorialMakeTileOurCore$1, getTileName(TutorialWarGoal, save)),
       desc: () => $t(L.MakeDurocortorumOurCoreDesc),
       progress: (save) => {
          const data = save.state.tiles.get(TutorialWarGoal);
@@ -177,8 +177,8 @@ export const Tutorial: ITutorial[] = [
    },
    {
       id: "UpgradeProduction",
-      name: () => $t(L.TutorialUpgradeTileProduction$1, getTileName(Tiles.Lutetia)),
-      desc: () => $t(L.TutorialUpgradeTileProductionDesc$1, getTileName(Tiles.Lutetia)),
+      name: (save) => $t(L.TutorialUpgradeTileProduction$1, getTileName(Tiles.Lutetia, save)),
+      desc: (save) => $t(L.TutorialUpgradeTileProductionDesc$1, getTileName(Tiles.Lutetia, save)),
       progress: (save) => {
          const data = save.state.tiles.get(Tiles.Lutetia);
          if ((data?.upgradeCount ?? 0) > 0) {

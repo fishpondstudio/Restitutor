@@ -154,7 +154,7 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
                      Province[province].name(),
                      SpawnedProvinces[province].tiles
                         .map((tile, index) =>
-                           index === 0 ? `${getTileName(tile)} (${$t(L.Capital)})` : getTileName(tile),
+                           index === 0 ? `${getTileName(tile, save)} (${$t(L.Capital)})` : getTileName(tile, save),
                         )
                         .join(", "),
                   ),

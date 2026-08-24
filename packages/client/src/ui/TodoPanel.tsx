@@ -194,9 +194,9 @@ const Rebellions: ITodo = {
       for (const [tile, data] of save.state.tiles) {
          if (data.province === save.state.playerProvince) {
             if (data.rebellion >= 10) {
-               current.add(getTileName(tile));
+               current.add(getTileName(tile, save));
             } else if (data.rebellion >= 8 && getTileUnrest(tile, save).value >= 0) {
-               aboutTo.add(getTileName(tile));
+               aboutTo.add(getTileName(tile, save));
             }
          }
       }
@@ -599,7 +599,7 @@ const CanMakeCore: ITodo = {
       const tiles = new Set<string>();
       for (const [tile, data] of save.state.tiles) {
          if (data.province === save.state.playerProvince && !data.coreProvinces.has(data.province)) {
-            tiles.add(getTileName(tile));
+            tiles.add(getTileName(tile, save));
          }
       }
       if (tiles.size === 0) return null;

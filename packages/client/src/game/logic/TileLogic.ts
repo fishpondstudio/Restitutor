@@ -1,4 +1,4 @@
-import { clamp, formatNumber, pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
+import { clamp, formatNumber, pointToTile, randOne, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
 import Land from "../../data/Land.json";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition, IConditionBreakdown } from "../actions/GameAction";
@@ -12,7 +12,9 @@ import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpg
 import { ChristianHeresy, isChristianReligion } from "../definitions/Religion";
 import { BarbarianRaidNegativeEffect } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
+import { initTileData, TerrainToGoods } from "../definitions/Tile";
 import { TimedActions } from "../definitions/TimedAction";
+import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { cacheTile, isConnectedToCapital } from "./CacheLogic";
@@ -909,4 +911,19 @@ export function getCultureStatus(tile: Tile, save: SaveGame): CultureReligionSta
       return "Tolerated";
    }
    return "Minor";
+}
+
+export function settleTile(tile: Tile, province: Province, save: SaveGame): void {
+   if (save.state.tiles.has(tile)) {
+      return;
+   }
+   if (!LandTiles.has(tile)) {
+      return;
+   }
+   const tileData = initTileData(province, "Plain", randOne(TerrainToGoods.Plain));
+   tileData.infrastructure = 1;
+   tileData.production = 1;
+   tileData.population = 1;
+   save.state.tiles.set(tile, tileData);
+   RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
 }

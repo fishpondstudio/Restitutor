@@ -6,7 +6,6 @@ import { FontFaces, Fonts } from "./Fonts";
 import { startGameLoop } from "./GameLoop";
 import { addDebugFunctions } from "./game/AddDebugFunctions";
 import { SentryDSN, SupportedSaveVersion } from "./game/definitions/Constant";
-import { Province } from "./game/definitions/Province";
 import Rome from "./game/definitions/Rome.json?raw";
 import { GameStateFlags, initNewPlayerSaveGame, initSaveGame, SaveGame } from "./game/GameState";
 import { loadGame, resetGame, saveGame } from "./game/LoadSave";
@@ -99,8 +98,6 @@ export async function bootstrap(): Promise<void> {
          if (!data.province) {
             throw new Error(`Invalid tile config: ${tile}: ${JSON.stringify(data)}`);
          }
-         data.culture = Province[data.province].culture;
-         data.religion = Province[data.province].religion;
       });
    }
 

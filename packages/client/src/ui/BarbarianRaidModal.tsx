@@ -156,7 +156,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                 <span className="text-dimmed">
                                                    (
                                                    {Array.from(raid.tiles)
-                                                      .map((tile) => getTileName(tile))
+                                                      .map((tile) => getTileName(tile, G.save))
                                                       .join(", ")}
                                                    )
                                                 </span>

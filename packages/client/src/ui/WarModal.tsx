@@ -214,7 +214,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                      }
                      return (
                         <div className="row my5" key={tile}>
-                           <div className="f1">{getTileName(tile)}</div>
+                           <div className="f1">{getTileName(tile, G.save)}</div>
                            <button
                               className="btn pointer text-sm"
                               key={tile}
@@ -644,7 +644,7 @@ export function WhitePeaceTooltip({ war }: { war: IWar }): React.ReactNode {
 
 export function PeaceTreatyTooltip({ war }: { war: IWar }): React.ReactNode {
    const tileNames = Array.from(war.tiles)
-      .map((tile) => getTileName(tile))
+      .map((tile) => getTileName(tile, G.save))
       .join(", ");
    const truceDuration = getTruceDuration(war, G.save);
    return (

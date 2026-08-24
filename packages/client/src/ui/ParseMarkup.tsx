@@ -61,7 +61,7 @@ const parserOptions: HTMLReactParserOptions = {
                         });
                   }}
                >
-                  {getTileName(tile)}
+                  {getTileName(tile, G.save)}
                </span>
             );
          }

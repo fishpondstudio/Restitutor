@@ -23,14 +23,14 @@ export function TutorialPanel(): React.ReactNode {
       <div className="tutorial-panel panel">
          <FloatingTip
             className="p0"
-            label={<div className="m10">{html(tutorial.desc())}</div>}
+            label={<div className="m10">{html(tutorial.desc(G.save))}</div>}
             disabled={!minimizeTutorial}
          >
             <div className="row g5 m10">
                <div className="mi lg">flag</div>
                <div className="f1">
                   <div className="row g20 text-display text-lg">
-                     <div className="f1">{tutorial.name()}</div>
+                     <div className="f1">{tutorial.name(G.save)}</div>
                      <div>
                         {formatNumber(progress)}/{formatNumber(total)}
                      </div>
@@ -51,7 +51,7 @@ export function TutorialPanel(): React.ReactNode {
                      <div className="divider" />
                   </>
                )}
-               <div className="m10">{html(tutorial.desc())}</div>
+               <div className="m10">{html(tutorial.desc(G.save))}</div>
             </>
          )}
          {tutorial.button && (

@@ -238,18 +238,18 @@ export function getWarScore(
          }
          const defense = getTileDefense(tile, save);
          result.add.push({
-            name: getTileName(tile),
+            name: getTileName(tile, save),
             value: defense.value,
          });
          if (casusBelli === "Reconquista" && data.originalProvince === attacker) {
             result.add.push({
-               name: $t(L.Reconquista$1, getTileName(tile)),
+               name: $t(L.Reconquista$1, getTileName(tile, save)),
                value: -0.3 * defense.value,
             });
          }
          if (data.coreProvinces.has(attacker)) {
             result.add.push({
-               name: $t(L.$1IsOurCoreTile, getTileName(tile)),
+               name: $t(L.$1IsOurCoreTile, getTileName(tile, save)),
                value: -0.2 * defense.value,
             });
          }
@@ -615,21 +615,21 @@ export function getWarPlunder(war: IWar, save: SaveGame): { tiles: IValueBreakdo
       if (data) {
          if (data.infrastructure > 1) {
             tilesResult.add.push({
-               name: getTileName(tile),
+               name: getTileName(tile, save),
                desc: $t(L.Infrastructure),
                value: -1,
             });
          }
          if (data.production > 1) {
             tilesResult.add.push({
-               name: getTileName(tile),
+               name: getTileName(tile, save),
                desc: $t(L.Production),
                value: -1,
             });
          }
          if (data.population > 1) {
             tilesResult.add.push({
-               name: getTileName(tile),
+               name: getTileName(tile, save),
                desc: $t(L.Population),
                value: -1,
             });
