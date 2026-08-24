@@ -14,7 +14,7 @@ import { BarbarianRaidNegativeEffect } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
 import { initTileData, TerrainToGoods } from "../definitions/Tile";
 import { TimedActions } from "../definitions/TimedAction";
-import { RefreshTiles } from "../Events";
+import { GameStateUpdated, RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import { cacheTile, isConnectedToCapital } from "./CacheLogic";
@@ -926,4 +926,5 @@ export function settleTile(tile: Tile, province: Province, save: SaveGame): void
    tileData.population = 1;
    save.state.tiles.set(tile, tileData);
    RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
+   GameStateUpdated.emit();
 }
