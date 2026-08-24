@@ -359,12 +359,12 @@ export class WorldScene extends Scene {
       const point = MapGrid.positionToGrid(pos);
       const tile = pointToTile(point);
 
-      if (!this._landTiles.has(tile)) {
+      if (this._clickTileHandler) {
+         this._clickTileHandler(tile, e);
          return;
       }
 
-      if (this._clickTileHandler) {
-         this._clickTileHandler(tile, e);
+      if (!this._landTiles.has(tile)) {
          return;
       }
 
