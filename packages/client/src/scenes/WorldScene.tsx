@@ -31,7 +31,7 @@ import { TilePage } from "../ui/TilePage";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
 import { G, GameFlags, isDev } from "../utils/Global";
-import { IndexedContainer } from "../utils/IndexedContainer";
+import { MapContainer } from "../utils/KeyedContainer";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
 import { getOverlay } from "./Overlays";
@@ -44,10 +44,10 @@ let time = 0;
 let TerrainTextures: Record<Terrain, Texture[]> | undefined;
 
 export class WorldScene extends Scene {
-   private _indicatorContainer: IndexedContainer<Tile, Sprite>;
-   private _tileContainer: IndexedContainer<Tile, Sprite>;
-   private _capitalContainer: IndexedContainer<Tile, Sprite>;
-   private _overlayContainer: IndexedContainer<Tile, DisplayObject>;
+   private _indicatorContainer: MapContainer<Tile, Sprite>;
+   private _tileContainer: MapContainer<Tile, Sprite>;
+   private _capitalContainer: MapContainer<Tile, Sprite>;
+   private _overlayContainer: MapContainer<Tile, DisplayObject>;
    private _emptyTileContainer: ParticleContainer;
    private _labelContainer: Container;
    private _selectors: Container<Sprite>;
@@ -74,19 +74,19 @@ export class WorldScene extends Scene {
       this._emptyTileContainer = this.viewport.addChild(new ParticleContainer(MapGrid.maxX * MapGrid.maxY, {}));
       this._emptyTileContainer.position.set(MarginX, 0);
 
-      this._tileContainer = this.viewport.addChild(new IndexedContainer<Tile, Sprite>());
+      this._tileContainer = this.viewport.addChild(new MapContainer<Tile, Sprite>());
       this._tileContainer.position.set(MarginX, 0);
 
-      this._capitalContainer = this.viewport.addChild(new IndexedContainer<Tile, Sprite>());
+      this._capitalContainer = this.viewport.addChild(new MapContainer<Tile, Sprite>());
       this._capitalContainer.position.set(MarginX, 0);
 
-      this._overlayContainer = this.viewport.addChild(new IndexedContainer<Tile, DisplayObject>());
+      this._overlayContainer = this.viewport.addChild(new MapContainer<Tile, DisplayObject>());
       this._overlayContainer.position.set(MarginX, 0);
 
       this._staticOutline = this.viewport.addChild(new SmoothGraphics());
       this._staticOutline.position.set(MarginX, 0);
 
-      this._indicatorContainer = this.viewport.addChild(new IndexedContainer<Tile, Sprite>());
+      this._indicatorContainer = this.viewport.addChild(new MapContainer<Tile, Sprite>());
       this._indicatorContainer.position.set(MarginX, 0);
 
       this._selectors = this.viewport.addChild(new Container<Sprite>());
@@ -113,7 +113,7 @@ export class WorldScene extends Scene {
             const position = MapGrid.gridToPosition(g);
             if (G.save.state.tiles.has(tile)) {
                this._makeTile(tile);
-               this._drawIndicator(tile, position);
+               this._drawIndicator(tile);
                minPos.x = Math.min(minPos.x, position.x - TileWidth / 2);
                minPos.y = Math.min(minPos.y, position.y - TileHeight / 2);
                maxPos.x = Math.max(maxPos.x, position.x + TileWidth / 2);
@@ -146,10 +146,10 @@ export class WorldScene extends Scene {
 
       RefreshTiles.on(({ tiles, options }) => {
          for (const tile of tiles) {
-            const visual = this._tileContainer.get(tile);
+            const visual = this._tileContainer.map.get(tile);
             if (visual) {
                if (options.indicator) {
-                  this._drawIndicator(tile, visual.position);
+                  this._drawIndicator(tile);
                }
                if (options.visual) {
                   this._makeTile(tile);
@@ -163,7 +163,7 @@ export class WorldScene extends Scene {
       });
 
       RefreshOverlay.on(() => {
-         for (const [tile, visual] of this._overlayContainer) {
+         for (const [tile, visual] of this._overlayContainer.map) {
             this._renderOverlay(tile);
          }
       });
@@ -171,7 +171,7 @@ export class WorldScene extends Scene {
       GameStateUpdated.on(() => {
          switch (getOverlay()) {
             case "Upgrade": {
-               for (const [tile, visual] of this._overlayContainer) {
+               for (const [tile, visual] of this._overlayContainer.map) {
                   const tileData = G.save.state.tiles.get(tile);
                   if (tileData) {
                      const text = visual as UnicodeText;
@@ -182,7 +182,7 @@ export class WorldScene extends Scene {
                break;
             }
             case "Defense": {
-               for (const [tile, visual] of this._overlayContainer) {
+               for (const [tile, visual] of this._overlayContainer.map) {
                   const tileData = G.save.state.tiles.get(tile);
                   if (tileData) {
                      const text = visual as UnicodeText;
@@ -193,7 +193,7 @@ export class WorldScene extends Scene {
                break;
             }
             case "Maintenance": {
-               for (const [tile, visual] of this._overlayContainer) {
+               for (const [tile, visual] of this._overlayContainer.map) {
                   const tileData = G.save.state.tiles.get(tile);
                   if (tileData) {
                      const text = visual as UnicodeText;
@@ -223,7 +223,7 @@ export class WorldScene extends Scene {
       const { x, y } = MapGrid.gridToPosition(tileToPoint(tile));
 
       // Background
-      const bg = this._tileContainer.set(tile, new Sprite(G.textures.get("Tile/Background")));
+      const bg = this._tileContainer.map.set(tile, new Sprite(G.textures.get("Tile/Background")));
       bg.scale.set(TileHeight / TextureHeight);
       bg.anchor.set(0.5, 0.5);
       bg.position.set(x, y);
@@ -233,13 +233,13 @@ export class WorldScene extends Scene {
 
       // Capital
       if (isCapital(tile, G.save)) {
-         const star = this._capitalContainer.set(tile, new Sprite(G.textures.get("Misc/Capital")));
+         const star = this._capitalContainer.map.set(tile, new Sprite(G.textures.get("Misc/Capital")));
          star.anchor.set(0.5, 0.5);
          star.scale.set(0.3);
          star.position.set(x, y + 0.25 * TileHeight);
          star.tint = MapForegroundColors[tileData.province];
       } else {
-         this._capitalContainer.delete(tile);
+         this._capitalContainer.map.delete(tile);
       }
 
       // Overlay
@@ -281,7 +281,7 @@ export class WorldScene extends Scene {
 
             const textures = TerrainTextures[tileData.terrain];
             const visual = new Sprite(textures[tile % textures.length]);
-            this._overlayContainer.set(tile, visual);
+            this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
             visual.scale.set(TileHeight / TextureHeight);
@@ -290,7 +290,7 @@ export class WorldScene extends Scene {
          }
          case "Output": {
             const visual = new Sprite(G.textures.get(Goods[tileData.goods].iconTexture));
-            this._overlayContainer.set(tile, visual);
+            this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
             visual.scale.set((0.75 * TileHeight) / TextureHeight);
@@ -302,7 +302,7 @@ export class WorldScene extends Scene {
                fontName: Fonts.MainFont,
             });
             this._adjustTextSize(visual);
-            this._overlayContainer.set(tile, visual);
+            this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
             visual.tint = MapForegroundColors[tileData.province];
@@ -313,7 +313,7 @@ export class WorldScene extends Scene {
                fontName: Fonts.MainFont,
             });
             this._adjustTextSize(visual);
-            this._overlayContainer.set(tile, visual);
+            this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
             visual.tint = MapForegroundColors[tileData.province];
@@ -324,7 +324,7 @@ export class WorldScene extends Scene {
                fontName: Fonts.MainFont,
             });
             this._adjustTextSize(visual);
-            this._overlayContainer.set(tile, visual);
+            this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
             visual.tint = MapForegroundColors[tileData.province];
@@ -351,7 +351,7 @@ export class WorldScene extends Scene {
       const point = MapGrid.positionToGrid(pos);
       const tile = pointToTile(point);
 
-      if (!this._tileContainer.has(tile)) {
+      if (!this._tileContainer.map.has(tile)) {
          return;
       }
 
@@ -463,9 +463,9 @@ export class WorldScene extends Scene {
       });
    }
 
-   private _drawIndicator(tile: Tile, position: IHaveXY): void {
+   private _drawIndicator(tile: Tile): void {
       const tileData = G.save.state.tiles.get(tile);
-      this._indicatorContainer.delete(tile);
+      this._indicatorContainer.map.delete(tile);
       if (!tileData) {
          return;
       }
@@ -478,7 +478,7 @@ export class WorldScene extends Scene {
       if (!texture) {
          return;
       }
-      const indicator = this._indicatorContainer.set(tile, new Sprite(texture));
+      const indicator = this._indicatorContainer.map.set(tile, new Sprite(texture));
       indicator.anchor.set(0.5, 0.5);
       if (war) {
          indicator.tint = MapForegroundColors[war.attacker];
@@ -487,6 +487,7 @@ export class WorldScene extends Scene {
       }
       indicator.alpha = 0.5;
       indicator.scale.set(TileHeight / TextureHeight);
+      const position = MapGrid.gridToPosition(tileToPoint(tile));
       indicator.position.set(position.x, position.y);
    }
 
