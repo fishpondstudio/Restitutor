@@ -225,6 +225,7 @@ export class TechDefinitions {
          TradeCapacity: { type: "add", value: 1 },
          TradeProfit: { type: "multiply", value: 0.1 },
       },
+      timedActions: ["NullifyTruce"],
       buildings: ["TradeDistrict"],
    } as const;
 
