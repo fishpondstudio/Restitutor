@@ -3036,4 +3036,8 @@ export const ZH_CN = {
    FoundACapitalOfLearning: "建立学术之都",
    GiveScholarsAVoiceInTheSenate: "让学者在元老院拥有话语权",
    DispatchExpertsAcrossTheProvince: "向行省各地派遣专家",
+   TerrainNamePlain: "平原",
+   TerrainNameHill: "丘陵",
+   TerrainNameForest: "森林",
+   TerrainNameMountain: "山地",
 };

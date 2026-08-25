@@ -86,6 +86,7 @@ export function EditTilePage({ tiles }: { tiles: Set<Tile> }): React.ReactNode {
             <SelectComp
                value={data.terrain}
                data={keysOf(Terrains)}
+               getLabel={(terrain) => Terrains[terrain].name()}
                onChange={(value) => {
                   tiles.forEach((tile) => {
                      let oldData = G.tileEditor.get(tile);
@@ -175,16 +176,18 @@ const NoneOption = "*None";
 function SelectComp<T extends string>({
    value,
    data,
+   getLabel = (value) => value,
    onChange,
 }: {
    value: T | undefined;
    data: T[];
+   getLabel?: (value: T) => string;
    onChange: (value: T | undefined) => void;
 }): React.ReactNode {
-   const options = [NoneOption];
-   data.forEach((d) => {
-      options.push(d);
-   });
+   const options = [
+      { value: NoneOption, label: NoneOption },
+      ...data.map((value) => ({ value, label: getLabel(value) })),
+   ];
    return (
       <Select
          checkIconPosition="right"

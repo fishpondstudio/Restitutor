@@ -3102,4 +3102,8 @@ export const FR = {
    FoundACapitalOfLearning: "Found a capital of learning",
    GiveScholarsAVoiceInTheSenate: "Give scholars a voice in the Senate",
    DispatchExpertsAcrossTheProvince: "Dispatch experts across the province",
+   TerrainNamePlain: "Plain",
+   TerrainNameHill: "Hill",
+   TerrainNameForest: "Forest",
+   TerrainNameMountain: "Mountain",
 };

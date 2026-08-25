@@ -1,6 +1,7 @@
 import { entriesOf, type Tile } from "@project/shared/src/utils/Helper";
 import { memo } from "react";
 import { type Building, Buildings } from "../game/definitions/Building";
+import { Terrains } from "../game/definitions/Terrain";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
 import { isCapital } from "../game/logic/TileLogic";
@@ -79,7 +80,7 @@ function _TileListRow({ tile }: { tile: Tile }): React.ReactNode {
                <div className="f1" />
             </div>
             <div className="row g5">
-               <div className="text-xs text-dimmed text-italic">{tileData.terrain}</div>
+               <div className="text-xs text-dimmed text-italic">{Terrains[tileData.terrain].name()}</div>
                <div className="f1" />
             </div>
          </td>

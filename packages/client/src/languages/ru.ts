@@ -3063,4 +3063,8 @@ export const RU = {
    FoundACapitalOfLearning: "Основать столицу знаний",
    GiveScholarsAVoiceInTheSenate: "Дать учёным голос в Сенате",
    DispatchExpertsAcrossTheProvince: "Разослать специалистов по всей провинции",
+   TerrainNamePlain: "Равнина",
+   TerrainNameHill: "Холм",
+   TerrainNameForest: "Лес",
+   TerrainNameMountain: "Гора",
 };
