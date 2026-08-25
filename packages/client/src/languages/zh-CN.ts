@@ -2994,7 +2994,6 @@ export const ZH_CN = {
    NoActiveTrucesToNullify: "无可废除的生效停战协议",
    NullifyTruce: "废除停战协议",
    TimedActionNullifyTruceDesc: "废除停战协议会立即终止我方一项生效的停战协议。",
-   CapitalRelocationPoint: "迁都点数",
    RelocateCapital: "迁都",
    TimedActionRelocateCapitalDesc: "将我们的行省首府迁至该地块",
    TileIsNotAtWar: "地块未处于战争争夺中",
@@ -3040,4 +3039,6 @@ export const ZH_CN = {
    TerrainNameHill: "丘陵",
    TerrainNameForest: "森林",
    TerrainNameMountain: "山地",
+   TerrainNameArid: "旱地",
+   Mandate: "授权令",
 };

@@ -75,7 +75,7 @@ export const MissionEvents = {
          {
             label: () => $t(L.PlanANewProvincialCapital),
             resources: {
-               capitalRelocationPoint: 1,
+               mandate: 1,
             },
          },
          {
@@ -106,7 +106,7 @@ export const MissionEvents = {
          {
             label: () => $t(L.FoundACapitalOfLearning),
             resources: {
-               capitalRelocationPoint: 1,
+               mandate: 1,
             },
          },
          {

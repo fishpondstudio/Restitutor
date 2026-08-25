@@ -3026,7 +3026,6 @@ export const EN = {
    NoActiveTrucesToNullify: "No active truces to nullify",
    NullifyTruce: "Nullify Truce",
    TimedActionNullifyTruceDesc: "Nullifying a truce immediately ends one of our active truces.",
-   CapitalRelocationPoint: "Capital Relocation Point",
    RelocateCapital: "Relocate Capital",
    TimedActionRelocateCapitalDesc: "Relocate our provincial capital to this tile",
    TileIsNotAtWar: "Tile is not at war",
@@ -3073,4 +3072,5 @@ export const EN = {
    TerrainNameForest: "Forest",
    TerrainNameMountain: "Mountain",
    TerrainNameArid: "Arid",
+   Mandate: "Mandate",
 };

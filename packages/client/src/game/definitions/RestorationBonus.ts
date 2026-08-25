@@ -42,7 +42,7 @@ export const RestorationBonus = {
    CapitalRelocationPoint: {
       effect: {
          resources: {
-            capitalRelocationPoint: 1,
+            mandate: 1,
          },
       },
       image: {

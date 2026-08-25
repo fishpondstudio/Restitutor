@@ -1,5 +1,5 @@
-import { forEach } from "@project/shared/src/utils/Helper";
-import { Province, ProvinceStats } from "./game/definitions/Province";
+import { forEach, keysOf } from "@project/shared/src/utils/Helper";
+import { Province, ProvinceResources, ProvinceStats } from "./game/definitions/Province";
 import { addProvinceUpgrade, ProvinceUpgrades } from "./game/definitions/ProvinceUpgrades";
 import { SocialClass } from "./game/definitions/SocialClass";
 import { TimedActions } from "./game/definitions/TimedAction";
@@ -45,6 +45,16 @@ export function migrateSave(save: SaveGame): void {
       for (const upgrade of data.provinceUpgrades) {
          if (!ProvinceUpgrades[upgrade]) {
             data.provinceUpgrades.delete(upgrade);
+         }
+      }
+      for (const resource of keysOf(data.resources)) {
+         if (!(resource in ProvinceResources)) {
+            delete data.resources[resource];
+         }
+      }
+      for (const stat of keysOf(data.stats)) {
+         if (!(stat in ProvinceStats)) {
+            delete data.stats[stat];
          }
       }
       for (const [timedAction, timeLeft] of data.timedActions) {

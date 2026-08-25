@@ -103,7 +103,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   <ActionButton
                      className="text-sm"
                      action={{
-                        cost: { capitalRelocationPoint: 1 },
+                        cost: { mandate: 1 },
                         condition: finalizeCondition([
                            ...timedActionConditions({ action: "RelocateCapital" }, G.save.state.playerProvince, G.save),
                            tileIsOurCoreCondition(tile, G.save.state.playerProvince, G.save),
