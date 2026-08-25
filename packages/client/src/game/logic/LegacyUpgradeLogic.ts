@@ -71,8 +71,9 @@ export function rebirth(province: Province, save: SaveGame): void {
    const newSave = new SaveGame();
    newSave.state.playerProvince = province;
    const [total, _] = provinceResourceOf("legacy", save.state.playerProvince, save);
+   const annexedAndCored = getTilesAnnexedAndCored(save.state.playerProvince, save);
    initSaveGame(newSave);
-   addProvinceResource("legacy", total + getTilesAnnexedAndCored(save.state.playerProvince, save), province, newSave);
+   addProvinceResource("legacy", total + annexedAndCored, province, newSave);
    save.state = newSave.state;
 }
 

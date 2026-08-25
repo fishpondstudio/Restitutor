@@ -1,3 +1,4 @@
+import Arid from "../../assets/images/headers/Arid.webp";
 import Forest from "../../assets/images/headers/Forest.webp";
 import Hill from "../../assets/images/headers/Hill.webp";
 import Mountain from "../../assets/images/headers/Mountain.webp";
@@ -37,6 +38,13 @@ export const Terrains = {
       image: {
          url: Mountain,
          credit: "A Panorama from the Mangart in the Julian Alps 4, Markus Pernhart",
+      },
+   },
+   Arid: {
+      name: () => $t(L.TerrainNameArid),
+      image: {
+         url: Arid,
+         credit: "Die libysche Wüste, Carl Hasch",
       },
    },
 } as const satisfies Record<string, ITerrainConfig>;

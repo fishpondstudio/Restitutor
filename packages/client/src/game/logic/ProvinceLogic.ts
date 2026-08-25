@@ -12,7 +12,6 @@ import {
    type Tile,
    tileToPoint,
 } from "@project/shared/src/utils/Helper";
-import Land from "../../data/Land.json";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition, IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
@@ -52,6 +51,7 @@ import { StraitOfGibraltarTiles, Tiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
+import { isLand } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
 import { cacheProvince } from "./CacheLogic";
@@ -347,8 +347,6 @@ export function getProvincesInRange(range: number, province: Province, save: Sav
    return result;
 }
 
-const LandTiles = new Set<Tile>(Land);
-
 export function canReachBySea(province1: Province, province2: Province, save: SaveGame): boolean {
    const destinationTiles = new Set<Tile>();
    const visited = new Set<Tile>();
@@ -361,7 +359,7 @@ export function canReachBySea(province1: Province, province2: Province, save: Sa
       if (data.province === province1) {
          for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
             const neighborTile = pointToTile(neighbor);
-            if (!LandTiles.has(neighborTile) && !visited.has(neighborTile)) {
+            if (!isLand(neighborTile) && !visited.has(neighborTile)) {
                visited.add(neighborTile);
                queue.push(neighborTile);
             }
@@ -376,7 +374,7 @@ export function canReachBySea(province1: Province, province2: Province, save: Sa
          if (destinationTiles.has(neighborTile)) {
             return true;
          }
-         if (!LandTiles.has(neighborTile) && !visited.has(neighborTile)) {
+         if (!isLand(neighborTile) && !visited.has(neighborTile)) {
             visited.add(neighborTile);
             queue.push(neighborTile);
          }

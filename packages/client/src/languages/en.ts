@@ -3072,4 +3072,5 @@ export const EN = {
    TerrainNameHill: "Hill",
    TerrainNameForest: "Forest",
    TerrainNameMountain: "Mountain",
+   TerrainNameArid: "Arid",
 };

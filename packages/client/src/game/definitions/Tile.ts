@@ -1,6 +1,7 @@
 import { pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
 import { makeNoise2D } from "open-simplex-noise";
 import type { SaveGame } from "../GameState";
+import { getTileTerrain } from "../logic/TileLogic";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
 import type { Building } from "./Building";
@@ -12,7 +13,6 @@ import type { Religion } from "./Religion";
 import type { Terrain } from "./Terrain";
 
 export interface ITileConfig {
-   terrain?: Terrain;
    province?: Province;
    name?: string;
    isCapital?: boolean;
@@ -20,7 +20,6 @@ export interface ITileConfig {
 
 export interface ITileData {
    nameOverride?: string;
-   terrain: Terrain;
    province: Province;
    coreProvinces: Set<Province>;
    originalProvince: Province;
@@ -68,35 +67,32 @@ export const TerrainToGoods: Record<Terrain, Goods[]> = {
    Mountain: ["ironOre", "wood"],
    Hill: ["ironOre", "livestock", "wood"],
    Plain: ["grain", "livestock"],
+   Arid: ["ironOre", "grain", "livestock"],
 };
 
 export function initTiles(): Map<Tile, ITileData> {
    const noise = makeNoise2D(Date.now());
    return new Map(
       Array.from(RomeMap.entries()).map(([tile, config]) => {
-         if (!config.name || !config.province || !config.terrain) {
+         if (!config.name || !config.province) {
             throw new Error(`Invalid tile config: ${tile}: ${JSON.stringify(config)}`);
          }
          const { x, y } = tileToPoint(tile);
          const random = (noise(x, y) + 1) / 2;
-         const goods = TerrainToGoods[config.terrain];
-         const data: ITileData = initTileData(
-            config.province,
-            config.terrain,
-            goods[Math.floor(random * goods.length)],
-         );
+         const terrain = getTileTerrain(tile);
+         const goods = TerrainToGoods[terrain];
+         const data: ITileData = initTileData(config.province, goods[Math.floor(random * goods.length)]);
          return [tile, data];
       }),
    );
 }
 
-export function initTileData(province: Province, terrain: Terrain, goods: Goods): ITileData {
+export function initTileData(province: Province, goods: Goods): ITileData {
    const provinceConfig = Province[province];
    return {
       province: province,
       coreProvinces: new Set([province]),
       originalProvince: province,
-      terrain: terrain,
       culture: provinceConfig.culture,
       religion: provinceConfig.religion,
       goods: goods,

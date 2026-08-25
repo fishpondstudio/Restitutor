@@ -24,6 +24,7 @@ import {
    getTileMaintenanceCost,
    getTileManpower,
    getTileOutput,
+   getTileTerrain,
    getTileUnrest,
    tileIsOurCoreCondition,
 } from "../game/logic/TileLogic";
@@ -74,7 +75,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
    }
    return (
       <SidebarComp
-         title={<SidebarImageHeader image={Terrains[tileData.terrain].image} title={getTileName(tile, G.save)} />}
+         title={<SidebarImageHeader image={Terrains[getTileTerrain(tile)].image} title={getTileName(tile, G.save)} />}
       >
          <div className="m10">
             <div className="row my5">
@@ -155,7 +156,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             </div>
             <div className="row my5">
                <div className="f1">{$t(L.Terrain)}</div>
-               <div>{Terrains[tileData.terrain].name()}</div>
+               <div>{Terrains[getTileTerrain(tile)].name()}</div>
             </div>
             <div className="row my5 g5">
                <div className="f1">{$t(L.Culture)}</div>

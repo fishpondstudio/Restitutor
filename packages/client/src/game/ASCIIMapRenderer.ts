@@ -1,9 +1,8 @@
-import { createTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
-import Land from "../data/Land.json";
+import { createTile, tileToPoint } from "@project/shared/src/utils/Helper";
 import { Province } from "./definitions/Province";
 import type { SaveGame } from "./GameState";
+import { isLand } from "./Land";
 
-const LandTiles = new Set<Tile>(Land);
 const UnassignedLandCode = "XX";
 const OceanCode = "..";
 
@@ -37,7 +36,7 @@ export function getTileCode(x: number, y: number, save: SaveGame): string {
    if (tileData) {
       return Province[tileData.province].code;
    }
-   return LandTiles.has(tile) ? UnassignedLandCode : OceanCode;
+   return isLand(tile) ? UnassignedLandCode : OceanCode;
 }
 
 export function renderMap(save: SaveGame, staggerOddRows: boolean): string {

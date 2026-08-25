@@ -1,14 +1,13 @@
 import { forEach, setFlag } from "@project/shared/src/utils/Helper";
-import { jsonDecode } from "@project/shared/src/utils/Serialization";
 import * as Sentry from "@sentry/browser";
 import { Assets, BitmapFont, type Spritesheet, type TextStyleFontWeight, type Texture } from "pixi.js";
 import { FontFaces, Fonts } from "./Fonts";
 import { startGameLoop } from "./GameLoop";
 import { addDebugFunctions } from "./game/AddDebugFunctions";
 import { SentryDSN, SupportedSaveVersion } from "./game/definitions/Constant";
-import Rome from "./game/definitions/Rome.json?raw";
 import { GameStateFlags, initNewPlayerSaveGame, initSaveGame, SaveGame } from "./game/GameState";
 import { loadGame, resetGame, saveGame } from "./game/LoadSave";
+import { RomeMap } from "./game/RomeMap";
 import { showBootstrapModal } from "./game/ShowBootstrapModal";
 import { getVersion } from "./game/Version";
 import { loadGameScene } from "./LoadGameScene";
@@ -93,7 +92,7 @@ export async function bootstrap(): Promise<void> {
    }
 
    if (isDev()) {
-      G.tileEditor = jsonDecode(Rome);
+      G.tileEditor = RomeMap;
       G.tileEditor.forEach((data, tile) => {
          if (!data.province) {
             throw new Error(`Invalid tile config: ${tile}: ${JSON.stringify(data)}`);

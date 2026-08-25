@@ -1,5 +1,4 @@
 import { clamp, formatNumber, pointToTile, randOne, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
-import Land from "../../data/Land.json";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition, IConditionBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
@@ -12,10 +11,12 @@ import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpg
 import { ChristianHeresy, isChristianReligion } from "../definitions/Religion";
 import { BarbarianRaidNegativeEffect } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
+import type { Terrain } from "../definitions/Terrain";
 import { initTileData, TerrainToGoods } from "../definitions/Tile";
 import { TimedActions } from "../definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
+import { isLand, terrainOf } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { cacheTile, isConnectedToCapital } from "./CacheLogic";
 import { EcumenicalCouncilPct } from "./EcumenicalCouncilLogic";
@@ -90,13 +91,14 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
    if (isCapital(tile, save)) {
       breakdown.multiply.push({ name: $t(L.IsCurrentCapital), value: -0.9 });
    }
-   if (data.terrain === "Mountain") {
+   const terrain = getTileTerrain(tile);
+   if (terrain === "Mountain") {
       breakdown.multiply.push({ name: $t(L.TerrainMountain), value: +0.1 });
    }
-   if (data.terrain === "Hill") {
+   if (terrain === "Hill") {
       breakdown.multiply.push({ name: $t(L.TerrainHill), value: +0.05 });
    }
-   if (data.terrain === "Forest") {
+   if (terrain === "Forest") {
       breakdown.multiply.push({ name: $t(L.TerrainForest), value: +0.05 });
    }
    if (!data.coreProvinces.has(data.province)) {
@@ -198,13 +200,14 @@ export function _getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
       desc: $t(L.$1PerInfrastructureLevel, "1%"),
       value: data.infrastructure * 0.01,
    });
-   if (data.terrain === "Mountain") {
+   const terrain = getTileTerrain(tile);
+   if (terrain === "Mountain") {
       breakdown.multiply.push({ name: $t(L.TerrainMountain), value: +0.1 });
    }
-   if (data.terrain === "Hill") {
+   if (terrain === "Hill") {
       breakdown.multiply.push({ name: $t(L.TerrainHill), value: +0.05 });
    }
-   if (data.terrain === "Forest") {
+   if (terrain === "Forest") {
       breakdown.multiply.push({ name: $t(L.TerrainForest), value: +0.05 });
    }
    if (isCapital(tile, save)) {
@@ -228,7 +231,7 @@ export function _getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
          if (
             tileData.province === data.province &&
             tileData.coreProvinces.has(data.province) &&
-            tileData.terrain === "Hill"
+            getTileTerrain(tile) === "Hill"
          ) {
             ++hillTileCount;
          }
@@ -416,13 +419,14 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    if (overextension > 0) {
       breakdown.multiply.push({ name: $t(L.Overextension), value: -overextension * 0.01 });
    }
-   if (data.terrain === "Mountain") {
+   const terrain = getTileTerrain(tile);
+   if (terrain === "Mountain") {
       breakdown.multiply.push({ name: $t(L.TerrainMountain), value: -0.25 });
    }
-   if (data.terrain === "Hill") {
+   if (terrain === "Hill") {
       breakdown.multiply.push({ name: $t(L.TerrainHill), value: -0.1 });
    }
-   if (data.terrain === "Plain") {
+   if (terrain === "Plain") {
       breakdown.multiply.push({ name: $t(L.TerrainPlain), value: +0.1 });
    }
    if (data.rebellion >= 10) {
@@ -520,10 +524,11 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
          breakdown.multiply.push({ name: ProvinceUpgrades.SereneVineyards.name(), value: stability * 0.01 });
       }
    }
-   if (data.terrain === "Mountain") {
+   const terrain = getTileTerrain(tile);
+   if (terrain === "Mountain") {
       breakdown.multiply.push({ name: $t(L.TerrainMountain), value: -0.1 });
    }
-   if (data.terrain === "Hill") {
+   if (terrain === "Hill") {
       breakdown.multiply.push({ name: $t(L.TerrainHill), value: +0.1 });
    }
    if (data.rebellion >= 10) {
@@ -792,14 +797,12 @@ export function getNearestTile(tilesA: Tile[], tilesB: Tile[]): [Tile, Tile] | u
    return nearestTile ?? undefined;
 }
 
-const LandTiles = new Set<Tile>(Land);
-
 export function getCoastalEdgeCount(tile: Tile): number {
    let result = 0;
    const point = tileToPoint(tile);
    for (let dir = 0; dir < 6; dir++) {
       const neighbor = MapGrid.getNeighbor(point, dir);
-      if (MapGrid.isValid(neighbor) && !LandTiles.has(pointToTile(neighbor))) {
+      if (MapGrid.isValid(neighbor) && !isLand(pointToTile(neighbor))) {
          result++;
       }
    }
@@ -810,7 +813,7 @@ export function isCoastal(tile: Tile): boolean {
    const point = tileToPoint(tile);
    for (let dir = 0; dir < 6; dir++) {
       const neighbor = MapGrid.getNeighbor(point, dir);
-      if (MapGrid.isValid(neighbor) && !LandTiles.has(pointToTile(neighbor))) {
+      if (MapGrid.isValid(neighbor) && !isLand(pointToTile(neighbor))) {
          return true;
       }
    }
@@ -917,14 +920,18 @@ export function settleTile(tile: Tile, province: Province, save: SaveGame): void
    if (save.state.tiles.has(tile)) {
       return;
    }
-   if (!LandTiles.has(tile)) {
+   if (!isLand(tile)) {
       return;
    }
-   const tileData = initTileData(province, "Plain", randOne(TerrainToGoods.Plain));
+   const tileData = initTileData(province, randOne(TerrainToGoods[getTileTerrain(tile)]));
    tileData.infrastructure = 1;
    tileData.production = 1;
    tileData.population = 1;
    save.state.tiles.set(tile, tileData);
    RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
    GameStateUpdated.emit();
+}
+
+export function getTileTerrain(tile: Tile): Terrain {
+   return terrainOf(tile) ?? "Plain";
 }

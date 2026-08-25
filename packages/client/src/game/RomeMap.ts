@@ -1,6 +1,6 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { jsonDecode } from "@project/shared/src/utils/Serialization";
-import _Rome from "./definitions/Rome.json?raw";
+import _Rome from "../data/Rome.json?raw";
 import type { ITileConfig } from "./definitions/Tile";
 import { TileName } from "./definitions/TileName";
 
