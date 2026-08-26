@@ -47,7 +47,7 @@ import {
    SpawnedProvinces,
 } from "../definitions/SpawnedProvince";
 import { getBorderingProvinces } from "../definitions/Tile";
-import { StraitOfGibraltarTiles, Tiles } from "../definitions/TileConstants";
+import { MediterraneanTiles, StraitOfGibraltarTiles, Tiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
@@ -746,6 +746,12 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
          });
       }
    }
+   if (hasProvinceUpgrade("NavalTradition", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.NavalTradition.name(),
+         value: Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.005, 0.5),
+      });
+   }
    if (hasProvinceUpgrade("MercantileMobilization", province, save)) {
       const tradeCount = getProvinceTrades(province, save).size;
       if (tradeCount > 0) {
@@ -1300,4 +1306,23 @@ export function isTileConnectedBySea(tile: Tile, province: Province, save: SaveG
    }
 
    return false;
+}
+
+export function getMediterraneanCoastalTiles(requireCore: boolean, province: Province, save: SaveGame): Tile[] {
+   const result: Tile[] = [];
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province !== province) {
+         continue;
+      }
+      if (requireCore && !data.coreProvinces.has(province)) {
+         continue;
+      }
+      for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
+         if (MediterraneanTiles.has(pointToTile(neighbor))) {
+            result.push(tile);
+            break;
+         }
+      }
+   }
+   return result;
 }

@@ -1,9 +1,10 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
+import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import type { SaveGame } from "../GameState";
-import { addProvinceStat } from "../logic/ProvinceLogic";
-import { getTileMakeCoreCost } from "../logic/TileLogic";
+import { addProvinceResource, addProvinceStat } from "../logic/ProvinceLogic";
+import { getTileMakeCoreCost, isCoastal } from "../logic/TileLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import type { IGameAction } from "./GameAction";
@@ -31,6 +32,9 @@ export function MakeCoreAction(tile: Tile, province: Province, save: SaveGame): 
       effect: () => {
          tileData.coreProvinces.add(province);
          addProvinceStat("makeCoreCount", 1, province, save);
+         if (hasProvinceUpgrade("CoastalMandate", province, save) && isCoastal(tile)) {
+            addProvinceResource("consulPoint", 1, province, save);
+         }
          startTimedAction("MakeCore", province, save);
       },
    };

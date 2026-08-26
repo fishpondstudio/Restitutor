@@ -9,6 +9,7 @@ import { AfricaEvent } from "./AfricaEvent";
 import { AquitaniaEvent } from "./AquitaniaEvent";
 import { BaeticaEvent } from "./BaeticaEvent";
 import { BelgicaEvent } from "./BelgicaEvent";
+import { BritanniaEvent } from "./BritanniaEvent";
 import { GallicEmpireEvents } from "./GallicEmpireEvents";
 import { GermaniaEvent } from "./GermaniaEvent";
 import { HispaniaEvent } from "./HispaniaEvents";
@@ -60,6 +61,7 @@ const _GameEvents = {
    ...LugdunensisEvent,
    ...AquitaniaEvent,
    ...BelgicaEvent,
+   ...BritanniaEvent,
    ...NarbonensisEvent,
    ...GermaniaEvent,
    ...TarraconensisEvent,

@@ -32,6 +32,7 @@ import {
    getProvinceStat,
    getProvinceTileCount,
    getWarPower,
+   isTileConnectedBySea,
    provinceResourceOf,
    setProvinceStat,
 } from "./ProvinceLogic";
@@ -241,10 +242,16 @@ export function getWarScore(
             name: getTileName(tile, save),
             value: defense.value,
          });
+         if (hasProvinceUpgrade("MaritimeAmbition", attacker, save) && isTileConnectedBySea(tile, attacker, save)) {
+            result.add.push({
+               name: `${ProvinceUpgrades.MaritimeAmbition.name()}: ${getTileName(tile, save)}`,
+               value: -0.2 * defense.value,
+            });
+         }
          if (casusBelli === "Reconquista" && data.originalProvince === attacker) {
             result.add.push({
                name: $t(L.Reconquista$1, getTileName(tile, save)),
-               value: -0.3 * defense.value,
+               value: -0.2 * defense.value,
             });
          }
          if (data.coreProvinces.has(attacker)) {

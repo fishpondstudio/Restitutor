@@ -12,6 +12,7 @@ import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getMarriageAlliance } from "./DiplomacyLogic";
 import {
+   getMediterraneanCoastalTiles,
    getProvinceCoreCoastalTileCount,
    getProvinceCoreTileCount,
    getProvinceGoverningCost,
@@ -198,4 +199,13 @@ export function annexTiles({
       }
    }
    RefreshTiles.emit({ tiles, options: { indicator: true, visual: true } });
+}
+
+export function mediterraneanCoastCondition(minimum: number, province: Province, save: SaveGame): ICondition {
+   const coast = getMediterraneanCoastalTiles(true, province, save);
+   return {
+      name: $t(L.AnnexAndCore$1MediterraneanCoastalTiles, formatNumber(minimum)),
+      value: coast.length >= minimum,
+      progress: [coast.length, minimum],
+   };
 }

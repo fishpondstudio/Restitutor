@@ -286,7 +286,7 @@ export const Province = {
       name: () => $t(L.ProvinceBritannia),
       culture: "Brittonic",
       religion: "Celtic",
-      upgrades: [],
+      upgrades: ["MaritimeAmbition", "NavalTradition", "CoastalMandate"],
    },
    Cappadocia: {
       code: "CA",
@@ -478,6 +478,7 @@ export const EnabledProvinces: Province[] = [
    "Sicilia",
    "Mauretania",
    "Africa",
+   "Britannia",
 ];
 EnabledProvinces.sort();
 export const AlwaysFreeProvinces: Province[] = ["Lugdunensis", "Africa", "Italia"];

@@ -41,6 +41,7 @@ import DelphiOracle from "../../assets/images/events/DelphiOracle.webp";
 import DiocletianStatue from "../../assets/images/events/DiocletianStatue.webp";
 import Donatism from "../../assets/images/events/Donatism.webp";
 import DruidRitual from "../../assets/images/events/DruidRitual.webp";
+import EmperorAndSoldiers from "../../assets/images/events/EmperorAndSoldiers.webp";
 import EmpireDesolation from "../../assets/images/events/EmpireDesolation.webp";
 import EmpireDestruction from "../../assets/images/events/EmpireDestruction.webp";
 import EucharistDebate from "../../assets/images/events/EucharistDebate.webp";
@@ -100,6 +101,7 @@ import Pyrenees from "../../assets/images/events/Pyrenees.webp";
 import QueenEmbarkation from "../../assets/images/events/QueenEmbarkation.webp";
 import RavennaMosaic from "../../assets/images/events/RavennaMosaic.webp";
 import ReligiousTriumph from "../../assets/images/events/ReligiousTriumph.webp";
+import RomanAudience from "../../assets/images/events/RomanAudience.webp";
 import RomanBathing from "../../assets/images/events/RomanBathing.webp";
 import RomanBathsPlan from "../../assets/images/events/RomanBathsPlan.webp";
 import RomanCampagna from "../../assets/images/events/RomanCampagna.webp";
@@ -109,12 +111,14 @@ import RomanExpedition from "../../assets/images/events/RomanExpedition.webp";
 import RomanForum1 from "../../assets/images/events/RomanForum1.webp";
 import RomanForum2 from "../../assets/images/events/RomanForum2.webp";
 import RomanForum3 from "../../assets/images/events/RomanForum3.webp";
+import RomanGalley from "../../assets/images/events/RomanGalley.webp";
 import RomanInvasion from "../../assets/images/events/RomanInvasion.webp";
 import RomanRuins1 from "../../assets/images/events/RomanRuins1.webp";
 import RomanRuins2 from "../../assets/images/events/RomanRuins2.webp";
 import RomanTriumph1 from "../../assets/images/events/RomanTriumph1.webp";
 import RomanTriumph2 from "../../assets/images/events/RomanTriumph2.webp";
 import RomanVilla from "../../assets/images/events/RomanVilla.webp";
+import RomanWall from "../../assets/images/events/RomanWall.webp";
 import RomulusAndRemus from "../../assets/images/events/RomulusAndRemus.webp";
 import RuinedColonnade from "../../assets/images/events/RuinedColonnade.webp";
 import RuinsWithPeasants from "../../assets/images/events/RuinsWithPeasants.webp";
@@ -140,6 +144,7 @@ import SwordfishFishing from "../../assets/images/events/SwordfishFishing.webp";
 import TeutoburgBattle from "../../assets/images/events/TeutoburgBattle.webp";
 import TolbiacBattle from "../../assets/images/events/TolbiacBattle.webp";
 import ToledoBridge from "../../assets/images/events/ToledoBridge.webp";
+import TroopDeparture from "../../assets/images/events/TroopDeparture.webp";
 import ValerianHumiliation from "../../assets/images/events/ValerianHumiliation.webp";
 import VandalsInItaly from "../../assets/images/events/VandalsInItaly.webp";
 import VercingetorixSurrenders from "../../assets/images/events/VercingetorixSurrenders.webp";
@@ -377,6 +382,11 @@ export const EventImage = {
       credit:
          "Druid cutting mistletoe on the sixth day of the moon (Druide coupant le gui au sixième jour de la lune), Henri-Paul Motte (1900)",
       keywords: ["Gaul", "Mistletoe", "Paganism", "Priest"],
+   },
+   EmperorAndSoldiers: {
+      url: EmperorAndSoldiers,
+      credit: "Roman Soldiers Before an Emperor, attributed to Giorgio Ghisi after Giulio Romano (before 1540)",
+      keywords: ["Army", "Emperor", "Address", "Soldiers"],
    },
    EmpireDesolation: {
       url: EmpireDesolation,
@@ -698,6 +708,11 @@ export const EventImage = {
       credit: "Romans Under the Yoke, Charles Gleyre (1858)",
       keywords: ["Rome", "Captives", "Submission", "Barbarians"],
    },
+   RomanAudience: {
+      url: RomanAudience,
+      credit: "An Audience at Agrippa's, Lawrence Alma-Tadema (1876)",
+      keywords: ["Agrippa", "Officials", "Petitioners", "Administration"],
+   },
    RomanExpedition: {
       url: RomanExpedition,
       credit: "Marcus Aurelius' expedition from Vindobona, Anton Hoffmann (1920)",
@@ -718,6 +733,11 @@ export const EventImage = {
       url: RomanForum3,
       credit: "Das Forum Romanum, J. Bühlmann (1901)",
       keywords: ["Rome", "Architecture", "Ruins", "City"],
+   },
+   RomanGalley: {
+      url: RomanGalley,
+      credit: "Roman Galley, anonymous after Polidoro da Caravaggio (16th century)",
+      keywords: ["Navy", "Oars", "Fleet", "Ship"],
    },
    RomanInvasion: {
       url: RomanInvasion,
@@ -748,6 +768,11 @@ export const EventImage = {
       url: RomanVilla,
       credit: "Villa Farnese, Abraham-Louis-Rodolphe Ducros (c.1780)",
       keywords: ["Architecture", "Estate", "Garden", "Italy"],
+   },
+   RomanWall: {
+      url: RomanWall,
+      credit: "The Romans Cause a Wall to Be Built for the Protection of the South, William Bell Scott (1857)",
+      keywords: ["Britain", "Soldiers", "Construction", "Frontier"],
    },
    RomulusAndRemus: {
       url: RomulusAndRemus,
@@ -873,6 +898,11 @@ export const EventImage = {
       url: ToledoBridge,
       credit: "Bridge near Toledo, Marius Bauer (1903)",
       keywords: ["Spain", "River", "Architecture", "Landscape"],
+   },
+   TroopDeparture: {
+      url: TroopDeparture,
+      credit: "Roman Soldiers Leaving Britain, Henry Marriott Paget (c.1909)",
+      keywords: ["Britain", "Romans", "Soldiers", "Ships"],
    },
    ValerianHumiliation: {
       url: ValerianHumiliation,

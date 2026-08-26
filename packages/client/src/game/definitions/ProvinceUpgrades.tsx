@@ -251,6 +251,18 @@ const _ProvinceUpgrades = {
       name: () => $t(L.GranaryOfTheEmpire),
       desc: () => $t(L.GranaryOfTheEmpireDesc$1$2, "+1%", "+50%"),
    },
+   MaritimeAmbition: {
+      name: () => $t(L.MaritimeAmbition),
+      desc: () => $t(L.MaritimeAmbitionDesc$1, "20%"),
+   },
+   NavalTradition: {
+      name: () => $t(L.NavalTradition),
+      desc: () => $t(L.$1WarPowerForEachCoreCoastalTileUpTo$2, "+0.5%", "+50%"),
+   },
+   CoastalMandate: {
+      name: () => $t(L.CoastalMandate),
+      desc: () => $t(L.Gain$1ConsulPointWhenCoringACoastalTile, "1"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;
