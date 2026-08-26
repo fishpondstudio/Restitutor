@@ -12,7 +12,8 @@
          "packages/**/*.tsx",
          "packages/**/*.css",
          "!packages/client/dist/**/*",
-         "!packages/electron/dist/**/*"
+         "!packages/electron/dist/**/*",
+         "!packages/electron/out/**/*"
       ]
    },
    "formatter": {
