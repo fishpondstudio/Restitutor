@@ -21,6 +21,7 @@ export interface IFamily {
    id: string;
    male: IPerson | null;
    female: IPerson | null;
+   marriageMonth?: number;
    children: IFamily[];
 }
 

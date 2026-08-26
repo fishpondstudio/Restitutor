@@ -1,10 +1,11 @@
-import { clamp, randInt } from "@project/shared/src/utils/Helper";
+import { clamp, formatNumber, randInt } from "@project/shared/src/utils/Helper";
 import { G } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
 import { hideModal } from "../../utils/ModalManager";
 import type { IFamily } from "../definitions/Family";
 import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
+import { isChristianReligion } from "../definitions/Religion";
 import type { SocialClass } from "../definitions/SocialClass";
 import type { SaveGame } from "../GameState";
 import { showSuccess } from "../logic/AlertLogic";
@@ -13,6 +14,7 @@ import { GovernorMaxExcl, GovernorMinIncl } from "../logic/ProvinceLogic";
 import { addSocialClassLoyalty } from "../logic/SocialClassLogic";
 import { requireHigherPrestige, requireMinimumAttitude } from "../logic/TreatyLogic";
 import { randomFemaleName } from "../RomanNames";
+import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type ICondition, type IGameAction } from "./GameAction";
 
 export function LookForLocalSpouseAction(
@@ -48,6 +50,7 @@ export function LookForLocalSpouseAction(
                province: province,
                flag: PersonFlags.None,
             });
+            family.marriageMonth = save.state.month;
          }
          const state = save.state.provinces[province];
          if (state) {
@@ -79,11 +82,13 @@ export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Pr
          if (ours.male && theirs.female) {
             ours.female = theirs.female;
             theirs.female = null;
+            ours.marriageMonth = save.state.month;
          }
          if (ours.female && theirs.male) {
             const daughter = ours.female;
             theirs.female = ours.female;
             ours.female = null;
+            theirs.marriageMonth = save.state.month;
             if (!headless) {
                showSuccess($t(L.OurDaughter$1HasJoinedHerHusbandsFamily, daughter.name.join(" ")));
             }
@@ -92,6 +97,37 @@ export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Pr
          if (!headless) {
             hideModal();
          }
+      },
+   };
+}
+
+export const DivorceChristianityCost = 10;
+export const DivorceMinimumMonths = 120;
+
+export function DivorceAction(province: Province, save: SaveGame): IGameAction {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return EmptyGameAction;
+   }
+   let marriageMonths = 0;
+   if (state.governor.marriageMonth !== undefined) {
+      marriageMonths = save.state.month - state.governor.marriageMonth;
+   }
+   return {
+      cost: {
+         mandate: 1,
+         christianity: isChristianReligion(state.religion) ? DivorceChristianityCost : 0,
+      },
+      condition: finalizeCondition([
+         {
+            name: $t(L.HaveBeenMarriedForAtLeast$1Months, formatNumber(DivorceMinimumMonths)),
+            value: marriageMonths >= DivorceMinimumMonths,
+            progress: [marriageMonths, DivorceMinimumMonths],
+         },
+      ]),
+      effect: ({ headless }) => {
+         state.governor.marriageMonth = undefined;
+         state.governor.female = null;
       },
    };
 }

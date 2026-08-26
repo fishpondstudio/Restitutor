@@ -3041,4 +3041,7 @@ export const ZH_CN = {
    TerrainNameMountain: "山地",
    TerrainNameArid: "旱地",
    Mandate: "授权令",
+   HaveBeenMarriedForAtLeast$1Months: "婚姻持续至少$1个月",
+   DivorceCostForChristianProvince$1$2: "若我们的行省信奉基督宗教，与配偶离婚将花费$1$2。",
+   Divorce: "离婚",
 };

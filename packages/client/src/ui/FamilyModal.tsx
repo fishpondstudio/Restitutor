@@ -1,3 +1,4 @@
+import { formatNumber } from "@project/shared/src/utils/Helper";
 import { Controls, ReactFlow, SmoothStepEdge } from "@xyflow/react";
 import { GameStateUpdated } from "../game/Events";
 import { makeFamilyTree } from "../game/logic/GovernorLogic";
@@ -7,7 +8,10 @@ import { ModalTitleBar } from "../utils/ModalManager";
 import "@xyflow/react/dist/style.css";
 import "./FamilyModal.css";
 import type React from "react";
+import { DivorceAction, DivorceChristianityCost } from "../game/actions/SpouseActions";
+import { ProvinceResourceNames } from "../game/definitions/Province";
 import { $t, L } from "../utils/i18n";
+import { ActionButton } from "./ActionButton";
 import { FamilyNode } from "./FamilyNode";
 import { ModalFullHeight } from "./UIConstant";
 
@@ -37,7 +41,31 @@ export function FamilyTreeModal(): React.ReactNode {
                fitView
                fitViewOptions={{ maxZoom: 1 }}
             >
-               <Controls showInteractive={false} showZoom={false} showFitView={true} fitViewOptions={{ maxZoom: 1 }} />
+               <Controls
+                  orientation="horizontal"
+                  position="top-left"
+                  showInteractive={false}
+                  showZoom={false}
+                  showFitView={true}
+               >
+                  <ActionButton
+                     action={DivorceAction(G.save.state.playerProvince, G.save)}
+                     tooltip={(element) => (
+                        <>
+                           <div className="m10">
+                              {$t(
+                                 L.DivorceCostForChristianProvince$1$2,
+                                 formatNumber(DivorceChristianityCost),
+                                 ProvinceResourceNames.christianity(),
+                              )}
+                           </div>
+                           {element}
+                        </>
+                     )}
+                  >
+                     {$t(L.Divorce)}
+                  </ActionButton>
+               </Controls>
             </ReactFlow>
          </div>
       </div>

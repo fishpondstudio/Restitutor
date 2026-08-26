@@ -3073,4 +3073,7 @@ export const EN = {
    TerrainNameMountain: "Mountain",
    TerrainNameArid: "Arid",
    Mandate: "Mandate",
+   HaveBeenMarriedForAtLeast$1Months: "Have been married for at least $1 months",
+   DivorceCostForChristianProvince$1$2: "Divorcing our spouse will cost $1 $2 if our province follows a Christian religion.",
+   Divorce: "Divorce",
 };

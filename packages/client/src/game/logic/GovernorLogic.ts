@@ -131,6 +131,7 @@ export function tickFamily(governor: IFamily, province: Province, save: SaveGame
             onGeneralEnded(province, save);
          }
          governor.male = null;
+         governor.marriageMonth = undefined;
       }
    }
    if (governor.female) {
@@ -139,6 +140,7 @@ export function tickFamily(governor: IFamily, province: Province, save: SaveGame
       const deathChance = getDeathChance(governor.female, province, save).value;
       if (Math.random() < deathChance / 100) {
          governor.female = null;
+         governor.marriageMonth = undefined;
       }
    }
 

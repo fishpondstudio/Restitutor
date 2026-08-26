@@ -3068,4 +3068,7 @@ export const RU = {
    TerrainNameMountain: "Гора",
    TerrainNameArid: "Засушливая местность",
    Mandate: "Мандат",
+   HaveBeenMarriedForAtLeast$1Months: "Состоять в браке не менее $1 месяцев",
+   DivorceCostForChristianProvince$1$2: "Если наша провинция исповедует христианскую религию, развод с супругом обойдётся в $1 ед. ресурса «$2».",
+   Divorce: "Развестись",
 };
