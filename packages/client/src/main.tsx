@@ -105,7 +105,7 @@ document.title = `Restitutor ${getVersion()} ${renderer}`;
 bootstrap();
 
 function getWebglRenderInfo(app: Application): string {
-   const gl = app.view.getContext("webgl2");
+   const gl = app.view.getContext("webgl2") ?? app.view.getContext("webgl");
    if (!gl) {
       return "";
    }
