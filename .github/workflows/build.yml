@@ -24,6 +24,7 @@ jobs:
           pnpm install
         working-directory: /home/insraq/Restitutor
       - run: |
+          . "$HOME/.cargo/env"
           npm run publish
         working-directory: /home/insraq/Restitutor/packages/electron
         env:

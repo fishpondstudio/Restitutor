@@ -14,7 +14,25 @@ cmd("pnpm run build", path.join(rootPath, "packages", "client"));
 cmd("npx wrangler pages deploy ./dist --project-name restitutor", path.join(rootPath, "packages", "client"));
 fs.removeSync("./node_modules");
 cmd("npm install", path.join(rootPath, "packages", "electron"));
-cmd("npm run package -- --platform=win32,linux", path.join(rootPath, "packages", "electron"));
+cmd("npm run package -- --platform=win32,linux,darwin", path.join(rootPath, "packages", "electron"));
+
+cmd(`rcodesign sign --p12-file local/app-sign.p12 --p12-password-file local/p12-password`
+   + ` --code-signature-flags runtime`
+   + ` --entitlements-xml-file local/entitlements.plist`
+   + ` --code-signature-flags "Contents/Frameworks/Restitutor Helper.app":runtime`
+   + ` --entitlements-xml-file "Contents/Frameworks/Restitutor Helper.app":local/entitlements.plist`
+   + ` --code-signature-flags "Contents/Frameworks/Restitutor Helper (Renderer).app":runtime`
+   + ` --entitlements-xml-file "Contents/Frameworks/Restitutor Helper (Renderer).app":local/entitlements.plist`
+   + ` --code-signature-flags "Contents/Frameworks/Restitutor Helper (GPU).app":runtime`
+   + ` --entitlements-xml-file "Contents/Frameworks/Restitutor Helper (GPU).app":local/entitlements.plist`
+   + ` --code-signature-flags "Contents/Frameworks/Restitutor Helper (Plugin).app":runtime`
+   + ` --entitlements-xml-file "Contents/Frameworks/Restitutor Helper (Plugin).app":local/entitlements.plist`
+   + ` --code-signature-flags "Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers/chrome_crashpad_handler":runtime`
+   + ` --entitlements-xml-file "Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers/chrome_crashpad_handler":local/entitlements.plist`
+   + ` --code-signature-flags "Contents/Frameworks/Squirrel.framework/Versions/A/Resources/ShipIt":runtime`
+   + ` --entitlements-xml-file "Contents/Frameworks/Squirrel.framework/Versions/A/Resources/ShipIt":local/entitlements.plist`
+   + ` ./out/Restitutor-darwin-x64/Restitutor.app`, path.join(rootPath, "packages", "electron"));
+cmd(`rcodesign notary-submit --api-key-file local/app-store.json --staple out/Restitutor-darwin-x64/Restitutor.app`, path.join(rootPath, "packages", "electron"));
 
 if (!process.env.STEAMWORKS_PATH) {
    console.error("STEAMWORKS_PATH is not defined");
@@ -39,9 +57,11 @@ const copyBuild = (folder) => {
 
 copyVdf("win32.vdf");
 copyVdf("linux.vdf");
+copyVdf("darwin.vdf");
 
 copyBuild("Restitutor-win32-x64");
 copyBuild("Restitutor-linux-x64");
+copyBuild("Restitutor-darwin-x64");
 
 cmd(
    `${path.join(process.env.STEAMWORKS_PATH, "builder_linux", "steamcmd.sh")} +runscript ../restitutor.txt`,
