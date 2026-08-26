@@ -3,6 +3,7 @@ import { type Client, init, shutdown } from "@fishpondstudio/steamworks.js";
 import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
 import { ensureDirSync, existsSync, renameSync } from "fs-extra";
 import { SaveKey } from "../../client/src/game/definitions/Constant";
+import { getInstallRoot } from "./InstallRoot";
 import { IPCService } from "./IPCService";
 
 export type SteamClient = Omit<Client, "init" | "runCallbacks">;
@@ -57,10 +58,15 @@ const createWindow = async () => {
       });
 
       if (app.isPackaged) {
-         mainWindow.loadFile(path.join(__dirname, "..", "dist", "index.html"));
+         const installRoot = getInstallRoot();
+         const gameIndex = path.join(installRoot, "game", "index.html");
+         if (!existsSync(gameIndex)) {
+            throw new Error(`Game content is missing: ${gameIndex}`);
+         }
+         await mainWindow.loadFile(gameIndex);
          mainWindow.webContents.openDevTools();
       } else {
-         mainWindow.loadURL("http://localhost:5173/");
+         await mainWindow.loadURL("http://localhost:5173/");
          mainWindow.webContents.openDevTools();
       }
 
@@ -89,12 +95,12 @@ const createWindow = async () => {
       });
 
       const service = new IPCService(steam);
-      ipcMain.handle("__RPCCall", (e, method: keyof IPCService, args) => {
+      ipcMain.handle("__RPCCall", (_e, method: keyof IPCService, args) => {
          // @ts-expect-error
          return service[method].apply(service, args);
       });
 
-      mainWindow.webContents.on("before-input-event", (e, input) => {
+      mainWindow.webContents.on("before-input-event", (_e, input) => {
          if (input.control && input.shift && input.key.toLocaleLowerCase() === "r") {
             dialog
                .showMessageBox({
