@@ -51,7 +51,7 @@ import { StraitOfGibraltarTiles, Tiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
-import { isLand } from "../Land";
+import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
 import { cacheProvince } from "./CacheLogic";
@@ -345,43 +345,6 @@ export function getProvincesInRange(range: number, province: Province, save: Sav
       }
    }
    return result;
-}
-
-export function canReachBySea(province1: Province, province2: Province, save: SaveGame): boolean {
-   const destinationTiles = new Set<Tile>();
-   const visited = new Set<Tile>();
-   const queue: Tile[] = [];
-
-   for (const [tile, data] of save.state.tiles) {
-      if (data.province === province2) {
-         destinationTiles.add(tile);
-      }
-      if (data.province === province1) {
-         for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
-            const neighborTile = pointToTile(neighbor);
-            if (!isLand(neighborTile) && !visited.has(neighborTile)) {
-               visited.add(neighborTile);
-               queue.push(neighborTile);
-            }
-         }
-      }
-   }
-
-   for (let index = 0; index < queue.length; index++) {
-      const current = queue[index];
-      for (const neighbor of MapGrid.getNeighbors(tileToPoint(current))) {
-         const neighborTile = pointToTile(neighbor);
-         if (destinationTiles.has(neighborTile)) {
-            return true;
-         }
-         if (!isLand(neighborTile) && !visited.has(neighborTile)) {
-            visited.add(neighborTile);
-            queue.push(neighborTile);
-         }
-      }
-   }
-
-   return false;
 }
 
 export function getProvincesByDistance(province: Province, save: SaveGame): Province[] {
@@ -1265,4 +1228,76 @@ export function changeProvinceCulture(culture: Culture, province: Province, save
       state.toleratedCultures.delete(culture);
    }
    state.culture = culture;
+}
+
+export function isLandlocked(province: Province, save: SaveGame): boolean {
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province === province && isCoastal(tile)) {
+         return false;
+      }
+   }
+   return true;
+}
+
+export function areProvincesConnectedBySea(province1: Province, province2: Province, save: SaveGame): boolean {
+   const seaComponents1 = new Set<number>();
+   const seaComponents2 = new Set<number>();
+
+   for (const [tile, data] of save.state.tiles) {
+      const isProvince1 = data.province === province1;
+      const isProvince2 = data.province === province2;
+      if (!isProvince1 && !isProvince2) {
+         continue;
+      }
+
+      for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
+         const component = getSeaComponent(pointToTile(neighbor));
+         if (component === 0) {
+            continue;
+         }
+
+         if (isProvince1) {
+            if (seaComponents2.has(component)) {
+               return true;
+            }
+            seaComponents1.add(component);
+         }
+         if (isProvince2) {
+            if (seaComponents1.has(component)) {
+               return true;
+            }
+            seaComponents2.add(component);
+         }
+      }
+   }
+
+   return false;
+}
+
+export function isTileConnectedBySea(tile: Tile, province: Province, save: SaveGame): boolean {
+   const destinationSeaComponents = new Set<number>();
+   for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
+      const component = getSeaComponent(pointToTile(neighbor));
+      if (component !== 0) {
+         destinationSeaComponents.add(component);
+      }
+   }
+
+   if (destinationSeaComponents.size === 0) {
+      return false;
+   }
+
+   for (const [provinceTile, data] of save.state.tiles) {
+      if (data.province !== province) {
+         continue;
+      }
+      for (const neighbor of MapGrid.getNeighbors(tileToPoint(provinceTile))) {
+         const component = getSeaComponent(pointToTile(neighbor));
+         if (destinationSeaComponents.has(component)) {
+            return true;
+         }
+      }
+   }
+
+   return false;
 }
