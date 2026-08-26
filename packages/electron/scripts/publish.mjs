@@ -11,12 +11,18 @@ fs.writeFileSync(versionFile, JSON.stringify(version));
 
 console.log(`🔔 Build Number: ${build}`);
 
+if (fullBuild) {
+   console.log("Running full build...");
+} else {
+   console.log("Running incremental build...");
+}
+
 cmd("pnpm run build", path.join(rootPath, "packages", "client"));
 cmd("npx wrangler pages deploy ./dist --project-name restitutor", path.join(rootPath, "packages", "client"));
-fs.removeSync("./node_modules");
-cmd("npm install", path.join(rootPath, "packages", "electron"));
 
 if (fullBuild) {
+   fs.removeSync("./node_modules");
+   cmd("npm install", path.join(rootPath, "packages", "electron"));
    cmd("npm run package -- --platform=win32,linux,darwin", path.join(rootPath, "packages", "electron"));
    cmd(`rcodesign sign --p12-file local/app-sign.p12 --p12-password-file local/p12-password`
       + ` --code-signature-flags runtime`
@@ -68,7 +74,6 @@ function replaceVersion(path) {
    const content = fs.readFileSync(path, { encoding: "utf8" });
    fs.writeFileSync(path, content.replace("@Version", build));
 }
-
 
 function copyVdf(filename) {
    fs.copyFileSync(
