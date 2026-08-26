@@ -84,7 +84,6 @@ function copyVdf(filename) {
 };
 
 function copyBuild(folder) {
-   cmd(`rcodesign notary-submit --api-key-file local/app-store.json --staple out/Restitutor-darwin-x64/Restitutor.app`, path.join(rootPath, "packages", "electron"));
    fs.removeSync(path.join(process.env.STEAMWORKS_PATH, folder));
    fs.copySync(
       path.join(rootPath, "packages", "electron", "out", folder),
