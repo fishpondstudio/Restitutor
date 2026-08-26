@@ -46,36 +46,6 @@ if (!process.env.STEAMWORKS_PATH) {
    process.exit(1);
 }
 
-const copyVdf = (filename) => {
-   fs.copyFileSync(
-      path.join(rootPath, "packages", "electron", "scripts", filename),
-      path.join(process.env.STEAMWORKS_PATH, "restitutor", filename),
-   );
-   replaceVersion(path.join(process.env.STEAMWORKS_PATH, "restitutor", filename));
-};
-
-const copyBuild = (folder) => {
-   cmd(`rcodesign notary-submit --api-key-file local/app-store.json --staple out/Restitutor-darwin-x64/Restitutor.app`, path.join(rootPath, "packages", "electron"));
-   fs.removeSync(path.join(process.env.STEAMWORKS_PATH, folder));
-   fs.copySync(
-      path.join(rootPath, "packages", "electron", "out", folder),
-      path.join(process.env.STEAMWORKS_PATH, folder),
-   );
-};
-
-const copyGameFiles = (folder) => {
-   const buildFolder = path.join(rootPath, "packages", "electron", "out", folder);
-   if (!fs.existsSync(buildFolder)) {
-      console.error(`Build folder ${buildFolder} does not exist`);
-      process.exit(1);
-   }
-   fs.removeSync(path.join(buildFolder, "game"));
-   fs.copySync(
-      path.join(rootPath, "packages", "client", "dist"),
-      path.join(buildFolder, "game"),
-   );
-};
-
 copyVdf("win32.vdf");
 copyVdf("linux.vdf");
 copyVdf("darwin.vdf");
@@ -98,3 +68,34 @@ function replaceVersion(path) {
    const content = fs.readFileSync(path, { encoding: "utf8" });
    fs.writeFileSync(path, content.replace("@Version", build));
 }
+
+
+function copyVdf(filename) {
+   fs.copyFileSync(
+      path.join(rootPath, "packages", "electron", "scripts", filename),
+      path.join(process.env.STEAMWORKS_PATH, "restitutor", filename),
+   );
+   replaceVersion(path.join(process.env.STEAMWORKS_PATH, "restitutor", filename));
+};
+
+function copyBuild(folder) {
+   cmd(`rcodesign notary-submit --api-key-file local/app-store.json --staple out/Restitutor-darwin-x64/Restitutor.app`, path.join(rootPath, "packages", "electron"));
+   fs.removeSync(path.join(process.env.STEAMWORKS_PATH, folder));
+   fs.copySync(
+      path.join(rootPath, "packages", "electron", "out", folder),
+      path.join(process.env.STEAMWORKS_PATH, folder),
+   );
+};
+
+function copyGameFiles(folder) {
+   const buildFolder = path.join(rootPath, "packages", "electron", "out", folder);
+   if (!fs.existsSync(buildFolder)) {
+      console.error(`Build folder ${buildFolder} does not exist`);
+      process.exit(1);
+   }
+   fs.removeSync(path.join(buildFolder, "game"));
+   fs.copySync(
+      path.join(rootPath, "packages", "client", "dist"),
+      path.join(buildFolder, "game"),
+   );
+};
