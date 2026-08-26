@@ -117,6 +117,7 @@ export function DivorceAction(province: Province, save: SaveGame): IGameAction {
       cost: {
          mandate: 1,
          christianity: isChristianReligion(state.religion) ? DivorceChristianityCost : 0,
+         gold: 1000,
       },
       condition: finalizeCondition([
          {
