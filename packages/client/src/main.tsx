@@ -100,7 +100,8 @@ if (isDev()) {
 G.pixi = app;
 G.params = new URLSearchParams(window.location.search);
 document.body.appendChild(app.view as HTMLCanvasElement);
-document.title = `Restitutor ${getVersion()}`;
+const renderer = getWebglRenderInfo(app);
+document.title = `Restitutor ${getVersion()} ${renderer}`;
 bootstrap();
 
 function getWebglRenderInfo(app: Application): string {
