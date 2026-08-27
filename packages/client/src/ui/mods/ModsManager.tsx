@@ -112,7 +112,9 @@ function ModItem({
          </div>
          <div className="f1" style={{ minWidth: 0 }}>
             <div className="text-roman text-ellipsis">{info?.title ?? `Loading ${mod.id}...`}</div>
-            <div className="text-ellipsis">{info?.description ?? `Loading ${mod.id}...`}</div>
+            <div className="text-ellipsis">
+               {info?.description ?? `Loading ${mod.id}...`} ({mod.kind === "Addon" ? "Addon" : "Total Conversion"})
+            </div>
          </div>
          <div className="mr10">
             <Switch
