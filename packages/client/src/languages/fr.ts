@@ -3201,4 +3201,13 @@ export const FR = {
    ProclaimTheHispanicConquest: "Proclaim the Hispanic conquest",
    $1WarPowerForEachCoreCoastalTileUpTo$2: "$1 War Power for each core coastal tile (up to $2)",
    DivorcingHasTheFollowingEffects: "Divorcing has the following effects",
+   RestitutorModsManager$1: "Restitutor Mods Manager $1",
+   ModsManager: "Mods Manager",
+   SteamWorkshop: "Steam Workshop",
+   LaunchGame: "Launch Game",
+   InstalledMods: "Installed Mods",
+   ModsManagerDescription: "There are two kinds of mods: <i>addon</i> and <i>total conversion</i>. Multiple addon mods can be loaded, but only one total conversion mod. Mods might not be compatible with each other. The game remembers the last loaded mods.",
+   Addon: "Addon",
+   TotalConversion: "Total Conversion",
+   Loading$1: "Loading $1...",
 };

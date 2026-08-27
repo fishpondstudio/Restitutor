@@ -3135,4 +3135,13 @@ export const ZH_CN = {
    ProclaimTheHispanicConquest: "宣告征服西班牙",
    $1WarPowerForEachCoreCoastalTileUpTo$2: "每个核心沿海地块使军力$1（最高$2）",
    DivorcingHasTheFollowingEffects: "离婚将产生以下效果",
+   RestitutorModsManager$1: "Restitutor 模组管理器 $1",
+   ModsManager: "模组管理器",
+   SteamWorkshop: "Steam 创意工坊",
+   LaunchGame: "启动游戏",
+   InstalledMods: "已安装的模组",
+   ModsManagerDescription: "模组分为两类：<i>附加模组</i>和<i>全转换模组</i>。可以同时加载多个附加模组，但只能加载一个全转换模组。模组之间可能互不兼容。游戏会记住上次加载的模组。",
+   Addon: "附加模组",
+   TotalConversion: "全转换模组",
+   Loading$1: "正在加载 $1...",
 };

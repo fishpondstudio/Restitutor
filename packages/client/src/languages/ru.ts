@@ -3162,4 +3162,13 @@ export const RU = {
    ProclaimTheHispanicConquest: "Провозгласить завоевание Испании",
    $1WarPowerForEachCoreCoastalTileUpTo$2: "$1 к военной мощи за каждое ядровое прибрежное владение (до $2)",
    DivorcingHasTheFollowingEffects: "При разводе применяются следующие эффекты",
+   RestitutorModsManager$1: "Restitutor — менеджер модов $1",
+   ModsManager: "Менеджер модов",
+   SteamWorkshop: "Мастерская Steam",
+   LaunchGame: "Запустить игру",
+   InstalledMods: "Установленные моды",
+   ModsManagerDescription: "Существует два вида модов: <i>дополнения</i> и <i>глобальные модификации</i>. Можно загрузить несколько дополнений, но только одну глобальную модификацию. Моды могут быть несовместимы друг с другом. Игра запоминает последний набор загруженных модов.",
+   Addon: "Дополнение",
+   TotalConversion: "Глобальная модификация",
+   Loading$1: "Загрузка $1...",
 };

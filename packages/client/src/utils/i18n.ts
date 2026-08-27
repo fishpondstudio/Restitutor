@@ -1,6 +1,6 @@
 import { EN } from "../languages/en";
 
-export function $t(str: string, ...subs: (string | number)[]): string {
+export function $t(str: string, ...subs: (string | number | bigint)[]): string {
    const translation = str;
    if (translation) {
       return interpolate(translation, subs);
@@ -8,7 +8,7 @@ export function $t(str: string, ...subs: (string | number)[]): string {
    return `⚠️${str}`;
 }
 
-function interpolate(phase: string, subs: (string | number)[]): string {
+function interpolate(phase: string, subs: (string | number | bigint)[]): string {
    if (!phase.includes("$")) return phase;
 
    let out = "";
