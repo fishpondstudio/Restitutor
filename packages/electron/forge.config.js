@@ -34,7 +34,9 @@ module.exports = {
             throw new Error(`Client build is missing: ${clientDist}`);
          }
          for (const outputPath of outputPaths) {
-            fs.copySync(clientDist, path.join(outputPath, "game"), { overwrite: true });
+            const targetPath = path.join(outputPath, "game");
+            console.log(`Copying from ${clientDist} to ${targetPath}`);
+            fs.copySync(clientDist, targetPath, { overwrite: true });
          }
       },
    },
