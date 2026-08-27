@@ -107,6 +107,8 @@ const createWindow = async () => {
             .then((result) => {
                if (result.response === 0) {
                   mainWindow.webContents.send("close");
+                  // We give the client 5s to handle the event, otherwise we quit anyway in case the client malfunctions.
+                  setTimeout(service.quit, 5000);
                }
             });
       });
