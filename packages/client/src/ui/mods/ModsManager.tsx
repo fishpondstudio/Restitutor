@@ -86,6 +86,11 @@ export function ModsManager(): React.ReactNode {
                />
             );
          })}
+         <div className="m10 text-dimmed">
+            There are two kinds of mods: <i>addon</i> and <i>total conversion</i>. You can load multiple addon mods but
+            only one total conversion mod. Mods might not be compatible with each other. The game remembers your last
+            loaded mods.
+         </div>
       </ModalComp>
    );
 }
@@ -113,7 +118,7 @@ function ModItem({
          <div className="f1" style={{ minWidth: 0 }}>
             <div className="text-roman text-ellipsis">{info?.title ?? `Loading ${mod.id}...`}</div>
             <div className="text-ellipsis">
-               {info?.description ?? `Loading ${mod.id}...`} ({mod.kind === "Addon" ? "Addon" : "Total Conversion"})
+               ({mod.kind === "Addon" ? "Addon" : "Total Conversion"}) {info?.description ?? `Loading ${mod.id}...`}
             </div>
          </div>
          <div className="mr10">
