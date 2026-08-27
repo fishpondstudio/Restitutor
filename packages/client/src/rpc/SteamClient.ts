@@ -21,12 +21,16 @@ export const SteamClient = rpcClient<IPCService>({
 window.addEventListener("DOMContentLoaded", () => {
    if (typeof IPCBridge !== "undefined") {
       IPCBridge.onClose(() => {
-         saveGame(G.save)
-            .then(() => SteamClient.quit())
-            .catch((e) => {
-               playError();
-               showError(String(e));
-            });
+         if (G.save) {
+            saveGame(G.save)
+               .then(() => SteamClient.quit())
+               .catch((e) => {
+                  playError();
+                  showError(String(e));
+               });
+         } else {
+            SteamClient.quit();
+         }
       });
    }
 });

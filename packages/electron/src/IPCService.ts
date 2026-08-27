@@ -1,14 +1,20 @@
+import console from "node:console";
 import path from "node:path";
-import { app, shell } from "electron";
+import type { workshop } from "@fishpondstudio/steamworks.js/client";
+import { app, type BrowserWindow, shell } from "electron";
 import { exists, outputFile, readFile, unlink } from "fs-extra";
 import { compressToUint8Array, decompressFromUint8Array } from "lz-string";
+import { type IModConfigFile, type IModInfo, ModConfigFile } from "../../client/src/ui/mods/ModConfigFile";
+import { jsonDecode } from "../../shared/src/utils/Serialization";
 import { getGameSavePath, getLocalGameSavePath, type SteamClient } from ".";
 
 export class IPCService {
    private _client: SteamClient;
+   private _mainWindow: BrowserWindow;
 
-   constructor(steam: SteamClient) {
+   constructor(steam: SteamClient, mainWindow: BrowserWindow) {
       this._client = steam;
+      this._mainWindow = mainWindow;
    }
 
    public async fileWrite(name: string, content: string): Promise<void> {
@@ -75,6 +81,73 @@ export class IPCService {
 
    public unlockAchievement(key: string): boolean {
       return this._client.achievement.activate(key);
+   }
+
+   public async getInstalledMods(): Promise<IModInfo[]> {
+      const ids = this._client.workshop.getSubscribedItems();
+      const result: IModInfo[] = [];
+      for (const id of ids) {
+         const info = this._client.workshop.installInfo(id);
+         if (info) {
+            if (await exists(path.join(info.folder, "index.html"))) {
+               result.push({ id, kind: "TotalConversion" });
+            } else if (await exists(path.join(info.folder, "index.js"))) {
+               result.push({ id, kind: "Addon" });
+            }
+         }
+      }
+      return result;
+   }
+
+   public async getModInfo(id: bigint): Promise<workshop.WorkshopItem | null> {
+      return this._client.workshop.getItem(id);
+   }
+
+   public async launchGame(): Promise<void> {
+      try {
+         const config = await this.fileRead(ModConfigFile);
+         if (config) {
+            const modConfigFile = jsonDecode<IModConfigFile>(config);
+            if (modConfigFile.totalConversion) {
+               const info = this._client.workshop.installInfo(modConfigFile.totalConversion);
+               if (info) {
+                  const file = path.join(info.folder, "index.html");
+                  if (await exists(file)) {
+                     this._mainWindow.loadFile(file);
+                     return;
+                  }
+               }
+            }
+         }
+         const url = new URL(this._mainWindow.webContents.getURL());
+         url.searchParams.delete("mod");
+         this._mainWindow.loadURL(url.toString());
+      } catch (error) {
+         console.error(error);
+      }
+   }
+
+   public async loadAddonMods(): Promise<string[]> {
+      const result: string[] = [];
+      try {
+         const config = await this.fileRead(ModConfigFile);
+         if (config) {
+            const modConfigFile = jsonDecode<IModConfigFile>(config);
+            for (const mod of modConfigFile.addons) {
+               const info = this._client.workshop.installInfo(mod);
+               if (info) {
+                  const file = path.join(info.folder, "index.js");
+                  if (await exists(file)) {
+                     const content = await readFile(file, "utf8");
+                     result.push(content);
+                  }
+               }
+            }
+         }
+      } catch (error) {
+         console.error(error);
+      }
+      return result;
    }
 
    public quit(): void {

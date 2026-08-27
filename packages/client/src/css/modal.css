@@ -11,6 +11,9 @@
 
    .modal-content {
       flex: 1;
+      .mantine-ScrollArea-content {
+         min-width: 0;
+      }
    }
 
    .modal-transparent-header {

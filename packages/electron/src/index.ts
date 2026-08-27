@@ -1,5 +1,6 @@
 import path from "node:path";
 import { type Client, init, shutdown } from "@fishpondstudio/steamworks.js";
+import type { workshop } from "@fishpondstudio/steamworks.js/client";
 import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
 import { ensureDirSync, existsSync, renameSync } from "fs-extra";
 import { SaveKey } from "../../client/src/game/definitions/Constant";
@@ -37,13 +38,23 @@ const createWindow = async () => {
    try {
       const steam = init();
 
-      // if (app.isPackaged && steam.apps.currentBetaName() !== "beta") {
-      //    dialog.showErrorBox(
-      //       "Switch To Beta Branch",
-      //       "Play testing requires switching to the beta branch on Steam first",
-      //    );
-      //    quit();
-      // }
+      const ids = steam.workshop.getSubscribedItems();
+      const installed: (workshop.InstallInfo & { id: bigint })[] = [];
+      for (const id of ids) {
+         const info = steam.workshop.installInfo(id);
+         if (info) {
+            installed.push({ ...info, id });
+         } else {
+            steam.workshop.download(id, true);
+         }
+      }
+
+      const params = new URLSearchParams();
+
+      if (installed.length > 0) {
+         console.log(`Installed mods: ${installed.map(({ id }) => id.toString()).join(",")}`);
+         params.set("mod", "");
+      }
 
       const mainWindow = new BrowserWindow({
          webPreferences: {
@@ -57,22 +68,22 @@ const createWindow = async () => {
          backgroundColor: "#000000",
       });
 
+      mainWindow.removeMenu();
+      mainWindow.maximize();
+      mainWindow.show();
+
       if (app.isPackaged) {
          const installRoot = getInstallRoot();
          const gameIndex = path.join(installRoot, "game", "index.html");
          if (!existsSync(gameIndex)) {
             throw new Error(`Game content is missing: ${gameIndex}`);
          }
-         await mainWindow.loadFile(gameIndex);
+         await mainWindow.loadFile(gameIndex, { search: params.toString() });
          mainWindow.webContents.openDevTools();
       } else {
-         await mainWindow.loadURL("http://localhost:5173/");
+         await mainWindow.loadURL(`http://localhost:5173/?${params.toString()}`);
          mainWindow.webContents.openDevTools();
       }
-
-      mainWindow.removeMenu();
-      mainWindow.maximize();
-      mainWindow.show();
 
       if (steam.utils.isSteamRunningOnSteamDeck()) {
          mainWindow.setFullScreen(true);
@@ -94,7 +105,7 @@ const createWindow = async () => {
             });
       });
 
-      const service = new IPCService(steam);
+      const service = new IPCService(steam, mainWindow);
       ipcMain.handle("__RPCCall", (_e, method: keyof IPCService, args) => {
          // @ts-expect-error
          return service[method].apply(service, args);

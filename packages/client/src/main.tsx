@@ -8,13 +8,15 @@ import { Application } from "pixi.js";
 import { createRoot } from "react-dom/client";
 import { bootstrap } from "./Bootstrap";
 import "./css/main.css";
-import { Fonts } from "./Fonts";
+import { FontFaces, Fonts } from "./Fonts";
 import { getVersion } from "./game/Version";
+import { isSteam } from "./rpc/SteamClient";
 import { ASCIIMapPanel } from "./ui/ASCIIMapPanel";
 import { BottomPanel } from "./ui/BottomPanel";
 import { Popover } from "./ui/common/Popover";
 import { Sidebar } from "./ui/common/SidebarManager";
 import { LoadingComp } from "./ui/components/LoadingComp";
+import { ModsManager } from "./ui/mods/ModsManager";
 import { TopPanel } from "./ui/TopPanel";
 import { TutorialPanel } from "./ui/TutorialPanel";
 import { G, isDev } from "./utils/Global";
@@ -67,42 +69,55 @@ if (isDev()) {
    document.body.classList.add("dev");
 }
 
-const root = document.getElementById("root")!;
-createRoot(root).render(
-   <MantineProvider defaultColorScheme="dark" theme={theme}>
-      <Notifications />
-      <Sidebar />
-      <TopPanel />
-      <BottomPanel />
-      <TutorialPanel />
-      <ASCIIMapPanel />
-      <Popover />
-      <ModalManager />
-      <LoadingComp />
-   </MantineProvider>,
-);
-
-const app = new Application({
-   resizeTo: document.body,
-   autoDensity: true,
-   resolution: window.devicePixelRatio,
-   sharedTicker: true,
-   background: 0x000000,
-   backgroundAlpha: 1,
+FontFaces.forEach((f) => {
+   document.fonts.add(f);
 });
 
-app.ticker.maxFPS = 60;
-
-if (isDev()) {
-   initDevtools({ app });
-}
-
-G.pixi = app;
 G.params = new URLSearchParams(window.location.search);
-document.body.appendChild(app.view as HTMLCanvasElement);
-const renderer = getWebglRenderInfo(app);
-document.title = `Restitutor ${getVersion()} ${renderer}`;
-bootstrap();
+const root = document.getElementById("root")!;
+
+if (isSteam() && G.params.has("mod")) {
+   createRoot(root).render(
+      <MantineProvider defaultColorScheme="dark" theme={theme}>
+         <ModsManager />
+      </MantineProvider>,
+   );
+} else {
+   createRoot(root).render(
+      <MantineProvider defaultColorScheme="dark" theme={theme}>
+         <Notifications />
+         <Sidebar />
+         <TopPanel />
+         <BottomPanel />
+         <TutorialPanel />
+         <ASCIIMapPanel />
+         <Popover />
+         <ModalManager />
+         <LoadingComp />
+      </MantineProvider>,
+   );
+
+   const app = new Application({
+      resizeTo: document.body,
+      autoDensity: true,
+      resolution: window.devicePixelRatio,
+      sharedTicker: true,
+      background: 0x000000,
+      backgroundAlpha: 1,
+   });
+
+   app.ticker.maxFPS = 60;
+
+   if (isDev()) {
+      initDevtools({ app });
+   }
+
+   G.pixi = app;
+   document.body.appendChild(app.view as HTMLCanvasElement);
+   const renderer = getWebglRenderInfo(app);
+   document.title = `Restitutor ${getVersion()} ${renderer}`;
+   bootstrap();
+}
 
 function getWebglRenderInfo(app: Application): string {
    const gl = app.view.getContext("webgl2") ?? app.view.getContext("webgl");

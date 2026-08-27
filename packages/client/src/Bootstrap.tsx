@@ -12,7 +12,7 @@ import { showBootstrapModal } from "./game/ShowBootstrapModal";
 import { getVersion } from "./game/Version";
 import { loadGameScene } from "./LoadGameScene";
 import { migrateSave } from "./MigrateSave";
-import { isSteam } from "./rpc/SteamClient";
+import { isSteam, SteamClient } from "./rpc/SteamClient";
 import { showPanel } from "./ui/common/ShowPanel";
 import { hideLoading } from "./ui/components/LoadingComp";
 import { initHighlighter } from "./ui/Highlighter";
@@ -24,9 +24,6 @@ import { SceneManager } from "./utils/SceneManager";
 export async function bootstrap(): Promise<void> {
    initErrorTracking();
    console.time("Load Assets");
-   FontFaces.forEach((f) => {
-      document.fonts.add(f);
-   });
    await Promise.all([Assets.init({ manifest: "./manifest.json" }), ...FontFaces.map((f) => f.load())]);
    console.timeEnd("Load Assets");
    console.time("Load Font");
@@ -111,18 +108,12 @@ export async function bootstrap(): Promise<void> {
    setLanguage(G.save.options.language);
    loadSounds();
    addDebugFunctions();
-   // connectWebSocket();
-   // try {
-   //    await Promise.race([OnConnectionChanged.toPromise((connected) => connected), rejectIn(10)]);
-   // } catch (error) {
-   //    console.error(error);
-   //    showError(String(error));
-   // }
    loadGameScene();
    startGameLoop();
    showBootstrapModal(G.save, isNewPlayer);
    hideLoading();
    initHighlighter();
+   loadAddonMods();
    setInterval(() => saveGame(G.save), isSteam() ? 60_000 : 10_000);
 }
 
@@ -135,4 +126,15 @@ function initErrorTracking(): void {
       sendDefaultPii: true,
       release: getVersion(),
    });
+}
+
+async function loadAddonMods(): Promise<void> {
+   if (isSteam()) {
+      const mods = await SteamClient.loadAddonMods();
+      for (const mod of mods) {
+         const script = document.createElement("script");
+         script.textContent = mod;
+         document.body.appendChild(script);
+      }
+   }
 }
