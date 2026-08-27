@@ -8,7 +8,7 @@ import {
    UserFlags,
 } from "@project/shared/src/rpc/ServerMessageTypes";
 import { hasFlag } from "@project/shared/src/utils/Helper";
-import { msgpackDecode } from "@project/shared/src/utils/Serialization";
+import { jsonDecode } from "@project/shared/src/utils/Serialization";
 import { OnChatMessage, OnConnectionChanged, UserUpdated } from "../game/Events";
 import { G } from "../utils/Global";
 import { makeObservableHook } from "../utils/Hook";
@@ -42,7 +42,7 @@ export function isAdmin(): boolean {
 export const useConnected = makeObservableHook<boolean, void>(OnConnectionChanged, isConnected);
 
 export function handleMessage(e: MessageEvent<any>) {
-   const message = msgpackDecode<AllMessageTypes>(e.data);
+   const message = jsonDecode<AllMessageTypes>(e.data);
    const type = message.type as MessageType;
    switch (type) {
       case MessageType.RPC: {

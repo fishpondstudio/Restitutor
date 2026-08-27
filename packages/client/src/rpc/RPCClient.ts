@@ -1,7 +1,7 @@
 import { ServerWSErrorCode } from "@project/shared/src/rpc/ServerWSErrorCode";
 import { removeTrailingUndefs, rpcClient } from "@project/shared/src/thirdparty/TRPCClient";
 import { SECOND } from "@project/shared/src/utils/Helper";
-import { msgpackEncode } from "@project/shared/src/utils/Serialization";
+import { jsonEncode } from "@project/shared/src/utils/Serialization";
 import { getBuildNumber, getVersion } from "../game/Version";
 import { G } from "../utils/Global";
 import { handleMessage, onDisconnected } from "./HandleMessage";
@@ -27,7 +27,7 @@ export const RPCClient = rpcClient<IServer>({
             method,
             params: removeTrailingUndefs(params),
          };
-         ws.send(msgpackEncode(request) as Uint8Array<ArrayBuffer>);
+         ws.send(jsonEncode(request));
          rpcRequests[id] = { resolve, reject, time: Date.now() };
       });
    },

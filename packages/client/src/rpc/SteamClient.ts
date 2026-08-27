@@ -1,5 +1,5 @@
-import type { IPCService } from "@project/electron/src/IPCService";
 import { rpcClient } from "@project/shared/src/thirdparty/TRPCClient";
+import type { IPCService } from "../../../electron/src/IPCService";
 import { saveGame } from "../game/LoadSave";
 import { showError } from "../game/logic/AlertLogic";
 import { playError } from "../ui/Sound";
