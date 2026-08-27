@@ -34,10 +34,7 @@ module.exports = {
             throw new Error(`Client build is missing: ${clientDist}`);
          }
          for (const outputPath of outputPaths) {
-            // Electron Packager returns the .app itself on macOS and the install
-            // directory on Windows/Linux.
-            const installRoot = platform === "darwin" ? path.dirname(outputPath) : outputPath;
-            fs.copySync(clientDist, path.join(installRoot, "game"), { overwrite: true });
+            fs.copySync(clientDist, path.join(outputPath, "game"), { overwrite: true });
          }
       },
    },
