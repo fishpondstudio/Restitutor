@@ -20,7 +20,6 @@
    },
    "license": "MIT",
    "dependencies": {
-      "@electron/universal": "^3.0.6",
       "@fishpondstudio/steamworks.js": "^0.3.8",
       "fs-extra": "^11.3.0",
       "lz-string": "^1.5.0",

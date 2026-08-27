@@ -1,5 +1,4 @@
 import { execSync } from "node:child_process";
-import { makeUniversalApp } from '@electron/universal';
 import path from "node:path";
 import fs from "fs-extra";
 
@@ -25,11 +24,6 @@ if (fullBuild) {
    fs.removeSync("./node_modules");
    cmd("npm install", path.join(rootPath, "packages", "electron"));
    cmd("npm run package -- --platform=win32,linux,darwin", path.join(rootPath, "packages", "electron"));
-   await makeUniversalApp({
-      x64AppPath: path.join(rootPath, "packages", "electron", "out", "Restitutor-darwin-x64", "Restitutor.app"),
-      arm64AppPath: path.join(rootPath, "packages", "electron", "out", "Restitutor-darwin-arm64", "Restitutor.app"),
-      outAppPath: path.join(rootPath, "packages", "electron", "out", "Restitutor-darwin-universal", "Restitutor.app"),
-   });
    cmd(`rcodesign sign --p12-file local/app-sign.p12 --p12-password-file local/p12-password`
       + ` --code-signature-flags runtime`
       + ` --entitlements-xml-file local/entitlements.plist`
