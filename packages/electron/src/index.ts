@@ -68,6 +68,12 @@ const createWindow = async () => {
          backgroundColor: "#000000",
       });
 
+      const service = new IPCService(steam, mainWindow);
+      ipcMain.handle("__RPCCall", (_e, method: keyof IPCService, args) => {
+         // @ts-expect-error
+         return service[method].apply(service, args);
+      });
+
       mainWindow.removeMenu();
       mainWindow.maximize();
       mainWindow.show();
@@ -103,12 +109,6 @@ const createWindow = async () => {
                   mainWindow.webContents.send("close");
                }
             });
-      });
-
-      const service = new IPCService(steam, mainWindow);
-      ipcMain.handle("__RPCCall", (_e, method: keyof IPCService, args) => {
-         // @ts-expect-error
-         return service[method].apply(service, args);
       });
 
       mainWindow.webContents.on("before-input-event", (_e, input) => {
