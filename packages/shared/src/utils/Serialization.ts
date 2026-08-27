@@ -1,68 +1,68 @@
-import { DecodeError, decode, ExtensionCodec, encode } from "@msgpack/msgpack";
+// import { DecodeError, decode, ExtensionCodec, encode } from "@msgpack/msgpack";
 
-const extensionCodec = new ExtensionCodec();
+// const extensionCodec = new ExtensionCodec();
 
-// Set<T>
-const SET_EXT_TYPE = 0; // Any in 0-127
-extensionCodec.register({
-   type: SET_EXT_TYPE,
-   encode: (object: unknown): Uint8Array | null => {
-      if (object instanceof Set) {
-         return encode([...object], { extensionCodec });
-      }
-      return null;
-   },
-   decode: (data: Uint8Array) => {
-      const array = decode(data, { extensionCodec }) as Array<unknown>;
-      return new Set(array);
-   },
-});
+// // Set<T>
+// const SET_EXT_TYPE = 0; // Any in 0-127
+// extensionCodec.register({
+//    type: SET_EXT_TYPE,
+//    encode: (object: unknown): Uint8Array | null => {
+//       if (object instanceof Set) {
+//          return encode([...object], { extensionCodec });
+//       }
+//       return null;
+//    },
+//    decode: (data: Uint8Array) => {
+//       const array = decode(data, { extensionCodec }) as Array<unknown>;
+//       return new Set(array);
+//    },
+// });
 
-// Map<K, V>
-const MAP_EXT_TYPE = 1; // Any in 0-127
-extensionCodec.register({
-   type: MAP_EXT_TYPE,
-   encode: (object: unknown): Uint8Array | null => {
-      if (object instanceof Map) {
-         return encode([...object], { extensionCodec });
-      }
-      return null;
-   },
-   decode: (data: Uint8Array) => {
-      const array = decode(data, { extensionCodec }) as Array<[unknown, unknown]>;
-      return new Map(array);
-   },
-});
+// // Map<K, V>
+// const MAP_EXT_TYPE = 1; // Any in 0-127
+// extensionCodec.register({
+//    type: MAP_EXT_TYPE,
+//    encode: (object: unknown): Uint8Array | null => {
+//       if (object instanceof Map) {
+//          return encode([...object], { extensionCodec });
+//       }
+//       return null;
+//    },
+//    decode: (data: Uint8Array) => {
+//       const array = decode(data, { extensionCodec }) as Array<[unknown, unknown]>;
+//       return new Map(array);
+//    },
+// });
 
-// to define a custom codec:
-const BIGINT_EXT_TYPE = 2; // Any in 0-127
-extensionCodec.register({
-   type: BIGINT_EXT_TYPE,
-   encode(input: unknown): Uint8Array | null {
-      if (typeof input === "bigint") {
-         if (input <= Number.MAX_SAFE_INTEGER && input >= Number.MIN_SAFE_INTEGER) {
-            return encode(Number(input));
-         }
-         return encode(String(input));
-      }
-      return null;
-   },
-   decode(data: Uint8Array): bigint {
-      const val = decode(data);
-      if (!(typeof val === "string" || typeof val === "number")) {
-         throw new DecodeError(`unexpected BigInt source: ${val} (${typeof val})`);
-      }
-      return BigInt(val);
-   },
-});
+// // to define a custom codec:
+// const BIGINT_EXT_TYPE = 2; // Any in 0-127
+// extensionCodec.register({
+//    type: BIGINT_EXT_TYPE,
+//    encode(input: unknown): Uint8Array | null {
+//       if (typeof input === "bigint") {
+//          if (input <= Number.MAX_SAFE_INTEGER && input >= Number.MIN_SAFE_INTEGER) {
+//             return encode(Number(input));
+//          }
+//          return encode(String(input));
+//       }
+//       return null;
+//    },
+//    decode(data: Uint8Array): bigint {
+//       const val = decode(data);
+//       if (!(typeof val === "string" || typeof val === "number")) {
+//          throw new DecodeError(`unexpected BigInt source: ${val} (${typeof val})`);
+//       }
+//       return BigInt(val);
+//    },
+// });
 
-export function msgpackEncode(obj: unknown): Uint8Array {
-   return encode(obj, { extensionCodec });
-}
+// export function msgpackEncode(obj: unknown): Uint8Array {
+//    return encode(obj, { extensionCodec });
+// }
 
-export function msgpackDecode<T>(data: Uint8Array): T {
-   return decode(data, { extensionCodec }) as T;
-}
+// export function msgpackDecode<T>(data: Uint8Array): T {
+//    return decode(data, { extensionCodec }) as T;
+// }
 
 export function jsonEncode(obj: unknown): string {
    return JSON.stringify(obj, replacer);

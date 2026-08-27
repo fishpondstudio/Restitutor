@@ -22,7 +22,6 @@
       "@pixi/devtools": "^2.0.1",
       "@pixi/graphics-smooth": "^1.1.1",
       "@pixi/sound": "^5.2.3",
-      "@project/electron": "workspace:*",
       "@project/shared": "workspace:*",
       "@sentry/browser": "^9.27.0",
       "@xyflow/react": "^12.10.1",
