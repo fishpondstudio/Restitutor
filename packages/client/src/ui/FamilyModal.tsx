@@ -8,8 +8,9 @@ import { ModalTitleBar } from "../utils/ModalManager";
 import "@xyflow/react/dist/style.css";
 import "./FamilyModal.css";
 import type React from "react";
-import { DivorceAction, DivorceChristianityCost } from "../game/actions/SpouseActions";
+import { DivorceAction, DivorceChristianityCost, DivorceGameEffect } from "../game/actions/SpouseActions";
 import { ProvinceResourceNames } from "../game/definitions/Province";
+import { getGameEffectDesc } from "../game/GameEffect";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { FamilyNode } from "./FamilyNode";
@@ -52,7 +53,11 @@ export function FamilyTreeModal(): React.ReactNode {
                      action={DivorceAction(G.save.state.playerProvince, G.save)}
                      tooltip={(element) => (
                         <>
+                           <div className="h3">{$t(L.DivorcingHasTheFollowingEffects)}</div>
                            <div className="m10">
+                              {getGameEffectDesc(DivorceGameEffect, G.save.state.playerProvince, G.save)}
+                           </div>
+                           <div className="m10 text-dimmed">
                               {$t(
                                  L.DivorceCostForChristianProvince$1$2,
                                  formatNumber(DivorceChristianityCost),

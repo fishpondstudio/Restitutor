@@ -7,6 +7,7 @@ import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
 import { isChristianReligion } from "../definitions/Religion";
 import type { SocialClass } from "../definitions/SocialClass";
+import { applyGameEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { showSuccess } from "../logic/AlertLogic";
 import { ensureTraits, removeEmptyFamily } from "../logic/GovernorLogic";
@@ -104,6 +105,13 @@ export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Pr
 export const DivorceChristianityCost = 10;
 export const DivorceMinimumMonths = 120;
 
+export const DivorceGameEffect: IGameEffect = {
+   modifiers: {
+      Stability: { type: "add", value: -10, duration: DivorceMinimumMonths / 2 },
+      Prestige: { type: "multiply", value: -0.1, duration: DivorceMinimumMonths / 2 },
+   },
+};
+
 export function DivorceAction(province: Province, save: SaveGame): IGameAction {
    const state = save.state.provinces[province];
    if (!state) {
@@ -115,7 +123,6 @@ export function DivorceAction(province: Province, save: SaveGame): IGameAction {
    }
    return {
       cost: {
-         mandate: 1,
          christianity: isChristianReligion(state.religion) ? DivorceChristianityCost : 0,
          gold: 1000,
       },
@@ -129,6 +136,7 @@ export function DivorceAction(province: Province, save: SaveGame): IGameAction {
       effect: ({ headless }) => {
          state.governor.marriageMonth = undefined;
          state.governor.female = null;
+         applyGameEffect(DivorceGameEffect, $t(L.Divorce), province, save);
       },
    };
 }

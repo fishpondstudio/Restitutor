@@ -3134,4 +3134,5 @@ export const ZH_CN = {
    ConsultTheHispanicMagistrates: "咨询西班牙地方官",
    ProclaimTheHispanicConquest: "宣告征服西班牙",
    $1WarPowerForEachCoreCoastalTileUpTo$2: "每个核心沿海地块使军力$1（最高$2）",
+   DivorcingHasTheFollowingEffects: "离婚将产生以下效果",
 };

@@ -3161,4 +3161,5 @@ export const RU = {
    ConsultTheHispanicMagistrates: "Посоветоваться с испанскими магистратами",
    ProclaimTheHispanicConquest: "Провозгласить завоевание Испании",
    $1WarPowerForEachCoreCoastalTileUpTo$2: "$1 к военной мощи за каждое ядровое прибрежное владение (до $2)",
+   DivorcingHasTheFollowingEffects: "При разводе применяются следующие эффекты",
 };
