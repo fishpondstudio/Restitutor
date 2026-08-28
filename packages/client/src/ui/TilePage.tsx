@@ -228,15 +228,15 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
          <div className="h1 my10">{$t(L.Upgrades)}</div>
          <div className="row mx10">
             <UpgradeInfrastructureButton tile={tile} className="f1 btn py5">
-               <div className="text-xl">{tileData.infrastructure}</div>
+               <div className="text-roman">{tileData.infrastructure}</div>
                <div className="text-sm text-display">{$t(L.Infrastructure)}</div>
             </UpgradeInfrastructureButton>
             <UpgradeProductionButton tile={tile} className="f1 btn py5">
-               <div className="text-xl">{tileData.production}</div>
+               <div className="text-roman">{tileData.production}</div>
                <div className="text-sm text-display">{$t(L.Production)}</div>
             </UpgradeProductionButton>
             <UpgradePopulationButton tile={tile} className="f1 btn py5">
-               <div className="text-xl">{tileData.population}</div>
+               <div className="text-roman">{tileData.population}</div>
                <div className="text-sm text-display">{$t(L.Population)}</div>
             </UpgradePopulationButton>
          </div>

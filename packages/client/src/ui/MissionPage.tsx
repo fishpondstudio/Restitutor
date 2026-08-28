@@ -77,7 +77,7 @@ function MissionEvent({ event }: { event: GameEvent }): React.ReactNode {
    }, []);
 
    return (
-      <div className="box m10 text-sm">
+      <div className="box m10 text-sm" id={`MissionPage_${event}`}>
          <FloatingTip label={config.desc()}>
             <div className="h1 row">
                {config.type === "random" ? "*" : ""}

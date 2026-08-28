@@ -8,8 +8,10 @@ import { SocialClass } from "./definitions/SocialClass";
 import { Tech } from "./definitions/Tech";
 import { Tiles } from "./definitions/TileConstants";
 import { getTileName } from "./definitions/TileName";
+import { LugdunensisEvent } from "./events/LugdunensisEvent";
 import type { SaveGame } from "./GameState";
 import { BaseDiplomats, getRelation } from "./logic/DiplomacyLogic";
+import { addModifier } from "./logic/ModifierLogic";
 import {
    ConsulCandidatesCount,
    ConsulElectionMonths,
@@ -17,6 +19,7 @@ import {
    getProvinceResource,
    getProvinceStat,
 } from "./logic/ProvinceLogic";
+import { getTimedActionTimeLeft } from "./logic/TimedActionLogic";
 import { getCurrentGeneral, getCurrentWars, WarOneTimeDiplomaticPoint } from "./logic/WarLogic";
 
 const TutorialEnemyProvince: Province = "Belgica" as const;
@@ -149,11 +152,34 @@ export const Tutorial: ITutorial[] = [
          `#DeclareWarPage_Tile_${TutorialWarGoal}_Unselected`,
          "#DeclareWarPage_DeclareWar_Belgica:enabled",
       ],
+      setup: (save) => {
+         addModifier({
+            modifier: "WarPower",
+            name: $t(L.Tutorial),
+            type: "multiply",
+            value: -0.2,
+            duration: 12 * 2,
+            province: "Belgica",
+            save,
+         });
+      },
+   },
+   {
+      id: "IncreaseGameSpeed",
+      name: () => $t(L.IncreaseGameSpeed),
+      desc: () => $t(L.TutorialIncreaseGameSpeedDesc$1$2$3, "3", "1", "7x"),
+      progress: (save) => {
+         if (G.speed >= 7) {
+            return [1, 1];
+         }
+         return [0, 1];
+      },
+      selectors: ["#TopRightPanel_Speed", "#TopRightPanel_Speed_7"],
    },
    {
       id: "SignPeaceTreaty",
       name: () => $t(L.SignPeaceTreaty),
-      desc: (save) => $t(L.TutorialSignPeaceTreatyDesc$1, getTileName(TutorialWarGoal, save)),
+      desc: (save) => $t(L.TutorialSignPeaceTreatyAfterVictoryDesc$1, getTileName(TutorialWarGoal, save)),
       progress: (save) => {
          if (save.state.tiles.get(TutorialWarGoal)?.province === save.state.playerProvince) {
             return [1, 1];
@@ -226,6 +252,18 @@ export const Tutorial: ITutorial[] = [
          return [0, 1];
       },
       selectors: ["#TopPanel_FamilyTree", "#FamilyNode_LookForSpouse_Governor", "#LookForSpouse_UpperClass"],
+   },
+   {
+      id: "SocialClass",
+      name: () => $t(L.AdoptASocialClassAgenda),
+      desc: () => $t(L.TutorialSocialClassAgendaDesc),
+      progress: (save) => {
+         if (getTimedActionTimeLeft("GrantSocialClassBonus", save.state.playerProvince, save) > 0) {
+            return [1, 1];
+         }
+         return [0, 1];
+      },
+      selectors: ["#TopPanel_SocialClass", ".SocialClassModal_Adopt:enabled"],
    },
    {
       id: "Trade",
@@ -314,6 +352,20 @@ export const Tutorial: ITutorial[] = [
          return [lumberProduction, 2];
       },
       selectors: ["#TopPanel_Production", "#ProductionNode_Capacity_lumber_0", "#ProductionNode_Capacity_lumber_1"],
+   },
+   {
+      id: "Mission",
+      name: () => $t(L.LetMissionsGuideOurRestoration),
+      desc: () => $t(L.TutorialMissionsDesc$1$1, LugdunensisEvent.Lugdunensis1.name()),
+      progress: (save) => {
+         const state = save.state.provinces[save.state.playerProvince];
+         if (state?.usedEvents.has("Lugdunensis1")) {
+            return [1, 1];
+         }
+         return [0, 1];
+      },
+      selectors: ["#TopPanel_Mission", "#MissionPage_Lugdunensis1"],
+      button: () => $t(L.IllCompleteTheMissionLater),
    },
    {
       id: "CarryOn",

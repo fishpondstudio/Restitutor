@@ -2791,7 +2791,6 @@ export const ZH_CN = {
    TutorialReachDiplomaticPointsDesc$1: "宣战花费$1外交点数。除每月政府点数收入外，我们还可从事件中获得政府点数。事件可能对我们行省产生重大影响，请慎重选择。",
    TutorialDeclareWarOn$1: "对$1宣战",
    TutorialDeclareWarDesc$1$2: "我们现在已准备好开战。在<i>地图上</i>右键点击$1以打开外交面板，然后按照屏幕提示宣战。<br>战争可能给我们的行省带来巨大压力，因此从小处着手：选择<i>$2</i>作为战争目标。<br>我们宣战时几乎应始终持有<i>宣战理由</i>。目前我们已有一个，必要时也可伪造宣战理由。",
-   TutorialSignPeaceTreatyDesc$1: "每月尝试3次攻击，取三局两胜（BO3）的结果。若结果为成功，我们获得1战争分数，否则失去1战争分数。<br>战争进行中，我们可在<i>右上面板</i>调整游戏速度，或稍作探索。<br>达到所需战争分数后，右侧进行中的战争图标会跳动。点击该图标并按屏幕提示签署和平条约，以占领<i>$1</i>。",
    TutorialMakeTileOurCore$1: "将$1核心化",
    TutorialUpgradeTileProduction$1: "升级$1的产出",
    TutorialUpgradeTileProductionDesc$1:
@@ -3144,4 +3143,12 @@ export const ZH_CN = {
    Addon: "附加模组",
    TotalConversion: "全转换模组",
    Loading$1: "正在加载 $1...",
+   TutorialIncreaseGameSpeedDesc$1$2$3: "每月尝试$1次攻击，最终结果由这些攻击结果中的多数决定。若成功，我们获得$2战争分数；否则失去相同数量。<br>战争进行期间，请按照屏幕提示将游戏速度提高至$3。",
+   TutorialSignPeaceTreatyAfterVictoryDesc$1: "右侧的进行中战争图标正在跳动，说明我们已获得所需的战争分数。点击该图标并按照屏幕提示签署和平条约，以便我们占领<i>$1</i>。<br>不妨暂停游戏或降低游戏速度，以便从容操作。",
+   AdoptASocialClassAgenda: "采纳一项社会阶层议程",
+   TutorialSocialClassAgendaDesc: "我们的行省中存在不同的社会阶层，每个阶层都支持某些议程，并反对另一些议程。请按照屏幕提示采纳一项议程：支持该议程的阶层将提高影响力，反对该议程的阶层则会降低忠诚度。<br>注意不要让任何社会阶层的影响力过高或忠诚度过低，否则会引发负面后果。",
+   LetMissionsGuideOurRestoration: "让任务指引我们的复兴",
+   TutorialMissionsDesc$1$1: "每个行省都有一组独特的任务；完成每项任务后，我们可以从多个奖励中选择一项。请按照屏幕提示查看<i>$1</i>任务；将鼠标悬停在每个奖励选项上即可查看详情。<br>在最初几轮中，遵循任务指引有助于我们尽早积累优势。<br>完成<i>$1</i>或点击下方按钮后，教程将继续。",
+   IllCompleteTheMissionLater: "我稍后再完成任务",
+   WeShallFocusOnOurInternalAffairs: "我们将专注于内政",
 };

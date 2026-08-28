@@ -88,11 +88,14 @@ function SpeedComp(): React.ReactNode {
    return (
       <Menu position="bottom-end">
          <Menu.Target>
-            <div className="px15 pointer">{G.speed}x</div>
+            <div className="px15 pointer">
+               <div id="TopRightPanel_Speed">{G.speed}x</div>
+            </div>
          </Menu.Target>
          <Menu.Dropdown className="panel">
             {speed.map((speed) => (
                <Menu.Item
+                  id={`TopRightPanel_Speed_${speed}`}
                   key={speed}
                   onClick={() => {
                      setSpeed(speed);

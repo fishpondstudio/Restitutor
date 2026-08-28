@@ -309,7 +309,7 @@ export const BelgicaEvent = {
       desc: () => $t(L.SouthwardIntoLugdunensisDesc),
       condition: {
          province: ["Belgica"],
-         year: [Number.NEGATIVE_INFINITY, 200],
+         year: [Number.NEGATIVE_INFINITY, 220],
          annexAndCore: { Lugdunensis: 2 },
       },
       buttons: [

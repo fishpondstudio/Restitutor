@@ -310,7 +310,7 @@ export function TopLeftPanel(): React.ReactNode {
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.SocialClass)}>
-                  <div className="pointer" onClick={() => showPanel(<SocialClassModal />)}>
+                  <div className="pointer" id="TopPanel_SocialClass" onClick={() => showPanel(<SocialClassModal />)}>
                      <img src={SocialClass} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>

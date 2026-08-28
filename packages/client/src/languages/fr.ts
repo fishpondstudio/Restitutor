@@ -2836,8 +2836,6 @@ export const FR = {
    TutorialDeclareWarOn$1: "Déclarer la guerre à $1",
    TutorialDeclareWarDesc$1$2:
       "Nous sommes maintenant prêts pour la guerre. Faites un clic droit sur $1 <i>sur la carte</i> pour ouvrir le panneau de diplomatie et suivez les instructions à l'écran pour déclarer la guerre.<br>La guerre peut mettre notre province à rude épreuve, alors commençons modestement : choisissez <i>$2</i> comme objectif de guerre.<br>Nous devrions presque toujours avoir un <i>casus belli</i> lorsque nous déclarons la guerre. Nous en avons actuellement un et pouvons également en fabriquer un si nécessaire.",
-   TutorialSignPeaceTreatyDesc$1:
-      "Chaque mois, 3 attaques sont tentées et le résultat est le meilleur des 3 attaques (BO3). Si le résultat est positif, nous gagnons 1 score de guerre ; sinon, nous perdons 1 score de guerre.<br>Pendant la guerre, nous pouvons ajuster la vitesse du jeu dans le <i>panneau en haut à droite</i>, ou explorer un peu le jeu.<br>Une fois le score de guerre requis atteint, l'icône de guerre en cours à droite se met à rebondir. Cliquez sur cette icône et suivez les instructions à l'écran pour signer un traité de paix nous permettant d'occuper <i>$1</i>.",
    TutorialMakeTileOurCore$1: "Faire de $1 notre centre",
    TutorialUpgradeTileProduction$1: "Améliorer la production de $1",
    TutorialUpgradeTileProductionDesc$1:
@@ -3210,4 +3208,16 @@ export const FR = {
    Addon: "Addon",
    TotalConversion: "Total Conversion",
    Loading$1: "Loading $1...",
+   TutorialIncreaseGameSpeedDesc$1$2$3:
+      "Every month, $1 attacks are attempted, and the final result is determined by the majority of their outcomes. If successful, we gain $2 war score; otherwise, we lose the same amount.<br>While the war is ongoing, follow the on-screen instructions to increase the game speed to $3.",
+   TutorialSignPeaceTreatyAfterVictoryDesc$1:
+      "We have achieved the required war score, and the ongoing war icon on the right is bouncing. Click it and follow the on-screen instructions to sign a peace treaty that allows us to occupy <i>$1</i>.<br>Consider pausing or lowering the game speed so that we can take our time.",
+   AdoptASocialClassAgenda: "Adopt a social class agenda",
+   TutorialSocialClassAgendaDesc:
+      "Our province has several social classes, each of which supports and opposes different agendas. Follow the on-screen instructions to adopt an agenda—the supporting classes' influence will increase, while the opposing classes' loyalty will decrease.<br>Be careful not to let a social class become too influential or disloyal, as this will lead to negative consequences.",
+   LetMissionsGuideOurRestoration: "Let missions guide our restoration",
+   TutorialMissionsDesc$1$1:
+      "Each province has a unique set of missions; completing them gives us a choice of rewards. Follow the on-screen instructions to view the <i>$1</i> mission—hover over each reward choice to view its details.<br>For our first few runs, it is a good idea to follow the missions to gain some early momentum.<br>The tutorial will continue after we complete <i>$1</i> or click the button below.",
+   IllCompleteTheMissionLater: "I'll complete the mission later",
+   WeShallFocusOnOurInternalAffairs: "We shall focus on our internal affairs",
 };

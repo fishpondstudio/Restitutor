@@ -1,7 +1,6 @@
 import { filterInPlace, fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { OfferPatronageAction } from "../actions/TreatyActions";
-import { CasusBelli } from "../definitions/CasusBelli";
 import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { getOriginalTileCount } from "../GameState";
@@ -17,7 +16,7 @@ import {
    victoryCountCondition,
    warPowerCondition,
 } from "../logic/MissionLogic";
-import { getProvinceName, getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
+import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
 import { allCoreTileCondition, anyCoreTileCondition } from "../logic/TileLogic";
 import {
    dissolveAllTreaties,
@@ -37,7 +36,7 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          annexAndCore: { Belgica: 2 },
-         year: [Number.NEGATIVE_INFINITY, 200],
+         year: [Number.NEGATIVE_INFINITY, 220],
       },
       buttons: [
          {
@@ -45,27 +44,16 @@ export const LugdunensisEvent = {
             modifiers: {
                WarPower: { type: "multiply", value: 0.2, duration: 3 * 12 },
             },
-            custom: [
-               {
-                  effect: (province, save) => {
-                     const relation = getRelation(province, "Belgica", save);
-                     if (relation) {
-                        relation.casusBelli.set("ConquestMission", {
-                           monthsLeft: 5 * 12,
-                        });
-                     }
-                  },
-                  desc: (province, save) => {
-                     return $t(
-                        L.$1GetsA$2CasusBelliAgainst$3For$4Years,
-                        getProvinceName(province, save),
-                        CasusBelli.ConquestMission.name(),
-                        getProvinceName("Belgica", save),
-                        "5",
-                     );
-                  },
-               },
-            ],
+            casusBelli: {
+               Belgica: { casusBelli: "ConquestMission", duration: 5 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.WeShallFocusOnOurInternalAffairs),
+            modifiers: {
+               LandTax: { type: "multiply", value: 0.1, duration: 3 * 12 },
+               TileOutput: { type: "multiply", value: 0.1, duration: 3 * 12 },
+            },
          },
       ],
    },
@@ -127,27 +115,9 @@ export const LugdunensisEvent = {
             modifiers: {
                WarPower: { type: "multiply", value: 0.2, duration: 3 * 12 },
             },
-            custom: [
-               {
-                  effect: (province, save) => {
-                     const relation = getRelation(province, "Belgica", save);
-                     if (relation) {
-                        relation.casusBelli.set("ConquestMission", {
-                           monthsLeft: 5 * 12,
-                        });
-                     }
-                  },
-                  desc: (province, save) => {
-                     return $t(
-                        L.$1GetsA$2CasusBelliAgainst$3For$4Years,
-                        getProvinceName(province, save),
-                        CasusBelli.ConquestMission.name(),
-                        getProvinceName("Belgica", save),
-                        "5",
-                     );
-                  },
-               },
-            ],
+            casusBelli: {
+               Belgica: { casusBelli: "ConquestMission", duration: 5 * 12 },
+            },
          },
          {
             label: () => $t(L.WeShallAnnexThemViaDiplomacy),

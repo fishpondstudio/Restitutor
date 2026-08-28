@@ -127,6 +127,7 @@ function UpgradeButtonsColumns({ tile }: { tile: Tile }): React.ReactNode {
       <>
          <td>
             <UpgradeInfrastructureButton
+               className="text-roman"
                id={`TileListModal_UpgradeInfrastructure_${tile}`}
                style={UpgradeButtonStyle}
                tile={tile}
@@ -136,6 +137,7 @@ function UpgradeButtonsColumns({ tile }: { tile: Tile }): React.ReactNode {
          </td>
          <td>
             <UpgradeProductionButton
+               className="text-roman"
                id={`TileListModal_UpgradeProduction_${tile}`}
                style={UpgradeButtonStyle}
                tile={tile}
@@ -145,6 +147,7 @@ function UpgradeButtonsColumns({ tile }: { tile: Tile }): React.ReactNode {
          </td>
          <td>
             <UpgradePopulationButton
+               className="text-roman"
                id={`TileListModal_UpgradePopulation_${tile}`}
                style={UpgradeButtonStyle}
                tile={tile}

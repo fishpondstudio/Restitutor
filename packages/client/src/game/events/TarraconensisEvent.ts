@@ -306,7 +306,7 @@ export const TarraconensisEvent = {
       condition: {
          province: ["Tarraconensis"],
          annexAndCore: { Baetica: 2 },
-         year: [Number.NEGATIVE_INFINITY, 200],
+         year: [Number.NEGATIVE_INFINITY, 220],
       },
       buttons: [
          {

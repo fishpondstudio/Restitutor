@@ -75,7 +75,7 @@ export function SocialClassModal(): React.ReactNode {
                            </div>
                            <div>
                               <ActionButton
-                                 className="btn"
+                                 className="btn SocialClassModal_Adopt"
                                  action={GrantSocialClassBonusAction(key, G.save.state.playerProvince, G.save)}
                                  tooltip={(element) => (
                                     <>

@@ -2811,8 +2811,6 @@ export const EN = {
    TutorialDeclareWarOn$1: "Declare war on $1",
    TutorialDeclareWarDesc$1$2:
       "Now we are ready for war. Right click $1 <i>on the map</i> to open the Diplomacy Panel and follow the on-screen instructions to declare war.<br>War can place significant strain on our province, so start small: pick <i>$2</i> as the war goal.<br>We should almost always have a <i>casus belli</i> when declaring war. We currently have one and can also fabricate one if needed.",
-   TutorialSignPeaceTreatyDesc$1:
-      "Every month, 3 attacks are attempted and the result is the best of 3 attacks (BO3). If the result is successful, we gain 1 war score; otherwise we lose 1 war score.<br>While the war is going on, we can adjust the game speed on the <i>top right panel</i>, or explore the game a bit.<br>Once we have achieved the required war score, the ongoing war icon on the right will bounce. Click that icon and follow the on-screen instructions to sign a peace treaty that allows us to occupy <i>$1</i>.",
    TutorialMakeTileOurCore$1: "Make $1 our core",
    TutorialUpgradeTileProduction$1: "Upgrade $1's production",
    TutorialUpgradeTileProductionDesc$1:
@@ -3176,4 +3174,16 @@ export const EN = {
    Addon: "Addon",
    TotalConversion: "Total Conversion",
    Loading$1: "Loading $1...",
+   TutorialIncreaseGameSpeedDesc$1$2$3:
+      "Every month, $1 attacks are attempted, and the final result is determined by the majority of their outcomes. If successful, we gain $2 war score; otherwise, we lose the same amount.<br>While the war is ongoing, follow the on-screen instructions to increase the game speed to $3.",
+   TutorialSignPeaceTreatyAfterVictoryDesc$1:
+      "We have reached the required war score, and the ongoing war icon on the right is bouncing. Click it and follow the on-screen instructions to sign a peace treaty that allows us to occupy <i>$1</i>.<br>Consider pausing or lowering the game speed so that we can take our time.",
+   AdoptASocialClassAgenda: "Adopt a social class agenda",
+   TutorialSocialClassAgendaDesc:
+      "Our province has several social classes, each of which supports and opposes different agendas. Follow the on-screen instructions to adopt an agenda—the supporting classes' influence will increase, while the opposing classes' loyalty will decrease.<br>Be careful not to let a social class become too influential or disloyal, as this will lead to negative consequences.",
+   LetMissionsGuideOurRestoration: "Let missions guide our restoration",
+   TutorialMissionsDesc$1$1:
+      "Each province has a unique set of missions; completing each mission gives us a choice of rewards. Follow the on-screen instructions to view the <i>$1</i> mission—hover over each reward option to view its details.<br>For our first few runs, it is a good idea to follow the missions to gain some early momentum.<br>The tutorial will continue after we complete <i>$1</i> or click the button below.",
+   IllCompleteTheMissionLater: "I'll complete the mission later",
+   WeShallFocusOnOurInternalAffairs: "We shall focus on our internal affairs",
 };
