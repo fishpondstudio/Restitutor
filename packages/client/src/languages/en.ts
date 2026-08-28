@@ -1852,7 +1852,6 @@ export const EN = {
    Misc: "Misc",
    General: "General",
    Todo: "Todo",
-   ManageTodoIconsLeftSide: "Manage Todo Icons (Left Side)",
    $1IsNotTheirCapital: "$1 is not their capital",
    $1BordersOurProvince: "$1 borders our province",
    AvailableEarned: "Available/Earned",
@@ -3186,4 +3185,9 @@ export const EN = {
       "Each province has a unique set of missions; completing each mission gives us a choice of rewards. Follow the on-screen instructions to view the <i>$1</i> mission—hover over each reward option to view its details.<br>For our first few runs, it is a good idea to follow the missions to gain some early momentum.<br>The tutorial will continue after we complete <i>$1</i> or click the button below.",
    IllCompleteTheMissionLater: "I'll complete the mission later",
    WeShallFocusOnOurInternalAffairs: "We shall focus on our internal affairs",
+   Shortcuts: "Shortcuts",
+   ClickAShortcutThenPressTheDesiredKey: "Click a shortcut, then press the desired key combination.",
+   PressAnyKey: "Press any key...",
+   ResetAll: "Reset All",
+   ManageTodoIconsRightSide: "Manage Todo Icons (Right Side)",
 };

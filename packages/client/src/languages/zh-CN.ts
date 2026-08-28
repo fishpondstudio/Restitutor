@@ -1846,7 +1846,6 @@ export const ZH_CN = {
    Misc: "其他",
    General: "通用",
    Todo: "待办事项",
-   ManageTodoIconsLeftSide: "管理待办事项图标（左侧）",
    $1IsNotTheirCapital: "$1不是他们的首都",
    $1BordersOurProvince: "$1与我们的行省接壤",
    AvailableEarned: "可用/已获得",
@@ -3151,4 +3150,9 @@ export const ZH_CN = {
    TutorialMissionsDesc$1$1: "每个行省都有一组独特的任务；完成每项任务后，我们可以从多个奖励中选择一项。请按照屏幕提示查看<i>$1</i>任务；将鼠标悬停在每个奖励选项上即可查看详情。<br>在最初几轮中，遵循任务指引有助于我们尽早积累优势。<br>完成<i>$1</i>或点击下方按钮后，教程将继续。",
    IllCompleteTheMissionLater: "我稍后再完成任务",
    WeShallFocusOnOurInternalAffairs: "我们将专注于内政",
+   Shortcuts: "快捷键",
+   ClickAShortcutThenPressTheDesiredKey: "点击要修改的快捷键，然后按下所需的按键组合。",
+   PressAnyKey: "按下任意键...",
+   ResetAll: "全部重置",
+   ManageTodoIconsRightSide: "管理待办事项图标（右侧）",
 };

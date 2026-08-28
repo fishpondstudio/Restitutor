@@ -4,7 +4,7 @@ import type { Todo } from "../ui/TodoPanel";
 import type { ChronicleEntryType } from "./definitions/Chronicle";
 import { SupportedSaveVersion } from "./definitions/Constant";
 import type { Languages } from "./Languages";
-import { DefaultShortcuts } from "./ShortcutDefinition";
+import { DefaultShortcuts, type IShortcutConfig, type Shortcut } from "./ShortcutDefinition";
 
 export const GameOptionFlag = {
    None: 0,
@@ -25,7 +25,7 @@ export class GameOption {
    flag: GameOptionFlag = GameOptionFlag.None;
    chronicleALerts: Set<ChronicleEntryType> = new Set();
    volume = 1;
-   shortcuts = DefaultShortcuts;
+   shortcuts: Record<Shortcut, IShortcutConfig> = structuredClone(DefaultShortcuts);
    version = SupportedSaveVersion;
    build = 0;
    chroniclePopupFrequency = 5;

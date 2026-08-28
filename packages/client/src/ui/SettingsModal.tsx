@@ -1,11 +1,13 @@
 import { SegmentedControl, Select, Slider, Switch } from "@mantine/core";
 import { entriesOf, hasFlag, range, safeParseFloat, safeParseInt, toggleFlag } from "@project/shared/src/utils/Helper";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { DiscordUrl, PatchNotesUrl, SteamUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
 import { loadFromFile, resetGame, saveGame, saveToFile } from "../game/LoadSave";
 import { showSuccess } from "../game/logic/AlertLogic";
+import { getShortcutKey, isShortcutEqual, makeShortcut } from "../game/Shortcut";
+import { DefaultShortcuts, Shortcut, type Shortcut as ShortcutId } from "../game/ShortcutDefinition";
 import { getVersion } from "../game/Version";
 import { openUrl } from "../rpc/SteamClient";
 import { G } from "../utils/Global";
@@ -19,7 +21,7 @@ import { FloatingTip } from "./components/FloatingTip";
 import { Todos } from "./TodoPanel";
 import { Grid2 } from "./UIConstant";
 
-type SettingsTab = "general" | "tabs";
+type SettingsTab = "general" | "shortcuts" | "todos";
 
 export function SettingsModal(): React.ReactNode {
    refreshOnTypedEvent(GameOptionUpdated);
@@ -47,7 +49,8 @@ export function SettingsModal(): React.ReactNode {
                   orientation="vertical"
                   data={[
                      { label: $t(L.General), value: "general" },
-                     { label: $t(L.Todo), value: "tabs" },
+                     { label: $t(L.Shortcuts), value: "shortcuts" },
+                     { label: $t(L.Todo), value: "todos" },
                   ]}
                   value={tab}
                   onChange={(value) => setTab(value as SettingsTab)}
@@ -56,10 +59,100 @@ export function SettingsModal(): React.ReactNode {
             <div className="divider vertical" />
             <div className="f1">
                {tab === "general" && <SettingsGeneralTab />}
-               {tab === "tabs" && <SettingsTodoTab />}
+               {tab === "shortcuts" && <SettingsShortcutsTab />}
+               {tab === "todos" && <SettingsTodoTab />}
             </div>
          </div>
       </ModalComp>
+   );
+}
+
+const ModifierKeys = new Set(["Alt", "Control", "Meta", "Shift"]);
+
+function SettingsShortcutsTab(): React.ReactNode {
+   const [recording, setRecording] = useState<ShortcutId | null>(null);
+
+   useEffect(() => {
+      if (!recording) {
+         return;
+      }
+
+      const onKeyDown = (event: KeyboardEvent) => {
+         event.preventDefault();
+         event.stopImmediatePropagation();
+         if (ModifierKeys.has(event.key)) {
+            return;
+         }
+
+         const next = makeShortcut(event);
+         const previous = G.save.options.shortcuts[recording];
+         const conflict = (Object.keys(DefaultShortcuts) as ShortcutId[]).find(
+            (shortcut) => shortcut !== recording && isShortcutEqual(G.save.options.shortcuts[shortcut], next),
+         );
+
+         if (conflict) {
+            G.save.options.shortcuts[conflict] = previous;
+         }
+         G.save.options.shortcuts[recording] = next;
+         setRecording(null);
+         GameOptionUpdated.emit();
+      };
+
+      window.addEventListener("keydown", onKeyDown, true);
+      return () => window.removeEventListener("keydown", onKeyDown, true);
+   }, [recording]);
+
+   return (
+      <>
+         <div className="m10 row">
+            <div className="f1 text-sm text-dimmed">{$t(L.ClickAShortcutThenPressTheDesiredKey)}</div>
+            <button
+               className="btn"
+               onClick={() => {
+                  G.save.options.shortcuts = structuredClone(DefaultShortcuts);
+                  setRecording(null);
+                  GameOptionUpdated.emit();
+               }}
+            >
+               {$t(L.ResetAll)}
+            </button>
+         </div>
+         <div className="m10 text-dimmed"></div>
+         <div className="divider" />
+         {(Object.keys(DefaultShortcuts) as ShortcutId[]).map((shortcut) => {
+            const isDefault = isShortcutEqual(G.save.options.shortcuts[shortcut], DefaultShortcuts[shortcut]);
+            return (
+               <Fragment key={shortcut}>
+                  <div className="row m10">
+                     <div className="f1">{Shortcut[shortcut]()}</div>
+                     <button
+                        className="btn"
+                        style={{ minWidth: "10rem" }}
+                        onClick={() => setRecording(recording === shortcut ? null : shortcut)}
+                     >
+                        {recording === shortcut
+                           ? $t(L.PressAnyKey)
+                           : getShortcutKey(G.save.options.shortcuts[shortcut])}
+                     </button>
+                     <button
+                        aria-label={$t(L.Reset)}
+                        className="btn"
+                        disabled={isDefault}
+                        title={$t(L.Reset)}
+                        onClick={() => {
+                           G.save.options.shortcuts[shortcut] = { ...DefaultShortcuts[shortcut] };
+                           setRecording(null);
+                           GameOptionUpdated.emit();
+                        }}
+                     >
+                        <div className="mi sm">restart_alt</div>
+                     </button>
+                  </div>
+                  <div className="divider" />
+               </Fragment>
+            );
+         })}
+      </>
    );
 }
 
@@ -67,7 +160,7 @@ function SettingsTodoTab(): React.ReactNode {
    refreshOnTypedEvent(GameOptionUpdated);
    return (
       <>
-         <div className="h1">{$t(L.ManageTodoIconsLeftSide)}</div>
+         <div className="h1">{$t(L.ManageTodoIconsRightSide)}</div>
          {entriesOf(Todos).map(([id, todo]) => (
             <Fragment key={id}>
                <div key={id} className="row m10">

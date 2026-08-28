@@ -1854,7 +1854,6 @@ export const FR = {
    Misc: "Divers",
    General: "Général",
    Todo: "À faire",
-   ManageTodoIconsLeftSide: "Gérer les icônes À faire (côté gauche)",
    $1IsNotTheirCapital: "$1 n'est pas leur capitale",
    $1BordersOurProvince: "$1 borde notre province",
    AvailableEarned: "Disponible/Gagné",
@@ -3220,4 +3219,9 @@ export const FR = {
       "Each province has a unique set of missions; completing them gives us a choice of rewards. Follow the on-screen instructions to view the <i>$1</i> mission—hover over each reward choice to view its details.<br>For our first few runs, it is a good idea to follow the missions to gain some early momentum.<br>The tutorial will continue after we complete <i>$1</i> or click the button below.",
    IllCompleteTheMissionLater: "I'll complete the mission later",
    WeShallFocusOnOurInternalAffairs: "We shall focus on our internal affairs",
+   Shortcuts: "Shortcuts",
+   ClickAShortcutThenPressTheDesiredKey: "Click a shortcut, then press the desired key combination.",
+   PressAnyKey: "Press any key...",
+   ResetAll: "Reset All",
+   ManageTodoIconsRightSide: "Manage Todo Icons (Right Side)",
 };
