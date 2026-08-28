@@ -3184,4 +3184,7 @@ export const RU = {
    PressAnyKey: "Нажмите любую клавишу...",
    ResetAll: "Сбросить всё",
    ManageTodoIconsRightSide: "Управление иконками задач (справа)",
+   FullScreen: "Полный экран",
+   Enter: "Войти",
+   Exit: "Выйти",
 };

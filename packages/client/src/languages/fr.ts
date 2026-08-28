@@ -3224,4 +3224,7 @@ export const FR = {
    PressAnyKey: "Press any key...",
    ResetAll: "Reset All",
    ManageTodoIconsRightSide: "Manage Todo Icons (Right Side)",
+   FullScreen: "Full Screen",
+   Enter: "Enter",
+   Exit: "Exit",
 };

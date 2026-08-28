@@ -3155,4 +3155,7 @@ export const ZH_CN = {
    PressAnyKey: "按下任意键...",
    ResetAll: "全部重置",
    ManageTodoIconsRightSide: "管理待办事项图标（右侧）",
+   FullScreen: "全屏",
+   Enter: "进入",
+   Exit: "退出",
 };

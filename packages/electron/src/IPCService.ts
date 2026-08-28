@@ -79,6 +79,14 @@ export class IPCService {
       shell.openPath(getLocalGameSavePath());
    }
 
+   public enterFullScreen(): void {
+      this._mainWindow.setFullScreen(true);
+   }
+
+   public exitFullScreen(): void {
+      this._mainWindow.setFullScreen(false);
+   }
+
    public unlockAchievement(key: string): boolean {
       return this._client.achievement.activate(key);
    }

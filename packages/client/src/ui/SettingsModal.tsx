@@ -9,7 +9,7 @@ import { showSuccess } from "../game/logic/AlertLogic";
 import { getShortcutKey, isShortcutEqual, makeShortcut } from "../game/Shortcut";
 import { DefaultShortcuts, Shortcut, type Shortcut as ShortcutId } from "../game/ShortcutDefinition";
 import { getVersion } from "../game/Version";
-import { openUrl } from "../rpc/SteamClient";
+import { isSteam, openUrl, SteamClient } from "../rpc/SteamClient";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -19,7 +19,7 @@ import { ConfirmModal } from "./ConfirmModal";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { Todos } from "./TodoPanel";
-import { Grid2 } from "./UIConstant";
+import { Grid3 } from "./UIConstant";
 
 type SettingsTab = "general" | "shortcuts" | "todos";
 
@@ -290,6 +290,27 @@ function SettingsGeneralTab(): React.ReactNode {
                }}
             />
          </div>
+         {isSteam() && (
+            <div className="row m10">
+               <div className="f1">{$t(L.FullScreen)}</div>
+               <button
+                  className="btn"
+                  onClick={() => {
+                     SteamClient.enterFullScreen();
+                  }}
+               >
+                  {$t(L.Enter)}
+               </button>
+               <button
+                  className="btn"
+                  onClick={() => {
+                     SteamClient.exitFullScreen();
+                  }}
+               >
+                  {$t(L.Exit)}
+               </button>
+            </div>
+         )}
          <div className="h1">{$t(L.Version)}</div>
          <div className="m10">
             <div className="row my5">
@@ -304,7 +325,7 @@ function SettingsGeneralTab(): React.ReactNode {
             </FloatingTip>
          </div>
          <div className="divider" />
-         <div className="m10" style={Grid2}>
+         <div className="m10" style={Grid3}>
             <button
                className="btn"
                onClick={async () => {
