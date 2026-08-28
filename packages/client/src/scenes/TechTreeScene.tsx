@@ -21,7 +21,7 @@ import { playClick } from "../ui/Sound";
 import { TechPage } from "../ui/TechPage";
 import { SidebarWidth } from "../ui/UIConstant";
 import { WheelMode } from "../utils/Camera";
-import { G, isDev } from "../utils/Global";
+import { G, isDev, setPixiCursor } from "../utils/Global";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
 
@@ -71,6 +71,17 @@ export class TechTreeScene extends Scene {
       this.viewport.zoom = zoom;
       this.viewport.wheelMode = WheelMode.HorizontalScroll;
       this.viewport.center = { x: 0, y: height / 2 };
+
+      this.viewport.on("pointermove", (e) => {
+         const pos = this.viewport.screenToWorld(e.screen);
+         for (const [tech, box] of this._techs) {
+            if (box.contains(pos)) {
+               setPixiCursor("pointer");
+               return;
+            }
+         }
+         setPixiCursor("default");
+      });
 
       const paper = G.textures.get("Misc/Paper");
       if (paper) {

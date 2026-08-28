@@ -83,3 +83,14 @@ export function isDev(): boolean {
    }
    return true;
 }
+
+export function setPixiCursor(cursor: "default" | "pointer"): void {
+   if (!G.pixi.view.style) {
+      return;
+   }
+   if (cursor === "pointer") {
+      G.pixi.view.style.cursor = "var(--hand-cursor)";
+   } else {
+      G.pixi.view.style.cursor = "var(--default-cursor)";
+   }
+}

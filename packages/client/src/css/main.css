@@ -15,8 +15,10 @@ html {
 }
 
 :root {
-   --default-cursor: url("../assets/images/Cursor.svg?url"), default;
-   --hand-cursor: pointer;
+   --hand-cursor: url("../assets/images/CursorHand.png"), pointer;
+   --default-cursor: url("../assets/images/CursorDefault.png"), default;
+   --not-allowed-cursor: url("../assets/images/CursorNotAllowed.png"), not-allowed;
+   --mantine-cursor-type: var(--hand-cursor);
 }
 
 body {

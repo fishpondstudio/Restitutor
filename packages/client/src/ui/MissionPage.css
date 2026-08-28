@@ -7,7 +7,7 @@
       bottom: 0;
       left: 0;
       background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
-      cursor: pointer;
+      cursor: var(--hand-cursor);
       .mi {
          position: absolute;
          right: 0;
