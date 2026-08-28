@@ -6,7 +6,7 @@ import { startGameLoop } from "./GameLoop";
 import { addDebugFunctions } from "./game/AddDebugFunctions";
 import { SentryDSN, SupportedSaveVersion } from "./game/definitions/Constant";
 import { GameStateFlags, initNewPlayerSaveGame, initSaveGame, SaveGame } from "./game/GameState";
-import { loadGame, resetGame, saveGame } from "./game/LoadSave";
+import { loadGame, resetGame, saveAndBackupGame } from "./game/LoadSave";
 import { RomeMap } from "./game/RomeMap";
 import { showBootstrapModal } from "./game/ShowBootstrapModal";
 import { getVersion } from "./game/Version";
@@ -114,7 +114,7 @@ export async function bootstrap(): Promise<void> {
    hideLoading();
    initHighlighter();
    loadAddonMods();
-   setInterval(() => saveGame(G.save), isSteam() ? 60_000 : 10_000);
+   setInterval(() => saveAndBackupGame(G.save), isSteam() ? 60_000 : 10_000);
 }
 
 function initErrorTracking(): void {

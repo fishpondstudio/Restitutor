@@ -11,3 +11,5 @@ export const PatchNotesUrl =
    "https://store.steampowered.com/news/app/4431750?utm_source=InGame&utm_campaign=PatchNotes";
 export const SentryDSN = "https://c8bb0d77bec740e097724f281d481c75@bugreport.fishpondstudio.com/4";
 export const SaveKey = "Restitutor";
+export const BackupFrequency = 10 * 60 * 1000; // 10 minutes
+export const BackupCount = 10;

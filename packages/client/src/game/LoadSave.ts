@@ -3,7 +3,7 @@ import { jsonDecode, jsonEncode } from "@project/shared/src/utils/Serialization"
 import { compressToUint8Array, decompressFromUint8Array } from "lz-string";
 import { isSteam, SteamClient } from "../rpc/SteamClient";
 import { idbDel, idbGet, idbSet } from "../utils/BrowserStorage";
-import { SaveKey } from "./definitions/Constant";
+import { BackupCount, BackupFrequency, SaveKey } from "./definitions/Constant";
 import type { SaveGame } from "./GameState";
 import { getGameDate } from "./logic/GameDateTime";
 
@@ -21,6 +21,18 @@ export async function saveGame(save: SaveGame): Promise<void> {
       await SteamClient.fileWrite(SaveKey, serialized);
    } else {
       await idbSet(SaveKey, serialized);
+   }
+}
+
+let counter = 0;
+let lastBackupTime = Date.now();
+
+export async function saveAndBackupGame(save: SaveGame): Promise<void> {
+   await saveGame(save);
+   if (isSteam() && Date.now() - lastBackupTime > BackupFrequency) {
+      await SteamClient.fileWrite(`${SaveKey}_${(counter % BackupCount) + 1}`, jsonEncode(save));
+      ++counter;
+      lastBackupTime = Date.now();
    }
 }
 
