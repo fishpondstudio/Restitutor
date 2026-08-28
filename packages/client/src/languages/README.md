@@ -5,6 +5,10 @@ Base language is English and can be found in the list below
 ## Supported Languages:
 
 - English (base): https://github.com/fishpondstudio/Restitutor/tree/main/packages/client/src/languages
+- German: https://github.com/fishpondstudio/Restitutor/blob/main/packages/client/src/languages/de.ts
+- Simplified Chinese: https://github.com/fishpondstudio/Restitutor/blob/main/packages/client/src/languages/zh-CN.ts
+- Russian: https://github.com/fishpondstudio/Restitutor/blob/main/packages/client/src/languages/ru.ts
+- French: https://github.com/fishpondstudio/Restitutor/blob/main/packages/client/src/languages/fr.ts
 
 ## Edit Existing Translation
 
