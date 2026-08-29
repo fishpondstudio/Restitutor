@@ -56,6 +56,7 @@ import { MissionPage } from "./MissionPage";
 import { PausePanel } from "./PausePanel";
 import { ProductionSingletonModal } from "./ProductionSingletonModal";
 import { ProvinceListSingletonModal } from "./ProvinceListSingletonModal";
+import { RebirthPage } from "./RebirthPage";
 import { SenatePage } from "./SenatePage";
 import { SettingsSingletonModal } from "./SettingsSingletonModal";
 import { SocialClassSingletonModal } from "./SocialClassSingletonModal";
@@ -84,10 +85,34 @@ const IconRowStyle = { flex: "1", display: "flex", justifyContent: "space-betwee
 
 export function TopLeftPanel(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
-   const openFamilyTree = useCallback(() => {
-      showPanel(FamilyTreeSingletonModal, {});
-   }, []);
+   const openGovernment = useCallback(() => showPanel(GovernmentSingletonModal, {}), []);
+   const openTreasury = useCallback(() => showPanel(TreasuryPage, {}), []);
+   const openArmy = useCallback(() => showPanel(ArmySingletonModal, {}), []);
+   const openFamilyTree = useCallback(() => showPanel(FamilyTreeSingletonModal, {}), []);
+   const openTileUpgrades = useCallback(() => showPanel(TileListSingletonModal, {}), []);
+   const openInternalAffairs = useCallback(() => showPanel(InternalAffairsPage, {}), []);
+   const openSocialClass = useCallback(() => showPanel(SocialClassSingletonModal, {}), []);
+   const openProduction = useCallback(() => showPanel(ProductionSingletonModal, {}), []);
+   const openTrade = useCallback(() => showPanel(TradeSingletonModal, { provinces: new Set([]) }), []);
+   const openSenate = useCallback(() => showPanel(SenatePage, {}), []);
+   const openMissions = useCallback(() => showPanel(MissionPage, {}), []);
+   const openChronicle = useCallback(() => showPanel(ChroniclePage, {}), []);
+   const openLegacyUpgrade = useCallback(() => showPanel(LegacyUpgradeSingletonModal, {}), []);
+   const openRebirth = useCallback(() => showPanel(RebirthPage, {}), []);
+   useShortcut("OpenGovernment", openGovernment, [openGovernment]);
+   useShortcut("OpenTreasury", openTreasury, [openTreasury]);
+   useShortcut("OpenArmy", openArmy, [openArmy]);
    useShortcut("OpenFamilyTree", openFamilyTree, [openFamilyTree]);
+   useShortcut("OpenTileUpgrades", openTileUpgrades, [openTileUpgrades]);
+   useShortcut("OpenInternalAffairs", openInternalAffairs, [openInternalAffairs]);
+   useShortcut("OpenSocialClass", openSocialClass, [openSocialClass]);
+   useShortcut("OpenProduction", openProduction, [openProduction]);
+   useShortcut("OpenTrade", openTrade, [openTrade]);
+   useShortcut("OpenSenate", openSenate, [openSenate]);
+   useShortcut("OpenMissions", openMissions, [openMissions]);
+   useShortcut("OpenChronicle", openChronicle, [openChronicle]);
+   useShortcut("OpenLegacyUpgrade", openLegacyUpgrade, [openLegacyUpgrade]);
+   useShortcut("OpenRebirth", openRebirth, [openRebirth]);
    if (!G.save) return null;
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
