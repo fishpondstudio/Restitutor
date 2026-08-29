@@ -8,6 +8,7 @@ import {
    numberToRoman,
    randOne,
 } from "@project/shared/src/utils/Helper";
+import type { ReactElement } from "react";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { GameEventModal } from "../../ui/GameEventModal";
 import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
@@ -324,7 +325,7 @@ export function addGameEvent(event: GameEvent, province: Province, save: SaveGam
    }
 }
 
-export function showGameEventModal(modal: React.ReactElement): void {
+export function showGameEventModal(modal: ReactElement): void {
    if (!hasFlag(G.flags, GameFlags.Sandbox)) {
       showPanel(modal);
    }

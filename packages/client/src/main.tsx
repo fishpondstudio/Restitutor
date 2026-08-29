@@ -9,6 +9,7 @@ import { createRoot } from "react-dom/client";
 import { bootstrap } from "./Bootstrap";
 import "./css/main.css";
 import { FontFaces, Fonts } from "./Fonts";
+import { getWebglRenderInfo } from "./game/GetWebglRenderInfo";
 import { getVersion } from "./game/Version";
 import { isSteam } from "./rpc/SteamClient";
 import { ASCIIMapPanel } from "./ui/ASCIIMapPanel";
@@ -117,17 +118,4 @@ if (isSteam() && G.params.has("mod")) {
    const renderer = getWebglRenderInfo(app);
    document.title = `Restitutor ${getVersion()} ${renderer}`;
    bootstrap();
-}
-
-function getWebglRenderInfo(app: Application): string {
-   const gl = app.view.getContext("webgl2") ?? app.view.getContext("webgl");
-   if (!gl) {
-      return "";
-   }
-   const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
-   if (!debugInfo) {
-      return "";
-   }
-   const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-   return renderer;
 }

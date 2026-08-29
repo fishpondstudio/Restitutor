@@ -6,6 +6,7 @@ export const RetailSteamId = 4431750;
 export const DemoSteamId = 4481710;
 export const DiscordUrl = "https://discord.gg/hANhARJFac";
 export const SteamUrl = "https://store.steampowered.com/app/4431750/?utm_source=InGame";
+export const SteamCommunityUrl = "https://steamcommunity.com/app/4431750/?utm_source=InGame";
 export const TranslationUrl = "https://github.com/fishpondstudio/Restitutor/tree/main/packages/client/src/languages";
 export const PatchNotesUrl =
    "https://store.steampowered.com/news/app/4431750?utm_source=InGame&utm_campaign=PatchNotes";

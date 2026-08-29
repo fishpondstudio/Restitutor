@@ -1,6 +1,7 @@
 import type { IChat, IUser } from "@project/shared/src/rpc/ServerMessageTypes";
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { TypedEvent } from "@project/shared/src/utils/TypedEvent";
+import type { ReactElement } from "react";
 import type { Shortcut } from "./ShortcutDefinition";
 
 // GameState
@@ -17,8 +18,8 @@ export const RefreshTiles = new TypedEvent<{
 export const RefreshTechTree = new TypedEvent<void>();
 export const OnSceneSwitched = new TypedEvent<void>();
 export const OnResize = new TypedEvent<{ width: number; height: number }>();
-export const ShowModal = new TypedEvent<React.ReactElement>();
-export const UpdateSidebar = new TypedEvent<React.ReactNode>();
+export const ShowModal = new TypedEvent<ReactElement>();
+export const UpdateSidebar = new TypedEvent<ReactElement>();
 export const ToggleSidebar = new TypedEvent<boolean>();
 export const CloseModal = new TypedEvent<void>();
 export const OnKeydown = new TypedEvent<KeyboardEvent>();

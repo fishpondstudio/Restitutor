@@ -3230,4 +3230,8 @@ export const DE = {
    FullScreen: "Vollbild",
    Enter: "Aufrufen",
    Exit: "Verlassen",
+   OpenFamilyTree: "Stammbaum öffnen",
+   GraphicsDebugInfo: "Grafik-Debuginformationen",
+   SteamCommunity: "Steam-Community",
+   Unassigned: "Nicht zugewiesen",
 };

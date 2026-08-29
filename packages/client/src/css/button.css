@@ -24,6 +24,12 @@
       top: 50%;
       transform: translateY(-50%);
    }
+   .fixed-left {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+   }
    &.transparent {
       box-shadow: none;
       border-color: transparent;

@@ -8,11 +8,11 @@ import { useTypedEvent } from "../utils/Hook";
 import { CurrentShortcuts, OnKeydown, OnKeyup } from "./Events";
 import type { IShortcutConfig, Shortcut } from "./ShortcutDefinition";
 
-export function getShortcutKey(s: IShortcutConfig): string {
-   const keys: string[] = [];
-   if (s.key === "") {
-      return "";
+export function getShortcutKey(s: IShortcutConfig | undefined | null): string | undefined {
+   if (!s) {
+      return undefined;
    }
+   const keys: string[] = [];
    if (s.ctrl) {
       keys.push("Ctrl");
    }
@@ -35,7 +35,10 @@ export function getShortcutKey(s: IShortcutConfig): string {
    return keys.join(" + ").toUpperCase();
 }
 
-export function isShortcutEqual(a: IShortcutConfig, b: IShortcutConfig): boolean {
+export function isShortcutEqual(a: IShortcutConfig | undefined | null, b: IShortcutConfig | undefined | null): boolean {
+   if (!a || !b) {
+      return false;
+   }
    return (
       a.ctrl === b.ctrl &&
       a.shift === b.shift &&

@@ -37,6 +37,13 @@ export const DefaultShortcuts = {
       shift: false,
       meta: false,
    },
+   OpenFamilyTree: {
+      key: "1",
+      ctrl: false,
+      alt: false,
+      shift: false,
+      meta: false,
+   },
 } as const satisfies Record<string, IShortcutConfig>;
 
 export type Shortcut = keyof typeof DefaultShortcuts;
@@ -46,4 +53,5 @@ export const Shortcut = {
    CloseOpenModal: () => $t(L.CloseCurrentlyOpenModal),
    IncreaseGameSpeed: () => $t(L.IncreaseGameSpeed),
    DecreaseGameSpeed: () => $t(L.DecreaseGameSpeed),
+   OpenFamilyTree: () => $t(L.OpenFamilyTree),
 } as const satisfies Record<Shortcut, () => string>;

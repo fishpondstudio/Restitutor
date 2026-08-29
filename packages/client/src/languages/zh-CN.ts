@@ -3158,4 +3158,8 @@ export const ZH_CN = {
    FullScreen: "全屏",
    Enter: "进入",
    Exit: "退出",
+   OpenFamilyTree: "打开家族谱系",
+   GraphicsDebugInfo: "图形调试信息",
+   SteamCommunity: "Steam 社区",
+   Unassigned: "未分配",
 };

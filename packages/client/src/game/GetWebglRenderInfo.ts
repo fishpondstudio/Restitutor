@@ -1,0 +1,14 @@
+import type { Application } from "pixi.js";
+
+export function getWebglRenderInfo(app: Application): string {
+   const gl = app.view.getContext("webgl2") ?? app.view.getContext("webgl");
+   if (!gl) {
+      return "";
+   }
+   const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+   if (!debugInfo) {
+      return "";
+   }
+   const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+   return renderer;
+}

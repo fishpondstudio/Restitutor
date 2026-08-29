@@ -1,4 +1,5 @@
 import { formatNumber, range } from "@project/shared/src/utils/Helper";
+import { useCallback } from "react";
 import Administrative from "../assets/images/Administrative.svg";
 import Army from "../assets/images/Army.svg";
 import Chronicle from "../assets/images/Chronicle.svg";
@@ -34,6 +35,7 @@ import {
    getProvinceStability,
    getWarPower,
 } from "../game/logic/ProvinceLogic";
+import { useShortcut } from "../game/Shortcut";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -82,6 +84,10 @@ const IconRowStyle = { flex: "1", display: "flex", justifyContent: "space-betwee
 
 export function TopLeftPanel(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
+   const openFamilyTree = useCallback(() => {
+      showPanel(<FamilyTreeModal />);
+   }, []);
+   useShortcut("OpenFamilyTree", openFamilyTree, [openFamilyTree]);
    if (!G.save) return null;
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
@@ -259,7 +265,7 @@ export function TopLeftPanel(): React.ReactNode {
             <div className="divider vertical" />
             <div style={IconRowStyle}>
                <FloatingTip label={$t(L.FamilyTree)}>
-                  <div className="pointer" id="TopPanel_FamilyTree" onClick={() => showPanel(<FamilyTreeModal />)}>
+                  <div className="pointer" id="TopPanel_FamilyTree" onClick={openFamilyTree}>
                      <img src={FamilyTree} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>

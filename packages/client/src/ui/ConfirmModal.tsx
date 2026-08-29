@@ -17,7 +17,7 @@ export function ConfirmModal({
    };
 }): React.ReactNode {
    return (
-      <ModalComp size="sm" title={<ModalTitleBar title={title} />}>
+      <ModalComp size="xs" title={<ModalTitleBar title={title} />}>
          <div className="m10">{message}</div>
          <div className="m10 row">
             <button className="btn f1" onClick={hideModal}>

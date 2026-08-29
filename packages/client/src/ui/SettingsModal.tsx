@@ -1,16 +1,17 @@
 import { SegmentedControl, Select, Slider, Switch } from "@mantine/core";
 import { entriesOf, hasFlag, range, safeParseFloat, safeParseInt, toggleFlag } from "@project/shared/src/utils/Helper";
 import { Fragment, useEffect, useState } from "react";
-import { DiscordUrl, PatchNotesUrl, SteamUrl } from "../game/definitions/Constant";
+import { DiscordUrl, PatchNotesUrl, SteamCommunityUrl, SteamUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
+import { getWebglRenderInfo } from "../game/GetWebglRenderInfo";
 import { loadFromFile, resetGame, saveGame, saveToFile } from "../game/LoadSave";
 import { showSuccess } from "../game/logic/AlertLogic";
 import { getShortcutKey, isShortcutEqual, makeShortcut } from "../game/Shortcut";
 import { DefaultShortcuts, Shortcut, type Shortcut as ShortcutId } from "../game/ShortcutDefinition";
 import { getVersion } from "../game/Version";
 import { isSteam, openUrl, SteamClient } from "../rpc/SteamClient";
-import { G } from "../utils/Global";
+import { G, GameFlags } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
@@ -19,7 +20,7 @@ import { ConfirmModal } from "./ConfirmModal";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { Todos } from "./TodoPanel";
-import { Grid3 } from "./UIConstant";
+import { Grid2 } from "./UIConstant";
 
 type SettingsTab = "general" | "shortcuts" | "todos";
 
@@ -132,7 +133,7 @@ function SettingsShortcutsTab(): React.ReactNode {
                      >
                         {recording === shortcut
                            ? $t(L.PressAnyKey)
-                           : getShortcutKey(G.save.options.shortcuts[shortcut])}
+                           : (getShortcutKey(G.save.options.shortcuts[shortcut]) ?? $t(L.Unassigned))}
                      </button>
                      <button
                         aria-label={$t(L.Reset)}
@@ -323,9 +324,15 @@ function SettingsGeneralTab(): React.ReactNode {
                   <div>{G.save.options.version}</div>
                </div>
             </FloatingTip>
+            {G.pixi && (
+               <div className="my5">
+                  <div>{$t(L.GraphicsDebugInfo)}</div>
+                  <div className="my5 text-dimmed text-sm text-mono">{getWebglRenderInfo(G.pixi)}</div>
+               </div>
+            )}
          </div>
          <div className="divider" />
-         <div className="m10" style={Grid3}>
+         <div className="m10" style={Grid2}>
             <button
                className="btn"
                onClick={async () => {
@@ -345,14 +352,44 @@ function SettingsGeneralTab(): React.ReactNode {
             >
                {$t(L.LoadFromFile)}
             </button>
-            <button className="btn" onClick={() => openUrl(SteamUrl)}>
-               {$t(L.WishlistOnSteam)}
-            </button>
+            {isSteam() && (
+               <button
+                  className="btn"
+                  onClick={async () => {
+                     SteamClient.openMainSaveFolder();
+                  }}
+               >
+                  {$t(L.OpenSaveFolder)}
+               </button>
+            )}
+            {isSteam() && (
+               <button
+                  className="btn"
+                  onClick={async () => {
+                     SteamClient.openLogFolder();
+                  }}
+               >
+                  {$t(L.OpenLogFolder)}
+               </button>
+            )}
+            {hasFlag(G.flags, GameFlags.Demo) ? (
+               <button className="btn" onClick={() => openUrl(SteamUrl)}>
+                  {$t(L.WishlistOnSteam)}
+                  <div className="mi sm fixed-right">open_in_new</div>
+               </button>
+            ) : (
+               <button className="btn row" onClick={() => openUrl(SteamCommunityUrl)}>
+                  {$t(L.SteamCommunity)}
+                  <div className="mi sm fixed-right">open_in_new</div>
+               </button>
+            )}
             <button className="btn" onClick={() => openUrl(DiscordUrl)}>
                {$t(L.JoinDiscord)}
+               <div className="mi sm fixed-right">open_in_new</div>
             </button>{" "}
             <button className="btn" onClick={() => openUrl(PatchNotesUrl)}>
                {$t(L.ViewPatchNotes)}
+               <div className="mi sm fixed-right">open_in_new</div>
             </button>
             <button
                className="btn text-red"

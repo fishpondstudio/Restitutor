@@ -3227,4 +3227,8 @@ export const FR = {
    FullScreen: "Full Screen",
    Enter: "Enter",
    Exit: "Exit",
+   OpenFamilyTree: "Open Family Tree",
+   GraphicsDebugInfo: "Graphics Debug Info",
+   SteamCommunity: "Steam Community",
+   Unassigned: "Unassigned",
 };

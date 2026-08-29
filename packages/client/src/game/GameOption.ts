@@ -25,7 +25,7 @@ export class GameOption {
    flag: GameOptionFlag = GameOptionFlag.None;
    chronicleALerts: Set<ChronicleEntryType> = new Set();
    volume = 1;
-   shortcuts: Record<Shortcut, IShortcutConfig> = structuredClone(DefaultShortcuts);
+   shortcuts: Partial<Record<Shortcut, IShortcutConfig>> = structuredClone(DefaultShortcuts);
    version = SupportedSaveVersion;
    build = 0;
    chroniclePopupFrequency = 5;

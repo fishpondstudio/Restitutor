@@ -1,6 +1,7 @@
+import type { ReactElement } from "react";
 import { ShowModal, UpdateSidebar } from "../../game/Events";
 
-export function showPanel(content: React.ReactElement): void {
+export function showPanel(content: ReactElement): void {
    if (typeof content.type === "function") {
       const name = content.type.name;
       if (name.endsWith("Modal")) {

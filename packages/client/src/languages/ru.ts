@@ -3187,4 +3187,8 @@ export const RU = {
    FullScreen: "Полный экран",
    Enter: "Войти",
    Exit: "Выйти",
+   OpenFamilyTree: "Открыть генеалогическое древо",
+   GraphicsDebugInfo: "Отладочная информация о графике",
+   SteamCommunity: "Сообщество Steam",
+   Unassigned: "Не назначено",
 };
