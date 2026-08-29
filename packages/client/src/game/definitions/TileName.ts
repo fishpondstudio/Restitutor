@@ -1657,8 +1657,6 @@ export const TileName: Partial<Record<Tile, () => string>> = {
    15597653: () => "Seorabeol",
    15663182: () => "Hwasong",
    15663188: () => "Heunghae",
-
-   // Two-tile land ring outside the Rome scenario border.
    8388698: () => "Massa",
    8388699: () => "Taroudant",
    8454233: () => "Marrakesh",
