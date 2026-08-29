@@ -1,4 +1,4 @@
-import { forEach, randInt, range, type Tile, uuid4 } from "@project/shared/src/utils/Helper";
+import { forEach, keysOf, randInt, range, type Tile, uuid4 } from "@project/shared/src/utils/Helper";
 import { WorldScene } from "../scenes/WorldScene";
 import { BarbarianRaidModal } from "../ui/BarbarianRaidModal";
 import { ChronicleModal } from "../ui/ChronicleModal";
@@ -15,6 +15,7 @@ import { renderMap } from "./ASCIIMapRenderer";
 import { type IFamily, PersonFlags } from "./definitions/Family";
 import type { Province } from "./definitions/Province";
 import { SpawnedProvinces } from "./definitions/SpawnedProvince";
+import { TileName } from "./definitions/TileName";
 import type { TimedAction } from "./definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "./Events";
 import { resetGame, saveGame } from "./LoadSave";
@@ -194,6 +195,11 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.printSquare = () => {
       console.log(renderMap(G.save, false));
+   };
+
+   // @ts-expect-error
+   globalThis.showNamedTiles = () => {
+      G.scene.getCurrent(WorldScene)?.drawSelectors(new Set(keysOf(TileName)));
    };
 
    // @ts-expect-error
