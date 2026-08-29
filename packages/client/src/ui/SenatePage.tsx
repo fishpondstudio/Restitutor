@@ -55,13 +55,13 @@ export function SenatePage(): React.ReactNode {
             <TimedActionButton timedAction="AffirmCivicUnity" />
             <TimedActionButton timedAction="DeclareMobilization" />
             <TimedActionButton timedAction="BolsterDignitas" />
-            <button className="btn" onClick={() => showPanel(<NamePublicEnemyModal />)}>
+            <button className="btn" onClick={() => showPanel(NamePublicEnemyModal, {})}>
                {TimedActions.PublicEnemy.name()}
             </button>
-            <button className="btn" onClick={() => showPanel(<DissolveTreatyModal />)}>
+            <button className="btn" onClick={() => showPanel(DissolveTreatyModal, {})}>
                {TimedActions.DissolveTreaty.name()}
             </button>
-            <button className="btn" onClick={() => showPanel(<NullifyTruceModal />)}>
+            <button className="btn" onClick={() => showPanel(NullifyTruceModal, {})}>
                {TimedActions.NullifyTruce.name()}
             </button>
          </div>

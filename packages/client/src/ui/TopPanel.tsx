@@ -40,7 +40,7 @@ import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { ArmyModal } from "./ArmyModal";
+import { ArmySingletonModal } from "./ArmySingletonModal";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { ChroniclePage } from "./ChroniclePage";
@@ -48,21 +48,21 @@ import { showPanel } from "./common/ShowPanel";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { DiplomacyPage } from "./DiplomacyPage";
-import { FamilyTreeModal } from "./FamilyModal";
-import { GovernmentModal } from "./GovernmentModal";
+import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
+import { GovernmentSingletonModal } from "./GovernmentSingletonModal";
 import { InternalAffairsPage } from "./InternalAffairsPage";
-import { LegacyUpgradeModal } from "./LegacyUpgradeModal";
+import { LegacyUpgradeSingletonModal } from "./LegacyUpgradeSingletonModal";
 import { MissionPage } from "./MissionPage";
 import { PausePanel } from "./PausePanel";
-import { ProductionModal } from "./ProductionModal";
-import { ProvinceListModal } from "./ProvinceListModal";
+import { ProductionSingletonModal } from "./ProductionSingletonModal";
+import { ProvinceListSingletonModal } from "./ProvinceListSingletonModal";
 import { SenatePage } from "./SenatePage";
-import { SettingsModal } from "./SettingsModal";
-import { SocialClassModal } from "./SocialClassModal";
-import { TileListModal } from "./TileListModal";
+import { SettingsSingletonModal } from "./SettingsSingletonModal";
+import { SocialClassSingletonModal } from "./SocialClassSingletonModal";
+import { TileListSingletonModal } from "./TileListSingletonModal";
 import { TodoPanel } from "./TodoPanel";
 import { TopRightPanel } from "./TopRightPanel";
-import { TradeModal } from "./TradeModal";
+import { TradeSingletonModal } from "./TradeSingletonModal";
 import { TreasuryPage } from "./TreasuryPage";
 
 export function TopPanel(): React.ReactNode {
@@ -85,7 +85,7 @@ const IconRowStyle = { flex: "1", display: "flex", justifyContent: "space-betwee
 export function TopLeftPanel(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const openFamilyTree = useCallback(() => {
-      showPanel(<FamilyTreeModal />);
+      showPanel(FamilyTreeSingletonModal, {});
    }, []);
    useShortcut("OpenFamilyTree", openFamilyTree, [openFamilyTree]);
    if (!G.save) return null;
@@ -102,7 +102,7 @@ export function TopLeftPanel(): React.ReactNode {
       <div className="resource-panel panel col fstart">
          <div className="f1 row mx10 stretch">
             <div className="row g5" style={{ width: `${FirstColumnWidth}rem` }}>
-               <div className="pointer" onClick={() => showPanel(<SettingsModal />)}>
+               <div className="pointer" onClick={() => showPanel(SettingsSingletonModal, {})}>
                   <img src={MenuIcon} style={{ width: `${IconWidth}rem` }} />
                </div>
                <FloatingTip
@@ -141,7 +141,7 @@ export function TopLeftPanel(): React.ReactNode {
                   id="TopPanel_AdministrativePoint"
                   className="row g0 pointer"
                   style={{ width: `${ColumnWidth}rem` }}
-                  onClick={() => showPanel(<GovernmentModal />)}
+                  onClick={() => showPanel(GovernmentSingletonModal, {})}
                >
                   <img src={Administrative} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
@@ -164,7 +164,7 @@ export function TopLeftPanel(): React.ReactNode {
                <div
                   className="row g0 pointer"
                   style={{ width: `${ColumnWidth}rem` }}
-                  onClick={() => showPanel(<GovernmentModal />)}
+                  onClick={() => showPanel(GovernmentSingletonModal, {})}
                >
                   <img src={Diplomatic} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
@@ -187,7 +187,7 @@ export function TopLeftPanel(): React.ReactNode {
                <div
                   className="row g0 pointer"
                   style={{ width: `${ColumnWidth}rem` }}
-                  onClick={() => showPanel(<GovernmentModal />)}
+                  onClick={() => showPanel(GovernmentSingletonModal, {})}
                >
                   <img src={Military} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
@@ -211,7 +211,7 @@ export function TopLeftPanel(): React.ReactNode {
                   className="row g0 pointer"
                   style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => {
-                     showPanel(<ArmyModal />);
+                     showPanel(ArmySingletonModal, {});
                   }}
                   id="TopPanel_WarPower"
                >
@@ -228,7 +228,7 @@ export function TopLeftPanel(): React.ReactNode {
                   id="TopPanel_Gold"
                   className="row g0 pointer"
                   style={{ width: `${FirstColumnWidth}rem` }}
-                  onClick={() => showPanel(<TreasuryPage />)}
+                  onClick={() => showPanel(TreasuryPage, {})}
                >
                   <div>
                      <img src={Gold} style={{ width: `${IconWidth}rem` }} />
@@ -254,7 +254,7 @@ export function TopLeftPanel(): React.ReactNode {
                   className="row g0 pointer"
                   style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => {
-                     showPanel(<ProvinceListModal />);
+                     showPanel(ProvinceListSingletonModal, {});
                   }}
                >
                   <img src={Prestige} style={{ width: `${IconWidth}rem` }} />
@@ -274,7 +274,7 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_TileCount"
                      className="pointer"
                      onClick={() => {
-                        showPanel(<TileListModal />);
+                        showPanel(TileListSingletonModal, {});
                      }}
                   >
                      <img src={ProvinceImage} style={{ width: `${IconWidth}rem` }} />
@@ -309,14 +309,18 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_InternalAffairs"
                      className="pointer"
                      onClick={() => {
-                        showPanel(<InternalAffairsPage />);
+                        showPanel(InternalAffairsPage, {});
                      }}
                   >
                      <img src={Stability} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.SocialClass)}>
-                  <div className="pointer" id="TopPanel_SocialClass" onClick={() => showPanel(<SocialClassModal />)}>
+                  <div
+                     className="pointer"
+                     id="TopPanel_SocialClass"
+                     onClick={() => showPanel(SocialClassSingletonModal, {})}
+                  >
                      <img src={SocialClass} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
@@ -325,14 +329,18 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_Diplomats"
                      className="pointer"
                      onClick={() => {
-                        showPanel(<DiplomacyPage province={G.save.state.playerProvince} />);
+                        showPanel(DiplomacyPage, { province: G.save.state.playerProvince });
                      }}
                   >
                      <img src={Diplomat} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Production)}>
-                  <div className="pointer" id="TopPanel_Production" onClick={() => showPanel(<ProductionModal />)}>
+                  <div
+                     className="pointer"
+                     id="TopPanel_Production"
+                     onClick={() => showPanel(ProductionSingletonModal, {})}
+                  >
                      <img src={Production} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
@@ -340,23 +348,23 @@ export function TopLeftPanel(): React.ReactNode {
                   <div
                      className="pointer"
                      id="TopPanel_Trade"
-                     onClick={() => showPanel(<TradeModal provinces={new Set([])} />)}
+                     onClick={() => showPanel(TradeSingletonModal, { provinces: new Set([]) })}
                   >
                      <img src={Trade} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.SenateAndConsuls)}>
-                  <div className="pointer" id="TopPanel_Senate" onClick={() => showPanel(<SenatePage />)}>
+                  <div className="pointer" id="TopPanel_Senate" onClick={() => showPanel(SenatePage, {})}>
                      <img src={Senate} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Missions)}>
-                  <div className="pointer" id="TopPanel_Mission" onClick={() => showPanel(<MissionPage />)}>
+                  <div className="pointer" id="TopPanel_Mission" onClick={() => showPanel(MissionPage, {})}>
                      <img src={Mission} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Chronicle)}>
-                  <div className="pointer" id="TopPanel_Chronicle" onClick={() => showPanel(<ChroniclePage />)}>
+                  <div className="pointer" id="TopPanel_Chronicle" onClick={() => showPanel(ChroniclePage, {})}>
                      <img src={Chronicle} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
@@ -364,7 +372,7 @@ export function TopLeftPanel(): React.ReactNode {
                   <div
                      className="pointer"
                      id="TopPanel_LegacyUpgrade"
-                     onClick={() => showPanel(<LegacyUpgradeModal />)}
+                     onClick={() => showPanel(LegacyUpgradeSingletonModal, {})}
                   >
                      <img src={Legacy} style={{ width: `${IconWidth}rem` }} />
                   </div>

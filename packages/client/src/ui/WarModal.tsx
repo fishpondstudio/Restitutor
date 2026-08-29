@@ -226,7 +226,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                                     .then((scene) => {
                                        scene.drawSelectors(new Set([tile]));
                                        scene.drawProvinceOutline(tileData.province);
-                                       showPanel(<TilePage tile={tile} />);
+                                       showPanel(TilePage, { tile });
                                     });
                               }}
                            >

@@ -4,30 +4,40 @@ import type { TypedEvent } from "@project/shared/src/utils/TypedEvent";
 import { useCallback, useEffect, useState } from "react";
 import { CloseModal, ShowModal } from "../game/Events";
 import type { ImageWithCredit } from "../game/events/ImageWithCredit";
+import type { ShowModalEvent } from "../ui/common/PanelTypes";
 import { FloatingTip } from "../ui/components/FloatingTip";
 import { CloseButtonClass } from "../ui/UIConstant";
 import { useTypedEvent } from "./Hook";
 import { $t, L } from "./i18n";
 
 export function ModalManager(): React.ReactNode {
-   const [modals, setModals] = useState<React.ReactNode[]>([]);
-   const onClosed = useCallback((closedModal: React.ReactNode) => {
+   const [modals, setModals] = useState<ShowModalEvent[]>([]);
+   const onClosed = useCallback((closedModal: ShowModalEvent) => {
       setModals((prevModals) => {
          return prevModals.filter((modal) => modal !== closedModal);
       });
    }, []);
 
    useTypedEvent(ShowModal, (modal) => {
-      if (modal) {
-         setModals([...modals, modal]);
-      } else {
-      }
+      setModals((prevModals) => {
+         if (
+            modal.Component.name.endsWith("SingletonModal") &&
+            prevModals.some((existing) => existing.Component === modal.Component)
+         ) {
+            return prevModals;
+         }
+         return [...prevModals, modal];
+      });
    });
 
    return modals.map((modal, index) => {
       return (
-         <Modal key={index} closeEvent={index === modals.length - 1 ? CloseModal : null} onClosed={onClosed}>
-            {modal}
+         <Modal
+            key={index}
+            closeEvent={index === modals.length - 1 ? CloseModal : null}
+            onClosed={() => onClosed(modal)}
+         >
+            {modal.content}
          </Modal>
       );
    });
@@ -40,7 +50,7 @@ function Modal({
 }: React.PropsWithChildren<{
    children: React.ReactNode;
    closeEvent: TypedEvent<void> | null;
-   onClosed: (modal: React.ReactNode) => void;
+   onClosed: () => void;
 }>): React.ReactNode {
    const [mounted, setMounted] = useState(false);
    useEffect(() => {
@@ -54,13 +64,7 @@ function Modal({
       };
    }, [closeEvent]);
    return (
-      <Transition
-         mounted={mounted}
-         transition="fade"
-         onExited={() => {
-            onClosed(children);
-         }}
-      >
+      <Transition mounted={mounted} transition="fade" onExited={onClosed}>
          {(style) => {
             return (
                <Overlay style={style} className="modal-overlay">

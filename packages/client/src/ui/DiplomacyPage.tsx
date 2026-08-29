@@ -94,10 +94,10 @@ import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { DeclareWarPage } from "./DeclareWarPage";
 import { DemandTileModal } from "./DemandTileModal";
-import { DemandTribute } from "./DemandTribute";
+import { DemandTributeModal } from "./DemandTributeModal";
 import { LookForSpouseModal } from "./LookForSpouseModal";
 import { playClick } from "./Sound";
-import { TradeModal } from "./TradeModal";
+import { TradeSingletonModal } from "./TradeSingletonModal";
 import { TreatyActionButton } from "./TreatyActionButton";
 import { DiplomacyActionWidth, DiplomacyWidth, SidebarWidth } from "./UIConstant";
 import { WarModal } from "./WarModal";
@@ -199,7 +199,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                                  className={cls("row mx10 my5 text-sm", isMe ? "pointer" : null)}
                                  onClick={() => {
                                     if (isMe) {
-                                       showPanel(<WarModal war={war} />);
+                                       showPanel(WarModal, { war });
                                     }
                                  }}
                               >
@@ -443,7 +443,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                   id={`DiplomacyPage_DeclareWar_${province}`}
                   className="btn py2 red"
                   onClick={() => {
-                     showPanel(<DeclareWarPage province={province} />);
+                     showPanel(DeclareWarPage, { province });
                   }}
                >
                   {$t(L.DeclareWar)}
@@ -505,11 +505,14 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             />
             <button
                className="btn py2"
-               onClick={() => showPanel(<LookForSpouseModal family={ourState.governor} province={province} />)}
+               onClick={() => showPanel(LookForSpouseModal, { family: ourState.governor, province })}
             >
                {$t(L.OfferMarriage)}
             </button>
-            <button className="btn py2" onClick={() => showPanel(<TradeModal provinces={new Set([province])} />)}>
+            <button
+               className="btn py2"
+               onClick={() => showPanel(TradeSingletonModal, { provinces: new Set([province]) })}
+            >
                {$t(L.TradeGoods)}
             </button>
             <ActionButton
@@ -1089,7 +1092,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                className="btn py2"
                action={{
                   ...DemandTileCostCondition(G.save.state.playerProvince, province, [], G.save),
-                  effect: () => showPanel(<DemandTileModal province={province} />),
+                  effect: () => showPanel(DemandTileModal, { province }),
                }}
             >
                {$t(L.DemandATile)}
@@ -1098,7 +1101,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                className="btn py2"
                action={{
                   ...DemandTributeCostCondition(G.save.state.playerProvince, province, G.save),
-                  effect: () => showPanel(<DemandTribute province={province} />),
+                  effect: () => showPanel(DemandTributeModal, { province }),
                }}
             >
                {TimedActions.DemandTribute.name()}
@@ -1438,7 +1441,7 @@ function _ViewProvinceButton({ province }: { province: Province }): React.ReactN
       <button
          className="btn text-sm"
          onClick={() => {
-            showPanel(<DiplomacyPage province={province} />);
+            showPanel(DiplomacyPage, { province });
             G.scene
                .getCurrent(WorldScene)
                ?.lookAt(state.capital, { time: 0.2 })

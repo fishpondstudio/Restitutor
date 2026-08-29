@@ -18,7 +18,7 @@ import { BreakdownTooltip } from "./BreakdownRow";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 
-export function ProvinceListModal(): React.ReactNode {
+export function ProvinceListSingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const ranking = getProvincePrestigeRanking(G.save);
    return (

@@ -24,7 +24,7 @@ import { Grid2 } from "./UIConstant";
 
 type SettingsTab = "general" | "shortcuts" | "todos";
 
-export function SettingsModal(): React.ReactNode {
+export function SettingsSingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameOptionUpdated);
    const [tab, setTab] = useState<SettingsTab>("general");
    return (
@@ -394,20 +394,18 @@ function SettingsGeneralTab(): React.ReactNode {
             <button
                className="btn text-red"
                onClick={() => {
-                  showPanel(
-                     <ConfirmModal
-                        title={$t(L.HardReset)}
-                        message={$t(L.AreYouSureYouWantToHardResetTheGameThisCannotBeUndone)}
-                        confirm={{
-                           label: $t(L.HardReset),
-                           class: "text-red",
-                           onClick: async () => {
-                              await resetGame();
-                              window.location.reload();
-                           },
-                        }}
-                     />,
-                  );
+                  showPanel(ConfirmModal, {
+                     title: $t(L.HardReset),
+                     message: $t(L.AreYouSureYouWantToHardResetTheGameThisCannotBeUndone),
+                     confirm: {
+                        label: $t(L.HardReset),
+                        class: "text-red",
+                        onClick: async () => {
+                           await resetGame();
+                           window.location.reload();
+                        },
+                     },
+                  });
                }}
             >
                {$t(L.HardReset)}

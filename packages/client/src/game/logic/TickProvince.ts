@@ -8,7 +8,8 @@ import {
    numberToRoman,
    randOne,
 } from "@project/shared/src/utils/Helper";
-import type { ReactElement } from "react";
+import type { ComponentProps, ElementType } from "react";
+import type { PanelIdentity } from "../../ui/common/PanelTypes";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { GameEventModal } from "../../ui/GameEventModal";
 import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
@@ -321,13 +322,16 @@ export function addGameEvent(event: GameEvent, province: Province, save: SaveGam
       if (achievement) {
          unlockAchievement(achievement);
       }
-      showGameEventModal(<GameEventModal event={event} />);
+      showGameEventModal(GameEventModal, { event });
    }
 }
 
-export function showGameEventModal(modal: ReactElement): void {
+export function showGameEventModal<Component extends ElementType & PanelIdentity>(
+   Component: Component,
+   props: NoInfer<ComponentProps<Component>>,
+): void {
    if (!hasFlag(G.flags, GameFlags.Sandbox)) {
-      showPanel(modal);
+      showPanel(Component, props);
    }
 }
 
@@ -339,7 +343,7 @@ function tickRestoration(province: Province, save: SaveGame): void {
    // In sandbox mode, a random restoration bonus is rolled for everyone, including the player.
    if (!hasFlag(G.flags, GameFlags.Sandbox) && province === save.state.playerProvince) {
       if (restoration > used && !_restorationShown.has(used)) {
-         showPanel(<RestorationBonusModal />);
+         showPanel(RestorationBonusModal, {});
          _restorationShown.add(used);
       }
    } else {

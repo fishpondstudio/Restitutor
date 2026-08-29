@@ -1,7 +1,7 @@
 import { forEach, round, type Tile } from "@project/shared/src/utils/Helper";
 import { hideSidebar } from "../../ui/common/SidebarManager";
-import { DeclareWarOnUsModal } from "../../ui/DeclareWarOnUsEventModal";
-import { DrawnIntoWarModal } from "../../ui/DrawnIntoWarEventModal";
+import { DeclareWarOnUsModal } from "../../ui/DeclareWarOnUsModal";
+import { DrawnIntoWarModal } from "../../ui/DrawnIntoWarModal";
 import { $t, L } from "../../utils/i18n";
 import { unlockAchievement } from "../Achievement";
 import { CasusBelli } from "../definitions/CasusBelli";
@@ -137,10 +137,10 @@ export function DeclareWarAction(
          RefreshTiles.emit({ tiles: tiles, options: { indicator: true } });
          if (headless) {
             if (war.defender === save.state.playerProvince) {
-               showGameEventModal(<DeclareWarOnUsModal war={war} />);
+               showGameEventModal(DeclareWarOnUsModal, { war });
             }
             if (war.coAttackers.has(save.state.playerProvince) || war.coDefenders.has(save.state.playerProvince)) {
-               showGameEventModal(<DrawnIntoWarModal war={war} />);
+               showGameEventModal(DrawnIntoWarModal, { war });
             }
          } else {
             hideSidebar();

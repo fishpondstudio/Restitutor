@@ -28,7 +28,7 @@ import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 
-export function TradeModal({ provinces }: { provinces: Set<Province> }): React.ReactNode {
+export function TradeSingletonModal({ provinces }: { provinces: Set<Province> }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const [selectedProvinces, setSelectedProvinces] = useState<Set<Province>>(provinces);
    const [showAvailable, setShowAvailable] = useState(false);

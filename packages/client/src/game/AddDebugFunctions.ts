@@ -3,8 +3,8 @@ import { WorldScene } from "../scenes/WorldScene";
 import { BarbarianRaidModal } from "../ui/BarbarianRaidModal";
 import { ChronicleModal } from "../ui/ChronicleModal";
 import { showPanel } from "../ui/common/ShowPanel";
-import { DeclareWarOnUsModal } from "../ui/DeclareWarOnUsEventModal";
-import { DrawnIntoWarModal } from "../ui/DrawnIntoWarEventModal";
+import { DeclareWarOnUsModal } from "../ui/DeclareWarOnUsModal";
+import { DrawnIntoWarModal } from "../ui/DrawnIntoWarModal";
 import { EcumenicalCouncilPage } from "../ui/EcumenicalCouncilPage";
 import { InvaderConqueredWarGoalModal } from "../ui/InvaderConqueredWarGoalModal";
 import { InvaderSueForWhitePeaceModal } from "../ui/InvaderSueForWhitePeaceModal";
@@ -71,19 +71,14 @@ export function addDebugFunctions(): void {
    };
    // @ts-expect-error
    globalThis.showChronicle = () => {
-      showPanel(
-         <ChronicleModal
-            years={[
-               monthToDate(G.save.state.month).getFullYear() - 1,
-               monthToDate(G.save.state.month).getFullYear() - 1,
-            ]}
-         />,
-      );
+      showPanel(ChronicleModal, {
+         years: [monthToDate(G.save.state.month).getFullYear() - 1, monthToDate(G.save.state.month).getFullYear() - 1],
+      });
    };
 
    // @ts-expect-error
    globalThis.showRestorationBonus = () => {
-      showPanel(<RestorationBonusModal />);
+      showPanel(RestorationBonusModal, {});
    };
 
    // @ts-expect-error
@@ -136,23 +131,23 @@ export function addDebugFunctions(): void {
 
    // @ts-expect-error
    globalThis.declareWarOnUs = () => {
-      showPanel(<DeclareWarOnUsModal war={warOnUs} />);
+      showPanel(DeclareWarOnUsModal, { war: warOnUs });
    };
    // @ts-expect-error
    globalThis.drawnIntoWar = () => {
-      showPanel(<DrawnIntoWarModal war={wasAsCoalition} />);
+      showPanel(DrawnIntoWarModal, { war: wasAsCoalition });
    };
    // @ts-expect-error
    globalThis.invaderSueForWhitePeace = () => {
-      showPanel(<InvaderSueForWhitePeaceModal war={warOnUs} />);
+      showPanel(InvaderSueForWhitePeaceModal, { war: warOnUs });
    };
    // @ts-expect-error
    globalThis.invaderConqueredWarGoal = () => {
-      showPanel(<InvaderConqueredWarGoalModal war={warOnUs} />);
+      showPanel(InvaderConqueredWarGoalModal, { war: warOnUs });
    };
    // @ts-expect-error
    globalThis.warEnded = () => {
-      showPanel(<WarEndedModal war={wasAsCoalition} />);
+      showPanel(WarEndedModal, { war: wasAsCoalition });
    };
    // @ts-expect-error
    globalThis.undoTutorial = (number = 1) => {
@@ -180,12 +175,12 @@ export function addDebugFunctions(): void {
    };
    // @ts-expect-error
    globalThis.showBarbarian = () => {
-      showPanel(<BarbarianRaidModal />);
+      showPanel(BarbarianRaidModal, {});
    };
    // @ts-expect-error
    globalThis.showEcumenicalCouncil = () => {
       startTimedAction("EcumenicalCouncil2", G.save.state.playerProvince, G.save);
-      showPanel(<EcumenicalCouncilPage />);
+      showPanel(EcumenicalCouncilPage, {});
    };
    // @ts-expect-error
    globalThis.addChild = (female: boolean) => {

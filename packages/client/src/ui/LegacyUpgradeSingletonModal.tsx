@@ -2,7 +2,7 @@ import { Controls, ReactFlow } from "@xyflow/react";
 import { getLegacyUpgradeCost, makeLegacyUpgradeNodes } from "../game/logic/LegacyUpgradeLogic";
 import { hideModal, ModalTitleBar } from "../utils/ModalManager";
 import { FloatingEdge, LegacyUpgradeNode } from "./LegacyUpgradeNode";
-import "./LegacyUpgradeModal.css";
+import "./LegacyUpgradeSingletonModal.css";
 import { formatNumber } from "@project/shared/src/utils/Helper";
 import { GameStateUpdated } from "../game/Events";
 import { getProvinceResource } from "../game/logic/ProvinceLogic";
@@ -17,7 +17,7 @@ import { ModalFullHeight } from "./UIConstant";
 const NodeTypes = { LegacyUpgradeNode };
 const EdgeTypes = { default: FloatingEdge };
 
-export function LegacyUpgradeModal(): React.ReactNode {
+export function LegacyUpgradeSingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
@@ -84,7 +84,7 @@ export function LegacyUpgradeModal(): React.ReactNode {
                      id="LegacyUpgradeModal_Rebirth"
                      onClick={() => {
                         hideModal();
-                        showPanel(<RebirthPage />);
+                        showPanel(RebirthPage, {});
                      }}
                   >
                      {$t(L.Rebirth)}

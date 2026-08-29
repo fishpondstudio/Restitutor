@@ -22,7 +22,7 @@ import { html } from "./components/RenderHTMLComp";
 import { DiceRollComp } from "./DiceRollDisplay";
 import { playClick } from "./Sound";
 
-export function DemandTribute({ province }: { province: Province }): React.ReactNode {
+export function DemandTributeModal({ province }: { province: Province }): React.ReactNode {
    const [rollStarted, setRollStarted] = useState(false);
    const { coAttackers, coDefenders } = getWarParticipants(G.save.state.playerProvince, province, G.save);
    const ourPrestige = getProvincePrestige(G.save.state.playerProvince, G.save);

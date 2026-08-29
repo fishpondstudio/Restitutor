@@ -79,9 +79,10 @@ export async function bootstrap(): Promise<void> {
       migrateSave(G.save);
       if (G.save.options.version !== SupportedSaveVersion) {
          hideLoading();
-         showPanel(
-            <IncompatibleSaveModal supportedVersion={SupportedSaveVersion} saveVersion={G.save.options.version} />,
-         );
+         showPanel(IncompatibleSaveModal, {
+            supportedVersion: SupportedSaveVersion,
+            saveVersion: G.save.options.version,
+         });
          return;
       }
    } catch (error) {

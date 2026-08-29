@@ -94,10 +94,10 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
          RefreshTiles.emit({ tiles: [...war.tiles, ...changedCapitals], options: { indicator: true, visual: true } });
          if (headless) {
             if (war.defender === save.state.playerProvince) {
-               showGameEventModal(<InvaderConqueredWarGoalModal war={war} />);
+               showGameEventModal(InvaderConqueredWarGoalModal, { war });
             }
             if (war.coAttackers.has(save.state.playerProvince) || war.coDefenders.has(save.state.playerProvince)) {
-               showGameEventModal(<WarEndedModal war={war} />);
+               showGameEventModal(WarEndedModal, { war });
             }
          } else {
             hideModal();

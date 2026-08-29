@@ -26,13 +26,13 @@ import { BreakdownTooltip } from "./BreakdownRow";
 import { showPanel } from "./common/ShowPanel";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
-import { FamilyTreeModal } from "./FamilyModal";
+import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { playClick, playError } from "./Sound";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid3 } from "./UIConstant";
 
-export function GovernmentModal(): React.ReactNode {
+export function GovernmentSingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
@@ -57,7 +57,7 @@ export function GovernmentModal(): React.ReactNode {
          <div className="h1 row">
             <div className="f1">{$t(L.Governor)}</div>
             <FloatingTip label={$t(L.ViewFamilyTree)}>
-               <div className="row g5 pointer" onClick={() => showPanel(<FamilyTreeModal />)}>
+               <div className="row g5 pointer" onClick={() => showPanel(FamilyTreeSingletonModal, {})}>
                   {state.governor.male.name.join(" ")}
                   <img src={FamilyTree} style={{ height: "1.3125rem" }} />
                </div>

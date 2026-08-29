@@ -235,7 +235,7 @@ export class TechTreeScene extends Scene {
             this._selectedTechFrame,
             !G.save.state.provinces[G.save.state.playerProvince]?.unlockedTech.has(this._selectedTech),
          );
-         showPanel(<TechPage tech={this._selectedTech} />);
+         showPanel(TechPage, { tech: this._selectedTech });
       }
    }
 

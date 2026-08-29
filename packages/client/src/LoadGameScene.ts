@@ -6,7 +6,7 @@ import { isSteam, SteamClient } from "./rpc/SteamClient";
 import { TechTreeScene } from "./scenes/TechTreeScene";
 import { WorldScene } from "./scenes/WorldScene";
 import { showPanel } from "./ui/common/ShowPanel";
-import { LegacyUpgradeModal } from "./ui/LegacyUpgradeModal";
+import { LegacyUpgradeSingletonModal } from "./ui/LegacyUpgradeSingletonModal";
 import { G, GameFlags, setSpeed } from "./utils/Global";
 
 export function loadGameScene() {
@@ -39,7 +39,7 @@ export function loadGameScene() {
    }
 
    if (G.params.has("legacy")) {
-      showPanel(<LegacyUpgradeModal />);
+      showPanel(LegacyUpgradeSingletonModal, {});
    }
 
    const scene = G.params.get("scene")?.toLowerCase();

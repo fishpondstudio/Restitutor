@@ -61,10 +61,10 @@ export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: S
          RefreshTiles.emit({ tiles: war.tiles, options: { indicator: true } });
          if (headless) {
             if (war.defender === save.state.playerProvince) {
-               showGameEventModal(<InvaderSueForWhitePeaceModal war={war} />);
+               showGameEventModal(InvaderSueForWhitePeaceModal, { war });
             }
             if (war.coAttackers.has(save.state.playerProvince) || war.coDefenders.has(save.state.playerProvince)) {
-               showGameEventModal(<WarEndedModal war={war} />);
+               showGameEventModal(WarEndedModal, { war });
             }
          } else {
             hideModal();

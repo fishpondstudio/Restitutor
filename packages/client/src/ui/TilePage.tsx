@@ -81,7 +81,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             <div className="row my5">
                <div className="f1">{$t(L.Province)}</div>
                <button
-                  onClick={() => showPanel(<DiplomacyPage province={tileData.province} />)}
+                  onClick={() => showPanel(DiplomacyPage, { province: tileData.province })}
                   className="btn text-sm"
                >
                   {$t(L.Diplomacy)}
@@ -342,7 +342,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                disabled={!isMyProvince}
                className="btn"
                style={{ width: "100%", aspectRatio: "1 / 1" }}
-               onClick={() => showPanel(<TileBuildingsModal tile={tile} />)}
+               onClick={() => showPanel(TileBuildingsModal, { tile })}
             >
                <div className="mi lg">add</div>
             </button>

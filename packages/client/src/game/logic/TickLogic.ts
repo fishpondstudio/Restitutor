@@ -98,7 +98,7 @@ function tickChroniclePopup(save: SaveGame): void {
          return year >= startYear && year <= endYear;
       });
       if (entries.length > 0) {
-         showPanel(<ChronicleModal years={[startYear, endYear]} />);
+         showPanel(ChronicleModal, { years: [startYear, endYear] });
       }
    }
 }

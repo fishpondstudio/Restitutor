@@ -464,7 +464,7 @@ export function InternalAffairsPage(): React.ReactNode {
                                  scene.drawSelectors(new Set([tile]));
                                  scene.drawProvinceOutline(tileData.province);
                               });
-                           showPanel(<TilePage tile={tile} />);
+                           showPanel(TilePage, { tile });
                         }}
                      >
                         open_in_new

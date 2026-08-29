@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { ModalTitleBar } from "../utils/ModalManager";
-import "./ProductionModal.css";
+import "./ProductionSingletonModal.css";
 import { Popover } from "@mantine/core";
 import { cls, formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
 import { Controls, ReactFlow, SmoothStepEdge } from "@xyflow/react";
@@ -24,7 +24,7 @@ import { GoodsTaxRateComp } from "./GoodsTaxRateComp";
 import { ProductionNode } from "./ProductionNode";
 import { ModalFullHeight } from "./UIConstant";
 
-export function ProductionModal(): React.ReactNode {
+export function ProductionSingletonModal(): React.ReactNode {
    const containerRef = useRef<HTMLDivElement>(null);
    const { nodes, edges } = makeProductionTree(G.save.state.playerProvince, G.save);
    return (

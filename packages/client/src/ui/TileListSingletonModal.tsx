@@ -19,7 +19,7 @@ import { UpgradeInfrastructureButton, UpgradePopulationButton, UpgradeProduction
 
 const BuildingConstructionButtonStyle = { width: 30, height: 30, padding: 0 };
 const UpgradeButtonStyle = { minWidth: 40 };
-export function TileListModal(): React.ReactNode {
+export function TileListSingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    return (
       <ModalComp size="xl" scrollbars="xy" title={<ModalTitleBar title={$t(L.TilesAndUpgrades)} dismiss />}>
@@ -98,7 +98,7 @@ function _TileListRow({ tile }: { tile: Tile }): React.ReactNode {
             <button
                className="btn"
                onClick={() => {
-                  showPanel(<TilePage tile={tile} />);
+                  showPanel(TilePage, { tile });
                   G.scene.getCurrent(WorldScene)?.drawSelectors(new Set([tile]));
                   hideModal();
                }}

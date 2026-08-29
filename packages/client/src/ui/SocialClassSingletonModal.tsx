@@ -32,7 +32,7 @@ import { BreakdownComp } from "./BreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { Grid2 } from "./UIConstant";
 
-export function SocialClassModal(): React.ReactNode {
+export function SocialClassSingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const theme = useMantineTheme();
    const state = G.save.state.provinces[G.save.state.playerProvince];

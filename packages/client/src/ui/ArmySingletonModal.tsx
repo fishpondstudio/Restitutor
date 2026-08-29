@@ -46,7 +46,7 @@ import { html } from "./components/RenderHTMLComp";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid3 } from "./UIConstant";
 
-export function ArmyModal(): React.ReactNode {
+export function ArmySingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const manpower = getProvinceManpower(G.save.state.playerProvince, G.save);
    const maintenanceCost = getArmyMaintenanceCost(G.save.state.playerProvince, G.save);

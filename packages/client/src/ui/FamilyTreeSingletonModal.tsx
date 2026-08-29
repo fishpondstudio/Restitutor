@@ -6,7 +6,7 @@ import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { ModalTitleBar } from "../utils/ModalManager";
 import "@xyflow/react/dist/style.css";
-import "./FamilyModal.css";
+import "./FamilyTreeSingletonModal.css";
 import type React from "react";
 import { DivorceAction, DivorceChristianityCost, DivorceGameEffect } from "../game/actions/SpouseActions";
 import { ProvinceResourceNames } from "../game/definitions/Province";
@@ -16,7 +16,7 @@ import { ActionButton } from "./ActionButton";
 import { FamilyNode } from "./FamilyNode";
 import { ModalFullHeight } from "./UIConstant";
 
-export function FamilyTreeModal(): React.ReactNode {
+export function FamilyTreeSingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
