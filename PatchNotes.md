@@ -1,43 +1,26 @@
 Hi,
 
-I am pleased to present Patch 0.18. This patch introduces a new playable province, divorce mechanic, and brings Steam Workshop mod support.
+I am pleased to present Patch 0.19. This patch improves the tutorial, adds keyboard shortcuts, and brings several quality-of-life improvements.
 
-[h2]New Playable Province: Britannia[/h2]
+[h2]Improved Tutorial[/h2]
 
-Britannia is now available as a playable province. Its campaign follows the province through the late Roman period, from Septimius Severus at Eboracum in 208 A.D. to the withdrawal of Constantine's forces in 407 A.D.
-
-The missions for Britannia are focused across the channel: they first open campaigns against Germania, Belgica, or Lugdunensis, followed by establishing a bridgehead in Gaul, taking Belgica as a client, and weakening Lugdunensis through intrigue. Further missions focus on conquering northern Gaul, reaching the Mediterranean coast, and securing a foothold in Tarraconensis.
-
-Britannia also has three unique Provincial Spirits:
+The tutorial now provides more guidance throughout the early game:
 
 [list]
-[*][b]Maritime Ambition[/b] - Enemy tiles reachable by sea from our province contribute 20% less War Score.
-[*][b]Naval Tradition[/b] - Gain 0.5% War Power for each core coastal tile, up to 50%.
-[*][b]Coastal Mandate[/b] - Gain 1 Consul Point when coring a coastal tile.
+[*]Learn how to adjust game speed during a war.
+[*]Adopt a social class agenda and understand its effects on influence and loyalty.
+[*]Use missions to guide our restoration and choose mission rewards.
+[*]War and peace instructions have been clarified, including when to sign a peace treaty.
 [/list]
 
-[h2]Divorce[/h2]
+To make the tutorial experience smoother, certain campaign events are now available until 220 A.D., rather than ending in 200 A.D. The first Lugdunensis mission also offers more than one options.
 
-After being married for 120 months (10 years), the governor's spouse can be divorced.
-
-[list]
-[*]Divorce costs 1,000 Gold and, in provinces following a Christian religion, 10 Christian Influence.
-[*]Divorce applies -10 Stability and -10% Prestige for 60 months.
-[/list]
-
-
-[h2]Mod + Steam Workshop[/h2]
-
-I am happy to announce that modding is supported via Steam Workshop. After you've subscribed to mods and Steam has downloaded them, the game should launch with "Mods Manager" - there you can choose what mods you want to load. There are two kinds of supported mods: addon and total conversion. You can load multiple addon mods, but only one total conversion mods.
-
-When you have installed mods, the game will always launch with "Mods Manager". This prevents badly behaving mods from "bricking" the game. If you don't have mods installed, the game will launch normally as before.
-
-We are still in the early days of modding - I will work on adding APIs, documentation and examples. If you want to get your hands dirty, you can read the source code on GitHub (the source code is GPL 2.0 Licensed). I have also created #restitutor-modding channel on Discord.
-
-
-[h2]Other Changes[/h2]
+[h2]Quality of Life[/h2]
 
 [list]
-[*]Mandate is now displayed on the Internal Affairs page.
-[*]The Reconquista casus belli has also been balanced: tiles originally owned by us now contribute 20% less to War Score, down from 30%.
+[*]Keyboard shortcuts are now available and can be viewed, rebound, or reset from the Shortcuts tab in Settings.
+[*]Steam players can enter or exit fullscreen mode from Settings.
+[*]Steam save files are automatically backed up every 10 minutes, with up to 10 rotating backups retained.
+[*]Added graphics renderer information to Settings to help with troubleshooting.
+[*]Updated the cursor artwork and added clearer cursor states.
 [/list]

@@ -1,4 +1,4 @@
-export const Version = "0.18";
+export const Version = "0.19";
 export const SupportedSaveVersion = 10;
 export const GoldenRatio = (1 + Math.sqrt(5)) / 2;
 
