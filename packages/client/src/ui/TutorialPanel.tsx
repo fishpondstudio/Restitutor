@@ -1,6 +1,6 @@
 import { Progress } from "@mantine/core";
 import { formatNumber, hasFlag, toggleFlag } from "@project/shared/src/utils/Helper";
-import { GameOptionUpdated, GameStateUpdated } from "../game/Events";
+import { GameOptionUpdated, GameSpeedChanged, GameStateUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
 import { getCurrentTutorial } from "../game/TutorialLogic";
 import { G } from "../utils/Global";
@@ -9,10 +9,12 @@ import { $t, L } from "../utils/i18n";
 import { ChangeLanguageComp } from "./ChangeLanguageComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
+import { renderMarkup } from "./ParseMarkup";
 
 export function TutorialPanel(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    refreshOnTypedEvent(GameOptionUpdated);
+   refreshOnTypedEvent(GameSpeedChanged);
    const tutorial = getCurrentTutorial(G.save);
    if (!tutorial) {
       return null;
@@ -51,7 +53,7 @@ export function TutorialPanel(): React.ReactNode {
                      <div className="divider" />
                   </>
                )}
-               <div className="m10">{html(tutorial.desc(G.save))}</div>
+               <div className="m10">{renderMarkup(tutorial.desc(G.save))}</div>
             </>
          )}
          {tutorial.button && (

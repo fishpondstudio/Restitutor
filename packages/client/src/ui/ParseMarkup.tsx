@@ -7,6 +7,7 @@ import { MapBackgroundColors } from "../game/logic/MapColor";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
+import { IconCatalog } from "./IconCatalog";
 
 const parserOptions: HTMLReactParserOptions = {
    replace: (node) => {
@@ -64,6 +65,17 @@ const parserOptions: HTMLReactParserOptions = {
                   {getTileName(tile, G.save)}
                </span>
             );
+         }
+      }
+      if (
+         node.type === "tag" &&
+         node.name === "icon" &&
+         node.children.length === 1 &&
+         node.children[0].type === "text"
+      ) {
+         const text = node.children[0].data;
+         if (text in IconCatalog) {
+            return <img className="inline-icon" src={IconCatalog[text as keyof typeof IconCatalog]} />;
          }
       }
    },

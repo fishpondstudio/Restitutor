@@ -526,7 +526,7 @@ export const FR = {
    MakeCore: "Créer un cœur",
    MakeCoreCost: "Coût de création d’un cœur",
    MakeDurocortorumOurCoreDesc:
-      "Une tuile nouvellement annexée n’est pas encore un cœur de notre province - les tuiles qui ne sont pas des cœurs rapportent moins de taxes et nécessitent davantage de capacité de gouvernance. Lorsque notre coût de gouvernance dépasse notre capacité, une surextension se produit, ce qui affecte négativement notre province. Nous devons dépenser des points <i>administratifs</i> pour intégrer la tuile et en faire un cœur - suivez les instructions à l’écran.",
+      "Une tuile nouvellement annexée n’est pas encore un cœur de notre province - les tuiles qui ne sont pas des cœurs rapportent moins de taxes et nécessitent davantage de capacité de gouvernance. Lorsque notre coût de gouvernance dépasse notre capacité, une surextension se produit, ce qui affecte négativement notre province. Nous devons dépenser des points <icon>administrative</icon>administratifs pour intégrer la tuile et en faire un cœur - suivez les instructions à l’écran.",
    MakeGovernorGeneral: "Faire du gouverneur un général",
    MakeWarSpeech: "Prononcer un discours de guerre",
    Make$1OurCoreTile: "Faire de <i>$1</i> notre tuile centrale.",
@@ -670,7 +670,7 @@ export const FR = {
    PauseWhenAGameEventOccurs: "Mettre en pause lorsqu’un événement survient",
    PayOffOurLoans: "Rembourser nos prêts",
    PayOffOurLoansDesc:
-      "Les prêts sont contractés automatiquement lorsque nous n’avons plus d’or - ils génèrent des intérêts chaque mois, il est donc préférable de les rembourser dès que possible. <br>- Pour augmenter les revenus, améliorez l’<i>infrastructure</i> et la <i>production</i> des tuiles.<br>- Pour réduire les dépenses, diminuez la <i>conscription</i> et l’<i>entretien</i> de l’armée en temps de paix.<br>Lorsque nous avons suffisamment d’or, suivez les instructions à l’écran pour rembourser nos prêts.",
+      "Les prêts sont contractés automatiquement lorsque nous n’avons plus d’<icon>gold</icon>or - ils génèrent des intérêts chaque mois, il est donc préférable de les rembourser dès que possible. <br>- Pour augmenter les revenus, améliorez l’<i>infrastructure</i> et la <i>production</i> des tuiles.<br>- Pour réduire les dépenses, diminuez la <i>conscription</i> et l’<i>entretien</i> de l’armée en temps de paix.<br>Lorsque nous avons suffisamment d’or, suivez les instructions à l’écran pour rembourser nos prêts.",
    PendingEventDecision: "Décision d’événement en attente",
    PendingGameEventAutoDecideIn$1Months: "Nous avons une décision en attente concernant un événement. Si nous ne prenons pas de décision dans les $1 mois, la première option sera choisie pour nous. Cliquez pour voir les détails.",
    PeopleShouldBeFreeToChooseTheirFaith: "Chacun devrait être libre de choisir sa foi",
@@ -775,7 +775,7 @@ export const FR = {
    Rebirth: "Renaissance",
    RebirthAndStartANewRun: "Renaître et commencer une nouvelle partie",
    RebirthAndStartANewRunDesc:
-      "Restitutor est un jeu de grande stratégie <i>incrémental</i> - chaque partie accorde des bonus permanents qui permettent à la suivante de progresser plus rapidement et d’aller plus loin. Ce système est appelé <i>renaissance</i>.<br>Lors de la renaissance, les tuiles que nous avons <i>annexées et intégrées</i> sont converties en points de legs - ils sont conservés lors des parties suivantes et accordent de puissants bonus.<br>Nous pouvons choisir une autre province pour la prochaine partie - suivez les instructions à l’écran pour renaître.<br>Après la renaissance, le tutoriel sera terminé. Forts de nos nouvelles connaissances, nous sommes prêts à élaborer notre propre stratégie et à tracer notre propre voie - c’est désormais à nous de décider du cours de l’histoire.",
+      "Restitutor est un jeu de grande stratégie <i>incrémental</i> - chaque partie accorde des bonus permanents qui permettent à la suivante de progresser plus rapidement et d’aller plus loin. Ce système est appelé <i>renaissance</i>.<br>Lors de la renaissance, les tuiles que nous avons <i>annexées et intégrées</i> sont converties en <icon>legacy</icon>points de legs - ils sont conservés lors des parties suivantes et accordent de puissants bonus.<br>Nous pouvons choisir une autre province pour la prochaine partie - suivez les instructions à l’écran pour renaître.<br>Après la renaissance, le tutoriel sera terminé. Forts de nos nouvelles connaissances, nous sommes prêts à élaborer notre propre stratégie et à tracer notre propre voie - c’est désormais à nous de décider du cours de l’histoire.",
    ReceivedAGiftFrom$1: "A reçu un cadeau de $1",
    Reconquista: "Reconquista",
    Reconquista$1: "Reconquista ($1)",
@@ -2824,33 +2824,34 @@ export const FR = {
    CoastalAdministration: "Administration côtière",
    $1GoverningCostOnCoreCoastalTiles: "$1 coût de gouvernance sur les cases côtières centrales",
    TutorialWelcomeDesc$1:
-      "<i>Restitutor</i> est un jeu de grande stratégie historique incrémental se déroulant dans l'Empire romain après la mort de Commode en 192 apr. J.-C., lorsque l'empire s'est fragmenté en provinces rivales.<br>En tant que gouverneur de la province <i>$1</i>, notre devoir est de restaurer l'empire par l'art du gouvernement, la diplomatie et la conquête.<br>Cela peut sembler accablant, mais ne vous inquiétez pas : nous allons parcourir les bases étape par étape.",
+      "<i>Restitutor</i> est un jeu de grande stratégie historique incrémental se déroulant dans l'Empire romain après la mort de Commode en 192 apr. J.-C., lorsque l'empire s'est fragmenté en provinces rivales.<br>En tant que gouverneur de la province <Province>$1</Province>, notre devoir est de restaurer l'empire par l'art du gouvernement, la diplomatie et la conquête.<br>Cela peut sembler accablant, mais ne vous inquiétez pas : nous allons parcourir les bases étape par étape.",
    TutorialSelectRivals$1: "Sélectionner $1 rivaux",
-   TutorialSelectRivalsDesc$1$2: "Les rivaux sont des provinces avec lesquelles nous sommes en compétition, par la guerre ou la diplomatie. Suivez les instructions à l'écran pour sélectionner $1 rivaux - <i>l'un d'eux doit être $2</i> puisque nous nous préparons à leur faire la guerre.",
+   TutorialSelectRivalsDesc$1$2: "Les rivaux sont des provinces avec lesquelles nous sommes en compétition, par la guerre ou la diplomatie. Suivez les instructions à l'écran pour sélectionner $1 rivaux - <i>l'un d'eux doit être <Province>$2</Province></i> puisque nous nous préparons à leur faire la guerre.",
    TutorialIncreaseTargetConscriptionDesc$1$2:
       "La puissance de guerre dépend de facteurs tels que la taille de l'armée permanente et son entretien. La taille de l'armée permanente dépend de la <i>conscription</i>. Suivez les instructions à l'écran pour augmenter la conscription cible de $1 à $2. La conscription réelle augmentera <i>progressivement</i> jusqu'à atteindre la cible.",
    TutorialInfiltrate$1: "Infiltrer $1",
-   TutorialInfiltrateDesc$1$2: "Nous avons $1 diplomates - ils peuvent signer des traités, améliorer les relations ou infiltrer d'autres provinces. Faites un clic droit sur $2 <i>sur la carte</i> pour ouvrir le panneau de diplomatie et suivez les instructions à l'écran pour l'infiltrer.",
-   TutorialReachDiplomaticPointsDesc$1: "Déclarer la guerre coûte $1 points diplomatiques. En plus des points gouvernementaux reçus chaque mois, nous pouvons également en gagner grâce aux événements. Les événements peuvent avoir un impact considérable sur notre province, choisissez donc avec soin.",
+   TutorialInfiltrateDesc$1$2: "Nous avons $1 diplomates - ils peuvent signer des traités, améliorer les relations ou infiltrer d'autres provinces. Faites un clic droit sur <Province>$2</Province> <i>sur la carte</i> pour ouvrir le panneau de diplomatie et suivez les instructions à l'écran pour l'infiltrer.",
+   TutorialReachDiplomaticPointsDesc$1:
+      "Déclarer la guerre coûte $1 points <icon>diplomatic</icon>diplomatiques. En plus des points gouvernementaux reçus chaque mois, nous pouvons également en gagner grâce aux événements. Les événements peuvent avoir un impact considérable sur notre province, choisissez donc avec soin.",
    TutorialDeclareWarOn$1: "Déclarer la guerre à $1",
    TutorialDeclareWarDesc$1$2:
-      "Nous sommes maintenant prêts pour la guerre. Faites un clic droit sur $1 <i>sur la carte</i> pour ouvrir le panneau de diplomatie et suivez les instructions à l'écran pour déclarer la guerre.<br>La guerre peut mettre notre province à rude épreuve, alors commençons modestement : choisissez <i>$2</i> comme objectif de guerre.<br>Nous devrions presque toujours avoir un <i>casus belli</i> lorsque nous déclarons la guerre. Nous en avons actuellement un et pouvons également en fabriquer un si nécessaire.",
+      "Nous sommes maintenant prêts pour la guerre. Faites un clic droit sur <Province>$1</Province> <i>sur la carte</i> pour ouvrir le panneau de diplomatie et suivez les instructions à l'écran pour déclarer la guerre.<br>La guerre peut mettre notre province à rude épreuve, alors commençons modestement : choisissez <Tile>$2</Tile> comme objectif de guerre.<br>Nous devrions presque toujours avoir un <i>casus belli</i> lorsque nous déclarons la guerre. Nous en avons actuellement un et pouvons également en fabriquer un si nécessaire.",
    TutorialMakeTileOurCore$1: "Faire de $1 notre centre",
    TutorialUpgradeTileProduction$1: "Améliorer la production de $1",
    TutorialUpgradeTileProductionDesc$1:
-      "Pour développer davantage notre province, nous devons améliorer nos cases. Il existe trois types d'améliorations :<br>- Les améliorations d'infrastructure coûtent des points <i>administratifs</i> et augmentent la <i>taxe foncière</i> de la case.<br>- Les améliorations de production coûtent des points <i>diplomatiques</i> et augmentent la <i>production</i> de la case.<br>- Les améliorations de population coûtent des points <i>militaires</i> et augmentent les <i>effectifs</i> de la case.<br>L'écran Cases et améliorations offre un moyen pratique d'améliorer les cases - suivez les instructions à l'écran pour améliorer la production de $1.",
+      "Pour développer davantage notre province, nous devons améliorer nos cases. Il existe trois types d'améliorations :<br>- Les améliorations d'infrastructure coûtent des points <icon>administrative</icon>administratifs et augmentent la <i>taxe foncière</i> de la case.<br>- Les améliorations de production coûtent des points <icon>diplomatic</icon>diplomatiques et augmentent la <i>production</i> de la case.<br>- Les améliorations de population coûtent des points <icon>military</icon>militaires et augmentent les <i>effectifs</i> de la case.<br>L'écran Cases et améliorations offre un moyen pratique d'améliorer les cases - suivez les instructions à l'écran pour améliorer la production de <Tile>$1</Tile>.",
    TutorialLowerArmyMaintenanceDesc$1:
       "Après notre récente victoire, la guerre a vidé notre trésor. Pour stabiliser les finances du gouvernement, nous devrions réduire l'entretien de l'armée à $1 en temps de paix - suivez les instructions à l'écran.<br>Attention : une réduction de l'entretien diminue le moral de l'armée, et le moral met du temps à remonter même après avoir réaugmenté l'entretien.",
    TutorialFindGovernorSpouseDesc$1:
       "Notre gouverneur est actuellement célibataire. Pour assurer l'avenir de la province, nous devrions lui arranger un mariage convenable.<br>Un conjoint peut être choisi parmi l'une de nos propres classes sociales, ce qui augmente la <i>loyauté</i> de cette classe, ou dans la famille dirigeante d'une autre province, ce qui améliore son <i>attitude envers nous</i>.<br>Suivez les instructions à l'écran pour choisir un conjoint issu de la classe $1 de notre province.",
    TutorialSetUpTradeWith$1: "Établir un commerce avec $1",
    TutorialSetUpTradeDesc$1$2$3:
-      "Chaque case produit une certaine quantité de biens chaque mois. Ces biens peuvent servir à créer des produits de plus grande valeur (débloqués par la recherche) ou être échangés avec d'autres provinces.<br>Pour augmenter nos revenus, suivez les instructions à l'écran pour exporter notre surplus de $1 vers $2 en échange de $3. Gardez à l'esprit qu'une guerre entre nous annulera le commerce et nous fera perdre cette source de revenus.",
+      "Chaque case produit une certaine quantité de biens chaque mois. Ces biens peuvent servir à créer des produits de plus grande valeur (débloqués par la recherche) ou être échangés avec d'autres provinces.<br>Pour augmenter nos revenus, suivez les instructions à l'écran pour exporter notre surplus de $1 vers <Province>$2</Province> en échange de <icon>gold</icon>$3. Gardez à l'esprit qu'une guerre entre nous annulera le commerce et nous fera perdre cette source de revenus.",
    TutorialVoteForConsulElectionDesc$1$2$3:
-      "Tous les $1 ans, deux consuls sont élus parmi un groupe de $2 candidats. Nous pouvons soutenir $3 d'entre eux et, si les candidats que nous soutenons sont élus, nous gagnons des points de consul, qui peuvent être dépensés dans divers décrets du Sénat. Grâce à la diplomatie et aux renseignements, nous pouvons améliorer nos chances de soutenir les candidats victorieux. Pour l'instant, choisissez des candidats au hasard - suivez les instructions à l'écran.",
-   TutorialReachMilitaryPointsDesc$1: "Les technologies et autres actions militaires nécessitent des points militaires. Nous devons attendre d'avoir accumulé $1 points militaires avant de continuer.",
+      "Tous les $1 ans, deux consuls sont élus parmi un groupe de $2 candidats. Nous pouvons soutenir $3 d'entre eux et, si les candidats que nous soutenons sont élus, nous gagnons des <icon>consulPoint</icon>points de consul, qui peuvent être dépensés dans divers décrets du Sénat. Grâce à la diplomatie et aux renseignements, nous pouvons améliorer nos chances de soutenir les candidats victorieux. Pour l'instant, choisissez des candidats au hasard - suivez les instructions à l'écran.",
+   TutorialReachMilitaryPointsDesc$1: "Les technologies et autres actions militaires nécessitent des points <icon>military</icon>militaires. Nous devons attendre d'avoir accumulé $1 points militaires avant de continuer.",
    TutorialResearch$1: "Rechercher $1",
-   TutorialResearchDesc$1: "Ouvrez l'arbre technologique et sélectionnez <i>$1</i>. Suivez les instructions à l'écran pour rechercher la technologie, en vous assurant que ses prérequis sont recherchés et que nous avons suffisamment de points militaires.",
+   TutorialResearchDesc$1: "Ouvrez l'arbre technologique et sélectionnez <i>$1</i>. Suivez les instructions à l'écran pour rechercher la technologie, en vous assurant que ses prérequis sont recherchés et que nous avons suffisamment de points <icon>military</icon>militaires.",
    TutorialSetUpProduction$1: "Configurer la production de $1",
    TutorialSetUpProductionDesc$1$2:
       "Lorsque nous produisons des biens de plus grande valeur, une partie de la valeur ajoutée est taxée, tandis que les biens restants peuvent servir à poursuivre la production ou à commercer. Notre province dispose d'une capacité de production limitée (qui peut être augmentée par la recherche) que nous pouvons affecter à différents types de production.<br>Suivez les instructions à l'écran pour affecter $1 de capacité à la production de $2.",
@@ -3210,7 +3211,7 @@ export const FR = {
    TutorialIncreaseGameSpeedDesc$1$2$3:
       "Every month, $1 attacks are attempted, and the final result is determined by the majority of their outcomes. If successful, we gain $2 war score; otherwise, we lose the same amount.<br>While the war is ongoing, follow the on-screen instructions to increase the game speed to $3.",
    TutorialSignPeaceTreatyAfterVictoryDesc$1:
-      "We have achieved the required war score, and the ongoing war icon on the right is bouncing. Click it and follow the on-screen instructions to sign a peace treaty that allows us to occupy <i>$1</i>.<br>Consider pausing or lowering the game speed so that we can take our time.",
+      "We have achieved the required war score, and the ongoing war icon on the right is bouncing. Click it and follow the on-screen instructions to sign a peace treaty that allows us to occupy <Tile>$1</Tile>.<br>Consider pausing or lowering the game speed so that we can take our time.",
    AdoptASocialClassAgenda: "Adopt a social class agenda",
    TutorialSocialClassAgendaDesc:
       "Our province has several social classes, each of which supports and opposes different agendas. Follow the on-screen instructions to adopt an agenda—the supporting classes' influence will increase, while the opposing classes' loyalty will decrease.<br>Be careful not to let a social class become too influential or disloyal, as this will lead to negative consequences.",
@@ -3244,4 +3245,7 @@ export const FR = {
    OpenChronicle: "Open Chronicle",
    OpenLegacyUpgrade: "Open Legacy Upgrade",
    OpenRebirth: "Open Rebirth",
+   ChangeGovernmentFocus: "Change Government Focus",
+   TutorialChangeGovernmentFocusDesc: "An offensive war costs <icon>military</icon> military points every month. Before declaring war, we should change our government focus to military - this increases our monthly military points at the expense of the other two government points.",
+   MadeCoreTileRemainsCoreAfterReconquest: "Once a tile is made our core, it will stay our core even if we lose it - we don't need to make it our core again after we reconquer it.",
 };

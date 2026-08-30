@@ -12,6 +12,5 @@ export const ProvinceResourceImages = {
    military: Military,
    gold: Gold,
    legacy: Legacy,
-   generalSkillPoint: Military,
    consulPoint: Decree,
 } as const satisfies Partial<Record<ProvinceResource, string>>;

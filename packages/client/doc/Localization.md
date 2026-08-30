@@ -11,7 +11,7 @@ This document describes how to extract hardcoded user-facing strings in the Rest
 | Translation runtime | `packages/client/src/utils/i18n.ts` |
 | Language switching | `packages/client/src/utils/Global.tsx` (`setLanguage`) |
 | HTML rendering helper | `packages/client/src/ui/components/RenderHTMLComp.tsx` |
-| Chronicle markup parser | `packages/client/src/ui/ParseMarkup.tsx` |
+| UI markup parser | `packages/client/src/ui/ParseMarkup.tsx` |
 | Format helpers | `@project/shared/src/utils/Helper` (`formatNumber`, `formatDelta`, `formatPercent`, `formatPercentDelta`) |
 | Translate & sync script | `scripts/Translate.js` (run via `pnpm run translate` at repo root; syncs files in the [Language Registry](#language-registry), removes unused keys, and validates) |
 
@@ -83,7 +83,7 @@ import { $t, L } from "../utils/i18n";
 ### Do NOT Localize
 
 - `imageCredit` field values in building/definition data (the raw attribution text). The UI label is localized separately (e.g. `$t(L.ImageCredit$1, config.imageCredit)`).
-- Icon names inside `<div className="mi">icon_name</div>` — these are Material icon identifiers, not display text.
+- Icon names inside `<div className="mi">icon_name</div>` and resource identifiers inside `<icon>...</icon>` — these are lookup identifiers, not display text.
 - Debug output: `console.log`, `console.warn`, `console.error`.
 - Developer errors: `throw new Error(...)`.
 - Code identifiers: enum keys, property names, file paths, CSS class names, React component names.
@@ -147,7 +147,7 @@ html($t(L.Make$1OurCoreTile, getTileName(tile)))
 
 Use `html()` only when the string contains HTML tags. Plain text does not need it.
 
-**This is validated automatically** by `pnpm run translate` — if a key's content contains `<i>`, `<b>`, `<q>`, or `<br>` and the call site in a `.tsx` file is not wrapped in `html()`, the script reports an error. Chronicle tags (`<Province>`, `<Tile>`) are excluded. Use `html` imported from `RenderHTMLComp` (not an alias); keys used only in `.ts` files are exempt because callers wrap the result.
+**This is validated automatically** by `pnpm run translate` — if a key's content contains `<i>`, `<b>`, `<q>`, or `<br>` and the call site in a `.tsx` file is not wrapped in `html()`, the script reports an error. Markup tags handled by `renderMarkup()` (`<Province>`, `<Tile>`, and `<icon>`) are excluded. Use `html` imported from `RenderHTMLComp` (not an alias); keys used only in `.ts` files are exempt because callers wrap the result.
 
 ## Parameter Extraction
 
@@ -231,9 +231,9 @@ ReligionIberian: "Iberian",
 
 Entity definitions (e.g. `packages/client/src/game/definitions/Culture.ts`, `Goods.ts`, `Province.ts`) already reference these keys via `$t(L.EntityKey)`.
 
-## Chronicle Entries (`addChronicleEntry`)
+## Parser Markup (`renderMarkup`)
 
-Chronicle text uses special XML-like tags parsed by `renderMarkup()` in `ParseMarkup.tsx`. **Keep these tags in the localized string.**
+Localized content can contain special XML-like tags parsed by `renderMarkup()` in `ParseMarkup.tsx`. The parser is used for chronicle entries, tutorial descriptions, and condition breakdowns. **Keep these tags in the localized string.**
 
 ### `<Province>` tags
 
@@ -264,7 +264,18 @@ $t(
 
 The parser reads the numeric tile ID from inside `<Tile>...</Tile>` and renders the localized, clickable tile name.
 
-Chronicle content is rendered via `renderMarkup()`, not `html()`. Do not strip or rename `<Province>` / `<Tile>` tags.
+### `<icon>` tags
+
+Use `<icon>resourceName</icon>` to render an inline resource icon:
+
+```ts
+// en.ts
+OffensiveWarCostsMilitaryPoints: "An offensive war costs <icon>military</icon> military points every month.",
+```
+
+The text inside the tag is an image lookup key, not user-facing text. It must remain unchanged in every translation. Supported keys are defined by `ImageCatalog` in `ParseMarkup.tsx`; currently they are `administrative`, `diplomatic`, `military`, `gold`, `legacy`, `generalSkillPoint`, and `consulPoint`. Use only a supported key.
+
+Content containing these markup tags is rendered via `renderMarkup()`, not `html()`. Do not strip or rename `<Province>`, `<Tile>`, or `<icon>` tags.
 
 ## Key Naming
 
@@ -324,7 +335,7 @@ This section describes how localization files are translated. The [Language Regi
 - **Do not rename keys.** Key names are code identifiers shared across all languages.
 - **Do not translate or remove `$1`, `$2`, … tokens.** These are placeholders filled in at runtime.
 - **Do not translate** `$$Language`, `$$Credits`, or other `$$` metadata values unless you are setting the display name for that language (e.g. `$$Language: "Русский"` in the Russian file).
-- **Preserve HTML and Chronicle tags** (`<i>`, `<b>`, `<Province>`, `<Tile>`, etc.) and keep their structure intact.
+- **Preserve HTML and parser markup tags** (`<i>`, `<b>`, `<Province>`, `<Tile>`, `<icon>`, etc.) and keep their structure intact. Do not translate the lookup identifier inside `<icon>...</icon>`.
 
 ### Ensuring Consistent Terminology
 
@@ -419,7 +430,7 @@ pnpm test run
 2. **Validates token consecutiveness** (`en.ts`) — checks every key's value for `$N` tokens: they must start from `$1` and be consecutive with no gaps (e.g. `$1 $2 $3` ✓, `$1 $3 $4` ✗, `$2 $3 $4` ✗). Skips `$$` metadata keys.
 3. **Validates key-content token match** (`en.ts`) — verifies that the `$1`, `$2`, ... tokens in the key name appear in the same order as in the content value.
 4. **Validates argument counts** — checks that the highest `$N` index in each key's value matches the number of arguments passed to `$t` (reusing the same token number does not require duplicate arguments).
-5. **Validates `html()` wrapper** — if a key's content in `en.ts` contains `<i>`, `<b>`, `<q>`, or `<br>`, the `$t()` call site in `.tsx` files must be wrapped in `html()` from `RenderHTMLComp`. Chronicle tags (`<Province>`, `<Tile>`) are excluded. Keys used only in `.ts` files are exempt because callers wrap the result. Add new tag names to `HTML_TAGS` in `scripts/Translate.js` when introducing other inline HTML in `en.ts`.
+5. **Validates `html()` wrapper** — if a key's content in `en.ts` contains `<i>`, `<b>`, `<q>`, or `<br>`, the `$t()` call site in `.tsx` files must be wrapped in `html()` from `RenderHTMLComp`. Tags handled by `renderMarkup()` (`<Province>`, `<Tile>`, and `<icon>`) are excluded. Keys used only in `.ts` files are exempt because callers wrap the result. Add new tag names to `HTML_TAGS` in `scripts/Translate.js` when introducing other inline HTML in `en.ts`.
 6. Removes unused keys from `en.ts` (keys starting with `$` are never removed).
 7. Syncs every other file in the [Language Registry](#language-registry) to match the keys in `en.ts`. Key synchronization does not change a file's ownership or permit edits to its translated values.
 8. Formats language files with biome.

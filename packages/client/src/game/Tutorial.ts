@@ -40,7 +40,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "Welcome",
       name: () => $t(L.WelcomeToRestitutor),
-      desc: () => $t(L.TutorialWelcomeDesc$1, Province.Lugdunensis.name()),
+      desc: () => $t(L.TutorialWelcomeDesc$1, "Lugdunensis"),
       progress: (save) => {
          return [0, 1];
       },
@@ -64,7 +64,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "SelectRivals",
       name: () => $t(L.TutorialSelectRivals$1, formatNumber(2)),
-      desc: () => $t(L.TutorialSelectRivalsDesc$1$2, formatNumber(2), Province[TutorialEnemyProvince].name()),
+      desc: () => $t(L.TutorialSelectRivalsDesc$1$2, formatNumber(2), TutorialEnemyProvince),
       progress: (save) => {
          const state = save.state.provinces[save.state.playerProvince];
          return [state?.rivals.filter(Boolean).length ?? 0, 2];
@@ -103,7 +103,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "InfiltrateBelgica",
       name: () => $t(L.TutorialInfiltrate$1, Province[TutorialEnemyProvince].name()),
-      desc: () => $t(L.TutorialInfiltrateDesc$1$2, formatNumber(BaseDiplomats), Province[TutorialEnemyProvince].name()),
+      desc: () => $t(L.TutorialInfiltrateDesc$1$2, formatNumber(BaseDiplomats), TutorialEnemyProvince),
       progress: (save) => {
          if (getRelation(save.state.playerProvince, TutorialEnemyProvince, save)?.infiltrate.active) {
             return [1, 1];
@@ -134,10 +134,22 @@ export const Tutorial: ITutorial[] = [
       selectors: [],
    },
    {
+      id: "ChangeGovernmentFocus",
+      name: () => $t(L.ChangeGovernmentFocus),
+      desc: () => $t(L.TutorialChangeGovernmentFocusDesc),
+      progress: (save) => {
+         const state = save.state.provinces[save.state.playerProvince];
+         if (state?.focus === "military") {
+            return [1, 1];
+         }
+         return [0, 1];
+      },
+      selectors: ["#TopPanel_MilitaryPoint", "#GovernmentModal_Focus_military"],
+   },
+   {
       id: "DeclareWar",
       name: () => $t(L.TutorialDeclareWarOn$1, Province[TutorialEnemyProvince].name()),
-      desc: (save) =>
-         $t(L.TutorialDeclareWarDesc$1$2, Province[TutorialEnemyProvince].name(), getTileName(TutorialWarGoal, save)),
+      desc: () => $t(L.TutorialDeclareWarDesc$1$2, TutorialEnemyProvince, TutorialWarGoal),
       progress: (save) => {
          if (
             getCurrentWars(save.state.playerProvince, save).find(
@@ -149,6 +161,7 @@ export const Tutorial: ITutorial[] = [
          return [0, 1];
       },
       selectors: [
+         provinceSel("Belgica"),
          "#DiplomacyPage_DeclareWar_Belgica",
          `#DeclareWarPage_Tile_${TutorialWarGoal}_Unselected`,
          "#DeclareWarPage_DeclareWar_Belgica:enabled",
@@ -180,7 +193,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "SignPeaceTreaty",
       name: () => $t(L.SignPeaceTreaty),
-      desc: (save) => $t(L.TutorialSignPeaceTreatyAfterVictoryDesc$1, getTileName(TutorialWarGoal, save)),
+      desc: () => $t(L.TutorialSignPeaceTreatyAfterVictoryDesc$1, TutorialWarGoal),
       progress: (save) => {
          if (save.state.tiles.get(TutorialWarGoal)?.province === save.state.playerProvince) {
             return [1, 1];
@@ -205,7 +218,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "UpgradeProduction",
       name: (save) => $t(L.TutorialUpgradeTileProduction$1, getTileName(Tiles.Lutetia, save)),
-      desc: (save) => $t(L.TutorialUpgradeTileProductionDesc$1, getTileName(Tiles.Lutetia, save)),
+      desc: () => $t(L.TutorialUpgradeTileProductionDesc$1, Tiles.Lutetia),
       progress: (save) => {
          const data = save.state.tiles.get(Tiles.Lutetia);
          if ((data?.upgradeCount ?? 0) > 0) {
@@ -269,8 +282,7 @@ export const Tutorial: ITutorial[] = [
    {
       id: "Trade",
       name: () => $t(L.TutorialSetUpTradeWith$1, Province.Aquitania.name()),
-      desc: () =>
-         $t(L.TutorialSetUpTradeDesc$1$2$3, Goods.wood.name(), Province.Aquitania.name(), ProvinceResourceNames.gold()),
+      desc: () => $t(L.TutorialSetUpTradeDesc$1$2$3, Goods.wood.name(), "Aquitania", ProvinceResourceNames.gold()),
       progress: (save) => {
          const trade = getRelation(save.state.playerProvince, "Aquitania", save)?.trade;
          if (trade) {

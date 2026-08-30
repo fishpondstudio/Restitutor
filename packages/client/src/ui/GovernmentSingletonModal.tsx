@@ -252,6 +252,7 @@ function FocusComp({ type }: { type: GovernorPower }): React.ReactNode {
    return (
       <div>
          <ActionButton
+            id={`GovernmentModal_Focus_${type}`}
             className="w100"
             action={{
                condition: finalizeCondition([

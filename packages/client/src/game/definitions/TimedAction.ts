@@ -146,6 +146,7 @@ class TimedActionDefinitions {
    };
    MakeCore: ITimedAction = {
       name: () => $t(L.MakeCore),
+      desc: () => $t(L.MadeCoreTileRemainsCoreAfterReconquest),
       duration: 0,
       cooldown: 12,
    };

@@ -187,6 +187,7 @@ export function TopLeftPanel(): React.ReactNode {
                )}
             >
                <div
+                  id="TopPanel_DiplomaticPoint"
                   className="row g0 pointer"
                   style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => showPanel(GovernmentSingletonModal, {})}
@@ -210,6 +211,7 @@ export function TopLeftPanel(): React.ReactNode {
                )}
             >
                <div
+                  id="TopPanel_MilitaryPoint"
                   className="row g0 pointer"
                   style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => showPanel(GovernmentSingletonModal, {})}
