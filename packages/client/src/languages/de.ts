@@ -426,7 +426,7 @@ export const DE = {
    HideSteamAndDiscordButtons: "Steam- und Discord-Schaltflächen ausblenden",
    HireGovernmentAdvisors: "Regierungsberater anwerben",
    HireGovernmentAdvisorsDesc:
-      "Die meisten Spielaktionen kosten <icon>administrative</icon>Verwaltungs-, <icon>diplomatic</icon>Diplomatie- oder <icon>military</icon>Militärpunkte. Diese stammen aus mehreren Quellen: Statthalter, Berater, Schwerpunkt usw. Folgen wir den Anweisungen auf dem Bildschirm, um Regierungsberater anzuwerben. Wir sollten für jeden Bereich (Verwaltung, Diplomatie, Militär) einen einstellen; vorerst genügt jeweils der günstigste Berater.",
+      "Die meisten Spielaktionen kosten <icon>Administrative</icon>Verwaltungs-, <icon>Diplomatic</icon>Diplomatie- oder <icon>Military</icon>Militärpunkte. Diese stammen aus mehreren Quellen: Statthalter, Berater, Schwerpunkt usw. Folgen wir den Anweisungen auf dem Bildschirm, um Regierungsberater anzuwerben. Wir sollten für jeden Bereich (Verwaltung, Diplomatie, Militär) einen einstellen; vorerst genügt jeweils der günstigste Berater.",
    HireMercenaries: "Söldner anwerben",
    HisSpouseWillJoinOurFamily: "Sein Ehepartner wird unserer Familie beitreten",
    Historical: "Historisch",
@@ -526,7 +526,7 @@ export const DE = {
    MakeCore: "Zum Kerngebiet machen",
    MakeCoreCost: "Kosten für Kerngebiete",
    MakeDurocortorumOurCoreDesc:
-      "Ein neu annektiertes Gebiet ist noch kein Kerngebiet. Nicht-Kerngebiete zahlen weniger Steuern und verursachen höhere Verwaltungskosten. Übersteigen unsere Verwaltungskosten die Kapazität, kommt es zur Überdehnung, die unserer Provinz schadet. Wir müssen <icon>administrative</icon>Verwaltungspunkte ausgeben, um das Gebiet einzugliedern und zu einem Kerngebiet zu machen. Folgen wir den Anweisungen auf dem Bildschirm.",
+      "Ein neu annektiertes Gebiet ist noch kein Kerngebiet. Nicht-Kerngebiete zahlen weniger Steuern und verursachen höhere Verwaltungskosten. Übersteigen unsere Verwaltungskosten die Kapazität, kommt es zur Überdehnung, die unserer Provinz schadet. Wir müssen <icon>Administrative</icon>Verwaltungspunkte ausgeben, um das Gebiet einzugliedern und zu einem Kerngebiet zu machen. Folgen wir den Anweisungen auf dem Bildschirm.",
    MakeGovernorGeneral: "Statthalter zum General ernennen",
    MakeWarSpeech: "Kriegsrede halten",
    Make$1OurCoreTile: "<i>$1</i> zu unserem Kerngebiet machen.",
@@ -670,7 +670,7 @@ export const DE = {
    PauseWhenAGameEventOccurs: "Bei einem Spielereignis pausieren",
    PayOffOurLoans: "Unsere Darlehen zurückzahlen",
    PayOffOurLoansDesc:
-      "Darlehen werden automatisch aufgenommen, wenn uns das <icon>gold</icon>Gold ausgeht. Da sie jeden Monat Zinsen ansammeln, sollten wir sie möglichst schnell zurückzahlen.<br>– Um die Einnahmen zu erhöhen, werten wir die <i>Infrastruktur</i> und <i>Produktion</i> von Gebieten auf.<br>– Um die Ausgaben zu senken, verringern wir in Friedenszeiten die <i>Einberufung</i> und den <i>Unterhalt</i> der Armee.<br>Wenn wir genügend Gold haben, folgen wir den Anweisungen auf dem Bildschirm, um unsere Darlehen zurückzuzahlen.",
+      "Darlehen werden automatisch aufgenommen, wenn uns das <icon>Gold</icon>Gold ausgeht. Da sie jeden Monat Zinsen ansammeln, sollten wir sie möglichst schnell zurückzahlen.<br>– Um die Einnahmen zu erhöhen, werten wir die <i>Infrastruktur</i> und <i>Produktion</i> von Gebieten auf.<br>– Um die Ausgaben zu senken, verringern wir in Friedenszeiten die <i>Einberufung</i> und den <i>Unterhalt</i> der Armee.<br>Wenn wir genügend Gold haben, folgen wir den Anweisungen auf dem Bildschirm, um unsere Darlehen zurückzuzahlen.",
    PendingEventDecision: "Ausstehende Ereignisentscheidung",
    PendingGameEventAutoDecideIn$1Months: "Bei einem Ereignis steht eine Entscheidung aus. Wenn wir nicht innerhalb von $1 Monaten entscheiden, wird die erste Option für uns gewählt. Klicken, um Einzelheiten anzuzeigen.",
    PeopleShouldBeFreeToChooseTheirFaith: "Die Menschen sollen ihren Glauben frei wählen dürfen",
@@ -775,7 +775,7 @@ export const DE = {
    Rebirth: "Wiedergeburt",
    RebirthAndStartANewRun: "Wiedergeburt vollziehen und neuen Durchlauf beginnen",
    RebirthAndStartANewRunDesc:
-      "Restitutor ist ein <i>inkrementelles</i> Grand-Strategy-Spiel. Jeder Durchlauf gewährt dauerhafte Boni, durch die wir im nächsten Durchlauf schneller und weiter vorankommen. Dieses System heißt <i>Wiedergeburt</i>.<br>Bei der Wiedergeburt werden die von uns <i>annektierten und zu Kerngebieten gemachten</i> Gebiete in <icon>legacy</icon>Vermächtnispunkte umgewandelt. Sie bleiben in künftigen Durchläufen erhalten und gewähren mächtige Boni.<br>Für den nächsten Durchlauf können wir eine andere Provinz wählen. Folgen wir den Anweisungen auf dem Bildschirm, um die Wiedergeburt zu vollziehen.<br>Nach der Wiedergeburt ist das Tutorial abgeschlossen. Mit unserem neu gewonnenen Wissen sind wir bereit, unsere eigene Strategie zu entwickeln und unseren eigenen Weg zu beschreiten – der Lauf der Geschichte liegt nun in unserer Hand.",
+      "Restitutor ist ein <i>inkrementelles</i> Grand-Strategy-Spiel. Jeder Durchlauf gewährt dauerhafte Boni, durch die wir im nächsten Durchlauf schneller und weiter vorankommen. Dieses System heißt <i>Wiedergeburt</i>.<br>Bei der Wiedergeburt werden die von uns <i>annektierten und zu Kerngebieten gemachten</i> Gebiete in <icon>Legacy</icon>Vermächtnispunkte umgewandelt. Sie bleiben in künftigen Durchläufen erhalten und gewähren mächtige Boni.<br>Für den nächsten Durchlauf können wir eine andere Provinz wählen. Folgen wir den Anweisungen auf dem Bildschirm, um die Wiedergeburt zu vollziehen.<br>Nach der Wiedergeburt ist das Tutorial abgeschlossen. Mit unserem neu gewonnenen Wissen sind wir bereit, unsere eigene Strategie zu entwickeln und unseren eigenen Weg zu beschreiten – der Lauf der Geschichte liegt nun in unserer Hand.",
    ReceivedAGiftFrom$1: "Ein Geschenk von $1 erhalten",
    Reconquista: "Reconquista",
    Reconquista$1: "Reconquista ($1)",
@@ -2834,26 +2834,26 @@ export const DE = {
    TutorialInfiltrate$1: "$1 infiltrieren",
    TutorialInfiltrateDesc$1$2:
       "Wir verfügen über $1 Diplomaten. Sie können Verträge schließen, Beziehungen verbessern oder andere Provinzen infiltrieren. Klicken wir mit der rechten Maustaste <i>auf der Karte</i> auf <Province>$2</Province>, öffnen wir so das Diplomatiefenster und folgen den Anweisungen zur Infiltration.",
-   TutorialReachDiplomaticPointsDesc$1: "Eine Kriegserklärung kostet $1 <icon>diplomatic</icon>Diplomatiepunkte. Neben dem monatlichen Einkommen an Regierungspunkten können wir Regierungspunkte auch durch Ereignisse erhalten. Ereignisse können unsere Provinz erheblich beeinflussen, wählen wir also mit Bedacht.",
+   TutorialReachDiplomaticPointsDesc$1: "Eine Kriegserklärung kostet $1 <icon>Diplomatic</icon>Diplomatiepunkte. Neben dem monatlichen Einkommen an Regierungspunkten können wir Regierungspunkte auch durch Ereignisse erhalten. Ereignisse können unsere Provinz erheblich beeinflussen, wählen wir also mit Bedacht.",
    TutorialDeclareWarOn$1: "$1 den Krieg erklären",
    TutorialDeclareWarDesc$1$2:
       "Nun sind wir bereit für den Krieg. Klicken wir mit der rechten Maustaste <i>auf der Karte</i> auf <Province>$1</Province>, öffnen wir so das Diplomatiefenster und folgen den Anweisungen zur Kriegserklärung.<br>Ein Krieg kann unsere Provinz stark belasten, beginnen wir also klein und wählen wir <Tile>$2</Tile> als Kriegsziel.<br>Bei einer Kriegserklärung sollten wir fast immer einen <i>Casus Belli</i> besitzen. Derzeit haben wir einen und können bei Bedarf auch einen fingieren.",
    TutorialMakeTileOurCore$1: "$1 zu unserem Kerngebiet machen",
    TutorialUpgradeTileProduction$1: "Die Produktion von $1 aufwerten",
    TutorialUpgradeTileProductionDesc$1:
-      "Um unsere Provinz weiterzuentwickeln, müssen wir unsere Gebiete aufwerten. Es gibt drei Arten von Aufwertungen:<br>- Infrastrukturaufwertungen kosten <icon>administrative</icon>Verwaltungspunkte und erhöhen die <i>Grundsteuer</i> des Gebiets.<br>- Produktionsaufwertungen kosten <icon>diplomatic</icon>Diplomatiepunkte und erhöhen die <i>Produktion</i> des Gebiets.<br>- Bevölkerungsaufwertungen kosten <icon>military</icon>Militärpunkte und erhöhen die <i>Mannstärke</i> des Gebiets.<br>Der Bildschirm „Gebiete & Aufwertungen“ erleichtert die Aufwertung. Folgen wir den Anweisungen auf dem Bildschirm, um die Produktion von <Tile>$1</Tile> aufzuwerten.",
+      "Um unsere Provinz weiterzuentwickeln, müssen wir unsere Gebiete aufwerten. Es gibt drei Arten von Aufwertungen:<br>- Infrastrukturaufwertungen kosten <icon>Administrative</icon>Verwaltungspunkte und erhöhen die <i>Grundsteuer</i> des Gebiets.<br>- Produktionsaufwertungen kosten <icon>Diplomatic</icon>Diplomatiepunkte und erhöhen die <i>Produktion</i> des Gebiets.<br>- Bevölkerungsaufwertungen kosten <icon>Military</icon>Militärpunkte und erhöhen die <i>Mannstärke</i> des Gebiets.<br>Der Bildschirm „Gebiete & Aufwertungen“ erleichtert die Aufwertung. Folgen wir den Anweisungen auf dem Bildschirm, um die Produktion von <Tile>$1</Tile> aufzuwerten.",
    TutorialLowerArmyMaintenanceDesc$1:
       "Nach unserem jüngsten Sieg hat der Krieg eine leere Schatzkammer hinterlassen. Um die Staatsfinanzen zu stabilisieren, sollten wir den Armeeunterhalt in Friedenszeiten auf $1 senken. Folgen wir dazu den Anweisungen auf dem Bildschirm.<br>Beachten wir, dass geringerer Unterhalt die Armeemoral senkt und ihre Erholung auch nach einer erneuten Erhöhung Zeit benötigt.",
    TutorialFindGovernorSpouseDesc$1:
       "Unser Statthalter ist derzeit unverheiratet. Um die Zukunft der Provinz zu sichern, sollten wir eine passende Ehe arrangieren.<br>Ein Ehepartner kann aus einer unserer Gesellschaftsklassen stammen, was deren <i>Loyalität</i> erhöht, oder aus der Herrscherfamilie einer anderen Provinz, was deren <i>Haltung uns gegenüber</i> verbessert.<br>Folgen wir den Anweisungen auf dem Bildschirm und wählen wir einen Ehepartner aus der Klasse $1 unserer Provinz.",
    TutorialSetUpTradeWith$1: "Handel mit $1 einrichten",
    TutorialSetUpTradeDesc$1$2$3:
-      "Jedes Gebiet erzeugt monatlich eine bestimmte Warenmenge. Diese Waren können zur Herstellung wertvollerer Produkte verwendet werden, die durch Forschung freigeschaltet werden, oder mit anderen Provinzen gehandelt werden.<br>Um unser Einkommen zu erhöhen, folgen wir den Anweisungen auf dem Bildschirm und exportieren unseren Überschuss an $1 im Austausch für <icon>gold</icon>$3 nach <Province>$2</Province>. Bedenken wir, dass ein Krieg zwischen uns den Handel beendet und wir diese Einnahmequelle verlieren.",
+      "Jedes Gebiet erzeugt monatlich eine bestimmte Warenmenge. Diese Waren können zur Herstellung wertvollerer Produkte verwendet werden, die durch Forschung freigeschaltet werden, oder mit anderen Provinzen gehandelt werden.<br>Um unser Einkommen zu erhöhen, folgen wir den Anweisungen auf dem Bildschirm und exportieren unseren Überschuss an $1 im Austausch für <icon>Gold</icon>$3 nach <Province>$2</Province>. Bedenken wir, dass ein Krieg zwischen uns den Handel beendet und wir diese Einnahmequelle verlieren.",
    TutorialVoteForConsulElectionDesc$1$2$3:
-      "Alle $1 Jahre werden zwei Konsuln aus $2 Kandidaten gewählt. Wir dürfen $3 von ihnen unterstützen. Werden die von uns unterstützten Kandidaten gewählt, erhalten wir <icon>consulPoint</icon>Konsulspunkte, die für verschiedene Senatsdekrete ausgegeben werden können. Durch Diplomatie und Aufklärung können wir unsere Chancen erhöhen, die siegreichen Kandidaten zu unterstützen. Wählen wir vorerst zufällige Kandidaten und folgen wir den Anweisungen auf dem Bildschirm.",
-   TutorialReachMilitaryPointsDesc$1: "Militärtechnologien erfordern <icon>military</icon>Militärpunkte für ihre Erforschung. Wir sollten warten, bis wir $1 Militärpunkte gesammelt haben, bevor wir fortfahren.",
+      "Alle $1 Jahre werden zwei Konsuln aus $2 Kandidaten gewählt. Wir dürfen $3 von ihnen unterstützen. Werden die von uns unterstützten Kandidaten gewählt, erhalten wir <icon>Decree</icon>Konsulspunkte, die für verschiedene Senatsdekrete ausgegeben werden können. Durch Diplomatie und Aufklärung können wir unsere Chancen erhöhen, die siegreichen Kandidaten zu unterstützen. Wählen wir vorerst zufällige Kandidaten und folgen wir den Anweisungen auf dem Bildschirm.",
+   TutorialReachMilitaryPointsDesc$1: "Militärtechnologien erfordern <icon>Military</icon>Militärpunkte für ihre Erforschung. Wir sollten warten, bis wir $1 Militärpunkte gesammelt haben, bevor wir fortfahren.",
    TutorialResearch$1: "$1 erforschen",
-   TutorialResearchDesc$1: "Öffnen wir den Technologiebaum und wählen wir <i>$1</i>. Folgen wir den Anweisungen auf dem Bildschirm, um die Technologie zu erforschen. Achten wir darauf, dass ihre Voraussetzungen erforscht sind und wir über genügend <icon>military</icon>Militärpunkte verfügen.",
+   TutorialResearchDesc$1: "Öffnen wir den Technologiebaum und wählen wir <i>$1</i>. Folgen wir den Anweisungen auf dem Bildschirm, um die Technologie zu erforschen. Achten wir darauf, dass ihre Voraussetzungen erforscht sind und wir über genügend <icon>Military</icon>Militärpunkte verfügen.",
    TutorialSetUpProduction$1: "$1-Produktion einrichten",
    TutorialSetUpProductionDesc$1$2:
       "Wenn wir höherwertige Waren herstellen, wird ein Teil des Mehrwerts besteuert, während die verbleibenden Waren für weitere Produktion oder Handel verwendet werden können. Unsere Provinz verfügt über begrenzte Produktionskapazität, die durch Forschung erhöht und verschiedenen Produktionsarten zugewiesen werden kann.<br>Folgen wir den Anweisungen auf dem Bildschirm und weisen wir der $2-Produktion $1 Kapazität zu.",
@@ -3221,7 +3221,7 @@ export const DE = {
       "Unsere Provinz hat mehrere Gesellschaftsklassen, die unterschiedliche Agenden unterstützen oder ablehnen. Folgen wir den Anweisungen auf dem Bildschirm und nehmen wir eine Agenda an – der Einfluss der unterstützenden Klassen steigt, während die Loyalität der ablehnenden Klassen sinkt.<br>Achten wir darauf, dass keine Gesellschaftsklasse zu einflussreich oder illoyal wird, da dies negative Folgen hat.",
    LetMissionsGuideOurRestoration: "Missionen unsere Wiederherstellung leiten lassen",
    TutorialMissionsDesc$1$1:
-      "Jede Provinz besitzt einzigartige Missionen; der Abschluss jeder Mission gibt uns die Wahl zwischen mehreren Belohnungen. Folgen wir den Anweisungen auf dem Bildschirm, um die Mission <i>$1</i> anzusehen, und bewegen wir den Mauszeiger über jede Belohnungsoption, um Einzelheiten zu sehen.<br>In unseren ersten Durchläufen ist es sinnvoll, den Missionen zu folgen und früh Schwung zu gewinnen.<br>Das Tutorial wird fortgesetzt, nachdem wir <i>$1</i> abgeschlossen oder auf die Schaltfläche unten geklickt haben.",
+      "Jede Provinz besitzt einzigartige Missionen; der Abschluss jeder Mission gibt uns die Wahl zwischen mehreren Belohnungen. Folgen wir den Anweisungen auf dem Bildschirm, um die Mission <icon>Mission</icon><i>$1</i> anzusehen, und bewegen wir den Mauszeiger über jede Belohnungsoption, um Einzelheiten zu sehen.<br>In unseren ersten Durchläufen ist es sinnvoll, den Missionen zu folgen und früh Schwung zu gewinnen.<br>Das Tutorial wird fortgesetzt, nachdem wir <i>$1</i> abgeschlossen oder auf die Schaltfläche unten geklickt haben.",
    IllCompleteTheMissionLater: "Ich schließe die Mission später ab",
    WeShallFocusOnOurInternalAffairs: "Wir werden uns auf unsere inneren Angelegenheiten konzentrieren",
    Shortcuts: "Tastenkürzel",
@@ -3250,6 +3250,6 @@ export const DE = {
    OpenLegacyUpgrade: "Vermächtnisaufwertung öffnen",
    OpenRebirth: "Wiedergeburt öffnen",
    ChangeGovernmentFocus: "Regierungsschwerpunkt ändern",
-   TutorialChangeGovernmentFocusDesc: "Ein Angriffskrieg kostet jeden Monat <icon>military</icon>Militärpunkte. Vor der Kriegserklärung sollten wir unseren Regierungsschwerpunkt auf Militär setzen – dadurch steigen unsere monatlichen Militärpunkte auf Kosten der beiden anderen Regierungspunkte.",
+   TutorialChangeGovernmentFocusDesc: "Ein Angriffskrieg kostet jeden Monat <icon>Military</icon>Militärpunkte. Vor der Kriegserklärung sollten wir unseren Regierungsschwerpunkt auf Militär setzen – dadurch steigen unsere monatlichen Militärpunkte auf Kosten der beiden anderen Regierungspunkte.",
    MadeCoreTileRemainsCoreAfterReconquest: "Sobald ein Gebiet zu unserem Kerngebiet gemacht wurde, bleibt es unser Kerngebiet, selbst wenn wir es verlieren – nach der Rückeroberung müssen wir es nicht erneut zu unserem Kerngebiet machen.",
 };

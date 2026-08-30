@@ -426,7 +426,7 @@ export const EN = {
    HideSteamAndDiscordButtons: "Hide Steam and Discord buttons",
    HireGovernmentAdvisors: "Hire government advisors",
    HireGovernmentAdvisorsDesc:
-      "Most game actions cost <icon>administrative</icon>administrative, <icon>diplomatic</icon>diplomatic and <icon>military</icon>military points - these come from several sources: governor, advisors, focus, etc. Follow the on-screen instructions to hire government advisors - we should recruit one for each type (administrative, diplomatic, military) and the cheapest advisor will do for now.",
+      "Most game actions cost <icon>Administrative</icon>administrative, <icon>Diplomatic</icon>diplomatic and <icon>Military</icon>military points - these come from several sources: governor, advisors, focus, etc. Follow the on-screen instructions to hire government advisors - we should recruit one for each type (administrative, diplomatic, military) and the cheapest advisor will do for now.",
    HireMercenaries: "Hire Mercenaries",
    HisSpouseWillJoinOurFamily: "His spouse will join our family",
    Historical: "Historical",
@@ -526,7 +526,7 @@ export const EN = {
    MakeCore: "Make Core",
    MakeCoreCost: "Make Core Cost",
    MakeDurocortorumOurCoreDesc:
-      "A newly annexed tile is not our core yet - non-core tiles pay less taxes and require higher governing cost. When our governing cost exceeds capacity, overextension occurs, which negatively affects our province. We need to spend <icon>administrative</icon>administrative points to integrate the tile and make it our core - follow the on-screen instructions.",
+      "A newly annexed tile is not our core yet - non-core tiles pay less taxes and require higher governing cost. When our governing cost exceeds capacity, overextension occurs, which negatively affects our province. We need to spend <icon>Administrative</icon>administrative points to integrate the tile and make it our core - follow the on-screen instructions.",
    MakeGovernorGeneral: "Make Governor General",
    MakeWarSpeech: "Make War Speech",
    Make$1OurCoreTile: "Make <i>$1</i> our core tile.",
@@ -669,7 +669,7 @@ export const EN = {
    PauseWhenAGameEventOccurs: "Pause when a game event occurs",
    PayOffOurLoans: "Pay off our loans",
    PayOffOurLoansDesc:
-      "Loans are taken automatically when we run out of <icon>gold</icon>gold - they accrue interest every month so it is better to pay them off as soon as possible. <br>- To increase revenue, upgrade tile <i>infrastructure</i> and <i>production</i>.<br>- To reduce expenses, lower army <i>conscription</i> and <i>maintenance</i> during peace time.<br>When we have enough gold, follow the on-screen instructions to pay off our loans.",
+      "Loans are taken automatically when we run out of <icon>Gold</icon>gold - they accrue interest every month so it is better to pay them off as soon as possible. <br>- To increase revenue, upgrade tile <i>infrastructure</i> and <i>production</i>.<br>- To reduce expenses, lower army <i>conscription</i> and <i>maintenance</i> during peace time.<br>When we have enough gold, follow the on-screen instructions to pay off our loans.",
    PendingEventDecision: "Pending Event Decision",
    PendingGameEventAutoDecideIn$1Months: "We have a pending decision on an event. If we don't make a decision within $1 months, the first option will be chosen for us. Click to view details.",
    PeopleShouldBeFreeToChooseTheirFaith: "People should be free to choose their faith",
@@ -774,7 +774,7 @@ export const EN = {
    Rebirth: "Rebirth",
    RebirthAndStartANewRun: "Rebirth and start a new run",
    RebirthAndStartANewRunDesc:
-      "Restitutor is an <i>incremental</i> grand strategy game - each run grants permanent bonuses that allow the next run to progress faster and push further. This system is called <i>rebirth</i>.<br>When we rebirth, the tiles we <i>annexed and cored</i> are converted into <icon>legacy</icon>legacy points - they carry over into future runs and grant powerful bonuses.<br>We may choose a different province for the next run - follow the on-screen instructions to rebirth.<br>After rebirth, the tutorial will be complete. With our newly gained knowledge, we are ready to shape our own strategy and forge our own path - the course of history is now ours to decide.",
+      "Restitutor is an <i>incremental</i> grand strategy game - each run grants permanent bonuses that allow the next run to progress faster and push further. This system is called <i>rebirth</i>.<br>When we rebirth, the tiles we <i>annexed and cored</i> are converted into <icon>Legacy</icon>legacy points - they carry over into future runs and grant powerful bonuses.<br>We may choose a different province for the next run - follow the on-screen instructions to rebirth.<br>After rebirth, the tutorial will be complete. With our newly gained knowledge, we are ready to shape our own strategy and forge our own path - the course of history is now ours to decide.",
    ReceivedAGiftFrom$1: "Received a gift from $1",
    Reconquista: "Reconquista",
    Reconquista$1: "Reconquista ($1)",
@@ -2806,26 +2806,26 @@ export const EN = {
       "War Power is determined by factors such as standing army size and maintenance. Standing army size is determined by <i>conscription</i>. Follow the on-screen instructions to increase target conscription from $1 to $2. The actual conscription will increase <i>over time</i> until it reaches the target.",
    TutorialInfiltrate$1: "Infiltrate $1",
    TutorialInfiltrateDesc$1$2: "We have $1 diplomats - they can sign treaties, improve relations, or infiltrate other provinces. Right click <Province>$2</Province> <i>on the map</i> to open the Diplomacy Panel and follow the on-screen instructions to infiltrate it.",
-   TutorialReachDiplomaticPointsDesc$1: "Declaring war costs $1 <icon>diplomatic</icon>Diplomatic Points. In addition to monthly government point income, we can also gain government points from events. Events can have a significant impact on our province, so choose wisely.",
+   TutorialReachDiplomaticPointsDesc$1: "Declaring war costs $1 <icon>Diplomatic</icon>Diplomatic Points. In addition to monthly government point income, we can also gain government points from events. Events can have a significant impact on our province, so choose wisely.",
    TutorialDeclareWarOn$1: "Declare war on $1",
    TutorialDeclareWarDesc$1$2:
       "Now we are ready for war. Right click <Province>$1</Province> <i>on the map</i> to open the Diplomacy Panel and follow the on-screen instructions to declare war.<br>War can place significant strain on our province, so start small: pick <Tile>$2</Tile> as the war goal.<br>We should almost always have a <i>casus belli</i> when declaring war. We currently have one and can also fabricate one if needed.",
    TutorialMakeTileOurCore$1: "Make $1 our core",
    TutorialUpgradeTileProduction$1: "Upgrade $1's production",
    TutorialUpgradeTileProductionDesc$1:
-      "To further develop our province, we need to upgrade our tiles. There are three types of upgrades:<br>- Infrastructure upgrades cost <icon>administrative</icon>administrative points and increase the tile's <i>land tax</i>.<br>- Production upgrades cost <icon>diplomatic</icon>diplomatic points and increase the tile's <i>output</i>.<br>- Population upgrades cost <icon>military</icon>military points and increase the tile's <i>manpower</i>.<br>The Tiles & Upgrades screen provides a convenient way to upgrade tiles - follow the on-screen instructions to upgrade <Tile>$1</Tile>'s production.",
+      "To further develop our province, we need to upgrade our tiles. There are three types of upgrades:<br>- Infrastructure upgrades cost <icon>Administrative</icon>administrative points and increase the tile's <i>land tax</i>.<br>- Production upgrades cost <icon>Diplomatic</icon>diplomatic points and increase the tile's <i>output</i>.<br>- Population upgrades cost <icon>Military</icon>military points and increase the tile's <i>manpower</i>.<br>The Tiles & Upgrades screen provides a convenient way to upgrade tiles - follow the on-screen instructions to upgrade <Tile>$1</Tile>'s production.",
    TutorialLowerArmyMaintenanceDesc$1:
       "After our recent victory, the war has left our treasury depleted. To stabilize the government's finances, we should reduce army maintenance to $1 during peacetime - follow the on-screen instructions.<br>Be aware that reduced maintenance lowers army morale, and morale takes time to recover even after maintenance is raised again.",
    TutorialFindGovernorSpouseDesc$1:
       "Our governor is currently unmarried. To secure the province's future, we should arrange a suitable marriage.<br>A spouse can be chosen from one of our own social classes, which increases that class's <i>loyalty</i>, or from another province's governing family, which improves their <i>attitude toward us</i>.<br>Follow the on-screen instructions to choose a spouse from our province's $1 class.",
    TutorialSetUpTradeWith$1: "Set up a trade with $1",
    TutorialSetUpTradeDesc$1$2$3:
-      "Each tile produces a certain amount of goods every month. These goods can be used to create higher-value products (unlocked through research) or traded with other provinces.<br>To increase our income, follow the on-screen instructions to export our excess $1 to <Province>$2</Province> in exchange for <icon>gold</icon>$3. Keep in mind that a war between us will cancel the trade and we will lose this income stream.",
+      "Each tile produces a certain amount of goods every month. These goods can be used to create higher-value products (unlocked through research) or traded with other provinces.<br>To increase our income, follow the on-screen instructions to export our excess $1 to <Province>$2</Province> in exchange for <icon>Gold</icon>$3. Keep in mind that a war between us will cancel the trade and we will lose this income stream.",
    TutorialVoteForConsulElectionDesc$1$2$3:
-      "Every $1 years, two consuls are elected from a pool of $2 candidates. We may support $3 of them, and if the candidates we back are elected, we earn <icon>consulPoint</icon>consul points, which can be spent on various Senate decrees. Through diplomacy and intelligence, we can improve our chances of supporting the winning candidates. For now, choose random candidates - follow the on-screen instructions.",
-   TutorialReachMilitaryPointsDesc$1: "Military technologies require <icon>military</icon>Military Points to research. We should wait until we have accumulated $1 Military Points before continuing.",
+      "Every $1 years, two consuls are elected from a pool of $2 candidates. We may support $3 of them, and if the candidates we back are elected, we earn <icon>Decree</icon>consul points, which can be spent on various Senate decrees. Through diplomacy and intelligence, we can improve our chances of supporting the winning candidates. For now, choose random candidates - follow the on-screen instructions.",
+   TutorialReachMilitaryPointsDesc$1: "Military technologies require <icon>Military</icon>Military Points to research. We should wait until we have accumulated $1 Military Points before continuing.",
    TutorialResearch$1: "Research $1",
-   TutorialResearchDesc$1: "Open the tech tree and select <i>$1</i>. Follow the on-screen instructions to research the technology, making sure its prerequisites are researched and we have enough <icon>military</icon>Military Points.",
+   TutorialResearchDesc$1: "Open the tech tree and select <i>$1</i>. Follow the on-screen instructions to research the technology, making sure its prerequisites are researched and we have enough <icon>Military</icon>Military Points.",
    TutorialSetUpProduction$1: "Set up $1 production",
    TutorialSetUpProductionDesc$1$2:
       "When we produce higher-value goods, part of the added value is taxed, while the remaining goods can be used for further production or trade. Our province has a limited amount of production capacity (which can be increased by research) that we can assign to different types of production.<br>Follow the on-screen instructions to assign $1 capacity to $2 production.",
@@ -3182,7 +3182,7 @@ export const EN = {
       "Our province has several social classes, each of which supports and opposes different agendas. Follow the on-screen instructions to adopt an agenda—the supporting classes' influence will increase, while the opposing classes' loyalty will decrease.<br>Be careful not to let a social class become too influential or disloyal, as this will lead to negative consequences.",
    LetMissionsGuideOurRestoration: "Let missions guide our restoration",
    TutorialMissionsDesc$1$1:
-      "Each province has a unique set of missions; completing each mission gives us a choice of rewards. Follow the on-screen instructions to view the <i>$1</i> mission—hover over each reward option to view its details.<br>For our first few runs, it is a good idea to follow the missions to gain some early momentum.<br>The tutorial will continue after we complete <i>$1</i> or click the button below.",
+      "Each province has a unique set of missions; completing each mission gives us a choice of rewards. Follow the on-screen instructions to view the <icon>Mission</icon><i>$1</i> mission—hover over each reward option to view its details.<br>For our first few runs, it is a good idea to follow the missions to gain some early momentum.<br>The tutorial will continue after we complete <i>$1</i> or click the button below.",
    IllCompleteTheMissionLater: "I'll complete the mission later",
    WeShallFocusOnOurInternalAffairs: "We shall focus on our internal affairs",
    Shortcuts: "Shortcuts",
@@ -3211,6 +3211,6 @@ export const EN = {
    OpenLegacyUpgrade: "Open Legacy Upgrade",
    OpenRebirth: "Open Rebirth",
    ChangeGovernmentFocus: "Change Government Focus",
-   TutorialChangeGovernmentFocusDesc: "An offensive war costs <icon>military</icon> military points every month. Before declaring war, we should change our government focus to military - this increases our monthly military points at the expense of the other two government points.",
+   TutorialChangeGovernmentFocusDesc: "An offensive war costs <icon>Military</icon> military points every month. Before declaring war, we should change our government focus to military - this increases our monthly military points at the expense of the other two government points.",
    MadeCoreTileRemainsCoreAfterReconquest: "Once a tile is made our core, it will stay our core even if we lose it - we don't need to make it our core again after we reconquer it.",
 };

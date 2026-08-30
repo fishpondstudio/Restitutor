@@ -1,23 +1,5 @@
 import { formatNumber, range } from "@project/shared/src/utils/Helper";
 import { useCallback } from "react";
-import Administrative from "../assets/images/Administrative.svg";
-import Army from "../assets/images/Army.svg";
-import Chronicle from "../assets/images/Chronicle.svg";
-import Diplomat from "../assets/images/Diplomat.svg";
-import Diplomatic from "../assets/images/Diplomatic.svg";
-import FamilyTree from "../assets/images/FamilyTree.svg";
-import Gold from "../assets/images/Gold.svg";
-import Legacy from "../assets/images/Legacy.svg";
-import MenuIcon from "../assets/images/Menu.svg";
-import Military from "../assets/images/Military.svg";
-import Mission from "../assets/images/Mission.svg";
-import Prestige from "../assets/images/Prestige.svg";
-import Production from "../assets/images/Production.svg";
-import ProvinceImage from "../assets/images/Province.svg";
-import Senate from "../assets/images/Senate.svg";
-import SocialClass from "../assets/images/SocialClass.svg";
-import Stability from "../assets/images/Stability.svg";
-import Trade from "../assets/images/Trade.svg";
 import { Modifiers } from "../game/definitions/Modifier";
 import { ProvinceResourceNames } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
@@ -50,6 +32,7 @@ import { FloatingTip } from "./components/FloatingTip";
 import { DiplomacyPage } from "./DiplomacyPage";
 import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
 import { GovernmentSingletonModal } from "./GovernmentSingletonModal";
+import { IconCatalog } from "./IconCatalog";
 import { InternalAffairsPage } from "./InternalAffairsPage";
 import { LegacyUpgradeSingletonModal } from "./LegacyUpgradeSingletonModal";
 import { MissionPage } from "./MissionPage";
@@ -128,7 +111,7 @@ export function TopLeftPanel(): React.ReactNode {
          <div className="f1 row mx10 stretch">
             <div className="row g5" style={{ width: `${FirstColumnWidth}rem` }}>
                <div className="pointer" onClick={() => showPanel(SettingsSingletonModal, {})}>
-                  <img src={MenuIcon} style={{ width: `${IconWidth}rem` }} />
+                  <img src={IconCatalog.Menu} style={{ width: `${IconWidth}rem` }} />
                </div>
                <FloatingTip
                   label={$t(
@@ -168,7 +151,7 @@ export function TopLeftPanel(): React.ReactNode {
                   style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => showPanel(GovernmentSingletonModal, {})}
                >
-                  <img src={Administrative} style={{ width: `${IconWidth}rem` }} />
+                  <img src={IconCatalog.Administrative} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
                   <div>
                      {formatNumber(getProvinceResource("administrative", G.save.state.playerProvince, G.save))}
@@ -192,7 +175,7 @@ export function TopLeftPanel(): React.ReactNode {
                   style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => showPanel(GovernmentSingletonModal, {})}
                >
-                  <img src={Diplomatic} style={{ width: `${IconWidth}rem` }} />
+                  <img src={IconCatalog.Diplomatic} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
                   <div>
                      {formatNumber(getProvinceResource("diplomatic", G.save.state.playerProvince, G.save))}
@@ -216,7 +199,7 @@ export function TopLeftPanel(): React.ReactNode {
                   style={{ width: `${ColumnWidth}rem` }}
                   onClick={() => showPanel(GovernmentSingletonModal, {})}
                >
-                  <img src={Military} style={{ width: `${IconWidth}rem` }} />
+                  <img src={IconCatalog.Military} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
                   <div>
                      {formatNumber(getProvinceResource("military", G.save.state.playerProvince, G.save))}
@@ -242,7 +225,7 @@ export function TopLeftPanel(): React.ReactNode {
                   }}
                   id="TopPanel_WarPower"
                >
-                  <img src={Army} style={{ width: `${IconWidth}rem` }} />
+                  <img src={IconCatalog.Army} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
                   {formatNumber(warPower.value)}
                </div>
@@ -258,7 +241,7 @@ export function TopLeftPanel(): React.ReactNode {
                   onClick={() => showPanel(TreasuryPage, {})}
                >
                   <div>
-                     <img src={Gold} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.Gold} style={{ width: `${IconWidth}rem` }} />
                   </div>
                   <div className="f1" />
                   <div>
@@ -284,7 +267,7 @@ export function TopLeftPanel(): React.ReactNode {
                      showPanel(ProvinceListSingletonModal, {});
                   }}
                >
-                  <img src={Prestige} style={{ width: `${IconWidth}rem` }} />
+                  <img src={IconCatalog.Prestige} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
                   <div>{formatNumber(prestige.value)}</div>
                </div>
@@ -293,7 +276,7 @@ export function TopLeftPanel(): React.ReactNode {
             <div style={IconRowStyle}>
                <FloatingTip label={$t(L.FamilyTree)}>
                   <div className="pointer" id="TopPanel_FamilyTree" onClick={openFamilyTree}>
-                     <img src={FamilyTree} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.FamilyTree} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.TilesAndUpgrades)}>
@@ -304,7 +287,7 @@ export function TopLeftPanel(): React.ReactNode {
                         showPanel(TileListSingletonModal, {});
                      }}
                   >
-                     <img src={ProvinceImage} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.Province} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip
@@ -339,7 +322,7 @@ export function TopLeftPanel(): React.ReactNode {
                         showPanel(InternalAffairsPage, {});
                      }}
                   >
-                     <img src={Stability} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.Stability} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.SocialClass)}>
@@ -348,7 +331,7 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_SocialClass"
                      onClick={() => showPanel(SocialClassSingletonModal, {})}
                   >
-                     <img src={SocialClass} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.SocialClass} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip fixedWidth className="p0" label={<DiplomatsTooltip />}>
@@ -359,7 +342,7 @@ export function TopLeftPanel(): React.ReactNode {
                         showPanel(DiplomacyPage, { province: G.save.state.playerProvince });
                      }}
                   >
-                     <img src={Diplomat} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.Diplomat} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Production)}>
@@ -368,7 +351,7 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_Production"
                      onClick={() => showPanel(ProductionSingletonModal, {})}
                   >
-                     <img src={Production} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.Production} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Trade)}>
@@ -377,22 +360,22 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_Trade"
                      onClick={() => showPanel(TradeSingletonModal, { provinces: new Set([]) })}
                   >
-                     <img src={Trade} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.Trade} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.SenateAndConsuls)}>
                   <div className="pointer" id="TopPanel_Senate" onClick={() => showPanel(SenatePage, {})}>
-                     <img src={Senate} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.Senate} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Missions)}>
                   <div className="pointer" id="TopPanel_Mission" onClick={() => showPanel(MissionPage, {})}>
-                     <img src={Mission} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.Mission} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.Chronicle)}>
                   <div className="pointer" id="TopPanel_Chronicle" onClick={() => showPanel(ChroniclePage, {})}>
-                     <img src={Chronicle} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.Chronicle} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={$t(L.LegacyUpgrade)}>
@@ -401,7 +384,7 @@ export function TopLeftPanel(): React.ReactNode {
                      id="TopPanel_LegacyUpgrade"
                      onClick={() => showPanel(LegacyUpgradeSingletonModal, {})}
                   >
-                     <img src={Legacy} style={{ width: `${IconWidth}rem` }} />
+                     <img src={IconCatalog.Legacy} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
             </div>
@@ -421,7 +404,7 @@ function DiplomatsTooltip(): React.ReactNode {
             return (
                <div className="row mx10 my5" key={i}>
                   <div>
-                     <img src={Diplomat} style={{ width: `${IconWidth * 0.8}rem` }} />
+                     <img src={IconCatalog.Diplomat} style={{ width: `${IconWidth * 0.8}rem` }} />
                   </div>
                   <div className="f1" />
                   <div>{currentRelations[i] ?? $t(L.Idle)}</div>

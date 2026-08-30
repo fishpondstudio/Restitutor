@@ -1,16 +1,11 @@
-import Administrative from "../assets/images/Administrative.svg";
-import Decree from "../assets/images/Decree.svg";
-import Diplomatic from "../assets/images/Diplomatic.svg";
-import Gold from "../assets/images/Gold.svg";
-import Legacy from "../assets/images/Legacy.svg";
-import Military from "../assets/images/Military.svg";
 import type { ProvinceResource } from "../game/definitions/Province";
+import { IconCatalog } from "./IconCatalog";
 
 export const ProvinceResourceImages = {
-   administrative: Administrative,
-   diplomatic: Diplomatic,
-   military: Military,
-   gold: Gold,
-   legacy: Legacy,
-   consulPoint: Decree,
+   administrative: IconCatalog.Administrative,
+   diplomatic: IconCatalog.Diplomatic,
+   military: IconCatalog.Military,
+   gold: IconCatalog.Gold,
+   legacy: IconCatalog.Legacy,
+   consulPoint: IconCatalog.Decree,
 } as const satisfies Partial<Record<ProvinceResource, string>>;

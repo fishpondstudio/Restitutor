@@ -1,4 +1,4 @@
-import { createTheme, type MantineColorsTuple, MantineProvider, Portal, Tooltip } from "@mantine/core";
+import { createTheme, type MantineColorsTuple, MantineProvider, Portal, Progress, Tooltip } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/charts/styles.css";
 import { Notifications } from "@mantine/notifications";
@@ -60,6 +60,11 @@ const theme = createTheme({
             color: "gray",
             maw: "22rem",
             multiline: true,
+         },
+      }),
+      Progress: Progress.extend({
+         defaultProps: {
+            transitionDuration: 200,
          },
       }),
    },

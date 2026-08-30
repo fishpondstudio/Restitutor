@@ -427,7 +427,7 @@ export const ES = {
    HideSteamAndDiscordButtons: "Ocultar los botones de Steam y Discord",
    HireGovernmentAdvisors: "Contratar asesores del gobierno",
    HireGovernmentAdvisorsDesc:
-      "La mayoría de las acciones del juego cuestan puntos <icon>administrative</icon>administrativos, <icon>diplomatic</icon>diplomáticos y <icon>military</icon>militares, que proceden de varias fuentes: gobernador, asesores, enfoque, etc. Sigamos las instrucciones en pantalla para contratar asesores del gobierno; deberíamos reclutar uno de cada tipo (administrativo, diplomático y militar), y por ahora bastará con el asesor más barato.",
+      "La mayoría de las acciones del juego cuestan puntos <icon>Administrative</icon>administrativos, <icon>Diplomatic</icon>diplomáticos y <icon>Military</icon>militares, que proceden de varias fuentes: gobernador, asesores, enfoque, etc. Sigamos las instrucciones en pantalla para contratar asesores del gobierno; deberíamos reclutar uno de cada tipo (administrativo, diplomático y militar), y por ahora bastará con el asesor más barato.",
    HireMercenaries: "Contratar mercenarios",
    HisSpouseWillJoinOurFamily: "Su cónyuge se unirá a nuestra familia",
    Historical: "Histórico",
@@ -527,7 +527,7 @@ export const ES = {
    MakeCore: "Convertir en núcleo",
    MakeCoreCost: "Coste de convertir en núcleo",
    MakeDurocortorumOurCoreDesc:
-      "Un territorio recién anexionado aún no es nuestro núcleo: los territorios que no son núcleos pagan menos impuestos y requieren un coste de gobierno mayor. Cuando nuestro coste de gobierno supera la capacidad, se produce sobreextensión, lo que perjudica a nuestra provincia. Debemos gastar puntos <icon>administrative</icon>administrativos para integrar el territorio y convertirlo en nuestro núcleo; sigamos las instrucciones en pantalla.",
+      "Un territorio recién anexionado aún no es nuestro núcleo: los territorios que no son núcleos pagan menos impuestos y requieren un coste de gobierno mayor. Cuando nuestro coste de gobierno supera la capacidad, se produce sobreextensión, lo que perjudica a nuestra provincia. Debemos gastar puntos <icon>Administrative</icon>administrativos para integrar el territorio y convertirlo en nuestro núcleo; sigamos las instrucciones en pantalla.",
    MakeGovernorGeneral: "Convertir al gobernador en general",
    MakeWarSpeech: "Pronunciar un discurso de guerra",
    Make$1OurCoreTile: "Convertir <i>$1</i> en nuestro territorio núcleo.",
@@ -670,7 +670,7 @@ export const ES = {
    PauseWhenAGameEventOccurs: "Pausar cuando ocurra un evento del juego",
    PayOffOurLoans: "Pagar nuestros préstamos",
    PayOffOurLoansDesc:
-      "Los préstamos se solicitan automáticamente cuando nos quedamos sin <icon>gold</icon>oro; acumulan intereses cada mes, por lo que es mejor devolverlos cuanto antes. <br>- Para aumentar los ingresos, mejoremos la <i>infraestructura</i> y la <i>producción</i> territorial.<br>- Para reducir los gastos, bajemos la <i>conscripción</i> y el <i>mantenimiento</i> del ejército durante la paz.<br>Cuando tengamos suficiente oro, sigamos las instrucciones en pantalla para devolver nuestros préstamos.",
+      "Los préstamos se solicitan automáticamente cuando nos quedamos sin <icon>Gold</icon>oro; acumulan intereses cada mes, por lo que es mejor devolverlos cuanto antes. <br>- Para aumentar los ingresos, mejoremos la <i>infraestructura</i> y la <i>producción</i> territorial.<br>- Para reducir los gastos, bajemos la <i>conscripción</i> y el <i>mantenimiento</i> del ejército durante la paz.<br>Cuando tengamos suficiente oro, sigamos las instrucciones en pantalla para devolver nuestros préstamos.",
    PendingEventDecision: "Decisión de evento pendiente",
    PendingGameEventAutoDecideIn$1Months: "Tenemos pendiente una decisión sobre un evento. Si no decidimos en $1 meses, se elegirá la primera opción por nosotros. Hagamos clic para ver los detalles.",
    PeopleShouldBeFreeToChooseTheirFaith: "La gente debe ser libre de elegir su fe",
@@ -775,7 +775,7 @@ export const ES = {
    Rebirth: "Renacimiento",
    RebirthAndStartANewRun: "Renacer e iniciar una nueva partida",
    RebirthAndStartANewRunDesc:
-      "Restitutor es un juego de gran estrategia <i>incremental</i>: cada partida concede bonificaciones permanentes que permiten avanzar más rápido y llegar más lejos en la siguiente. Este sistema se llama <i>renacimiento</i>.<br>Al renacer, los territorios que hemos <i>anexionado y convertido en núcleos</i> se convierten en <icon>legacy</icon>puntos de legado; se conservan en futuras partidas y conceden bonificaciones poderosas.<br>Podemos elegir una provincia diferente para la próxima partida; sigamos las instrucciones en pantalla para renacer.<br>Tras renacer, el tutorial habrá terminado. Con los conocimientos recién adquiridos, estamos listos para forjar nuestra propia estrategia y nuestro propio camino: ahora nosotros decidimos el curso de la historia.",
+      "Restitutor es un juego de gran estrategia <i>incremental</i>: cada partida concede bonificaciones permanentes que permiten avanzar más rápido y llegar más lejos en la siguiente. Este sistema se llama <i>renacimiento</i>.<br>Al renacer, los territorios que hemos <i>anexionado y convertido en núcleos</i> se convierten en <icon>Legacy</icon>puntos de legado; se conservan en futuras partidas y conceden bonificaciones poderosas.<br>Podemos elegir una provincia diferente para la próxima partida; sigamos las instrucciones en pantalla para renacer.<br>Tras renacer, el tutorial habrá terminado. Con los conocimientos recién adquiridos, estamos listos para forjar nuestra propia estrategia y nuestro propio camino: ahora nosotros decidimos el curso de la historia.",
    ReceivedAGiftFrom$1: "Se ha recibido un regalo de $1",
    Reconquista: "Reconquista",
    Reconquista$1: "Reconquista ($1)",
@@ -2824,26 +2824,26 @@ export const ES = {
    TutorialInfiltrate$1: "Infiltrarse en $1",
    TutorialInfiltrateDesc$1$2: "Tenemos $1 diplomáticos: pueden firmar tratados, mejorar relaciones o infiltrarse en otras provincias. Hagamos clic derecho en <Province>$2</Province> <i>en el mapa</i> para abrir el panel de diplomacia y sigamos las instrucciones en pantalla para infiltrarnos en ella.",
    TutorialReachDiplomaticPointsDesc$1:
-      "Declarar la guerra cuesta $1 puntos <icon>diplomatic</icon>diplomáticos. Además de los ingresos mensuales de puntos de gobierno, también podemos obtener puntos de gobierno mediante eventos. Los eventos pueden afectar mucho a nuestra provincia, así que debemos elegir sabiamente.",
+      "Declarar la guerra cuesta $1 puntos <icon>Diplomatic</icon>diplomáticos. Además de los ingresos mensuales de puntos de gobierno, también podemos obtener puntos de gobierno mediante eventos. Los eventos pueden afectar mucho a nuestra provincia, así que debemos elegir sabiamente.",
    TutorialDeclareWarOn$1: "Declarar la guerra a $1",
    TutorialDeclareWarDesc$1$2:
       "Ahora estamos listos para la guerra. Hagamos clic derecho en <Province>$1</Province> <i>en el mapa</i> para abrir el panel de diplomacia y sigamos las instrucciones en pantalla para declarar la guerra.<br>La guerra puede ejercer una gran presión sobre nuestra provincia, así que empecemos por algo pequeño: elijamos <Tile>$2</Tile> como objetivo bélico.<br>Casi siempre deberíamos tener un <i>casus belli</i> al declarar la guerra. Actualmente tenemos uno y también podemos fabricar uno si es necesario.",
    TutorialMakeTileOurCore$1: "Convertir $1 en nuestro núcleo",
    TutorialUpgradeTileProduction$1: "Mejorar la producción de $1",
    TutorialUpgradeTileProductionDesc$1:
-      "Para seguir desarrollando nuestra provincia, debemos mejorar nuestros territorios. Hay tres tipos de mejoras:<br>- Las mejoras de infraestructura cuestan puntos <icon>administrative</icon>administrativos y aumentan el <i>impuesto territorial</i>.<br>- Las mejoras de producción cuestan puntos <icon>diplomatic</icon>diplomáticos y aumentan el <i>rendimiento</i> del territorio.<br>- Las mejoras de población cuestan puntos <icon>military</icon>militares y aumentan la <i>mano de obra</i>.<br>La pantalla de Territorios y mejoras ofrece una forma cómoda de mejorar los territorios; sigamos las instrucciones en pantalla para mejorar la producción de <Tile>$1</Tile>.",
+      "Para seguir desarrollando nuestra provincia, debemos mejorar nuestros territorios. Hay tres tipos de mejoras:<br>- Las mejoras de infraestructura cuestan puntos <icon>Administrative</icon>administrativos y aumentan el <i>impuesto territorial</i>.<br>- Las mejoras de producción cuestan puntos <icon>Diplomatic</icon>diplomáticos y aumentan el <i>rendimiento</i> del territorio.<br>- Las mejoras de población cuestan puntos <icon>Military</icon>militares y aumentan la <i>mano de obra</i>.<br>La pantalla de Territorios y mejoras ofrece una forma cómoda de mejorar los territorios; sigamos las instrucciones en pantalla para mejorar la producción de <Tile>$1</Tile>.",
    TutorialLowerArmyMaintenanceDesc$1:
       "Tras nuestra reciente victoria, la guerra ha dejado vacío nuestro tesoro. Para estabilizar las finanzas del gobierno, deberíamos reducir el mantenimiento del ejército a $1 durante la paz; sigamos las instrucciones en pantalla.<br>Tengamos en cuenta que un mantenimiento reducido disminuye la moral del ejército, y la moral tarda en recuperarse incluso después de volver a aumentar el mantenimiento.",
    TutorialFindGovernorSpouseDesc$1:
       "Nuestro gobernador no está casado. Para asegurar el futuro de la provincia, deberíamos concertar un matrimonio adecuado.<br>Podemos elegir un cónyuge de una de nuestras propias clases sociales, lo que aumenta la <i>lealtad</i> de esa clase, o de la familia gobernante de otra provincia, lo que mejora su <i>actitud hacia nosotros</i>.<br>Sigamos las instrucciones en pantalla para elegir un cónyuge de la clase $1 de nuestra provincia.",
    TutorialSetUpTradeWith$1: "Establecer un comercio con $1",
    TutorialSetUpTradeDesc$1$2$3:
-      "Cada territorio produce cierta cantidad de bienes cada mes. Estos bienes pueden utilizarse para crear productos de mayor valor (desbloqueados mediante la investigación) o comerciar con otras provincias.<br>Para aumentar nuestros ingresos, sigamos las instrucciones en pantalla para exportar nuestro excedente de $1 a <Province>$2</Province> a cambio de <icon>gold</icon>$3. Tengamos en cuenta que una guerra entre nosotros cancelará el comercio y perderemos esta fuente de ingresos.",
+      "Cada territorio produce cierta cantidad de bienes cada mes. Estos bienes pueden utilizarse para crear productos de mayor valor (desbloqueados mediante la investigación) o comerciar con otras provincias.<br>Para aumentar nuestros ingresos, sigamos las instrucciones en pantalla para exportar nuestro excedente de $1 a <Province>$2</Province> a cambio de <icon>Gold</icon>$3. Tengamos en cuenta que una guerra entre nosotros cancelará el comercio y perderemos esta fuente de ingresos.",
    TutorialVoteForConsulElectionDesc$1$2$3:
-      "Cada $1 años se eligen dos cónsules de un grupo de $2 candidatos. Podemos apoyar a $3 de ellos y, si los candidatos que respaldamos resultan elegidos, obtenemos <icon>consulPoint</icon>puntos de cónsul que pueden gastarse en distintos decretos senatoriales. Mediante la diplomacia y la información podemos mejorar nuestras posibilidades de apoyar a los candidatos ganadores. Por ahora, elijamos candidatos al azar; sigamos las instrucciones en pantalla.",
-   TutorialReachMilitaryPointsDesc$1: "Las tecnologías militares requieren puntos <icon>military</icon>militares para investigarse. Debemos esperar hasta haber acumulado $1 puntos militares antes de continuar.",
+      "Cada $1 años se eligen dos cónsules de un grupo de $2 candidatos. Podemos apoyar a $3 de ellos y, si los candidatos que respaldamos resultan elegidos, obtenemos <icon>Decree</icon>puntos de cónsul que pueden gastarse en distintos decretos senatoriales. Mediante la diplomacia y la información podemos mejorar nuestras posibilidades de apoyar a los candidatos ganadores. Por ahora, elijamos candidatos al azar; sigamos las instrucciones en pantalla.",
+   TutorialReachMilitaryPointsDesc$1: "Las tecnologías militares requieren puntos <icon>Military</icon>militares para investigarse. Debemos esperar hasta haber acumulado $1 puntos militares antes de continuar.",
    TutorialResearch$1: "Investigar $1",
-   TutorialResearchDesc$1: "Abrir el árbol tecnológico y seleccionar <i>$1</i>. Sigamos las instrucciones en pantalla para investigar la tecnología, asegurándonos de que sus prerrequisitos estén investigados y tengamos suficientes puntos <icon>military</icon>militares.",
+   TutorialResearchDesc$1: "Abrir el árbol tecnológico y seleccionar <i>$1</i>. Sigamos las instrucciones en pantalla para investigar la tecnología, asegurándonos de que sus prerrequisitos estén investigados y tengamos suficientes puntos <icon>Military</icon>militares.",
    TutorialSetUpProduction$1: "Configurar la producción de $1",
    TutorialSetUpProductionDesc$1$2:
       "Cuando producimos bienes de mayor valor, una parte del valor añadido se grava, mientras que los bienes restantes pueden utilizarse para seguir produciendo o comerciando. Nuestra provincia tiene una cantidad limitada de capacidad de producción (que puede aumentarse mediante la investigación) que podemos asignar a distintos tipos de producción.<br>Sigamos las instrucciones en pantalla para asignar $1 de capacidad a la producción de $2.",
@@ -3212,7 +3212,7 @@ export const ES = {
       "Nuestra provincia tiene varias clases sociales, cada una de las cuales apoya y se opone a distintas agendas. Sigamos las instrucciones en pantalla para adoptar una agenda; la influencia de las clases que la apoyan aumentará, mientras que la lealtad de las clases opositoras disminuirá.<br>Tengamos cuidado de no permitir que una clase social se vuelva demasiado influyente o desleal, pues esto tendrá consecuencias negativas.",
    LetMissionsGuideOurRestoration: "Dejar que las misiones guíen nuestra restauración",
    TutorialMissionsDesc$1$1:
-      "Cada provincia tiene un conjunto único de misiones; completar cada misión nos ofrece una elección de recompensas. Sigamos las instrucciones en pantalla para ver la misión <i>$1</i>; pasemos el cursor sobre cada recompensa para ver sus detalles.<br>Durante nuestras primeras partidas, conviene seguir las misiones para conseguir impulso inicial.<br>El tutorial continuará después de completar <i>$1</i> o hacer clic en el botón de abajo.",
+      "Cada provincia tiene un conjunto único de misiones; completar cada misión nos ofrece una elección de recompensas. Sigamos las instrucciones en pantalla para ver la misión <icon>Mission</icon><i>$1</i>; pasemos el cursor sobre cada recompensa para ver sus detalles.<br>Durante nuestras primeras partidas, conviene seguir las misiones para conseguir impulso inicial.<br>El tutorial continuará después de completar <i>$1</i> o hacer clic en el botón de abajo.",
    IllCompleteTheMissionLater: "Completaré la misión más tarde",
    WeShallFocusOnOurInternalAffairs: "Nos centraremos en nuestros asuntos internos",
    Shortcuts: "Atajos",
@@ -3241,6 +3241,6 @@ export const ES = {
    OpenLegacyUpgrade: "Abrir la mejora de legado",
    OpenRebirth: "Abrir el renacimiento",
    ChangeGovernmentFocus: "Cambiar el enfoque del gobierno",
-   TutorialChangeGovernmentFocusDesc: "Una guerra ofensiva cuesta puntos <icon>military</icon>militares cada mes. Antes de declarar la guerra, deberíamos cambiar el enfoque de nuestro gobierno al militar; esto aumenta nuestros puntos militares mensuales a costa de los otros dos puntos de gobierno.",
+   TutorialChangeGovernmentFocusDesc: "Una guerra ofensiva cuesta puntos <icon>Military</icon>militares cada mes. Antes de declarar la guerra, deberíamos cambiar el enfoque de nuestro gobierno al militar; esto aumenta nuestros puntos militares mensuales a costa de los otros dos puntos de gobierno.",
    MadeCoreTileRemainsCoreAfterReconquest: "Una vez que un territorio se convierte en nuestro núcleo, seguirá siéndolo aunque lo perdamos; no tendremos que volver a convertirlo en núcleo tras reconquistarlo.",
 };
