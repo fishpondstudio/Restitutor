@@ -3143,7 +3143,7 @@ export const ZH_CN = {
    TotalConversion: "全转换模组",
    Loading$1: "正在加载 $1...",
    TutorialIncreaseGameSpeedDesc$1$2$3: "每月尝试$1次攻击，最终结果由这些攻击结果中的多数决定。若成功，我们获得$2战争分数；否则失去相同数量。<br>战争进行期间，请按照屏幕提示将游戏速度提高至$3。",
-   TutorialSignPeaceTreatyAfterVictoryDesc$1: "右侧的进行中战争图标正在跳动，说明我们已获得所需的战争分数。点击该图标并按照屏幕提示签署和平条约，以便我们占领<i>$1</i>。<br>不妨暂停游戏或降低游戏速度，以便从容操作。",
+   TutorialSignPeaceTreatyAfterVictoryDesc$1: "一旦我们达到所需的战争分数，右侧的进行中战争图标就会跳动。点击该图标并按照屏幕提示签署和平条约，以便我们占领<i>$1</i>。<br>不妨暂停游戏或降低游戏速度，以便从容操作。",
    AdoptASocialClassAgenda: "采纳一项社会阶层议程",
    TutorialSocialClassAgendaDesc: "我们的行省中存在不同的社会阶层，每个阶层都支持某些议程，并反对另一些议程。请按照屏幕提示采纳一项议程：支持该议程的阶层将提高影响力，反对该议程的阶层则会降低忠诚度。<br>注意不要让任何社会阶层的影响力过高或忠诚度过低，否则会引发负面后果。",
    LetMissionsGuideOurRestoration: "让任务指引我们的复兴",

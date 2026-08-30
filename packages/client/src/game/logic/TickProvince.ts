@@ -53,7 +53,7 @@ import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
 import { ArmyMoraleMonthlyIncrease } from "./WarLogic";
 
-export const PendingGameEventTimeoutMonths = 3;
+export const PendingGameEventTimeoutMonths = 12;
 
 export function tickProvince(province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];

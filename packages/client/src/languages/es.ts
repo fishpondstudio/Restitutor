@@ -3205,7 +3205,7 @@ export const ES = {
    TutorialIncreaseGameSpeedDesc$1$2$3:
       "Cada mes se intentan $1 ataques y el resultado final se determina por mayoría. Si tenemos éxito, obtenemos $2 de puntuación de guerra; de lo contrario, perdemos la misma cantidad.<br>Mientras la guerra esté en curso, sigamos las instrucciones en pantalla para aumentar la velocidad del juego a $3.",
    TutorialSignPeaceTreatyAfterVictoryDesc$1:
-      "Hemos alcanzado la puntuación de guerra necesaria y el icono de guerra en curso de la derecha parpadea. Hagamos clic en él y sigamos las instrucciones en pantalla para firmar un tratado de paz que nos permita ocupar <i>$1</i>.<br>Consideremos pausar o reducir la velocidad del juego para que podamos tomarnos nuestro tiempo.",
+      "Una vez que alcancemos la puntuación de guerra necesaria, el icono de guerra en curso de la derecha rebotará. Hagamos clic en él y sigamos las instrucciones en pantalla para firmar un tratado de paz que nos permita ocupar <i>$1</i>.<br>Consideremos pausar o reducir la velocidad del juego para que podamos tomarnos nuestro tiempo.",
    AdoptASocialClassAgenda: "Adoptar una agenda de clase social",
    TutorialSocialClassAgendaDesc:
       "Nuestra provincia tiene varias clases sociales, cada una de las cuales apoya y se opone a distintas agendas. Sigamos las instrucciones en pantalla para adoptar una agenda; la influencia de las clases que la apoyan aumentará, mientras que la lealtad de las clases opositoras disminuirá.<br>Tengamos cuidado de no permitir que una clase social se vuelva demasiado influyente o desleal, pues esto tendrá consecuencias negativas.",

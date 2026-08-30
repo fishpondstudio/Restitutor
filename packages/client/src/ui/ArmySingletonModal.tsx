@@ -336,10 +336,12 @@ function UpgradeSkillButton({
                {element}
             </>
          )}
-         className="btn py5"
+         className="btn"
       >
-         <div className="text-roman">{getProvinceStat(skill, G.save.state.playerProvince, G.save)}</div>
-         <div className="text-sm">{ProvinceStatNames[skill]()}</div>
+         <div>{ProvinceStatNames[skill]()}</div>
+         <div className="fixed-right text-roman mr10">
+            {getProvinceStat(skill, G.save.state.playerProvince, G.save)}
+         </div>
       </ActionButton>
    );
 }

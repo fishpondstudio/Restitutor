@@ -1,5 +1,6 @@
 import { LINE_SCALE_MODE, SmoothGraphics } from "@pixi/graphics-smooth";
 import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
+import { AABB, type IAABB } from "@project/shared/src/utils/AABB";
 import { hasFlag, pointToTile, round, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
 import type { IHaveXY } from "@project/shared/src/utils/Vector2";
 import {
@@ -31,7 +32,7 @@ import { TilePage } from "../ui/TilePage";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
 import { G, GameFlags, isDev } from "../utils/Global";
-import { MapContainer, MapParticleContainer } from "../utils/KeyedContainer";
+import { MapContainer, MapParticleContainer } from "../utils/MapContainer";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
 import { getOverlay } from "./Overlays";
@@ -48,7 +49,7 @@ export class WorldScene extends Scene {
    private _tileContainer: MapParticleContainer<Tile, Sprite>;
    private _capitalContainer: MapContainer<Tile, Sprite>;
    private _overlayContainer: MapContainer<Tile, DisplayObject>;
-   private _labelContainer: Container;
+   private _labelContainer: MapContainer<Province, UnicodeText>;
    private _selectors: Container<Sprite>;
    private _selectedTiles = new Set<Tile>();
    private _selectedProvince: Province;
@@ -89,7 +90,7 @@ export class WorldScene extends Scene {
       this._dynamicOutline = this.viewport.addChild(new SmoothGraphics());
       this._dynamicOutline.position.set(MarginX, 0);
 
-      this._labelContainer = this.viewport.addChild(new Container());
+      this._labelContainer = this.viewport.addChild(new MapContainer<Province, UnicodeText>());
       this._labelContainer.position.set(MarginX, 0);
 
       const minZoom = Math.max(
@@ -568,7 +569,6 @@ export class WorldScene extends Scene {
             }
          }
       }
-      destroyAllChildren(this._labelContainer);
       const provinceToTiles = new Map<Province, Set<Tile>>();
       G.save.state.tiles.forEach((data, tile) => {
          if (data.province) {
@@ -580,8 +580,10 @@ export class WorldScene extends Scene {
             }
          }
       });
+      this._labelContainer.map.clear();
       for (const [province, tiles] of provinceToTiles) {
-         const text = this._labelContainer.addChild(
+         const text = this._labelContainer.map.set(
+            province,
             new UnicodeText(getProvinceName(province, G.save), {
                fontName: Fonts.RomanFont,
                fontSize: ProvinceLabelFontSize,
@@ -592,6 +594,15 @@ export class WorldScene extends Scene {
          const position = findProvinceLabelPosition(tiles, text.width);
          text.position.set(position.x, position.y);
       }
+   }
+
+   public getProvinceLabelRect(province: Province): IAABB | undefined {
+      const text = this._labelContainer.map.get(province);
+      if (!text) {
+         return undefined;
+      }
+      const bounds = text.getBounds(true);
+      return AABB.fromRect(bounds);
    }
 
    private _addSelector(tile: Tile): void {

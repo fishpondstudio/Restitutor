@@ -260,6 +260,7 @@
    transform: translateX(-50%);
    height: 3rem;
    width: 8rem;
+   z-index: calc(var(--mantine-z-index-overlay) + 1);
 
    background:
       linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
@@ -298,4 +299,5 @@
    position: absolute;
    bottom: 0.625rem;
    right: 0.625rem;
+   z-index: calc(var(--mantine-z-index-modal) + 1);
 }

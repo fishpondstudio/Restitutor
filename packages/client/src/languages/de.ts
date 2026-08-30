@@ -3214,7 +3214,7 @@ export const DE = {
    TutorialIncreaseGameSpeedDesc$1$2$3:
       "Jeden Monat werden $1 Angriffe versucht, und das Endergebnis richtet sich nach der Mehrheit ihrer Ausgänge. Bei Erfolg erhalten wir $2 Kriegswertung, andernfalls verlieren wir denselben Betrag.<br>Folgen wir während des Krieges den Anweisungen auf dem Bildschirm und erhöhen wir die Spielgeschwindigkeit auf $3.",
    TutorialSignPeaceTreatyAfterVictoryDesc$1:
-      "Wir haben die erforderliche Kriegswertung erreicht, und das Symbol für den laufenden Krieg rechts springt. Klicken wir darauf und folgen wir den Anweisungen auf dem Bildschirm, um einen Friedensvertrag zu schließen, der uns die Besetzung von <i>$1</i> erlaubt.<br>Erwägen wir, das Spiel zu pausieren oder die Geschwindigkeit zu senken, damit wir uns Zeit lassen können.",
+      "Sobald wir die erforderliche Kriegswertung erreicht haben, wird das Symbol für den laufenden Krieg rechts springen. Klicken wir darauf und folgen wir den Anweisungen auf dem Bildschirm, um einen Friedensvertrag zu schließen, der uns die Besetzung von <i>$1</i> erlaubt.<br>Erwägen wir, das Spiel zu pausieren oder die Geschwindigkeit zu senken, damit wir uns Zeit lassen können.",
    AdoptASocialClassAgenda: "Eine Agenda der Gesellschaftsklassen annehmen",
    TutorialSocialClassAgendaDesc:
       "Unsere Provinz hat mehrere Gesellschaftsklassen, die unterschiedliche Agenden unterstützen oder ablehnen. Folgen wir den Anweisungen auf dem Bildschirm und nehmen wir eine Agenda an – der Einfluss der unterstützenden Klassen steigt, während die Loyalität der ablehnenden Klassen sinkt.<br>Achten wir darauf, dass keine Gesellschaftsklasse zu einflussreich oder illoyal wird, da dies negative Folgen hat.",

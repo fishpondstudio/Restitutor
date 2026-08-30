@@ -22,6 +22,7 @@ import { TechPage } from "../ui/TechPage";
 import { SidebarWidth } from "../ui/UIConstant";
 import { WheelMode } from "../utils/Camera";
 import { G, isDev, setPixiCursor } from "../utils/Global";
+import { MapContainer } from "../utils/MapContainer";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
 
@@ -41,7 +42,7 @@ export class TechTreeScene extends Scene {
    private _graphics: SmoothGraphics;
    private _selectedGraphics: SmoothGraphics;
    private _techs = new Map<Tech, IAABB>();
-   private _boxContainer: Container;
+   private _boxContainer: MapContainer<Tech, Container>;
    private _selectedBoxContainer: Container;
    private _selectedTech: Tech | undefined;
    private _selectedTechFrame: Sprite | undefined;
@@ -92,7 +93,7 @@ export class TechTreeScene extends Scene {
       }
       this._graphics = this.viewport.addChild(new SmoothGraphics());
       this._selectedGraphics = this.viewport.addChild(new SmoothGraphics());
-      this._boxContainer = this.viewport.addChild(new Container());
+      this._boxContainer = this.viewport.addChild(new MapContainer<Tech, Container>());
       this._selectedBoxContainer = this.viewport.addChild(new Container());
 
       forEach(Tech, (tech, def) => {
@@ -102,7 +103,7 @@ export class TechTreeScene extends Scene {
          const totalHeight = PageHeight - BottomMargin - TopMargin - HeaderHeight - BottomPadding;
          const y = HeaderHeight + TopMargin + layoutSpaceBetween(BoxHeight, totalHeight, totalRow, position.y);
 
-         const container = this._boxContainer.addChild(new Container());
+         const container = this._boxContainer.map.set(tech, new Container());
          container.position.set(x, y);
          container.width = BoxWidth;
          container.height = BoxHeight;
@@ -284,6 +285,14 @@ export class TechTreeScene extends Scene {
       if (visual) {
          this.viewport.center = { x: visual.center.x, y: visual.center.y };
       }
+   }
+
+   public getTechRect(tech: Tech): IAABB | undefined {
+      const bounds = this._boxContainer.map.get(tech)?.getBounds(true);
+      if (bounds) {
+         return AABB.fromRect(bounds);
+      }
+      return undefined;
    }
 
    private getTechByPosition(pos: IHaveXY): Tech | undefined {

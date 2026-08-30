@@ -3175,8 +3175,7 @@ export const EN = {
    Loading$1: "Loading $1...",
    TutorialIncreaseGameSpeedDesc$1$2$3:
       "Every month, $1 attacks are attempted, and the final result is determined by the majority of their outcomes. If successful, we gain $2 war score; otherwise, we lose the same amount.<br>While the war is ongoing, follow the on-screen instructions to increase the game speed to $3.",
-   TutorialSignPeaceTreatyAfterVictoryDesc$1:
-      "We have reached the required war score, and the ongoing war icon on the right is bouncing. Click it and follow the on-screen instructions to sign a peace treaty that allows us to occupy <i>$1</i>.<br>Consider pausing or lowering the game speed so that we can take our time.",
+   TutorialSignPeaceTreatyAfterVictoryDesc$1: "Once we reach the required war score, the ongoing war icon on the right will bounce. Click it and follow the on-screen instructions to sign a peace treaty that allows us to occupy <i>$1</i>.<br>Consider pausing or lowering the game speed so that we can take our time.",
    AdoptASocialClassAgenda: "Adopt a social class agenda",
    TutorialSocialClassAgendaDesc:
       "Our province has several social classes, each of which supports and opposes different agendas. Follow the on-screen instructions to adopt an agenda—the supporting classes' influence will increase, while the opposing classes' loyalty will decrease.<br>Be careful not to let a social class become too influential or disloyal, as this will lead to negative consequences.",

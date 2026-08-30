@@ -21,6 +21,7 @@ import {
 } from "./logic/ProvinceLogic";
 import { getTimedActionTimeLeft } from "./logic/TimedActionLogic";
 import { getCurrentGeneral, getCurrentWars, WarOneTimeDiplomaticPoint } from "./logic/WarLogic";
+import { provinceSel, techSel } from "./ProvinceSelector";
 
 const TutorialEnemyProvince: Province = "Belgica" as const;
 const TutorialWarGoal: Tile = Tiles.Durocortorum;
@@ -109,7 +110,7 @@ export const Tutorial: ITutorial[] = [
          }
          return [0, 1];
       },
-      selectors: ["#DiplomacyPage_Infiltrate_Belgica"],
+      selectors: [provinceSel("Belgica"), "#DiplomacyPage_Infiltrate_Belgica"],
    },
    {
       id: "Unpause",
@@ -217,10 +218,10 @@ export const Tutorial: ITutorial[] = [
    {
       id: "LowerArmyMaintenance",
       name: () => $t(L.LowerArmyMaintenance),
-      desc: () => $t(L.TutorialLowerArmyMaintenanceDesc$1, formatPercent(80 / 100)),
+      desc: () => $t(L.TutorialLowerArmyMaintenanceDesc$1, formatPercent(70 / 100)),
       progress: (save) => {
          const armyMaintenance = getProvinceStat("armyMaintenance", save.state.playerProvince, save);
-         if (armyMaintenance <= 80) {
+         if (armyMaintenance <= 70) {
             return [1, 1];
          }
          return [0, 1];
@@ -340,7 +341,7 @@ export const Tutorial: ITutorial[] = [
          }
          return [0, 1];
       },
-      selectors: ["#BottomPanel_TechTree_Inactive", "#TechPage_Research_B3"],
+      selectors: ["#BottomPanel_TechTree_Inactive", techSel("B3"), "#TechPage_Research_B3"],
    },
    {
       id: "Production",
