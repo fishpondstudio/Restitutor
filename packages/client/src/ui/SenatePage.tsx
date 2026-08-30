@@ -25,6 +25,7 @@ import { DissolveTreatyModal } from "./DissolveTreatyModal";
 import { HeaderImages } from "./HeaderImages";
 import { NamePublicEnemyModal } from "./NamePublicEnemyModal";
 import { NullifyTruceModal } from "./NullifyTruceModal";
+import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid2 } from "./UIConstant";
 
@@ -47,6 +48,11 @@ export function SenatePage(): React.ReactNode {
                <div>
                   {getProvinceResource("consulPoint", G.save.state.playerProvince, G.save)} {$t(L.ConsulPoint)}
                </div>
+               <img
+                  src={ProvinceResourceImages.consulPoint}
+                  className="icon-block"
+                  style={{ height: "1.3125rem", margin: "-0.3125rem 0" }}
+               />
             </div>
          </FloatingTip>
          <div style={Grid2} className="m10">

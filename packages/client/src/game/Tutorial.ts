@@ -171,7 +171,7 @@ export const Tutorial: ITutorial[] = [
             modifier: "WarPower",
             name: $t(L.Tutorial),
             type: "multiply",
-            value: -0.2,
+            value: -0.3,
             duration: 12 * 2,
             province: "Belgica",
             save,

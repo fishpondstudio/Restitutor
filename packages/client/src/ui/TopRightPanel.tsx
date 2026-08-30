@@ -2,8 +2,6 @@ import { Menu } from "@mantine/core";
 import { useForceUpdate } from "@mantine/hooks";
 import { clamp, cls, entriesOf, hasFlag } from "@project/shared/src/utils/Helper";
 import { memo } from "react";
-import Discord from "../../src/assets/images/Discord.svg";
-import Steam from "../../src/assets/images/Steam.svg";
 import { DiscordUrl, SteamUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated, GameSpeedChanged, GameTimeUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
@@ -15,6 +13,7 @@ import { G, isDev, setSpeed } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { FloatingTip } from "./components/FloatingTip";
+import { IconCatalog } from "./IconCatalog";
 
 export function TopRightPanel(): React.ReactNode {
    if (!G.save) return null;
@@ -123,7 +122,11 @@ function TimeComp(): React.ReactNode {
 function _DiscordComp(): React.ReactNode {
    return (
       <FloatingTip label={$t(L.JoinOurDiscordServer)}>
-         <img src={Discord} style={{ display: "block", height: "1.125rem" }} onClick={() => openUrl(DiscordUrl)} />
+         <img
+            src={IconCatalog.Discord}
+            style={{ display: "block", height: "1.125rem" }}
+            onClick={() => openUrl(DiscordUrl)}
+         />
       </FloatingTip>
    );
 }
@@ -133,7 +136,11 @@ export const DiscordComp = memo(_DiscordComp);
 function _SteamComp(): React.ReactNode {
    return (
       <FloatingTip label={$t(L.WishlistTheFullGameOnSteam)}>
-         <img src={Steam} style={{ display: "block", height: "1.25rem" }} onClick={() => openUrl(SteamUrl)} />
+         <img
+            src={IconCatalog.Steam}
+            style={{ display: "block", height: "1.25rem" }}
+            onClick={() => openUrl(SteamUrl)}
+         />
       </FloatingTip>
    );
 }

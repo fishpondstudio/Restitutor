@@ -75,7 +75,7 @@ const parserOptions: HTMLReactParserOptions = {
       ) {
          const text = node.children[0].data;
          if (text in IconCatalog) {
-            return <img className="inline-icon" src={IconCatalog[text as keyof typeof IconCatalog]} />;
+            return <img className="icon-inline" src={IconCatalog[text as keyof typeof IconCatalog]} />;
          }
       }
    },

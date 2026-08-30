@@ -6,6 +6,7 @@ import { GameStateUpdated } from "../game/Events";
 import { hasEnoughProvinceResources } from "../game/logic/ProvinceLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
+import { ProvinceResourceImages } from "./ProvinceResourceImages";
 
 export const ResourceCostComp = memo(_ResourceCostComp, (prev, next) => {
    return areProvinceCostsEqual(prev.cost, next.cost);
@@ -29,7 +30,11 @@ function _ResourceCostRow({ resource, amount }: { resource: ProvinceResource; am
    refreshOnTypedEvent(GameStateUpdated);
    return (
       <div className="row g5 pl10 pr5 py5">
-         <div className="f1">{ProvinceResourceNames[resource]()}</div>
+         {resource in ProvinceResourceImages && (
+            <img src={ProvinceResourceImages[resource as keyof typeof ProvinceResourceImages]} className="icon-block" />
+         )}
+         <div>{ProvinceResourceNames[resource]()}</div>
+         <div className="f1" />
          <div>{formatNumber(amount)}</div>
          {hasEnoughProvinceResources({ [resource]: amount }, G.save.state.playerProvince, G.save) ? (
             <div className="mi xs text-green">check_circle</div>

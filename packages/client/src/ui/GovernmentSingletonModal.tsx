@@ -1,7 +1,6 @@
 import { Menu } from "@mantine/core";
 import { cls, formatNumber } from "@project/shared/src/utils/Helper";
 import { Fragment } from "react/jsx-runtime";
-import FamilyTree from "../assets/images/FamilyTree.svg";
 import { finalizeCondition } from "../game/actions/GameAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
 import { PersonTrait } from "../game/definitions/PersonTrait";
@@ -27,6 +26,7 @@ import { showPanel } from "./common/ShowPanel";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
+import { IconCatalog } from "./IconCatalog";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { playClick, playError } from "./Sound";
 import { TimedActionButton } from "./TimedActionButton";
@@ -59,7 +59,7 @@ export function GovernmentSingletonModal(): React.ReactNode {
             <FloatingTip label={$t(L.ViewFamilyTree)}>
                <div className="row g5 pointer" onClick={() => showPanel(FamilyTreeSingletonModal, {})}>
                   {state.governor.male.name.join(" ")}
-                  <img src={FamilyTree} style={{ height: "1.3125rem" }} />
+                  <img src={IconCatalog.FamilyTree} style={{ height: "1.3125rem" }} />
                </div>
             </FloatingTip>
          </div>

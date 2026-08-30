@@ -1,6 +1,4 @@
 import { SegmentedControl } from "@mantine/core";
-import MapIcon from "../assets/images/Map.svg";
-import TechTree from "../assets/images/TechTree.svg";
 import { OnSceneSwitched } from "../game/Events";
 import { TechTreeScene } from "../scenes/TechTreeScene";
 import { WorldScene } from "../scenes/WorldScene";
@@ -9,6 +7,7 @@ import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { hideSidebar } from "./common/SidebarManager";
 import { FloatingTip } from "./components/FloatingTip";
+import { IconCatalog } from "./IconCatalog";
 
 export function BottomPanel(): React.ReactNode {
    return (
@@ -36,7 +35,7 @@ function SceneSwitcherComp(): React.ReactNode {
             {
                label: (
                   <FloatingTip label={$t(L.WorldMap)}>
-                     <img src={MapIcon} height={24} className="display-block" />
+                     <img src={IconCatalog.MapIcon} height={24} className="display-block" />
                   </FloatingTip>
                ),
                value: WorldScene.name,
@@ -45,7 +44,7 @@ function SceneSwitcherComp(): React.ReactNode {
                label: (
                   <FloatingTip label={$t(L.TechTree)}>
                      <img
-                        src={TechTree}
+                        src={IconCatalog.TechTree}
                         id={
                            G.scene.isCurrent(TechTreeScene)
                               ? "BottomPanel_TechTree_Active"

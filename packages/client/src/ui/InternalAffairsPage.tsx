@@ -54,6 +54,7 @@ import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { MakeCoreButton } from "./MakeCoreButton";
+import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { playClick, playError } from "./Sound";
 import { TilePage } from "./TilePage";
 import { TimedActionButton } from "./TimedActionButton";
@@ -331,6 +332,7 @@ export function InternalAffairsPage(): React.ReactNode {
          >
             <div className="row g5 m10">
                <div>{ProvinceResourceNames.christianity()}</div>
+               <img src={ProvinceResourceImages.christianity} className="icon-block" />
                {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
                   <div className="mi sm text-red">error</div>
                )}

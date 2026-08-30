@@ -1,31 +1,4 @@
 import { cls, entriesOf, forEach, formatNumber } from "@project/shared/src/utils/Helper";
-import Bankruptcy from "../assets/images/Bankruptcy.svg";
-import Barbarian from "../assets/images/Barbarian.svg";
-import Core from "../assets/images/Core.svg";
-import Decree from "../assets/images/Decree.svg";
-import Diplomat from "../assets/images/Diplomat.svg";
-import Dissent from "../assets/images/Dissent.svg";
-import EcumenicalCouncilIcon from "../assets/images/EcumenicalCouncil.svg";
-import EmptyAdvisor from "../assets/images/EmptyAdvisor.svg";
-import Legacy from "../assets/images/Legacy.svg";
-import Loan from "../assets/images/Loan.svg";
-import Marriage from "../assets/images/Marriage.svg";
-import Overextension from "../assets/images/Overextension.svg";
-import PendingEvent from "../assets/images/PendingEvent.svg";
-import Pontiff from "../assets/images/Pontiff.svg";
-import Production from "../assets/images/Production.svg";
-import Rebellion from "../assets/images/Rebellion.svg";
-import Rivals from "../assets/images/Rivals.svg";
-import Senate from "../assets/images/Senate.svg";
-import TechIcon from "../assets/images/Tech.svg";
-import Trade from "../assets/images/Trade.svg";
-import Treaty from "../assets/images/Treaty.svg";
-import Truce from "../assets/images/Truce.svg";
-import UpgradeArmyGeneralIcon from "../assets/images/UpgradeArmyGeneral.svg";
-import VacantArmyGeneralIcon from "../assets/images/VacantArmyGeneral.svg";
-import WarOngoing from "../assets/images/WarOngoing.svg";
-import WarStalled from "../assets/images/WarStalled.svg";
-import WarWarning from "../assets/images/WarWarning.svg";
 import { UpgradeGeneralSkillAction } from "../game/actions/ArmyGeneralAction";
 import { canDoAction } from "../game/actions/GameAction";
 import { CanTradeCostCondition } from "../game/actions/TradeActions";
@@ -74,6 +47,7 @@ import { EcumenicalCouncilPage } from "./EcumenicalCouncilPage";
 import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
 import { GameEventModal } from "./GameEventModal";
 import { GovernmentSingletonModal } from "./GovernmentSingletonModal";
+import { IconCatalog } from "./IconCatalog";
 import { InternalAffairsPage } from "./InternalAffairsPage";
 import { LegacyUpgradeSingletonModal } from "./LegacyUpgradeSingletonModal";
 import { ProductionSingletonModal } from "./ProductionSingletonModal";
@@ -132,16 +106,16 @@ function WarTodo(war: IWar, index: number): [string, ITodo] {
                save,
             );
             if (war.actualWarScore >= war.requiredWarScore) {
-               return WarOngoing;
+               return IconCatalog.WarOngoing;
             }
             if (successChance <= 0.5) {
-               return WarWarning;
+               return IconCatalog.WarWarning;
             }
             if (isWarStalled(war, save)) {
-               return WarStalled;
+               return IconCatalog.WarStalled;
             }
          }
-         return WarOngoing;
+         return IconCatalog.WarOngoing;
       },
       className: (save) => {
          if (war.attacker === save.state.playerProvince) {
@@ -177,7 +151,7 @@ function WarTodo(war: IWar, index: number): [string, ITodo] {
 
 const Rebellions: ITodo = {
    name: (save) => $t(L.CurrentlyOrAboutToRebel),
-   icon: (save) => Rebellion,
+   icon: (save) => IconCatalog.Rebellion,
    className: (save) => {
       for (const [tile, data] of save.state.tiles) {
          if (data.province === save.state.playerProvince) {
@@ -218,7 +192,7 @@ const Rebellions: ITodo = {
 
 const ProvinceBankrupt: ITodo = {
    name: (save) => $t(L.OurProvinceIsBankrupt),
-   icon: (save) => Bankruptcy,
+   icon: (save) => IconCatalog.Bankruptcy,
    className: (save) => "red",
    tooltip: (save) => {
       const timeLeft = getTimedActionTimeLeft("Bankruptcy", save.state.playerProvince, save);
@@ -234,7 +208,7 @@ const ProvinceBankrupt: ITodo = {
 
 const EligibleForMarriage: ITodo = {
    name: (save) => $t(L.FamilyMembersEligibleForMarriage),
-   icon: (save) => Marriage,
+   icon: (save) => IconCatalog.Marriage,
    className: (save) => "yellow",
    tooltip: (save) => {
       const state = save.state.provinces[save.state.playerProvince];
@@ -256,7 +230,7 @@ const EligibleForMarriage: ITodo = {
 
 const SocialClassDissent: ITodo = {
    name: (save) => $t(L.DominantOrDisloyalSocialClasses),
-   icon: (save) => Dissent,
+   icon: (save) => IconCatalog.Dissent,
    className: () => "red",
    tooltip: (save) => {
       const state = save.state.provinces[save.state.playerProvince];
@@ -291,7 +265,7 @@ const SocialClassDissent: ITodo = {
 
 const PledgeSupportToConsulCandidates: ITodo = {
    name: (save) => $t(L.PledgeSupportInConsulElection),
-   icon: (save) => Senate,
+   icon: (save) => IconCatalog.Senate,
    className: (save) => "yellow",
    tooltip: (save) => {
       const votes = save.state.senate.votes.get(save.state.playerProvince)?.size ?? 0;
@@ -307,7 +281,7 @@ const PledgeSupportToConsulCandidates: ITodo = {
 
 const ExpiringConsulPoints: ITodo = {
    name: (save) => $t(L.ExpiringConsulPoints),
-   icon: (save) => Decree,
+   icon: (save) => IconCatalog.Decree,
    className: (save) => "yellow",
    tooltip: (save) => {
       const monthsToNextElection = monthsToNextConsulElection(save);
@@ -331,7 +305,7 @@ const ExpiringConsulPoints: ITodo = {
 
 const VacantArmyGeneral: ITodo = {
    name: (save) => $t(L.VacantArmyGeneral),
-   icon: (save) => VacantArmyGeneralIcon,
+   icon: (save) => IconCatalog.VacantArmyGeneral,
    className: (save) => "yellow",
    tooltip: (save) => {
       const general = getCurrentGeneral(save.state.playerProvince, save);
@@ -347,7 +321,7 @@ const VacantArmyGeneral: ITodo = {
 
 const EcumenicalCouncil: ITodo = {
    name: (save) => $t(L.OngoingEcumenicalCouncil),
-   icon: (save) => EcumenicalCouncilIcon,
+   icon: (save) => IconCatalog.EcumenicalCouncil,
    className: (save) => "green",
    tooltip: (save) => {
       const council = getOngoingEcumenicalCouncil(save.state.playerProvince, save);
@@ -363,7 +337,7 @@ const EcumenicalCouncil: ITodo = {
 
 const BarbarianRaid: ITodo = {
    name: (save) => $t(L.BarbarianRaid),
-   icon: (save) => Barbarian,
+   icon: (save) => IconCatalog.Barbarian,
    className: (save) =>
       save.state.wars.find((war) => war.casusBelli === "BarbarianRaid" && war.defender === save.state.playerProvince)
          ? "red"
@@ -381,7 +355,7 @@ const BarbarianRaid: ITodo = {
 
 const UpgradeArmyGeneral: ITodo = {
    name: (save) => $t(L.UpgradeArmyGeneral),
-   icon: (save) => UpgradeArmyGeneralIcon,
+   icon: (save) => IconCatalog.UpgradeArmyGeneral,
    className: (save) => "yellow",
    tooltip: (save) => {
       const general = getCurrentGeneral(save.state.playerProvince, save);
@@ -403,7 +377,7 @@ const UpgradeArmyGeneral: ITodo = {
 
 const TooFewRivals: ITodo = {
    name: (save) => $t(L.TooFewRivals),
-   icon: (save) => Rivals,
+   icon: (save) => IconCatalog.Rivals,
    className: (save) => "yellow",
    tooltip: (save) => {
       const data = save.state.provinces[save.state.playerProvince];
@@ -422,7 +396,7 @@ const TooFewRivals: ITodo = {
 
 const EnactedTruce: ITodo = {
    name: (save) => $t(L.EnactedTruce),
-   icon: (save) => Truce,
+   icon: (save) => IconCatalog.Truce,
    className: (save) => "yellow",
    tooltip: (save) => {
       const result = entriesOf(save.state.provinces).flatMap(([province, data]) => {
@@ -459,7 +433,7 @@ const EnactedTruce: ITodo = {
 
 const IdleDiplomats: ITodo = {
    name: (save) => $t(L.IdleDiplomats),
-   icon: (save) => Diplomat,
+   icon: (save) => IconCatalog.Diplomat,
    className: (save) => "yellow",
    tooltip: (save) => {
       const currentRelations = getCurrentRelations(save.state.playerProvince, save);
@@ -475,7 +449,7 @@ const IdleDiplomats: ITodo = {
 
 const OutstandingLoans: ITodo = {
    name: (save) => $t(L.OutstandingLoans),
-   icon: (save) => Loan,
+   icon: (save) => IconCatalog.Loan,
    className: (save) => "yellow",
    tooltip: (save) => {
       const data = save.state.provinces[save.state.playerProvince];
@@ -494,7 +468,7 @@ const OutstandingLoans: ITodo = {
 
 const OverextensionWarning: ITodo = {
    name: (save) => $t(L.Overextension),
-   icon: (save) => Overextension,
+   icon: (save) => IconCatalog.Overextension,
    className: (save) => "yellow",
    tooltip: (save) => {
       const overextension = getProvinceOverextension(save.state.playerProvince, save);
@@ -514,7 +488,7 @@ const OverextensionWarning: ITodo = {
 
 const TechCanBeResearched: ITodo = {
    name: (save) => $t(L.TechCanBeResearched),
-   icon: (save) => TechIcon,
+   icon: (save) => IconCatalog.Tech,
    className: (save) => "green",
    tooltip: (save) => {
       const techs = getTechsCanBeResearched(save.state.playerProvince, save);
@@ -544,7 +518,7 @@ const TechCanBeResearched: ITodo = {
 
 const CanAppointPontiff: ITodo = {
    name: (save) => $t(L.PontiffEnvoyArmyStaffCanBeAppointed),
-   icon: (save) => Pontiff,
+   icon: (save) => IconCatalog.Pontiff,
    className: (save) => "green",
    tooltip: (save) => {
       const result: string[] = [];
@@ -572,7 +546,7 @@ const CanAppointPontiff: ITodo = {
 
 const EmptyAdvisorSlots: ITodo = {
    name: (save) => $t(L.EmptyAdvisorSlots),
-   icon: (save) => EmptyAdvisor,
+   icon: (save) => IconCatalog.EmptyAdvisor,
    className: (save) => "yellow",
    tooltip: (save) => {
       const data = save.state.provinces[save.state.playerProvince];
@@ -593,7 +567,7 @@ const EmptyAdvisorSlots: ITodo = {
 const CanMakeCore: ITodo = {
    id: "LeftPanel_CanMakeCore",
    name: (save) => $t(L.NonCoreTiles),
-   icon: (save) => Core,
+   icon: (save) => IconCatalog.Core,
    className: (save) => "yellow",
    tooltip: (save) => {
       const tiles = new Set<string>();
@@ -617,7 +591,7 @@ const CanMakeCore: ITodo = {
 const AvailableProductionCapacity: ITodo = {
    id: "LeftPanel_AvailableProductionCapacity",
    name: (save) => $t(L.AvailableProductionCapacity),
-   icon: (save) => Production,
+   icon: (save) => IconCatalog.Production,
    className: (save) => "yellow",
    tooltip: (save) => {
       const totalCapacity = getProvinceProductionCapacity(G.save.state.playerProvince, G.save);
@@ -649,7 +623,7 @@ const AvailableProductionCapacity: ITodo = {
 const CanMakeTrade: ITodo = {
    id: "LeftPanel_CanMakeTrade",
    name: (save) => $t(L.CanMakeTrade),
-   icon: (save) => Trade,
+   icon: (save) => IconCatalog.Trade,
    className: (save) => "yellow",
    tooltip: (save) => {
       for (const [otherProvince, data] of entriesOf(save.state.provinces)) {
@@ -668,7 +642,7 @@ const CanMakeTrade: ITodo = {
 
 const CanUpgradeLegacy: ITodo = {
    name: (save) => $t(L.AvailableLegacyUpgrades),
-   icon: (save) => Legacy,
+   icon: (save) => IconCatalog.Legacy,
    className: (save) => "yellow",
    tooltip: (save) => {
       const cost = getLegacyUpgradeCost(save.state.playerProvince, save);
@@ -685,7 +659,7 @@ const CanUpgradeLegacy: ITodo = {
 
 const TreatiesAboutToExpire: ITodo = {
    name: (save) => $t(L.TreatiesAboutToExpire),
-   icon: (save) => Treaty,
+   icon: (save) => IconCatalog.Treaty,
    className: (save) => "yellow",
    tooltip: (save) => {
       const relations = getRelations(save.state.playerProvince, save);
@@ -721,7 +695,7 @@ const TreatiesAboutToExpire: ITodo = {
 
 const PendingGameEvent: ITodo = {
    name: (save) => $t(L.PendingEventDecision),
-   icon: (save) => PendingEvent,
+   icon: (save) => IconCatalog.PendingEvent,
    className: (save) => "green animate-bounce-right",
    tooltip: (save) => {
       const state = save.state.provinces[save.state.playerProvince];

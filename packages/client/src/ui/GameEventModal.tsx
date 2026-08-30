@@ -1,5 +1,4 @@
 import { formatNumber, randOne } from "@project/shared/src/utils/Helper";
-import Wikipedia from "../assets/images/Wikipedia.svg";
 import { GameStateUpdated } from "../game/Events";
 import {
    applyGameEventButton,
@@ -18,6 +17,7 @@ import { hideModal } from "../utils/ModalManager";
 import { ConditionBreakdownComp } from "./ConditionBreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { GenericEventModal } from "./GenericEventModal";
+import { IconCatalog } from "./IconCatalog";
 import { playClick } from "./Sound";
 
 export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode {
@@ -67,7 +67,7 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
                <div>{data.name()}</div>
                {data.wikipedia && (
                   <img
-                     src={Wikipedia}
+                     src={IconCatalog.Wikipedia}
                      style={{ height: "1rem", opacity: 0.7 }}
                      className="pointer"
                      onClick={() => {

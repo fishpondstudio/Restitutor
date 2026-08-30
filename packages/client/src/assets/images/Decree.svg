@@ -1,16 +1,8 @@
 <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M20 23H72" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M27 76H80" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M26 33.6325C31.977 32.6393 31.8838 33.9533 37.9289 34C38.4161 34.0041 38.3639 32.9682 44 33.0007" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M51 33C72.082 34.0061 72.0842 34.0719 73 33.9601" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M27 43.0971C39.2588 42.6197 46.675 44.4969 48.7693 43.8707C52.82 42.6602 55.5474 42.7202 72 43.9987" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M27 54C29.5459 54 29.4908 54 32 54" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M39 54C40.6803 54 56.7047 54 60 54" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M67 54C67.4794 54 68.8861 54 73 54" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M26 65C32.0481 65 31.953 65 38 65" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M46 64.6204C54.9255 62.8987 58.9179 65.3485 73 64.9569" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M6 22L6 78" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M19 22L19 78" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M25 17H75" stroke="white" stroke-width="6" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M25 83L75 83" stroke="white" stroke-width="6" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6 22L6 78" stroke="white" stroke-width="6" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19 22L19 78" stroke="white" stroke-width="6" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M5.5 21H19.5" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M6.5 13H19.5" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M20 13C23.5 14 23.5 19.5 20.5 21" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -21,8 +13,8 @@
 <path d="M20 87C23.5 86 23.5 80.5 20.5 79" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M5.6911 87C2.1911 86 2.1911 80.5 5.1911 79" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <circle cx="5" cy="5" r="5" transform="matrix(1 0 0 -1 8 97)" stroke="white" stroke-width="4"/>
-<path d="M80 22L80 78" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M93 22L93 78" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M80 22L80 78" stroke="white" stroke-width="6" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M93 22L93 78" stroke="white" stroke-width="6" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M79.5 21H93.5" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M80.5 13H93.5" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M94 13C97.5 14 97.5 19.5 94.5 21" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -33,4 +25,13 @@
 <path d="M94 87C97.5 86 97.5 80.5 94.5 79" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M79.6911 87C76.1911 86 76.1911 80.5 79.1911 79" stroke="white" stroke-width="4" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <circle cx="5" cy="5" r="5" transform="matrix(1 0 0 -1 82 97)" stroke="white" stroke-width="4"/>
+<line x1="28" y1="31" x2="47" y2="31" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<line x1="28" y1="43" x2="71" y2="43" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<line x1="59" y1="31" x2="70" y2="31" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<line x1="28" y1="56" x2="40" y2="56" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<line x1="59" y1="31" x2="70" y2="31" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<line x1="50" y1="56" x2="61" y2="56" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<line x1="28" y1="69" x2="39" y2="69" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<line x1="49" y1="69" x2="70" y2="69" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<line x1="70" y1="56" x2="71" y2="56" stroke="white" stroke-width="6" stroke-linecap="round"/>
 </svg>

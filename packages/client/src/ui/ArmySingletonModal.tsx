@@ -43,6 +43,7 @@ import { ActionButton } from "./ActionButton";
 import { BreakdownRow } from "./BreakdownRow";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
+import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid3 } from "./UIConstant";
 
@@ -201,9 +202,16 @@ export function ArmySingletonModal(): React.ReactNode {
             )}
             <div className="f1" />
             <FloatingTip label={<GeneralSkillPointTooltip />} className="p0" fixedWidth>
-               <div>
-                  {getProvinceResource("generalSkillPoint", G.save.state.playerProvince, G.save)}{" "}
-                  {ProvinceResourceNames.generalSkillPoint()}
+               <div className="row g5">
+                  <div>
+                     {getProvinceResource("generalSkillPoint", G.save.state.playerProvince, G.save)}{" "}
+                     {ProvinceResourceNames.generalSkillPoint()}
+                  </div>
+                  <img
+                     src={ProvinceResourceImages.generalSkillPoint}
+                     className="icon-block"
+                     style={{ height: "1.3125rem" }}
+                  />
                </div>
             </FloatingTip>
          </div>

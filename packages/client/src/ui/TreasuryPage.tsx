@@ -1,7 +1,6 @@
 import { Select } from "@mantine/core";
 import { filterInPlace, formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
-import Gold from "../assets/images/Gold.svg";
 import type { Province } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
 import { monthToDate } from "../game/logic/GameDateTime";
@@ -26,6 +25,7 @@ import { colorNumber } from "./components/ColorNumber";
 import { DevOnly } from "./components/DevOnly";
 import { FloatingTip } from "./components/FloatingTip";
 import { HeaderImages } from "./HeaderImages";
+import { IconCatalog } from "./IconCatalog";
 
 export function TreasuryPage(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -53,7 +53,7 @@ export function TreasuryPage(): React.ReactNode {
             />
          </DevOnly>
          <div className="m10 row">
-            <img src={Gold} height={20} />
+            <img src={IconCatalog.Gold} height={20} />
             <div className="f1">{$t(L.GoldInTreasury)}</div>
             <div>{formatNumber(getProvinceResource("gold", province, G.save))}</div>
          </div>
