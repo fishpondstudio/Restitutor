@@ -576,7 +576,10 @@ function doDiplomacy(province: Province, save: SaveGame): void {
    getRelations(province, save)?.forEach((relation, otherProvince) => {
       if (relation.treaty) {
          improveRelations(province, otherProvince, save);
-         // If we already have a treaty, we will try to upgrade it to higher levels.
+         // If we already have a treaty, we will try to upgrade it to higher levels, but not with the player!
+         if (!hasFlag(G.flags, GameFlags.Sandbox) && otherProvince === save.state.playerProvince) {
+            return;
+         }
          if (tryDoHeadless(OfferPatronageAction(province, otherProvince, save), "OfferTreaty", province, save)) {
             return;
          }

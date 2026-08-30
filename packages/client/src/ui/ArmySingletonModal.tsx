@@ -93,11 +93,11 @@ export function ArmySingletonModal(): React.ReactNode {
                   <div className="mi sm text-green">trending_up</div>
                </FloatingTip>
             )}
-            {actualConscription}%
+            {formatNumber(actualConscription)}%
             {targetConscription > actualConscription && (
                <>
                   <div className="mi sm">arrow_right_alt</div>
-                  <div>{targetConscription}%</div>
+                  <div>{formatNumber(targetConscription)}%</div>
                </>
             )}
          </div>
