@@ -11,7 +11,7 @@ import {
 import { $t, L } from "../../utils/i18n";
 import type { ICondition, IConditionBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
-import type { CasusBelli } from "../definitions/CasusBelli";
+import { CasusBelli } from "../definitions/CasusBelli";
 import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
@@ -29,6 +29,8 @@ import {
 } from "./DiplomacyLogic";
 import { attachModifiers } from "./ModifierLogic";
 import {
+   getProvinceName,
+   getProvincePrestige,
    getProvinceStat,
    getProvinceTileCount,
    getWarPower,
@@ -93,6 +95,7 @@ export const MinConscription = 5;
 export const MinArmyMaintenance = 50;
 export const MaxArmyMaintenance = 100;
 export const ArmyMoraleMonthlyIncrease = 10;
+export const BreachOfThePeaceDurationYear = 5;
 
 function getCoDefenders(attacker: Province, defender: Province, save: SaveGame): Map<Province, IConditionBreakdown> {
    const result = new Map<Province, IConditionBreakdown>();
@@ -290,14 +293,24 @@ export function getWarScore(
 
    if (casusBelli === "ConquestMission" && tiles.size > 1) {
       result.multiply.push({
-         name: $t(L.ConquestMission),
+         name: CasusBelli.ConquestMission.name(),
          value: -0.1,
       });
    }
 
    if (casusBelli === "ReligiousWar" && defenderState.religion !== attackerState.religion) {
       result.multiply.push({
-         name: $t(L.ReligiousWar),
+         name: CasusBelli.ReligiousWar.name(),
+         value: -0.1,
+      });
+   }
+
+   if (
+      casusBelli === "BreachOfThePeace" &&
+      getProvincePrestige(attacker, save).value > getProvincePrestige(defender, save).value
+   ) {
+      result.multiply.push({
+         name: CasusBelli.BreachOfThePeace.name(),
          value: -0.1,
       });
    }
@@ -678,4 +691,15 @@ export function setProvinceTargetConscription(value: number, province: Province,
       setProvinceStat("actualConscription", targetConscription, province, save);
    }
    setProvinceStat("targetConscription", targetConscription, province, save);
+}
+
+export function isWarOngoing(war: IWar, save: SaveGame): boolean {
+   return save.state.wars.includes(war) && war.actualWarScore < war.requiredWarScore;
+}
+
+export function warIsOngoingCondition(war: IWar, save: SaveGame): ICondition {
+   return {
+      name: $t(L.$1$2WarIsOngoing, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
+      value: isWarOngoing(war, save),
+   };
 }

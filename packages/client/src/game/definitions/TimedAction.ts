@@ -1,10 +1,11 @@
-import { EmptyString, forEach } from "@project/shared/src/utils/Helper";
+import { EmptyString, forEach, formatNumber } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { finalizeCondition, type IGameCostCondition } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
 import { getTotalUpgrades } from "../logic/ProvinceLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
-import { onGeneralEnded } from "../logic/WarLogic";
+import { BreachOfThePeaceDurationYear, onGeneralEnded } from "../logic/WarLogic";
+import { CasusBelli } from "./CasusBelli";
 import { Price } from "./Goods";
 import type { IBaseModifier, Modifier } from "./Modifier";
 import type { Province } from "./Province";
@@ -648,6 +649,17 @@ class TimedActionDefinitions {
       desc: () => $t(L.TimedActionRelocateCapitalDesc),
       duration: 24,
       cooldown: 24,
+   };
+   ProclaimRightOfReprisal: ITimedAction = {
+      name: () => $t(L.ProclaimRightOfReprisal),
+      desc: () =>
+         $t(
+            L.TimedActionProclaimRightOfReprisalDesc$1$2,
+            CasusBelli.BreachOfThePeace.name(),
+            formatNumber(BreachOfThePeaceDurationYear),
+         ),
+      duration: 0,
+      cooldown: 12 * 2,
    };
 }
 

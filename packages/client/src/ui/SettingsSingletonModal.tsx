@@ -195,30 +195,17 @@ function SettingsGeneralTab(): React.ReactNode {
             <ChangeLanguageComp />
          </div>
          <div className="h1">{$t(L.Gameplay)}</div>
-         <div className="m10">
-            <div className="row my5">
-               <div className="f1">{$t(L.PauseWhenAGameEventOccurs)}</div>
-               <Switch
-                  checked={hasFlag(G.save.options.flag, GameOptionFlag.PauseGameOnEvent)}
-                  onChange={() => {
-                     G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.PauseGameOnEvent);
-                     GameOptionUpdated.emit();
-                  }}
-               />
-            </div>
-            <div className="row my5">
-               <div className="f1">{$t(L.HideSteamAndDiscordButtons)}</div>
-               <Switch
-                  checked={hasFlag(G.save.options.flag, GameOptionFlag.HideSteamDiscordButton)}
-                  onChange={() => {
-                     G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.HideSteamDiscordButton);
-                     GameOptionUpdated.emit();
-                  }}
-               />
-            </div>
+         <div className="row m10">
+            <div className="f1">{$t(L.PauseWhenAGameEventOccurs)}</div>
+            <Switch
+               checked={hasFlag(G.save.options.flag, GameOptionFlag.PauseGameOnEvent)}
+               onChange={() => {
+                  G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.PauseGameOnEvent);
+                  GameOptionUpdated.emit();
+               }}
+            />
          </div>
-         <div className="divider" />
-         <div className="row mx10 my5">
+         <div className="row m10">
             <div className="f1">{$t(L.ShowChroniclePopup)}</div>
             <div>{$t(L.Every)}</div>
             <Select
@@ -237,27 +224,25 @@ function SettingsGeneralTab(): React.ReactNode {
             <div>{$t(L.Year)}</div>
          </div>
          <div className="h1">{$t(L.Tutorial)}</div>
-         <div className="m10">
-            <div className="row my5">
-               <div className="f1">{$t(L.ShowTutorial)}</div>
-               <Switch
-                  checked={!hasFlag(G.save.options.flag, GameOptionFlag.HideTutorial)}
-                  onChange={() => {
-                     G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.HideTutorial);
-                     GameOptionUpdated.emit();
-                  }}
-               />
-            </div>
-            <div className="row my5">
-               <div className="f1">{$t(L.CollapseTutorialPanel)}</div>
-               <Switch
-                  checked={hasFlag(G.save.options.flag, GameOptionFlag.CollapseTutorial)}
-                  onChange={() => {
-                     G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.CollapseTutorial);
-                     GameOptionUpdated.emit();
-                  }}
-               />
-            </div>
+         <div className="row m10">
+            <div className="f1">{$t(L.ShowTutorial)}</div>
+            <Switch
+               checked={!hasFlag(G.save.options.flag, GameOptionFlag.HideTutorial)}
+               onChange={() => {
+                  G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.HideTutorial);
+                  GameOptionUpdated.emit();
+               }}
+            />
+         </div>
+         <div className="row m10">
+            <div className="f1">{$t(L.CollapseTutorialPanel)}</div>
+            <Switch
+               checked={hasFlag(G.save.options.flag, GameOptionFlag.CollapseTutorial)}
+               onChange={() => {
+                  G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.CollapseTutorial);
+                  GameOptionUpdated.emit();
+               }}
+            />
          </div>
          <div className="h1">{$t(L.Misc)}</div>
          <div className="row m10">
@@ -288,6 +273,16 @@ function SettingsGeneralTab(): React.ReactNode {
                      document.documentElement.style.setProperty("font-size", `${G.save.options.uiScale}rem`);
                      GameOptionUpdated.emit();
                   }
+               }}
+            />
+         </div>
+         <div className="row m10">
+            <div className="f1">{$t(L.HideSteamAndDiscordButtons)}</div>
+            <Switch
+               checked={hasFlag(G.save.options.flag, GameOptionFlag.HideSteamDiscordButton)}
+               onChange={() => {
+                  G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.HideSteamDiscordButton);
+                  GameOptionUpdated.emit();
                }}
             />
          </div>

@@ -25,7 +25,7 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
          },
          {
             name: $t(L.WeHaveWonTheWar),
-            value: war.actualWarScore >= war.requiredWarScore,
+            value: save.state.wars.includes(war) && war.actualWarScore >= war.requiredWarScore,
          },
       ]),
       effect: ({ headless }) => {

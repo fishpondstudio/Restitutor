@@ -4,7 +4,7 @@ import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { getMercenaryCost, getProvinceManpower, getProvinceStat, setProvinceStat } from "../logic/ProvinceLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
-import type { IWar } from "../logic/WarLogic";
+import { type IWar, warIsOngoingCondition } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
 export function HireMercenariesAction(war: IWar, province: Province, save: SaveGame): IGameAction {
@@ -32,10 +32,7 @@ export function HireMercenariesAction(war: IWar, province: Province, save: SaveG
             name: $t(L.WeAreTheLeadAttackerOrDefenderOfTheWar),
             value: war.attacker === province || war.defender === province,
          },
-         {
-            name: $t(L.WeHaventWonTheWar),
-            value: war.actualWarScore < war.requiredWarScore,
-         },
+         warIsOngoingCondition(war, save),
       ]),
       effect: () => {
          startTimedAction("HireMercenaries", province, save);

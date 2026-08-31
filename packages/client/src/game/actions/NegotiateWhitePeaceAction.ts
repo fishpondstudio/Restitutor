@@ -13,7 +13,7 @@ import { getRelation } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { addProvinceResource } from "../logic/ProvinceLogic";
 import { showGameEventModal } from "../logic/TickProvince";
-import { getTruceDuration, type IWar, WhitePeaceCostPerTile } from "../logic/WarLogic";
+import { getTruceDuration, type IWar, WhitePeaceCostPerTile, warIsOngoingCondition } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
 export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: SaveGame): IGameAction {
@@ -24,10 +24,7 @@ export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: S
             name: $t(L.WeAreTheLeadAttackerOfTheWar),
             value: war.attacker === province,
          },
-         {
-            name: $t(L.WeHaventWonTheWar),
-            value: war.actualWarScore < war.requiredWarScore,
-         },
+         warIsOngoingCondition(war, save),
          { name: $t(L.WarHasBeenGoingOnForAtLeastAYear), value: war.log.length >= 12 },
       ]),
       effect: ({ headless }) => {

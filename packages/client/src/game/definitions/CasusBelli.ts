@@ -41,6 +41,10 @@ export const _CasusBelli = {
       name: () => $t(L.BarbarianRaid),
       effect: () => $t(L.StartingARaidDoesNotCostDiplomaticPointsAndIsNotLimitedByDiplomaticRange),
    },
+   BreachOfThePeace: {
+      name: () => $t(L.BreachOfThePeace),
+      effect: () => $t(L.$1WarScoreWhenAttackersPrestigeIsHigherThanDefenders, "-10%"),
+   },
 } satisfies Record<string, ICasusBelliConfig>;
 
 export const CasusBelli = _CasusBelli as Record<CasusBelli, ICasusBelliConfig>;
