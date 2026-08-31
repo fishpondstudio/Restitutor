@@ -68,6 +68,7 @@ import {
    getTileMaintenanceCost,
    getTileManpower,
    isCoastal,
+   settleTile,
 } from "./TileLogic";
 import { getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
 import { getClients, getPatrons, getTreatyCount } from "./TreatyLogic";
@@ -1139,18 +1140,19 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
    config.tiles.forEach((tile) => {
       const data = save.state.tiles.get(tile);
       if (!data) {
-         return;
+         settleTile(tile, province, save);
+      } else {
+         provinces.add(data.province);
+         data.coreProvinces.forEach((p) => {
+            provinces.add(p);
+         });
+         data.province = province;
+         data.coreProvinces.add(province);
+         data.rebellion = 0;
+         data.culture = Province[province].culture;
+         data.religion = Province[province].religion;
+         data.modifiers.Unrest.length = 0;
       }
-      provinces.add(data.province);
-      data.coreProvinces.forEach((p) => {
-         provinces.add(p);
-      });
-      data.province = province;
-      data.coreProvinces.add(province);
-      data.rebellion = 0;
-      data.culture = Province[province].culture;
-      data.religion = Province[province].religion;
-      data.modifiers.Unrest.length = 0;
    });
    GameStateUpdated.emit();
 

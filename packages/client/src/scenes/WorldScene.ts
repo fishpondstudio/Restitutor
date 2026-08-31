@@ -17,6 +17,7 @@ import { Fonts } from "../Fonts";
 import { Goods } from "../game/definitions/Goods";
 import type { Province } from "../game/definitions/Province";
 import type { Terrain } from "../game/definitions/Terrain";
+import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
 import { isLand, LandSize } from "../game/Land";
 import { MapBackgroundColors, MapColorsH, MapForegroundColors, MapTextColors } from "../game/logic/MapColor";
@@ -339,7 +340,7 @@ export class WorldScene extends Scene {
          this._selectedTiles.add(tile);
          this.drawSelectors(this._selectedTiles);
          if (isDev()) {
-            console.log(tile);
+            console.log(tile, getTileName(tile, G.save));
          }
          hideSidebar();
          return;

@@ -210,6 +210,7 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.settle = (tile: Tile, province: Province) => {
       settleTile(tile, province, G.save);
+      RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
    };
 
    function doAddChild(family: IFamily, female: boolean): void {

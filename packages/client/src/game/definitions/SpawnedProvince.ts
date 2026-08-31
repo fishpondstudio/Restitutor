@@ -34,7 +34,7 @@ export const _SpawnedProvinces = {
    },
    Franks: {
       ...BaseSpawnedProvinceData,
-      tiles: [8978497, 8978498, 9044033, 9109568, 9109569, 9044034, 8912963],
+      tiles: [8978497, 8978498, 9044033, 9109568, 9109569, 9044034, 9109567],
    },
    Saxons: {
       ...BaseSpawnedProvinceData,
@@ -50,7 +50,9 @@ export const _SpawnedProvinces = {
    },
    Huns: {
       ...BaseSpawnedProvinceData,
-      tiles: [9764935, 9764934, 9830471, 9699399, 9633863, 9699400, 9764936],
+      tiles: [
+         9764935, 9764934, 9830471, 9830470, 9699397, 9896008, 9896007, 9896006, 9830469, 9961542, 9961543, 9764933,
+      ],
    },
 } as const satisfies Partial<Record<Province, SpawnedProvinceConfig>>;
 

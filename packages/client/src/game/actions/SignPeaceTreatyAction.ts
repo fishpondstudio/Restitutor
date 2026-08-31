@@ -59,7 +59,9 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
          }
          addProvinceStat("victoryCount", 1, war.attacker, save);
          if (war.attacker === save.state.playerProvince && war.tiles.size > 0) {
-            unlockAchievement("WinWar");
+            if (war.tiles.size >= 2) {
+               unlockAchievement("WinWar");
+            }
             const defenderCapital = save.state.provinces[war.defender]?.capital;
             if (!isNullOrUndefined(defenderCapital) && war.tiles.has(defenderCapital)) {
                unlockAchievement("CaptureCapital");
