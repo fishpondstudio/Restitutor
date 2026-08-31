@@ -5,6 +5,7 @@ import type { GovernorStats, Province } from "./Province";
 export const PersonFlags = {
    None: 0,
    IsGeneral: 1 << 0,
+   IsHeir: 1 << 1,
 } as const;
 
 export type PersonFlag = ValueOf<typeof PersonFlags>;

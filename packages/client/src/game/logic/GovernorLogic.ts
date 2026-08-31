@@ -1,6 +1,15 @@
 import dagre from "@dagrejs/dagre";
 import { clamp } from "@mantine/hooks";
-import { entriesOf, filterInPlace, hasFlag, randInt, shuffle, uuid4 } from "@project/shared/src/utils/Helper";
+import {
+   clearFlag,
+   entriesOf,
+   filterInPlace,
+   hasFlag,
+   randInt,
+   setFlag,
+   shuffle,
+   uuid4,
+} from "@project/shared/src/utils/Helper";
 import { type Edge, MarkerType, type Node, Position } from "@xyflow/react";
 import { remToPx } from "../../ui/common/UIScaling";
 import type { FamilyNode } from "../../ui/FamilyNode";
@@ -119,6 +128,50 @@ export function ensureTraits(person: IPerson): IPerson {
       }
    }
    return person;
+}
+
+export function getHeir(province: Province, save: SaveGame): IFamily | undefined {
+   const governor = save.state.provinces[province]?.governor;
+   if (!governor) {
+      return undefined;
+   }
+   const heir = governor.children.find((child) => child.male && hasFlag(child.male.flag, PersonFlags.IsHeir));
+   if (heir) {
+      return heir;
+   }
+   return governor.children.find((child) => child.male);
+}
+
+export function isGovernorSon(family: IFamily, province: Province, save: SaveGame): boolean {
+   const governor = save.state.provinces[province]?.governor;
+   if (governor && family.male && governor.children.includes(family)) {
+      return true;
+   }
+   return false;
+}
+
+export function setHeir(heir: IFamily, province: Province, save: SaveGame): void {
+   const governor = save.state.provinces[province]?.governor;
+   if (!governor || !heir.male || !governor.children.includes(heir)) {
+      return;
+   }
+   for (const child of governor.children) {
+      if (child.male) {
+         child.male.flag = clearFlag(child.male.flag, PersonFlags.IsHeir);
+      }
+   }
+   heir.male.flag = setFlag(heir.male.flag, PersonFlags.IsHeir);
+}
+
+export function ensureHeir(province: Province, save: SaveGame): void {
+   const governor = save.state.provinces[province]?.governor;
+   if (!governor) {
+      return;
+   }
+   const heir = getHeir(province, save);
+   if (heir) {
+      setHeir(heir, province, save);
+   }
 }
 
 export function tickFamily(governor: IFamily, province: Province, save: SaveGame): IFamily {

@@ -3178,4 +3178,9 @@ export const ZH_CN = {
    ChangeGovernmentFocus: "更改政府侧重点",
    TutorialChangeGovernmentFocusDesc: "进攻战争每月需要消耗<icon>Military</icon>军事点数。宣战前，我们应将政府侧重点改为军事；这样可以提高每月军事点数收入，但会牺牲另外两种政府点数。",
    MadeCoreTileRemainsCoreAfterReconquest: "地块一旦被核心化，即使失去也仍会保留我们的核心；重新征服后无需再次将其核心化。",
+   AppointHeir: "任命继承人",
+   TimedActionAppointHeirDesc: "任命总督的一名儿子为继承人；现任总督去世后，他将接任总督一职。",
+   CurrentGovernorsSon: "现任总督的儿子",
+   CurrentHeir: "现任继承人",
+   NotCurrentHeir: "不是现任继承人",
 };

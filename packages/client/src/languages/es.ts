@@ -3243,4 +3243,9 @@ export const ES = {
    ChangeGovernmentFocus: "Cambiar el enfoque del gobierno",
    TutorialChangeGovernmentFocusDesc: "Una guerra ofensiva cuesta puntos <icon>Military</icon>militares cada mes. Antes de declarar la guerra, deberíamos cambiar el enfoque de nuestro gobierno al militar; esto aumenta nuestros puntos militares mensuales a costa de los otros dos puntos de gobierno.",
    MadeCoreTileRemainsCoreAfterReconquest: "Una vez que un territorio se convierte en nuestro núcleo, seguirá siéndolo aunque lo perdamos; no tendremos que volver a convertirlo en núcleo tras reconquistarlo.",
+   AppointHeir: "Nombrar un heredero",
+   TimedActionAppointHeirDesc: "Nombrar a uno de los hijos del gobernador como heredero; asumirá el cargo de gobernador cuando muera el gobernador actual.",
+   CurrentGovernorsSon: "Hijo del gobernador actual",
+   CurrentHeir: "Heredero actual",
+   NotCurrentHeir: "No es el heredero actual",
 };

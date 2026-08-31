@@ -7,6 +7,7 @@ import { GameEvents } from "./game/events/GameEvents";
 import { GameOption } from "./game/GameOption";
 import { GameState, type SaveGame } from "./game/GameState";
 import { emptyRelation, fixRelations, getRelations } from "./game/logic/DiplomacyLogic";
+import { ensureHeir } from "./game/logic/GovernorLogic";
 import { initProvince, provinceResourceOf, setProvinceStat } from "./game/logic/ProvinceLogic";
 import { socialClassInfluenceStat, socialClassLoyaltyStat } from "./game/logic/SocialClassLogic";
 
@@ -18,6 +19,7 @@ export function migrateSave(save: SaveGame): void {
    forEach(save.state.provinces, (province, data) => {
       data = Object.assign(initProvince(province, data.capital), data);
       save.state.provinces[province] = data;
+      ensureHeir(province, save);
       const relations = getRelations(province, save);
       if (relations) {
          for (const [otherProvince, relation] of relations) {

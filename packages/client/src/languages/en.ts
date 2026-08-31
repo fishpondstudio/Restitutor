@@ -3213,4 +3213,9 @@ export const EN = {
    ChangeGovernmentFocus: "Change Government Focus",
    TutorialChangeGovernmentFocusDesc: "An offensive war costs <icon>Military</icon> military points every month. Before declaring war, we should change our government focus to military - this increases our monthly military points at the expense of the other two government points.",
    MadeCoreTileRemainsCoreAfterReconquest: "Once a tile is made our core, it will stay our core even if we lose it - we don't need to make it our core again after we reconquer it.",
+   AppointHeir: "Appoint Heir",
+   TimedActionAppointHeirDesc: "Appoint one of the governor's sons as heir, who will assume governorship upon the current governor's death",
+   CurrentGovernorsSon: "Current governor's son",
+   CurrentHeir: "Current Heir",
+   NotCurrentHeir: "Not current heir",
 };

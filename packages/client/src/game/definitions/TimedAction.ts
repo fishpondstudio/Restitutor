@@ -636,6 +636,13 @@ class TimedActionDefinitions {
       duration: 0,
       cooldown: 6,
    };
+   ChangeHeir: ITimedAction = {
+      name: () => $t(L.AppointHeir),
+      desc: () => $t(L.TimedActionAppointHeirDesc),
+
+      duration: 0,
+      cooldown: 24,
+   };
    RelocateCapital: ITimedAction = {
       name: () => $t(L.RelocateCapital),
       desc: () => $t(L.TimedActionRelocateCapitalDesc),

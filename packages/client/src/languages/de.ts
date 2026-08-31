@@ -3252,4 +3252,9 @@ export const DE = {
    ChangeGovernmentFocus: "Regierungsschwerpunkt ändern",
    TutorialChangeGovernmentFocusDesc: "Ein Angriffskrieg kostet jeden Monat <icon>Military</icon>Militärpunkte. Vor der Kriegserklärung sollten wir unseren Regierungsschwerpunkt auf Militär setzen – dadurch steigen unsere monatlichen Militärpunkte auf Kosten der beiden anderen Regierungspunkte.",
    MadeCoreTileRemainsCoreAfterReconquest: "Sobald ein Gebiet zu unserem Kerngebiet gemacht wurde, bleibt es unser Kerngebiet, selbst wenn wir es verlieren – nach der Rückeroberung müssen wir es nicht erneut zu unserem Kerngebiet machen.",
+   AppointHeir: "Erben ernennen",
+   TimedActionAppointHeirDesc: "Einen der Söhne des Statthalters zum Erben ernennen; er übernimmt nach dem Tod des derzeitigen Statthalters das Statthalteramt.",
+   CurrentGovernorsSon: "Sohn des derzeitigen Statthalters",
+   CurrentHeir: "Derzeitiger Erbe",
+   NotCurrentHeir: "Nicht der derzeitige Erbe",
 };
