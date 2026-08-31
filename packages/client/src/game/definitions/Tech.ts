@@ -132,7 +132,7 @@ export class TechDefinitions {
       modifiers: {
          ProductionCapacity: { type: "add", value: 5 },
       },
-      timedActions: ["AppointEnvoy", "RenewVestments"],
+      timedActions: ["AppointEnvoy", "AnnexClient"],
       goods: ["garments"],
    } as const;
 
@@ -162,7 +162,7 @@ export class TechDefinitions {
          DiplomaticRange: { type: "add", value: 5 },
          TradeProfit: { type: "multiply", value: 0.1 },
       },
-      timedActions: ["AnnexClient", "SendAGift"],
+      timedActions: ["SendAGift", "RenewVestments"],
    } as const;
 
    F3: ITechDefinition = {

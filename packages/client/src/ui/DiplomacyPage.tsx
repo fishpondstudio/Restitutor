@@ -404,7 +404,6 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      {clients.map((client) => (
                         <div key={client} className="row g5 mx10 my5">
                            <div className="f1">{getProvinceName(client, G.save)}</div>
-                           <div className="mi sm">arrow_circle_right</div>
                            <ViewProvinceButton province={client} />
                         </div>
                      ))}
