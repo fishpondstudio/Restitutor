@@ -7,8 +7,8 @@ import { hideModal } from "../utils/ModalManager";
 import { html } from "./components/RenderHTMLComp";
 import { GameEventButton } from "./GameEventModal";
 import { GenericEventModal } from "./GenericEventModal";
+import { PeaceTreatyTooltip } from "./PeaceTreatyTooltip";
 import { playClick } from "./Sound";
-import { PeaceTreatyTooltip } from "./WarModal";
 
 export function InvaderConqueredWarGoalModal({ war }: { war: IWar }): React.ReactNode {
    const warGoal = Array.from(war.tiles)

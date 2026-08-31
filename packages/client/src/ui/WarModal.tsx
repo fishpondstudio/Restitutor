@@ -51,11 +51,13 @@ import { showPanel } from "./common/ShowPanel";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
+import { PeaceTreatyTooltip } from "./PeaceTreatyTooltip";
 import { TilePage } from "./TilePage";
 import { Grid3 } from "./UIConstant";
 import { WarChanceTooltip } from "./WarChanceTooltip";
 import { WarMonthlyConsequences } from "./WarMonthlyConsequences";
 import { WarPowerComp } from "./WarPowerComp";
+import { WhitePeaceTooltip } from "./WhitePeaceTooltip";
 
 export function WarModal({ war }: { war: IWar }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -651,53 +653,5 @@ function DecimateOurArmyButton({ war, province }: { war: IWar; province: Provinc
       >
          {TimedActions.DecimateOurArmy.name()}
       </ActionButton>
-   );
-}
-
-export function WhitePeaceTooltip({ war }: { war: IWar }): React.ReactNode {
-   const duration = getTruceDuration(war, G.save);
-   return (
-      <>
-         <div className="m10">
-            {$t(L.WhitePeaceTooltip$1$2$3, formatNumber(duration.value), war.attacker, war.defender)}
-         </div>
-         <div className="h2">{$t(L.TruceDuration)}</div>
-         <BreakdownComp breakdown={duration} />
-      </>
-   );
-}
-
-export function PeaceTreatyTooltip({ war }: { war: IWar }): React.ReactNode {
-   const tileNames = Array.from(war.tiles)
-      .map((tile) => getTileName(tile, G.save))
-      .join(", ");
-   const truceDuration = getTruceDuration(war, G.save);
-   return (
-      <>
-         <ul className="m10">
-            <li>{html($t(L.$1ShallCede$2To$3, war.defender, tileNames, war.attacker))}</li>
-            <li>
-               {$t(
-                  L.A$1MonthTruceShallBeEnactedBetween$2And$3,
-                  formatNumber(truceDuration.value),
-                  war.attacker,
-                  war.defender,
-               )}
-            </li>
-            <li>
-               {html(
-                  $t(
-                     L.$1GetsA$2CasusBelliAgainst$3For$4Years,
-                     war.defender,
-                     CasusBelli.Reconquista.name(),
-                     war.attacker,
-                     "10",
-                  ),
-               )}
-            </li>
-         </ul>
-         <div className="h2">{$t(L.TruceDuration)}</div>
-         <BreakdownComp breakdown={truceDuration} />
-      </>
    );
 }

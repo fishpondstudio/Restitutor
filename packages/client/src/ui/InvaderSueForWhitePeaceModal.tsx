@@ -5,7 +5,7 @@ import { hideModal } from "../utils/ModalManager";
 import { GameEventButton } from "./GameEventModal";
 import { GenericEventModal } from "./GenericEventModal";
 import { playClick } from "./Sound";
-import { WhitePeaceTooltip } from "./WarModal";
+import { WhitePeaceTooltip } from "./WhitePeaceTooltip";
 
 export function InvaderSueForWhitePeaceModal({ war }: { war: IWar }): React.ReactNode {
    return (
