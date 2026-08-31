@@ -142,12 +142,6 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                   <div className="f1">{$t(L.Tiles)}</div>
                   <div>{getProvinceTileCount(province, G.save)}</div>
                </div>
-               <BreakdownRow
-                  className="mx10 my5"
-                  name={$t(L.WarPower)}
-                  breakdown={getWarPower(province, G.save)}
-                  formatFunc={formatNumber}
-               />
                <div className="row my5 mx10">
                   <div className="f1">{$t(L.Culture)}</div>
                   <div>{Culture[theirState.culture].name()}</div>
@@ -156,6 +150,12 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                   <div className="f1">{$t(L.Religion)}</div>
                   <div>{Religion[theirState.religion].name()}</div>
                </div>
+               <BreakdownRow
+                  className="mx10 my5"
+                  name={$t(L.WarPower)}
+                  breakdown={getWarPower(province, G.save)}
+                  formatFunc={formatNumber}
+               />
                <div className="row my5 mx10">
                   <div className="f1">{$t(L.Prestige)}</div>
                   <div>{formatNumber(getProvincePrestige(province, G.save).value)}</div>
