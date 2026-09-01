@@ -269,6 +269,18 @@ const _ProvinceUpgrades = {
       name: () => $t(L.CoastalMandate),
       desc: () => $t(L.Gain$1ConsulPointWhenCoringACoastalTile, "1"),
    },
+   MastersOfThePasses: {
+      name: () => $t(L.MastersOfThePasses),
+      desc: () => $t(L.MastersOfThePassesDesc$1, "20%"),
+   },
+   ProductiveInvestment: {
+      name: () => $t(L.ProductiveInvestment),
+      desc: () => $t(L.ProductiveInvestmentDesc$1, "+2%"),
+   },
+   CommercialRenown: {
+      name: () => $t(L.CommercialRenown),
+      desc: () => $t(L.$1PrestigeForEachActiveTrade, "+10%"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

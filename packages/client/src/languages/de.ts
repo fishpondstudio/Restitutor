@@ -3262,4 +3262,10 @@ export const DE = {
    TimedActionProclaimRightOfReprisalDesc$1$2: "Das Verkünden eines Vergeltungsrechts gewährt uns den Casus Belli <i>$1</i> gegen den Hauptangreifer für $2 Jahre",
    $1HasAtLeast$2TilesWith$3Culture: "$1 hat mindestens $2 Gebiete mit $3-Kultur",
    $1HasAtLeast$2TilesFollowing$3: "$1 hat mindestens $2 Gebiete, die $3 folgen",
+   MastersOfThePasses: "Herren der Gebirgspässe",
+   MastersOfThePassesDesc$1: "Feindliche Hügel- und Gebirgsgebiete tragen $1 weniger zur Kriegswertung bei",
+   ProductiveInvestment: "Produktive Investitionen",
+   ProductiveInvestmentDesc$1: "Jede Aufwertung erhöht die Gebietsproduktion des jeweiligen Gebiets um $1",
+   CommercialRenown: "Handelsrenommee",
+   $1PrestigeForEachActiveTrade: "$1 Prestige für jeden aktiven Handel",
 };

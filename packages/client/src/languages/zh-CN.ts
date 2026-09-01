@@ -3188,4 +3188,10 @@ export const ZH_CN = {
    TimedActionProclaimRightOfReprisalDesc$1$2: "宣布报复权可使我们获得针对主导进攻方的<i>$1</i>宣战理由，持续 $2 年",
    $1HasAtLeast$2TilesWith$3Culture: "$1 至少有 $2 个地块属于 $3 文化",
    $1HasAtLeast$2TilesFollowing$3: "$1 至少有 $2 个地块信奉 $3",
+   MastersOfThePasses: "山口之主",
+   MastersOfThePassesDesc$1: "敌方丘陵和山地地块贡献的战争分数降低$1",
+   ProductiveInvestment: "生产性投资",
+   ProductiveInvestmentDesc$1: "每次升级地块时，该地块的产出提高$1",
+   CommercialRenown: "商业声望",
+   $1PrestigeForEachActiveTrade: "每项进行中的贸易使威望提高$1",
 };

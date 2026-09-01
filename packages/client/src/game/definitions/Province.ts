@@ -398,7 +398,13 @@ export const Province = {
       religion: "GrecoRoman",
       upgrades: [],
    },
-   Raetia: { code: "RA", name: () => $t(L.ProvinceRaetia), culture: "Raetian", religion: "GrecoRoman", upgrades: [] },
+   Raetia: {
+      code: "RA",
+      name: () => $t(L.ProvinceRaetia),
+      culture: "Raetian",
+      religion: "GrecoRoman",
+      upgrades: ["MastersOfThePasses", "ProductiveInvestment", "CommercialRenown"],
+   },
    Sardinia: {
       code: "SA",
       name: () => $t(L.ProvinceSardinia),

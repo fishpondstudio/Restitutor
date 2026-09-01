@@ -3253,4 +3253,10 @@ export const ES = {
    TimedActionProclaimRightOfReprisalDesc$1$2: "Proclamar un derecho de represalia nos concede un casus belli <i>$1</i> contra el atacante principal durante $2 años",
    $1HasAtLeast$2TilesWith$3Culture: "$1 tiene al menos $2 territorios con cultura $3",
    $1HasAtLeast$2TilesFollowing$3: "$1 tiene al menos $2 territorios que siguen a $3",
+   MastersOfThePasses: "Señores de los pasos",
+   MastersOfThePassesDesc$1: "Los territorios enemigos de colina y montaña aportan $1 menos a la puntuación de guerra",
+   ProductiveInvestment: "Inversión productiva",
+   ProductiveInvestmentDesc$1: "Cada mejora aumenta en $1 el rendimiento territorial del territorio correspondiente",
+   CommercialRenown: "Renombre comercial",
+   $1PrestigeForEachActiveTrade: "$1 de prestigio por cada comercio activo",
 };

@@ -3258,4 +3258,10 @@ export const FR = {
    TimedActionProclaimRightOfReprisalDesc$1$2: "Proclaiming a right of reprisal grants us a <i>$1</i> casus belli against the lead attacker for $2 years",
    $1HasAtLeast$2TilesWith$3Culture: "$1 has at least $2 tiles with $3 culture",
    $1HasAtLeast$2TilesFollowing$3: "$1 has at least $2 tiles following $3",
+   MastersOfThePasses: "Masters of the Passes",
+   MastersOfThePassesDesc$1: "Enemy Hill and Mountain tiles contribute $1 less War Score",
+   ProductiveInvestment: "Productive Investment",
+   ProductiveInvestmentDesc$1: "Each tile gains $1 Tile Output for each time it has been upgraded",
+   CommercialRenown: "Commercial Renown",
+   $1PrestigeForEachActiveTrade: "$1 Prestige for each active trade",
 };

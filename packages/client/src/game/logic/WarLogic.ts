@@ -38,7 +38,7 @@ import {
    provinceResourceOf,
    setProvinceStat,
 } from "./ProvinceLogic";
-import { getTileDefense } from "./TileLogic";
+import { getTileDefense, getTileTerrain } from "./TileLogic";
 import { endTimedActionAndResetCooldown, getTimedActionTimeLeft } from "./TimedActionLogic";
 
 export const WarFlag = {
@@ -248,6 +248,16 @@ export function getWarScore(
          if (hasProvinceUpgrade("MaritimeAmbition", attacker, save) && isTileConnectedBySea(tile, attacker, save)) {
             result.add.push({
                name: `${ProvinceUpgrades.MaritimeAmbition.name()}: ${getTileName(tile, save)}`,
+               value: -0.2 * defense.value,
+            });
+         }
+         const terrain = getTileTerrain(tile);
+         if (
+            hasProvinceUpgrade("MastersOfThePasses", attacker, save) &&
+            (terrain === "Hill" || terrain === "Mountain")
+         ) {
+            result.add.push({
+               name: `${ProvinceUpgrades.MastersOfThePasses.name()}: ${getTileName(tile, save)}`,
                value: -0.2 * defense.value,
             });
          }

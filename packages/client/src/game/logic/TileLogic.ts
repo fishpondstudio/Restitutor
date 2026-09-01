@@ -452,6 +452,12 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.GoodsTax, breakdown);
    attachModifiers("TileOutput", breakdown, data.province, save);
+   if (hasProvinceUpgrade("ProductiveInvestment", data.province, save) && data.upgradeCount > 0) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.ProductiveInvestment.name(),
+         value: data.upgradeCount * 0.02,
+      });
+   }
    if (hasProvinceUpgrade("GranaryOfTheEmpire", data.province, save)) {
       let grainTileCount = 0;
       for (const [, provinceTileData] of save.state.tiles) {

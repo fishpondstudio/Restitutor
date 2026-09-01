@@ -3217,4 +3217,10 @@ export const RU = {
    TimedActionProclaimRightOfReprisalDesc$1$2: "Провозглашение права на возмездие даёт нам казус белли <i>$1</i> против главного атакующего на $2 лет",
    $1HasAtLeast$2TilesWith$3Culture: "$1: как минимум $2 владений имеют культуру $3",
    $1HasAtLeast$2TilesFollowing$3: "$1: как минимум $2 владений исповедуют $3",
+   MastersOfThePasses: "Хозяева перевалов",
+   MastersOfThePassesDesc$1: "Вражеские владения на холмах и в горах дают на $1 меньше к счёту войны",
+   ProductiveInvestment: "Инвестиции в производство",
+   ProductiveInvestmentDesc$1: "Каждое улучшение владения повышает его производство на $1",
+   CommercialRenown: "Торговая слава",
+   $1PrestigeForEachActiveTrade: "$1 к престижу за каждую активную сделку",
 };

@@ -283,6 +283,15 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
          value: Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.01, 0.5),
       });
    }
+   if (hasProvinceUpgrade("CommercialRenown", province, save)) {
+      const tradeCount = getProvinceTrades(province, save).size;
+      if (tradeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.CommercialRenown.name(),
+            value: tradeCount * 0.1,
+         });
+      }
+   }
    if (hasProvinceUpgrade("CaputMundi", province, save) && save.state.provinces[province]?.capital === Tiles.Rome) {
       breakdown.multiply.push({ name: ProvinceUpgrades.CaputMundi.name(), value: 0.1 });
    }
