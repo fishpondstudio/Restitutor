@@ -178,9 +178,10 @@ function initTileUpgrades(save: SaveGame): void {
    for (const [province, data] of entriesOf(save.state.provinces)) {
       let total =
          maxUpgrades - getTotalUpgrades(province, save) - (maxTileCount - getProvinceTileCount(province, save));
+      const tiles = shuffle(Array.from(save.state.tiles).filter(([tile, data]) => data.province === province));
       while (total > 0) {
          let upgraded = false;
-         for (const [tile, data] of save.state.tiles) {
+         for (const [tile, data] of tiles) {
             if (data.province !== province) {
                continue;
             }
