@@ -2286,6 +2286,7 @@ export const ES = {
    ChristianTranquilityDesc$1: "$1 de malestar en los territorios que siguen el cristianismo",
    FocusedGovernance: "Gobierno enfocado",
    FocusedGovernanceDesc$1: "$1 punto de gobierno mensual que coincide con el enfoque actual del gobierno",
+   ExtensiveAdministration: "Administración extensa",
    TheSilverOfCarthagoNova: "La plata de Carthago Nova",
    TheSilverOfCarthagoNovaDesc: "Las antiguas explotaciones de Carthago Nova aún contienen vetas de plata y plomo, pero las galerías inundadas y el equipo agotado limitan la producción. Los ingenieros imperiales creen que una gran inversión podría volver rentables las minas.",
    DrainTheOldWorkings: "Drenar las antiguas explotaciones",

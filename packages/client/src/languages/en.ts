@@ -2284,6 +2284,7 @@ export const EN = {
    ChristianTranquilityDesc$1: "$1 Unrest on tiles following Christianity",
    FocusedGovernance: "Focused Governance",
    FocusedGovernanceDesc$1: "$1 monthly government point matching the current government focus",
+   ExtensiveAdministration: "Extensive Administration",
    TheSilverOfCarthagoNova: "The Silver of Carthago Nova",
    TheSilverOfCarthagoNovaDesc: "The ancient workings around Carthago Nova still contain veins of silver and lead, but flooded galleries and exhausted equipment limit production. Imperial engineers believe a major investment could make the mines profitable again.",
    DrainTheOldWorkings: "Drain the old workings",

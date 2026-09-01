@@ -13,6 +13,12 @@ export interface IProvinceUpgrade {
 }
 
 const _ProvinceUpgrades = {
+   ExtensiveAdministration: {
+      name: () => $t(L.ExtensiveAdministration),
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
+      },
+   },
    Tetrarchy: {
       name: () => $t(L.Tetrarchy),
    },

@@ -2288,6 +2288,7 @@ export const FR = {
    ChristianTranquilityDesc$1: "$1 de troubles sur les cases suivant le christianisme",
    FocusedGovernance: "Gouvernance ciblée",
    FocusedGovernanceDesc$1: "$1 point de gouvernement mensuel correspondant à l'orientation gouvernementale actuelle",
+   ExtensiveAdministration: "Extensive Administration",
    TheSilverOfCarthagoNova: "L'argent de Carthago Nova",
    TheSilverOfCarthagoNovaDesc: "Les anciennes mines autour de Carthago Nova contiennent encore des filons d'argent et de plomb, mais les galeries inondées et les équipements épuisés limitent la production. Les ingénieurs impériaux estiment qu'un investissement majeur pourrait rendre les mines à nouveau rentables.",
    DrainTheOldWorkings: "Assécher les anciennes galeries",

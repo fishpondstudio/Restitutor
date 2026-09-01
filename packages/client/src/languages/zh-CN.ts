@@ -2278,6 +2278,7 @@ export const ZH_CN = {
    ChristianTranquilityDesc$1: "信奉基督教的地块动荡 $1",
    FocusedGovernance: "专注施政",
    FocusedGovernanceDesc$1: "当前政府侧重点每月提供相应类别的 $1 政府点数",
+   ExtensiveAdministration: "广泛行政",
    TheSilverOfCarthagoNova: "新迦太基之银",
    TheSilverOfCarthagoNovaDesc: "新迦太基附近的古老矿区仍蕴藏着银铅矿脉，但淹水的坑道与老旧的设备限制了产量。帝国工程师认为，一笔巨额投资可以让矿山重新盈利。",
    DrainTheOldWorkings: "排干旧矿井",

@@ -27,7 +27,6 @@ import {
    type GovernorPower,
    type IProvince,
    Province,
-   ProvinceExtraGoverningCapacity,
    ProvinceFlags,
    type ProvinceNameOverride,
    ProvinceNameOverrides,
@@ -472,10 +471,6 @@ function _getProvinceOverextension(province: Province, save: SaveGame): IValueBr
 export function getProvinceGoverningCapacity(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.BaseValue), value: 200 });
-   const extraCapacity = ProvinceExtraGoverningCapacity[province] ?? 0;
-   if (extraCapacity > 0) {
-      breakdown.add.push({ name: getProvinceName(province, save), value: extraCapacity });
-   }
    attachModifiers("GoverningCapacity", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }

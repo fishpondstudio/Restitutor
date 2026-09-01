@@ -250,7 +250,7 @@ export const Province = {
       name: () => $t(L.ProvinceAfrica),
       culture: "Punic",
       religion: "GrecoRoman",
-      upgrades: ["LittoralTaxDistricts", "MercantileMobilization", "GranaryOfTheEmpire"],
+      upgrades: ["ExtensiveAdministration", "LittoralTaxDistricts", "MercantileMobilization", "GranaryOfTheEmpire"],
    },
    Aquitania: {
       code: "AQ",
@@ -338,7 +338,13 @@ export const Province = {
       name: () => $t(L.ProvinceItalia),
       culture: "Italic",
       religion: "GrecoRoman",
-      upgrades: ["SenatorialAuthority", "InclusiveCitizenship", "CaputMundi", "ExperiencedCommand"],
+      upgrades: [
+         "ExtensiveAdministration",
+         "SenatorialAuthority",
+         "InclusiveCitizenship",
+         "CaputMundi",
+         "ExperiencedCommand",
+      ],
    },
    Judea: { code: "JU", name: () => $t(L.ProvinceJudea), culture: "Arab", religion: "Judaism", upgrades: [] },
    Lusitania: {
@@ -368,7 +374,7 @@ export const Province = {
       name: () => $t(L.ProvinceMauretania),
       culture: "Berber",
       religion: "Berber",
-      upgrades: ["TheTwoShores", "MoorishMuster", "MaritimeRenown"],
+      upgrades: ["ExtensiveAdministration", "TheTwoShores", "MoorishMuster", "MaritimeRenown"],
    },
    Moesia: {
       code: "MO",
@@ -413,7 +419,7 @@ export const Province = {
       name: () => $t(L.ProvinceTarraconensis),
       culture: "Iberian",
       religion: "Iberian",
-      upgrades: ["CulturalEfficiency", "ChristianTranquility", "FocusedGovernance"],
+      upgrades: ["ExtensiveAdministration", "CulturalEfficiency", "ChristianTranquility", "FocusedGovernance"],
    },
    Thracia: {
       code: "TH",
@@ -482,10 +488,3 @@ export const EnabledProvinces: Province[] = [
 ];
 EnabledProvinces.sort();
 export const AlwaysFreeProvinces: Province[] = ["Lugdunensis", "Africa", "Italia"];
-
-export const ProvinceExtraGoverningCapacity: Partial<Record<Province, number>> = {
-   Africa: 100,
-   Italia: 100,
-   Mauretania: 100,
-   Tarraconensis: 100,
-};

@@ -2289,6 +2289,7 @@ export const DE = {
    ChristianTranquilityDesc$1: "$1 Unruhe in Gebieten christlichen Glaubens",
    FocusedGovernance: "Gezielte Staatsführung",
    FocusedGovernanceDesc$1: "$1 monatlicher Regierungspunkt entsprechend dem aktuellen Regierungsschwerpunkt",
+   ExtensiveAdministration: "Umfangreiche Verwaltung",
    TheSilverOfCarthagoNova: "Das Silber von Carthago Nova",
    TheSilverOfCarthagoNovaDesc: "Die alten Gruben um Carthago Nova bergen noch immer Silber- und Bleivorkommen, doch überflutete Stollen und verschlissene Geräte begrenzen die Förderung. Kaiserliche Ingenieure glauben, eine große Investition könne die Minen wieder gewinnbringend machen.",
    DrainTheOldWorkings: "Die alten Stollen trockenlegen",
