@@ -1,6 +1,7 @@
-import { formatNumber, type Tile } from "@project/shared/src/utils/Helper";
+import { formatNumber, formatPercent, type Tile } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
+import { Culture } from "../definitions/Culture";
 import {
    type Province,
    type ProvinceResource,
@@ -8,10 +9,12 @@ import {
    type ProvinceStat,
    ProvinceStatNames,
 } from "../definitions/Province";
+import { Religion, type Religion as ReligionType } from "../definitions/Religion";
 import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getMarriageAlliance } from "./DiplomacyLogic";
 import {
+   getCulturePercentage,
    getMediterraneanCoastalTiles,
    getProvinceCoreCoastalTileCount,
    getProvinceCoreTileCount,
@@ -21,6 +24,7 @@ import {
    getProvinceName,
    getProvinceResource,
    getProvinceStat,
+   getReligionPercentage,
    getWarPower,
    provinceResourceOf,
 } from "./ProvinceLogic";
@@ -255,5 +259,81 @@ export function tileIsOurCoreCondition(tile: Tile, province: Province, save: Sav
    return {
       name: $t(L.TileIsCurrentlyOurCore),
       value: !!tileData && tileData.coreProvinces.has(province) && tileData.province === province,
+   };
+}
+
+export function minCulturePercentageCondition(
+   minimum: number,
+   culture: Culture,
+   province: Province,
+   save: SaveGame,
+): ICondition {
+   const { percentage } = getCulturePercentage(culture, province, save);
+   return {
+      name: $t(
+         L.$1HasAtLeast$2TilesWith$3Culture,
+         getProvinceName(province, save),
+         formatPercent(minimum),
+         Culture[culture].name(),
+      ),
+      value: percentage >= minimum,
+      progress: [percentage, minimum],
+   };
+}
+
+export function minReligionPercentageCondition(
+   minimum: number,
+   religion: ReligionType,
+   province: Province,
+   save: SaveGame,
+): ICondition {
+   const { percentage } = getReligionPercentage(religion, province, save);
+   return {
+      name: $t(
+         L.$1HasAtLeast$2TilesFollowing$3,
+         getProvinceName(province, save),
+         formatPercent(minimum),
+         Religion[religion].name(),
+      ),
+      value: percentage >= minimum,
+      progress: [percentage, minimum],
+   };
+}
+
+export function minCultureCountCondition(
+   minimum: number,
+   culture: Culture,
+   province: Province,
+   save: SaveGame,
+): ICondition {
+   const { count } = getCulturePercentage(culture, province, save);
+   return {
+      name: $t(
+         L.$1HasAtLeast$2TilesWith$3Culture,
+         getProvinceName(province, save),
+         formatNumber(minimum),
+         Culture[culture].name(),
+      ),
+      value: count >= minimum,
+      progress: [count, minimum],
+   };
+}
+
+export function minReligionCountCondition(
+   minimum: number,
+   religion: ReligionType,
+   province: Province,
+   save: SaveGame,
+): ICondition {
+   const { count } = getReligionPercentage(religion, province, save);
+   return {
+      name: $t(
+         L.$1HasAtLeast$2TilesFollowing$3,
+         getProvinceName(province, save),
+         formatNumber(minimum),
+         Religion[religion].name(),
+      ),
+      value: count >= minimum,
+      progress: [count, minimum],
    };
 }

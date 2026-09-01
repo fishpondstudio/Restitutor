@@ -3260,4 +3260,6 @@ export const DE = {
    $1WarScoreWhenAttackersPrestigeIsHigherThanDefenders: "$1 Kriegswertung, wenn das Prestige des Angreifers höher ist als das des Verteidigers",
    ProclaimRightOfReprisal: "Vergeltungsrecht verkünden",
    TimedActionProclaimRightOfReprisalDesc$1$2: "Das Verkünden eines Vergeltungsrechts gewährt uns den Casus Belli <i>$1</i> gegen den Hauptangreifer für $2 Jahre",
+   $1HasAtLeast$2TilesWith$3Culture: "$1 hat mindestens $2 Gebiete mit $3-Kultur",
+   $1HasAtLeast$2TilesFollowing$3: "$1 hat mindestens $2 Gebiete, die $3 folgen",
 };

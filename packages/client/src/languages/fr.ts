@@ -3256,4 +3256,6 @@ export const FR = {
    $1WarScoreWhenAttackersPrestigeIsHigherThanDefenders: "$1 War Score when the attacker's Prestige is higher than the defender's",
    ProclaimRightOfReprisal: "Proclaim Right of Reprisal",
    TimedActionProclaimRightOfReprisalDesc$1$2: "Proclaiming a right of reprisal grants us a <i>$1</i> casus belli against the lead attacker for $2 years",
+   $1HasAtLeast$2TilesWith$3Culture: "$1 has at least $2 tiles with $3 culture",
+   $1HasAtLeast$2TilesFollowing$3: "$1 has at least $2 tiles following $3",
 };

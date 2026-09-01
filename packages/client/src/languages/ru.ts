@@ -3215,4 +3215,6 @@ export const RU = {
    $1WarScoreWhenAttackersPrestigeIsHigherThanDefenders: "$1 к счёту войны, если престиж атакующего выше престижа защитника",
    ProclaimRightOfReprisal: "Провозгласить право на возмездие",
    TimedActionProclaimRightOfReprisalDesc$1$2: "Провозглашение права на возмездие даёт нам казус белли <i>$1</i> против главного атакующего на $2 лет",
+   $1HasAtLeast$2TilesWith$3Culture: "$1: как минимум $2 владений имеют культуру $3",
+   $1HasAtLeast$2TilesFollowing$3: "$1: как минимум $2 владений исповедуют $3",
 };

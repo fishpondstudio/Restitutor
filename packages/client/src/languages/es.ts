@@ -3251,4 +3251,6 @@ export const ES = {
    $1WarScoreWhenAttackersPrestigeIsHigherThanDefenders: "$1 de puntuación de guerra cuando el prestigio del atacante es mayor que el del defensor",
    ProclaimRightOfReprisal: "Proclamar un derecho de represalia",
    TimedActionProclaimRightOfReprisalDesc$1$2: "Proclamar un derecho de represalia nos concede un casus belli <i>$1</i> contra el atacante principal durante $2 años",
+   $1HasAtLeast$2TilesWith$3Culture: "$1 tiene al menos $2 territorios con cultura $3",
+   $1HasAtLeast$2TilesFollowing$3: "$1 tiene al menos $2 territorios que siguen a $3",
 };

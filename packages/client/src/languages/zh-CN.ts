@@ -3186,4 +3186,6 @@ export const ZH_CN = {
    $1WarScoreWhenAttackersPrestigeIsHigherThanDefenders: "当进攻方威望高于防守方时，$1战争分数",
    ProclaimRightOfReprisal: "宣布报复权",
    TimedActionProclaimRightOfReprisalDesc$1$2: "宣布报复权可使我们获得针对主导进攻方的<i>$1</i>宣战理由，持续 $2 年",
+   $1HasAtLeast$2TilesWith$3Culture: "$1 至少有 $2 个地块属于 $3 文化",
+   $1HasAtLeast$2TilesFollowing$3: "$1 至少有 $2 个地块信奉 $3",
 };

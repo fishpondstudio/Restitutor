@@ -1323,3 +1323,41 @@ export function getMediterraneanCoastalTiles(requireCore: boolean, province: Pro
    }
    return result;
 }
+
+export function getCulturePercentage(
+   culture: Culture,
+   province: Province,
+   save: SaveGame,
+): { count: number; percentage: number } {
+   let count = 0;
+   let totalTiles = 0;
+   for (const data of save.state.tiles.values()) {
+      if (data.province !== province) {
+         continue;
+      }
+      totalTiles++;
+      if (data.culture === culture) {
+         count++;
+      }
+   }
+   return { count, percentage: totalTiles === 0 ? 0 : count / totalTiles };
+}
+
+export function getReligionPercentage(
+   religion: Religion,
+   province: Province,
+   save: SaveGame,
+): { count: number; percentage: number } {
+   let count = 0;
+   let totalTiles = 0;
+   for (const data of save.state.tiles.values()) {
+      if (data.province !== province) {
+         continue;
+      }
+      totalTiles++;
+      if (data.religion === religion) {
+         count++;
+      }
+   }
+   return { count, percentage: totalTiles === 0 ? 0 : count / totalTiles };
+}
