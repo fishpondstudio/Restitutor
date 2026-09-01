@@ -12,6 +12,7 @@ import { getTileName } from "../game/definitions/TileName";
 import { RelocateCapitalModifier, TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "../game/Events";
 import { MapBackgroundColors } from "../game/logic/MapColor";
+import { tileIsOurCoreCondition } from "../game/logic/MissionLogic";
 import { addModifier } from "../game/logic/ModifierLogic";
 import { getProvinceName, getProvinceStat } from "../game/logic/ProvinceLogic";
 import {
@@ -26,7 +27,6 @@ import {
    getTileOutput,
    getTileTerrain,
    getTileUnrest,
-   tileIsOurCoreCondition,
 } from "../game/logic/TileLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";

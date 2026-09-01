@@ -6,6 +6,8 @@ import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { getOriginalTileCount } from "../GameState";
 import { availableDiplomatCondition, getRelation } from "../logic/DiplomacyLogic";
 import {
+   allCoreTileCondition,
+   anyCoreTileCondition,
    manpowerCondition,
    marriageCondition,
    maxCoreTileCondition,
@@ -17,7 +19,6 @@ import {
    warPowerCondition,
 } from "../logic/MissionLogic";
 import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
-import { allCoreTileCondition, anyCoreTileCondition } from "../logic/TileLogic";
 import {
    dissolveAllTreaties,
    requireMinimumAttitude,

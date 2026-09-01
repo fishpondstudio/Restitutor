@@ -2,13 +2,14 @@ import { $t, L } from "../../utils/i18n";
 import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import {
+   allCoreTileCondition,
+   isCoreTileCondition,
    manpowerCondition,
    maxCoreTileCondition,
    mediterraneanCoastCondition,
    minCoreTileCondition,
    provinceRevenueCondition,
 } from "../logic/MissionLogic";
-import { allCoreTileCondition, isCoreTileCondition } from "../logic/TileLogic";
 import {
    dissolveAllTreaties,
    requireAnyTreatyBetween,

@@ -3,9 +3,13 @@ import { $t, L } from "../../utils/i18n";
 import { HispaniaProvinces } from "../definitions/TileConstants";
 import { TimedActions } from "../definitions/TimedAction";
 import { getOriginalTileCount } from "../GameState";
-import { minCoreTileCondition } from "../logic/MissionLogic";
+import {
+   allCoreTileCondition,
+   anyCoreTileCondition,
+   isCoreTileCondition,
+   minCoreTileCondition,
+} from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
-import { allCoreTileCondition, anyCoreTileCondition, isCoreTileCondition } from "../logic/TileLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";

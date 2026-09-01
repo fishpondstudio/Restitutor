@@ -4,6 +4,7 @@ import { Province } from "../definitions/Province";
 import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import {
+   allCoreTileCondition,
    annexTiles,
    marriageCondition,
    maxCoreTileCondition,
@@ -12,7 +13,6 @@ import {
    warPowerCondition,
 } from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
-import { allCoreTileCondition } from "../logic/TileLogic";
 import {
    dissolveAllTreaties,
    requireAnyTreatyBetween,

@@ -2,8 +2,12 @@ import { $t, L } from "../../utils/i18n";
 import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { Tiles } from "../definitions/TileConstants";
-import { marriageCondition, maxCoreTileCondition, minCoreTileCondition } from "../logic/MissionLogic";
-import { isCoreTileCondition } from "../logic/TileLogic";
+import {
+   isCoreTileCondition,
+   marriageCondition,
+   maxCoreTileCondition,
+   minCoreTileCondition,
+} from "../logic/MissionLogic";
 import {
    dissolveAllTreaties,
    requireAnyTreatyBetween,

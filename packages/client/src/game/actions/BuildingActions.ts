@@ -3,7 +3,8 @@ import { $t, L } from "../../utils/i18n";
 import { type Building, Buildings } from "../definitions/Building";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
-import { getTileBuildingCondition, tileIsOurCoreCondition } from "../logic/TileLogic";
+import { tileIsOurCoreCondition } from "../logic/MissionLogic";
+import { getTileBuildingCondition } from "../logic/TileLogic";
 import type { IGameAction } from "./GameAction";
 import { finalizeCondition } from "./GameAction";
 

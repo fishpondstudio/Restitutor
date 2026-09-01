@@ -20,6 +20,7 @@ import { isLand, terrainOf } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { cacheTile, isConnectedToCapital } from "./CacheLogic";
 import { EcumenicalCouncilPct } from "./EcumenicalCouncilLogic";
+import { tileIsOurCoreCondition } from "./MissionLogic";
 import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
 import {
    getCulturalCohesion,
@@ -774,14 +775,6 @@ export function getTileBuildingCondition(
    return finalizeCondition(breakdown);
 }
 
-export function tileIsOurCoreCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
-   const tileData = save.state.tiles.get(tile);
-   return {
-      name: $t(L.TileIsCurrentlyOurCore),
-      value: !!tileData && tileData.coreProvinces.has(province) && tileData.province === province,
-   };
-}
-
 export function getNearestTile(tilesA: Tile[], tilesB: Tile[]): [Tile, Tile] | undefined {
    let nearestTile: [Tile, Tile] | undefined;
    let nearestDistance = Number.POSITIVE_INFINITY;
@@ -843,41 +836,9 @@ export function getBuildingSlot(tile: Tile, save: SaveGame): IValueBreakdown {
    return finalizeBreakdown(result);
 }
 
-function isCoreTile(tile: Tile, province: Province, save: SaveGame): boolean {
+export function isCoreTile(tile: Tile, province: Province, save: SaveGame): boolean {
    const data = save.state.tiles.get(tile);
    return data?.province === province && data.coreProvinces.has(province);
-}
-
-export function isCoreTileCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
-   return {
-      name: $t(L.$1AnnexesAndCores$2, getProvinceName(province, save), `<Tile>${tile}</Tile>`),
-      value: isCoreTile(tile, province, save),
-   };
-}
-
-export function anyCoreTileCondition(tiles: Iterable<Tile>, province: Province, save: SaveGame): ICondition {
-   const tileList = Array.from(tiles);
-   return {
-      name: $t(
-         L.$1AnnexesAndCoresAnyOf$2,
-         getProvinceName(province, save),
-         tileList.map((tile) => `<Tile>${tile}</Tile>`).join(", "),
-      ),
-      value: tileList.some((tile) => isCoreTile(tile, province, save)),
-   };
-}
-
-export function allCoreTileCondition(tiles: Iterable<Tile>, province: Province, save: SaveGame): ICondition {
-   const tileList = Array.from(tiles);
-   return {
-      name: $t(
-         L.$1AnnexesAndCoresAllOf$2,
-         getProvinceName(province, save),
-         tileList.map((tile) => `<Tile>${tile}</Tile>`).join(", "),
-      ),
-      value: tileList.every((tile) => isCoreTile(tile, province, save)),
-      progress: [tileList.filter((tile) => isCoreTile(tile, province, save)).length, tileList.length],
-   };
 }
 
 export function getReligionStatus(tile: Tile, save: SaveGame): CultureReligionStatus {

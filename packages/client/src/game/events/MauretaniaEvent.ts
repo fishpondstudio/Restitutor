@@ -2,8 +2,13 @@ import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
-import { annexTiles, minCoreTileCondition, provinceResourceCondition } from "../logic/MissionLogic";
-import { allCoreTileCondition, isCoreTileCondition } from "../logic/TileLogic";
+import {
+   allCoreTileCondition,
+   annexTiles,
+   isCoreTileCondition,
+   minCoreTileCondition,
+   provinceResourceCondition,
+} from "../logic/MissionLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 

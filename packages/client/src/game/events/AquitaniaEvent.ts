@@ -3,9 +3,8 @@ import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActi
 import { Province } from "../definitions/Province";
 import { getOriginalTileCount } from "../GameState";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { maxCoreTileCondition } from "../logic/MissionLogic";
+import { isCoreTileCondition, maxCoreTileCondition } from "../logic/MissionLogic";
 import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
-import { isCoreTileCondition } from "../logic/TileLogic";
 import {
    dissolveAllTreaties,
    requireMinimumAttitude,

@@ -1,7 +1,8 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
-import { getTileUpgradeCost, tileIsOurCoreCondition } from "../logic/TileLogic";
+import { tileIsOurCoreCondition } from "../logic/MissionLogic";
+import { getTileUpgradeCost } from "../logic/TileLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import type { IGameAction } from "./GameAction";

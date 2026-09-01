@@ -24,6 +24,7 @@ import {
    getWarPower,
    provinceResourceOf,
 } from "./ProvinceLogic";
+import { isCoreTile } from "./TileLogic";
 import { getAllies } from "./TreatyLogic";
 
 export function provinceRevenueCondition(minimum: number, province: Province, save: SaveGame): ICondition {
@@ -207,5 +208,52 @@ export function mediterraneanCoastCondition(minimum: number, province: Province,
       name: $t(L.AnnexAndCore$1MediterraneanCoastalTiles, formatNumber(minimum)),
       value: coast.length >= minimum,
       progress: [coast.length, minimum],
+   };
+}
+
+export function isUnsettledCondition(tile: Tile, save: SaveGame): ICondition {
+   return {
+      name: `<Tile>${tile}</Tile> is unsettled`,
+      value: !save.state.tiles.has(tile),
+   };
+}
+
+export function allCoreTileCondition(tiles: Iterable<Tile>, province: Province, save: SaveGame): ICondition {
+   const tileList = Array.from(tiles);
+   return {
+      name: $t(
+         L.$1AnnexesAndCoresAllOf$2,
+         getProvinceName(province, save),
+         tileList.map((tile) => `<Tile>${tile}</Tile>`).join(", "),
+      ),
+      value: tileList.every((tile) => isCoreTile(tile, province, save)),
+      progress: [tileList.filter((tile) => isCoreTile(tile, province, save)).length, tileList.length],
+   };
+}
+
+export function anyCoreTileCondition(tiles: Iterable<Tile>, province: Province, save: SaveGame): ICondition {
+   const tileList = Array.from(tiles);
+   return {
+      name: $t(
+         L.$1AnnexesAndCoresAnyOf$2,
+         getProvinceName(province, save),
+         tileList.map((tile) => `<Tile>${tile}</Tile>`).join(", "),
+      ),
+      value: tileList.some((tile) => isCoreTile(tile, province, save)),
+   };
+}
+
+export function isCoreTileCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
+   return {
+      name: $t(L.$1AnnexesAndCores$2, getProvinceName(province, save), `<Tile>${tile}</Tile>`),
+      value: isCoreTile(tile, province, save),
+   };
+}
+
+export function tileIsOurCoreCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
+   const tileData = save.state.tiles.get(tile);
+   return {
+      name: $t(L.TileIsCurrentlyOurCore),
+      value: !!tileData && tileData.coreProvinces.has(province) && tileData.province === province,
    };
 }

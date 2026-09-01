@@ -3,9 +3,13 @@ import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActi
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { annexTiles, maxCoreTileCondition, provinceResourceCondition } from "../logic/MissionLogic";
+import {
+   annexTiles,
+   isCoreTileCondition,
+   maxCoreTileCondition,
+   provinceResourceCondition,
+} from "../logic/MissionLogic";
 import { getProvinceName, getProvinceResource } from "../logic/ProvinceLogic";
-import { isCoreTileCondition } from "../logic/TileLogic";
 import {
    dissolveAllTreaties,
    requireAnyTreatyBetween,
