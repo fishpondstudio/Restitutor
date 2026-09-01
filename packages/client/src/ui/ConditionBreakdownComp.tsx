@@ -35,7 +35,8 @@ function _ConditionBreakdownRow({ name, value, desc, progress, hidden }: ICondit
          </div>
          {progress && (
             <div className="text-dimmed">
-               {formatNumber(progress[0])}/{formatNumber(progress[1])}
+               {typeof progress[0] === "number" ? formatNumber(progress[0]) : progress[0]}/
+               {typeof progress[1] === "number" ? formatNumber(progress[1]) : progress[1]}
             </div>
          )}
          {value ? <div className="mi xs text-green">check_circle</div> : <div className="mi xs text-red">cancel</div>}

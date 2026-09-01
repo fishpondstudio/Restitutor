@@ -2242,7 +2242,7 @@ export const ES = {
    CultivatedEstates: "Propiedades cultivadas",
    CultivatedEstatesDesc: "+1 % de impuesto territorial por cada mejora territorial",
    HillfortBastion: "Bastión de castro",
-   HillfortBastionDesc: "+1 % de defensa territorial en todos los territorios por cada territorio núcleo de colina",
+   HillfortBastionDesc$1$2: "$1 de defensa territorial en todos los territorios por cada territorio núcleo de colina (hasta $2)",
    MunicipalPrivilege: "Privilegio municipal",
    MunicipalPrivilegeDesc: "+1 espacio de construcción en cada territorio núcleo",
    MaritimeProsperity: "Prosperidad marítima",

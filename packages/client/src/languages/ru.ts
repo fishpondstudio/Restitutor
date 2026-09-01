@@ -2240,7 +2240,7 @@ export const RU = {
    CultivatedEstates: "Возделанные поместья",
    CultivatedEstatesDesc: "+1% к земельному налогу за каждое улучшение владения",
    HillfortBastion: "Холмовая крепость-бастион",
-   HillfortBastionDesc: "+1% к обороне всех владений за каждое ядровое владение на холме",
+   HillfortBastionDesc$1$2: "$1 к обороне всех владений за каждое ядровое владение на холме (до $2)",
    MunicipalPrivilege: "Муниципальная привилегия",
    MunicipalPrivilegeDesc: "+1 строительный слот в каждом ядровом владении",
    MaritimeProsperity: "Морское процветание",

@@ -2240,7 +2240,7 @@ export const EN = {
    CultivatedEstates: "Cultivated Estates",
    CultivatedEstatesDesc: "+1% Land Tax for each Tile Upgrade",
    HillfortBastion: "Hillfort Bastion",
-   HillfortBastionDesc: "+1% Tile Defense to all tiles for each core Hill tile",
+   HillfortBastionDesc$1$2: "$1 Tile Defense to all tiles for each core Hill tile (up to $2)",
    MunicipalPrivilege: "Municipal Privilege",
    MunicipalPrivilegeDesc: "+1 Building Slot on each core tile",
    MaritimeProsperity: "Maritime Prosperity",

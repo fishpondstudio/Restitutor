@@ -2234,7 +2234,7 @@ export const ZH_CN = {
    CultivatedEstates: "精耕庄园",
    CultivatedEstatesDesc: "每个地块升级提供 +1% 土地税",
    HillfortBastion: "山堡要塞",
-   HillfortBastionDesc: "每个核心丘陵地块提供 +1% 所有地块防御",
+   HillfortBastionDesc$1$2: "每个核心丘陵地块使所有地块防御提高$1（最高$2）",
    MunicipalPrivilege: "市政特权",
    MunicipalPrivilegeDesc: "每个核心地块获得 +1 建筑槽位",
    MaritimeProsperity: "海上繁荣",

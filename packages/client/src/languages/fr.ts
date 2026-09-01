@@ -2244,7 +2244,7 @@ export const FR = {
    CultivatedEstates: "Domaines cultivés",
    CultivatedEstatesDesc: "+1 % d'impôt foncier pour chaque amélioration de case",
    HillfortBastion: "Bastion des collines fortifiées",
-   HillfortBastionDesc: "+1 % de défense des cases pour toutes les cases pour chaque case Colline centrale",
+   HillfortBastionDesc$1$2: "$1 de défense des cases pour toutes les cases pour chaque case Colline centrale (jusqu'à $2)",
    MunicipalPrivilege: "Privilège municipal",
    MunicipalPrivilegeDesc: "+1 emplacement de bâtiment sur chaque case centrale",
    MaritimeProsperity: "Prospérité maritime",

@@ -129,7 +129,7 @@ const _ProvinceUpgrades = {
    },
    HillfortBastion: {
       name: () => $t(L.HillfortBastion),
-      desc: () => $t(L.HillfortBastionDesc),
+      desc: () => $t(L.HillfortBastionDesc$1$2, "+1%", "+50%"),
    },
    MunicipalPrivilege: {
       name: () => $t(L.MunicipalPrivilege),

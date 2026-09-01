@@ -2245,7 +2245,7 @@ export const DE = {
    CultivatedEstates: "Kultivierte Güter",
    CultivatedEstatesDesc: "+1 % Grundsteuer für jede Gebietsaufwertung",
    HillfortBastion: "Höhenfestungsbastion",
-   HillfortBastionDesc: "+1 % Gebietsverteidigung in allen Gebieten für jedes Kerngebiet im Hügelland",
+   HillfortBastionDesc$1$2: "$1 Gebietsverteidigung in allen Gebieten für jedes Kerngebiet im Hügelland (bis zu $2)",
    MunicipalPrivilege: "Städtisches Privileg",
    MunicipalPrivilegeDesc: "+1 Bauplatz in jedem Kerngebiet",
    MaritimeProsperity: "Maritimer Wohlstand",

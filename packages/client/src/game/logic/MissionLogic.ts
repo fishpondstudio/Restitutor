@@ -277,7 +277,7 @@ export function minCulturePercentageCondition(
          Culture[culture].name(),
       ),
       value: percentage >= minimum,
-      progress: [percentage, minimum],
+      progress: [formatPercent(percentage), formatPercent(minimum)],
    };
 }
 
@@ -296,7 +296,7 @@ export function minReligionPercentageCondition(
          Religion[religion].name(),
       ),
       value: percentage >= minimum,
-      progress: [percentage, minimum],
+      progress: [formatPercent(percentage), formatPercent(minimum)],
    };
 }
 
