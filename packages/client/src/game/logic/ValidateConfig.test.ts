@@ -8,7 +8,7 @@ import { SpawnedProvinces } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
 import { TimedActions } from "../definitions/TimedAction";
 import { type GameEvent, GameEvents } from "../events/GameEvents";
-import { RomeMap } from "../RomeMap";
+import { isLand } from "../Land";
 
 test("Buildings are unlocked by exactly one tech", () => {
    const buildings = new Set<Building>();
@@ -91,13 +91,11 @@ test("SocialClassBonuses have valid supporting and opposing classes", () => {
    });
 });
 
-test("SpawnedProvinces contain unique tiles that exist on the map", () => {
+test("SpawnedProvinces contain unique tiles that are land", () => {
    forEach(SpawnedProvinces, (province, config) => {
       const tiles = new Set<Tile>();
       config.tiles.forEach((tile) => {
-         expect
-            .soft(RomeMap.has(tile), `Spawned province ${province} has tile ${tile} that is not in the map`)
-            .toBe(true);
+         expect.soft(isLand(tile), `Spawned province ${province} has tile ${tile} that is not land`).toBe(true);
          expect.soft(tiles.has(tile), `Spawned province ${province} has duplicate tile ${tile}`).toBe(false);
          tiles.add(tile);
       });
