@@ -3344,4 +3344,10 @@ export const ES = {
    EntrustItaliaToOurLegions: "Confiar Italia a nuestras legiones",
    TileCorduba: "Corduba",
    TileNicopolisAdLycum: "Nicopolis ad Lycum",
+   MulticulturalArmy: "Ejército multicultural",
+   MulticulturalArmyDesc$1$2: "$1 de poder bélico por cada cultura presente en territorios núcleo propios, hasta $2",
+   InlandAmbition: "Ambición interior",
+   InlandAmbitionDesc$1: "$1 de puntuación de guerra necesaria al atacar una provincia sin litoral",
+   TriumphalUnity: "Unidad triunfal",
+   TriumphalUnityDesc$1$2: "$1 de estabilidad durante $2 años tras ganar una guerra como atacante o defensor principal",
 };

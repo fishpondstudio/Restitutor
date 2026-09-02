@@ -390,7 +390,13 @@ export const Province = {
       religion: "GrecoRoman",
       upgrades: ["MunicipalPrivilege", "MaritimeProsperity", "CommercialAlliances"],
    },
-   Noricum: { code: "NO", name: () => $t(L.ProvinceNoricum), culture: "Noric", religion: "GrecoRoman", upgrades: [] },
+   Noricum: {
+      code: "NO",
+      name: () => $t(L.ProvinceNoricum),
+      culture: "Noric",
+      religion: "GrecoRoman",
+      upgrades: ["MulticulturalArmy", "InlandAmbition", "TriumphalUnity"],
+   },
    Pannonia: {
       code: "PN",
       name: () => $t(L.ProvincePannonia),
@@ -492,6 +498,7 @@ export const EnabledProvinces: Province[] = [
    "Africa",
    "Britannia",
    "Raetia",
+   "Noricum",
 ];
 EnabledProvinces.sort();
 export const AlwaysFreeProvinces: Province[] = ["Lugdunensis", "Africa", "Italia"];

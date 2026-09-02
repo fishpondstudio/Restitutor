@@ -3306,4 +3306,10 @@ export const RU = {
    EntrustItaliaToOurLegions: "Вверить Италию нашим легионам",
    TileCorduba: "Кордуба",
    TileNicopolisAdLycum: "Никополь ад Ликум",
+   MulticulturalArmy: "Многокультурная армия",
+   MulticulturalArmyDesc$1$2: "$1 к военной мощи за каждую культуру в наших ядровых владениях, вплоть до $2",
+   InlandAmbition: "Амбиции в глубине материка",
+   InlandAmbitionDesc$1: "$1 к требуемому счёту войны при нападении на провинцию без выхода к морю",
+   TriumphalUnity: "Триумфальное единство",
+   TriumphalUnityDesc$1$2: "$1 к стабильности на $2 года после победы в войне в качестве главного атакующего или защитника",
 };

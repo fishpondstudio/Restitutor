@@ -778,6 +778,13 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
          });
       }
    }
+   if (hasProvinceUpgrade("MulticulturalArmy", province, save)) {
+      const cultures = getProvinceCultures(province, save);
+      result.multiply.push({
+         name: ProvinceUpgrades.MulticulturalArmy.name(),
+         value: Math.min(cultures.size * 0.05, 0.5),
+      });
+   }
    attachModifiers("WarPower", result, province, save);
    const wars = getCurrentWars(province, save);
    if (wars.length > 1) {
@@ -1369,4 +1376,14 @@ export function getReligionPercentage(
       }
    }
    return { count, percentage: totalTiles === 0 ? 0 : count / totalTiles };
+}
+
+export function getProvinceCultures(province: Province, save: SaveGame): Set<Culture> {
+   const cultures = new Set<Culture>();
+   for (const data of save.state.tiles.values()) {
+      if (data.province === province && data.coreProvinces.has(province)) {
+         cultures.add(data.culture);
+      }
+   }
+   return cultures;
 }

@@ -34,6 +34,7 @@ import {
    getProvinceStat,
    getProvinceTileCount,
    getWarPower,
+   isLandlocked,
    isTileConnectedBySea,
    provinceResourceOf,
    setProvinceStat,
@@ -330,6 +331,9 @@ export function getWarScore(
       getDiplomaticDistance(attacker, defender, save) <= 10
    ) {
       result.multiply.push({ name: ProvinceUpgrades.MediterraneanAmbition.name(), value: -0.2 });
+   }
+   if (hasProvinceUpgrade("InlandAmbition", attacker, save) && isLandlocked(defender, save)) {
+      result.multiply.push({ name: ProvinceUpgrades.InlandAmbition.name(), value: -0.2 });
    }
 
    attachModifiers("WarScore", result, attacker, save);

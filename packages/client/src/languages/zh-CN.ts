@@ -3277,4 +3277,10 @@ export const ZH_CN = {
    EntrustItaliaToOurLegions: "将意大利托付给我们的军团",
    TileCorduba: "科尔杜巴",
    TileNicopolisAdLycum: "尼科波利斯·阿德·利库姆",
+   MulticulturalArmy: "多元文化军队",
+   MulticulturalArmyDesc$1$2: "我方核心地块中每存在一种文化，军力$1（最高$2）",
+   InlandAmbition: "内陆雄心",
+   InlandAmbitionDesc$1: "进攻无出海口的行省时，所需战争分数$1",
+   TriumphalUnity: "凯旋凝聚",
+   TriumphalUnityDesc$1$2: "作为主导进攻方或防守方赢得战争后，$2年内获得$1稳定度",
 };

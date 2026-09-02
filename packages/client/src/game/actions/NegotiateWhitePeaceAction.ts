@@ -55,6 +55,17 @@ export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: S
                save,
             });
          }
+         if (hasProvinceUpgrade("TriumphalUnity", war.defender, save)) {
+            addModifier({
+               modifier: "Stability",
+               type: "add",
+               name: ProvinceUpgrades.TriumphalUnity.name(),
+               value: 10,
+               duration: 2 * 12,
+               province: war.defender,
+               save,
+            });
+         }
          RefreshTiles.emit({ tiles: war.tiles, options: { indicator: true } });
          if (headless) {
             if (war.defender === save.state.playerProvince) {

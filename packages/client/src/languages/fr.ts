@@ -3347,4 +3347,10 @@ export const FR = {
    EntrustItaliaToOurLegions: "Entrust Italia to our legions",
    TileCorduba: "Corduba",
    TileNicopolisAdLycum: "Nicopolis ad Lycum",
+   MulticulturalArmy: "Multicultural Army",
+   MulticulturalArmyDesc$1$2: "$1 War Power for each culture present on owned core tiles, up to $2",
+   InlandAmbition: "Inland Ambition",
+   InlandAmbitionDesc$1: "$1 required War Score when attacking a landlocked province",
+   TriumphalUnity: "Triumphal Unity",
+   TriumphalUnityDesc$1$2: "$1 Stability for $2 years after winning a war as lead attacker or defender",
 };

@@ -281,6 +281,18 @@ const _ProvinceUpgrades = {
       name: () => $t(L.CommercialRenown),
       desc: () => $t(L.$1PrestigeForEachActiveTrade, "+10%"),
    },
+   MulticulturalArmy: {
+      name: () => $t(L.MulticulturalArmy),
+      desc: () => $t(L.MulticulturalArmyDesc$1$2, "+5%", "+50%"),
+   },
+   InlandAmbition: {
+      name: () => $t(L.InlandAmbition),
+      desc: () => $t(L.InlandAmbitionDesc$1, "-20%"),
+   },
+   TriumphalUnity: {
+      name: () => $t(L.TriumphalUnity),
+      desc: () => $t(L.TriumphalUnityDesc$1$2, "+10", "2"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

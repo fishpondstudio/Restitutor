@@ -57,6 +57,17 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
                save,
             });
          }
+         if (hasProvinceUpgrade("TriumphalUnity", war.attacker, save)) {
+            addModifier({
+               modifier: "Stability",
+               type: "add",
+               name: ProvinceUpgrades.TriumphalUnity.name(),
+               value: 10,
+               duration: 2 * 12,
+               province: war.attacker,
+               save,
+            });
+         }
          addProvinceStat("victoryCount", 1, war.attacker, save);
          if (war.attacker === save.state.playerProvince && war.tiles.size > 0) {
             if (war.tiles.size >= 2) {
