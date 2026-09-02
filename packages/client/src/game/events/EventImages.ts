@@ -28,6 +28,7 @@ import ChristTeaching from "../../assets/images/events/ChristTeaching.webp";
 import CiceroInSenate from "../../assets/images/events/CiceroInSenate.webp";
 import CircusBattle from "../../assets/images/events/CircusBattle.webp";
 import CivicTriumph from "../../assets/images/events/CivicTriumph.webp";
+import CivilianMigration from "../../assets/images/events/CivilianMigration.webp";
 import ClaudiusEmperor from "../../assets/images/events/ClaudiusEmperor.webp";
 import ClovisBaptism from "../../assets/images/events/ClovisBaptism.webp";
 import Colosseum from "../../assets/images/events/Colosseum.webp";
@@ -321,6 +322,11 @@ export const EventImage = {
       url: CivicTriumph,
       credit: "Le triomphe de la Ville de Paris, François-Edouard Picot (1842)",
       keywords: ["Prosperity", "City", "Allegory", "Celebration"],
+   },
+   CivilianMigration: {
+      url: CivilianMigration,
+      credit: "Abraham Leaves Haran, attributed to Francesco Bassano the Younger (1560–1592)",
+      keywords: ["Abraham", "Family", "Livestock", "HouseholdGoods", "Travel", "Exodus"],
    },
    ClaudiusEmperor: {
       url: ClaudiusEmperor,

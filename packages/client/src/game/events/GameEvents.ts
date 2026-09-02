@@ -23,6 +23,7 @@ import { ManualEvents } from "./ManualEvents";
 import { MauretaniaEvent } from "./MauretaniaEvent";
 import { MissionEvents } from "./MissionEvents";
 import { NarbonensisEvent } from "./NarbonensisEvent";
+import { NoricumEvent } from "./NoricumEvent";
 import { RaetiaEvent } from "./RaetiaEvent";
 import { RandomEvents } from "./RandomEvents";
 import { ReligiousEvents } from "./ReligiousEvents";
@@ -66,6 +67,7 @@ const _GameEvents = {
    ...NarbonensisEvent,
    ...GermaniaEvent,
    ...RaetiaEvent,
+   ...NoricumEvent,
    ...TarraconensisEvent,
    ...LusitaniaEvent,
    ...BaeticaEvent,
