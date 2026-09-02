@@ -1088,8 +1088,7 @@
          9633862,
          {
             "province": "Noricum",
-            "name": "Lauriacum",
-            "isCapital": true
+            "name": "Lauriacum"
          }
       ],
       [
@@ -1103,7 +1102,8 @@
          9568327,
          {
             "province": "Noricum",
-            "name": "Virunum"
+            "name": "Virunum",
+            "isCapital": true
          }
       ],
       [
