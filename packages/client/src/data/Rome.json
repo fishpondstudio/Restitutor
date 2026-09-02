@@ -33,8 +33,7 @@
          8519763,
          {
             "province": "Baetica",
-            "name": "Gades",
-            "isCapital": true
+            "name": "Gades"
          }
       ],
       [
@@ -55,7 +54,8 @@
          8650834,
          {
             "province": "Baetica",
-            "name": "Vergilia"
+            "name": "Corduba",
+            "isCapital": true
          }
       ],
       [
@@ -76,8 +76,7 @@
          8519759,
          {
             "province": "Lusitania",
-            "name": "Salmantica",
-            "isCapital": true
+            "name": "Salmantica"
          }
       ],
       [
@@ -119,7 +118,8 @@
          8519761,
          {
             "province": "Lusitania",
-            "name": "Emerita Augusta"
+            "name": "Emerita Augusta",
+            "isCapital": true
          }
       ],
       [
@@ -486,7 +486,7 @@
          9175114,
          {
             "province": "Narbonensis",
-            "name": "Reiorum"
+            "name": "Reii Apollinares"
          }
       ],
       [
@@ -521,7 +521,7 @@
          9175113,
          {
             "province": "Italia",
-            "name": "Taurinorum"
+            "name": "Augusta Taurinorum"
          }
       ],
       [
@@ -584,7 +584,7 @@
          8978505,
          {
             "province": "Aquitania",
-            "name": "Segusiavorum"
+            "name": "Forum Segusiavorum"
          }
       ],
       [
@@ -788,7 +788,7 @@
          9502796,
          {
             "province": "Italia",
-            "name": "Cosae"
+            "name": "Cosa"
          }
       ],
       [
@@ -859,7 +859,7 @@
          9699408,
          {
             "province": "Italia",
-            "name": "Sybaris"
+            "name": "Copia"
          }
       ],
       [
@@ -873,7 +873,7 @@
          9699410,
          {
             "province": "Sicilia",
-            "name": "Zancle"
+            "name": "Messana"
          }
       ],
       [
@@ -917,7 +917,7 @@
          9306191,
          {
             "province": "Sardinia",
-            "name": "Torres"
+            "name": "Turris Libisonis"
          }
       ],
       [
@@ -1224,7 +1224,7 @@
          10027086,
          {
             "province": "Macedonia",
-            "name": "Herakleia"
+            "name": "Heraclea Lyncestis"
          }
       ],
       [
@@ -1295,15 +1295,15 @@
          9961552,
          {
             "province": "Epirus",
-            "name": "Phoinike",
-            "isCapital": true
+            "name": "Phoinike"
          }
       ],
       [
          9961553,
          {
             "province": "Epirus",
-            "name": "Corcyra"
+            "name": "Nicopolis",
+            "isCapital": true
          }
       ],
       [
@@ -1324,7 +1324,7 @@
          10092626,
          {
             "province": "Achaia",
-            "name": "Athens",
+            "name": "Athenae",
             "isCapital": true
          }
       ],
@@ -1374,7 +1374,7 @@
          10027084,
          {
             "province": "Moesia",
-            "name": "Iustiniana Prima"
+            "name": "Caričin Grad"
          }
       ],
       [
@@ -1438,7 +1438,7 @@
          10289226,
          {
             "province": "Moesia",
-            "name": "Tropaeum"
+            "name": "Tropaeum Traiani"
          }
       ],
       [
@@ -1473,7 +1473,7 @@
          9896010,
          {
             "province": "Moesia",
-            "name": "Celegerorum"
+            "name": "Municipium Celegerorum"
          }
       ],
       [
@@ -1487,7 +1487,7 @@
          9896011,
          {
             "province": "Moesia",
-            "name": "Dardanorum"
+            "name": "Municipium Dardanorum"
          }
       ],
       [
@@ -1671,29 +1671,29 @@
          10354767,
          {
             "province": "Bithynia",
-            "name": "Byzantium",
-            "isCapital": true
+            "name": "Byzantium"
          }
       ],
       [
          10420303,
          {
             "province": "Bithynia",
-            "name": "Nicomedia"
+            "name": "Nicomedia",
+            "isCapital": true
          }
       ],
       [
          10485839,
          {
             "province": "Bithynia",
-            "name": "Kieros"
+            "name": "Prusias ad Hypium"
          }
       ],
       [
          10551374,
          {
             "province": "Bithynia",
-            "name": "Heraclea"
+            "name": "Heraclea Pontica"
          }
       ],
       [
@@ -1721,7 +1721,7 @@
          10551375,
          {
             "province": "Bithynia",
-            "name": "Bithynion"
+            "name": "Claudiopolis"
          }
       ],
       [
@@ -1763,14 +1763,14 @@
          10551377,
          {
             "province": "Asia",
-            "name": "Laodikeia"
+            "name": "Laodicea ad Lycum"
          }
       ],
       [
          10485841,
          {
             "province": "Asia",
-            "name": "Antiochia"
+            "name": "Antiochia ad Pisidiam"
          }
       ],
       [
@@ -1798,7 +1798,8 @@
          10289234,
          {
             "province": "Asia",
-            "name": "Ephesus"
+            "name": "Ephesus",
+            "isCapital": true
          }
       ],
       [
@@ -1833,8 +1834,7 @@
          10289235,
          {
             "province": "Asia",
-            "name": "Miletus",
-            "isCapital": true
+            "name": "Miletus"
          }
       ],
       [
@@ -1877,7 +1877,7 @@
          10682451,
          {
             "province": "Cilicia",
-            "name": "Soloi"
+            "name": "Pompeiopolis"
          }
       ],
       [
@@ -1920,7 +1920,7 @@
          10747984,
          {
             "province": "Galatia",
-            "name": "Pteria"
+            "name": "Agranai"
          }
       ],
       [
@@ -1942,7 +1942,7 @@
          10616913,
          {
             "province": "Galatia",
-            "name": "Garsaura"
+            "name": "Archelais"
          }
       ],
       [
@@ -2020,14 +2020,14 @@
          10879056,
          {
             "province": "Cappadocia",
-            "name": "Nicopolis"
+            "name": "Nicopolis ad Lycum"
          }
       ],
       [
          10682449,
          {
             "province": "Cappadocia",
-            "name": "Eusebeia"
+            "name": "Caesarea Cappadociae"
          }
       ],
       [
@@ -2112,7 +2112,7 @@
          10747989,
          {
             "province": "Syria",
-            "name": "Laodicea"
+            "name": "Laodicea ad Mare"
          }
       ],
       [
@@ -2232,7 +2232,7 @@
          10616924,
          {
             "province": "Aegyptus",
-            "name": "Pithom"
+            "name": "Pharan"
          }
       ],
       [
@@ -2345,7 +2345,7 @@
          10616928,
          {
             "province": "Aegyptus",
-            "name": "Lato"
+            "name": "Latopolis"
          }
       ],
       [
@@ -2753,7 +2753,7 @@
          8978516,
          {
             "province": "Mauretania",
-            "name": "Caesarea",
+            "name": "Caesarea Mauretaniae",
             "isCapital": true
          }
       ],
@@ -2881,7 +2881,7 @@
          8912964,
          {
             "province": "Lugdunensis",
-            "name": "Aulercorum"
+            "name": "Mediolanum Aulercorum"
          }
       ],
       [
@@ -3134,7 +3134,7 @@
          9175105,
          {
             "province": "Germania",
-            "name": "Ubiorum",
+            "name": "Colonia Agrippinensis",
             "isCapital": true
          }
       ],
@@ -3149,7 +3149,7 @@
          9175104,
          {
             "province": "Germania",
-            "name": "Ulpia Traiana"
+            "name": "Colonia Ulpia Traiana"
          }
       ],
       [
