@@ -1,19 +1,13 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferPatronageAction } from "../actions/TreatyActions";
-import { Province } from "../definitions/Province";
 import { Tiles } from "../definitions/TileConstants";
 import {
+   forcePatronageEffect,
    isCoreTileCondition,
    marriageCondition,
    maxCoreTileCondition,
    minCoreTileCondition,
 } from "../logic/MissionLogic";
-import {
-   dissolveAllTreaties,
-   requireAnyTreatyBetween,
-   requireNoTreatyBetween,
-   requirePeaceBetween,
-} from "../logic/TreatyLogic";
+import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -355,15 +349,7 @@ export const SiciliaEvent = {
       buttons: [
          {
             label: () => $t(L.ReceiveSardiniaAsOurClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Sardinia", save);
-                     OfferPatronageAction(province, "Sardinia", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Sardinia.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Sardinia")],
          },
       ],
    },
@@ -385,15 +371,7 @@ export const SiciliaEvent = {
       buttons: [
          {
             label: () => $t(L.ReceiveCorsicaAsOurClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Corsica", save);
-                     OfferPatronageAction(province, "Corsica", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Corsica.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Corsica")],
          },
       ],
    },
@@ -415,15 +393,7 @@ export const SiciliaEvent = {
       buttons: [
          {
             label: () => $t(L.ReceiveAfricaAsOurClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Africa", save);
-                     OfferPatronageAction(province, "Africa", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Africa.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Africa")],
          },
       ],
    },

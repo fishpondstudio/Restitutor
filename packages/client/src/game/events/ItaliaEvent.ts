@@ -1,19 +1,13 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferPatronageAction } from "../actions/TreatyActions";
-import { Province } from "../definitions/Province";
 import {
    allCoreTileCondition,
+   forcePatronageEffect,
    marriageCondition,
    minCoreCoastalTileCondition,
    minCoreTileCondition,
    provinceResourceCondition,
 } from "../logic/MissionLogic";
-import {
-   dissolveAllTreaties,
-   requireAnyTreatyBetween,
-   requireNoTreatyBetween,
-   requirePeaceBetween,
-} from "../logic/TreatyLogic";
+import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -343,15 +337,7 @@ export const ItaliaEvent = {
       buttons: [
          {
             label: () => $t(L.ReceiveCorsicaAsOurLoyalClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Corsica", save);
-                     OfferPatronageAction(province, "Corsica", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Corsica.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Corsica")],
          },
       ],
    },
@@ -372,15 +358,7 @@ export const ItaliaEvent = {
       buttons: [
          {
             label: () => $t(L.WelcomeSardiniaIntoOurClientRealm),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Sardinia", save);
-                     OfferPatronageAction(province, "Sardinia", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Sardinia.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Sardinia")],
          },
       ],
    },

@@ -1,15 +1,14 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
-import { maxCoreTileCondition, minCoreTileCondition, warPowerCondition } from "../logic/MissionLogic";
-import { getProvinceResource } from "../logic/ProvinceLogic";
 import {
-   dissolveAllTreaties,
-   requireAnyTreatyBetween,
-   requireNoTreatyBetween,
-   requirePeaceBetween,
-} from "../logic/TreatyLogic";
+   forcePatronageEffect,
+   maxCoreTileCondition,
+   minCoreTileCondition,
+   warPowerCondition,
+} from "../logic/MissionLogic";
+import { getProvinceResource } from "../logic/ProvinceLogic";
+import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -362,15 +361,7 @@ export const GermaniaEvent = {
       buttons: [
          {
             label: () => $t(L.$1BecomesOurClient, Province.Raetia.name()),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Raetia", save);
-                     OfferPatronageAction(province, "Raetia", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Raetia.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Raetia")],
          },
       ],
    },
@@ -390,15 +381,7 @@ export const GermaniaEvent = {
       buttons: [
          {
             label: () => $t(L.$1BecomesOurClient, Province.Belgica.name()),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Belgica", save);
-                     OfferPatronageAction(province, "Belgica", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Belgica.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Belgica")],
          },
       ],
    },

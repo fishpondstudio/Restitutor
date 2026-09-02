@@ -1,9 +1,8 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Culture } from "../definitions/Culture";
-import { Province } from "../definitions/Province";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
 import {
+   forcePatronageEffect,
    isCoreTileCondition,
    maxCoreTileCondition,
    mediterraneanCoastCondition,
@@ -11,7 +10,7 @@ import {
    minCulturePercentageCondition,
 } from "../logic/MissionLogic";
 import { changeProvinceCulture } from "../logic/ProvinceLogic";
-import { dissolveAllTreaties, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import { requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -444,15 +443,7 @@ export const RaetiaEvent = {
       buttons: [
          {
             label: () => $t(L.ReceiveNoricumAsOurClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Noricum", save);
-                     OfferPatronageAction(province, "Noricum", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Noricum.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Noricum")],
          },
       ],
    },

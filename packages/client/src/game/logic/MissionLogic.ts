@@ -1,6 +1,7 @@
 import { formatNumber, formatPercent, type Tile } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
+import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Culture } from "../definitions/Culture";
 import {
    type Province,
@@ -11,6 +12,7 @@ import {
 } from "../definitions/Province";
 import { Religion, type Religion as ReligionType } from "../definitions/Religion";
 import { RefreshTiles } from "../Events";
+import type { ICustomEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { getMarriageAlliance } from "./DiplomacyLogic";
 import {
@@ -29,7 +31,7 @@ import {
    provinceResourceOf,
 } from "./ProvinceLogic";
 import { isCoreTile } from "./TileLogic";
-import { getAllies } from "./TreatyLogic";
+import { dissolveAllTreaties, getAllies } from "./TreatyLogic";
 
 export function provinceRevenueCondition(minimum: number, province: Province, save: SaveGame): ICondition {
    const monthlyRevenue = getProvinceIncome(province, save).revenue.value;
@@ -335,5 +337,16 @@ export function minReligionCountCondition(
       ),
       value: count >= minimum,
       progress: [count, minimum],
+   };
+}
+
+export function forcePatronageEffect(client: Province): ICustomEffect {
+   return {
+      effect: (province, save) => {
+         if (province === client) return;
+         dissolveAllTreaties(client, save);
+         OfferPatronageAction(province, client, save).effect({ headless: false });
+      },
+      desc: (province, save) => $t(L.$1BecomesOurClient, getProvinceName(client, save)),
    };
 }

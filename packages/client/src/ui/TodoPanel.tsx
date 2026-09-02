@@ -60,6 +60,7 @@ import { WarTooltip } from "./WarTooltip";
 
 export function TodoPanel(): React.ReactNode {
    if (!G.save) return null;
+   if (G.params.get("hide")?.includes("todo")) return null;
    return (
       <div className="todo-panel">
          {[...getCurrentWars(G.save.state.playerProvince, G.save).map(WarTodo), ...entriesOf(Todos)].map(

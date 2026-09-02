@@ -1,17 +1,17 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActions";
+import { OfferAllianceAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
 import {
    annexTiles,
+   forcePatronageEffect,
    isCoreTileCondition,
    maxCoreTileCondition,
    provinceResourceCondition,
 } from "../logic/MissionLogic";
 import { getProvinceName, getProvinceResource } from "../logic/ProvinceLogic";
 import {
-   dissolveAllTreaties,
    requireAnyTreatyBetween,
    requireHigherPrestige,
    requireMinimumAttitude,
@@ -487,15 +487,7 @@ export const TarraconensisEvent = {
          {
             resources: { gold: -10_000, diplomatic: -100 },
             label: () => $t(L.ReceiveLusitaniaAsOurClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Lusitania", save);
-                     OfferPatronageAction(province, "Lusitania", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Lusitania.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Lusitania")],
          },
       ],
    },

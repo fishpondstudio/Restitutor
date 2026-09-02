@@ -1,8 +1,7 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferPatronageAction } from "../actions/TreatyActions";
-import { Province } from "../definitions/Province";
 import {
    allCoreTileCondition,
+   forcePatronageEffect,
    isCoreTileCondition,
    manpowerCondition,
    maxCoreTileCondition,
@@ -10,12 +9,7 @@ import {
    minCoreTileCondition,
    provinceRevenueCondition,
 } from "../logic/MissionLogic";
-import {
-   dissolveAllTreaties,
-   requireAnyTreatyBetween,
-   requireNoTreatyBetween,
-   requirePeaceBetween,
-} from "../logic/TreatyLogic";
+import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -458,15 +452,7 @@ export const BritanniaEvent = {
       buttons: [
          {
             label: () => $t(L.ReceiveBelgicaAsOurClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Belgica", save);
-                     OfferPatronageAction(province, "Belgica", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Belgica.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Belgica")],
          },
       ],
    },

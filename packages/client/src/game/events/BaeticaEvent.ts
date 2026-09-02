@@ -1,11 +1,10 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferPatronageAction } from "../actions/TreatyActions";
-import { Province } from "../definitions/Province";
 import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import {
    allCoreTileCondition,
    annexTiles,
+   forcePatronageEffect,
    marriageCondition,
    maxCoreTileCondition,
    minCoreTileCondition,
@@ -13,12 +12,7 @@ import {
    warPowerCondition,
 } from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
-import {
-   dissolveAllTreaties,
-   requireAnyTreatyBetween,
-   requireNoTreatyBetween,
-   requirePeaceBetween,
-} from "../logic/TreatyLogic";
+import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -440,15 +434,7 @@ export const BaeticaEvent = {
          {
             label: () => $t(L.ReceiveLusitaniaAsOurClient),
             resources: { diplomatic: -200 },
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Lusitania", save);
-                     OfferPatronageAction(province, "Lusitania", save).effect({ headless: false });
-                  },
-                  desc: (_province, _save) => $t(L.$1BecomesOurClient, Province.Lusitania.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Lusitania")],
          },
          {
             label: () => $t(L.RenewTheUnionBetweenEquals),

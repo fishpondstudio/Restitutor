@@ -1,20 +1,15 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import {
    annexTiles,
+   forcePatronageEffect,
    marriageCondition,
    provinceResourceCondition,
    provinceRevenueCondition,
 } from "../logic/MissionLogic";
 import { getProvinceResource } from "../logic/ProvinceLogic";
-import {
-   dissolveAllTreaties,
-   requireAnyTreatyBetween,
-   requireNoTreatyBetween,
-   requirePeaceBetween,
-} from "../logic/TreatyLogic";
+import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -405,15 +400,7 @@ export const NarbonensisEvent = {
          {
             label: () => $t(L.SealCorsicasLoyaltyWithAPrincelyDowry),
             resources: { gold: -5000 },
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Corsica", save);
-                     OfferPatronageAction(province, "Corsica", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Corsica.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Corsica")],
          },
       ],
    },

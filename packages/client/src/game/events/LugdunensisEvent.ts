@@ -1,6 +1,5 @@
 import { filterInPlace, fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
-import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { getOriginalTileCount } from "../GameState";
@@ -8,6 +7,7 @@ import { availableDiplomatCondition, getRelation } from "../logic/DiplomacyLogic
 import {
    allCoreTileCondition,
    anyCoreTileCondition,
+   forcePatronageEffect,
    manpowerCondition,
    marriageCondition,
    maxCoreTileCondition,
@@ -19,12 +19,7 @@ import {
    warPowerCondition,
 } from "../logic/MissionLogic";
 import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
-import {
-   dissolveAllTreaties,
-   requireMinimumAttitude,
-   requireNoTreatyBetween,
-   requirePeaceBetween,
-} from "../logic/TreatyLogic";
+import { requireMinimumAttitude, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { hasGeneralCondition } from "../logic/WarLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -165,15 +160,7 @@ export const LugdunensisEvent = {
       buttons: [
          {
             label: () => $t(L.BelgicaShallServeAsOurLoyalClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Belgica", save);
-                     OfferPatronageAction(province, "Belgica", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Belgica.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Belgica")],
          },
       ],
    },
