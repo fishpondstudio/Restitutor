@@ -3187,7 +3187,6 @@ export const ZH_CN = {
    GreatWorkTempleOfArtemis: "阿耳忒弥斯神庙",
    GreatWorkPharosOfAlexandria: "亚历山大灯塔",
    GreatWorkHadriansWall: "哈德良长城",
-   GreatWorkRomanWallsOfLugo: "卢戈罗马城墙",
    GreatWorkAqueductOfSegovia: "塞哥维亚输水道",
    GreatWorkPortaNigra: "尼格拉城门",
    GreatWorkPontDuGard: "加尔桥",
@@ -3196,7 +3195,7 @@ export const ZH_CN = {
    GreatWorkDiocletiansPalace: "戴克里先宫",
    GreatWorkRotundaOfGalerius: "伽列里乌斯圆形大厅",
    GreatWorkHagiaSophia: "圣索菲亚大教堂",
-   GreatWorkTempleOfBelComplex: "贝尔神庙建筑群",
+   GreatWorkTempleOfBel: "贝尔神庙",
    GreatWorkAlKhazneh: "卡兹尼神殿",
    GreatWorkChurchOfTheHolySepulchre: "圣墓教堂",
    $1HasAtLeast$2TilesWith$3Culture: "$1 至少有 $2 个地块属于 $3 文化",
@@ -3455,4 +3454,5 @@ export const ZH_CN = {
    WartimeAdministration: "战时行政",
    $1TileMaintenanceWhileAtWar: "战争期间地块维护费$1",
    $1WarPowerForEachNeighboringProvinceUpTo$2: "每个相邻省份使军力$1（最高$2）",
+   GreatWorkTowerOfHercules: "海格力斯塔",
 };

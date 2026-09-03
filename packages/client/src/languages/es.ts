@@ -3252,7 +3252,6 @@ export const ES = {
    GreatWorkTempleOfArtemis: "Templo de Artemisa",
    GreatWorkPharosOfAlexandria: "Faro de Alejandría",
    GreatWorkHadriansWall: "Muro de Adriano",
-   GreatWorkRomanWallsOfLugo: "Muralla romana de Lugo",
    GreatWorkAqueductOfSegovia: "Acueducto de Segovia",
    GreatWorkPortaNigra: "Porta Nigra",
    GreatWorkPontDuGard: "Pont du Gard",
@@ -3261,7 +3260,7 @@ export const ES = {
    GreatWorkDiocletiansPalace: "Palacio de Diocleciano",
    GreatWorkRotundaOfGalerius: "Rotonda de Galerio",
    GreatWorkHagiaSophia: "Santa Sofía",
-   GreatWorkTempleOfBelComplex: "Complejo del Templo de Bel",
+   GreatWorkTempleOfBel: "Templo de Bel",
    GreatWorkAlKhazneh: "Al-Khazneh",
    GreatWorkChurchOfTheHolySepulchre: "Iglesia del Santo Sepulcro",
    $1HasAtLeast$2TilesWith$3Culture: "$1 tiene al menos $2 territorios con cultura $3",
@@ -3532,4 +3531,5 @@ export const ES = {
    WartimeAdministration: "Administración en tiempos de guerra",
    $1TileMaintenanceWhileAtWar: "$1 de mantenimiento territorial mientras estemos en guerra",
    $1WarPowerForEachNeighboringProvinceUpTo$2: "$1 de poder bélico por cada provincia vecina (hasta $2)",
+   GreatWorkTowerOfHercules: "Torre de Hércules",
 };

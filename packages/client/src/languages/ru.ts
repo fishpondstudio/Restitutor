@@ -3216,7 +3216,6 @@ export const RU = {
    GreatWorkTempleOfArtemis: "Храм Артемиды",
    GreatWorkPharosOfAlexandria: "Александрийский маяк",
    GreatWorkHadriansWall: "Вал Адриана",
-   GreatWorkRomanWallsOfLugo: "Римские стены Луго",
    GreatWorkAqueductOfSegovia: "Акведук в Сеговии",
    GreatWorkPortaNigra: "Порта-Нигра",
    GreatWorkPontDuGard: "Пон-дю-Гар",
@@ -3225,7 +3224,7 @@ export const RU = {
    GreatWorkDiocletiansPalace: "Дворец Диоклетиана",
    GreatWorkRotundaOfGalerius: "Ротонда Галерия",
    GreatWorkHagiaSophia: "Собор Святой Софии",
-   GreatWorkTempleOfBelComplex: "Храмовый комплекс Бэла",
+   GreatWorkTempleOfBel: "Храм Бэла",
    GreatWorkAlKhazneh: "Эль-Хазне",
    GreatWorkChurchOfTheHolySepulchre: "Храм Гроба Господня",
    $1HasAtLeast$2TilesWith$3Culture: "$1: как минимум $2 владений имеют культуру $3",
@@ -3485,4 +3484,5 @@ export const RU = {
    WartimeAdministration: "Администрация военного времени",
    $1TileMaintenanceWhileAtWar: "$1 к содержанию владений во время войны",
    $1WarPowerForEachNeighboringProvinceUpTo$2: "$1 к военной мощи за каждую соседнюю провинцию (до $2)",
+   GreatWorkTowerOfHercules: "Башня Геркулеса",
 };
