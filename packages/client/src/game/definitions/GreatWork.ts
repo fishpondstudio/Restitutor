@@ -25,7 +25,7 @@ interface IGreatWork {
    tile: Tile;
    completionYear: number;
    image: ImageWithCredit;
-   modifiers?: Partial<Record<Modifier, IBaseModifier>>;
+   modifiers: Partial<Record<Modifier, IBaseModifier>>;
 }
 
 export const _GreatWork = {
@@ -37,6 +37,9 @@ export const _GreatWork = {
          url: GreatPyramidOfGiza,
          credit: "The Sphinx and the Pyramids of Giza, Josef Langl (1883)",
       },
+      modifiers: {
+         LandTax: { type: "multiply", value: 0.1 },
+      },
    },
    TempleOfArtemis: {
       name: () => $t(L.GreatWorkTempleOfArtemis),
@@ -46,6 +49,9 @@ export const _GreatWork = {
          url: TempleOfArtemis,
          credit: "The Building of the Temple of Artemis at Ephesus, Hendrik van Cleve (III)",
       },
+      modifiers: {
+         TileOutput: { type: "multiply", value: 0.1 },
+      },
    },
    PharosOfAlexandria: {
       name: () => $t(L.GreatWorkPharosOfAlexandria),
@@ -54,6 +60,9 @@ export const _GreatWork = {
       image: {
          url: PharosOfAlexandria,
          credit: "Lighthouse of Alexandria, Philip Galle (1572)",
+      },
+      modifiers: {
+         ResearchCost: { type: "multiply", value: -0.1 },
       },
    },
    RoyalMausoleumOfMauretania: {
@@ -76,6 +85,9 @@ export const _GreatWork = {
          url: HadriansWall,
          credit: "The Romans cause a Wall to be built for the Protection of the South, William Bell Scott (1857)",
       },
+      modifiers: {
+         Defense: { type: "multiply", value: 0.1 },
+      },
    },
    RomanTempleOfEvora: {
       name: () => $t(L.GreatWorkRomanTempleOfEvora),
@@ -84,6 +96,9 @@ export const _GreatWork = {
       image: {
          url: RomanTempleOfEvora,
          credit: "Templo de Diana em Évora, Alfredo Roque Gameiro (1917)",
+      },
+      modifiers: {
+         TradeProfit: { type: "multiply", value: 0.1 },
       },
    },
    AqueductOfSegovia: {
@@ -106,6 +121,9 @@ export const _GreatWork = {
          url: PortaNigra,
          credit: "Ansicht von Trier von Trier mit Blick auf die Porta Nigra, Carl Rüdell",
       },
+      modifiers: {
+         WarPower: { type: "multiply", value: 0.1 },
+      },
    },
    PontDuGard: {
       name: () => $t(L.GreatWorkPontDuGard),
@@ -114,6 +132,9 @@ export const _GreatWork = {
       image: {
          url: PontDuGard,
          credit: "The Pont du Gard, Hubert Robert (1786)",
+      },
+      modifiers: {
+         ProductionCapacity: { type: "add", value: 5 },
       },
    },
    Colosseum: {
@@ -148,6 +169,9 @@ export const _GreatWork = {
          url: DiocletiansPalace,
          credit: "Zeichnung zur Rekonstruktion des Diokletianspalastes in Split (Kroatien), Ernest Hébrard (1912)",
       },
+      modifiers: {
+         MakeCoreCost: { type: "multiply", value: -0.1 },
+      },
    },
    RotundaOfGalerius: {
       name: () => $t(L.GreatWorkRotundaOfGalerius),
@@ -158,6 +182,9 @@ export const _GreatWork = {
          credit:
             "Byzantine Arcitecture, illustrated by Examples of Edifices erected in the East during the earliest Ages of Christianity, Félix Marie Charles Texier (1864)",
       },
+      modifiers: {
+         TradeCapacity: { type: "add", value: 1 },
+      },
    },
    HagiaSophia: {
       name: () => $t(L.GreatWorkHagiaSophia),
@@ -166,6 +193,9 @@ export const _GreatWork = {
       image: {
          url: HagiaSophia,
          credit: "Aya Sofia, Constantinople, Gaspare Fossati (1852)",
+      },
+      modifiers: {
+         AdministrativePoint: { type: "add", value: 1 },
       },
    },
    TempleOfBel: {
@@ -176,6 +206,9 @@ export const _GreatWork = {
          url: TempleOfBel,
          credit: "The ruins of the temple of the sun, Palmyra, Carl Haag (1859)",
       },
+      modifiers: {
+         Stability: { type: "add", value: 10 },
+      },
    },
    AlKhazneh: {
       name: () => $t(L.GreatWorkAlKhazneh),
@@ -185,6 +218,9 @@ export const _GreatWork = {
          url: AlKhazneh,
          credit: "El Khasnè, Petra. Coloured lithograph by Louis Haghe after David Roberts (1849)",
       },
+      modifiers: {
+         Prestige: { type: "add", value: 10 },
+      },
    },
    ChurchOfTheHolySepulchre: {
       name: () => $t(L.GreatWorkChurchOfTheHolySepulchre),
@@ -193,6 +229,9 @@ export const _GreatWork = {
       image: {
          url: ChurchOfTheHolySepulchre,
          credit: "Jerusalem with the Church of the Holy Sepulchre, Luigi Mayer (1804)",
+      },
+      modifiers: {
+         ChristianityYearly: { type: "add", value: 1 },
       },
    },
 } as const satisfies Record<string, IGreatWork>;
