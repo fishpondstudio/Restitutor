@@ -1,4 +1,4 @@
-import { forEach, keysOf, randInt, range, type Tile, uuid4 } from "@project/shared/src/utils/Helper";
+import { entriesOf, forEach, keysOf, randInt, range, type Tile, uuid4 } from "@project/shared/src/utils/Helper";
 import { WorldScene } from "../scenes/WorldScene";
 import { BarbarianRaidModal } from "../ui/BarbarianRaidModal";
 import { ChronicleModal } from "../ui/ChronicleModal";
@@ -13,6 +13,7 @@ import { WarEndedModal } from "../ui/WarEndedModal";
 import { G, isDev } from "../utils/Global";
 import { renderMap } from "./ASCIIMapRenderer";
 import { type IFamily, PersonFlags } from "./definitions/Family";
+import { GreatWork } from "./definitions/GreatWork";
 import type { Province } from "./definitions/Province";
 import { SpawnedProvinces } from "./definitions/SpawnedProvince";
 import { TileName } from "./definitions/TileName";
@@ -205,6 +206,11 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.printHex = () => {
       console.log(renderMap(G.save, true));
+   };
+
+   // @ts-expect-error
+   globalThis.showGreatWorks = () => {
+      G.scene.getCurrent(WorldScene)?.drawSelectors(new Set(entriesOf(GreatWork).map(([key, value]) => value.tile)));
    };
 
    // @ts-expect-error
