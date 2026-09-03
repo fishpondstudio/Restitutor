@@ -159,7 +159,7 @@ export function RebirthPage(): React.ReactNode {
          </div>
          {greatWorks.length > 0 && (
             <div className="box m10">
-               <div className="h3">Provincial Great Works</div>
+               <div className="h3">{$t(L.ProvincialGreatWorks)}</div>
                {greatWorks.map((greatWork, idx) => (
                   <Fragment key={greatWork}>
                      {idx > 0 && <div className="divider" />}

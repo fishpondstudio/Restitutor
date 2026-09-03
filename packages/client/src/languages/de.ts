@@ -3535,7 +3535,11 @@ export const DE = {
    WartimeAdministration: "Kriegsverwaltung",
    $1TileMaintenanceWhileAtWar: "$1 Gebietsunterhalt im Krieg",
    $1WarPowerForEachNeighboringProvinceUpTo$2: "$1 Kriegsmacht für jede benachbarte Provinz (bis zu $2)",
-   GreatWorkTowerOfHercules: "Herkulesturm",
    GreatWorkRomanTempleOfEvora: "Römischer Tempel von Évora",
    GreatWorkRoyalMausoleumOfMauretania: "Königliches Mausoleum von Mauretanien",
+   $1AD: "$1 n. Chr.",
+   $1BC: "$1 v. Chr.",
+   $1IsCompletedIn$2ItsEffectAppliesAfterCompletion: "$1 wird im Jahr <b>$2</b> fertiggestellt. Der Effekt gilt ab der Fertigstellung.",
+   ClickToPanToTheGreatWorkTile: "Klicken, um zum Gebiet des Großbauwerks zu schwenken",
+   ProvincialGreatWorks: "Großbauwerke der Provinz",
 };

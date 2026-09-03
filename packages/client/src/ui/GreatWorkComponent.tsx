@@ -6,6 +6,7 @@ import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { FloatingTip } from "./components/FloatingTip";
+import { html } from "./components/RenderHTMLComp";
 
 export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): React.ReactNode {
    const config = GreatWork[greatWork];
@@ -16,12 +17,17 @@ export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): Rea
          label={
             <>
                <div className="m10">
-                  {config.name()} is completed on <b>{formatYear(config.completionYear)}</b> - its effect is applied
-                  after the completion.
+                  {html(
+                     $t(
+                        L.$1IsCompletedIn$2ItsEffectAppliesAfterCompletion,
+                        config.name(),
+                        formatYear(config.completionYear),
+                     ),
+                  )}
                </div>
                <div className="h3 row g5">
                   <div className="mi xs">visibility</div>
-                  <div className="f1">Click to pan to the great work tile</div>
+                  <div className="f1">{$t(L.ClickToPanToTheGreatWorkTile)}</div>
                </div>
                <div className="m10 text-dimmed text-sm">{$t(L.ImageCredit$1, config.image.credit)}</div>
             </>

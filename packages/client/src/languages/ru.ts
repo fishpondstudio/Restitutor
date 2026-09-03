@@ -3484,7 +3484,11 @@ export const RU = {
    WartimeAdministration: "Администрация военного времени",
    $1TileMaintenanceWhileAtWar: "$1 к содержанию владений во время войны",
    $1WarPowerForEachNeighboringProvinceUpTo$2: "$1 к военной мощи за каждую соседнюю провинцию (до $2)",
-   GreatWorkTowerOfHercules: "Башня Геркулеса",
    GreatWorkRomanTempleOfEvora: "Римский храм в Эворе",
    GreatWorkRoyalMausoleumOfMauretania: "Королевский мавзолей Мавретании",
+   $1AD: "$1 г. н.э.",
+   $1BC: "$1 г. до н.э.",
+   $1IsCompletedIn$2ItsEffectAppliesAfterCompletion: "Строительство сооружения «$1» завершается в <b>$2</b>. Его эффект применяется после завершения.",
+   ClickToPanToTheGreatWorkTile: "Нажмите, чтобы переместить камеру к владению с великим сооружением",
+   ProvincialGreatWorks: "Великие сооружения провинции",
 };

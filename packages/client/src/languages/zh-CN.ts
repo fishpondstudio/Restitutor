@@ -3454,7 +3454,11 @@ export const ZH_CN = {
    WartimeAdministration: "战时行政",
    $1TileMaintenanceWhileAtWar: "战争期间地块维护费$1",
    $1WarPowerForEachNeighboringProvinceUpTo$2: "每个相邻省份使军力$1（最高$2）",
-   GreatWorkTowerOfHercules: "海格力斯塔",
    GreatWorkRomanTempleOfEvora: "埃武拉罗马神庙",
    GreatWorkRoyalMausoleumOfMauretania: "毛里塔尼亚皇家陵墓",
+   $1AD: "公元 $1 年",
+   $1BC: "公元前 $1 年",
+   $1IsCompletedIn$2ItsEffectAppliesAfterCompletion: "$1 于<b>$2</b>建成，其效果在建成后生效。",
+   ClickToPanToTheGreatWorkTile: "点击将视角移至伟大工程所在的地块",
+   ProvincialGreatWorks: "行省伟大工程",
 };

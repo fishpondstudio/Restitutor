@@ -1,4 +1,5 @@
-import { monthsBetween } from "@project/shared/src/utils/Helper";
+import { formatNumber, monthsBetween } from "@project/shared/src/utils/Helper";
+import { $t, L } from "../../utils/i18n";
 
 const StartDate = getGameDate(0);
 
@@ -20,7 +21,7 @@ export function monthToDate(month: number): Date {
 
 export function formatYear(year: number): string {
    if (year >= 0) {
-      return `${Math.abs(year)} AD`;
+      return $t(L.$1AD, formatNumber(Math.abs(year)));
    }
-   return `${Math.abs(year)} BC`;
+   return $t(L.$1BC, formatNumber(Math.abs(year)));
 }
