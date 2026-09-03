@@ -1,13 +1,13 @@
 import { $t, L } from "../../utils/i18n";
 import { getTileName } from "../definitions/TileName";
 import {
+   allCoreTileCondition,
    annexTiles,
    minCoreTileCondition,
    provinceResourceCondition,
    provinceRevenueCondition,
 } from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
-import { allCoreTileCondition } from "../logic/TileLogic";
 import { requireAnyTreatyBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";

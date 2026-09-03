@@ -16,7 +16,7 @@ export function TutorialPanel(): React.ReactNode {
    refreshOnTypedEvent(GameOptionUpdated);
    refreshOnTypedEvent(GameSpeedChanged);
    const tutorial = getCurrentTutorial(G.save);
-   if (!tutorial) {
+   if (!tutorial || G.params.get("hide")?.includes("tutorial")) {
       return null;
    }
    const [progress, total] = tutorial.progress(G.save);

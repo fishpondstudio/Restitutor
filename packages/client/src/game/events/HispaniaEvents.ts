@@ -3,9 +3,13 @@ import { $t, L } from "../../utils/i18n";
 import { HispaniaProvinces } from "../definitions/TileConstants";
 import { TimedActions } from "../definitions/TimedAction";
 import { getOriginalTileCount } from "../GameState";
-import { minCoreTileCondition } from "../logic/MissionLogic";
+import {
+   allCoreTileCondition,
+   anyCoreTileCondition,
+   isCoreTileCondition,
+   minCoreTileCondition,
+} from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
-import { allCoreTileCondition, anyCoreTileCondition, isCoreTileCondition } from "../logic/TileLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -88,7 +92,7 @@ export const HispaniaEvent = {
       condition: {
          playerOnly: true,
          province: HispaniaProvinces,
-         provinceOnMap: ["Suebi"],
+         onMap: { Suebi: true },
          conditions: (province, save) => {
             return [
                {
@@ -125,7 +129,7 @@ export const HispaniaEvent = {
       desc: () => $t(L.AFootholdInAfricaDesc),
       condition: {
          playerOnly: true,
-         provinceOnMap: ["Mauretania"],
+         onMap: { Mauretania: true },
          province: HispaniaProvinces,
          conditions: (province, save) => {
             return [allCoreTileCondition([8519765, 8519766, 8585302], province, save)];

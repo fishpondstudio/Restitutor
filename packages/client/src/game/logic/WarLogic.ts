@@ -34,11 +34,12 @@ import {
    getProvinceStat,
    getProvinceTileCount,
    getWarPower,
+   isLandlocked,
    isTileConnectedBySea,
    provinceResourceOf,
    setProvinceStat,
 } from "./ProvinceLogic";
-import { getTileDefense } from "./TileLogic";
+import { getTileDefense, getTileTerrain } from "./TileLogic";
 import { endTimedActionAndResetCooldown, getTimedActionTimeLeft } from "./TimedActionLogic";
 
 export const WarFlag = {
@@ -251,6 +252,16 @@ export function getWarScore(
                value: -0.2 * defense.value,
             });
          }
+         const terrain = getTileTerrain(tile);
+         if (
+            hasProvinceUpgrade("MastersOfThePasses", attacker, save) &&
+            (terrain === "Hill" || terrain === "Mountain")
+         ) {
+            result.add.push({
+               name: `${ProvinceUpgrades.MastersOfThePasses.name()}: ${getTileName(tile, save)}`,
+               value: -0.2 * defense.value,
+            });
+         }
          if (casusBelli === "Reconquista" && data.originalProvince === attacker) {
             result.add.push({
                name: $t(L.Reconquista$1, getTileName(tile, save)),
@@ -320,6 +331,9 @@ export function getWarScore(
       getDiplomaticDistance(attacker, defender, save) <= 10
    ) {
       result.multiply.push({ name: ProvinceUpgrades.MediterraneanAmbition.name(), value: -0.2 });
+   }
+   if (hasProvinceUpgrade("InlandAmbition", attacker, save) && isLandlocked(defender, save)) {
+      result.multiply.push({ name: ProvinceUpgrades.InlandAmbition.name(), value: -0.2 });
    }
 
    attachModifiers("WarScore", result, attacker, save);

@@ -1,4 +1,4 @@
-import { clamp, filterOf, forEach, isNullOrUndefined, sizeOf } from "@project/shared/src/utils/Helper";
+import { clamp, entriesOf, filterOf, forEach, isNullOrUndefined, sizeOf } from "@project/shared/src/utils/Helper";
 import type React from "react";
 import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
@@ -158,12 +158,19 @@ export function getGameEventCondition(
          hidden: true,
       });
    }
-   if (condition.provinceOnMap) {
-      condition.provinceOnMap.forEach((province) => {
-         result.push({
-            name: $t(L.$1IsOnTheMap, province),
-            value: !isNullOrUndefined(save.state.provinces[province]),
-         });
+   if (condition.onMap) {
+      forEach(condition.onMap, (province, value) => {
+         result.push(
+            value
+               ? {
+                    name: $t(L.$1IsOnTheMap, province),
+                    value: !isNullOrUndefined(save.state.provinces[province]),
+                 }
+               : {
+                    name: $t(L.$1IsNotOnTheMap, province),
+                    value: isNullOrUndefined(save.state.provinces[province]),
+                 },
+         );
       });
    }
    if (condition.nameOverride) {
@@ -238,9 +245,12 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
       if (config.condition.province && !config.condition.province.includes(province)) {
          return;
       }
-      if (config.condition.provinceOnMap && !showAll) {
-         for (const province of config.condition.provinceOnMap) {
-            if (isNullOrUndefined(save.state.provinces[province])) {
+      if (config.condition.onMap) {
+         for (const [province, value] of entriesOf(config.condition.onMap)) {
+            if (value === true && isNullOrUndefined(save.state.provinces[province])) {
+               return;
+            }
+            if (value === false && !isNullOrUndefined(save.state.provinces[province])) {
                return;
             }
          }

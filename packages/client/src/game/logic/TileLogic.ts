@@ -12,17 +12,19 @@ import { ChristianHeresy, isChristianReligion } from "../definitions/Religion";
 import { BarbarianRaidNegativeEffect } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
 import type { Terrain } from "../definitions/Terrain";
-import { initTileData, TerrainToGoods } from "../definitions/Tile";
+import { type ITileData, initTileData, TerrainToGoods } from "../definitions/Tile";
 import { TimedActions } from "../definitions/TimedAction";
-import { GameStateUpdated, RefreshTiles } from "../Events";
+import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { isLand, terrainOf } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { cacheTile, isConnectedToCapital } from "./CacheLogic";
 import { EcumenicalCouncilPct } from "./EcumenicalCouncilLogic";
+import { tileIsOurCoreCondition } from "./MissionLogic";
 import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
 import {
    getCulturalCohesion,
+   getNeighborProvinces,
    getProvinceName,
    getProvinceOverextension,
    getProvinceStability,
@@ -163,6 +165,15 @@ function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
          breakdown.multiply.push({
             name: ProvinceUpgrades.BountifulCoastlines.name(),
             value: coastalEdgeCount * 0.1,
+         });
+      }
+   }
+   if (hasProvinceUpgrade("BountifulFrontiers", data.province, save) && data.coreProvinces.has(data.province)) {
+      const frontierEdgeCount = getFrontierEdgeCount(tile, save);
+      if (frontierEdgeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.BountifulFrontiers.name(),
+            value: frontierEdgeCount * 0.1,
          });
       }
    }
@@ -379,12 +390,30 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
          });
       }
    }
+   if (hasProvinceUpgrade("CrossroadsTaxDistricts", data.province, save)) {
+      const neighboringProvinceCount = getNeighborProvinces(data.province, save).size;
+      if (neighboringProvinceCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.CrossroadsTaxDistricts.name(),
+            value: Math.min(neighboringProvinceCount * 0.05, 0.5),
+         });
+      }
+   }
    if (hasProvinceUpgrade("BountifulCoastlines", data.province, save) && data.coreProvinces.has(data.province)) {
       const coastalEdgeCount = getCoastalEdgeCount(tile);
       if (coastalEdgeCount > 0) {
          breakdown.multiply.push({
             name: ProvinceUpgrades.BountifulCoastlines.name(),
             value: coastalEdgeCount * 0.1,
+         });
+      }
+   }
+   if (hasProvinceUpgrade("BountifulFrontiers", data.province, save) && data.coreProvinces.has(data.province)) {
+      const frontierEdgeCount = getFrontierEdgeCount(tile, save);
+      if (frontierEdgeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.BountifulFrontiers.name(),
+            value: frontierEdgeCount * 0.1,
          });
       }
    }
@@ -451,6 +480,12 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.GoodsTax, breakdown);
    attachModifiers("TileOutput", breakdown, data.province, save);
+   if (hasProvinceUpgrade("ProductiveInvestment", data.province, save) && data.upgradeCount > 0) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.ProductiveInvestment.name(),
+         value: data.upgradeCount * 0.02,
+      });
+   }
    if (hasProvinceUpgrade("GranaryOfTheEmpire", data.province, save)) {
       let grainTileCount = 0;
       for (const [, provinceTileData] of save.state.tiles) {
@@ -475,6 +510,15 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
          breakdown.multiply.push({
             name: ProvinceUpgrades.BountifulCoastlines.name(),
             value: coastalEdgeCount * 0.1,
+         });
+      }
+   }
+   if (hasProvinceUpgrade("BountifulFrontiers", data.province, save) && data.coreProvinces.has(data.province)) {
+      const frontierEdgeCount = getFrontierEdgeCount(tile, save);
+      if (frontierEdgeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.BountifulFrontiers.name(),
+            value: frontierEdgeCount * 0.1,
          });
       }
    }
@@ -633,6 +677,12 @@ function _getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakdown {
          });
       }
    }
+   if (
+      hasProvinceUpgrade("WartimeAdministration", data.province, save) &&
+      getCurrentWars(data.province, save).filter((war) => war.actualWarScore < war.requiredWarScore).length > 0
+   ) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.WartimeAdministration.name(), value: -0.1 });
+   }
    attachTileModifiers(data.modifiers.Maintenance, breakdown);
    attachModifiers("TileMaintenance", breakdown, data.province, save);
    getProvinceTraits("Efficient", data.province, save).forEach((trait) => {
@@ -774,14 +824,6 @@ export function getTileBuildingCondition(
    return finalizeCondition(breakdown);
 }
 
-export function tileIsOurCoreCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
-   const tileData = save.state.tiles.get(tile);
-   return {
-      name: $t(L.TileIsCurrentlyOurCore),
-      value: !!tileData && tileData.coreProvinces.has(province) && tileData.province === province,
-   };
-}
-
 export function getNearestTile(tilesA: Tile[], tilesB: Tile[]): [Tile, Tile] | undefined {
    let nearestTile: [Tile, Tile] | undefined;
    let nearestDistance = Number.POSITIVE_INFINITY;
@@ -803,6 +845,17 @@ export function getCoastalEdgeCount(tile: Tile): number {
    for (let dir = 0; dir < 6; dir++) {
       const neighbor = MapGrid.getNeighbor(point, dir);
       if (MapGrid.isValid(neighbor) && !isLand(pointToTile(neighbor))) {
+         result++;
+      }
+   }
+   return result;
+}
+
+export function getFrontierEdgeCount(tile: Tile, save: SaveGame): number {
+   let result = 0;
+   for (const neighborPoint of MapGrid.getNeighbors(tileToPoint(tile))) {
+      const neighbor = pointToTile(neighborPoint);
+      if (isLand(neighbor) && !save.state.tiles.has(neighbor)) {
          result++;
       }
    }
@@ -843,41 +896,9 @@ export function getBuildingSlot(tile: Tile, save: SaveGame): IValueBreakdown {
    return finalizeBreakdown(result);
 }
 
-function isCoreTile(tile: Tile, province: Province, save: SaveGame): boolean {
+export function isCoreTile(tile: Tile, province: Province, save: SaveGame): boolean {
    const data = save.state.tiles.get(tile);
    return data?.province === province && data.coreProvinces.has(province);
-}
-
-export function isCoreTileCondition(tile: Tile, province: Province, save: SaveGame): ICondition {
-   return {
-      name: $t(L.$1AnnexesAndCores$2, getProvinceName(province, save), `<Tile>${tile}</Tile>`),
-      value: isCoreTile(tile, province, save),
-   };
-}
-
-export function anyCoreTileCondition(tiles: Iterable<Tile>, province: Province, save: SaveGame): ICondition {
-   const tileList = Array.from(tiles);
-   return {
-      name: $t(
-         L.$1AnnexesAndCoresAnyOf$2,
-         getProvinceName(province, save),
-         tileList.map((tile) => `<Tile>${tile}</Tile>`).join(", "),
-      ),
-      value: tileList.some((tile) => isCoreTile(tile, province, save)),
-   };
-}
-
-export function allCoreTileCondition(tiles: Iterable<Tile>, province: Province, save: SaveGame): ICondition {
-   const tileList = Array.from(tiles);
-   return {
-      name: $t(
-         L.$1AnnexesAndCoresAllOf$2,
-         getProvinceName(province, save),
-         tileList.map((tile) => `<Tile>${tile}</Tile>`).join(", "),
-      ),
-      value: tileList.every((tile) => isCoreTile(tile, province, save)),
-      progress: [tileList.filter((tile) => isCoreTile(tile, province, save)).length, tileList.length],
-   };
 }
 
 export function getReligionStatus(tile: Tile, save: SaveGame): CultureReligionStatus {
@@ -916,20 +937,20 @@ export function getCultureStatus(tile: Tile, save: SaveGame): CultureReligionSta
    return "Minor";
 }
 
-export function settleTile(tile: Tile, province: Province, save: SaveGame): void {
+export function settleTile(tile: Tile, province: Province, save: SaveGame): ITileData | undefined {
    if (save.state.tiles.has(tile)) {
-      return;
+      return undefined;
    }
    if (!isLand(tile)) {
-      return;
+      return undefined;
    }
    const tileData = initTileData(province, randOne(TerrainToGoods[getTileTerrain(tile)]));
    tileData.infrastructure = 1;
    tileData.production = 1;
    tileData.population = 1;
    save.state.tiles.set(tile, tileData);
-   RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
    GameStateUpdated.emit();
+   return tileData;
 }
 
 export function getTileTerrain(tile: Tile): Terrain {

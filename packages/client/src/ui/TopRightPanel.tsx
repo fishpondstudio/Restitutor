@@ -17,6 +17,7 @@ import { IconCatalog } from "./IconCatalog";
 
 export function TopRightPanel(): React.ReactNode {
    if (!G.save) return null;
+   if (G.params.get("hide")?.includes("topright")) return null;
    return (
       <div className="top-right-panel panel">
          <TimeComp />

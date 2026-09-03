@@ -13,6 +13,12 @@ export interface IProvinceUpgrade {
 }
 
 const _ProvinceUpgrades = {
+   ExtensiveAdministration: {
+      name: () => $t(L.ExtensiveAdministration),
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
+      },
+   },
    Tetrarchy: {
       name: () => $t(L.Tetrarchy),
    },
@@ -123,7 +129,7 @@ const _ProvinceUpgrades = {
    },
    HillfortBastion: {
       name: () => $t(L.HillfortBastion),
-      desc: () => $t(L.HillfortBastionDesc),
+      desc: () => $t(L.HillfortBastionDesc$1$2, "+1%", "+50%"),
    },
    MunicipalPrivilege: {
       name: () => $t(L.MunicipalPrivilege),
@@ -159,7 +165,7 @@ const _ProvinceUpgrades = {
    },
    UnitedFrontier: {
       name: () => $t(L.UnitedFrontier),
-      desc: () => $t(L.UnitedFrontierDesc),
+      desc: () => $t(L.$1WarPowerForEachNeighboringProvinceUpTo$2, "+5%", "+50%"),
    },
    CulturalEfficiency: {
       name: () => $t(L.CulturalEfficiency),
@@ -262,6 +268,42 @@ const _ProvinceUpgrades = {
    CoastalMandate: {
       name: () => $t(L.CoastalMandate),
       desc: () => $t(L.Gain$1ConsulPointWhenCoringACoastalTile, "1"),
+   },
+   MastersOfThePasses: {
+      name: () => $t(L.MastersOfThePasses),
+      desc: () => $t(L.MastersOfThePassesDesc$1, "20%"),
+   },
+   ProductiveInvestment: {
+      name: () => $t(L.ProductiveInvestment),
+      desc: () => $t(L.ProductiveInvestmentDesc$1, "+2%"),
+   },
+   CommercialRenown: {
+      name: () => $t(L.CommercialRenown),
+      desc: () => $t(L.$1PrestigeForEachActiveTrade, "+10%"),
+   },
+   MulticulturalArmy: {
+      name: () => $t(L.MulticulturalArmy),
+      desc: () => $t(L.MulticulturalArmyDesc$1$2, "+5%", "+50%"),
+   },
+   InlandAmbition: {
+      name: () => $t(L.InlandAmbition),
+      desc: () => $t(L.InlandAmbitionDesc$1, "-20%"),
+   },
+   TriumphalUnity: {
+      name: () => $t(L.TriumphalUnity),
+      desc: () => $t(L.TriumphalUnityDesc$1$2, "+10", "2"),
+   },
+   CrossroadsTaxDistricts: {
+      name: () => $t(L.CrossroadsTaxDistricts),
+      desc: () => $t(L.$1LandTaxForEachNeighboringProvinceUpTo$2, "+5%", "+50%"),
+   },
+   BountifulFrontiers: {
+      name: () => $t(L.BountifulFrontiers),
+      desc: () => $t(L.BountifulFrontiersDesc$1, "+10%"),
+   },
+   WartimeAdministration: {
+      name: () => $t(L.WartimeAdministration),
+      desc: () => $t(L.$1TileMaintenanceWhileAtWar, "-10%"),
    },
 } as const satisfies Record<string, IProvinceUpgrade>;
 

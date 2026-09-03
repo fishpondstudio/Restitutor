@@ -1,14 +1,13 @@
 import { fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
-import { OfferPatronageAction } from "../actions/TreatyActions";
-import { Province, ProvinceNameOverrides } from "../definitions/Province";
+import { ProvinceNameOverrides } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { RefreshTiles } from "../Events";
 import { getOriginalTileCount } from "../GameState";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { maxCoreTileCondition } from "../logic/MissionLogic";
+import { forcePatronageEffect, maxCoreTileCondition } from "../logic/MissionLogic";
 import { setProvinceNameOverride } from "../logic/ProvinceLogic";
-import { dissolveAllTreaties, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import { requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -62,15 +61,7 @@ export const GallicEmpireEvents = {
       buttons: [
          {
             label: () => $t(L.BritanniaShallServeAsOurLoyalClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Britannia", save);
-                     OfferPatronageAction(province, "Britannia", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Britannia.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Britannia")],
          },
       ],
    },

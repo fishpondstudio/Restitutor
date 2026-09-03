@@ -1,9 +1,11 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferPatronageAction } from "../actions/TreatyActions";
-import { Province } from "../definitions/Province";
-import { marriageCondition, minCoreTileCondition, provinceResourceCondition } from "../logic/MissionLogic";
 import {
-   dissolveAllTreaties,
+   forcePatronageEffect,
+   marriageCondition,
+   minCoreTileCondition,
+   provinceResourceCondition,
+} from "../logic/MissionLogic";
+import {
    requireAnyTreatyBetween,
    requireHigherPrestige,
    requireNoTreatyBetween,
@@ -368,15 +370,7 @@ export const AfricaEvent = {
       buttons: [
          {
             label: () => $t(L.ReceiveSardiniaAsOurClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Sardinia", save);
-                     OfferPatronageAction(province, "Sardinia", save).effect({ headless: false });
-                  },
-                  desc: (_province, _save) => $t(L.$1BecomesOurClient, Province.Sardinia.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Sardinia")],
          },
       ],
    },
@@ -398,15 +392,7 @@ export const AfricaEvent = {
          {
             label: () => $t(L.EndowCorsicaAndSecureItsLoyalty),
             resources: { gold: -5000 },
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Corsica", save);
-                     OfferPatronageAction(province, "Corsica", save).effect({ headless: false });
-                  },
-                  desc: (_province, _save) => $t(L.$1BecomesOurClient, Province.Corsica.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Corsica")],
          },
       ],
    },

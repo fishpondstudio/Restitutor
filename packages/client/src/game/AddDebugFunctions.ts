@@ -21,6 +21,7 @@ import type { TimedAction } from "./definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "./Events";
 import { resetGame, saveGame } from "./LoadSave";
 import { monthToDate } from "./logic/GameDateTime";
+import { ensureHeir } from "./logic/GovernorLogic";
 import { rebirth } from "./logic/LegacyUpgradeLogic";
 import { addProvinceResource, GovernorMaxExcl, GovernorMinIncl, spawnProvince } from "./logic/ProvinceLogic";
 import { addGameEvent } from "./logic/TickProvince";
@@ -216,6 +217,7 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.settle = (tile: Tile, province: Province) => {
       settleTile(tile, province, G.save);
+      RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
    };
 
    function doAddChild(family: IFamily, female: boolean): void {
@@ -258,5 +260,6 @@ export function addDebugFunctions(): void {
       family.children.forEach((child) => {
          doAddChild(child, female);
       });
+      ensureHeir(G.save.state.playerProvince, G.save);
    }
 }

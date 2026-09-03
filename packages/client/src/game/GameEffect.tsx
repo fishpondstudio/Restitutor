@@ -57,6 +57,7 @@ export interface IGameEffect {
    provinceModifiers?: (IBaseModifier & { modifier: Modifier; province: Province })[];
    attitudes?: Partial<Record<Province, IBaseModifier & { duration: number }>>;
    casusBelli?: Partial<Record<Province, { casusBelli: CasusBelli; duration: number }>>;
+   makeCore?: Tile[];
    spawnProvinces?: SpawnedProvince[];
    spawnHeresies?: ChristianHeresy[];
 }
@@ -118,6 +119,9 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
                   {$t(L.$1InfiltrationTo$2, formatDelta(amount), getProvinceName(fromProvince, save))}
                </div>
             ))}
+         {effect.makeCore && (
+            <div>{$t(L.$1BecomeOurCoreTiles, effect.makeCore.map((tile) => getTileName(tile, save)).join(", "))}</div>
+         )}
          {effect.casusBelli &&
             mapOf(filterProvinces(effect.casusBelli, province, save), (fromProvince, data) => (
                <div key={fromProvince}>
@@ -213,7 +217,12 @@ export function applyGameEffect(effect: IGameEffect, source: string, province: P
          relation.casusBelli.set(data.casusBelli, { monthsLeft: data.duration });
       }
    });
-
+   effect.makeCore?.forEach((tile) => {
+      const data = save.state.tiles.get(tile);
+      if (data) {
+         data.coreProvinces.add(province);
+      }
+   });
    forEach(filterProvinces(effect.trades ?? {}, province, save), (fromProvince, data) => {
       const { trade } = generateTrade(data.offer, data.extraProfit, province, save);
       const relation = getRelation(province, fromProvince, save);

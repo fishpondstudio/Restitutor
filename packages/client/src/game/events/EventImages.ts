@@ -28,6 +28,7 @@ import ChristTeaching from "../../assets/images/events/ChristTeaching.webp";
 import CiceroInSenate from "../../assets/images/events/CiceroInSenate.webp";
 import CircusBattle from "../../assets/images/events/CircusBattle.webp";
 import CivicTriumph from "../../assets/images/events/CivicTriumph.webp";
+import CivilianMigration from "../../assets/images/events/CivilianMigration.webp";
 import ClaudiusEmperor from "../../assets/images/events/ClaudiusEmperor.webp";
 import ClovisBaptism from "../../assets/images/events/ClovisBaptism.webp";
 import Colosseum from "../../assets/images/events/Colosseum.webp";
@@ -66,6 +67,7 @@ import Iconoclasm from "../../assets/images/events/Iconoclasm.webp";
 import IdealCity from "../../assets/images/events/IdealCity.webp";
 import ImperialCity from "../../assets/images/events/ImperialCity.webp";
 import ImperialPatronage from "../../assets/images/events/ImperialPatronage.webp";
+import ImperialRescript from "../../assets/images/events/ImperialRescript.webp";
 import JeromeStudy from "../../assets/images/events/JeromeStudy.webp";
 import JeromeWilderness from "../../assets/images/events/JeromeWilderness.webp";
 import JohnBeheading from "../../assets/images/events/JohnBeheading.webp";
@@ -83,6 +85,7 @@ import Miaphysitism from "../../assets/images/events/Miaphysitism.webp";
 import MilvianBridge from "../../assets/images/events/MilvianBridge.webp";
 import Monothelitism from "../../assets/images/events/Monothelitism.webp";
 import MoorlandCanal from "../../assets/images/events/MoorlandCanal.webp";
+import MountedParley from "../../assets/images/events/MountedParley.webp";
 import NavalBattle from "../../assets/images/events/NavalBattle.webp";
 import Nestorianism from "../../assets/images/events/Nestorianism.webp";
 import NicaeaCouncil from "../../assets/images/events/NicaeaCouncil.webp";
@@ -144,10 +147,12 @@ import SwordfishFishing from "../../assets/images/events/SwordfishFishing.webp";
 import TeutoburgBattle from "../../assets/images/events/TeutoburgBattle.webp";
 import TolbiacBattle from "../../assets/images/events/TolbiacBattle.webp";
 import ToledoBridge from "../../assets/images/events/ToledoBridge.webp";
+import TribalCrossing from "../../assets/images/events/TribalCrossing.webp";
 import TroopDeparture from "../../assets/images/events/TroopDeparture.webp";
 import ValerianHumiliation from "../../assets/images/events/ValerianHumiliation.webp";
 import VandalsInItaly from "../../assets/images/events/VandalsInItaly.webp";
 import VercingetorixSurrenders from "../../assets/images/events/VercingetorixSurrenders.webp";
+import VillaRaid from "../../assets/images/events/VillaRaid.webp";
 import Vineyard from "../../assets/images/events/Vineyard.webp";
 import VintageFestival from "../../assets/images/events/VintageFestival.webp";
 import VisigothKing from "../../assets/images/events/VisigothKing.webp";
@@ -158,6 +163,7 @@ import WaterMarket from "../../assets/images/events/WaterMarket.webp";
 import Weavers from "../../assets/images/events/Weavers.webp";
 import Wedding1 from "../../assets/images/events/Wedding1.webp";
 import Wedding2 from "../../assets/images/events/Wedding2.webp";
+import WinterMarch from "../../assets/images/events/WinterMarch.webp";
 import ZenobiaCaptured from "../../assets/images/events/ZenobiaCaptured.webp";
 import ZenobiaSpeech from "../../assets/images/events/ZenobiaSpeech.webp";
 import type { ImageWithCredit } from "./ImageWithCredit";
@@ -316,6 +322,11 @@ export const EventImage = {
       url: CivicTriumph,
       credit: "Le triomphe de la Ville de Paris, François-Edouard Picot (1842)",
       keywords: ["Prosperity", "City", "Allegory", "Celebration"],
+   },
+   CivilianMigration: {
+      url: CivilianMigration,
+      credit: "Abraham Leaves Haran, attributed to Francesco Bassano the Younger (1560–1592)",
+      keywords: ["Abraham", "Family", "Livestock", "HouseholdGoods", "Travel", "Exodus"],
    },
    ClaudiusEmperor: {
       url: ClaudiusEmperor,
@@ -508,6 +519,11 @@ export const EventImage = {
       credit: "Maecenas Presenting the Liberal Arts to Emperor Augustus, Giovanni Battista Tiepolo (1743)",
       keywords: ["Augustus", "Arts", "Emperor", "Court"],
    },
+   ImperialRescript: {
+      url: ImperialRescript,
+      credit: "Earth Receiving the Code of Roman Law from the Emperors Hadrian and Justinian, Charles Meynier (1802)",
+      keywords: ["RomanLaw", "Codex", "Hadrian", "Justinian", "Administration", "Allegory", "Tablet"],
+   },
    JeromeStudy: {
       url: JeromeStudy,
       credit: "Saint Jerome in His Study, Domenico Ghirlandaio (1480)",
@@ -587,6 +603,11 @@ export const EventImage = {
       url: Monothelitism,
       credit: "Byzantine mosaic of Jesus Christ in Basilica of Sant'Apollinare Nuovo in Ravenna",
       keywords: ["Christianity", "Heresy", "Christ", "Mosaic"],
+   },
+   MountedParley: {
+      url: MountedParley,
+      credit: "Gizur Challenges the Huns, Peter Nicolai Arbo (1886)",
+      keywords: ["Huns", "Herald", "Cavalry", "Warriors", "OpenPlain", "MigrationPeriod"],
    },
    MoorlandCanal: {
       url: MoorlandCanal,
@@ -899,6 +920,11 @@ export const EventImage = {
       credit: "Bridge near Toledo, Marius Bauer (1903)",
       keywords: ["Spain", "River", "Architecture", "Landscape"],
    },
+   TribalCrossing: {
+      url: TribalCrossing,
+      credit: "The Cimbri Crossing the Adige River, Christian August Lorentzen",
+      keywords: ["Cimbri", "Warriors", "Migration", "AdigeRiver", "Horses", "Mountains"],
+   },
    TroopDeparture: {
       url: TroopDeparture,
       credit: "Roman Soldiers Leaving Britain, Henry Marriott Paget (c.1909)",
@@ -918,6 +944,11 @@ export const EventImage = {
       url: VercingetorixSurrenders,
       credit: "Vercingetorix Throwing down His Weapons at the feet of Julius Caesar, Lionel Royer (1899)",
       keywords: ["Gaul", "Caesar", "Captive", "Weapons"],
+   },
+   VillaRaid: {
+      url: VillaRaid,
+      credit: "Huns, Georges-Antoine Rochegrosse",
+      keywords: ["Huns", "Cavalry", "Pillage", "Abduction", "Civilians", "Gaul", "LateAntiquity"],
    },
    Vineyard: {
       url: Vineyard,
@@ -968,6 +999,11 @@ export const EventImage = {
       url: Wedding2,
       credit: "A Roman Wedding Procession, Edwin Howland Blashfield",
       keywords: ["Marriage", "Rome", "Procession", "Ceremony"],
+   },
+   WinterMarch: {
+      url: WinterMarch,
+      credit: "Snow Storm: Hannibal and His Army Crossing the Alps, J. M. W. Turner (1812)",
+      keywords: ["Snowstorm", "Alps", "Soldiers", "Army", "Mountains", "Hannibal"],
    },
    ZenobiaCaptured: {
       url: ZenobiaCaptured,

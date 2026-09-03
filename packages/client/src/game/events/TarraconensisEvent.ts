@@ -1,13 +1,17 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActions";
+import { OfferAllianceAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { annexTiles, maxCoreTileCondition, provinceResourceCondition } from "../logic/MissionLogic";
-import { getProvinceName, getProvinceResource } from "../logic/ProvinceLogic";
-import { isCoreTileCondition } from "../logic/TileLogic";
 import {
-   dissolveAllTreaties,
+   annexTiles,
+   forcePatronageEffect,
+   isCoreTileCondition,
+   maxCoreTileCondition,
+   provinceResourceCondition,
+} from "../logic/MissionLogic";
+import { getProvinceName, getProvinceResource } from "../logic/ProvinceLogic";
+import {
    requireAnyTreatyBetween,
    requireHigherPrestige,
    requireMinimumAttitude,
@@ -336,7 +340,7 @@ export const TarraconensisEvent = {
       condition: {
          province: ["Tarraconensis"],
          playerOnly: true,
-         provinceOnMap: ["Baetica"],
+         onMap: { Baetica: true },
          conditions: (province, save) => [maxCoreTileCondition(3, "Baetica", save)],
       },
       buttons: [
@@ -360,7 +364,7 @@ export const TarraconensisEvent = {
       desc: () => $t(L.AnAccordWithLusitaniaDesc),
       condition: {
          province: ["Tarraconensis"],
-         provinceOnMap: ["Lusitania"],
+         onMap: { Lusitania: true },
          conditions: (province, save) => {
             return [
                requireNoTreatyBetween(["Alliance", "Patron"], province, "Lusitania", save),
@@ -483,15 +487,7 @@ export const TarraconensisEvent = {
          {
             resources: { gold: -10_000, diplomatic: -100 },
             label: () => $t(L.ReceiveLusitaniaAsOurClient),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Lusitania", save);
-                     OfferPatronageAction(province, "Lusitania", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Lusitania.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Lusitania")],
          },
       ],
    },

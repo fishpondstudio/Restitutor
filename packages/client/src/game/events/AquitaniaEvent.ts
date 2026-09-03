@@ -1,17 +1,11 @@
 import { $t, L } from "../../utils/i18n";
-import { OfferAllianceAction, OfferPatronageAction } from "../actions/TreatyActions";
+import { OfferAllianceAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getOriginalTileCount } from "../GameState";
 import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { maxCoreTileCondition } from "../logic/MissionLogic";
+import { forcePatronageEffect, isCoreTileCondition, maxCoreTileCondition } from "../logic/MissionLogic";
 import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
-import { isCoreTileCondition } from "../logic/TileLogic";
-import {
-   dissolveAllTreaties,
-   requireMinimumAttitude,
-   requireNoTreatyBetween,
-   requirePeaceBetween,
-} from "../logic/TreatyLogic";
+import { requireMinimumAttitude, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -311,7 +305,7 @@ export const AquitaniaEvent = {
       desc: () => $t(L.AGallicAllianceDesc),
       condition: {
          province: ["Aquitania"],
-         provinceOnMap: ["Lugdunensis"],
+         onMap: { Lugdunensis: true },
          conditions: (province, save) => {
             return [
                requireNoTreatyBetween(["Alliance", "Patron"], province, "Lugdunensis", save),
@@ -387,15 +381,7 @@ export const AquitaniaEvent = {
       buttons: [
          {
             label: () => $t(L.$1ShallServeAsOurLoyalClient, Province.Narbonensis.name()),
-            custom: [
-               {
-                  effect: (province, save) => {
-                     dissolveAllTreaties("Narbonensis", save);
-                     OfferPatronageAction(province, "Narbonensis", save).effect({ headless: false });
-                  },
-                  desc: (province, save) => $t(L.$1BecomesOurClient, Province.Narbonensis.name()),
-               },
-            ],
+            custom: [forcePatronageEffect("Narbonensis")],
          },
       ],
    },

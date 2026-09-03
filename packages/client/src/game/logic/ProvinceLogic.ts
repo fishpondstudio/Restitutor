@@ -27,7 +27,6 @@ import {
    type GovernorPower,
    type IProvince,
    Province,
-   ProvinceExtraGoverningCapacity,
    ProvinceFlags,
    type ProvinceNameOverride,
    ProvinceNameOverrides,
@@ -68,6 +67,7 @@ import {
    getTileMaintenanceCost,
    getTileManpower,
    isCoastal,
+   settleTile,
 } from "./TileLogic";
 import { getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
 import { getClients, getPatrons, getTreatyCount } from "./TreatyLogic";
@@ -283,6 +283,15 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
          value: Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.01, 0.5),
       });
    }
+   if (hasProvinceUpgrade("CommercialRenown", province, save)) {
+      const tradeCount = getProvinceTrades(province, save).size;
+      if (tradeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.CommercialRenown.name(),
+            value: tradeCount * 0.1,
+         });
+      }
+   }
    if (hasProvinceUpgrade("CaputMundi", province, save) && save.state.provinces[province]?.capital === Tiles.Rome) {
       breakdown.multiply.push({ name: ProvinceUpgrades.CaputMundi.name(), value: 0.1 });
    }
@@ -471,10 +480,6 @@ function _getProvinceOverextension(province: Province, save: SaveGame): IValueBr
 export function getProvinceGoverningCapacity(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.BaseValue), value: 200 });
-   const extraCapacity = ProvinceExtraGoverningCapacity[province] ?? 0;
-   if (extraCapacity > 0) {
-      breakdown.add.push({ name: getProvinceName(province, save), value: extraCapacity });
-   }
    attachModifiers("GoverningCapacity", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
@@ -734,7 +739,7 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
    if (hasProvinceUpgrade("UnitedFrontier", province, save)) {
       result.multiply.push({
          name: ProvinceUpgrades.UnitedFrontier.name(),
-         value: getNeighborProvinces(province, save).size * 0.05,
+         value: Math.min(getNeighborProvinces(province, save).size * 0.05, 0.5),
       });
    }
    if (hasProvinceUpgrade("MoorishMuster", province, save)) {
@@ -772,6 +777,13 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
             value: generalSkill * 0.02,
          });
       }
+   }
+   if (hasProvinceUpgrade("MulticulturalArmy", province, save)) {
+      const cultures = getProvinceCultures(province, save);
+      result.multiply.push({
+         name: ProvinceUpgrades.MulticulturalArmy.name(),
+         value: Math.min(cultures.size * 0.05, 0.5),
+      });
    }
    attachModifiers("WarPower", result, province, save);
    const wars = getCurrentWars(province, save);
@@ -1139,18 +1151,19 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
    config.tiles.forEach((tile) => {
       const data = save.state.tiles.get(tile);
       if (!data) {
-         return;
+         settleTile(tile, province, save);
+      } else {
+         provinces.add(data.province);
+         data.coreProvinces.forEach((p) => {
+            provinces.add(p);
+         });
+         data.province = province;
+         data.coreProvinces.add(province);
+         data.rebellion = 0;
+         data.culture = Province[province].culture;
+         data.religion = Province[province].religion;
+         data.modifiers.Unrest.length = 0;
       }
-      provinces.add(data.province);
-      data.coreProvinces.forEach((p) => {
-         provinces.add(p);
-      });
-      data.province = province;
-      data.coreProvinces.add(province);
-      data.rebellion = 0;
-      data.culture = Province[province].culture;
-      data.religion = Province[province].religion;
-      data.modifiers.Unrest.length = 0;
    });
    GameStateUpdated.emit();
 
@@ -1325,4 +1338,62 @@ export function getMediterraneanCoastalTiles(requireCore: boolean, province: Pro
       }
    }
    return result;
+}
+
+export function getCulturePercentage(
+   culture: Culture,
+   province: Province,
+   save: SaveGame,
+): { count: number; percentage: number } {
+   let count = 0;
+   let totalTiles = 0;
+   for (const data of save.state.tiles.values()) {
+      if (data.province !== province) {
+         continue;
+      }
+      totalTiles++;
+      if (data.culture === culture) {
+         count++;
+      }
+   }
+   return { count, percentage: totalTiles === 0 ? 0 : count / totalTiles };
+}
+
+export function getReligionPercentage(
+   religion: Religion,
+   province: Province,
+   save: SaveGame,
+): { count: number; percentage: number } {
+   let count = 0;
+   let totalTiles = 0;
+   for (const data of save.state.tiles.values()) {
+      if (data.province !== province) {
+         continue;
+      }
+      totalTiles++;
+      if (data.religion === religion) {
+         count++;
+      }
+   }
+   return { count, percentage: totalTiles === 0 ? 0 : count / totalTiles };
+}
+
+export function getProvinceCultures(province: Province, save: SaveGame): Set<Culture> {
+   const cultures = new Set<Culture>();
+   for (const data of save.state.tiles.values()) {
+      if (data.province === province && data.coreProvinces.has(province)) {
+         cultures.add(data.culture);
+      }
+   }
+   return cultures;
+}
+
+export function getTileUpgradeTimes(province: Province, save: SaveGame): number {
+   let times = 0;
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province === province) {
+         times += data.upgradeCount;
+      }
+   }
+   return times;
 }

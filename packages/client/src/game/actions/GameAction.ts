@@ -22,7 +22,7 @@ export interface IGameAction extends IGameCostCondition {
 export interface ICondition {
    name: string;
    desc?: string;
-   progress?: [number, number];
+   progress?: [number, number] | [string, string];
    hidden?: boolean;
    value: boolean;
 }

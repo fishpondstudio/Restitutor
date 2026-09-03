@@ -23,6 +23,9 @@ import { ManualEvents } from "./ManualEvents";
 import { MauretaniaEvent } from "./MauretaniaEvent";
 import { MissionEvents } from "./MissionEvents";
 import { NarbonensisEvent } from "./NarbonensisEvent";
+import { NoricumEvent } from "./NoricumEvent";
+import { PannoniaEvent } from "./PannoniaEvent";
+import { RaetiaEvent } from "./RaetiaEvent";
 import { RandomEvents } from "./RandomEvents";
 import { ReligiousEvents } from "./ReligiousEvents";
 import { SiciliaEvent } from "./SiciliaEvent";
@@ -49,7 +52,7 @@ export interface IGameEventCondition {
    nameOverride?: ProvinceNameOverride;
    province?: Province[];
    playerOnly?: boolean;
-   provinceOnMap?: Province[];
+   onMap?: Partial<Record<Province, boolean>>;
    religion?: Religion[];
    techs?: Tech[];
    provinceUpgrades?: ProvinceUpgrade[];
@@ -64,6 +67,9 @@ const _GameEvents = {
    ...BritanniaEvent,
    ...NarbonensisEvent,
    ...GermaniaEvent,
+   ...RaetiaEvent,
+   ...NoricumEvent,
+   ...PannoniaEvent,
    ...TarraconensisEvent,
    ...LusitaniaEvent,
    ...BaeticaEvent,

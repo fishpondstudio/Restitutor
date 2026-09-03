@@ -174,49 +174,6 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      </div>
                   </FloatingTip>
                )}
-               {truceMonthsLeft > 0 && (
-                  <FloatingTip
-                     label={$t(
-                        L.WeAreInATruceWith$1For$2Months,
-                        getProvinceName(province, G.save),
-                        formatNumber(truceMonthsLeft),
-                     )}
-                  >
-                     <div className="row mx10 my5 text-yellow">
-                        <div className="f1">{$t(L.Truce)}</div>
-                        <div>{$t(L.$1MonthsLeft, formatNumber(truceMonthsLeft))}</div>
-                     </div>
-                  </FloatingTip>
-               )}
-               {wars.length > 0 && (
-                  <>
-                     <div className="divider my5" />
-                     <div className="mx10 my5 text-display">{$t(L.OngoingWars)}</div>
-                     {wars.map((war, idx) => {
-                        return (
-                           <FloatingTip className="p0" fixedWidth key={idx} label={<WarTooltip war={war} />}>
-                              <div
-                                 className={cls("row mx10 my5 text-sm", isMe ? "pointer" : null)}
-                                 onClick={() => {
-                                    if (isMe) {
-                                       showPanel(WarModal, { war });
-                                    }
-                                 }}
-                              >
-                                 <div className="f1 text-red">
-                                    {$t(
-                                       L.$1$2War,
-                                       getProvinceName(war.attacker, G.save),
-                                       getProvinceName(war.defender, G.save),
-                                    )}
-                                 </div>
-                                 {isMe && <div className="mi xs">open_in_new</div>}
-                              </div>
-                           </FloatingTip>
-                        );
-                     })}
-                  </>
-               )}
                {usToThem && (
                   <>
                      <BreakdownRow
@@ -261,6 +218,20 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                            <div>{formatNumber(diplomaticDistance)}</div>
                         </div>
                      </BreakdownTooltip>
+                     {truceMonthsLeft > 0 && (
+                        <FloatingTip
+                           label={$t(
+                              L.WeAreInATruceWith$1For$2Months,
+                              getProvinceName(province, G.save),
+                              formatNumber(truceMonthsLeft),
+                           )}
+                        >
+                           <div className="row mx10 my5 text-yellow">
+                              <div className="f1">{$t(L.Truce)}</div>
+                              <div>{$t(L.$1MonthsLeft, formatNumber(truceMonthsLeft))}</div>
+                           </div>
+                        </FloatingTip>
+                     )}
                      <div className="divider my5" />
                      <div className="mx10 my5 text-display">{$t(L.CasusBelli)}</div>
                      {Array.from(usToThem.casusBelli).map(([cb, data]) => {
@@ -278,6 +249,35 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                               <div className="row mx10 my5 text-sm text-red">
                                  <div className="f1">{CasusBelli[cb].name()}</div>
                                  <div className="text-italic">{$t(L.$1MonthsLeft, formatNumber(data.monthsLeft))}</div>
+                              </div>
+                           </FloatingTip>
+                        );
+                     })}
+                  </>
+               )}
+               {wars.length > 0 && (
+                  <>
+                     <div className="divider my5" />
+                     <div className="mx10 my5 text-display">{$t(L.OngoingWars)}</div>
+                     {wars.map((war, idx) => {
+                        return (
+                           <FloatingTip className="p0" fixedWidth key={idx} label={<WarTooltip war={war} />}>
+                              <div
+                                 className={cls("row mx10 my5 text-sm", isMe ? "pointer" : null)}
+                                 onClick={() => {
+                                    if (isMe) {
+                                       showPanel(WarModal, { war });
+                                    }
+                                 }}
+                              >
+                                 <div className="f1 text-red">
+                                    {$t(
+                                       L.$1$2War,
+                                       getProvinceName(war.attacker, G.save),
+                                       getProvinceName(war.defender, G.save),
+                                    )}
+                                 </div>
+                                 {isMe && <div className="mi xs">open_in_new</div>}
                               </div>
                            </FloatingTip>
                         );
