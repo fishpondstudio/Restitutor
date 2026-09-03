@@ -739,7 +739,7 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
    if (hasProvinceUpgrade("UnitedFrontier", province, save)) {
       result.multiply.push({
          name: ProvinceUpgrades.UnitedFrontier.name(),
-         value: getNeighborProvinces(province, save).size * 0.05,
+         value: Math.min(getNeighborProvinces(province, save).size * 0.05, 0.5),
       });
    }
    if (hasProvinceUpgrade("MoorishMuster", province, save)) {

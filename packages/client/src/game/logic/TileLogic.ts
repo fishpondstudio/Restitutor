@@ -24,6 +24,7 @@ import { tileIsOurCoreCondition } from "./MissionLogic";
 import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
 import {
    getCulturalCohesion,
+   getNeighborProvinces,
    getProvinceName,
    getProvinceOverextension,
    getProvinceStability,
@@ -164,6 +165,15 @@ function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
          breakdown.multiply.push({
             name: ProvinceUpgrades.BountifulCoastlines.name(),
             value: coastalEdgeCount * 0.1,
+         });
+      }
+   }
+   if (hasProvinceUpgrade("BountifulFrontiers", data.province, save) && data.coreProvinces.has(data.province)) {
+      const frontierEdgeCount = getFrontierEdgeCount(tile, save);
+      if (frontierEdgeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.BountifulFrontiers.name(),
+            value: frontierEdgeCount * 0.1,
          });
       }
    }
@@ -380,12 +390,30 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
          });
       }
    }
+   if (hasProvinceUpgrade("CrossroadsTaxDistricts", data.province, save)) {
+      const neighboringProvinceCount = getNeighborProvinces(data.province, save).size;
+      if (neighboringProvinceCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.CrossroadsTaxDistricts.name(),
+            value: Math.min(neighboringProvinceCount * 0.05, 0.5),
+         });
+      }
+   }
    if (hasProvinceUpgrade("BountifulCoastlines", data.province, save) && data.coreProvinces.has(data.province)) {
       const coastalEdgeCount = getCoastalEdgeCount(tile);
       if (coastalEdgeCount > 0) {
          breakdown.multiply.push({
             name: ProvinceUpgrades.BountifulCoastlines.name(),
             value: coastalEdgeCount * 0.1,
+         });
+      }
+   }
+   if (hasProvinceUpgrade("BountifulFrontiers", data.province, save) && data.coreProvinces.has(data.province)) {
+      const frontierEdgeCount = getFrontierEdgeCount(tile, save);
+      if (frontierEdgeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.BountifulFrontiers.name(),
+            value: frontierEdgeCount * 0.1,
          });
       }
    }
@@ -482,6 +510,15 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
          breakdown.multiply.push({
             name: ProvinceUpgrades.BountifulCoastlines.name(),
             value: coastalEdgeCount * 0.1,
+         });
+      }
+   }
+   if (hasProvinceUpgrade("BountifulFrontiers", data.province, save) && data.coreProvinces.has(data.province)) {
+      const frontierEdgeCount = getFrontierEdgeCount(tile, save);
+      if (frontierEdgeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.BountifulFrontiers.name(),
+            value: frontierEdgeCount * 0.1,
          });
       }
    }
@@ -639,6 +676,12 @@ function _getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakdown {
             value: (0.5 - culturalCohesion) * 0.4,
          });
       }
+   }
+   if (
+      hasProvinceUpgrade("WartimeAdministration", data.province, save) &&
+      getCurrentWars(data.province, save).filter((war) => war.actualWarScore < war.requiredWarScore).length > 0
+   ) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.WartimeAdministration.name(), value: -0.1 });
    }
    attachTileModifiers(data.modifiers.Maintenance, breakdown);
    attachModifiers("TileMaintenance", breakdown, data.province, save);
@@ -802,6 +845,17 @@ export function getCoastalEdgeCount(tile: Tile): number {
    for (let dir = 0; dir < 6; dir++) {
       const neighbor = MapGrid.getNeighbor(point, dir);
       if (MapGrid.isValid(neighbor) && !isLand(pointToTile(neighbor))) {
+         result++;
+      }
+   }
+   return result;
+}
+
+export function getFrontierEdgeCount(tile: Tile, save: SaveGame): number {
+   let result = 0;
+   for (const neighborPoint of MapGrid.getNeighbors(tileToPoint(tile))) {
+      const neighbor = pointToTile(neighborPoint);
+      if (isLand(neighbor) && !save.state.tiles.has(neighbor)) {
          result++;
       }
    }

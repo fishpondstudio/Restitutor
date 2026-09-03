@@ -402,7 +402,7 @@ export const Province = {
       name: () => $t(L.ProvincePannonia),
       culture: "Pannonian",
       religion: "GrecoRoman",
-      upgrades: [],
+      upgrades: ["CrossroadsTaxDistricts", "BountifulFrontiers", "WartimeAdministration"],
    },
    Raetia: {
       code: "RA",

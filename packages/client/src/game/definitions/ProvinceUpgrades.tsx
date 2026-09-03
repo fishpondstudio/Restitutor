@@ -165,7 +165,7 @@ const _ProvinceUpgrades = {
    },
    UnitedFrontier: {
       name: () => $t(L.UnitedFrontier),
-      desc: () => $t(L.UnitedFrontierDesc),
+      desc: () => $t(L.$1WarPowerForEachNeighboringProvinceUpTo$2, "+5%", "+50%"),
    },
    CulturalEfficiency: {
       name: () => $t(L.CulturalEfficiency),
@@ -292,6 +292,18 @@ const _ProvinceUpgrades = {
    TriumphalUnity: {
       name: () => $t(L.TriumphalUnity),
       desc: () => $t(L.TriumphalUnityDesc$1$2, "+10", "2"),
+   },
+   CrossroadsTaxDistricts: {
+      name: () => $t(L.CrossroadsTaxDistricts),
+      desc: () => $t(L.$1LandTaxForEachNeighboringProvinceUpTo$2, "+5%", "+50%"),
+   },
+   BountifulFrontiers: {
+      name: () => $t(L.BountifulFrontiers),
+      desc: () => $t(L.BountifulFrontiersDesc$1, "+10%"),
+   },
+   WartimeAdministration: {
+      name: () => $t(L.WartimeAdministration),
+      desc: () => $t(L.$1TileMaintenanceWhileAtWar, "-10%"),
    },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
