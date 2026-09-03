@@ -4,6 +4,7 @@ import { $t, L } from "../../utils/i18n";
 import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
+import { getGameDate } from "../logic/GameDateTime";
 import { attachModifiers } from "../logic/ModifierLogic";
 import { isSocialClassDisloyal, isSocialClassDominant } from "../logic/SocialClassLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
@@ -316,7 +317,11 @@ GameStateUpdated.on(() => {
          }
       });
    });
+   const currentYear = getGameDate(G.save.state.tick).getFullYear();
    forEach(GreatWork, (_, config) => {
+      if (currentYear < config.completionYear) {
+         return;
+      }
       forEach(config.modifiers, (modifier, data) => {
          const tileData = G.save.state.tiles.get(config.tile);
          if (!tileData) {

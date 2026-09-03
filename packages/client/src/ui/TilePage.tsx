@@ -6,13 +6,14 @@ import { Buildings } from "../game/definitions/Building";
 import { Culture } from "../game/definitions/Culture";
 import { CultureReligionStatus } from "../game/definitions/CultureReligionStatus";
 import { Goods, Price } from "../game/definitions/Goods";
-import { TileToGreatWork } from "../game/definitions/GreatWork";
+import { GreatWork, TileToGreatWork } from "../game/definitions/GreatWork";
 import { modifierToString } from "../game/definitions/Modifier";
 import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
 import { getTileName } from "../game/definitions/TileName";
 import { RelocateCapitalModifier, TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "../game/Events";
+import { getGameDate } from "../game/logic/GameDateTime";
 import { MapBackgroundColors } from "../game/logic/MapColor";
 import { tileIsOurCoreCondition } from "../game/logic/MissionLogic";
 import { addModifier } from "../game/logic/ModifierLogic";
@@ -446,6 +447,10 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
 function TileGreatWorkComponent({ tile }: { tile: Tile }): React.ReactNode {
    const greatWork = TileToGreatWork.get(tile);
    if (!greatWork) {
+      return null;
+   }
+   const currentYear = getGameDate(G.save.state.tick).getFullYear();
+   if (currentYear < GreatWork[greatWork].completionYear) {
       return null;
    }
    return (
