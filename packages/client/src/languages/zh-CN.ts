@@ -3455,4 +3455,6 @@ export const ZH_CN = {
    $1TileMaintenanceWhileAtWar: "战争期间地块维护费$1",
    $1WarPowerForEachNeighboringProvinceUpTo$2: "每个相邻省份使军力$1（最高$2）",
    GreatWorkTowerOfHercules: "海格力斯塔",
+   GreatWorkRomanTempleOfEvora: "埃武拉罗马神庙",
+   GreatWorkRoyalMausoleumOfMauretania: "毛里塔尼亚皇家陵墓",
 };

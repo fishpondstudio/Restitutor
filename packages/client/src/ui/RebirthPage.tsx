@@ -11,7 +11,12 @@ import { GameOptionFlag } from "../game/GameOption";
 import { getOriginalTileCount } from "../game/GameState";
 import { saveGame } from "../game/LoadSave";
 import { rebirth } from "../game/logic/LegacyUpgradeLogic";
-import { getProvinceName, getTilesAnnexedAndCored, provinceResourceOf } from "../game/logic/ProvinceLogic";
+import {
+   getProvinceName,
+   getProvinceOriginalGreatWorks,
+   getTilesAnnexedAndCored,
+   provinceResourceOf,
+} from "../game/logic/ProvinceLogic";
 import { RomeMap } from "../game/RomeMap";
 import { WorldScene } from "../scenes/WorldScene";
 import { G, GameFlags } from "../utils/Global";
@@ -19,6 +24,7 @@ import { $t, L } from "../utils/i18n";
 import { SidebarComp, SidebarImageHeader } from "./common/SidebarComp";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
+import { GreatWorkComponent } from "./GreatWorkComponent";
 import { HeaderImages } from "./HeaderImages";
 import { renderMarkup } from "./ParseMarkup";
 
@@ -46,6 +52,7 @@ export function RebirthPage(): React.ReactNode {
             }
          });
    }, [isDemo]);
+   const greatWorks = Array.from(getProvinceOriginalGreatWorks(province, G.save));
    return (
       <SidebarComp title={<SidebarImageHeader image={HeaderImages.Rebirth} title={$t(L.Rebirth)} />}>
          <div className="h1">{$t(L.LegacyPoint)}</div>
@@ -150,6 +157,19 @@ export function RebirthPage(): React.ReactNode {
                </Fragment>
             ))}
          </div>
+         {greatWorks.length > 0 && (
+            <div className="box m10">
+               <div className="h3">Provincial Great Works</div>
+               {greatWorks.map((greatWork, idx) => (
+                  <Fragment key={greatWork}>
+                     {idx > 0 && <div className="divider" />}
+                     <div className="m10">
+                        <GreatWorkComponent greatWork={greatWork} />
+                     </div>
+                  </Fragment>
+               ))}
+            </div>
+         )}
          <div className="m10">
             <button
                id="RebirthPage_RebirthButton"

@@ -19,6 +19,7 @@ import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import { Buildings } from "../definitions/Building";
 import type { Culture } from "../definitions/Culture";
 import { Goods, Price } from "../definitions/Goods";
+import { type GreatWork, TileToGreatWork } from "../definitions/GreatWork";
 import { LegacyUpgrades } from "../definitions/LegacyUpgrade";
 import { makeModifierGetter } from "../definitions/Modifier";
 import { getProvinceTraits } from "../definitions/PersonTrait";
@@ -1396,4 +1397,16 @@ export function getTileUpgradeTimes(province: Province, save: SaveGame): number 
       }
    }
    return times;
+}
+
+export function getProvinceOriginalGreatWorks(province: Province, save: SaveGame): Set<GreatWork> {
+   const result = new Set<GreatWork>();
+   for (const [tile, data] of save.state.tiles) {
+      const originalProvince = data.originalProvince;
+      const greatWork = TileToGreatWork.get(tile);
+      if (originalProvince === province && greatWork) {
+         result.add(greatWork);
+      }
+   }
+   return result;
 }

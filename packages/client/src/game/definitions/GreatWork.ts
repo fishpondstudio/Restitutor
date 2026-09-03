@@ -1,4 +1,4 @@
-import type { Tile } from "@project/shared/src/utils/Helper";
+import { entriesOf, type Tile } from "@project/shared/src/utils/Helper";
 import AlKhazneh from "../../assets/images/greatworks/AlKhazneh.webp";
 import AntonineBaths from "../../assets/images/greatworks/AntonineBaths.webp";
 import AqueductOfSegovia from "../../assets/images/greatworks/AqueductOfSegovia.webp";
@@ -11,18 +11,21 @@ import HagiaSophia from "../../assets/images/greatworks/HagiaSophia.webp";
 import PharosOfAlexandria from "../../assets/images/greatworks/PharosOfAlexandria.webp";
 import PontDuGard from "../../assets/images/greatworks/PontDuGard.webp";
 import PortaNigra from "../../assets/images/greatworks/PortaNigra.webp";
+import RomanTempleOfEvora from "../../assets/images/greatworks/RomanTempleOfEvora.webp";
 import RotundaOfGalerius from "../../assets/images/greatworks/RotundaOfGalerius.webp";
+import RoyalMausoleumOfMauretania from "../../assets/images/greatworks/RoyalMausoleumOfMauretania.webp";
 import TempleOfArtemis from "../../assets/images/greatworks/TempleOfArtemis.webp";
 import TempleOfBel from "../../assets/images/greatworks/TempleOfBel.webp";
-import TowerOfHercules from "../../assets/images/greatworks/TowerOfHercules.webp";
 import { $t, L } from "../../utils/i18n";
 import type { ImageWithCredit } from "../events/ImageWithCredit";
+import type { IBaseModifier, Modifier } from "./Modifier";
 
 interface IGreatWork {
    name: () => string;
    tile: Tile;
    completionYear: number;
    image: ImageWithCredit;
+   modifiers?: Partial<Record<Modifier, IBaseModifier>>;
 }
 
 export const _GreatWork = {
@@ -53,6 +56,18 @@ export const _GreatWork = {
          credit: "Lighthouse of Alexandria, Philip Galle (1572)",
       },
    },
+   RoyalMausoleumOfMauretania: {
+      name: () => $t(L.GreatWorkRoyalMausoleumOfMauretania),
+      tile: 8978516,
+      completionYear: -3,
+      image: {
+         url: RoyalMausoleumOfMauretania,
+         credit: "Tomb of Juba II and Cleopatra Selene, James Bruce (1769)",
+      },
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
+      },
+   },
    HadriansWall: {
       name: () => $t(L.GreatWorkHadriansWall),
       tile: 8716347,
@@ -62,13 +77,13 @@ export const _GreatWork = {
          credit: "The Romans cause a Wall to be built for the Protection of the South, William Bell Scott (1857)",
       },
    },
-   TowerOfHercules: {
-      name: () => $t(L.GreatWorkTowerOfHercules),
-      tile: 8454220,
+   RomanTempleOfEvora: {
+      name: () => $t(L.GreatWorkRomanTempleOfEvora),
+      tile: 8454225,
       completionYear: 100,
       image: {
-         url: TowerOfHercules,
-         credit: "Torre de Hércules, Camilo Díaz Baliño (1933)",
+         url: RomanTempleOfEvora,
+         credit: "Templo de Diana em Évora, Alfredo Roque Gameiro (1917)",
       },
    },
    AqueductOfSegovia: {
@@ -78,6 +93,9 @@ export const _GreatWork = {
       image: {
          url: AqueductOfSegovia,
          credit: "Aquaduct at Segovia, Spain, Edward Angelo Goodall",
+      },
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
       },
    },
    PortaNigra: {
@@ -106,6 +124,9 @@ export const _GreatWork = {
          url: Colosseum,
          credit: "The Colosseum, Rome, Giovanni Battista Busiri",
       },
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
+      },
    },
    AntonineBaths: {
       name: () => $t(L.GreatWorkAntonineBaths),
@@ -114,6 +135,9 @@ export const _GreatWork = {
       image: {
          url: AntonineBaths,
          credit: "Roman Bath, Antonio Joli (c.1745)",
+      },
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
       },
    },
    DiocletiansPalace: {
@@ -175,3 +199,6 @@ export const _GreatWork = {
 
 export type GreatWork = keyof typeof _GreatWork;
 export const GreatWork = _GreatWork as Record<GreatWork, IGreatWork>;
+export const TileToGreatWork: Map<Tile, GreatWork> = new Map(
+   entriesOf(GreatWork).map(([key, value]) => [value.tile, key]),
+);

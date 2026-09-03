@@ -7,6 +7,7 @@ import type { SaveGame } from "../GameState";
 import { attachModifiers } from "../logic/ModifierLogic";
 import { isSocialClassDisloyal, isSocialClassDominant } from "../logic/SocialClassLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
+import { GreatWork } from "./GreatWork";
 import { LegacyUpgrades } from "./LegacyUpgrade";
 import type { Province } from "./Province";
 import { ProvinceUpgrades } from "./ProvinceUpgrades";
@@ -313,6 +314,24 @@ GameStateUpdated.on(() => {
                });
             });
          }
+      });
+   });
+   forEach(GreatWork, (_, config) => {
+      forEach(config.modifiers, (modifier, data) => {
+         const tileData = G.save.state.tiles.get(config.tile);
+         if (!tileData) {
+            return;
+         }
+         const state = G.save.state.provinces[tileData.province];
+         if (!state) {
+            return;
+         }
+         const { type, value } = data;
+         safePush(state.dynamicModifiers, modifier, {
+            type,
+            value,
+            name: config.name(),
+         });
       });
    });
 });

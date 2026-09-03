@@ -6,6 +6,7 @@ import { Buildings } from "../game/definitions/Building";
 import { Culture } from "../game/definitions/Culture";
 import { CultureReligionStatus } from "../game/definitions/CultureReligionStatus";
 import { Goods, Price } from "../game/definitions/Goods";
+import { TileToGreatWork } from "../game/definitions/GreatWork";
 import { modifierToString } from "../game/definitions/Modifier";
 import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
@@ -46,6 +47,7 @@ import { colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { DiplomacyPage } from "./DiplomacyPage";
+import { GreatWorkComponent } from "./GreatWorkComponent";
 import { MakeCoreButton } from "./MakeCoreButton";
 import { playClick } from "./Sound";
 import { TileBuildingsModal } from "./TileBuildingsModal";
@@ -321,6 +323,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             <BreakdownRow className="my5" name={$t(L.Maintenance)} breakdown={getTileMaintenanceCost(tile, G.save)} />
          </div>
          <div className="h1 my10">{$t(L.Buildings)}</div>
+         <TileGreatWorkComponent tile={tile} />
          <div
             className="mx10"
             style={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: "0.625rem" }}
@@ -437,5 +440,20 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             )}
          </div>
       </SidebarComp>
+   );
+}
+
+function TileGreatWorkComponent({ tile }: { tile: Tile }): React.ReactNode {
+   const greatWork = TileToGreatWork.get(tile);
+   if (!greatWork) {
+      return null;
+   }
+   return (
+      <>
+         <div className="m10">
+            <GreatWorkComponent greatWork={greatWork} />
+         </div>
+         <div className="divider my10" />
+      </>
    );
 }

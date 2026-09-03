@@ -3536,4 +3536,6 @@ export const DE = {
    $1TileMaintenanceWhileAtWar: "$1 Gebietsunterhalt im Krieg",
    $1WarPowerForEachNeighboringProvinceUpTo$2: "$1 Kriegsmacht für jede benachbarte Provinz (bis zu $2)",
    GreatWorkTowerOfHercules: "Herkulesturm",
+   GreatWorkRomanTempleOfEvora: "Römischer Tempel von Évora",
+   GreatWorkRoyalMausoleumOfMauretania: "Königliches Mausoleum von Mauretanien",
 };

@@ -3485,4 +3485,6 @@ export const RU = {
    $1TileMaintenanceWhileAtWar: "$1 к содержанию владений во время войны",
    $1WarPowerForEachNeighboringProvinceUpTo$2: "$1 к военной мощи за каждую соседнюю провинцию (до $2)",
    GreatWorkTowerOfHercules: "Башня Геркулеса",
+   GreatWorkRomanTempleOfEvora: "Римский храм в Эворе",
+   GreatWorkRoyalMausoleumOfMauretania: "Королевский мавзолей Мавретании",
 };

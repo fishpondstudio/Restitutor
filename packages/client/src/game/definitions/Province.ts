@@ -250,7 +250,7 @@ export const Province = {
       name: () => $t(L.ProvinceAfrica),
       culture: "Punic",
       religion: "GrecoRoman",
-      upgrades: ["ExtensiveAdministration", "LittoralTaxDistricts", "MercantileMobilization", "GranaryOfTheEmpire"],
+      upgrades: ["LittoralTaxDistricts", "MercantileMobilization", "GranaryOfTheEmpire"],
    },
    Aquitania: {
       code: "AQ",
@@ -338,13 +338,7 @@ export const Province = {
       name: () => $t(L.ProvinceItalia),
       culture: "Italic",
       religion: "GrecoRoman",
-      upgrades: [
-         "ExtensiveAdministration",
-         "SenatorialAuthority",
-         "InclusiveCitizenship",
-         "CaputMundi",
-         "ExperiencedCommand",
-      ],
+      upgrades: ["SenatorialAuthority", "InclusiveCitizenship", "CaputMundi", "ExperiencedCommand"],
    },
    Judea: { code: "JU", name: () => $t(L.ProvinceJudea), culture: "Arab", religion: "Judaism", upgrades: [] },
    Lusitania: {
@@ -374,7 +368,7 @@ export const Province = {
       name: () => $t(L.ProvinceMauretania),
       culture: "Berber",
       religion: "Berber",
-      upgrades: ["ExtensiveAdministration", "TheTwoShores", "MoorishMuster", "MaritimeRenown"],
+      upgrades: ["TheTwoShores", "MoorishMuster", "MaritimeRenown"],
    },
    Moesia: {
       code: "MO",
@@ -431,7 +425,7 @@ export const Province = {
       name: () => $t(L.ProvinceTarraconensis),
       culture: "Iberian",
       religion: "Iberian",
-      upgrades: ["ExtensiveAdministration", "CulturalEfficiency", "ChristianTranquility", "FocusedGovernance"],
+      upgrades: ["CulturalEfficiency", "ChristianTranquility", "FocusedGovernance"],
    },
    Thracia: {
       code: "TH",

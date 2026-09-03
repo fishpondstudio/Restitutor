@@ -17,3 +17,10 @@ export function tickToYear(tick: number): number {
 export function monthToDate(month: number): Date {
    return new Date(193, month - 1, 1, 0, 0, 0, 0);
 }
+
+export function formatYear(year: number): string {
+   if (year >= 0) {
+      return `${Math.abs(year)} AD`;
+   }
+   return `${Math.abs(year)} BC`;
+}
