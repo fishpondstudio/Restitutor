@@ -3430,4 +3430,5 @@ export const FR = {
    BuildTheNewAdministration: "Build the new administration",
    SendEnvoysAcrossTheDanube: "Send envoys across the Danube",
    PutTheFrontierUnderArms: "Put the frontier under arms",
+   $1IsNotOnTheMap: "<Province>$1</Province> is not on the map",
 };

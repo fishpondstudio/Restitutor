@@ -430,7 +430,7 @@ export const RaetiaEvent = {
       desc: () => $t(L.AnAlpineProtectorateDesc),
       condition: {
          province: ["Raetia"],
-         provinceOnMap: ["Noricum"],
+         onMap: { Noricum: true },
          conditions: (province, save) => [
             minCoreTileCondition(15, "Raetia", save),
             maxCoreTileCondition(3, "Noricum", save),

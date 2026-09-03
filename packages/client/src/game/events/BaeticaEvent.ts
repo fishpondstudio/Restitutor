@@ -301,7 +301,7 @@ export const BaeticaEvent = {
       desc: () => $t(L.TheLusitanianCounterweightDesc),
       condition: {
          province: ["Baetica"],
-         provinceOnMap: ["Lusitania"],
+         onMap: { Lusitania: true },
          conditions: (province, save) => [
             requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Lusitania", save),
          ],
@@ -422,7 +422,7 @@ export const BaeticaEvent = {
       desc: () => $t(L.TheLusitanianMarriageSettlementDesc),
       condition: {
          province: ["Baetica"],
-         provinceOnMap: ["Lusitania"],
+         onMap: { Lusitania: true },
          conditions: (province, save) => [
             provinceResourceCondition("diplomatic", 200, province, save),
             minCoreTileCondition(20, province, save),

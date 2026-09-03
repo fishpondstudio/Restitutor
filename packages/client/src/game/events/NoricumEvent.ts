@@ -433,7 +433,7 @@ export const NoricumEvent = {
       desc: () => $t(L.TheAlpineBalanceDesc),
       condition: {
          province: ["Noricum"],
-         provinceOnMap: ["Raetia"],
+         onMap: { Raetia: true },
          playerOnly: true,
          conditions: (province, save) => [
             minCoreTileCondition(15, "Noricum", save),

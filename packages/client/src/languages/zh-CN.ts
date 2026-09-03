@@ -3360,4 +3360,5 @@ export const ZH_CN = {
    BuildTheNewAdministration: "建立新的行政机构",
    SendEnvoysAcrossTheDanube: "派遣使者越过多瑙河",
    PutTheFrontierUnderArms: "让边境进入战备状态",
+   $1IsNotOnTheMap: "<Province>$1</Province>不在地图上",
 };

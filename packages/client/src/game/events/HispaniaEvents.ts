@@ -92,7 +92,7 @@ export const HispaniaEvent = {
       condition: {
          playerOnly: true,
          province: HispaniaProvinces,
-         provinceOnMap: ["Suebi"],
+         onMap: { Suebi: true },
          conditions: (province, save) => {
             return [
                {
@@ -129,7 +129,7 @@ export const HispaniaEvent = {
       desc: () => $t(L.AFootholdInAfricaDesc),
       condition: {
          playerOnly: true,
-         provinceOnMap: ["Mauretania"],
+         onMap: { Mauretania: true },
          province: HispaniaProvinces,
          conditions: (province, save) => {
             return [allCoreTileCondition([8519765, 8519766, 8585302], province, save)];

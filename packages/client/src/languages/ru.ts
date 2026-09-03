@@ -3389,4 +3389,5 @@ export const RU = {
    BuildTheNewAdministration: "Построить новую администрацию",
    SendEnvoysAcrossTheDanube: "Отправить послов за Дунай",
    PutTheFrontierUnderArms: "Привести границу в боевую готовность",
+   $1IsNotOnTheMap: "<Province>$1</Province> отсутствует на карте",
 };

@@ -51,7 +51,7 @@ export interface IGameEventCondition {
    nameOverride?: ProvinceNameOverride;
    province?: Province[];
    playerOnly?: boolean;
-   provinceOnMap?: Province[];
+   onMap?: Partial<Record<Province, boolean>>;
    religion?: Religion[];
    techs?: Tech[];
    provinceUpgrades?: ProvinceUpgrade[];
@@ -68,6 +68,7 @@ const _GameEvents = {
    ...GermaniaEvent,
    ...RaetiaEvent,
    ...NoricumEvent,
+   // ...PannoniaEvent,
    ...TarraconensisEvent,
    ...LusitaniaEvent,
    ...BaeticaEvent,

@@ -3432,4 +3432,5 @@ export const ES = {
    BuildTheNewAdministration: "Construir la nueva administración",
    SendEnvoysAcrossTheDanube: "Enviar embajadores al otro lado del Danubio",
    PutTheFrontierUnderArms: "Poner la frontera en pie de guerra",
+   $1IsNotOnTheMap: "<Province>$1</Province> no está en el mapa",
 };

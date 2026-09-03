@@ -3438,4 +3438,5 @@ export const DE = {
    BuildTheNewAdministration: "Die neue Verwaltung aufbauen",
    SendEnvoysAcrossTheDanube: "Gesandte über die Donau schicken",
    PutTheFrontierUnderArms: "Die Grenze unter Waffen setzen",
+   $1IsNotOnTheMap: "<Province>$1</Province> befindet sich nicht auf der Karte",
 };

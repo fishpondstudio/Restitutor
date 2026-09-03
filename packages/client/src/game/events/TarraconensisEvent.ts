@@ -340,7 +340,7 @@ export const TarraconensisEvent = {
       condition: {
          province: ["Tarraconensis"],
          playerOnly: true,
-         provinceOnMap: ["Baetica"],
+         onMap: { Baetica: true },
          conditions: (province, save) => [maxCoreTileCondition(3, "Baetica", save)],
       },
       buttons: [
@@ -364,7 +364,7 @@ export const TarraconensisEvent = {
       desc: () => $t(L.AnAccordWithLusitaniaDesc),
       condition: {
          province: ["Tarraconensis"],
-         provinceOnMap: ["Lusitania"],
+         onMap: { Lusitania: true },
          conditions: (province, save) => {
             return [
                requireNoTreatyBetween(["Alliance", "Patron"], province, "Lusitania", save),
