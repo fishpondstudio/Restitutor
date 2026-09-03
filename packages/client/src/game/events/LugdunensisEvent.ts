@@ -1,9 +1,9 @@
-import { filterInPlace, fromEntries } from "@project/shared/src/utils/Helper";
+import { fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { getOriginalTileCount } from "../GameState";
-import { availableDiplomatCondition, getRelation } from "../logic/DiplomacyLogic";
+import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
 import {
    allCoreTileCondition,
    anyCoreTileCondition,
@@ -12,6 +12,7 @@ import {
    marriageCondition,
    maxCoreTileCondition,
    minCoreCoastalTileCondition,
+   nullifyNegativeAttitudesEffect,
    provinceRevenueCondition,
    provinceUsedResourceCondition,
    techCountCondition,
@@ -120,25 +121,7 @@ export const LugdunensisEvent = {
             modifiers: {
                Prestige: { type: "multiply", value: 0.2, duration: 3 * 12 },
             },
-            custom: [
-               {
-                  effect: (province, save) => {
-                     const relation = getRelation("Belgica", province, save);
-                     if (relation) {
-                        filterInPlace(relation.attitudeModifier, (modifier) => {
-                           return modifier.value > 0;
-                        });
-                     }
-                  },
-                  desc: (province, save) => {
-                     return $t(
-                        L.$1NullifiesAllNegativeAttitudesTowards$2,
-                        Province.Belgica.name(),
-                        Province.Lugdunensis.name(),
-                     );
-                  },
-               },
-            ],
+            custom: [nullifyNegativeAttitudesEffect("Belgica")],
          },
       ],
    },

@@ -499,6 +499,7 @@ export const EnabledProvinces: Province[] = [
    "Britannia",
    "Raetia",
    "Noricum",
+   "Pannonia",
 ];
 EnabledProvinces.sort();
 export const AlwaysFreeProvinces: Province[] = ["Lugdunensis", "Africa", "Italia"];

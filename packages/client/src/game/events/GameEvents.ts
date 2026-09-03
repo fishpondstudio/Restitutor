@@ -24,6 +24,7 @@ import { MauretaniaEvent } from "./MauretaniaEvent";
 import { MissionEvents } from "./MissionEvents";
 import { NarbonensisEvent } from "./NarbonensisEvent";
 import { NoricumEvent } from "./NoricumEvent";
+import { PannoniaEvent } from "./PannoniaEvent";
 import { RaetiaEvent } from "./RaetiaEvent";
 import { RandomEvents } from "./RandomEvents";
 import { ReligiousEvents } from "./ReligiousEvents";
@@ -68,7 +69,7 @@ const _GameEvents = {
    ...GermaniaEvent,
    ...RaetiaEvent,
    ...NoricumEvent,
-   // ...PannoniaEvent,
+   ...PannoniaEvent,
    ...TarraconensisEvent,
    ...LusitaniaEvent,
    ...BaeticaEvent,

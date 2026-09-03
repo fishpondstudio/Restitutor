@@ -1,4 +1,4 @@
-import { formatNumber, formatPercent, type Tile } from "@project/shared/src/utils/Helper";
+import { filterInPlace, formatNumber, formatPercent, type Tile } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
 import { OfferPatronageAction } from "../actions/TreatyActions";
@@ -14,7 +14,7 @@ import { Religion, type Religion as ReligionType } from "../definitions/Religion
 import { RefreshTiles } from "../Events";
 import type { ICustomEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
-import { getMarriageAlliance } from "./DiplomacyLogic";
+import { getMarriageAlliance, getRelation } from "./DiplomacyLogic";
 import {
    getCulturePercentage,
    getMediterraneanCoastalTiles,
@@ -27,6 +27,8 @@ import {
    getProvinceResource,
    getProvinceStat,
    getReligionPercentage,
+   getTileUpgradeTimes,
+   getTotalUpgrades,
    getWarPower,
    provinceResourceOf,
 } from "./ProvinceLogic";
@@ -84,6 +86,15 @@ export function victoryCountCondition(minimum: number, province: Province, save:
       name: $t(L.Win$1Wars, formatNumber(minimum)),
       value: victoryCount >= minimum,
       progress: [victoryCount, minimum],
+   };
+}
+
+export function makeCoreCountCondition(minimum: number, province: Province, save: SaveGame): ICondition {
+   const makeCoreCount = getProvinceStat("makeCoreCount", province, save);
+   return {
+      name: $t(L.Make$1TilesOurCore, formatNumber(minimum)),
+      value: makeCoreCount >= minimum,
+      progress: [makeCoreCount, minimum],
    };
 }
 
@@ -348,5 +359,43 @@ export function forcePatronageEffect(client: Province): ICustomEffect {
          OfferPatronageAction(province, client, save).effect({ headless: false });
       },
       desc: (province, save) => $t(L.$1BecomesOurClient, getProvinceName(client, save)),
+   };
+}
+
+export function nullifyNegativeAttitudesEffect(fromProvince: Province): ICustomEffect {
+   return {
+      effect: (province, save) => {
+         const relation = getRelation(fromProvince, province, save);
+         if (relation) {
+            filterInPlace(relation.attitudeModifier, (modifier) => {
+               return modifier.value > 0;
+            });
+         }
+      },
+      desc: (province, save) => {
+         return $t(
+            L.$1NullifiesAllNegativeAttitudesTowards$2,
+            getProvinceName(fromProvince, save),
+            getProvinceName(province, save),
+         );
+      },
+   };
+}
+
+export function minTileUpgradeTimesCondition(minimum: number, province: Province, save: SaveGame): ICondition {
+   const times = getTileUpgradeTimes(province, save);
+   return {
+      name: $t(L.HaveAtLeast$1TileUpgradeTimes, formatNumber(minimum)),
+      value: times >= minimum,
+      progress: [times, minimum],
+   };
+}
+
+export function minTileUpgradesCondition(minimum: number, province: Province, save: SaveGame): ICondition {
+   const total = getTotalUpgrades(province, save);
+   return {
+      name: $t(L.HaveAtLeast$1TotalTileUpgrades, formatNumber(minimum)),
+      value: total >= minimum,
+      progress: [total, minimum],
    };
 }

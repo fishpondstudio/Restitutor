@@ -1387,3 +1387,13 @@ export function getProvinceCultures(province: Province, save: SaveGame): Set<Cul
    }
    return cultures;
 }
+
+export function getTileUpgradeTimes(province: Province, save: SaveGame): number {
+   let times = 0;
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province === province) {
+         times += data.upgradeCount;
+      }
+   }
+   return times;
+}

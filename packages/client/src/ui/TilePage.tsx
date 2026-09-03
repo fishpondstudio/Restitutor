@@ -1,5 +1,6 @@
 import { Progress, Slider } from "@mantine/core";
 import { clamp, formatNumber, formatPercent, type Tile } from "@project/shared/src/utils/Helper";
+import { Fragment } from "react/jsx-runtime";
 import { finalizeCondition } from "../game/actions/GameAction";
 import { Buildings } from "../game/definitions/Building";
 import { Culture } from "../game/definitions/Culture";
@@ -90,16 +91,10 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   {getProvinceName(tileData.province, G.save)}
                </div>
             </div>
-            {state.capital === tile && (
-               <div className="row my5">
-                  <div className="f1">{$t(L.Capital)}</div>
-                  <div className="mi sm text-green">check_circle</div>
-               </div>
-            )}
+
             <div className="row my5">
-               <div className="f1">{$t(L.Core)}</div>
-               <MakeCoreButton className="text-sm" tile={tile} />
-               {isMyProvince && state.capital !== tile && (
+               <div className="f1">{$t(L.Capital)}</div>
+               {state.capital !== tile && isMyProvince && (
                   <ActionButton
                      className="text-sm"
                      action={{
@@ -137,6 +132,13 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                      {$t(L.RelocateCapital)}
                   </ActionButton>
                )}
+               {state.capital === tile && <div className="mi sm text-green">check_circle</div>}
+               {state.capital !== tile && <div className="mi sm text-red">cancel</div>}
+            </div>
+
+            <div className="row my5">
+               <div className="f1">{$t(L.Core)}</div>
+               <MakeCoreButton className="text-sm" tile={tile} />
                <FloatingTip
                   label={$t(
                      L.ProvincesWithACoreClaimOnThisTile$1,
@@ -146,11 +148,12 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   )}
                >
                   <div>
-                     {tileData.coreProvinces.has(tileData.province) ? (
-                        <div className="mi sm text-green">check_circle</div>
-                     ) : (
-                        <div className="mi sm text-red">cancel</div>
-                     )}
+                     {Array.from(tileData.coreProvinces).map((province, idx) => (
+                        <Fragment key={province}>
+                           {idx > 0 && ", "}
+                           {getProvinceName(province, G.save)}
+                        </Fragment>
+                     ))}
                   </div>
                </FloatingTip>
             </div>
