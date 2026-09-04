@@ -1,59 +1,85 @@
 Hi,
 
-I am pleased to present Patch 0.20. This patch adds Raetia as a new playable province, introduces heir selection and a new defensive-war option, and brings several tutorial, balance, and quality-of-life improvements.
+I am pleased to present Patch 0.21. This patch adds Noricum and Pannonia as playable provinces, introduces Great Works across the Roman world and brings several map, balance, and quality-of-life improvements.
 
-[h2]Now Playable: Raetia[/h2]
+[h2]Now Playable: Noricum[/h2]
 
-Raetia is now available for new runs and Rebirth. The alpine province begins between Italia and the Danube, with a campaign shaped by mountain passes, frontier warfare, and the changing peoples of Late Antiquity.
+Noricum begins among the Alpine passes and the upper Danube, with a campaign shaped by frontier defense, Roman roads, and the struggle to preserve provincial life as imperial authority recedes.
 
-Raetia receives eleven historical events following the Via Raetia, imperial campaigns, Alamannic invasions, and the decline of Roman authority in the Alps. Its six missions offer several paths for expansion:
+Noricum receives 10 historical events following the Severan road program, frontier raids and reforms, the rise of Christianity, Alaric's arrival, and the evacuation of Roman Noricum. Its 6 missions offer several paths for expansion:
 
 [list]
-[*]Press into Germania beyond the northern frontier.
-[*]Bring a weakened Noricum under our protection as a client.
-[*]Reach the Mediterranean and develop our new coastal territories.
-[*]Build a realm of at least 20 core territories.
-[*]Shape Raetia's identity as Germanic culture becomes more prominent.
-[*]Conquer ten Italian territories and claim a triumph in Italia.
+[*]Build the manpower and revenue needed to choose a campaign against Raetia, Italia, or Pannonia.
+[*]Reach the Mediterranean and establish four core coastal territories.
+[*]Bring a weakened Raetia under our protection or press a claim to the Alpine passes.
+[*]Unite territories in Italia, Raetia, and Pannonia into a realm of many peoples.
+[*]Secure a new frontier in Dalmatia.
+[*]Cross the Danube and establish a foothold in Germania.
 [/list]
 
-Raetia has three unique Provincial Spirits:
+Noricum has 3 unique Provincial Spirits:
 
 [list]
-[*]Masters of the Passes - Enemy Hill and Mountain tiles contribute 20% less War Score.
-[*]Productive Investment - Each tile gains 2% Tile Output for every time it has been upgraded.
-[*]Commercial Renown - Gain 10% Prestige for each active trade.
+[*]Multicultural Army - Gain 5% War Power for each culture present on owned core tiles, up to 50%.
+[*]Inland Ambition - Required War Score is reduced by 20% when attacking a landlocked province.
+[*]Triumphal Unity - Gain 10 Stability for two years after winning a war as lead attacker or defender.
 [/list]
 
-[h2]Choose an Heir[/h2]
+[h2]Now Playable: Pannonia[/h2]
 
-You can now appoint one of the governor's sons as heir from the Family Tree. The chosen heir will assume governorship when the governor dies.
+Pannonia's position on the middle Danube places prosperous cities and vital military roads at the center of imperial rivalries, frontier migrations, and campaigns in every direction.
 
-[h2]Right of Reprisal[/h2]
-
-When you are called into a war as a co-defender, you can proclaim a Right of Reprisal. This costs 50 Diplomatic Points and grants a five-year Breach of the Peace casus belli against the lead attacker. When our Prestige is higher, the casus belli reduces War Score by 10%.
-
-
-[h2]Improved Tutorial[/h2]
-
-The tutorial now provides clearer guidance throughout the early game:
+Pannonia receives 10 historical events covering Aquincum's elevation, Caracalla's Danube tour, the crises at Sirmium and Mursa, the Conference of Carnuntum, Hunnic pressure, and the earthquake at Savaria. Its 5 missions invite us to:
 
 [list]
-[*]Learn when to change the government focus to military before an offensive war.
-[*]Province names and technology nodes can now be highlighted directly on the map and Tech Tree.
-[*]Tutorial progress updates correctly when game speed changes.
-[*]War, peace, resource, and technology instructions now use clearer inline icons and references.
-[*]The tutorial's early military guidance has been adjusted, including the recommended peacetime army maintenance target.
+[*]Develop the province and press claims on the upper Danube against Noricum.
+[*]Reach the Mediterranean and establish three core coastal territories.
+[*]Use marriage and a defensive compact to receive a weakened Noricum as our client.
+[*]Win five wars and make ten new core territories to secure Pannonia's ascendancy.
+[*]Unite Noricum and Dalmatia, then prepare a western campaign toward Raetia and Italia or an eastern campaign toward Moesia and Dacia.
 [/list]
 
-[h2]Balancing, Bugfixes & QoL[/h2]
+Pannonia has three unique Provincial Spirits:
 
 [list]
-[*]Pending game events now remain available for 12 months instead of 3 months.
-[*]Barbarian provinces can now spawn on previously unsettled tiles.
-[*]Initial tile upgrades are distributed randomly when starting a new run.
-[*]The former hidden governing-capacity bonus for Africa, Italia, Mauretania, and Tarraconensis is now represented by the visible Extensive Administration Provincial Spirit, granting 100 Governing Capacity.
-[*]Hillfort Bastion now caps its Tile Defense bonus at 50%.
-[*]Adjusted tech tree unlocks of Annex Client and Renew Vestments.
-[*]Updated the Family Tree, army controls, resource displays, war panels, and event artwork with clearer layouts and more consistent icons.
+[*]Crossroads Tax Districts - Gain 5% Land Tax for each neighboring province, up to 50%.
+[*]Bountiful Frontiers - Each frontier edge grants 10% Manpower, Land Tax, and Tile Output to its core tile.
+[*]Wartime Administration - Tile Maintenance is reduced by 10% while at war.
+[/list]
+
+[h2]Great Works[/h2]
+
+17 Great Works now occupy their historical locations across the map. Each becomes active after its historical completion date and grants a permanent bonus to the province controlling its tile. Great Works completed during a campaign receive a event popup.
+
+[list]
+[*]The Great Pyramid of Giza: +10% Land Tax (Memphis, Aegyptus Province)
+[*]Temple of Artemis: +10% Tile Output (Ephesus, Asia Province)
+[*]Pharos of Alexandria: -10% Research Cost (Alexandria, Aegyptus Province)
+[*]Royal Mausoleum of Mauretania: +100 Governing Capacity (Caesarea Mauretaniae, Mauretania Province)
+[*]Hadrian's Wall: +10% Defense (Vindovala, Britannia Province)
+[*]Roman Temple of Évora: +10% Trade Profit (Ebora, Lusitania Province)
+[*]Aqueduct of Segovia: +100 Governing Capacity (Segovia, Tarraconensis Province)
+[*]Porta Nigra: +10% War Power (Augusta Treverorum, Belgica Province)
+[*]Pont du Gard: +5 Production Capacity (Nemausus, Narbonensis Province)
+[*]Colosseum: +100 Governing Capacity (Roma, Italia Province)
+[*]Antonine Baths: +100 Governing Capacity (Carthago, Africa Province)
+[*]Diocletian's Palace: -10% Make Core Cost (Salona, Dalmatia Province)
+[*]Rotunda of Galerius: +1 Trade Capacity (Thessalonica, Macedonia Province)
+[*]Hagia Sophia: +1 Monthly Administrative Point (Byzantium, Bithynia Province)
+[*]Temple of Bel: +10 Stability (Palmyra, Syria Province)
+[*]Al-Khazneh: +10 Prestige (Petra, Judea Province)
+[*]Church of the Holy Sepulchre: +1 Christian Influence per Year (Ierusalem, Judea Province)
+[/list]
+
+Great Works owned by our province can be viewed under Internal Affairs, and the complete catalog is available from the same page. They also appear on their tile pages and in a new Great Works map overlay. A province's original Great Works are now shown when selecting a province for Rebirth.
+
+[h2]Balancing, Map & QoL[/h2]
+
+[list]
+[*]Africa, Italia, Mauretania, and Tarraconensis no longer have Extensive Administration. Their starting Governing Capacity bonus now comes from the great works: Antonine Baths, Colosseum, Royal Mausoleum of Mauretania, and Aqueduct of Segovia respectively.
+[*]Germania's provincial spirit United Frontier's War Power bonus is now capped at 50%.
+[*]Corrected numerous historical city names across the map.
+[*]The starting capitals of Asia, Baetica, Bithynia, Epirus, Lusitania, and Noricum are now Ephesus, Corduba, Nicomedia, Nicopolis, Emerita Augusta, and Virunum respectively.
+[*]The Tile page now clearly shows whether a territory is a capital and lists every province that has a core claim on the tile
+[*]Adjusted province map colors for improved contrast.
 [/list]
