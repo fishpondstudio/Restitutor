@@ -23,7 +23,7 @@ export const MapForegroundColors: Record<Province, number> = fromEntries(
    Provinces.map((province) => {
       const h = MapColorsH[province];
       const s = 40;
-      const l = 60;
+      const l = 50;
       return [province, hslToRgb(h, s, l)];
    }),
 );

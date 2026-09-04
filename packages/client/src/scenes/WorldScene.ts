@@ -15,11 +15,13 @@ import {
 } from "pixi.js";
 import { Fonts } from "../Fonts";
 import { Goods } from "../game/definitions/Goods";
+import { GreatWork, TileToGreatWork } from "../game/definitions/GreatWork";
 import type { Province } from "../game/definitions/Province";
 import type { Terrain } from "../game/definitions/Terrain";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
 import { isLand, LandSize } from "../game/Land";
+import { getGameDate } from "../game/logic/GameDateTime";
 import { MapBackgroundColors, MapColorsH, MapForegroundColors, MapTextColors } from "../game/logic/MapColor";
 import { findProvinceLabelPosition } from "../game/logic/MapLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
@@ -159,7 +161,7 @@ export class WorldScene extends Scene {
       });
 
       RefreshOverlay.on(() => {
-         for (const [tile, visual] of this._overlayContainer.map) {
+         for (const [tile, tileData] of G.save.state.tiles) {
             this._renderOverlay(tile);
          }
       });
@@ -167,9 +169,9 @@ export class WorldScene extends Scene {
       GameStateUpdated.on(() => {
          switch (getOverlay()) {
             case "Upgrade": {
-               for (const [tile, visual] of this._overlayContainer.map) {
-                  const tileData = G.save.state.tiles.get(tile);
-                  if (tileData) {
+               for (const [tile, tileData] of G.save.state.tiles) {
+                  const visual = this._overlayContainer.map.get(tile);
+                  if (visual) {
                      const text = visual as UnicodeText;
                      text.text = `${tileData.infrastructure + tileData.production + tileData.population}`;
                      this._adjustTextSize(text);
@@ -178,9 +180,9 @@ export class WorldScene extends Scene {
                break;
             }
             case "Defense": {
-               for (const [tile, visual] of this._overlayContainer.map) {
-                  const tileData = G.save.state.tiles.get(tile);
-                  if (tileData) {
+               for (const [tile, tileData] of G.save.state.tiles) {
+                  const visual = this._overlayContainer.map.get(tile);
+                  if (visual) {
                      const text = visual as UnicodeText;
                      text.text = `${round(getTileDefense(tile, G.save).value, 1)}`;
                      this._adjustTextSize(text);
@@ -189,12 +191,22 @@ export class WorldScene extends Scene {
                break;
             }
             case "Maintenance": {
-               for (const [tile, visual] of this._overlayContainer.map) {
-                  const tileData = G.save.state.tiles.get(tile);
-                  if (tileData) {
+               for (const [tile, tileData] of G.save.state.tiles) {
+                  const visual = this._overlayContainer.map.get(tile);
+                  if (visual) {
                      const text = visual as UnicodeText;
                      text.text = `${round(getTileMaintenanceCost(tile, G.save).value, 1)}`;
                      this._adjustTextSize(text);
+                  }
+               }
+               break;
+            }
+            case "GreatWorks": {
+               for (const [tile, tileData] of G.save.state.tiles) {
+                  const visual = this._overlayContainer.map.get(tile);
+                  const gw = TileToGreatWork.get(tile);
+                  if (visual && gw) {
+                     visual.visible = getGameDate(G.save.state.tick).getFullYear() >= GreatWork[gw].completionYear;
                   }
                }
                break;
@@ -290,6 +302,21 @@ export class WorldScene extends Scene {
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
             visual.tint = MapForegroundColors[tileData.province];
+            break;
+         }
+         case "GreatWorks": {
+            const gw = TileToGreatWork.get(tile);
+            if (gw) {
+               const visual = new Sprite(G.textures.get("Misc/GreatWork"));
+               this._overlayContainer.map.set(tile, visual);
+               visual.anchor.set(0.5, 0.5);
+               visual.position.set(x, y - 5);
+               visual.scale.set(0.5);
+               visual.tint = MapForegroundColors[tileData.province];
+               visual.visible = getGameDate(G.save.state.tick).getFullYear() >= GreatWork[gw].completionYear;
+            } else {
+               this._overlayContainer.map.delete(tile);
+            }
             break;
          }
       }

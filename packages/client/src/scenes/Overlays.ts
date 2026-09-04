@@ -18,6 +18,7 @@ export const Overlays = {
    Upgrade: () => $t(L.Upgrade),
    Defense: () => $t(L.Defense),
    Maintenance: () => $t(L.Maintenance),
+   GreatWorks: () => $t(L.GreatWorks),
 } as const satisfies Record<string, () => string>;
 
 export type OverlayType = keyof typeof Overlays;
