@@ -20,7 +20,7 @@ export function GreatWorkCompletedModal({ greatWork }: { greatWork: GreatWork })
          dismiss={true}
          title={
             <div className="row">
-               <div>${config.name()}</div>
+               <div>{config.name()}</div>
                <img
                   src={IconCatalog.Wikipedia}
                   style={{ height: "1rem", opacity: 0.7 }}
