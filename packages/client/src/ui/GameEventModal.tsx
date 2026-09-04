@@ -103,21 +103,15 @@ export function GameEventButton({
    onClick,
    label,
 }: {
-   tooltip?: React.ReactNode;
+   tooltip: React.ReactNode;
    onClick: () => void;
    label: React.ReactNode;
 }): React.ReactNode {
-   const content = (
-      <div className="modal-transparent-button" onClick={onClick}>
-         {label}
-      </div>
-   );
-   if (!tooltip) {
-      return content;
-   }
    return (
       <FloatingTip fixedWidth className="p0" label={tooltip}>
-         {content}
+         <div className="modal-transparent-button" onClick={onClick}>
+            {label}
+         </div>
       </FloatingTip>
    );
 }

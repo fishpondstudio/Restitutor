@@ -1,6 +1,11 @@
+import { mapOf } from "@project/shared/src/utils/Helper";
 import { GreatWork } from "../game/definitions/GreatWork";
+import { modifierToString } from "../game/definitions/Modifier";
+import { getTileName } from "../game/definitions/TileName";
+import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
+import { html } from "./components/RenderHTMLComp";
 import { GameEventButton } from "./GameEventModal";
 import { GenericEventModal } from "./GenericEventModal";
 import { renderMarkup } from "./ParseMarkup";
@@ -18,6 +23,18 @@ export function GreatWorkCompletedModal({ greatWork }: { greatWork: GreatWork })
          buttons={[
             <GameEventButton
                key="1"
+               tooltip={
+                  <div className="m10">
+                     {html(
+                        $t(
+                           L.GreatWorkCompletedEffectsActive$1$2$3,
+                           config.name(),
+                           mapOf(config.modifiers, (modifier, data) => modifierToString(modifier, data)).join(", "),
+                           getTileName(config.tile, G.save),
+                        ),
+                     )}
+                  </div>
+               }
                label={$t(L.LetItsGloryEndureThroughTheAges)}
                onClick={() => {
                   playClick();
