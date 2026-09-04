@@ -3461,4 +3461,6 @@ export const ZH_CN = {
    $1IsCompletedIn$2ItsEffectAppliesAfterCompletion: "$1 于<b>$2</b>建成，其效果在建成后生效。",
    ClickToPanToTheGreatWorkTile: "点击将视角移至伟大工程所在的地块",
    ProvincialGreatWorks: "行省伟大工程",
+   GreatWorks: "伟大工程",
+   ShowAllGreatWorks: "显示所有伟大工程",
 };

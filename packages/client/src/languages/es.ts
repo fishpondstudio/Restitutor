@@ -3538,4 +3538,6 @@ export const ES = {
    $1IsCompletedIn$2ItsEffectAppliesAfterCompletion: "$1 se completa en <b>$2</b>. Su efecto se aplica después de su finalización.",
    ClickToPanToTheGreatWorkTile: "Hacer clic para centrar la vista en el territorio de la gran obra",
    ProvincialGreatWorks: "Grandes obras de la provincia",
+   GreatWorks: "Grandes obras",
+   ShowAllGreatWorks: "Mostrar todas las grandes obras",
 };

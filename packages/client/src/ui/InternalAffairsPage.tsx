@@ -27,6 +27,7 @@ import {
    getProgressToNextRestoration,
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,
+   getProvinceGreatWorks,
    getProvinceOverextension,
    getProvinceResource,
    getProvinceStability,
@@ -53,6 +54,8 @@ import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
+import { GreatWorkComponent } from "./GreatWorkComponent";
+import { GreatWorksSingletonModal } from "./GreatWorksSingletonModal";
 import { MakeCoreButton } from "./MakeCoreButton";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { playClick, playError } from "./Sound";
@@ -215,6 +218,18 @@ export function InternalAffairsPage(): React.ReactNode {
                </div>
             </Fragment>
          ))}
+         <div className="h1">{$t(L.ProvincialGreatWorks)}</div>
+         <div className="m10">
+            {Array.from(getProvinceGreatWorks(G.save.state.playerProvince, G.save)).map((gw) => (
+               <GreatWorkComponent key={gw} greatWork={gw} />
+            ))}
+         </div>
+         <div className="divider" />
+         <div className="m10">
+            <button className="btn w100" onClick={() => showPanel(GreatWorksSingletonModal, {})}>
+               {$t(L.ShowAllGreatWorks)}
+            </button>
+         </div>
          <div className="h1">{$t(L.Religion)}</div>
          <div className="row mx10 my5">
             <div className="f1">{$t(L.ProvincialReligion)}</div>

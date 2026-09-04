@@ -1,7 +1,7 @@
-import { mapOf } from "@project/shared/src/utils/Helper";
+import { cls, mapOf } from "@project/shared/src/utils/Helper";
 import { GreatWork } from "../game/definitions/GreatWork";
 import { modifierToString } from "../game/definitions/Modifier";
-import { formatYear } from "../game/logic/GameDateTime";
+import { formatYear, getGameDate } from "../game/logic/GameDateTime";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
@@ -10,6 +10,7 @@ import { html } from "./components/RenderHTMLComp";
 
 export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): React.ReactNode {
    const config = GreatWork[greatWork];
+   const isCompleted = config.completionYear < getGameDate(G.save.state.tick).getFullYear();
    return (
       <FloatingTip
          fixedWidth
@@ -61,9 +62,9 @@ export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): Rea
                   {mapOf(config.modifiers, (modifier, data) => modifierToString(modifier, data)).join(", ")}
                </div>
             </div>
-            <div className="text-right">
-               <div className="mi sm text-yellow">account_balance</div>
-               <div className="text-dimmed">{formatYear(config.completionYear)}</div>
+            <div className={cls("text-right text-sm", isCompleted ? "text-yellow" : "text-dimmed")}>
+               <div className="mi sm">account_balance</div>
+               <div>{formatYear(config.completionYear)}</div>
             </div>
          </div>
       </FloatingTip>

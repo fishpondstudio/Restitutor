@@ -1399,6 +1399,18 @@ export function getTileUpgradeTimes(province: Province, save: SaveGame): number 
    return times;
 }
 
+export function getProvinceGreatWorks(province: Province, save: SaveGame): Set<GreatWork> {
+   const result = new Set<GreatWork>();
+   for (const [tile, data] of save.state.tiles) {
+      const currentProvince = data.province;
+      const greatWork = TileToGreatWork.get(tile);
+      if (currentProvince === province && greatWork) {
+         result.add(greatWork);
+      }
+   }
+   return result;
+}
+
 export function getProvinceOriginalGreatWorks(province: Province, save: SaveGame): Set<GreatWork> {
    const result = new Set<GreatWork>();
    for (const [tile, data] of save.state.tiles) {

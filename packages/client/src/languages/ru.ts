@@ -3491,4 +3491,6 @@ export const RU = {
    $1IsCompletedIn$2ItsEffectAppliesAfterCompletion: "Строительство сооружения «$1» завершается в <b>$2</b>. Его эффект применяется после завершения.",
    ClickToPanToTheGreatWorkTile: "Нажмите, чтобы переместить камеру к владению с великим сооружением",
    ProvincialGreatWorks: "Великие сооружения провинции",
+   GreatWorks: "Великие сооружения",
+   ShowAllGreatWorks: "Показать все великие сооружения",
 };

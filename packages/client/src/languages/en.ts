@@ -3496,4 +3496,6 @@ export const EN = {
    $1IsCompletedIn$2ItsEffectAppliesAfterCompletion: "$1 is completed in <b>$2</b>. Its effect applies after completion.",
    ClickToPanToTheGreatWorkTile: "Click to pan to the great work tile",
    ProvincialGreatWorks: "Provincial Great Works",
+   GreatWorks: "Great Works",
+   ShowAllGreatWorks: "Show All Great Works",
 };
