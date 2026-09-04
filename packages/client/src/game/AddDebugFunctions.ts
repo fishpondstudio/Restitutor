@@ -6,6 +6,7 @@ import { showPanel } from "../ui/common/ShowPanel";
 import { DeclareWarOnUsModal } from "../ui/DeclareWarOnUsModal";
 import { DrawnIntoWarModal } from "../ui/DrawnIntoWarModal";
 import { EcumenicalCouncilPage } from "../ui/EcumenicalCouncilPage";
+import { GreatWorkCompletedModal } from "../ui/GreatWorkCompletedModal";
 import { InvaderConqueredWarGoalModal } from "../ui/InvaderConqueredWarGoalModal";
 import { InvaderSueForWhitePeaceModal } from "../ui/InvaderSueForWhitePeaceModal";
 import { RestorationBonusModal } from "../ui/RestorationBonusModal";
@@ -218,6 +219,11 @@ export function addDebugFunctions(): void {
    globalThis.settle = (tile: Tile, province: Province) => {
       settleTile(tile, province, G.save);
       RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
+   };
+
+   // @ts-expect-error
+   globalThis.completeGreatWork = () => {
+      showPanel(GreatWorkCompletedModal, { greatWork: "DiocletiansPalace" });
    };
 
    function doAddChild(family: IFamily, female: boolean): void {

@@ -3540,4 +3540,6 @@ export const ES = {
    ProvincialGreatWorks: "Grandes obras de la provincia",
    GreatWorks: "Grandes obras",
    ShowAllGreatWorks: "Mostrar todas las grandes obras",
+   GreatWorkCompletedDesc$1$2: "Por fin, las obras de $1 han concluido en <Tile>$2</Tile>. Innumerables manos han transformado una visión audaz en piedra, y las generaciones venideras contemplarán este triunfo como testimonio de la ambición y el ingenio de nuestra era.",
+   LetItsGloryEndureThroughTheAges: "Que su gloria perdure por los siglos",
 };

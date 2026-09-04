@@ -3533,4 +3533,6 @@ export const FR = {
    ProvincialGreatWorks: "Provincial Great Works",
    GreatWorks: "Great Works",
    ShowAllGreatWorks: "Show All Great Works",
+   GreatWorkCompletedDesc$1$2: "At last, $1 stands complete in <Tile>$2</Tile>. Countless hands have transformed an audacious vision into stone, and generations yet unborn will look upon this triumph as a testament to the ambition and ingenuity of our age.",
+   LetItsGloryEndureThroughTheAges: "Let its glory endure through the ages",
 };

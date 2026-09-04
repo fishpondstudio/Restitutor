@@ -1,8 +1,10 @@
 import { clamp, forEach, hasFlag, mapSafeAdd, range, setFlag } from "@project/shared/src/utils/Helper";
 import { ChronicleModal } from "../../ui/ChronicleModal";
 import { showPanel } from "../../ui/common/ShowPanel";
+import { GreatWorkCompletedModal } from "../../ui/GreatWorkCompletedModal";
 import { G, GameFlags } from "../../utils/Global";
 import { unlockAchievement } from "../Achievement";
+import { GreatWork } from "../definitions/GreatWork";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { GameStateUpdated, GameTimeUpdated } from "../Events";
@@ -48,6 +50,8 @@ export function tickLogic(save: SaveGame, dt: number, unscaled: number): void {
 export const GameEventMonth = 0;
 // 1 Apr
 export const TickChronicleMonth = 3;
+// 1 May
+export const TickGreatWorkMonth = 4;
 // 1 Jul
 export const TickFamilyMonth = 6;
 
@@ -66,6 +70,9 @@ export function tickMonth(save: SaveGame): void {
    if (currentMonth === TickChronicleMonth) {
       tickChroniclePopup(save);
    }
+   if (currentMonth === TickGreatWorkMonth) {
+      tickGreatWork(save);
+   }
    tickAI(save);
 }
 
@@ -81,6 +88,18 @@ export function tickYear(save: SaveGame): void {
       forEach(SocialClassInfluenceYearly, (socialClass, func) => {
          addSocialClassInfluence(socialClass, func(province, save).value, province, save);
       });
+   });
+}
+
+function tickGreatWork(save: SaveGame): void {
+   if (hasFlag(G.flags, GameFlags.Sandbox)) {
+      return;
+   }
+   const year = getGameDate(save.state.tick).getFullYear();
+   forEach(GreatWork, (gw, config) => {
+      if (config.completionYear === year) {
+         showPanel(GreatWorkCompletedModal, { greatWork: gw });
+      }
    });
 }
 

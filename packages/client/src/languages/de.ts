@@ -3544,4 +3544,6 @@ export const DE = {
    ProvincialGreatWorks: "Großbauwerke der Provinz",
    GreatWorks: "Großbauwerke",
    ShowAllGreatWorks: "Alle Großbauwerke anzeigen",
+   GreatWorkCompletedDesc$1$2: "Endlich ist das Großbauwerk „$1“ in <Tile>$2</Tile> vollendet. Zahllose Hände haben eine kühne Vision in Stein verwandelt, und noch ungeborene Generationen werden in diesem Triumph ein Zeugnis für den Ehrgeiz und den Erfindungsgeist unseres Zeitalters sehen.",
+   LetItsGloryEndureThroughTheAges: "Sein Ruhm möge die Zeiten überdauern",
 };
