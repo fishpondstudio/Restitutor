@@ -143,6 +143,21 @@ em {
    }
 }
 
+.divider.light {
+   height: 0.0625rem;
+   &::before {
+      background:
+         linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.05) 0%,
+            rgba(255, 255, 255, 0.25) 25%,
+            rgba(255, 255, 255, 0.25) 75%,
+            rgba(255, 255, 255, 0.05) 100%
+         )
+         top / 100% 0.0625rem no-repeat;
+   }
+}
+
 .tooltip {
    color: var(--mantine-color-dark-text);
    background: var(--mantine-color-dark-2);

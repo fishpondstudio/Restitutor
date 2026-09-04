@@ -17,20 +17,36 @@ export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): Rea
          className="p0"
          label={
             <>
-               <div className="m10">
-                  {html(
-                     $t(
-                        L.$1IsCompletedIn$2ItsEffectAppliesAfterCompletion,
-                        config.name(),
-                        formatYear(config.completionYear),
-                     ),
-                  )}
+               <div style={{ position: "relative" }}>
+                  <img src={config.image.url} className="display-block w100" style={{ aspectRatio: "1/1" }} />
+                  <div
+                     style={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        background: "linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8))",
+                        paddingTop: "5rem",
+                     }}
+                     className="text-shadow"
+                  >
+                     <div className="mx10 my5">
+                        {html(
+                           $t(
+                              L.$1IsCompletedIn$2ItsEffectAppliesAfterCompletion,
+                              config.name(),
+                              formatYear(config.completionYear),
+                           ),
+                        )}
+                     </div>
+                     <div className="divider light" />
+                     <div className="mx10 my5 text-display row g5">
+                        <div className="mi xs">visibility</div>
+                        <div className="f1">{$t(L.ClickToPanToTheGreatWorkTile)}</div>
+                     </div>
+                  </div>
                </div>
-               <div className="h3 row g5">
-                  <div className="mi xs">visibility</div>
-                  <div className="f1">{$t(L.ClickToPanToTheGreatWorkTile)}</div>
-               </div>
-               <div className="m10 text-dimmed text-sm">{$t(L.ImageCredit$1, config.image.credit)}</div>
+               <div className="mx10 my5 text-dimmed text-xs">{$t(L.ImageCredit$1, config.image.credit)}</div>
             </>
          }
       >
@@ -52,7 +68,6 @@ export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): Rea
             <div>
                <img src={config.image.url} style={{ width: "3rem", height: "3rem" }} className="img-border" />
             </div>
-
             <div className="f1">
                <div className="row g5">
                   <div className="text-roman text-sm">{config.name()}</div>

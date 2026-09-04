@@ -50,7 +50,7 @@ export function GenericEventModal({
             <div className="col stretch">
                {buttons.map((button, index) => (
                   <Fragment key={index}>
-                     <div className="divider" />
+                     <div className="divider light" />
                      {button}
                   </Fragment>
                ))}
