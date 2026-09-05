@@ -4,6 +4,7 @@ import type { Todo } from "../ui/TodoPanel";
 import type { ChronicleEntryType } from "./definitions/Chronicle";
 import { SupportedSaveVersion } from "./definitions/Constant";
 import type { Languages } from "./Languages";
+import type { IRebirthHistory } from "./logic/LegacyUpgradeLogic";
 import { DefaultShortcuts, type IShortcutConfig, type Shortcut } from "./ShortcutDefinition";
 
 export const GameOptionFlag = {
@@ -30,6 +31,7 @@ export class GameOption {
    build = 0;
    chroniclePopupFrequency = 5;
    uiScale = 1;
+   rebirthHistory: IRebirthHistory[] = [];
    disabledTodos = new Set<Todo>();
    id = uuid4();
 }

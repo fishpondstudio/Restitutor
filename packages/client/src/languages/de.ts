@@ -1520,7 +1520,6 @@ export const DE = {
    TimedActionUpgradeProductionDesc: "Die Aufwertung der Gebietsproduktion kostet Diplomatiepunkte und erhöht die <i>Produktion</i> des Gebiets.",
    ToleranceIsWhatUnitesOurEmpire: "Toleranz ist es, die unser Reich eint",
    TooFewRivals: "Zu wenige Rivalen",
-   TotalLegacyPointNextRun: "Vermächtnispunkte im nächsten Durchlauf insgesamt",
    TotalManpower: "Gesamte Mannstärke",
    TotalUpgrades: "Aufwertungen insgesamt",
    TotalUpgradesOf$1: "Aufwertungen von $1 insgesamt",
@@ -3548,4 +3547,9 @@ export const DE = {
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i> ($2) wird in $3 fertiggestellt – seine Effekte sind jetzt aktiv.",
    $1IsInRebellion: "<Tile>$1</Tile> befindet sich in Rebellion!",
    EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "Für jedes geschaffene Kerngebiet erhöhen sich die Kosten um $1 der Grundkosten. Bisher wurden $2 Kerngebiete geschaffen.",
+   LegacyPointsForNextRun: "Vermächtnispunkte für den nächsten Durchlauf",
+   LegacyPointsFromPreviousRuns: "Vermächtnispunkte aus vorherigen Durchläufen",
+   EachAnnexedAndCoredTileGrants$1LegacyPoint: "Jedes annektierte Kerngebiet gewährt $1 Vermächtnispunkt.",
+   PersonalBestBonus: "Bonus für persönliche Bestleistung",
+   PersonalBestBonusDesc$1$2: "Für jedes annektierte Kerngebiet über unserem bisherigen Bestwert erhalten wir $1 zusätzlichen Vermächtnispunkt. Bisheriger Bestwert: $2 Gebiete.",
 };

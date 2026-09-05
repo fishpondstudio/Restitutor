@@ -1519,7 +1519,6 @@ export const ES = {
    TimedActionUpgradeProductionDesc: "Mejorar la producción territorial cuesta puntos diplomáticos y aumenta el <i>rendimiento</i> del territorio.",
    ToleranceIsWhatUnitesOurEmpire: "La tolerancia es lo que une nuestro imperio",
    TooFewRivals: "Muy pocos rivales",
-   TotalLegacyPointNextRun: "Puntos de legado totales para la próxima partida",
    TotalManpower: "Mano de obra total",
    TotalUpgrades: "Mejoras totales",
    TotalUpgradesOf$1: "Mejoras totales de $1",
@@ -3544,4 +3543,9 @@ export const ES = {
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i> ($2) se completa en $3; sus efectos ya están activos.",
    $1IsInRebellion: "¡<Tile>$1</Tile> está en rebelión!",
    EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "Por cada núcleo creado, el coste aumenta un $1 del coste base. Se han creado $2 núcleos.",
+   LegacyPointsForNextRun: "Puntos de legado para la próxima partida",
+   LegacyPointsFromPreviousRuns: "Puntos de legado de partidas anteriores",
+   EachAnnexedAndCoredTileGrants$1LegacyPoint: "Cada territorio anexionado y convertido en núcleo otorga $1 punto de legado.",
+   PersonalBestBonus: "Bonificación por récord personal",
+   PersonalBestBonusDesc$1$2: "Cada territorio anexionado y convertido en núcleo que supere nuestro récord anterior otorga $1 punto de legado adicional. Récord anterior: $2 territorios.",
 };

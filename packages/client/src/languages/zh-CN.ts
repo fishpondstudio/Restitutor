@@ -1513,7 +1513,6 @@ export const ZH_CN = {
    TimedActionUpgradeProductionDesc: "升级地块生产需消耗外交点数，并提高该地块的<i>产出</i>。",
    ToleranceIsWhatUnitesOurEmpire: "宽容乃维系我们帝国的纽带",
    TooFewRivals: "宿敌过少",
-   TotalLegacyPointNextRun: "下次重生传承点数总计",
    TotalManpower: "总人力",
    TotalUpgrades: "总升级数",
    TotalUpgradesOf$1: "$1总升级数",
@@ -3467,4 +3466,9 @@ export const ZH_CN = {
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i>（$2）已在$3建成——其效果现已生效。",
    $1IsInRebellion: "<Tile>$1</Tile>发生叛乱！",
    EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "每核心化一块地块，花费增加基础花费的 $1。已核心化 $2 块地块。",
+   LegacyPointsForNextRun: "下轮游戏的传承点数",
+   LegacyPointsFromPreviousRuns: "此前轮次获得的传承点数",
+   EachAnnexedAndCoredTileGrants$1LegacyPoint: "每块已吞并并核心化的地块提供 $1 传承点数。",
+   PersonalBestBonus: "个人最佳纪录奖励",
+   PersonalBestBonusDesc$1$2: "已吞并并核心化的地块中，每超出此前最佳纪录一块，就额外获得 $1 传承点数。此前最佳纪录：$2 块地块。",
 };

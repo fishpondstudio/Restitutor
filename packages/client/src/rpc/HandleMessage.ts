@@ -10,7 +10,6 @@ import {
 import { hasFlag } from "@project/shared/src/utils/Helper";
 import { jsonDecode } from "@project/shared/src/utils/Serialization";
 import { OnChatMessage, OnConnectionChanged, UserUpdated } from "../game/Events";
-import { G } from "../utils/Global";
 import { makeObservableHook } from "../utils/Hook";
 import { handleRpcResponse } from "./HandleRpcResponse";
 import { SESSION_KEY } from "./RPCClient";
@@ -59,7 +58,6 @@ export function handleMessage(e: MessageEvent<any>) {
          console.log(
             `[Server Time] Server Now: ${w.time}, Client Now = ${Date.now()}, Offset = ${serverTimeOffset}, Adjusted = ${serverNow()}`,
          );
-         G.save.state.offlineTime += w.offlineTime;
          UserUpdated.emit(user);
          OnConnectionChanged.emit(true);
          break;

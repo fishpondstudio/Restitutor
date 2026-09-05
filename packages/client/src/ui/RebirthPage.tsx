@@ -10,31 +10,25 @@ import { GameEvents } from "../game/events/GameEvents";
 import { GameOptionFlag } from "../game/GameOption";
 import { getOriginalTileCount } from "../game/GameState";
 import { saveGame } from "../game/LoadSave";
-import { rebirth } from "../game/logic/LegacyUpgradeLogic";
-import {
-   getProvinceName,
-   getProvinceOriginalGreatWorks,
-   getTilesAnnexedAndCored,
-   provinceResourceOf,
-} from "../game/logic/ProvinceLogic";
+import { getLegacyPointsNextRun, rebirth } from "../game/logic/LegacyUpgradeLogic";
+import { getProvinceName, getProvinceOriginalGreatWorks } from "../game/logic/ProvinceLogic";
 import { RomeMap } from "../game/RomeMap";
 import { WorldScene } from "../scenes/WorldScene";
 import { G, GameFlags } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
+import { BreakdownComp } from "./BreakdownComp";
 import { SidebarComp, SidebarImageHeader } from "./common/SidebarComp";
-import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { GreatWorkComponent } from "./GreatWorkComponent";
 import { HeaderImages } from "./HeaderImages";
 import { renderMarkup } from "./ParseMarkup";
 
 export function RebirthPage(): React.ReactNode {
-   const [total, used] = provinceResourceOf("legacy", G.save.state.playerProvince, G.save);
-   const newTiles = getTilesAnnexedAndCored(G.save.state.playerProvince, G.save);
    const [province, setProvince] = useState(G.save.state.playerProvince);
    const provincialEvents = entriesOf(GameEvents).filter(([k, v]) => v.condition?.province?.includes(province));
    const [freeProvinces, setFreeProvinces] = useState(new Set<Province>(AlwaysFreeProvinces));
    const isDemo = hasFlag(G.flags, GameFlags.Demo);
+   const legacyPointsNextRun = getLegacyPointsNextRun(G.save);
    useEffect(() => {
       if (!isDemo) {
          return;
@@ -55,15 +49,8 @@ export function RebirthPage(): React.ReactNode {
    const greatWorks = Array.from(getProvinceOriginalGreatWorks(province, G.save));
    return (
       <SidebarComp title={<SidebarImageHeader image={HeaderImages.Rebirth} title={$t(L.Rebirth)} />}>
-         <div className="h1">{$t(L.LegacyPoint)}</div>
-         <div className="mx10 my5 row">
-            <div className="f1">{$t(L.TilesAnnexedAndCored)}</div>
-            <div>{colorNumber(newTiles)}</div>
-         </div>
-         <div className="mx10 my5 row">
-            <div className="f1">{$t(L.TotalLegacyPointNextRun)}</div>
-            <div>{total + newTiles}</div>
-         </div>
+         <div className="h1">{$t(L.LegacyPointsForNextRun)}</div>
+         <BreakdownComp breakdown={legacyPointsNextRun} />
          <div className="h1">{$t(L.NextRunProvince)}</div>
          <FloatingTip label={$t(L.CurrentlyUnderDevelopmentMoreProvincesWillBeAddedSoon)}>
             <div className="mx10 my5">
@@ -180,7 +167,7 @@ export function RebirthPage(): React.ReactNode {
                      return;
                   }
                   rebirth(province, G.save);
-                  if (total + newTiles >= 10) {
+                  if (legacyPointsNextRun.value >= 10) {
                      unlockAchievement("Rebirth");
                   }
                   G.save.options.flag = setFlag(G.save.options.flag, GameOptionFlag.HideTutorial);

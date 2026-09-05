@@ -1518,7 +1518,6 @@ export const RU = {
    TimedActionUpgradeProductionDesc: "Улучшение производства владения стоит дипломатических очков и увеличивает <i>производство</i> владения.",
    ToleranceIsWhatUnitesOurEmpire: "Толерантность — вот что объединяет нашу империю",
    TooFewRivals: "Слишком мало соперников",
-   TotalLegacyPointNextRun: "Всего очков наследия в следующем забеге",
    TotalManpower: "Общие людские ресурсы",
    TotalUpgrades: "Всего улучшений",
    TotalUpgradesOf$1: "Всего улучшений $1",
@@ -3497,4 +3496,9 @@ export const RU = {
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i> ($2) завершено в $3 — его эффекты теперь активны.",
    $1IsInRebellion: "Владение <Tile>$1</Tile> охвачено восстанием!",
    EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "Каждое созданное ядро увеличивает стоимость на $1 от базовой стоимости. Всего создано ядер: $2.",
+   LegacyPointsForNextRun: "Очки наследия для следующего забега",
+   LegacyPointsFromPreviousRuns: "Очки наследия из предыдущих забегов",
+   EachAnnexedAndCoredTileGrants$1LegacyPoint: "Каждое аннексированное и превращённое в ядро владение приносит $1 очко наследия.",
+   PersonalBestBonus: "Бонус за личный рекорд",
+   PersonalBestBonusDesc$1$2: "За каждое аннексированное и превращённое в ядро владение сверх нашего предыдущего рекорда мы получаем $1 дополнительное очко наследия. Предыдущий рекорд по числу владений: $2.",
 };

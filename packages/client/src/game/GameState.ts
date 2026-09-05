@@ -45,7 +45,6 @@ export class GameState {
    tick = 0;
    month = 0;
    seed = randomAlphaNumeric(32);
-   offlineTime = 0;
    flags: GameStateFlags = GameStateFlags.None;
    playerProvince: Province = "Lugdunensis";
    provinces: Partial<Record<Province, IProvince>> = fromEntries(

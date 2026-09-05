@@ -1,4 +1,4 @@
-import { entriesOf, forEach } from "@project/shared/src/utils/Helper";
+import { clamp, entriesOf, forEach, formatNumber, type Tile } from "@project/shared/src/utils/Helper";
 import { type Edge, MarkerType, type Node } from "@xyflow/react";
 import { remToPx } from "../../ui/common/UIScaling";
 import {
@@ -8,10 +8,22 @@ import {
    LegacyUpgradeNodeWidth,
 } from "../../ui/UIConstant";
 import { $t, L } from "../../utils/i18n";
-import { finalizeCondition, type ICondition, type IConditionBreakdown } from "../actions/GameAction";
+import {
+   finalizeBreakdown,
+   finalizeCondition,
+   type ICondition,
+   type IConditionBreakdown,
+   type IValueBreakdown,
+   makeValueBreakdown,
+} from "../actions/GameAction";
 import { type LegacyUpgrade, LegacyUpgrades } from "../definitions/LegacyUpgrade";
 import { Modifiers, modifierValueToString } from "../definitions/Modifier";
-import { type Province, ProvinceResourceNames } from "../definitions/Province";
+import {
+   type Province,
+   ProvinceResourceNames,
+   type ProvinceResources,
+   type ProvinceStats,
+} from "../definitions/Province";
 import { initSaveGame, SaveGame } from "../GameState";
 import { addProvinceResource, getProvinceResource, getTilesAnnexedAndCored, provinceResourceOf } from "./ProvinceLogic";
 
@@ -68,13 +80,42 @@ export function makeLegacyUpgradeNodes(province: Province, save: SaveGame): { no
 }
 
 export function rebirth(province: Province, save: SaveGame): void {
+   const newLegacyPoints = getLegacyPointsNextRun(save);
+   // New legacy points should be calculated BEFORE adding rebirth history
+   // because of the "Personal Best Bonus"
+   const rebirthHistory = makeRebirthHistory(save);
+   if (rebirthHistory) {
+      save.options.rebirthHistory.unshift(rebirthHistory);
+   }
    const newSave = new SaveGame();
    newSave.state.playerProvince = province;
-   const [total, _] = provinceResourceOf("legacy", save.state.playerProvince, save);
-   const annexedAndCored = getTilesAnnexedAndCored(save.state.playerProvince, save);
    initSaveGame(newSave);
-   addProvinceResource("legacy", total + annexedAndCored, province, newSave);
+   addProvinceResource("legacy", newLegacyPoints.value, province, newSave);
    save.state = newSave.state;
+}
+
+export function getLegacyPointsNextRun(save: SaveGame): IValueBreakdown {
+   const result = makeValueBreakdown();
+   const [total, used] = provinceResourceOf("legacy", save.state.playerProvince, save);
+   result.add.push({
+      name: $t(L.LegacyPointsFromPreviousRuns),
+      value: total,
+   });
+   const tilesAnnexedAndCored = getTilesAnnexedAndCored(save.state.playerProvince, save);
+   result.add.push({
+      name: $t(L.TilesAnnexedAndCored),
+      value: tilesAnnexedAndCored,
+      desc: $t(L.EachAnnexedAndCoredTileGrants$1LegacyPoint, "1"),
+   });
+   const previousBest = save.options.rebirthHistory.reduce((max, history) => {
+      return Math.max(max, history.tileAnnexedAndCored);
+   }, 0);
+   result.add.push({
+      name: $t(L.PersonalBestBonus),
+      value: clamp(tilesAnnexedAndCored - previousBest, 0, Number.POSITIVE_INFINITY),
+      desc: $t(L.PersonalBestBonusDesc$1$2, "1", formatNumber(previousBest)),
+   });
+   return finalizeBreakdown(result);
 }
 
 export function getLegacyUpgradeCost(province: Province, save: SaveGame): number {
@@ -137,4 +178,32 @@ export function hasLegacyUpgrade(upgrade: LegacyUpgrade, province: Province, sav
       return false;
    }
    return state.legacyUpgrades.has(upgrade);
+}
+
+export type IRebirthHistory = {
+   tick: number;
+   province: Province;
+   resources: ProvinceResources;
+   stats: ProvinceStats;
+   tiles: Map<Tile, { core: boolean }>;
+   tileAnnexedAndCored: number;
+};
+
+export function makeRebirthHistory(save: SaveGame): IRebirthHistory | undefined {
+   const state = save.state.provinces[save.state.playerProvince];
+   if (!state) {
+      return undefined;
+   }
+   return {
+      tick: save.state.tick,
+      province: save.state.playerProvince,
+      resources: state.resources,
+      stats: state.stats,
+      tiles: new Map(
+         Array.from(save.state.tiles)
+            .filter(([_, data]) => data.province === save.state.playerProvince)
+            .map(([tile, data]) => [tile, { core: data.coreProvinces.has(save.state.playerProvince) }]),
+      ),
+      tileAnnexedAndCored: getTilesAnnexedAndCored(save.state.playerProvince, save),
+   };
 }

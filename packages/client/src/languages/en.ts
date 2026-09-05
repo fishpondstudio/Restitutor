@@ -1518,7 +1518,6 @@ export const EN = {
    TimedActionUpgradeProductionDesc: "Upgrading tile production costs Diplomatic Points and increases the tile's <i>Output</i>.",
    ToleranceIsWhatUnitesOurEmpire: "Tolerance is what unites our empire",
    TooFewRivals: "Too Few Rivals",
-   TotalLegacyPointNextRun: "Total Legacy Point Next Run",
    TotalManpower: "Total Manpower",
    TotalUpgrades: "Total Upgrades",
    TotalUpgradesOf$1: "Total Upgrades of $1",
@@ -3502,4 +3501,9 @@ export const EN = {
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i> ($2) is completed in $3 - its effects are now active.",
    $1IsInRebellion: "<Tile>$1</Tile> is in rebellion!",
    EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "Each core made adds $1 of the base cost. $2 cores have been made.",
+   LegacyPointsForNextRun: "Legacy Points for Next Run",
+   LegacyPointsFromPreviousRuns: "Legacy Points from Previous Runs",
+   EachAnnexedAndCoredTileGrants$1LegacyPoint: "Each annexed and cored tile grants $1 Legacy Point.",
+   PersonalBestBonus: "Personal Best Bonus",
+   PersonalBestBonusDesc$1$2: "Each annexed and cored tile beyond our previous best grants $1 additional Legacy Point. Previous best: $2 tiles.",
 };
