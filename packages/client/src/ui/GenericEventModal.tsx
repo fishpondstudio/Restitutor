@@ -4,6 +4,7 @@ import { GameOptionFlag } from "../game/GameOption";
 import { G, revertSpeed, setSpeed } from "../utils/Global";
 import { hideModal, ModalComp } from "../utils/ModalManager";
 import { FloatingTip } from "./components/FloatingTip";
+import { playSound } from "./Sound";
 import { CloseButtonClass } from "./UIConstant";
 
 export function GenericEventModal({
@@ -22,6 +23,7 @@ export function GenericEventModal({
    dismiss?: boolean;
 }): React.ReactNode {
    useEffect(() => {
+      playSound("event");
       if (!hasFlag(G.save.options.flag, GameOptionFlag.PauseGameOnEvent)) {
          return;
       }
