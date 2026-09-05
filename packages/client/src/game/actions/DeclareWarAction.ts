@@ -146,7 +146,7 @@ export function DeclareWarAction(
             hideSidebar();
          }
 
-         if (attacker === save.state.playerProvince) {
+         if (attacker === save.state.playerProvince && casusBelli !== "None" && casusBelli !== "ConquestMission") {
             unlockAchievement("DeclareWar");
          }
 
