@@ -13,7 +13,9 @@ import type { ComponentProps, ElementType } from "react";
 import type { PanelIdentity } from "../../ui/common/PanelTypes";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { GameEventModal } from "../../ui/GameEventModal";
+import { renderMarkup } from "../../ui/ParseMarkup";
 import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
+import { playSound } from "../../ui/Sound";
 import { G, GameFlags } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
 import { unlockAchievement } from "../Achievement";
@@ -29,6 +31,7 @@ import { applyGameEventButton, getEventButtons, getGameEventCondition } from "..
 import { type GameEvent, GameEvents } from "../events/GameEvents";
 import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
+import { showWarning } from "./AlertLogic";
 import { calculateTilesConnectedToCapital } from "./CacheLogic";
 import { cleanUpProvince } from "./CleanupProvince";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
@@ -278,6 +281,10 @@ export function tickProvince(province: Province, save: SaveGame): void {
             data.rebellion = clamp(data.rebellion + Math.sign(unrest), 0, 10);
          }
          if (oldRebellion < 10 && data.rebellion >= 10) {
+            if (province === save.state.playerProvince) {
+               playSound("shatter");
+               showWarning(renderMarkup($t(L.$1IsInRebellion, tile)));
+            }
             RefreshTiles.emit({ tiles: [tile], options: { indicator: true } });
          }
       }

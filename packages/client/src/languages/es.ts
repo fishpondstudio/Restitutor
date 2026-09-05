@@ -3543,4 +3543,5 @@ export const ES = {
    GreatWorkCompletedDesc$1$2: "Por fin, las obras de $1 han concluido en <Tile>$2</Tile>. Innumerables manos han transformado una visión audaz en piedra, y las generaciones venideras contemplarán este triunfo como testimonio de la ambición y el ingenio de nuestra era.",
    LetItsGloryEndureThroughTheAges: "Que su gloria perdure por los siglos",
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i> ($2) se completa en $3; sus efectos ya están activos.",
+   $1IsInRebellion: "¡<Tile>$1</Tile> está en rebelión!",
 };

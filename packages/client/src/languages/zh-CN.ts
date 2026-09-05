@@ -3466,4 +3466,5 @@ export const ZH_CN = {
    GreatWorkCompletedDesc$1$2: "历经岁月，$1终于在<Tile>$2</Tile>竣工。无数双手将宏伟构想化为不朽石迹；后世子孙仰望这一伟业时，必将从中见证这个时代的雄心与巧思。",
    LetItsGloryEndureThroughTheAges: "愿其荣光传颂千秋",
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i>（$2）已在$3建成——其效果现已生效。",
+   $1IsInRebellion: "<Tile>$1</Tile>发生叛乱！",
 };
