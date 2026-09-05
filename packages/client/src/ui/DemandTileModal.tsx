@@ -19,7 +19,6 @@ import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { html } from "./components/RenderHTMLComp";
 import { DiceRollComp } from "./DiceRollDisplay";
-import { playClick } from "./Sound";
 
 export function DemandTileModal({ province }: { province: Province }): React.ReactNode {
    const [selectedTile, setSelectedTile] = useState<Tile | null>(null);
@@ -163,7 +162,6 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
             },
          }}
          onAccept={() => {
-            playClick();
             tileData.province = G.save.state.playerProvince;
             unlockAchievement("DemandTile");
             GameStateUpdated.emit();
@@ -171,7 +169,6 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
             hideModal();
          }}
          onReject={() => {
-            playClick();
             const relation = getRelation(G.save.state.playerProvince, tileData.province, G.save);
             if (relation) {
                relation.casusBelli.set("DemandRejected", {

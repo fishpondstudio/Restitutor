@@ -5,7 +5,6 @@ import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
 import { GameEventButton } from "./GameEventModal";
 import { GenericEventModal } from "./GenericEventModal";
-import { playClick } from "./Sound";
 
 export function WarEndedModal({ war }: { war: IWar }): React.ReactNode {
    const ourAlly = war.coAttackers.has(G.save.state.playerProvince) ? war.attacker : war.defender;
@@ -22,7 +21,6 @@ export function WarEndedModal({ war }: { war: IWar }): React.ReactNode {
                tooltip={<div className="m10">{$t(L.OneLessWarTooltip)}</div>}
                label={$t(L.WeAreGladThatPeaceIsRestored)}
                onClick={() => {
-                  playClick();
                   hideModal();
                }}
             />,

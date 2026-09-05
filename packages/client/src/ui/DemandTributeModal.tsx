@@ -20,7 +20,6 @@ import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { html } from "./components/RenderHTMLComp";
 import { DiceRollComp } from "./DiceRollDisplay";
-import { playClick } from "./Sound";
 
 export function DemandTributeModal({ province }: { province: Province }): React.ReactNode {
    const [rollStarted, setRollStarted] = useState(false);
@@ -133,7 +132,6 @@ export function DemandTributeModal({ province }: { province: Province }): React.
                </ul>
             }
             onAccept={() => {
-               playClick();
                addProvinceResource("gold", tributeAmount, G.save.state.playerProvince, G.save);
                GameStateUpdated.emit();
                hideModal();
@@ -153,7 +151,6 @@ export function DemandTributeModal({ province }: { province: Province }): React.
                </ul>
             }
             onReject={() => {
-               playClick();
                addModifier({
                   modifier: "Prestige",
                   type: "multiply",

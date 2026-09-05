@@ -1,34 +1,40 @@
 import { sound } from "@pixi/sound";
-import bling from "../assets/sounds/bling.mp3";
+import { forEach } from "@project/shared/src/utils/Helper";
 import click from "../assets/sounds/click.mp3";
 import error from "../assets/sounds/error.mp3";
-import upgrade from "../assets/sounds/upgrade.mp3";
-
+import sword from "../assets/sounds/sword.mp3";
 import { G } from "../utils/Global";
 
+const SoundClips = {
+   click,
+   error,
+   sword,
+} as const satisfies Record<string, string>;
+
+export type SoundClip = keyof typeof SoundClips;
+
 export function loadSounds(): void {
-   sound.add("click", click);
-   sound.add("error", error);
-   sound.add("upgrade", upgrade);
-   sound.add("bling", bling);
+   forEach(SoundClips, (key, value) => {
+      sound.add(key, value);
+   });
 }
 
-export function playClick(): void {
+export function playSound(clip: SoundClip): void {
    if (!G.save) return;
-   sound.play("click", { volume: G.save.options.volume });
+   sound.play(clip, { volume: G.save.options.volume });
 }
 
-export function playError(): void {
-   if (!G.save) return;
-   sound.play("error", { volume: G.save.options.volume });
-}
-
-export function playUpgrade(): void {
-   if (!G.save) return;
-   sound.play("upgrade", { volume: G.save.options.volume });
-}
-
-export function playBling(): void {
-   if (!G.save) return;
-   sound.play("bling", { volume: G.save.options.volume });
-}
+document.addEventListener(
+   "click",
+   (e) => {
+      if (e.target instanceof HTMLElement) {
+         if (e.target.dataset.skipSound) {
+            return;
+         }
+         if (getComputedStyle(e.target).cursor.includes("pointer")) {
+            playSound("click");
+         }
+      }
+   },
+   { capture: true },
+);

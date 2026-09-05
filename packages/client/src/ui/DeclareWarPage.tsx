@@ -24,7 +24,7 @@ import { BreakdownRow } from "./BreakdownRow";
 import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
-import { playError } from "./Sound";
+import { playSound } from "./Sound";
 import { SidebarWiderWidth } from "./UIConstant";
 import { WarChanceTooltip } from "./WarChanceTooltip";
 import { WarMonthlyConsequences } from "./WarMonthlyConsequences";
@@ -72,7 +72,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
       G.scene.getCurrent(WorldScene)?.setClickTileHandler((tile) => {
          if (!warGoalTiles.has(tile)) {
             G.scene.getCurrent(WorldScene)?.drawProvinceOutline(province);
-            playError();
+            playSound("error");
             return;
          }
          setSelectedTiles((prev) => {
@@ -82,6 +82,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
             } else {
                result.add(tile);
             }
+            playSound("click");
             G.scene.getCurrent(WorldScene)?.drawSelectors(result);
             return result;
          });
@@ -194,6 +195,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
          )}
          <div className="mx10">
             <ActionButton
+               sound="sword"
                id={`DeclareWarPage_DeclareWar_${province}`}
                className="w100 red py2"
                action={DeclareWarAction(

@@ -4,7 +4,6 @@ import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
 import { GameEventButton } from "./GameEventModal";
 import { GenericEventModal } from "./GenericEventModal";
-import { playClick } from "./Sound";
 import { WhitePeaceTooltip } from "./WhitePeaceTooltip";
 
 export function InvaderSueForWhitePeaceModal({ war }: { war: IWar }): React.ReactNode {
@@ -20,7 +19,6 @@ export function InvaderSueForWhitePeaceModal({ war }: { war: IWar }): React.Reac
                tooltip={<WhitePeaceTooltip war={war} />}
                label={$t(L.WeHopeTheyveLearnedTheirLesson)}
                onClick={() => {
-                  playClick();
                   hideModal();
                }}
             />,

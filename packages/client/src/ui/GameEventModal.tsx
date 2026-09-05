@@ -18,7 +18,6 @@ import { ConditionBreakdownComp } from "./ConditionBreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { GenericEventModal } from "./GenericEventModal";
 import { IconCatalog } from "./IconCatalog";
-import { playClick } from "./Sound";
 
 export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode {
    const data = GameEvents[event];
@@ -44,7 +43,6 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
             </>
          }
          onClick={() => {
-            playClick();
             const state = G.save.state.provinces[G.save.state.playerProvince];
             if (!state) {
                return;

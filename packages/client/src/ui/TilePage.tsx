@@ -50,7 +50,6 @@ import { html } from "./components/RenderHTMLComp";
 import { DiplomacyPage } from "./DiplomacyPage";
 import { GreatWorkComponent } from "./GreatWorkComponent";
 import { MakeCoreButton } from "./MakeCoreButton";
-import { playClick } from "./Sound";
 import { TileBuildingsModal } from "./TileBuildingsModal";
 import { Grid2 } from "./UIConstant";
 import { UpgradeInfrastructureButton, UpgradePopulationButton, UpgradeProductionButton } from "./UpgradeButtons";
@@ -393,7 +392,6 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   <button
                      className="btn text-sm"
                      onClick={() => {
-                        playClick();
                         const unrest = getTileUnrest(tile, G.save).value;
                         tileData.autonomy = clamp(tileData.autonomy + Math.ceil(unrest), 0, 100);
                         GameStateUpdated.emit();

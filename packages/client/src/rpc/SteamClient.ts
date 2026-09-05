@@ -2,7 +2,6 @@ import { rpcClient } from "@project/shared/src/thirdparty/TRPCClient";
 import type { IPCService } from "../../../electron/src/IPCService";
 import { saveGame } from "../game/LoadSave";
 import { showError } from "../game/logic/AlertLogic";
-import { playError } from "../ui/Sound";
 import { G } from "../utils/Global";
 
 export function isSteam(): boolean {
@@ -25,7 +24,6 @@ window.addEventListener("DOMContentLoaded", () => {
             saveGame(G.save)
                .then(() => SteamClient.quit())
                .catch((e) => {
-                  playError();
                   showError(String(e));
                });
          } else {

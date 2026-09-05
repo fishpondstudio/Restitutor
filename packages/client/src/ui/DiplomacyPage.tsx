@@ -96,7 +96,6 @@ import { DeclareWarPage } from "./DeclareWarPage";
 import { DemandTileModal } from "./DemandTileModal";
 import { DemandTributeModal } from "./DemandTributeModal";
 import { LookForSpouseModal } from "./LookForSpouseModal";
-import { playClick } from "./Sound";
 import { TradeSingletonModal } from "./TradeSingletonModal";
 import { TreatyActionButton } from "./TreatyActionButton";
 import { DiplomacyActionWidth, DiplomacyWidth, SidebarWidth } from "./UIConstant";
@@ -1219,7 +1218,7 @@ function SelectRival({ province, index }: { province: Province; index: number })
                showError($t(L.WeCannotChangeRivalForAnother$1Months, formatNumber(cooldown)));
                return;
             }
-            playClick();
+
             addAttitudeModifier(
                selected,
                province,

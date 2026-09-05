@@ -17,7 +17,6 @@ import { RefreshTechTree } from "../game/Events";
 import { getTechPosition } from "../game/logic/TechLogic";
 import { showPanel } from "../ui/common/ShowPanel";
 import { remToPx } from "../ui/common/UIScaling";
-import { playClick } from "../ui/Sound";
 import { TechPage } from "../ui/TechPage";
 import { SidebarWidth } from "../ui/UIConstant";
 import { WheelMode } from "../utils/Camera";
@@ -272,7 +271,6 @@ export class TechTreeScene extends Scene {
       const pos = this.viewport.screenToWorld(e.screen);
       const tech = this.getTechByPosition(pos);
       if (tech) {
-         playClick();
          this._selectedTech = tech;
          this.drawSelected();
       }

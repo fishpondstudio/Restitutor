@@ -58,7 +58,7 @@ import { GreatWorkComponent } from "./GreatWorkComponent";
 import { GreatWorksSingletonModal } from "./GreatWorksSingletonModal";
 import { MakeCoreButton } from "./MakeCoreButton";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
-import { playClick, playError } from "./Sound";
+import { playSound } from "./Sound";
 import { TilePage } from "./TilePage";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid2 } from "./UIConstant";
@@ -296,9 +296,8 @@ export function InternalAffairsPage(): React.ReactNode {
                                        if (state.toleratedReligions.size < toleratedReligionSlots.value) {
                                           state.toleratedReligions.add(religion);
                                           GameStateUpdated.emit();
-                                          playClick();
                                        } else {
-                                          playError();
+                                          playSound("error");
                                        }
                                     }}
                                  >
@@ -446,9 +445,8 @@ export function InternalAffairsPage(): React.ReactNode {
                                        if (state.toleratedCultures.size < toleratedCultureSlots.value) {
                                           state.toleratedCultures.add(culture);
                                           GameStateUpdated.emit();
-                                          playClick();
                                        } else {
-                                          playError();
+                                          playSound("error");
                                        }
                                     }}
                                  >
@@ -500,7 +498,6 @@ export function InternalAffairsPage(): React.ReactNode {
                            <button
                               className="btn text-xs"
                               onClick={() => {
-                                 playClick();
                                  tileData.autonomy = 0;
                                  GameStateUpdated.emit();
                               }}
@@ -512,7 +509,6 @@ export function InternalAffairsPage(): React.ReactNode {
                            <button
                               className="btn text-xs"
                               onClick={() => {
-                                 playClick();
                                  const unrest = getTileUnrest(tile, G.save).value;
                                  tileData.autonomy = clamp(tileData.autonomy + Math.ceil(unrest), 0, 100);
                                  GameStateUpdated.emit();

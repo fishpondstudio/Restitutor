@@ -31,6 +31,7 @@ import { showPanel } from "../ui/common/ShowPanel";
 import { hideSidebar } from "../ui/common/SidebarManager";
 import { DiplomacyPage } from "../ui/DiplomacyPage";
 import { EditTilePage } from "../ui/EditTilePage";
+import { playSound } from "../ui/Sound";
 import { TilePage } from "../ui/TilePage";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
@@ -360,6 +361,7 @@ export class WorldScene extends Scene {
          return;
       }
 
+      playSound("click");
       const tileData = G.save.state.tiles.get(tile);
 
       if (!tileData) {

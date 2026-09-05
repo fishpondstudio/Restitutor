@@ -16,7 +16,7 @@ import { $t, L } from "../utils/i18n";
 import { ConditionBreakdownComp } from "./ConditionBreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { ResourceCostComp } from "./ResourceCostComp";
-import { playClick, playError } from "./Sound";
+import { playSound, type SoundClip } from "./Sound";
 
 export function ActionButton({
    action,
@@ -25,11 +25,13 @@ export function ActionButton({
    className,
    id,
    style,
+   sound = "click",
 }: React.PropsWithChildren<{
    tooltip?: (element: React.ReactNode) => React.ReactNode;
    className?: string;
    id?: string;
    style?: React.CSSProperties;
+   sound?: SoundClip;
    action: IGameAction;
 }>): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -41,6 +43,7 @@ export function ActionButton({
    return (
       <button
          id={id}
+         data-skip-sound={true}
          className={cls("btn", className)}
          style={style}
          disabled={!isDebug && (!isConditionMet || !hasEnoughResources)}
@@ -50,11 +53,11 @@ export function ActionButton({
                ((condition === undefined || condition.value === true) &&
                   (cost === undefined || trySpendProvinceResources(cost, G.save.state.playerProvince, G.save)))
             ) {
-               playClick();
                effect({ headless: false });
                GameStateUpdated.emit();
+               playSound(sound);
             } else {
-               playError();
+               playSound("error");
             }
          }}
       >
@@ -116,7 +119,7 @@ function _ActionButtonContent({
    const tooltipContent = <ActionButtonTooltip condition={condition} cost={cost} />;
    return (
       <FloatingTip label={tooltip ? tooltip(tooltipContent) : tooltipContent} fixedWidth className="p0">
-         <div>{children}</div>
+         <div data-skip-sound={true}>{children}</div>
       </FloatingTip>
    );
 }

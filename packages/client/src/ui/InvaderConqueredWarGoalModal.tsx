@@ -8,7 +8,6 @@ import { html } from "./components/RenderHTMLComp";
 import { GameEventButton } from "./GameEventModal";
 import { GenericEventModal } from "./GenericEventModal";
 import { PeaceTreatyTooltip } from "./PeaceTreatyTooltip";
-import { playClick } from "./Sound";
 
 export function InvaderConqueredWarGoalModal({ war }: { war: IWar }): React.ReactNode {
    const warGoal = Array.from(war.tiles)
@@ -26,7 +25,6 @@ export function InvaderConqueredWarGoalModal({ war }: { war: IWar }): React.Reac
                tooltip={<PeaceTreatyTooltip war={war} />}
                label={$t(L.ATerribleLossIndeed)}
                onClick={() => {
-                  playClick();
                   hideModal();
                }}
             />,

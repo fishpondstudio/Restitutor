@@ -28,7 +28,6 @@ import { FloatingTip } from "./components/FloatingTip";
 import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
 import { IconCatalog } from "./IconCatalog";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
-import { playClick, playError } from "./Sound";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid3 } from "./UIConstant";
 
@@ -158,11 +157,9 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
                            gold: getAdvisorInitialCost(candidate.level, G.save.state.playerProvince, G.save).value,
                         };
                         if (trySpendProvinceResources(cost, G.save.state.playerProvince, G.save)) {
-                           playClick();
                            state.advisors[advisor].selected = candidate;
                            GameStateUpdated.emit();
                         } else {
-                           playError();
                            showError(notEnoughResourcesError(cost, G.save));
                         }
                      }}
@@ -198,7 +195,6 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
                <Menu.Item
                   className="text-display text-md text-red"
                   onClick={() => {
-                     playClick();
                      state.advisors[advisor].selected = null;
                      GameStateUpdated.emit();
                   }}

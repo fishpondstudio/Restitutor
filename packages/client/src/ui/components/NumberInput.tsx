@@ -1,5 +1,5 @@
 import { cls, formatNumber } from "@project/shared/src/utils/Helper";
-import { playClick, playError } from "../Sound";
+import { playSound } from "../Sound";
 
 export function NumberSelect({
    value,
@@ -18,10 +18,9 @@ export function NumberSelect({
             className={cls("mi", canDecrease(value) ? null : "text-disabled")}
             onClick={() => {
                if (canDecrease(value)) {
-                  playClick();
                   onChange(value - 1);
                } else {
-                  playError();
+                  playSound("error");
                }
             }}
          >
@@ -32,10 +31,9 @@ export function NumberSelect({
             className={cls("mi", canIncrease(value) ? null : "text-disabled")}
             onClick={() => {
                if (canIncrease(value)) {
-                  playClick();
                   onChange(value + 1);
                } else {
-                  playError();
+                  playSound("error");
                }
             }}
          >

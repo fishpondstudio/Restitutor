@@ -8,7 +8,6 @@ import { hideModal } from "../utils/ModalManager";
 import { html } from "./components/RenderHTMLComp";
 import { GameEventButton } from "./GameEventModal";
 import { GenericEventModal } from "./GenericEventModal";
-import { playClick } from "./Sound";
 
 export function DeclareWarOnUsModal({ war }: { war: IWar }): React.ReactNode {
    const warGoal = Array.from(war.tiles)
@@ -28,7 +27,6 @@ export function DeclareWarOnUsModal({ war }: { war: IWar }): React.ReactNode {
                tooltip={<div className="m10">{$t(L.WarInfoTooltip)}</div>}
                label={$t(L.WeShallDefendOurHomeland)}
                onClick={() => {
-                  playClick();
                   hideModal();
                }}
             />,

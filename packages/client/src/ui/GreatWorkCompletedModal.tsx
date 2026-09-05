@@ -11,7 +11,6 @@ import { GameEventButton } from "./GameEventModal";
 import { GenericEventModal } from "./GenericEventModal";
 import { IconCatalog } from "./IconCatalog";
 import { renderMarkup } from "./ParseMarkup";
-import { playClick } from "./Sound";
 
 export function GreatWorkCompletedModal({ greatWork }: { greatWork: GreatWork }): React.ReactNode {
    const config = GreatWork[greatWork];
@@ -52,7 +51,6 @@ export function GreatWorkCompletedModal({ greatWork }: { greatWork: GreatWork })
                }
                label={$t(L.LetItsGloryEndureThroughTheAges)}
                onClick={() => {
-                  playClick();
                   hideModal();
                }}
             />,

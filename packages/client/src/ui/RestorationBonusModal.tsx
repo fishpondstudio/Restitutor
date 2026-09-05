@@ -10,7 +10,6 @@ import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
 import { FloatingTip } from "./components/FloatingTip";
-import { playClick } from "./Sound";
 import { Grid3 } from "./UIConstant";
 
 export function RestorationBonusModal(): React.ReactNode {
@@ -46,7 +45,7 @@ function ModifierComp({ bonus }: { bonus: RestorationBonus }): React.ReactNode {
          style={{ position: "relative", overflow: "hidden", maxHeight: "70vh" }}
          onClick={() => {
             hideModal();
-            playClick();
+
             addProvinceStat("usedRestoration", 1, G.save.state.playerProvince, G.save);
             const currentUsed = getProvinceStat("usedRestoration", G.save.state.playerProvince, G.save);
             applyGameEffect(
