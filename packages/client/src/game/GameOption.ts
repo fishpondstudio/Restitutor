@@ -24,7 +24,7 @@ export class GameOption {
    language: keyof typeof Languages = "en";
    flag: GameOptionFlag = GameOptionFlag.None;
    chronicleALerts: Set<ChronicleEntryType> = new Set();
-   volume = 1;
+   volume = 0.5;
    shortcuts: Partial<Record<Shortcut, IShortcutConfig>> = structuredClone(DefaultShortcuts);
    version = SupportedSaveVersion;
    build = 0;
