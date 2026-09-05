@@ -28,6 +28,9 @@ function showAlert(message: React.ReactNode, type: AlertType): void {
       position: "top-center",
       color,
       withBorder: true,
+      classNames: {
+         description: "text-md",
+      },
       autoClose: 10_000,
    });
 }

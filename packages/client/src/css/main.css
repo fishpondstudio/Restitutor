@@ -19,6 +19,8 @@ html {
    --default-cursor: url("../assets/images/CursorDefault.png"), default;
    --not-allowed-cursor: url("../assets/images/CursorNotAllowed.png"), not-allowed;
    --mantine-cursor-type: var(--hand-cursor);
+   --pause-panel-height: 3rem;
+   --pause-panel-margin: 0.625rem;
 }
 
 body {
@@ -379,4 +381,8 @@ u {
    vertical-align: middle;
    display: inline-block;
    margin: 0 0.2em;
+}
+
+.mantine-Notifications-root:where([data-position="top-center"]) {
+   top: calc(var(--pause-panel-margin) * 2 + var(--pause-panel-height));
 }

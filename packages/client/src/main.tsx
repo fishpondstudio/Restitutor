@@ -67,6 +67,11 @@ const theme = createTheme({
             transitionDuration: 200,
          },
       }),
+      Notifications: Notifications.extend({
+         classNames: {
+            notification: "panel text-display",
+         },
+      }),
    },
    defaultRadius: "sm",
 });
