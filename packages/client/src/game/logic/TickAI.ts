@@ -824,6 +824,9 @@ function findWarGoal(province: Province, save: SaveGame): { tile: Tile; estimate
       if (!relation) {
          continue;
       }
+      if (getAttitudeTowards(province, otherProvince, save).value > 0) {
+         continue;
+      }
       if (!relation.casusBelli.has("ConquestMission")) {
          relation.casusBelli.set("ConquestMission", { monthsLeft: 0 });
       }

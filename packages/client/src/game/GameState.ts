@@ -118,7 +118,7 @@ function initAttitudes(save: SaveGame): void {
    forEach(save.state.provinces, (province) => {
       const provinces = getProvincesWithinDiplomaticRange(province, save);
       shuffle(provinces);
-      for (let i = 0; i < Math.min(provinces.length, 2); ++i) {
+      for (let i = 0; i < Math.min(provinces.length, 4); ++i) {
          const otherProvince = provinces[i];
          addAttitudeModifier(
             otherProvince,
@@ -126,8 +126,8 @@ function initAttitudes(save: SaveGame): void {
             {
                type: "add",
                name: $t(L.Historical),
-               value: 50,
-               duration: 12 * 10,
+               value: i < 2 ? 30 : -30,
+               duration: 12 * 100,
             },
             save,
          );
