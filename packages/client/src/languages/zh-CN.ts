@@ -301,7 +301,6 @@ export const ZH_CN = {
    DueToLackOfCasusBelli: "由于缺乏宣战理由。",
    Duration: "持续时间",
    EachBuildingOnATileRequiresABuildingSlot: "地块上的每座建筑都需要一个建筑槽位。",
-   EachCoreMadeRaisesTheCostBy$1Compounded$2CoresHaveBeenMade: "每核心化一块地块，花费按 $1 复合增长。已核心化 $2 块地块",
    EachGeneralSkillLevelContributesToTheCorrespondingUnitsPower: "将军每级技能都会提升对应兵种的单位军力。",
    EachTechResearchedRaisesCostBy$1$2: "每研究一项科技，花费按 $1 复合增长。已研究 $2 项科技",
    EachWarStartedRaisesThePenaltyBy$1$2: "每发动一场战争，惩罚按 $1 复合增长。当前已发动 $2 场战争。",
@@ -3467,4 +3466,5 @@ export const ZH_CN = {
    LetItsGloryEndureThroughTheAges: "愿其荣光传颂千秋",
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i>（$2）已在$3建成——其效果现已生效。",
    $1IsInRebellion: "<Tile>$1</Tile>发生叛乱！",
+   EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "每核心化一块地块，花费增加基础花费的 $1。已核心化 $2 块地块。",
 };

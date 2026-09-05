@@ -302,7 +302,6 @@ export const ES = {
    DueToLackOfCasusBelli: "Debido a la falta de casus belli.",
    Duration: "Duración",
    EachBuildingOnATileRequiresABuildingSlot: "Cada edificio en un territorio requiere un espacio de construcción.",
-   EachCoreMadeRaisesTheCostBy$1Compounded$2CoresHaveBeenMade: "Cada núcleo creado aumenta el coste de forma acumulativa en $1. Se han creado $2 núcleos",
    EachGeneralSkillLevelContributesToTheCorrespondingUnitsPower: "Cada nivel de habilidad del general contribuye al poder de la unidad correspondiente.",
    EachTechResearchedRaisesCostBy$1$2: "Cada tecnología investigada aumenta el coste de forma acumulativa en $1. Se han investigado $2 tecnologías",
    EachWarStartedRaisesThePenaltyBy$1$2: "Cada guerra iniciada aumenta la penalización de forma acumulativa en $1. Actualmente se han iniciado $2 guerras.",
@@ -3544,4 +3543,5 @@ export const ES = {
    LetItsGloryEndureThroughTheAges: "Que su gloria perdure por los siglos",
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i> ($2) se completa en $3; sus efectos ya están activos.",
    $1IsInRebellion: "¡<Tile>$1</Tile> está en rebelión!",
+   EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "Por cada núcleo creado, el coste aumenta un $1 del coste base. Se han creado $2 núcleos.",
 };

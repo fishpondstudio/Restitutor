@@ -302,7 +302,6 @@ export const RU = {
    DueToLackOfCasusBelli: "Из-за отсутствия казуса белли.",
    Duration: "Длительность",
    EachBuildingOnATileRequiresABuildingSlot: "Каждое здание на владении требует строительный слот.",
-   EachCoreMadeRaisesTheCostBy$1Compounded$2CoresHaveBeenMade: "Каждое сделанное ядро повышает стоимость на $1 сложных процентов. Сделано $2 ядер",
    EachGeneralSkillLevelContributesToTheCorrespondingUnitsPower: "Каждый уровень навыка генерала увеличивает мощь соответствующих отрядов.",
    EachTechResearchedRaisesCostBy$1$2: "Каждая исследованная технология повышает стоимость на $1 сложных процентов. Исследовано $2 технологий",
    EachWarStartedRaisesThePenaltyBy$1$2: "Каждая начатая война увеличивает штраф на $1 сложных процентов. Начато $2 войн.",
@@ -3497,4 +3496,5 @@ export const RU = {
    LetItsGloryEndureThroughTheAges: "Пусть его слава переживёт века",
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i> ($2) завершено в $3 — его эффекты теперь активны.",
    $1IsInRebellion: "Владение <Tile>$1</Tile> охвачено восстанием!",
+   EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "Каждое созданное ядро увеличивает стоимость на $1 от базовой стоимости. Всего создано ядер: $2.",
 };

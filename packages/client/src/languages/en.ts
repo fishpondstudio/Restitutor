@@ -302,7 +302,6 @@ export const EN = {
    DueToLackOfCasusBelli: "Due to lack of casus belli.",
    Duration: "Duration",
    EachBuildingOnATileRequiresABuildingSlot: "Each building on a tile requires a Building Slot.",
-   EachCoreMadeRaisesTheCostBy$1Compounded$2CoresHaveBeenMade: "Each core made raises the cost by $1 compounded. $2 cores have been made",
    EachGeneralSkillLevelContributesToTheCorrespondingUnitsPower: "Each general skill level contributes to the corresponding unit's power.",
    EachTechResearchedRaisesCostBy$1$2: "Each tech researched raises the cost by $1 compounded. $2 techs have been researched",
    EachWarStartedRaisesThePenaltyBy$1$2: "Each war started raises the penalty by $1 compounded. Currently $2 wars started.",
@@ -3502,4 +3501,5 @@ export const EN = {
    LetItsGloryEndureThroughTheAges: "Let its glory endure through the ages",
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i> ($2) is completed in $3 - its effects are now active.",
    $1IsInRebellion: "<Tile>$1</Tile> is in rebellion!",
+   EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "Each core made adds $1 of the base cost. $2 cores have been made.",
 };

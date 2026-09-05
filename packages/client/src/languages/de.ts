@@ -302,7 +302,6 @@ export const DE = {
    DueToLackOfCasusBelli: "Wegen eines fehlenden Casus Belli.",
    Duration: "Dauer",
    EachBuildingOnATileRequiresABuildingSlot: "Jedes Gebäude in einem Gebiet benötigt einen Bauplatz.",
-   EachCoreMadeRaisesTheCostBy$1Compounded$2CoresHaveBeenMade: "Jedes geschaffene Kerngebiet erhöht die Kosten kumulativ um $1. Bisher wurden $2 Kerngebiete geschaffen",
    EachGeneralSkillLevelContributesToTheCorrespondingUnitsPower: "Jede Fähigkeitsstufe des Generals trägt zur Stärke der entsprechenden Einheit bei.",
    EachTechResearchedRaisesCostBy$1$2: "Jede erforschte Technologie erhöht die Kosten kumulativ um $1. Bisher wurden $2 Technologien erforscht",
    EachWarStartedRaisesThePenaltyBy$1$2: "Jeder begonnene Krieg erhöht die Strafe kumulativ um $1. Derzeit wurden $2 Kriege begonnen.",
@@ -3548,4 +3547,5 @@ export const DE = {
    LetItsGloryEndureThroughTheAges: "Sein Ruhm möge die Zeiten überdauern",
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i> ($2) wird in $3 fertiggestellt – seine Effekte sind jetzt aktiv.",
    $1IsInRebellion: "<Tile>$1</Tile> befindet sich in Rebellion!",
+   EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "Für jedes geschaffene Kerngebiet erhöhen sich die Kosten um $1 der Grundkosten. Bisher wurden $2 Kerngebiete geschaffen.",
 };

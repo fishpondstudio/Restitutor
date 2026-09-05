@@ -302,7 +302,6 @@ export const FR = {
    DueToLackOfCasusBelli: "En raison de l’absence de Casus Belli.",
    Duration: "Durée",
    EachBuildingOnATileRequiresABuildingSlot: "Chaque bâtiment construit sur une tuile nécessite un emplacement de bâtiment.",
-   EachCoreMadeRaisesTheCostBy$1Compounded$2CoresHaveBeenMade: "Chaque cœur créé augmente le coût de $1 de manière cumulative. $2 cœurs ont été créés",
    EachGeneralSkillLevelContributesToTheCorrespondingUnitsPower: "Chaque niveau de compétence du général contribue à la puissance de l’unité correspondante.",
    EachTechResearchedRaisesCostBy$1$2: "Chaque technologie recherchée augmente le coût de $1 de manière cumulative. $2 technologies ont été recherchées",
    EachWarStartedRaisesThePenaltyBy$1$2: "Chaque guerre déclenchée augmente la pénalité de $1 de manière cumulative. Actuellement, $2 guerres ont été déclenchées.",
@@ -3537,4 +3536,5 @@ export const FR = {
    LetItsGloryEndureThroughTheAges: "Let its glory endure through the ages",
    GreatWorkCompletedEffectsActive$1$2$3: "<i>$1</i> ($2) is completed in $3 - its effects are now active.",
    $1IsInRebellion: "<Tile>$1</Tile> is in rebellion!",
+   EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade: "Each core made adds $1 of the base cost. $2 cores have been made.",
 };
