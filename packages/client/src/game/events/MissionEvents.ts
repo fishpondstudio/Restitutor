@@ -22,6 +22,7 @@ export const MissionEvents = {
       condition: {
          conditions: (province, save) => [allyCountCondition(2, province, save)],
       },
+      achievement: "FormAlliance",
       buttons: [
          {
             label: () => $t(L.LetOurAlliesMarchBesideUsInWar),
@@ -47,6 +48,7 @@ export const MissionEvents = {
             minCoreTileCondition(getOriginalTileCount(province) + 5, province, save),
          ],
       },
+      achievement: "BecomeGreatPower",
       buttons: [
          {
             label: () => $t(L.LetCommerceFlowThroughOurPorts),

@@ -80,9 +80,6 @@ export function OfferAllianceAction(fromProvince: Province, toProvince: Province
          startTimedAction("DiplomaticTreaty", fromProvince, save);
          fromTo.treaty = { type: "Alliance", month: save.state.month };
          toFrom.treaty = { type: "Alliance", month: save.state.month };
-         if (fromProvince === save.state.playerProvince) {
-            unlockAchievement("FormAlliance");
-         }
          addChronicleEntry(
             {
                type: "DiplomaticTreaty",

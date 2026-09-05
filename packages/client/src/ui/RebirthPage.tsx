@@ -180,7 +180,9 @@ export function RebirthPage(): React.ReactNode {
                      return;
                   }
                   rebirth(province, G.save);
-                  unlockAchievement("Rebirth");
+                  if (total + newTiles >= 10) {
+                     unlockAchievement("Rebirth");
+                  }
                   G.save.options.flag = setFlag(G.save.options.flag, GameOptionFlag.HideTutorial);
                   await saveGame(G.save);
                   window.location.reload();
