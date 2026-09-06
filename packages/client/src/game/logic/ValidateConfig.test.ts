@@ -106,7 +106,7 @@ test("GameEvents do not have conflicting province start years", () => {
    forEach(Province, (province) => {
       const yearToEvents = new Map<number, GameEvent>();
       forEach(GameEvents, (event, config) => {
-         if (config.type === "manual" || config.type === "random") {
+         if (config.type === "random") {
             return;
          }
          if (config.condition?.year && (!config.condition.province || config.condition.province.includes(province))) {

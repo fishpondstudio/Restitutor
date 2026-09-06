@@ -19,7 +19,6 @@ import { ItaliaEvent } from "./ItaliaEvent";
 import { ItaliaSharedEvent } from "./ItaliaSharedEvent";
 import { LugdunensisEvent } from "./LugdunensisEvent";
 import { LusitaniaEvent } from "./LusitaniaEvent";
-import { ManualEvents } from "./ManualEvents";
 import { MauretaniaEvent } from "./MauretaniaEvent";
 import { MissionEvents } from "./MissionEvents";
 import { NarbonensisEvent } from "./NarbonensisEvent";
@@ -84,10 +83,9 @@ const _GameEvents = {
    ...MissionEvents,
    // These should not appear in `MissionPage`
    ...HistoricalEvents,
-   ...ManualEvents,
    ...RandomEvents,
 } as const satisfies Record<string, IGameEventConfig>;
 
 export type GameEvent = keyof typeof _GameEvents;
 export const GameEvents: Record<GameEvent, IGameEventConfig> = _GameEvents;
-export type GameEventType = "manual" | "random";
+export type GameEventType = "random";

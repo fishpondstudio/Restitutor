@@ -217,9 +217,6 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
    }
    const usedEvents = state.usedEvents;
    forEach(GameEvents, (key, config) => {
-      if (config.type === "manual") {
-         return;
-      }
       if (config.type === "random") {
          return;
       }

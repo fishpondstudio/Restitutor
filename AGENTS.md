@@ -1,3 +1,8 @@
+## Instructions
+
+- Do not add tests unless explicitly asked to.
+- Do not stage your changes unless explicitly asked to.
+
 ## Project Command
 
 - Run `pnpm run build` in the **root** folder to compile TypeScript

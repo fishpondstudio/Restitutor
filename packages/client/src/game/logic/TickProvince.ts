@@ -13,6 +13,9 @@ import type { ComponentProps, ElementType } from "react";
 import type { PanelIdentity } from "../../ui/common/PanelTypes";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { GameEventModal } from "../../ui/GameEventModal";
+import { GovernorWithoutHeirModal } from "../../ui/GovernorWithoutHeirModal";
+import { NewGovernorModal } from "../../ui/NewGovernorModal";
+import { NewHeirBornModal } from "../../ui/NewHeirBornModal";
 import { renderMarkup } from "../../ui/ParseMarkup";
 import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
 import { playSound } from "../../ui/Sound";
@@ -36,6 +39,12 @@ import { calculateTilesConnectedToCapital } from "./CacheLogic";
 import { cleanUpProvince } from "./CleanupProvince";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
 import { getGameDate } from "./GameDateTime";
+import {
+   GovernorWithoutHeirEffect,
+   NewGovernorEffect,
+   NewHeirBornEffects1,
+   NewHeirBornEffects2,
+} from "./GovernorEventLogic";
 import { ensureHeir, generateRandomGovernor, getSuccessor, tickFamily } from "./GovernorLogic";
 import { canTakeLoan, getLoanAmount, getMonthlyInterestRate, takeLoan } from "./LoanLogic";
 import { tickProduction } from "./ProductionLogic";
@@ -91,7 +100,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
    });
 
    for (const [key, config] of entriesOf(GameEvents)) {
-      if (config.type === "manual" || config.type === "random") {
+      if (config.type === "random") {
          continue;
       }
       if (state.usedEvents.has(key)) {
@@ -147,13 +156,28 @@ export function tickProvince(province: Province, save: SaveGame): void {
          if (successor?.male) {
             successor.male.flag = clearFlag(successor.male.flag, PersonFlags.IsHeir);
             state.governor = successor as IGovernorFamily;
-            addGameEvent("Manual1", province, save);
+            applyGameEffect(NewGovernorEffect, $t(L.$1Event, $t(L.ANewGovernor)), province, save);
+            if (province === save.state.playerProvince) {
+               showGameEventModal(NewGovernorModal, { province, governor: state.governor });
+            }
          } else {
             state.governor = generateRandomGovernor(province, save.state.month);
-            addGameEvent("Manual2", province, save);
+            applyGameEffect(GovernorWithoutHeirEffect, $t(L.$1Event, $t(L.ANewGovernor)), province, save);
+            if (province === save.state.playerProvince) {
+               showGameEventModal(GovernorWithoutHeirModal, { province, governor: state.governor });
+            }
          }
       } else if (oldOffspringCount === 0 && newOffspringCount > 0) {
-         addGameEvent("Manual3", province, save);
+         if (province === save.state.playerProvince && !hasFlag(G.flags, GameFlags.Sandbox)) {
+            showGameEventModal(NewHeirBornModal, { province });
+         } else {
+            applyGameEffect(
+               randOne([NewHeirBornEffects1, NewHeirBornEffects2]),
+               $t(L.$1Event, $t(L.ANewHeirIsBorn)),
+               province,
+               save,
+            );
+         }
       }
       ensureHeir(province, save);
    }
