@@ -19,8 +19,8 @@ export function getResearchCostBreakdown(province: Province, save: SaveGame): IV
    breakdown.add.push({ name: $t(L.BaseCost), value: 200 });
    breakdown.multiply.push({
       name: $t(L.ResearchedTech),
-      desc: $t(L.EachTechResearchedRaisesCostBy$1$2, "10%", formatNumber(state.unlockedTech.size)),
-      value: 1.1 ** state.unlockedTech.size - 1,
+      desc: $t(L.EachTechResearchedAdds$1OfTheBaseCost$2, "10%", formatNumber(state.unlockedTech.size)),
+      value: 0.1 * state.unlockedTech.size,
    });
    attachModifiers("ResearchCost", breakdown, province, save);
    return finalizeBreakdown(breakdown);

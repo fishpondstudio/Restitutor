@@ -291,8 +291,8 @@ export function getWarScore(
    const warCount = getProvinceStat("attackCount", attacker, save);
    result.multiply.push({
       name: $t(L.WarmongerPenalty),
-      value: 1.05 ** warCount - 1,
-      desc: $t(L.EachWarStartedRaisesThePenaltyBy$1$2, "5%", formatNumber(warCount)),
+      value: 0.1 * warCount,
+      desc: $t(L.EachWarStartedAdds$1OfTheBaseCost$2, "10%", formatNumber(warCount)),
    });
 
    if (!AreTilesContiguous(tiles)) {
