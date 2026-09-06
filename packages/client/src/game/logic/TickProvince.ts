@@ -320,7 +320,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
             data.rebellion = clamp(data.rebellion + Math.sign(unrest), 0, 10);
          }
          if (oldRebellion < 10 && data.rebellion >= 10) {
-            if (province === save.state.playerProvince) {
+            if (!hasFlag(G.flags, GameFlags.Sandbox) && province === save.state.playerProvince) {
                playSound("shatter");
                showWarning(renderMarkup($t(L.$1IsInRebellion, tile)));
             }
