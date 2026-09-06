@@ -49,6 +49,7 @@ import type { Religion } from "../definitions/Religion";
 import { SocialClass } from "../definitions/SocialClass";
 import { MaxRaidMonths, SpawnedProvinces } from "../definitions/SpawnedProvince";
 import type { SaveGame } from "../GameState";
+import { getProvinceTilesCached } from "./CacheLogic";
 import {
    cancelImproveRelations,
    getAttitudeTowards,
@@ -690,31 +691,34 @@ function doTreaties(province: Province, candidates: Province[], save: SaveGame):
 }
 
 const PreferredBuildings = new Set<Building>(["TownSquare", "Forum"]);
+const BuildingOrder = keysOf(Buildings).sort((a, b) => {
+   if (PreferredBuildings.has(a)) {
+      return -1;
+   }
+   if (PreferredBuildings.has(b)) {
+      return 1;
+   }
+   return (Buildings[a].construction.gold ?? 0) - (Buildings[b].construction.gold ?? 0);
+});
 
 function constructBuildings(province: Province, save: SaveGame): void {
-   const tiles = Array.from(save.state.tiles.entries())
-      .filter(([_, tileData]) => tileData.province === province)
-      .sort(([tileA, tileDataA], [tileB, tileDataB]) => {
-         return tileDataA.buildings.size - tileDataB.buildings.size;
-      });
+   const tiles = getProvinceTilesCached(province).sort((tileA, tileB) => {
+      return (save.state.tiles.get(tileA)?.buildings.size ?? 0) - (save.state.tiles.get(tileB)?.buildings.size ?? 0);
+   });
    let budget = getProvinceIncome(province, save).income;
    if (budget < 0) {
       return;
    }
-   for (const [tile, tileData] of tiles) {
+   for (const tile of tiles) {
+      const tileData = save.state.tiles.get(tile);
+      if (!tileData) {
+         continue;
+      }
       if (tileData.buildings.size >= getBuildingSlot(tile, save).value) {
          continue;
       }
-      const buildings = keysOf(Buildings).sort((a, b) => {
-         if (PreferredBuildings.has(a)) {
-            return -1;
-         }
-         if (PreferredBuildings.has(b)) {
-            return 1;
-         }
-         return (Buildings[a].construction.gold ?? 0) - (Buildings[b].construction.gold ?? 0);
-      });
-      for (const building of buildings) {
+
+      for (const building of BuildingOrder) {
          if (tileData.buildings.has(building)) {
             continue;
          }
