@@ -36,7 +36,7 @@ import { calculateTilesConnectedToCapital } from "./CacheLogic";
 import { cleanUpProvince } from "./CleanupProvince";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
 import { getGameDate } from "./GameDateTime";
-import { ensureHeir, generateRandomGovernor, getHeir, tickFamily } from "./GovernorLogic";
+import { ensureHeir, generateRandomGovernor, getSuccessor, tickFamily } from "./GovernorLogic";
 import { canTakeLoan, getLoanAmount, getMonthlyInterestRate, takeLoan } from "./LoanLogic";
 import { tickProduction } from "./ProductionLogic";
 import {
@@ -143,10 +143,10 @@ export function tickProvince(province: Province, save: SaveGame): void {
       const result = tickFamily(state.governor, province, save);
       const newOffspringCount = state.governor.children.length;
       if (!result.male) {
-         const heir = getHeir(province, save);
-         if (heir?.male) {
-            heir.male.flag = clearFlag(heir.male.flag, PersonFlags.IsHeir);
-            state.governor = heir as IGovernorFamily;
+         const successor = getSuccessor(province, save);
+         if (successor?.male) {
+            successor.male.flag = clearFlag(successor.male.flag, PersonFlags.IsHeir);
+            state.governor = successor as IGovernorFamily;
             addGameEvent("Manual1", province, save);
          } else {
             state.governor = generateRandomGovernor(province, save.state.month);

@@ -137,16 +137,27 @@ export function ensureTraits(person: IPerson): IPerson {
    return person;
 }
 
-export function getHeir(province: Province, save: SaveGame): IFamily | undefined {
+function findMaleDescendant(family: IFamily, predicate: (person: IPerson) => boolean): IFamily | undefined {
+   const descendants = [...family.children];
+   for (let index = 0; index < descendants.length; index++) {
+      const descendant = descendants[index];
+      if (descendant.male && predicate(descendant.male)) {
+         return descendant;
+      }
+      descendants.push(...descendant.children);
+   }
+   return undefined;
+}
+
+export function getSuccessor(province: Province, save: SaveGame): IFamily | undefined {
    const governor = save.state.provinces[province]?.governor;
    if (!governor) {
       return undefined;
    }
-   const heir = governor.children.find((child) => child.male && hasFlag(child.male.flag, PersonFlags.IsHeir));
-   if (heir) {
-      return heir;
-   }
-   return governor.children.find((child) => child.male);
+   return (
+      findMaleDescendant(governor, (person) => hasFlag(person.flag, PersonFlags.IsHeir)) ??
+      findMaleDescendant(governor, () => true)
+   );
 }
 
 export function isGovernorSon(family: IFamily, province: Province, save: SaveGame): boolean {
@@ -175,13 +186,22 @@ export function ensureHeir(province: Province, save: SaveGame): void {
    if (!governor) {
       return;
    }
-   const heir = getHeir(province, save);
+   const heir =
+      governor.children.find((child) => child.male && hasFlag(child.male.flag, PersonFlags.IsHeir)) ??
+      governor.children.find((child) => child.male);
    if (heir) {
       setHeir(heir, province, save);
    }
 }
 
 export function tickFamily(governor: IFamily, province: Province, save: SaveGame): IFamily {
+   tickFamilyMembers(governor, province, save);
+   removeEmptyDescendantFamilies(governor);
+   return governor;
+}
+
+function tickFamilyMembers(governor: IFamily, province: Province, save: SaveGame): void {
+   const existingChildren = [...governor.children];
    if (governor.male) {
       governor.male.age++;
       ensureTraits(governor.male);
@@ -207,7 +227,6 @@ export function tickFamily(governor: IFamily, province: Province, save: SaveGame
       return Math.random() >= getDeathChance(concubine, province, save).value / 100;
    });
 
-   const newOffspring = new Set<IFamily>();
    const male = governor.male;
    if (male) {
       const females = governor.female ? [governor.female, ...governor.concubines] : governor.concubines;
@@ -241,19 +260,13 @@ export function tickFamily(governor: IFamily, province: Province, save: SaveGame
             concubines: [],
             children: [],
          };
-         newOffspring.add(offspring);
          governor.children.push(offspring);
       }
    }
 
-   filterInPlace(governor.children, (offspring) => {
-      if (newOffspring.has(offspring)) {
-         return true;
-      }
-      const result = tickFamily(offspring, province, save);
-      return Boolean(result.male || result.female || result.concubines.length > 0);
-   });
-   return governor;
+   for (const offspring of existingChildren) {
+      tickFamilyMembers(offspring, province, save);
+   }
 }
 
 export function getOffspringSkillRangeIncl(father: number, mother: number): [number, number] {
@@ -386,13 +399,19 @@ export function getSpousesFromOtherProvinces(family: IFamily, province: Province
 
 export function removeEmptyFamily(save: SaveGame): void {
    for (const [_, state] of entriesOf(save.state.provinces)) {
-      filterInPlace(state.governor.children, (family) => {
-         if (family.male || family.female || family.concubines.length > 0) {
-            return true;
-         }
-         return false;
-      });
+      removeEmptyDescendantFamilies(state.governor);
    }
+}
+
+function removeEmptyDescendantFamilies(family: IFamily): void {
+   filterInPlace(family.children, (child) => {
+      removeEmptyDescendantFamilies(child);
+      return shouldRetainFamily(child);
+   });
+}
+
+function shouldRetainFamily(family: IFamily): boolean {
+   return Boolean(family.male || family.female || family.concubines.length > 0 || family.children.length > 0);
 }
 
 export function getFamilyMemberFrom(family: IFamily, fromProvince: Province, save: SaveGame): IFullFamily[] {
