@@ -1,4 +1,4 @@
-import { pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
+import { mapSafePush, pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
 import { G } from "../../utils/Global";
 import type { Province } from "../definitions/Province";
 import { GameStateUpdated, RefreshTiles } from "../Events";
@@ -8,9 +8,26 @@ import { MapGrid } from "../MapGrid";
 const _provinceCache = new Map<string, unknown>();
 const _tileCache = new Map<string, unknown>();
 
+export const _cachedProvinceTiles = new Map<Province, Tile[]>();
+export const _cachedProvinceCoreTiles = new Map<Province, Tile[]>();
+
+function _populateProvinceTileCache(save: SaveGame): void {
+   _cachedProvinceTiles.clear();
+   _cachedProvinceCoreTiles.clear();
+   for (const [tile, data] of save.state.tiles) {
+      if (data.province) {
+         mapSafePush(_cachedProvinceTiles, data.province, tile);
+      }
+      if (data.coreProvinces.has(data.province)) {
+         mapSafePush(_cachedProvinceCoreTiles, data.province, tile);
+      }
+   }
+}
+
 GameStateUpdated.on(() => {
    _provinceCache.clear();
    _tileCache.clear();
+   _populateProvinceTileCache(G.save);
 });
 
 type ProvinceBreakdownFunc<T> = (province: Province, save: SaveGame) => T;
@@ -93,4 +110,12 @@ export function isConnectedToCapital(tile: Tile, save: SaveGame): boolean {
       return false;
    }
    return cache.has(tile);
+}
+
+export function getProvinceTilesCached(province: Province): Tile[] {
+   return _cachedProvinceTiles.get(province) ?? [];
+}
+
+export function getProvinceCoreTilesCached(province: Province): Tile[] {
+   return _cachedProvinceCoreTiles.get(province) ?? [];
 }

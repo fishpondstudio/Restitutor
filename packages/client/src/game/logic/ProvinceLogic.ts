@@ -55,7 +55,7 @@ import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
-import { cacheProvince } from "./CacheLogic";
+import { cacheProvince, getProvinceCoreTilesCached } from "./CacheLogic";
 import { getAttitudeTowards, getRelation, getRelations } from "./DiplomacyLogic";
 import { EcumenicalCouncilChristianityPct, ongoingEcumenicalCouncilCondition } from "./EcumenicalCouncilLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
@@ -237,16 +237,6 @@ export function getProvinceTileCount(province: Province, save: SaveGame): number
    let count = 0;
    for (const [tile, data] of save.state.tiles) {
       if (data.province === province) {
-         count++;
-      }
-   }
-   return count;
-}
-
-export function getProvinceCoreTileCount(province: Province, save: SaveGame): number {
-   let count = 0;
-   for (const [tile, data] of save.state.tiles) {
-      if (data.province === province && data.coreProvinces.has(province)) {
          count++;
       }
    }
@@ -745,7 +735,7 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
       });
    }
    if (hasProvinceUpgrade("MoorishMuster", province, save)) {
-      const coreTileGroups = Math.floor(getProvinceCoreTileCount(province, save) / 10);
+      const coreTileGroups = Math.floor(getProvinceCoreTilesCached(province).length / 10);
       if (coreTileGroups > 0) {
          result.multiply.push({
             name: ProvinceUpgrades.MoorishMuster.name(),

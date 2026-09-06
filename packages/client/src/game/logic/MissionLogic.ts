@@ -14,12 +14,12 @@ import { Religion, type Religion as ReligionType } from "../definitions/Religion
 import { RefreshTiles } from "../Events";
 import type { ICustomEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
+import { getProvinceCoreTilesCached } from "./CacheLogic";
 import { getMarriageAlliance, getRelation } from "./DiplomacyLogic";
 import {
    getCulturePercentage,
    getMediterraneanCoastalTiles,
    getProvinceCoreCoastalTileCount,
-   getProvinceCoreTileCount,
    getProvinceGoverningCost,
    getProvinceIncome,
    getProvinceManpower,
@@ -108,7 +108,7 @@ export function minCoreCoastalTileCondition(minimum: number, province: Province,
 }
 
 export function minCoreTileCondition(minimum: number, province: Province, save: SaveGame): ICondition {
-   const tileCount = getProvinceCoreTileCount(province, save);
+   const tileCount = getProvinceCoreTilesCached(province).length;
    return {
       name: $t(L.$1HasAtLeast$2CoreTiles, getProvinceName(province, save), formatNumber(minimum)),
       value: tileCount >= minimum,
@@ -117,7 +117,7 @@ export function minCoreTileCondition(minimum: number, province: Province, save: 
 }
 
 export function maxCoreTileCondition(max: number, province: Province, save: SaveGame): ICondition {
-   const tileCount = getProvinceCoreTileCount(province, save);
+   const tileCount = getProvinceCoreTilesCached(province).length;
    return {
       name: $t(L.$1HasAtMost$2CoreTiles, getProvinceName(province, save), formatNumber(max)),
       value: tileCount <= max,
