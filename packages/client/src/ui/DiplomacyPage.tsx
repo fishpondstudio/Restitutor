@@ -517,6 +517,18 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </ActionButton>
             <ActionButton
                className="py2"
+               action={DenounceAction(G.save.state.playerProvince, province, G.save)}
+               tooltip={(element) => (
+                  <>
+                     <TimedActionDescComp action="Denounce" />
+                     {element}
+                  </>
+               )}
+            >
+               {TimedActions.Denounce.name()}
+            </ActionButton>
+            <ActionButton
+               className="py2"
                action={SendAGiftAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
@@ -730,18 +742,6 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                )}
             >
                {TimedActions.DemandElectionBacking.name()}
-            </ActionButton>
-            <ActionButton
-               className="py2"
-               action={DenounceAction(G.save.state.playerProvince, province, G.save)}
-               tooltip={(element) => (
-                  <>
-                     <TimedActionDescComp action="Denounce" />
-                     {element}
-                  </>
-               )}
-            >
-               {TimedActions.Denounce.name()}
             </ActionButton>
          </div>
       </div>

@@ -1,4 +1,4 @@
 NPC Improvement
 [x] NPC does not declare war on province with positive attitude
-[ ] Make use of denounce before declaring war
+[x] Make use of denounce before declaring war
 [ ] Player should get event popup when denounced

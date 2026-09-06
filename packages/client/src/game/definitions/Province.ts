@@ -196,6 +196,7 @@ export const AIActions = [
    "ConvertToChristianity",
    "OfferTreaty",
    "ChangeRival",
+   "Denounce",
 ] as const;
 export type AIAction = (typeof AIActions)[number];
 

@@ -17,7 +17,8 @@ import { ChangeRivalAction } from "../actions/ChangeRivalAction";
 import { ConvertToChristianityAction } from "../actions/ConvertToChristianityAction";
 import { CrackDownAction } from "../actions/CrackDownAction";
 import { DeclareWarAction } from "../actions/DeclareWarAction";
-import { canDoAction, type IGameAction, printAction } from "../actions/GameAction";
+import { DenounceAction } from "../actions/DenounceAction";
+import { canDoAction, finalizeCondition, type IGameAction, printAction } from "../actions/GameAction";
 import { MakeCoreAction } from "../actions/MakeCoreAction";
 import { NegotiateWhitePeaceAction } from "../actions/NegotiateWhitePeaceAction";
 import { ResearchTechAction } from "../actions/ResearchTechAction";
@@ -79,7 +80,12 @@ import {
 } from "./ProvinceLogic";
 import { getCheapestLockedTech } from "./TechLogic";
 import { getBuildingSlot, getTileUnrest, getTileWar } from "./TileLogic";
-import { getTimedActionCooldownLeft, getTimedActionTimeLeft, makeGameAction } from "./TimedActionLogic";
+import {
+   getTimedActionCooldownLeft,
+   getTimedActionTimeLeft,
+   makeGameAction,
+   timedActionConditions,
+} from "./TimedActionLogic";
 import { getTreatyCount } from "./TreatyLogic";
 import {
    calculateWarLengthForStability,
@@ -295,6 +301,7 @@ export function tickAI(save: SaveGame): void {
       doProduction(province, save);
       doTrade(province, save);
       doSenateVote(province, save);
+      doDenounce(province, save);
       doDiplomacy(province, save);
       doGeneralUpgrade(province, save);
       lookForSpouse(state.governor, province, save);
@@ -366,6 +373,25 @@ function doGeneralUpgrade(province: Province, save: SaveGame): void {
    for (const skill of ["infantrySkill", "rangedSkill", "cavalrySkill"] as const) {
       tryDoHeadless(UpgradeGeneralSkillAction(skill, province, save), "UpgradeGeneralSkill", province, save);
    }
+}
+
+function doDenounce(province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   if (!finalizeCondition([...timedActionConditions({ action: "Denounce" }, province, save)]).value) {
+      return;
+   }
+   const result = findWarGoal(province, save);
+   if (!result) {
+      return;
+   }
+   const targetProvince = save.state.tiles.get(result.tile)?.province;
+   if (!targetProvince) {
+      return;
+   }
+   tryDoHeadless(DenounceAction(province, targetProvince, save), "Denounce", province, save);
 }
 
 function doProduction(province: Province, save: SaveGame): void {

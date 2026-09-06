@@ -75,7 +75,7 @@ export class TechDefinitions {
          TradeProfit: { type: "multiply", value: 0.1 },
       },
       buildings: ["Market"],
-      timedActions: ["DemandTribute"],
+      timedActions: ["Denounce"],
       goods: ["leather"],
    } as const;
 
@@ -101,7 +101,7 @@ export class TechDefinitions {
    D2: ITechDefinition = {
       requires: ["C2", "C3"],
       name: () => $t(L.TechCivicAssembly),
-      timedActions: ["DemandElectionBacking", "UpgradeRations", "Denounce"],
+      timedActions: ["DemandTribute", "DemandElectionBacking", "UpgradeRations"],
       buildings: ["TownSquare"],
       goods: ["cheese"],
    } as const;
