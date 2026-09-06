@@ -3548,4 +3548,5 @@ export const ES = {
    EachAnnexedAndCoredTileGrants$1LegacyPoint: "Cada territorio anexionado y convertido en núcleo otorga $1 punto de legado.",
    PersonalBestBonus: "Bonificación por récord personal",
    PersonalBestBonusDesc$1$2: "Cada territorio anexionado y convertido en núcleo que supere nuestro récord anterior otorga $1 punto de legado adicional. Récord anterior: $2 territorios.",
+   CannotLookForSpouseWhileFamilyHasChildren: "No se puede buscar cónyuge mientras la familia tenga hijos; de lo contrario, los hijos serán eliminados.",
 };

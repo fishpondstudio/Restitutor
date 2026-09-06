@@ -3552,4 +3552,5 @@ export const DE = {
    EachAnnexedAndCoredTileGrants$1LegacyPoint: "Jedes annektierte Kerngebiet gewährt $1 Vermächtnispunkt.",
    PersonalBestBonus: "Bonus für persönliche Bestleistung",
    PersonalBestBonusDesc$1$2: "Für jedes annektierte Kerngebiet über unserem bisherigen Bestwert erhalten wir $1 zusätzlichen Vermächtnispunkt. Bisheriger Bestwert: $2 Gebiete.",
+   CannotLookForSpouseWhileFamilyHasChildren: "Es kann kein Ehepartner gesucht werden, solange die Familie Kinder hat; sonst würden die Kinder entfernt.",
 };

@@ -10,7 +10,7 @@ import type { SocialClass } from "../definitions/SocialClass";
 import { applyGameEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { showSuccess } from "../logic/AlertLogic";
-import { ensureTraits, removeEmptyFamily } from "../logic/GovernorLogic";
+import { canGetMarried, ensureTraits, isEligibleForMarriage, removeEmptyFamily } from "../logic/GovernorLogic";
 import { GovernorMaxExcl, GovernorMinIncl } from "../logic/ProvinceLogic";
 import { addSocialClassLoyalty } from "../logic/SocialClassLogic";
 import { requireHigherPrestige, requireMinimumAttitude } from "../logic/TreatyLogic";
@@ -28,7 +28,7 @@ export function LookForLocalSpouseAction(
       condition: finalizeCondition([
          {
             name: $t(L.IsEligibleForSpouse),
-            value: !family.male || !family.female,
+            value: isEligibleForMarriage(family),
          },
       ]),
       effect: ({ headless }) => {
@@ -67,9 +67,10 @@ export function LookForLocalSpouseAction(
 export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Province, save: SaveGame): IGameAction {
    const ourPerson = ours.male ?? ours.female;
    const theirPerson = theirs.male ?? theirs.female;
+   const canMarry = canGetMarried(ours, theirs);
    const conditions: ICondition[] = [];
 
-   if (!ourPerson || !theirPerson) {
+   if (!ourPerson || !theirPerson || !canMarry) {
       conditions.push({ name: $t(L.IsEligibleForMarriage), value: false });
    } else {
       conditions.push({ name: $t(L.IsEligibleForMarriage), value: true });

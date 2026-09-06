@@ -3506,4 +3506,5 @@ export const EN = {
    EachAnnexedAndCoredTileGrants$1LegacyPoint: "Each annexed and cored tile grants $1 Legacy Point.",
    PersonalBestBonus: "Personal Best Bonus",
    PersonalBestBonusDesc$1$2: "Each annexed and cored tile beyond our previous best grants $1 additional Legacy Point. Previous best: $2 tiles.",
+   CannotLookForSpouseWhileFamilyHasChildren: "Cannot look for a spouse while the family has children; the children would be removed.",
 };

@@ -3471,4 +3471,5 @@ export const ZH_CN = {
    EachAnnexedAndCoredTileGrants$1LegacyPoint: "每块已吞并并核心化的地块提供 $1 传承点数。",
    PersonalBestBonus: "个人最佳纪录奖励",
    PersonalBestBonusDesc$1$2: "已吞并并核心化的地块中，每超出此前最佳纪录一块，就额外获得 $1 传承点数。此前最佳纪录：$2 块地块。",
+   CannotLookForSpouseWhileFamilyHasChildren: "家庭中有子女时无法寻找配偶，否则子女将被移出家族。",
 };

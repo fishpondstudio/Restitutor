@@ -8,6 +8,7 @@ import {
    getDeathChance,
    getOffspringChance,
    getOffspringSkillRangeIncl,
+   isEligibleForMarriage,
    isGovernorSon,
 } from "../game/logic/GovernorLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
@@ -47,6 +48,66 @@ export function PersonNode({
    if (!state) {
       return null;
    }
+   let content: React.ReactNode;
+   if (person) {
+      content = (
+         <>
+            <FloatingTip
+               fixedWidth
+               className="p0"
+               disabled={!person}
+               label={person && <PersonTooltip person={person} family={family} />}
+            >
+               <div className="f1">
+                  <div className="text-display">{person ? person.name.join(" ") : ""}</div>
+                  <div className="text-xs">
+                     {$t(
+                        L.Age$1Skill$2,
+                        person.age,
+                        `${person.administrative}/${person.diplomatic}/${person.military}`,
+                     )}
+                  </div>
+               </div>
+            </FloatingTip>
+            {male &&
+               isGovernorSon(family, G.save.state.playerProvince, G.save) &&
+               (hasFlag(person.flag, PersonFlags.IsHeir) ? (
+                  <FloatingTip label={$t(L.CurrentHeir)}>
+                     <div className="mi text-yellow">crown</div>
+                  </FloatingTip>
+               ) : (
+                  <ActionButton
+                     action={ChangeHeirAction(family, G.save.state.playerProvince, G.save)}
+                     className="btn p2"
+                     tooltip={(element) => (
+                        <>
+                           <TimedActionDescComp action="ChangeHeir" />
+                           {element}
+                        </>
+                     )}
+                  >
+                     <div className="mi sm">crown</div>
+                  </ActionButton>
+               ))}
+         </>
+      );
+   } else {
+      const eligibleForMarriage = isEligibleForMarriage(family);
+      content = (
+         <div className="f1">
+            <button
+               disabled={!eligibleForMarriage}
+               onClick={() => showPanel(LookForSpouseModal, { family })}
+               className="btn"
+               id={family.male === state.governor.male ? "FamilyNode_LookForSpouse_Governor" : undefined}
+            >
+               <FloatingTip label={$t(L.CannotLookForSpouseWhileFamilyHasChildren)} disabled={eligibleForMarriage}>
+                  <div>{$t(L.LookForSpouse)}</div>
+               </FloatingTip>
+            </button>
+         </div>
+      );
+   }
    return (
       <div
          className="f1 text-sm mx10 my5 row"
@@ -57,57 +118,7 @@ export function PersonNode({
          }}
       >
          <div className="mi">{male ? "male" : "female"}</div>
-         {person ? (
-            <>
-               <FloatingTip
-                  fixedWidth
-                  className="p0"
-                  disabled={!person}
-                  label={person && <PersonTooltip person={person} family={family} />}
-               >
-                  <div className="f1">
-                     <div className="text-display">{person ? person.name.join(" ") : ""}</div>
-                     <div className="text-xs">
-                        {$t(
-                           L.Age$1Skill$2,
-                           person.age,
-                           `${person.administrative}/${person.diplomatic}/${person.military}`,
-                        )}
-                     </div>
-                  </div>
-               </FloatingTip>
-               {male &&
-                  isGovernorSon(family, G.save.state.playerProvince, G.save) &&
-                  (hasFlag(person.flag, PersonFlags.IsHeir) ? (
-                     <FloatingTip label={$t(L.CurrentHeir)}>
-                        <div className="mi text-yellow">crown</div>
-                     </FloatingTip>
-                  ) : (
-                     <ActionButton
-                        action={ChangeHeirAction(family, G.save.state.playerProvince, G.save)}
-                        className="btn p2"
-                        tooltip={(element) => (
-                           <>
-                              <TimedActionDescComp action="ChangeHeir" />
-                              {element}
-                           </>
-                        )}
-                     >
-                        <div className="mi sm">crown</div>
-                     </ActionButton>
-                  ))}
-            </>
-         ) : (
-            <div className="f1">
-               <button
-                  onClick={() => showPanel(LookForSpouseModal, { family })}
-                  className="btn"
-                  id={family.male === state.governor.male ? "FamilyNode_LookForSpouse_Governor" : undefined}
-               >
-                  {$t(L.LookForSpouse)}
-               </button>
-            </div>
-         )}
+         {content}
       </div>
    );
 }

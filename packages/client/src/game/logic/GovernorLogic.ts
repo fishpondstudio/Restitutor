@@ -285,12 +285,6 @@ function makeFamilyNode(family: IFamily, nodes: FamilyNode[], edges: Edge[]): vo
    });
    for (let i = family.children.length - 1; i >= 0; i--) {
       const offspring = family.children[i];
-      nodes.push({
-         id: offspring.id,
-         data: { family: offspring },
-         type: "FamilyNode",
-         position: { x: 0, y: 0 },
-      });
       edges.push({
          id: `${family.id}=>${offspring.id}`,
          source: family.id,
@@ -302,6 +296,7 @@ function makeFamilyNode(family: IFamily, nodes: FamilyNode[], edges: Edge[]): vo
             filter: "drop-shadow(0 0 0.3125rem rgba(0, 0, 0, 0.7))",
          },
       });
+      makeFamilyNode(offspring, nodes, edges);
    }
 }
 
@@ -309,9 +304,6 @@ export function makeFamilyTree(family: IFamily): { nodes: Node[]; edges: Edge[] 
    const nodes: FamilyNode[] = [];
    const edges: Edge[] = [];
    makeFamilyNode(family, nodes, edges);
-   for (const child of family.children) {
-      makeFamilyNode(child, nodes, edges);
-   }
    return getLayoutElements({
       nodes,
       edges,
@@ -359,38 +351,30 @@ export function getLayoutElements({
    return { nodes: newNodes, edges };
 }
 
+export function isEligibleForMarriage(family: IFamily): boolean {
+   return Boolean((family.male && !family.female) || (family.female && !family.male && family.children.length === 0));
+}
+
+export function canGetMarried(family1: IFamily, family2: IFamily): boolean {
+   return (
+      isEligibleForMarriage(family1) &&
+      isEligibleForMarriage(family2) &&
+      Boolean((family1.male && family2.female) || (family1.female && family2.male))
+   );
+}
+
 export function getSpousesFromOtherProvinces(family: IFamily, province: Province, save: SaveGame): IFamily[] {
    const result: IFamily[] = [];
-   if (family.male && family.female) {
+   if (!isEligibleForMarriage(family)) {
       return result;
    }
-   if (!family.male) {
-      for (const [otherProvince, otherProvinceState] of entriesOf(save.state.provinces)) {
-         if (otherProvince === province) {
-            continue;
-         }
-         if (!otherProvinceState.governor.female) {
-            result.push(otherProvinceState.governor);
-         }
-         for (const child of otherProvinceState.governor.children) {
-            if (child.male && !child.female) {
-               result.push(child);
-            }
-         }
+   for (const [otherProvince, otherProvinceState] of entriesOf(save.state.provinces)) {
+      if (otherProvince === province) {
+         continue;
       }
-   }
-   if (!family.female) {
-      for (const [otherProvince, otherProvinceState] of entriesOf(save.state.provinces)) {
-         if (otherProvince === province) {
-            continue;
-         }
-         if (!otherProvinceState.governor.male) {
-            result.push(otherProvinceState.governor);
-         }
-         for (const child of otherProvinceState.governor.children) {
-            if (child.female && !child.male) {
-               result.push(child);
-            }
+      for (const candidate of getEligibleForMarriage(otherProvinceState.governor)) {
+         if (canGetMarried(family, candidate)) {
+            result.push(candidate);
          }
       }
    }
@@ -411,7 +395,7 @@ function removeEmptyDescendantFamilies(family: IFamily): void {
 }
 
 function shouldRetainFamily(family: IFamily): boolean {
-   return Boolean(family.male || family.female || family.concubines.length > 0 || family.children.length > 0);
+   return Boolean(family.male || family.female || family.children.length > 0);
 }
 
 export function getFamilyMemberFrom(family: IFamily, fromProvince: Province, save: SaveGame): IFullFamily[] {
@@ -430,10 +414,7 @@ export function getFamilyMemberFrom(family: IFamily, fromProvince: Province, sav
 
 export function getEligibleForMarriage(family: IFamily): IFamily[] {
    const result: IFamily[] = [];
-   if (family.male && !family.female) {
-      result.push(family);
-   }
-   if (family.female && !family.male) {
+   if (isEligibleForMarriage(family)) {
       result.push(family);
    }
    for (const child of family.children) {
