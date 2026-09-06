@@ -13,6 +13,7 @@ import { G, GameFlags, isDev } from "../../utils/Global";
 import { AppeaseAction } from "../actions/AppeaseAction";
 import { RecruitGeneralAction, UpgradeGeneralSkillAction } from "../actions/ArmyGeneralAction";
 import { ConstructBuildingAction } from "../actions/BuildingActions";
+import { ChangeRivalAction } from "../actions/ChangeRivalAction";
 import { ConvertToChristianityAction } from "../actions/ConvertToChristianityAction";
 import { CrackDownAction } from "../actions/CrackDownAction";
 import { DeclareWarAction } from "../actions/DeclareWarAction";
@@ -52,7 +53,6 @@ import {
    getDiplomats,
    getRelation,
    getRelations,
-   HumiliateRivalCasusBelliMonths,
    improveRelations,
 } from "./DiplomacyLogic";
 import { getGameDate } from "./GameDateTime";
@@ -79,12 +79,7 @@ import {
 } from "./ProvinceLogic";
 import { getCheapestLockedTech } from "./TechLogic";
 import { getBuildingSlot, getTileUnrest, getTileWar } from "./TileLogic";
-import {
-   getTimedActionCooldownLeft,
-   getTimedActionTimeLeft,
-   makeGameAction,
-   startTimedAction,
-} from "./TimedActionLogic";
+import { getTimedActionCooldownLeft, getTimedActionTimeLeft, makeGameAction } from "./TimedActionLogic";
 import { getTreatyCount } from "./TreatyLogic";
 import {
    calculateWarLengthForStability,
@@ -590,25 +585,15 @@ function doDiplomacy(province: Province, save: SaveGame): void {
          cancelImproveRelations(province, otherProvince, save);
       }
    });
-   if (getTimedActionCooldownLeft("ChangeRival", province, save) <= 0) {
-      startTimedAction("ChangeRival", province, save);
-      const rivals = state.rivals;
-      const newRivals = candidates
-         .filter((candidate) => getRelation(province, candidate, save)?.treaty === undefined)
-         .slice(0, 2);
-      for (const newRival of newRivals) {
-         if (!rivals.includes(newRival)) {
-            const relation = getRelation(newRival, province, save);
-            if (relation) {
-               relation.casusBelli.set("HumiliateRival", {
-                  monthsLeft: HumiliateRivalCasusBelliMonths,
-               });
-            }
-         }
+   const newRivals = candidates
+      .filter((candidate) => getRelation(province, candidate, save)?.treaty === undefined)
+      .slice(0, 2);
+   for (let i = 0; i < state.rivals.length; i++) {
+      const selected = newRivals[i];
+      if (!selected || state.rivals[i] === selected) {
+         continue;
       }
-      for (let i = 0; i < rivals.length; i++) {
-         rivals[i] = newRivals[i] ?? null;
-      }
+      tryDoHeadless(ChangeRivalAction(province, i, selected, save), "ChangeRival", province, save);
    }
 }
 

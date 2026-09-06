@@ -195,6 +195,7 @@ export const AIActions = [
    "UpgradeGeneralSkill",
    "ConvertToChristianity",
    "OfferTreaty",
+   "ChangeRival",
 ] as const;
 export type AIAction = (typeof AIActions)[number];
 
