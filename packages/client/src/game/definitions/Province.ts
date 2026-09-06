@@ -1,6 +1,7 @@
-import { fromEntries, keysOf, mapOf, type Tile, type ValueOf } from "@project/shared/src/utils/Helper";
+import { fromEntries, keysOf, mapOf, mapSafePush, type Tile, type ValueOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { GameEvent } from "../events/GameEvents";
+import { RomeMap } from "../RomeMap";
 import type { IAdvisor } from "./Advisor";
 import type { CasusBelli } from "./CasusBelli";
 import type { Culture } from "./Culture";
@@ -500,3 +501,10 @@ export const EnabledProvinces: Province[] = [
 ];
 EnabledProvinces.sort();
 export const AlwaysFreeProvinces: Province[] = ["Lugdunensis"];
+
+export const ProvinceOriginalTiles: Map<Province, Tile[]> = new Map();
+for (const [tile, data] of RomeMap) {
+   if (data.province) {
+      mapSafePush(ProvinceOriginalTiles, data.province, tile);
+   }
+}
