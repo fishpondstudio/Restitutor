@@ -16,13 +16,14 @@ export interface IPerson extends GovernorStats {
    flag: PersonFlag;
    traits: Set<PersonTrait>;
    province: Province;
+   joinMonth: number;
 }
 
 export interface IFamily {
    id: string;
    male: IPerson | null;
    female: IPerson | null;
-   marriageMonth?: number;
+   concubines: IPerson[];
    children: IFamily[];
 }
 

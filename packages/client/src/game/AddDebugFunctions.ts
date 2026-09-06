@@ -22,7 +22,7 @@ import type { TimedAction } from "./definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "./Events";
 import { resetGame, saveGame } from "./LoadSave";
 import { monthToDate } from "./logic/GameDateTime";
-import { ensureHeir } from "./logic/GovernorLogic";
+import { ensureHeir, findFamilyById } from "./logic/GovernorLogic";
 import { rebirth } from "./logic/LegacyUpgradeLogic";
 import { addProvinceResource, GovernorMaxExcl, GovernorMinIncl, spawnProvince } from "./logic/ProvinceLogic";
 import { addGameEvent } from "./logic/TickProvince";
@@ -187,12 +187,13 @@ export function addDebugFunctions(): void {
       showPanel(EcumenicalCouncilPage, {});
    };
    // @ts-expect-error
-   globalThis.addChild = (female: boolean) => {
-      const governor = G.save.state.provinces[G.save.state.playerProvince]?.governor;
-      if (!governor) {
+   globalThis.addChild = (id: string, female: boolean) => {
+      const family = findFamilyById(id, G.save);
+      if (!family) {
          return;
       }
-      doAddChild(governor, female);
+      doAddChild(family, female);
+      GameStateUpdated.emit();
    };
 
    // @ts-expect-error
@@ -243,7 +244,9 @@ export function addDebugFunctions(): void {
                military: randInt(GovernorMinIncl, GovernorMaxExcl),
                province: G.save.state.playerProvince,
                flag: PersonFlags.None,
+               joinMonth: G.save.state.month,
             },
+            concubines: [],
             children: [],
          });
       } else {
@@ -258,8 +261,10 @@ export function addDebugFunctions(): void {
                military: randInt(GovernorMinIncl, GovernorMaxExcl),
                province: G.save.state.playerProvince,
                flag: PersonFlags.None,
+               joinMonth: G.save.state.month,
             },
             female: null,
+            concubines: [],
             children: [],
          });
       }

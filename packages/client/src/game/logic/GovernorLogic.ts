@@ -54,9 +54,14 @@ export function getDeathChance(governor: IPerson, province: Province, save: Save
 
 export const MinimumOffspringAge = 15;
 
-export function getOffspringChance(family: IFamily, province: Province, save: SaveGame): IValueBreakdown {
+export function getOffspringChance(
+   family: IFamily,
+   province: Province,
+   save: SaveGame,
+   female: IPerson | null = family.female,
+): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
-   if (!family.male || !family.female) {
+   if (!family.male || !female) {
       breakdown.add.push({ name: $t(L.NoSpouse), value: 0 });
       return finalizeBreakdown(breakdown);
    }
@@ -64,7 +69,7 @@ export function getOffspringChance(family: IFamily, province: Province, save: Sa
       breakdown.add.push({ name: $t(L.HusbandsAgeBelow$1, "15"), value: 0 });
       return finalizeBreakdown(breakdown);
    }
-   if (family.female.age < MinimumOffspringAge) {
+   if (female.age < MinimumOffspringAge) {
       breakdown.add.push({ name: $t(L.WifesAgeBelow$1, "15"), value: 0 });
       return finalizeBreakdown(breakdown);
    }
@@ -72,7 +77,7 @@ export function getOffspringChance(family: IFamily, province: Province, save: Sa
    if (family.male === save.state.provinces[province]?.governor.male && family.male.traits.has("Fertile")) {
       breakdown.add.push({ name: $t(L.GovernorsTrait$1, PersonTrait.Fertile.name()), value: 2 });
    }
-   const age = family.female.age;
+   const age = female.age;
    if (age >= 15 && age <= 35) {
       breakdown.add.push({
          name: $t(L.WifesAgeFrom$1To$2, "15", "35"),
@@ -100,7 +105,7 @@ export function getOffspringChance(family: IFamily, province: Province, save: Sa
    return finalizeBreakdown(breakdown);
 }
 
-export function generateRandomGovernor(province: Province): IGovernorFamily {
+export function generateRandomGovernor(province: Province, joinMonth = 0): IGovernorFamily {
    return {
       id: uuid4(),
       male: ensureTraits({
@@ -112,8 +117,10 @@ export function generateRandomGovernor(province: Province): IGovernorFamily {
          military: randInt(GovernorMinIncl, GovernorMaxExcl),
          age: randInt(20, 30),
          province: province,
+         joinMonth,
       }),
       female: null,
+      concubines: [],
       children: [],
    };
 }
@@ -184,7 +191,6 @@ export function tickFamily(governor: IFamily, province: Province, save: SaveGame
             onGeneralEnded(province, save);
          }
          governor.male = null;
-         governor.marriageMonth = undefined;
       }
    }
    if (governor.female) {
@@ -193,51 +199,59 @@ export function tickFamily(governor: IFamily, province: Province, save: SaveGame
       const deathChance = getDeathChance(governor.female, province, save).value;
       if (Math.random() < deathChance / 100) {
          governor.female = null;
-         governor.marriageMonth = undefined;
       }
    }
+   filterInPlace(governor.concubines, (concubine) => {
+      concubine.age++;
+      ensureTraits(concubine);
+      return Math.random() >= getDeathChance(concubine, province, save).value / 100;
+   });
 
-   const offspringChance = getOffspringChance(governor, province, save).value;
-   let newOffspring: IFamily | undefined;
-   if (governor.male && governor.female && Math.random() < offspringChance / 100) {
-      const isMale = Math.random() < 0.5;
-      const [administrativeMin, administrativeMax] = getOffspringSkillRangeIncl(
-         governor.male.administrative,
-         governor.female.administrative,
-      );
-      const [diplomaticMin, diplomaticMax] = getOffspringSkillRangeIncl(
-         governor.male.diplomatic,
-         governor.female.diplomatic,
-      );
-      const [militaryMin, militaryMax] = getOffspringSkillRangeIncl(governor.male.military, governor.female.military);
-      const person: IPerson = ensureTraits({
-         name: isMale ? randomMaleName(governor.male.name[1]) : randomFemaleName(governor.male.name[1]),
-         flag: PersonFlags.None,
-         age: 0,
-         traits: new Set(),
-         administrative: randInt(administrativeMin, administrativeMax + 1),
-         diplomatic: randInt(diplomaticMin, diplomaticMax + 1),
-         military: randInt(militaryMin, militaryMax + 1),
-         province: province,
-      });
-      newOffspring = {
-         id: uuid4(),
-         male: isMale ? person : null,
-         female: isMale ? null : person,
-         children: [],
-      };
-      governor.children.push(newOffspring);
+   const newOffspring = new Set<IFamily>();
+   const male = governor.male;
+   if (male) {
+      const females = governor.female ? [governor.female, ...governor.concubines] : governor.concubines;
+      for (const female of females) {
+         const offspringChance = getOffspringChance(governor, province, save, female).value;
+         if (Math.random() >= offspringChance / 100) {
+            continue;
+         }
+         const isMale = Math.random() < 0.5;
+         const [administrativeMin, administrativeMax] = getOffspringSkillRangeIncl(
+            male.administrative,
+            female.administrative,
+         );
+         const [diplomaticMin, diplomaticMax] = getOffspringSkillRangeIncl(male.diplomatic, female.diplomatic);
+         const [militaryMin, militaryMax] = getOffspringSkillRangeIncl(male.military, female.military);
+         const person: IPerson = ensureTraits({
+            name: isMale ? randomMaleName(male.name[1]) : randomFemaleName(male.name[1]),
+            flag: PersonFlags.None,
+            age: 0,
+            traits: new Set(),
+            administrative: randInt(administrativeMin, administrativeMax + 1),
+            diplomatic: randInt(diplomaticMin, diplomaticMax + 1),
+            military: randInt(militaryMin, militaryMax + 1),
+            province: province,
+            joinMonth: save.state.month,
+         });
+         const offspring: IFamily = {
+            id: uuid4(),
+            male: isMale ? person : null,
+            female: isMale ? null : person,
+            concubines: [],
+            children: [],
+         };
+         newOffspring.add(offspring);
+         governor.children.push(offspring);
+      }
    }
 
    filterInPlace(governor.children, (offspring) => {
-      if (offspring === newOffspring) {
+      if (newOffspring.has(offspring)) {
          return true;
       }
       const result = tickFamily(offspring, province, save);
-      if (result.male || result.female) {
-         return true;
-      }
-      return false;
+      return Boolean(result.male || result.female || result.concubines.length > 0);
    });
    return governor;
 }
@@ -373,7 +387,7 @@ export function getSpousesFromOtherProvinces(family: IFamily, province: Province
 export function removeEmptyFamily(save: SaveGame): void {
    for (const [_, state] of entriesOf(save.state.provinces)) {
       filterInPlace(state.governor.children, (family) => {
-         if (family.male || family.female) {
+         if (family.male || family.female || family.concubines.length > 0) {
             return true;
          }
          return false;
@@ -407,4 +421,18 @@ export function getEligibleForMarriage(family: IFamily): IFamily[] {
       result.push(...getEligibleForMarriage(child));
    }
    return result;
+}
+
+export function findFamilyById(id: string, save: SaveGame): IFamily | undefined {
+   for (const [_, state] of entriesOf(save.state.provinces)) {
+      const families: IFamily[] = [state.governor];
+      while (families.length > 0) {
+         const family = families.pop() as IFamily;
+         if (family.id === id) {
+            return family;
+         }
+         families.push(...family.children);
+      }
+   }
+   return undefined;
 }

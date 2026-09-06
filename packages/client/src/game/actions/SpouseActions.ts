@@ -50,8 +50,8 @@ export function LookForLocalSpouseAction(
                military: randInt(GovernorMinIncl, GovernorMaxExcl),
                province: province,
                flag: PersonFlags.None,
+               joinMonth: save.state.month,
             });
-            family.marriageMonth = save.state.month;
          }
          const state = save.state.provinces[province];
          if (state) {
@@ -81,15 +81,15 @@ export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Pr
       condition: finalizeCondition(conditions),
       effect: ({ headless }) => {
          if (ours.male && theirs.female) {
+            theirs.female.joinMonth = save.state.month;
             ours.female = theirs.female;
             theirs.female = null;
-            ours.marriageMonth = save.state.month;
          }
          if (ours.female && theirs.male) {
             const daughter = ours.female;
+            ours.female.joinMonth = save.state.month;
             theirs.female = ours.female;
             ours.female = null;
-            theirs.marriageMonth = save.state.month;
             if (!headless) {
                showSuccess($t(L.OurDaughter$1HasJoinedHerHusbandsFamily, daughter.name.join(" ")));
             }
@@ -117,10 +117,7 @@ export function DivorceAction(province: Province, save: SaveGame): IGameAction {
    if (!state) {
       return EmptyGameAction;
    }
-   let marriageMonths = 0;
-   if (state.governor.marriageMonth !== undefined) {
-      marriageMonths = save.state.month - state.governor.marriageMonth;
-   }
+   const marriageMonths = state.governor.female ? save.state.month - state.governor.female.joinMonth : 0;
    return {
       cost: {
          christianity: isChristianReligion(state.religion) ? DivorceChristianityCost : 0,
@@ -134,7 +131,6 @@ export function DivorceAction(province: Province, save: SaveGame): IGameAction {
          },
       ]),
       effect: ({ headless }) => {
-         state.governor.marriageMonth = undefined;
          state.governor.female = null;
          applyGameEffect(DivorceGameEffect, $t(L.Divorce), province, save);
       },

@@ -1,4 +1,5 @@
 import { forEach, keysOf } from "@project/shared/src/utils/Helper";
+import type { IFamily, IPerson } from "./game/definitions/Family";
 import { Province, ProvinceResources, ProvinceStats } from "./game/definitions/Province";
 import { addProvinceUpgrade, ProvinceUpgrades } from "./game/definitions/ProvinceUpgrades";
 import { SocialClass } from "./game/definitions/SocialClass";
@@ -19,6 +20,7 @@ export function migrateSave(save: SaveGame): void {
    forEach(save.state.provinces, (province, data) => {
       data = Object.assign(initProvince(province, data.capital), data);
       save.state.provinces[province] = data;
+      migrateFamily(data.governor, save.state.month);
       ensureHeir(province, save);
       const relations = getRelations(province, save);
       if (relations) {
@@ -88,4 +90,34 @@ export function migrateSave(save: SaveGame): void {
          data.autonomy = 0;
       }
    }
+}
+
+function migrateFamily(family: IFamily, currentMonth: number): void {
+   const legacyFamily = family as IFamily & {
+      concubines?: IPerson[];
+      marriageMonth?: number;
+   };
+   family.concubines = legacyFamily.concubines ?? [];
+
+   if (family.male) {
+      ensureJoinMonth(family.male, Math.max(0, currentMonth - family.male.age * 12));
+   }
+   if (family.female) {
+      const fallback = family.male
+         ? (legacyFamily.marriageMonth ?? currentMonth)
+         : Math.max(0, currentMonth - family.female.age * 12);
+      ensureJoinMonth(family.female, fallback);
+   }
+   for (const concubine of family.concubines) {
+      ensureJoinMonth(concubine, currentMonth);
+   }
+   for (const child of family.children) {
+      migrateFamily(child, currentMonth);
+   }
+   delete legacyFamily.marriageMonth;
+}
+
+function ensureJoinMonth(person: IPerson, fallback: number): void {
+   const legacyPerson = person as IPerson & { joinMonth?: number };
+   legacyPerson.joinMonth ??= fallback;
 }

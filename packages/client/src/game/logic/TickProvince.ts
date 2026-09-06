@@ -149,7 +149,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
             state.governor = heir as IGovernorFamily;
             addGameEvent("Manual1", province, save);
          } else {
-            state.governor = generateRandomGovernor(province);
+            state.governor = generateRandomGovernor(province, save.state.month);
             addGameEvent("Manual2", province, save);
          }
       } else if (oldOffspringCount === 0 && newOffspringCount > 0) {

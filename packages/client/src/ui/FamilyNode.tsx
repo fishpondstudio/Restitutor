@@ -12,7 +12,7 @@ import {
 } from "../game/logic/GovernorLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
-import { G } from "../utils/Global";
+import { G, isDev } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
@@ -48,7 +48,14 @@ export function PersonNode({
       return null;
    }
    return (
-      <div className="f1 text-sm mx10 my5 row">
+      <div
+         className="f1 text-sm mx10 my5 row"
+         onClick={() => {
+            if (isDev()) {
+               console.log(family);
+            }
+         }}
+      >
          <div className="mi">{male ? "male" : "female"}</div>
          {person ? (
             <>

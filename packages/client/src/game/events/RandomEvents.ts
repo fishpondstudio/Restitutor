@@ -55,8 +55,10 @@ export const RandomEvents = {
                            diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
                            military: randInt(GovernorMinIncl, GovernorMaxExcl),
                            province: province,
+                           joinMonth: save.state.month,
                         }),
                         female: null,
+                        concubines: [],
                         children: [],
                      });
                   },

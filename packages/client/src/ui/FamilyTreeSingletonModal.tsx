@@ -34,6 +34,7 @@ export function FamilyTreeSingletonModal(): React.ReactNode {
                nodesFocusable={false}
                edgesFocusable={false}
                edgesReconnectable={false}
+               zoomOnDoubleClick={false}
                nodeTypes={{ FamilyNode }}
                nodes={nodes}
                edges={edges}
