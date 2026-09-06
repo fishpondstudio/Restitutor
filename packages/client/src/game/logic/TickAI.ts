@@ -22,6 +22,7 @@ import { canDoAction, finalizeCondition, type IGameAction, printAction } from ".
 import { MakeCoreAction } from "../actions/MakeCoreAction";
 import { NegotiateWhitePeaceAction } from "../actions/NegotiateWhitePeaceAction";
 import { ResearchTechAction } from "../actions/ResearchTechAction";
+import { SetGovernmentFocusAction } from "../actions/SetGovernmentFocusAction";
 import { SignPeaceTreatyAction } from "../actions/SignPeaceTreatyAction";
 import { LookForLocalSpouseAction } from "../actions/SpouseActions";
 import { TradeWithAction } from "../actions/TradeActions";
@@ -302,6 +303,7 @@ export function tickAI(save: SaveGame): void {
       doTrade(province, save);
       doSenateVote(province, save);
       doDenounce(province, save);
+      doFocus(province, save);
       doDiplomacy(province, save);
       doGeneralUpgrade(province, save);
       lookForSpouse(state.governor, province, save);
@@ -392,6 +394,16 @@ function doDenounce(province: Province, save: SaveGame): void {
       return;
    }
    tryDoHeadless(DenounceAction(province, targetProvince, save), "Denounce", province, save);
+}
+
+function doFocus(province: Province, save: SaveGame): void {
+   const governor = save.state.provinces[province]?.governor.male;
+   if (!governor) {
+      return;
+   }
+   const skills = ["administrative", "diplomatic", "military"] as const;
+   const focus = skills.reduce((lowest, skill) => (governor[skill] < governor[lowest] ? skill : lowest));
+   tryDoHeadless(SetGovernmentFocusAction(focus, province, save), "SetGovernmentFocus", province, save);
 }
 
 function doProduction(province: Province, save: SaveGame): void {

@@ -1,7 +1,7 @@
 import { Menu } from "@mantine/core";
 import { cls, formatNumber } from "@project/shared/src/utils/Helper";
 import { Fragment } from "react/jsx-runtime";
-import { finalizeCondition } from "../game/actions/GameAction";
+import { SetGovernmentFocusAction } from "../game/actions/SetGovernmentFocusAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
 import { PersonTrait } from "../game/definitions/PersonTrait";
 import { type GovernorPower, ProvinceResourceNames } from "../game/definitions/Province";
@@ -15,7 +15,6 @@ import {
 } from "../game/logic/ProvinceLogic";
 import { notEnoughResourcesError } from "../game/logic/ResourceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
-import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -250,16 +249,7 @@ function FocusComp({ type }: { type: GovernorPower }): React.ReactNode {
          <ActionButton
             id={`GovernmentModal_Focus_${type}`}
             className="w100"
-            action={{
-               condition: finalizeCondition([
-                  ...timedActionConditions({ action: "SetGovernmentFocus" }, G.save.state.playerProvince, G.save),
-                  { name: $t(L.NotCurrentFocus), value: state.focus !== type },
-               ]),
-               effect: () => {
-                  startTimedAction("SetGovernmentFocus", G.save.state.playerProvince, G.save);
-                  state.focus = type;
-               },
-            }}
+            action={SetGovernmentFocusAction(type, G.save.state.playerProvince, G.save)}
             tooltip={(element) => (
                <>
                   <TimedActionDescComp action="SetGovernmentFocus" />

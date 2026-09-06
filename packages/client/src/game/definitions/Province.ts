@@ -197,6 +197,7 @@ export const AIActions = [
    "OfferTreaty",
    "ChangeRival",
    "Denounce",
+   "SetGovernmentFocus",
 ] as const;
 export type AIAction = (typeof AIActions)[number];
 
