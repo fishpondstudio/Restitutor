@@ -1062,7 +1062,7 @@ export function getAnnexedTiles(toAnnex: Province, ourProvince: Province, save: 
    }
    for (const tile of originalTiles) {
       const tileData = save.state.tiles.get(tile);
-      if (tileData?.province === ourProvince && tileData.coreProvinces.has(toAnnex)) {
+      if (tileData?.province === ourProvince && tileData.coreProvinces.has(ourProvince)) {
          annexed++;
       }
       total++;
