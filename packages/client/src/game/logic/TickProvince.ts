@@ -14,8 +14,9 @@ import type { PanelIdentity } from "../../ui/common/PanelTypes";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { GameEventModal } from "../../ui/GameEventModal";
 import { GovernorWithoutHeirModal } from "../../ui/GovernorWithoutHeirModal";
+import { IllegitimateChildModal } from "../../ui/IllegitimateChildModal";
+import { NewChildBornModal } from "../../ui/NewChildBornModal";
 import { NewGovernorModal } from "../../ui/NewGovernorModal";
-import { NewHeirBornModal } from "../../ui/NewHeirBornModal";
 import { renderMarkup } from "../../ui/ParseMarkup";
 import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
 import { playSound } from "../../ui/Sound";
@@ -41,9 +42,10 @@ import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImproved
 import { getGameDate } from "./GameDateTime";
 import {
    GovernorWithoutHeirEffect,
+   NewChildBornEffects1,
+   NewChildBornEffects2,
    NewGovernorEffect,
-   NewHeirBornEffects1,
-   NewHeirBornEffects2,
+   recognizeIllegitimateChild,
 } from "./GovernorEventLogic";
 import { ensureHeir, generateRandomGovernor, getSuccessor, tickFamily } from "./GovernorLogic";
 import { canTakeLoan, getLoanAmount, getMonthlyInterestRate, takeLoan } from "./LoanLogic";
@@ -148,10 +150,9 @@ export function tickProvince(province: Province, save: SaveGame): void {
 
    const monthOfYear = getGameDate(save.state.tick).getMonth();
    if (monthOfYear === TickFamilyMonth) {
-      const oldOffspringCount = state.governor.children.length;
-      const result = tickFamily(state.governor, province, save);
-      const newOffspringCount = state.governor.children.length;
-      if (!result.male) {
+      const family = state.governor;
+      const result = tickFamily(family, province, save);
+      if (!result.family.male) {
          const successor = getSuccessor(province, save);
          if (successor?.male) {
             successor.male.flag = clearFlag(successor.male.flag, PersonFlags.IsHeir);
@@ -167,16 +168,30 @@ export function tickProvince(province: Province, save: SaveGame): void {
                showGameEventModal(GovernorWithoutHeirModal, { province, governor: state.governor });
             }
          }
-      } else if (oldOffspringCount === 0 && newOffspringCount > 0) {
-         if (province === save.state.playerProvince && !hasFlag(G.flags, GameFlags.Sandbox)) {
-            showGameEventModal(NewHeirBornModal, { province });
-         } else {
-            applyGameEffect(
-               randOne([NewHeirBornEffects1, NewHeirBornEffects2]),
-               $t(L.$1Event, $t(L.ANewHeirIsBorn)),
-               province,
-               save,
-            );
+      } else {
+         for (const birth of result.births) {
+            if (birth.legitimate) {
+               if (province === save.state.playerProvince && !hasFlag(G.flags, GameFlags.Sandbox)) {
+                  showGameEventModal(NewChildBornModal, { province, child: birth.child });
+               } else {
+                  applyGameEffect(
+                     randOne([NewChildBornEffects1, NewChildBornEffects2]),
+                     $t(L.$1Event, $t(L.AChildIsBorn)),
+                     province,
+                     save,
+                  );
+               }
+            } else {
+               if (province === save.state.playerProvince && !hasFlag(G.flags, GameFlags.Sandbox)) {
+                  showGameEventModal(IllegitimateChildModal, {
+                     province,
+                     familyId: family.id,
+                     child: birth.child,
+                  });
+               } else if (Math.random() > 0.5) {
+                  recognizeIllegitimateChild(family.id, birth.child, province, save);
+               }
+            }
          }
       }
       ensureHeir(province, save);

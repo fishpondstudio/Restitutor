@@ -1,79 +1,8 @@
-import { randInt, uuid4 } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
-import { PersonFlags } from "../definitions/Family";
-import { ensureTraits } from "../logic/GovernorLogic";
-import { GovernorMaxExcl, GovernorMinIncl, getProvinceName } from "../logic/ProvinceLogic";
-import { randomMaleName } from "../RomanNames";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
 export const RandomEvents = {
-   Random1: {
-      name: () => $t(L.AQuestionOfLegitimacy),
-      image: EventImage.RomulusAndRemus,
-      desc: () => $t(L.AQuestionOfLegitimacyDesc),
-      type: "random",
-      condition: {
-         conditions: (province, save) => {
-            const governor = save.state.provinces[province]?.governor;
-            if (!governor) {
-               return [];
-            }
-            return [
-               {
-                  name: $t(L.$1sGovernorIsAtLeast$2YearsOld, getProvinceName(province, save), "20"),
-                  value: governor.male.age >= 20,
-               },
-            ];
-         },
-      },
-      buttons: [
-         {
-            label: () => $t(L.WelcomeTheBoyIntoOurFamily),
-            modifiers: {
-               Prestige: { type: "multiply", value: -0.1, duration: 12 * 2 },
-               Stability: { type: "add", value: -10, duration: 12 * 2 },
-            },
-            custom: [
-               {
-                  desc: (province, save) => {
-                     return $t(L.OurGovernorsFamilyGetsAMaleChild);
-                  },
-                  effect: (province, save) => {
-                     const governor = save.state.provinces[province]?.governor;
-                     if (!governor) {
-                        return;
-                     }
-                     governor.children.push({
-                        id: uuid4(),
-                        male: ensureTraits({
-                           name: randomMaleName(governor.male.name[1]),
-                           flag: PersonFlags.None,
-                           age: randInt(0, 10),
-                           traits: new Set(),
-                           administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
-                           diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
-                           military: randInt(GovernorMinIncl, GovernorMaxExcl),
-                           province: province,
-                           joinMonth: save.state.month,
-                        }),
-                        female: null,
-                        concubines: [],
-                        children: [],
-                     });
-                  },
-               },
-            ],
-         },
-         {
-            label: () => $t(L.RefuseTheChildAndDenyAllClaims),
-            modifiers: {
-               Prestige: { type: "multiply", value: 0.1, duration: 12 * 2 },
-               Stability: { type: "add", value: 10, duration: 12 * 2 },
-            },
-         },
-      ],
-   },
    Random2: {
       name: () => $t(L.ALearnedStrangerArrives),
       image: EventImage.PhilosophySchool,

@@ -54,6 +54,16 @@ export function getDeathChance(governor: IPerson, province: Province, save: Save
 
 export const MinimumOffspringAge = 15;
 
+export interface IGovernorBirth {
+   child: IFamily;
+   legitimate: boolean;
+}
+
+export interface ITickFamilyResult {
+   family: IFamily;
+   births: IGovernorBirth[];
+}
+
 export function getOffspringChance(
    family: IFamily,
    province: Province,
@@ -194,13 +204,19 @@ export function ensureHeir(province: Province, save: SaveGame): void {
    }
 }
 
-export function tickFamily(governor: IFamily, province: Province, save: SaveGame): IFamily {
-   tickFamilyMembers(governor, province, save);
+export function tickFamily(governor: IFamily, province: Province, save: SaveGame): ITickFamilyResult {
+   const result: ITickFamilyResult = { family: governor, births: [] };
+   tickFamilyMembers(governor, province, save, result.births);
    removeEmptyDescendantFamilies(governor);
-   return governor;
+   return result;
 }
 
-function tickFamilyMembers(governor: IFamily, province: Province, save: SaveGame): void {
+function tickFamilyMembers(
+   governor: IFamily,
+   province: Province,
+   save: SaveGame,
+   governorBirths?: IGovernorBirth[],
+): void {
    const existingChildren = [...governor.children];
    if (governor.male) {
       governor.male.age++;
@@ -260,7 +276,15 @@ function tickFamilyMembers(governor: IFamily, province: Province, save: SaveGame
             concubines: [],
             children: [],
          };
-         governor.children.push(offspring);
+         if (governorBirths) {
+            const legitimate = female === governor.female;
+            governorBirths.push({ child: offspring, legitimate });
+            if (legitimate) {
+               governor.children.push(offspring);
+            }
+         } else {
+            governor.children.push(offspring);
+         }
       }
    }
 
