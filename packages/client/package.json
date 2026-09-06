@@ -24,7 +24,7 @@
       "@pixi/sound": "^5.2.3",
       "@project/shared": "workspace:*",
       "@sentry/browser": "^9.27.0",
-      "@xyflow/react": "^12.10.1",
+      "@xyflow/react": "^12.11.6",
       "html-react-parser": "^6.1.1",
       "lz-string": "^1.5.0",
       "open-simplex-noise": "^2.5.0",

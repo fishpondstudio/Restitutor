@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { ModalTitleBar } from "../utils/ModalManager";
 import "./ProductionSingletonModal.css";
 import { Popover } from "@mantine/core";
@@ -25,12 +24,12 @@ import { ProductionNode } from "./ProductionNode";
 import { ModalFullHeight } from "./UIConstant";
 
 export function ProductionSingletonModal(): React.ReactNode {
-   const containerRef = useRef<HTMLDivElement>(null);
+   refreshOnTypedEvent(GameStateUpdated);
    const { nodes, edges } = makeProductionTree(G.save.state.playerProvince, G.save);
    return (
       <div className="modal panel xl">
          <ModalTitleBar title={$t(L.Production)} dismiss />
-         <div style={{ width: "100%", height: ModalFullHeight }} ref={containerRef}>
+         <div style={{ width: "100%", height: ModalFullHeight }}>
             <ReactFlow
                colorMode="dark"
                nodesConnectable={false}

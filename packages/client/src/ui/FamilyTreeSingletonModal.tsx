@@ -1,9 +1,9 @@
 import { formatNumber } from "@project/shared/src/utils/Helper";
-import { Controls, ReactFlow, SmoothStepEdge } from "@xyflow/react";
+import { Controls, ReactFlow, SmoothStepEdge, useEdgesState, useNodesState } from "@xyflow/react";
 import { GameStateUpdated } from "../game/Events";
 import { makeFamilyTree } from "../game/logic/GovernorLogic";
 import { G } from "../utils/Global";
-import { refreshOnTypedEvent } from "../utils/Hook";
+import { useTypedEvent } from "../utils/Hook";
 import { ModalTitleBar } from "../utils/ModalManager";
 import "@xyflow/react/dist/style.css";
 import "./FamilyTreeSingletonModal.css";
@@ -17,12 +17,18 @@ import { FamilyNode } from "./FamilyNode";
 import { ModalFullHeight } from "./UIConstant";
 
 export function FamilyTreeSingletonModal(): React.ReactNode {
-   refreshOnTypedEvent(GameStateUpdated);
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
       return null;
    }
-   const { nodes, edges } = makeFamilyTree(state.governor);
+   useTypedEvent(GameStateUpdated, () => {
+      const tree = makeFamilyTree(state.governor);
+      setNodes(tree.nodes);
+      setEdges(tree.edges);
+   });
+   const tree = makeFamilyTree(state.governor);
+   const [nodes, setNodes, onNodesChange] = useNodesState(tree.nodes);
+   const [edges, setEdges, onEdgesChange] = useEdgesState(tree.edges);
    return (
       <div className="modal panel xl">
          <ModalTitleBar title={$t(L.FamilyTree)} dismiss />
@@ -38,6 +44,8 @@ export function FamilyTreeSingletonModal(): React.ReactNode {
                nodeTypes={{ FamilyNode }}
                nodes={nodes}
                edges={edges}
+               onNodesChange={onNodesChange}
+               onEdgesChange={onEdgesChange}
                edgeTypes={{ default: SmoothStepEdge }}
                proOptions={{ hideAttribution: true }}
                fitView
