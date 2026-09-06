@@ -105,6 +105,20 @@ export function getGameEventCondition(
    if (!state) {
       return finalizeCondition(result);
    }
+   if (condition.province) {
+      result.push({
+         name: $t(L.OurProvinceIs$1, getProvinceName(province, save)),
+         value: condition.province.includes(province),
+         hidden: true,
+      });
+   }
+   if (condition.playerOnly) {
+      result.push({
+         name: $t(L.$1IsControlledByPlayer, getProvinceName(province, save)),
+         value: province === save.state.playerProvince,
+         hidden: true,
+      });
+   }
    if (condition.year) {
       const [startYear, endYear] = condition.year;
       const currentYear = getGameDate(save.state.tick).getFullYear();
@@ -142,20 +156,6 @@ export function getGameEventCondition(
             name: $t(L.$1Researched, Tech[tech].name()),
             value: hasResearched(tech, province, save),
          });
-      });
-   }
-   if (condition.province) {
-      result.push({
-         name: $t(L.OurProvinceIs$1, getProvinceName(province, save)),
-         value: condition.province.includes(province),
-         hidden: true,
-      });
-   }
-   if (condition.playerOnly) {
-      result.push({
-         name: $t(L.$1IsControlledByPlayer, getProvinceName(province, save)),
-         value: province === save.state.playerProvince,
-         hidden: true,
       });
    }
    if (condition.onMap) {

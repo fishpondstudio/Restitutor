@@ -31,6 +31,7 @@ import {
    ProvinceFlags,
    type ProvinceNameOverride,
    ProvinceNameOverrides,
+   ProvinceOriginalTiles,
    type ProvinceResource,
    ProvinceResources,
    type ProvinceStat,
@@ -1055,13 +1056,16 @@ export function setProvinceNameOverride(province: Province, nameOverride: Provin
 export function getAnnexedTiles(toAnnex: Province, ourProvince: Province, save: SaveGame): [number, number] {
    let annexed = 0;
    let total = 0;
-   for (const [tile, data] of save.state.tiles) {
-      if (data.originalProvince === toAnnex && data.coreProvinces.has(ourProvince) && data.province === ourProvince) {
+   const originalTiles = ProvinceOriginalTiles.get(toAnnex);
+   if (!originalTiles) {
+      return [0, 0];
+   }
+   for (const tile of originalTiles) {
+      const tileData = save.state.tiles.get(tile);
+      if (tileData?.province === ourProvince && tileData.coreProvinces.has(toAnnex)) {
          annexed++;
       }
-      if (data.originalProvince === toAnnex) {
-         total++;
-      }
+      total++;
    }
    return [annexed, total];
 }
