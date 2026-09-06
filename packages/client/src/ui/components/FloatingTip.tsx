@@ -11,7 +11,7 @@ export function useFloatingTooltip<T extends HTMLElement = any>({ position }: { 
    const { x, y, elements, refs, update, placement } = useFloating({
       placement: position,
       middleware: [
-         offset(20),
+         offset(40),
          shift({ padding: 20 }),
          autoPlacement(),
          // flip({
