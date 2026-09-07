@@ -2,13 +2,13 @@ import { clamp, entriesOf, filterOf, forEach, isNullOrUndefined, sizeOf } from "
 import type React from "react";
 import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
-import { finalizeCondition, type ICondition, type IConditionBreakdown } from "../actions/GameAction";
 import { type Province, ProvinceNameOverrides } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { Religion } from "../definitions/Religion";
 import { Tech } from "../definitions/Tech";
 import { applyGameEffect, getGameEffectDesc } from "../GameEffect";
 import type { SaveGame } from "../GameState";
+import { type ConditionChecks, defineConditionChecks } from "../logic/Calculation";
 import { getGameDate } from "../logic/GameDateTime";
 import { getAnnexedTiles, getProvinceName } from "../logic/ProvinceLogic";
 import { hasResearched } from "../logic/TechLogic";
@@ -92,122 +92,93 @@ export function getEventButtons(event: GameEvent, province: Province, save: Save
    });
 }
 
-export function getGameEventCondition(
+export const getGameEventCondition = defineConditionChecks(function* (
    condition: IGameEventCondition | undefined,
    province: Province,
    save: SaveGame,
-): IConditionBreakdown {
-   const result: ICondition[] = [];
+): ConditionChecks {
    if (!condition) {
-      return finalizeCondition(result);
+      return;
    }
    const state = save.state.provinces[province];
    if (!state) {
-      return finalizeCondition(result);
+      return;
    }
    if (condition.province) {
-      result.push({
-         name: $t(L.OurProvinceIs$1, getProvinceName(province, save)),
-         value: condition.province.includes(province),
+      (yield condition.province.includes(province))?.describe($t(L.OurProvinceIs$1, getProvinceName(province, save)), {
          hidden: true,
       });
    }
    if (condition.playerOnly) {
-      result.push({
-         name: $t(L.$1IsControlledByPlayer, getProvinceName(province, save)),
-         value: province === save.state.playerProvince,
-         hidden: true,
-      });
+      (yield province === save.state.playerProvince)?.describe(
+         $t(L.$1IsControlledByPlayer, getProvinceName(province, save)),
+         { hidden: true },
+      );
    }
    if (condition.year) {
       const [startYear, endYear] = condition.year;
       const currentYear = getGameDate(save.state.tick).getFullYear();
       if (startYear === endYear) {
-         result.push({
-            name: $t(L.In$1AD, condition.year[0]),
-            value: currentYear === startYear,
-         });
+         (yield currentYear === startYear)?.describe($t(L.In$1AD, startYear));
       } else if (startYear <= Number.NEGATIVE_INFINITY) {
-         result.push({
-            name: $t(L.Before$1AD, condition.year[1]),
-            value: currentYear >= startYear && currentYear <= endYear,
-         });
+         (yield currentYear >= startYear && currentYear <= endYear)?.describe($t(L.Before$1AD, endYear));
       } else if (endYear >= Number.POSITIVE_INFINITY) {
-         result.push({
-            name: $t(L.After$1AD, condition.year[0]),
-            value: currentYear >= startYear && currentYear <= endYear,
-         });
+         (yield currentYear >= startYear && currentYear <= endYear)?.describe($t(L.After$1AD, startYear));
       } else {
-         result.push({
-            name: $t(L.Between$1$2AD, condition.year[0], condition.year[1]),
-            value: currentYear >= startYear && currentYear <= endYear,
-         });
+         (yield currentYear >= startYear && currentYear <= endYear)?.describe($t(L.Between$1$2AD, startYear, endYear));
       }
    }
    if (condition.religion) {
-      result.push({
-         name: $t(L.OurReligionIs$1, condition.religion.map((religion) => Religion[religion].name()).join(", ")),
-         value: condition.religion.includes(state.religion),
-      });
+      (yield condition.religion.includes(state.religion))?.describe(
+         $t(L.OurReligionIs$1, condition.religion.map((religion) => Religion[religion].name()).join(", ")),
+      );
    }
    if (condition.techs) {
-      condition.techs.forEach((tech) => {
-         result.push({
-            name: $t(L.$1Researched, Tech[tech].name()),
-            value: hasResearched(tech, province, save),
-         });
-      });
+      for (const tech of condition.techs) {
+         (yield hasResearched(tech, province, save))?.describe($t(L.$1Researched, Tech[tech].name()));
+      }
    }
    if (condition.onMap) {
-      forEach(condition.onMap, (province, value) => {
-         result.push(
-            value
-               ? {
-                    name: $t(L.$1IsOnTheMap, province),
-                    value: !isNullOrUndefined(save.state.provinces[province]),
-                 }
-               : {
-                    name: $t(L.$1IsNotOnTheMap, province),
-                    value: isNullOrUndefined(save.state.provinces[province]),
-                 },
+      let targetProvince: Province;
+      for (targetProvince in condition.onMap) {
+         const shouldBeOnMap = condition.onMap[targetProvince];
+         const isOnMap = !isNullOrUndefined(save.state.provinces[targetProvince]);
+         (yield shouldBeOnMap ? isOnMap : !isOnMap)?.describe(
+            $t(shouldBeOnMap ? L.$1IsOnTheMap : L.$1IsNotOnTheMap, targetProvince),
          );
-      });
+      }
    }
    if (condition.nameOverride) {
-      result.push({
-         name: $t(L.WeHaveFormed$1, ProvinceNameOverrides[condition.nameOverride]()),
-         value: state.nameOverride === condition.nameOverride,
-      });
+      (yield state.nameOverride === condition.nameOverride)?.describe(
+         $t(L.WeHaveFormed$1, ProvinceNameOverrides[condition.nameOverride]()),
+      );
    }
    if (condition.provinceUpgrades) {
-      condition.provinceUpgrades.forEach((upgrade) => {
-         result.push({
-            name: $t(L.Enacted$1, ProvinceUpgrades[upgrade].name()),
-            value: hasProvinceUpgrade(upgrade, province, save),
-         });
-      });
+      for (const upgrade of condition.provinceUpgrades) {
+         (yield hasProvinceUpgrade(upgrade, province, save))?.describe(
+            $t(L.Enacted$1, ProvinceUpgrades[upgrade].name()),
+         );
+      }
    }
    if (condition.annexAndCore) {
-      forEach(condition.annexAndCore, (targetProvince, _count) => {
+      let targetProvince: Province;
+      for (targetProvince in condition.annexAndCore) {
          const [annexed, total] = getAnnexedTiles(targetProvince, province, save);
-         const count = clamp(_count, 0, total);
-         result.push({
-            name:
-               count < total
-                  ? $t(L.AnnexAndCore$1TilesOf$2, count, getProvinceName(targetProvince, save))
-                  : $t(L.AnnexAndCoreAllTilesOf$1, getProvinceName(targetProvince, save)),
-            value: annexed >= count,
-            progress: [annexed, count],
-         });
-      });
+         const count = clamp(condition.annexAndCore[targetProvince]!, 0, total);
+         (yield annexed >= count)?.describe(
+            count < total
+               ? $t(L.AnnexAndCore$1TilesOf$2, count, getProvinceName(targetProvince, save))
+               : $t(L.AnnexAndCoreAllTilesOf$1, getProvinceName(targetProvince, save)),
+            { progress: [annexed, count] },
+         );
+      }
    }
    if (condition.conditions) {
-      condition.conditions(province, save).forEach((item) => {
-         result.push(item);
-      });
+      for (const item of condition.conditions(province, save)) {
+         (yield item.value)?.describe(item.name, item);
+      }
    }
-   return finalizeCondition(result);
-}
+});
 
 export function getAvailableEvents(province: Province, showAll: boolean, save: SaveGame): GameEvent[] {
    const result: GameEvent[] = [];

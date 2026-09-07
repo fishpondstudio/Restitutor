@@ -4,9 +4,9 @@ import type { Province } from "../definitions/Province";
 import { GameStateUpdated, RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
+import type { EvaluationBreakdown, EvaluationFunction, EvaluationImplementation, EvaluationMode } from "./Calculation";
 
-const _provinceCache = new Map<string, unknown>();
-const _tileCache = new Map<string, unknown>();
+let _keyedCaches = new WeakMap<object, Map<unknown, unknown>>();
 
 export const _cachedProvinceTiles = new Map<Province, Tile[]>();
 export const _cachedProvinceCoreTiles = new Map<Province, Tile[]>();
@@ -25,38 +25,87 @@ function _populateProvinceTileCache(save: SaveGame): void {
 }
 
 GameStateUpdated.on(() => {
-   _provinceCache.clear();
-   _tileCache.clear();
+   _keyedCaches = new WeakMap();
    _populateProvinceTileCache(G.save);
 });
 
-type ProvinceBreakdownFunc<T> = (province: Province, save: SaveGame) => T;
-type TileBreakdownFunc<T> = (province: Tile, save: SaveGame) => T;
+type KeyedFunc<Key, T> = (key: Key, save: SaveGame) => T;
 
-export function cacheProvince<T>(func: ProvinceBreakdownFunc<T>): ProvinceBreakdownFunc<T> {
-   return (province, save): T => {
-      const key = `${func.name}-${province}`;
-      const cached = _provinceCache.get(key);
-      if (cached) {
-         return cached as T;
-      }
-      const breakdown = func(province, save);
-      _provinceCache.set(key, breakdown);
-      return breakdown;
+function createKeyedCache<Key, T>() {
+   // An opaque namespace isolates wrappers without keeping discarded wrappers alive.
+   const namespace = {};
+   return {
+      get(key: Key): T | undefined {
+         return _keyedCaches.get(namespace)?.get(key) as T | undefined;
+      },
+      has(key: Key): boolean {
+         return _keyedCaches.get(namespace)?.has(key) ?? false;
+      },
+      set(key: Key, value: T): void {
+         let cache = _keyedCaches.get(namespace);
+         if (cache === undefined) {
+            cache = new Map();
+            _keyedCaches.set(namespace, cache);
+         }
+         cache.set(key, value);
+      },
    };
 }
 
-export function cacheTile<T>(func: TileBreakdownFunc<T>): TileBreakdownFunc<T> {
-   return (tile, save): T => {
-      const key = `${func.name}-${tile}`;
-      const cached = _tileCache.get(key);
-      if (cached) {
+export function cacheProvince<T>(func: KeyedFunc<Province, T>): KeyedFunc<Province, T> {
+   return cacheResult(func);
+}
+
+export function cacheTile<T>(func: KeyedFunc<Tile, T>): KeyedFunc<Tile, T> {
+   return cacheResult(func);
+}
+
+function cacheResult<Key, T>(func: KeyedFunc<Key, T>): KeyedFunc<Key, T> {
+   const cache = createKeyedCache<Key, T>();
+   return (key, save): T => {
+      const cached = cache.get(key);
+      // Undefined can be a cached result, not just a cache miss.
+      if (cached !== undefined || cache.has(key)) {
          return cached as T;
       }
-      const breakdown = func(tile, save);
-      _tileCache.set(key, breakdown);
-      return breakdown;
+      const result = func(key, save);
+      cache.set(key, result);
+      return result;
    };
+}
+
+export function cacheProvinceEvaluation<B extends EvaluationBreakdown>(
+   func: EvaluationImplementation<Province, B>,
+): EvaluationFunction<Province, B> {
+   return cacheEvaluation(func);
+}
+
+export function cacheTileEvaluation<B extends EvaluationBreakdown>(
+   func: EvaluationImplementation<Tile, B>,
+): EvaluationFunction<Tile, B> {
+   return cacheEvaluation(func);
+}
+
+function cacheEvaluation<Key, B extends EvaluationBreakdown>(
+   func: EvaluationImplementation<Key, B>,
+): EvaluationFunction<Key, B> {
+   const cache = createKeyedCache<Key, B>();
+
+   function evaluate(key: Key, save: SaveGame, mode: EvaluationMode = "breakdown"): B | B["value"] {
+      const breakdown = cache.get(key);
+      if (breakdown !== undefined) {
+         return mode === "value" ? breakdown.value : breakdown;
+      }
+      if (mode === "value") {
+         return func(key, save, "value");
+      }
+      const result = func(key, save, "breakdown");
+      cache.set(key, result);
+      return result;
+   }
+
+   // The implementation accepts both modes; expose the mode-specific public overloads.
+   return evaluate as EvaluationFunction<Key, B>;
 }
 
 const _tilesConnectedToCapital = new Map<Province, Set<Tile>>();

@@ -1,5 +1,5 @@
-import { clamp } from "@mantine/hooks";
 import {
+   clamp,
    clearFlag,
    entriesOf,
    filterInPlace,
@@ -114,7 +114,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
       if (config.condition?.playerOnly && province !== save.state.playerProvince) {
          continue;
       }
-      if (getGameEventCondition(config.condition, province, save).value) {
+      if (getGameEventCondition(config.condition, province, save, "value")) {
          addGameEvent(key, province, save);
          state.usedEvents.add(key);
       }
@@ -136,7 +136,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
       });
       let filtered = candidates.filter((event) => {
          const config = GameEvents[event].condition;
-         return !state.usedEvents.has(event) && getGameEventCondition(config, province, save).value;
+         return !state.usedEvents.has(event) && getGameEventCondition(config, province, save, "value");
       });
       if (filtered.length === 0) {
          candidates.forEach((event) => {
@@ -144,7 +144,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
          });
          filtered = candidates.filter((event) => {
             const config = GameEvents[event].condition;
-            return !state.usedEvents.has(event) && getGameEventCondition(config, province, save).value;
+            return !state.usedEvents.has(event) && getGameEventCondition(config, province, save, "value");
          });
       }
       if (filtered.length > 0) {

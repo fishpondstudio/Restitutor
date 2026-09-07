@@ -13,13 +13,12 @@ export function UpgradePopulationAction(tile: Tile, province: Province, save: Sa
    if (!tileData) {
       return EmptyGameAction;
    }
-   const upgradeCost = getTileUpgradeCost(tile, "military", save);
    return {
       condition: finalizeCondition([
          ...timedActionConditions({ action: "UpgradePopulation" }, province, save),
          tileIsOurCoreCondition(tile, province, save),
       ]),
-      cost: { military: upgradeCost.value },
+      cost: { military: getTileUpgradeCost(tile, "military", save, "value") },
       effect: () => {
          ++tileData.upgradeCount;
          ++tileData.population;
@@ -32,9 +31,8 @@ export function UpgradeProductionAction(tile: Tile, province: Province, save: Sa
    if (!tileData) {
       return EmptyGameAction;
    }
-   const upgradeCost = getTileUpgradeCost(tile, "diplomatic", save);
    return {
-      cost: { diplomatic: upgradeCost.value },
+      cost: { diplomatic: getTileUpgradeCost(tile, "diplomatic", save, "value") },
       condition: finalizeCondition([
          ...timedActionConditions({ action: "UpgradeProduction" }, province, save),
          tileIsOurCoreCondition(tile, province, save),
@@ -51,9 +49,8 @@ export function UpgradeInfrastructureAction(tile: Tile, province: Province, save
    if (!tileData) {
       return EmptyGameAction;
    }
-   const upgradeCost = getTileUpgradeCost(tile, "administrative", save);
    return {
-      cost: { administrative: upgradeCost.value },
+      cost: { administrative: getTileUpgradeCost(tile, "administrative", save, "value") },
       condition: finalizeCondition([
          ...timedActionConditions({ action: "UpgradeInfrastructure" }, province, save),
          tileIsOurCoreCondition(tile, province, save),

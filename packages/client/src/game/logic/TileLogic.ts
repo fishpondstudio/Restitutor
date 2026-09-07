@@ -19,9 +19,10 @@ import type { SaveGame } from "../GameState";
 import { isLand, terrainOf } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { cacheTile, isConnectedToCapital } from "./CacheLogic";
+import { defineValueGetter, type EvaluationMode, ValueCalculation } from "./Calculation";
 import { EcumenicalCouncilPct } from "./EcumenicalCouncilLogic";
 import { tileIsOurCoreCondition } from "./MissionLogic";
-import { attachModifiers, attachTileModifiers } from "./ModifierLogic";
+import { attachModifiers, attachModifiersToCalculation, attachTileModifiers } from "./ModifierLogic";
 import {
    getCulturalCohesion,
    getNeighborProvinces,
@@ -748,48 +749,48 @@ export function getTileMakeCoreCost(tile: Tile, save: SaveGame): IValueBreakdown
 
 export const UpgradeCostGrowthFactor = 1.2;
 
-export function getTileUpgradeCost(tile: Tile, resource: GovernorPower, save: SaveGame): IValueBreakdown {
-   const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
-   const data = save.state.tiles.get(tile);
-   if (!data) {
-      return breakdown;
-   }
-   const state = save.state.provinces[data.province];
-   if (!state) {
-      return breakdown;
-   }
-   breakdown.add.push({ name: $t(L.BaseValue), value: 50 });
-   breakdown.multiply.push({
-      name: $t(L.TileUpgrades),
-      desc: $t(L.TileUpgradesCostDesc$1, formatNumber(data.upgradeCount)),
-      value: UpgradeCostGrowthFactor ** data.upgradeCount - 1,
-   });
-   if (data.culture === state.culture) {
-      breakdown.multiply.push({ name: $t(L.DominantCulture), value: -0.1 });
-   } else if (state.toleratedCultures.has(data.culture)) {
-      breakdown.multiply.push({ name: $t(L.ToleratedCulture), value: 0 });
-   } else {
-      breakdown.multiply.push({ name: $t(L.MinorCulture), value: 0.1 });
-   }
-   if (data.religion === state.religion) {
-      breakdown.multiply.push({ name: $t(L.DominantReligion), value: -0.1 });
-   } else if (state.toleratedReligions.has(data.religion)) {
-      breakdown.multiply.push({ name: $t(L.ToleratedReligion), value: 0 });
-   } else {
-      breakdown.multiply.push({ name: $t(L.MinorReligion), value: 0.1 });
-   }
-   if (resource === "administrative") {
-      attachModifiers("InfrastructureUpgradeCost", breakdown, data.province, save);
-   }
-   if (resource === "diplomatic") {
-      attachModifiers("ProductionUpgradeCost", breakdown, data.province, save);
-   }
-   if (resource === "military") {
-      attachModifiers("PopulationUpgradeCost", breakdown, data.province, save);
-   }
+export const getTileUpgradeCost = defineValueGetter(
+   (tile: Tile, resource: GovernorPower, save: SaveGame, mode: EvaluationMode = "breakdown") => {
+      const calc = new ValueCalculation(mode, 1, true);
+      const data = save.state.tiles.get(tile);
+      if (!data) {
+         return calc.finish();
+      }
+      const state = save.state.provinces[data.province];
+      if (!state) {
+         return calc.finish();
+      }
+      calc.add(50)?.describe($t(L.BaseValue));
+      calc
+         .multiply(UpgradeCostGrowthFactor ** data.upgradeCount - 1)
+         ?.describe($t(L.TileUpgrades), $t(L.TileUpgradesCostDesc$1, formatNumber(data.upgradeCount)));
+      if (data.culture === state.culture) {
+         calc.multiply(-0.1)?.describe($t(L.DominantCulture));
+      } else if (state.toleratedCultures.has(data.culture)) {
+         calc.multiply(0)?.describe($t(L.ToleratedCulture));
+      } else {
+         calc.multiply(0.1)?.describe($t(L.MinorCulture));
+      }
+      if (data.religion === state.religion) {
+         calc.multiply(-0.1)?.describe($t(L.DominantReligion));
+      } else if (state.toleratedReligions.has(data.religion)) {
+         calc.multiply(0)?.describe($t(L.ToleratedReligion));
+      } else {
+         calc.multiply(0.1)?.describe($t(L.MinorReligion));
+      }
+      if (resource === "administrative") {
+         attachModifiersToCalculation("InfrastructureUpgradeCost", calc, data.province, save);
+      }
+      if (resource === "diplomatic") {
+         attachModifiersToCalculation("ProductionUpgradeCost", calc, data.province, save);
+      }
+      if (resource === "military") {
+         attachModifiersToCalculation("PopulationUpgradeCost", calc, data.province, save);
+      }
 
-   return finalizeBreakdown(breakdown);
-}
+      return calc.finish();
+   },
+);
 
 export function getTileBuildingCondition(
    building: Building,

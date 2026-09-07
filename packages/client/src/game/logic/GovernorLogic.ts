@@ -1,6 +1,6 @@
 import dagre from "@dagrejs/dagre";
-import { clamp } from "@mantine/hooks";
 import {
+   clamp,
    clearFlag,
    entriesOf,
    filterInPlace,

@@ -2,6 +2,7 @@
 
 - Do not add tests unless explicitly asked to.
 - Do not stage your changes unless explicitly asked to.
+- Do not add comments unless necessary or explicitly asked to. Comment why (non-obvious things), not what or how.
 
 ## Project Command
 

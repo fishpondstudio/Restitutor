@@ -4,6 +4,7 @@ import type { IValueBreakdown } from "../actions/GameAction";
 import type { IModifier, Modifier } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
+import type { EvaluationMode, ValueCalculation } from "./Calculation";
 
 export interface IAddModifier extends IModifier {
    modifier: Modifier;
@@ -38,6 +39,41 @@ export function attachModifiers(
       }
    }
    return breakdown;
+}
+
+export function attachModifiersToCalculation<M extends EvaluationMode>(
+   type: Modifier,
+   calc: ValueCalculation<M>,
+   province: Province,
+   save: SaveGame,
+): ValueCalculation<M> {
+   const state = save.state.provinces[province];
+   attachTileModifiersToCalculation(state?.modifiers[type], calc);
+   const dynamicModifiers = state?.dynamicModifiers[type];
+   if (dynamicModifiers) {
+      for (const modifier of dynamicModifiers) {
+         calc[modifier.type](modifier.value)?.describe(
+            modifier.name,
+            modifier.timeLeft ? $t(L.$1MonthsLeft, formatNumber(modifier.timeLeft)) : undefined,
+         );
+      }
+   }
+   return calc;
+}
+
+export function attachTileModifiersToCalculation<M extends EvaluationMode>(
+   modifiers: IModifier[] | undefined,
+   calc: ValueCalculation<M>,
+): ValueCalculation<M> {
+   if (modifiers) {
+      for (const modifier of modifiers) {
+         calc[modifier.type](modifier.value)?.describe(
+            modifier.name,
+            Number.isFinite(modifier.duration) ? $t(L.$1MonthsLeft, formatNumber(modifier.duration)) : undefined,
+         );
+      }
+   }
+   return calc;
 }
 
 export function addModifier({ modifier, name, type, value, duration, province, save }: IAddModifier): void {

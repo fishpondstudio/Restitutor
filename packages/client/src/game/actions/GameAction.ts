@@ -1,5 +1,4 @@
-import { clamp } from "@mantine/hooks";
-import { forEach, sizeOf } from "@project/shared/src/utils/Helper";
+import { clamp, forEach, sizeOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import {
    type Province,
