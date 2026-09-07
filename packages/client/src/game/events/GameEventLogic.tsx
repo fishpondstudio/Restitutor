@@ -161,10 +161,9 @@ export const getGameEventCondition = defineConditionChecks(function* (
       }
    }
    if (condition.annexAndCore) {
-      let targetProvince: Province;
-      for (targetProvince in condition.annexAndCore) {
+      for (const [targetProvince, targetCount] of entriesOf(condition.annexAndCore)) {
          const [annexed, total] = getAnnexedTiles(targetProvince, province, save);
-         const count = clamp(condition.annexAndCore[targetProvince]!, 0, total);
+         const count = clamp(targetCount, 0, total);
          (yield annexed >= count)?.describe(
             count < total
                ? $t(L.AnnexAndCore$1TilesOf$2, count, getProvinceName(targetProvince, save))
