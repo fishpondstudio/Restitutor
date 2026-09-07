@@ -3509,4 +3509,5 @@ export const EN = {
       "The governor dies without an heir, and for a moment no one rules. The Senate appoints $1 as successor ($2 Administrative, $3 Diplomatic, $4 Military, $5 years old, $6 offspring), but authority imposed from afar sits uneasily. Order remains, yet confidence is shaken.",
    $1JoinsTheGovernorsFamily: "$1 joins the governor's family.",
    $1DoesNotJoinTheGovernorsFamily: "$1 does not join the governor's family.",
+   ResearchedProvinceDiscount$1$2: "Each province that has researched this tech reduces the cost by $1 of the base cost. $2 provinces have researched this tech",
 };

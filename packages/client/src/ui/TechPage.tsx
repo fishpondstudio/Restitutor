@@ -27,7 +27,7 @@ export function TechPage({ tech }: { tech: Tech }): React.ReactNode {
    if (!state) {
       return null;
    }
-   const breakdown = getResearchCostBreakdown(G.save.state.playerProvince, G.save);
+   const breakdown = getResearchCostBreakdown(tech, G.save.state.playerProvince, G.save);
    const unlockCost = makeResearchCost(tech, breakdown.value);
    const config = Tech[tech];
    return (

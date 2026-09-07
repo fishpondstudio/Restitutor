@@ -13,10 +13,10 @@ export function ResearchTechAction(tech: Tech, province: Province, save: SaveGam
    if (!state) {
       return EmptyGameAction;
    }
-   const breakdown = getResearchCostBreakdown(province, save);
+   const cost = getResearchCostBreakdown(tech, province, save, "value");
    const allPrerequisitesUnlocked = Tech[tech].requires.reduce((acc, t) => acc && state.unlockedTech.has(t), true);
    return {
-      cost: makeResearchCost(tech, breakdown.value),
+      cost: makeResearchCost(tech, cost),
       condition: finalizeCondition([
          { name: $t(L.AllPrerequisitesAreResearched), value: allPrerequisitesUnlocked },
          { name: $t(L.NotResearchedYet), value: !state.unlockedTech.has(tech) },

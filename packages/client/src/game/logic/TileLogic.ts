@@ -600,7 +600,7 @@ export function getDistanceFromCapital(tile: Tile, save: SaveGame): number {
 }
 
 export const getTileMaintenanceCost = cacheTileEvaluation<IValueBreakdown>((tile, save, mode) => {
-   const calc = new ValueCalculation(mode, 1, true);
+   const calc = new ValueCalculation({ mode, reverse: true });
    const data = save.state.tiles.get(tile);
    if (!data) {
       return calc.finish();
@@ -732,7 +732,7 @@ export const UpgradeCostGrowthFactor = 1.2;
 
 export const getTileUpgradeCost = defineValueGetter(
    (tile: Tile, resource: GovernorPower, save: SaveGame, mode: EvaluationMode = "breakdown") => {
-      const calc = new ValueCalculation(mode, 1, true);
+      const calc = new ValueCalculation({ mode, reverse: true });
       const data = save.state.tiles.get(tile);
       if (!data) {
          return calc.finish();

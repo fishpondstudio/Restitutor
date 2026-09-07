@@ -1,30 +1,44 @@
 import { entriesOf, forEach, formatNumber, mapSafeAdd, sizeOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
-import type { IValueBreakdown } from "../actions/GameAction";
-import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import type { Building } from "../definitions/Building";
 import type { Province, ProvinceResourceCosts } from "../definitions/Province";
 import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
-import { attachModifiers } from "./ModifierLogic";
+import { defineValueGetter, type EvaluationMode, ValueCalculation } from "./Calculation";
+import { attachModifiersToCalculation } from "./ModifierLogic";
 import { hasEnoughProvinceResources } from "./ProvinceLogic";
 import { stringToPosition } from "./StringToPosition";
 
-export function getResearchCostBreakdown(province: Province, save: SaveGame): IValueBreakdown {
-   const breakdown: IValueBreakdown = makeValueBreakdown();
-   const state = save.state.provinces[province];
-   if (!state) {
-      return breakdown;
-   }
-   breakdown.add.push({ name: $t(L.BaseCost), value: 200 });
-   breakdown.multiply.push({
-      name: $t(L.ResearchedTech),
-      desc: $t(L.EachTechResearchedAdds$1OfTheBaseCost$2, "10%", formatNumber(state.unlockedTech.size)),
-      value: 0.1 * state.unlockedTech.size,
-   });
-   attachModifiers("ResearchCost", breakdown, province, save);
-   return finalizeBreakdown(breakdown);
-}
+export const getResearchCostBreakdown = defineValueGetter(
+   (tech: Tech, province: Province, save: SaveGame, mode: EvaluationMode = "breakdown") => {
+      const calc = new ValueCalculation({ mode, reverse: true });
+      const state = save.state.provinces[province];
+      if (!state) {
+         return calc.finish();
+      }
+      calc.add(200)?.describe($t(L.BaseCost));
+      calc
+         .multiply(0.2 * state.unlockedTech.size)
+         ?.describe(
+            $t(L.ResearchedTech),
+            $t(L.EachTechResearchedAdds$1OfTheBaseCost$2, "20%", formatNumber(state.unlockedTech.size)),
+         );
+      let researchedProvinceCount = 0;
+      forEach(save.state.provinces, (_, provinceState) => {
+         if (provinceState.unlockedTech.has(tech)) {
+            researchedProvinceCount++;
+         }
+      });
+      calc
+         .multiply(-0.01 * researchedProvinceCount)
+         ?.describe(
+            $t(L.FromOtherProvinces),
+            $t(L.ResearchedProvinceDiscount$1$2, "1%", formatNumber(researchedProvinceCount)),
+         );
+      attachModifiersToCalculation("ResearchCost", calc, province, save);
+      return calc.finish();
+   },
+);
 
 export function getTechPosition(tech: Tech): { x: number; y: number } {
    const [x, y] = stringToPosition(tech);
@@ -64,7 +78,6 @@ export function hasResearched(tech: Tech, province: Province, save: SaveGame): b
 }
 
 export function getTechsCanBeResearched(province: Province, save: SaveGame): Tech[] {
-   const cost = getResearchCostBreakdown(province, save).value;
    const result: Tech[] = [];
    forEach(Tech, (tech, config) => {
       if (hasResearched(tech, province, save)) {
@@ -73,6 +86,7 @@ export function getTechsCanBeResearched(province: Province, save: SaveGame): Tec
       if (config.requires.some((t) => !hasResearched(t, province, save))) {
          return;
       }
+      const cost = getResearchCostBreakdown(tech, province, save, "value");
       if (!hasEnoughProvinceResources(makeResearchCost(tech, cost), province, save)) {
          return;
       }

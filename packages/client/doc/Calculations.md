@@ -23,7 +23,7 @@ Use `defineValueGetter` instead of repeating overloads for each uncached value g
 ```ts
 export const getPopulationValue = defineValueGetter(
    (tile: Tile, save: SaveGame, mode: EvaluationMode = "breakdown") => {
-      const calc = new ValueCalculation(mode);
+      const calc = new ValueCalculation({ mode });
       const data = save.state.tiles.get(tile);
       if (data) {
          calc.add(data.population * 1000)?.describe($t(L.Population));
@@ -50,7 +50,7 @@ These exports are `const` functions rather than hoisted function declarations. C
 Use one accumulator per evaluation:
 
 ```ts
-const calc = new ValueCalculation(mode);
+const calc = new ValueCalculation({ mode });
 
 calc.add(data.population * 1000)?.describe(
    $t(L.Population),
@@ -70,7 +70,7 @@ return calc.finish();
 
 The explanation item is also the handle: there is no second wrapper object, and its method lives on the prototype. Its numeric value is readonly through the handle. Do not mutate returned breakdown arrays or item values to change a calculation: numeric totals, not the arrays, are authoritative.
 
-In value mode, calculation infrastructure allocates only the accumulator. Gameplay helpers and legacy callees can still allocate independently.
+In value mode, value calculations use a constructor options object and an accumulator, but allocate no breakdown or explanation items. Gameplay helpers and legacy callees can still allocate independently.
 
 ### Arithmetic and configuration
 
@@ -84,10 +84,10 @@ roundIfProvided(totalAdd * clamp(totalMultiply, 0, Infinity))
 
 `finish(round?)` preserves the clamp and rounding order of `finalizeBreakdown`, but does not rescan the recorded entries. Supply an existing rounding function where possible rather than creating a callback on every call.
 
-The constructor takes `(mode, multiplyBase = 1, reverse?)`. Numeric configuration uses primitive arguments, so value mode needs no options object. For a custom multiplier base and label:
+The constructor takes an options object: `{ mode, multiplyBase = 1, reverse = false }`. `mode` is required; `multiplyBase` and `reverse` are optional. For a custom multiplier base and label:
 
 ```ts
-const calc = new ValueCalculation(mode, maintenance / 100, true);
+const calc = new ValueCalculation({ mode, multiplyBase: maintenance / 100, reverse: true });
 calc.multiplyBase?.describe($t(L.ArmyMaintenance));
 ```
 
@@ -170,7 +170,7 @@ Use `cacheTileEvaluation` or `cacheProvinceEvaluation` from `CacheLogic.ts` for 
 
 ```ts
 export const getExample = cacheTileEvaluation<IValueBreakdown>((tile, save, mode) => {
-   const calc = new ValueCalculation(mode);
+   const calc = new ValueCalculation({ mode });
    const data = save.state.tiles.get(tile);
    if (data) {
       calc.add(data.population * 1000)?.describe($t(L.Population));

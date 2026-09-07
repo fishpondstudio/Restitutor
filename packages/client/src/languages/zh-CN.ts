@@ -3471,4 +3471,5 @@ export const ZH_CN = {
    TheGovernorDiesWithoutAnHeirAndForAMomentNoOneRulesDesc$1$2$3$4$5$6: "总督去世时没有留下继承人，一时间无人执政。元老院任命 $1 为继任者（行政 $2、外交 $3、军事 $4、年龄 $5、子女 $6），但来自远方强加的权威令人不安。秩序尚存，信心却已动摇。",
    $1JoinsTheGovernorsFamily: "$1 加入总督的家族。",
    $1DoesNotJoinTheGovernorsFamily: "$1 不会加入总督的家族。",
+   ResearchedProvinceDiscount$1$2: "每个已研究此科技的行省使花费降低基础花费的 $1。已有 $2 个行省研究了此科技",
 };

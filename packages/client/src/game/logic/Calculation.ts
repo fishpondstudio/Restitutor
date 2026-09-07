@@ -10,7 +10,6 @@ export type EvaluationResult<M extends EvaluationMode, B extends EvaluationBreak
    ? B["value"]
    : B;
 
-/** A calculation implementation must honor the requested mode, not just return either shape. */
 export type EvaluationImplementation<Key, B extends EvaluationBreakdown> = <M extends EvaluationMode>(
    key: Key,
    save: SaveGame,
@@ -25,17 +24,12 @@ export interface EvaluationGetter<Args extends unknown[], B extends EvaluationBr
 
 export type EvaluationFunction<Key, B extends EvaluationBreakdown> = EvaluationGetter<[key: Key, save: SaveGame], B>;
 
-/**
- * Returns the implementation unchanged, so there is no per-call wrapper or argument array.
- * The implementation must default mode to "breakdown" and honor it through calc.finish().
- */
 export function defineValueGetter<Args extends unknown[]>(
    implementation: (...args: [...Args, mode?: EvaluationMode]) => IValueBreakdown | number,
 ): EvaluationGetter<Args, IValueBreakdown> {
    return implementation as EvaluationGetter<Args, IValueBreakdown>;
 }
 
-/** Like defineValueGetter, the implementation owns defaulting and honoring the mode. */
 export function defineConditionGetter<Args extends unknown[]>(
    implementation: (...args: [...Args, mode?: EvaluationMode]) => IConditionBreakdown | boolean,
 ): EvaluationGetter<Args, IConditionBreakdown> {
@@ -44,7 +38,6 @@ export function defineConditionGetter<Args extends unknown[]>(
 
 export type ConditionChecks = Generator<boolean, void, ConditionExplanation | undefined>;
 
-/** The final SaveGame argument makes an optional trailing mode unambiguous without inspecting function.length. */
 export function defineConditionChecks<Args extends unknown[]>(
    implementation: (...args: [...Args, save: SaveGame]) => ConditionChecks,
 ): EvaluationGetter<[...Args, save: SaveGame], IConditionBreakdown> {
@@ -77,7 +70,6 @@ export function defineConditionChecks<Args extends unknown[]>(
    return evaluate as EvaluationGetter<[...Args, save: SaveGame], IConditionBreakdown>;
 }
 
-/** An explanation handle is the breakdown item itself, not an additional wrapper. */
 export class ValueExplanation implements IValueBreakdownItem {
    name = "";
    desc?: string;
@@ -108,17 +100,12 @@ export class ConditionExplanation implements ICondition {
    }
 }
 
-/**
- * Accumulates arithmetic in both modes, allocating explanations only in breakdown mode.
- * Always use `calc.add(value)?.describe(...)` so presentation arguments are skipped in value mode.
- * The mode is required here; public gameplay getters should default it to "breakdown".
- */
 export class ValueCalculation<M extends EvaluationMode> {
    private totalAdd = 0;
    private totalMultiply: number;
    private readonly breakdown: (IValueBreakdown & { multiplyBase: ValueExplanation }) | undefined;
 
-   constructor(mode: M, multiplyBase = 1, reverse?: boolean) {
+   constructor({ mode, multiplyBase = 1, reverse = false }: { mode: M; multiplyBase?: number; reverse?: boolean }) {
       this.totalMultiply = multiplyBase;
       if (mode === "breakdown") {
          const base = new ValueExplanation(multiplyBase);
@@ -135,7 +122,6 @@ export class ValueCalculation<M extends EvaluationMode> {
       }
    }
 
-   /** Customize the base label lazily: `calc.multiplyBase?.describe(...)`. */
    get multiplyBase(): ValueExplanation | undefined {
       return this.breakdown?.multiplyBase;
    }
@@ -150,7 +136,6 @@ export class ValueCalculation<M extends EvaluationMode> {
       return item;
    }
 
-   /** Adds a multiplier contribution, matching IValueBreakdown.multiply; this is not a product. */
    multiply(value: number): ValueExplanation | undefined {
       this.totalMultiply += value;
       if (this.breakdown === undefined) {
@@ -161,7 +146,6 @@ export class ValueCalculation<M extends EvaluationMode> {
       return item;
    }
 
-   /** Uses the same clamp and rounding order as finalizeBreakdown, without rescanning entries. */
    finish(round?: (value: number) => number): EvaluationResult<M, IValueBreakdown> {
       const totalMultiply = clamp(this.totalMultiply, 0, Number.POSITIVE_INFINITY);
       let value = this.totalAdd * totalMultiply;
@@ -179,7 +163,6 @@ export class ValueCalculation<M extends EvaluationMode> {
    }
 }
 
-/** Records every supplied check in breakdown mode, including checks after a failure. */
 export class ConditionCalculation<M extends EvaluationMode> {
    private value = true;
    private readonly breakdown: IConditionBreakdown | undefined;

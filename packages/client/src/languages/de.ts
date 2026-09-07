@@ -3555,4 +3555,5 @@ export const DE = {
       "Der Statthalter stirbt ohne Erben, und für einen Augenblick herrscht niemand. Der Senat ernennt $1 zum Nachfolger ($2 Verwaltung, $3 Diplomatie, $4 Militär, $5 Jahre alt, $6 Nachkommen), doch von außen auferlegte Autorität stößt auf Unbehagen. Die Ordnung bleibt bestehen, doch das Vertrauen ist erschüttert.",
    $1JoinsTheGovernorsFamily: "$1 tritt der Familie des Statthalters bei.",
    $1DoesNotJoinTheGovernorsFamily: "$1 tritt der Familie des Statthalters nicht bei.",
+   ResearchedProvinceDiscount$1$2: "Jede Provinz, die diese Technologie erforscht hat, senkt die Kosten um $1 der Grundkosten. $2 Provinzen haben diese Technologie erforscht",
 };

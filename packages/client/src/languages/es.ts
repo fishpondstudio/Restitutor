@@ -3551,4 +3551,5 @@ export const ES = {
       "El gobernador muere sin heredero y, por un momento, nadie gobierna. El Senado nombra sucesor a $1 ($2 Administración, $3 Diplomacia, $4 Militar, $5 años, $6 descendientes), pero la autoridad impuesta desde lejos genera inquietud. El orden permanece, aunque la confianza se tambalea.",
    $1JoinsTheGovernorsFamily: "$1 se incorpora a la familia del gobernador.",
    $1DoesNotJoinTheGovernorsFamily: "$1 no se incorpora a la familia del gobernador.",
+   ResearchedProvinceDiscount$1$2: "Cada provincia que ha investigado esta tecnología reduce el coste en $1 del coste base. $2 provincias han investigado esta tecnología",
 };
