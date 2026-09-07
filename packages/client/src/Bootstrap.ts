@@ -5,6 +5,7 @@ import { FontFaces, Fonts } from "./Fonts";
 import { startGameLoop } from "./GameLoop";
 import { addDebugFunctions } from "./game/AddDebugFunctions";
 import { SentryDSN, SupportedSaveVersion } from "./game/definitions/Constant";
+import { subscribeToModifierUpdate } from "./game/definitions/ModifierUpdate";
 import { GameStateFlags, initNewPlayerSaveGame, initSaveGame, SaveGame } from "./game/GameState";
 import { loadGame, resetGame, saveAndBackupGame } from "./game/LoadSave";
 import { RomeMap } from "./game/RomeMap";
@@ -109,6 +110,7 @@ export async function bootstrap(): Promise<void> {
    setLanguage(G.save.options.language);
    loadSounds();
    addDebugFunctions();
+   subscribeToModifierUpdate();
    loadGameScene();
    startGameLoop();
    showBootstrapModal(G.save, isNewPlayer);

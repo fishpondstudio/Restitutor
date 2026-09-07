@@ -4,7 +4,7 @@ import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../
 import type { SaveGame } from "../GameState";
 import { attachModifiers } from "../logic/ModifierLogic";
 import { randomMaleName } from "../RomanNames";
-import { AdvisorTraits, getProvinceTraits, type PersonTrait } from "./PersonTrait";
+import { AdvisorTraits, type PersonTrait } from "./PersonTrait";
 import type { Province } from "./Province";
 
 export interface IAdvisor {
@@ -35,9 +35,6 @@ export function getAdvisorMonthlyCost(level: number, province: Province, save: S
       value: 4 ** (level - 1) * 10,
    });
    attachModifiers("AdvisorCost", breakdown, province, save);
-   getProvinceTraits("Thrifty", province, save).forEach((trait) => {
-      breakdown.multiply.push({ ...trait, value: -0.02 });
-   });
    return finalizeBreakdown(breakdown);
 }
 

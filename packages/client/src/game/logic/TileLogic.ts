@@ -5,7 +5,6 @@ import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBr
 import { type Building, Buildings } from "../definitions/Building";
 import type { CultureReligionStatus } from "../definitions/CultureReligionStatus";
 import { Price } from "../definitions/Goods";
-import { attachProvinceTraitsToCalculation, getProvinceTraits } from "../definitions/PersonTrait";
 import type { GovernorPower, Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { ChristianHeresy, isChristianReligion } from "../definitions/Religion";
@@ -130,9 +129,6 @@ function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.Manpower, breakdown);
    attachModifiers("Manpower", breakdown, data.province, save);
-   getProvinceTraits("Robust", data.province, save).forEach((trait) => {
-      breakdown.multiply.push({ ...trait, value: 0.02 });
-   });
    if (!data.coreProvinces.has(data.province)) {
       breakdown.multiply.push({ name: $t(L.NotCore), value: -0.5 });
    }
@@ -203,9 +199,6 @@ export function _getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.Defense, breakdown);
    attachModifiers("Defense", breakdown, data.province, save);
-   getProvinceTraits("Steadfast", data.province, save).forEach((trait) => {
-      breakdown.multiply.push({ ...trait, value: 0.02 });
-   });
    if (data.buildings.has("Castra")) {
       breakdown.multiply.push({ name: Buildings.Castra.name(), value: 0.2 });
    }
@@ -423,9 +416,6 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
          });
       }
    }
-   getProvinceTraits("Diligent", data.province, save).forEach((trait) => {
-      breakdown.multiply.push({ ...trait, value: 0.02 });
-   });
    if (data.autonomy > 0) {
       breakdown.multiply.push({ name: $t(L.Autonomy), value: -data.autonomy * 0.01 });
    }
@@ -541,9 +531,6 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
          value: 0.2,
       });
    }
-   getProvinceTraits("Methodical", data.province, save).forEach((trait) => {
-      breakdown.multiply.push({ ...trait, value: 0.02 });
-   });
    if (data.autonomy > 0) {
       breakdown.multiply.push({ name: $t(L.Autonomy), value: -data.autonomy * 0.01 });
    }
@@ -683,7 +670,6 @@ export const getTileMaintenanceCost = cacheTileEvaluation<IValueBreakdown>((tile
    }
    attachTileModifiersToCalculation(data.modifiers.Maintenance, calc);
    attachModifiersToCalculation("TileMaintenance", calc, data.province, save);
-   attachProvinceTraitsToCalculation("Efficient", -0.02, calc, data.province, save);
    const overextension = getProvinceOverextension(data.province, save).value;
    if (overextension > 0) {
       calc.multiply(overextension * 0.01)?.describe($t(L.FromOverextension));

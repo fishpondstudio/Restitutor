@@ -3,7 +3,7 @@ import { Handle, type Node, type NodeProps, Position } from "@xyflow/react";
 import type React from "react";
 import { ChangeHeirAction } from "../game/actions/ChangeHeirAction";
 import { type IFamily, type IPerson, PersonFlags } from "../game/definitions/Family";
-import { PersonTrait } from "../game/definitions/PersonTrait";
+import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
 import {
    getDeathChance,
    getOffspringChance,
@@ -162,7 +162,7 @@ function PersonTooltip({ person, family }: { person: IPerson; family: IFamily })
          {Array.from(person.traits).map((trait) => (
             <div key={trait} className="mx10 my5">
                <div>{PersonTrait[trait].name()}</div>
-               <div className="text-dimmed text-xs text-italic">{PersonTrait[trait].desc()}</div>
+               <div className="text-dimmed text-xs text-italic">{getPersonTraitDescription(trait)}</div>
             </div>
          ))}
          {person === state.governor.male ? (

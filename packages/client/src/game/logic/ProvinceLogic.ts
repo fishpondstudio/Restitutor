@@ -22,7 +22,6 @@ import { Goods, Price } from "../definitions/Goods";
 import { type GreatWork, TileToGreatWork } from "../definitions/GreatWork";
 import { LegacyUpgrades } from "../definitions/LegacyUpgrade";
 import { makeModifierGetter } from "../definitions/Modifier";
-import { getProvinceTraits } from "../definitions/PersonTrait";
 import {
    type ActiveTrade,
    type GovernorPower,
@@ -288,9 +287,6 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
    if (hasProvinceUpgrade("CaputMundi", province, save) && save.state.provinces[province]?.capital === Tiles.Rome) {
       breakdown.multiply.push({ name: ProvinceUpgrades.CaputMundi.name(), value: 0.1 });
    }
-   getProvinceTraits("Distinguished", province, save).forEach((trait) => {
-      breakdown.multiply.push({ ...trait, value: 0.02 });
-   });
    return finalizeBreakdown(breakdown);
 }
 
@@ -301,9 +297,6 @@ export function getProvinceStability(province: Province, save: SaveGame): IValue
       breakdown.add.push({ name: $t(L.FromOverextension), value: -overextension });
    }
    attachModifiers("Stability", breakdown, province, save);
-   getProvinceTraits("Calm", province, save).forEach((trait) => {
-      breakdown.add.push({ ...trait, value: 2 });
-   });
    const wars = getCurrentWars(province, save);
    for (const war of wars) {
       if (war.attacker === province) {
@@ -414,9 +407,6 @@ export function getArmyMaintenanceCost(province: Province, save: SaveGame): IVal
       });
    }
    attachModifiers("ArmyMaintenance", breakdown, province, save);
-   getProvinceTraits("Prudent", province, save).forEach((trait) => {
-      breakdown.multiply.push({ ...trait, value: -0.02 });
-   });
    return finalizeBreakdown(breakdown);
 }
 
@@ -706,9 +696,6 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
       name: $t(L.Cavalry),
       value: totalArmy * cavalryUnit * 0.01 * cavalryUnitWarPower,
       desc: $t(L.UnitPower$1, formatNumber(cavalryUnitWarPower)),
-   });
-   getProvinceTraits("Bold", province, save).forEach((trait) => {
-      result.multiply.push({ ...trait, value: 0.02 });
    });
    if (hasProvinceUpgrade("CavalryWarPower", province, save)) {
       result.multiply.push({

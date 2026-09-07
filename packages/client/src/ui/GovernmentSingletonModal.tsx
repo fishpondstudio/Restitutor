@@ -3,7 +3,7 @@ import { cls, formatNumber } from "@project/shared/src/utils/Helper";
 import { Fragment } from "react/jsx-runtime";
 import { SetGovernmentFocusAction } from "../game/actions/SetGovernmentFocusAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
-import { PersonTrait } from "../game/definitions/PersonTrait";
+import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
 import { type GovernorPower, ProvinceResourceNames } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
 import { showError } from "../game/logic/AlertLogic";
@@ -184,7 +184,7 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
                         <div key={trait} className="row">
                            <div className="f1">
                               - {PersonTrait[trait].name()}{" "}
-                              <span className="text-dimmed">({PersonTrait[trait].desc()})</span>
+                              <span className="text-dimmed">({getPersonTraitDescription(trait)})</span>
                            </div>
                         </div>
                      ))}
@@ -224,7 +224,7 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
                         <FloatingTip
                            label={
                               <>
-                                 {PersonTrait[trait].name()}: {PersonTrait[trait].desc()}
+                                 {PersonTrait[trait].name()}: {getPersonTraitDescription(trait)}
                               </>
                            }
                         >
