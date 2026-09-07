@@ -109,7 +109,7 @@ test("GameEvents do not have conflicting province start years", () => {
          if (config.type === "random") {
             return;
          }
-         if (config.condition?.year && (!config.condition.province || config.condition.province.includes(province))) {
+         if (config.condition?.year && (!config.condition.province || config.condition.province.has(province))) {
             const [startYear] = config.condition.year;
             const existingEvent = yearToEvents.get(startYear);
             // Events with additional conditions can coexist in the same year.

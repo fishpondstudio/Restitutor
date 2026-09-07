@@ -16,7 +16,7 @@ export const HispaniaEvent = {
       image: EventImage.Pyrenees,
       desc: () => $t(L.TheRoadsIntoGaulDesc),
       condition: {
-         province: HispaniaProvinces,
+         province: new Set(HispaniaProvinces),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(getOriginalTileCount(province) + 10, province, save);
             yield* anyCoreTileChecks([8781900, 8847436, 8847437, 8912973, 8978509], province, save);
@@ -49,7 +49,7 @@ export const HispaniaEvent = {
       image: EventImage.Gibraltar,
       desc: () => $t(L.AcrossTheStraitOfGibraltarDesc),
       condition: {
-         province: HispaniaProvinces,
+         province: new Set(HispaniaProvinces),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(getOriginalTileCount(province) + 2, province, save);
             yield* isCoreTileChecks(8585300, province, save);
@@ -85,7 +85,7 @@ export const HispaniaEvent = {
       desc: () => $t(L.TheSuebiMustBeDrivenOutDesc),
       condition: {
          playerOnly: true,
-         province: HispaniaProvinces,
+         province: new Set(HispaniaProvinces),
          onMap: { Suebi: true },
          conditions: function* (province, save): ConditionChecks {
             (yield getTimedActionTimeLeft("BarbarianInvasions", "Suebi", save) <= 0)?.describe(
@@ -122,7 +122,7 @@ export const HispaniaEvent = {
       condition: {
          playerOnly: true,
          onMap: { Mauretania: true },
-         province: HispaniaProvinces,
+         province: new Set(HispaniaProvinces),
          conditions: function* (province, save): ConditionChecks {
             yield* allCoreTileChecks([8519765, 8519766, 8585302], province, save);
             return;
@@ -150,7 +150,7 @@ export const HispaniaEvent = {
       image: EventImage.RomanExpedition,
       desc: () => $t(L.HispaniaUnitedDesc),
       condition: {
-         province: HispaniaProvinces,
+         province: new Set(HispaniaProvinces),
          annexAndCore: fromEntries(HispaniaProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
       achievement: "UniteHispania",

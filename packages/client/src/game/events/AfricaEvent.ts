@@ -17,7 +17,7 @@ export const AfricaEvent = {
       image: EventImage.StephenStoning,
       desc: () => $t(L.ThePassionOfPerpetuaAndFelicityDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          year: [203, 203],
       },
       buttons: [
@@ -52,7 +52,7 @@ export const AfricaEvent = {
       image: EventImage.SaintHealing,
       desc: () => $t(L.CyprianBeforeTheProconsulDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          year: [258, 258],
       },
       buttons: [
@@ -82,7 +82,7 @@ export const AfricaEvent = {
       image: EventImage.MartyrsPrayer,
       desc: () => $t(L.ThePrisonersOfAbitinaDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          year: [304, 304],
       },
       buttons: [
@@ -109,7 +109,7 @@ export const AfricaEvent = {
       image: EventImage.Flood,
       desc: () => $t(L.TheBrokenQuaysOfLepcisDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          year: [365, 365],
       },
       buttons: [
@@ -144,7 +144,7 @@ export const AfricaEvent = {
       image: EventImage.HonoriusCourt,
       desc: () => $t(L.GildoWithholdsTheGrainDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          year: [397, 397],
       },
       buttons: [
@@ -179,7 +179,7 @@ export const AfricaEvent = {
       image: EventImage.Donatism,
       desc: () => $t(L.TheConferenceOfCarthageDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          year: [411, 411],
       },
       buttons: [
@@ -213,7 +213,7 @@ export const AfricaEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.HeracliansArmadaDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          year: [413, 413],
       },
       buttons: [
@@ -249,7 +249,7 @@ export const AfricaEvent = {
       image: EventImage.ScipiosClemency1,
       desc: () => $t(L.TheVandalLandSettlementDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          year: [442, 442],
       },
       buttons: [
@@ -284,7 +284,7 @@ export const AfricaEvent = {
       image: EventImage.SaintConsecration,
       desc: () => $t(L.TheLastAlmsOfDeogratiasDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          year: [457, 457],
       },
       buttons: [
@@ -319,7 +319,7 @@ export const AfricaEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.TheFireShipsOfCapeBonDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          year: [468, 468],
       },
       buttons: [
@@ -354,7 +354,7 @@ export const AfricaEvent = {
       image: EventImage.QueenEmbarkation,
       desc: () => $t(L.TheSardinianCompactDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Sardinia", save);
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Sardinia", save);
@@ -375,7 +375,7 @@ export const AfricaEvent = {
       image: EventImage.ImperialPatronage,
       desc: () => $t(L.CorsicaUnderOurProtectionDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Corsica", save);
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Corsica", save);
@@ -397,7 +397,7 @@ export const AfricaEvent = {
       image: EventImage.RomanInvasion,
       desc: () => $t(L.AnAfricanFootholdInSiciliaDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          annexAndCore: { Sicilia: 2 },
       },
       buttons: [
@@ -433,7 +433,7 @@ export const AfricaEvent = {
       image: EventImage.VandalsInItaly,
       desc: () => $t(L.TheRoadFromCarthageToRomeDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          annexAndCore: { Sicilia: Number.POSITIVE_INFINITY },
       },
       buttons: [
@@ -471,7 +471,7 @@ export const AfricaEvent = {
       image: EventImage.CivicTriumph,
       desc: () => $t(L.ARealmOfManyPeoplesDesc),
       condition: {
-         province: ["Africa"],
+         province: new Set(["Africa"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(40, province, save);
          },

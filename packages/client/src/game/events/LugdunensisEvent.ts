@@ -36,7 +36,7 @@ export const LugdunensisEvent = {
       image: EventImage.CarthageCaptured,
       desc: () => $t(L.BlitzkriegAgainstBelgicaDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          annexAndCore: { Belgica: 2 },
          year: [Number.NEGATIVE_INFINITY, 220],
       },
@@ -64,7 +64,7 @@ export const LugdunensisEvent = {
       image: EventImage.RomanBathsPlan,
       desc: () => $t(L.AProsperousLugdunensisDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* provinceRevenueChecks(200, province, save);
             yield* manpowerChecks(50_000, province, save);
@@ -86,7 +86,7 @@ export const LugdunensisEvent = {
       image: EventImage.VercingetorixSurrenders,
       desc: () => $t(L.ThePrideOfGaulRidesForthDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* victoryCountChecks(2, province, save);
             yield* warPowerChecks(10_000, province, save);
@@ -107,7 +107,7 @@ export const LugdunensisEvent = {
       image: EventImage.CarthageCaptured,
       desc: () => $t(L.AWeakenedBelgicaDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          annexAndCore: { Belgica: 6 },
          conditions: function* (province, save): ConditionChecks {
             yield* maxCoreTileChecks(4, "Belgica", save);
@@ -137,7 +137,7 @@ export const LugdunensisEvent = {
       image: EventImage.ImperialPatronage,
       desc: () => $t(L.BoundByBloodAndOathDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Belgica", save);
             yield* requirePeaceBetweenChecks(province, "Belgica", save);
@@ -159,7 +159,7 @@ export const LugdunensisEvent = {
       image: EventImage.CaptiveTriumph,
       desc: () => $t(L.MastersOfTheRhineFrontierDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          annexAndCore: { Germania: 8 },
       },
       buttons: [
@@ -188,7 +188,7 @@ export const LugdunensisEvent = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.TheSouthernGatewayDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          annexAndCore: { Narbonensis: 5 },
          conditions: function* (province, save): ConditionChecks {
             yield* anyCoreTileChecks([8978508, 8978507, 9044043, 9109579, 9175115], province, save);
@@ -226,7 +226,7 @@ export const LugdunensisEvent = {
       image: EventImage.RomanInvasion,
       desc: () => $t(L.TheRoadToBritanniaDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* allCoreTileChecks([9109568, 9044033, 8978497, 8978498, 8912963, 8847427], province, save);
          },
@@ -266,7 +266,7 @@ export const LugdunensisEvent = {
       image: EventImage.QueenEmbarkation,
       desc: () => $t(L.ACoastBoundTogetherDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreCoastalTileChecks(15, province, save);
             yield* provinceUsedResourceChecks("gold", 20_000, province, save);
@@ -307,7 +307,7 @@ export const LugdunensisEvent = {
       image: EventImage.RomanVilla,
       desc: () => $t(L.TheIntegrationOfAquitaniaDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          annexAndCore: { Aquitania: Math.floor(getOriginalTileCount("Aquitania") * 0.8) },
       },
       buttons: [
@@ -339,7 +339,7 @@ export const LugdunensisEvent = {
       image: EventImage.RomanForum1,
       desc: () => $t(L.TheImperialMintInCrisisDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [220, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceStability(province, save).value < 0)?.describe(
@@ -375,7 +375,7 @@ export const LugdunensisEvent = {
       image: EventImage.SaintHealing,
       desc: () => $t(L.TheLegacyOfIrenaeusDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [200, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
@@ -413,9 +413,9 @@ export const LugdunensisEvent = {
       image: EventImage.StephenStoning,
       desc: () => $t(L.PilgrimsFromAquitaniaDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [240, Number.POSITIVE_INFINITY],
-         techs: ["D1"],
+         techs: new Set(["D1"]),
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 50)?.describe(
                $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "50"),
@@ -454,7 +454,7 @@ export const LugdunensisEvent = {
       image: EventImage.Flood,
       desc: () => $t(L.TheLoireFloodsDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [250, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceStability(province, save).value >= 0)?.describe(
@@ -491,7 +491,7 @@ export const LugdunensisEvent = {
       image: EventImage.Sailor,
       desc: () => $t(L.TheArmoricanSmugglersDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [260, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceStability(province, save).value >= 0)?.describe(
@@ -532,9 +532,9 @@ export const LugdunensisEvent = {
       desc: () => $t(L.TheDeclineOfLugdunumDesc),
 
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [260, Number.POSITIVE_INFINITY],
-         provinceUpgrades: ["Tetrarchy"],
+         provinceUpgrades: new Set(["Tetrarchy"]),
       },
       buttons: [
          {
@@ -569,7 +569,7 @@ export const LugdunensisEvent = {
       image: EventImage.Watchtower,
       desc: () => $t(L.AutonomyAlongTheLoireFrontierDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [280, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceStability(province, save).value < 0)?.describe(
@@ -609,7 +609,7 @@ export const LugdunensisEvent = {
       image: EventImage.SaintConsecration,
       desc: () => $t(L.TheShepherdRisesOverLugdunensisDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [300, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 100)?.describe(
@@ -648,7 +648,7 @@ export const LugdunensisEvent = {
       image: EventImage.RomanRuins2,
       desc: () => $t(L.TheBirthOfTheArmoricanConfederacyDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [330, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceStability(province, save).value < 0)?.describe(
@@ -683,9 +683,9 @@ export const LugdunensisEvent = {
       image: EventImage.SaintCharity,
       desc: () => $t(L.MartinOfToursAndTheCloakDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [350, Number.POSITIVE_INFINITY],
-         religion: ["Christianity"],
+         religion: new Set(["Christianity"]),
       },
       buttons: [
          {
@@ -716,7 +716,7 @@ export const LugdunensisEvent = {
       image: EventImage.PompeiiRefugees,
       desc: () => $t(L.TheTideOfRefugeesAtTheRhineDesc),
       condition: {
-         province: ["Lugdunensis"],
+         province: new Set(["Lugdunensis"]),
          year: [380, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceStability(province, save).value < 0)?.describe(

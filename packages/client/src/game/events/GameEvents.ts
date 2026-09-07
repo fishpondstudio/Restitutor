@@ -49,12 +49,12 @@ export interface IGameEventConfig {
 export interface IGameEventCondition {
    year?: [number, number];
    nameOverride?: ProvinceNameOverride;
-   province?: Province[];
+   province?: Set<Province>;
    playerOnly?: boolean;
    onMap?: Partial<Record<Province, boolean>>;
-   religion?: Religion[];
-   techs?: Tech[];
-   provinceUpgrades?: ProvinceUpgrade[];
+   religion?: Set<Religion>;
+   techs?: Set<Tech>;
+   provinceUpgrades?: Set<ProvinceUpgrade>;
    annexAndCore?: Partial<Record<Province, number>>;
    conditions?: (province: Province, save: SaveGame) => ConditionChecks;
 }

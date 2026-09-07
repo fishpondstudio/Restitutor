@@ -23,7 +23,7 @@ export const ItaliaEvent = {
       image: EventImage.ChariotRace1,
       desc: () => $t(L.TheSecularGamesOfSeptimiusSeverusDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          year: [204, 204],
       },
       buttons: [
@@ -49,7 +49,7 @@ export const ItaliaEvent = {
       image: EventImage.CaracallaBaths,
       desc: () => $t(L.TheBathsOfCaracallaDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          year: [216, 216],
       },
       buttons: [
@@ -76,7 +76,7 @@ export const ItaliaEvent = {
       image: EventImage.AurelianWalls,
       desc: () => $t(L.TheWallsOfAurelianDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          year: [271, 271],
       },
       buttons: [
@@ -103,7 +103,7 @@ export const ItaliaEvent = {
       image: EventImage.CiceroInSenate,
       desc: () => $t(L.TheSenatesLastEmperorDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          year: [275, 275],
       },
       buttons: [
@@ -131,7 +131,7 @@ export const ItaliaEvent = {
       image: EventImage.ImperialPatronage,
       desc: () => $t(L.AnImperialCourtAtMediolanumDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          year: [286, 286],
       },
       buttons: [
@@ -159,7 +159,7 @@ export const ItaliaEvent = {
       image: EventImage.RomanTriumph1,
       desc: () => $t(L.TheArchOfConstantineDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          year: [315, 315],
       },
       buttons: [
@@ -187,7 +187,7 @@ export const ItaliaEvent = {
       image: EventImage.AmbroseBarsTheodosius,
       desc: () => $t(L.TheAltarOfVictoryDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          year: [382, Number.POSITIVE_INFINITY],
       },
       buttons: [
@@ -215,7 +215,7 @@ export const ItaliaEvent = {
       image: EventImage.RavennaMosaic,
       desc: () => $t(L.TheCourtWithdrawsToRavennaDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          year: [402, 402],
       },
       buttons: [
@@ -242,7 +242,7 @@ export const ItaliaEvent = {
       image: EventImage.Wedding2,
       desc: () => $t(L.TheMarriageAtRavennaDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          year: [417, 417],
       },
       buttons: [
@@ -270,7 +270,7 @@ export const ItaliaEvent = {
       image: EventImage.CaesarDeath1,
       desc: () => $t(L.TheMurderOfAetiusDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          year: [454, 454],
       },
       buttons: [
@@ -297,7 +297,7 @@ export const ItaliaEvent = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.TheTwoShoresReunitedDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          annexAndCore: { Sicilia: Number.POSITIVE_INFINITY },
       },
       buttons: [
@@ -331,7 +331,7 @@ export const ItaliaEvent = {
       image: EventImage.ScipiosClemency1,
       desc: () => $t(L.CorsicaBeneathOurProtectionDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Corsica", save);
             yield* requirePeaceBetweenChecks(province, "Corsica", save);
@@ -351,7 +351,7 @@ export const ItaliaEvent = {
       image: EventImage.Wedding2,
       desc: () => $t(L.BondsOfBloodAndSeaDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Sardinia", save);
             yield* requirePeaceBetweenChecks(province, "Sardinia", save);
@@ -372,7 +372,7 @@ export const ItaliaEvent = {
       image: EventImage.Alps,
       desc: () => $t(L.BeyondTheAlpineGatesDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          playerOnly: true,
          annexAndCore: {
             Corsica: Number.POSITIVE_INFINITY,
@@ -409,7 +409,7 @@ export const ItaliaEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.CloseTheAdriaticDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          playerOnly: true,
          conditions: function* (province, save): ConditionChecks {
             yield* requireAnyTreatyBetweenChecks(["Alliance", "Patron"], province, "Macedonia", save);
@@ -434,7 +434,7 @@ export const ItaliaEvent = {
       image: EventImage.QueenEmbarkation,
       desc: () => $t(L.MasteryOfTheMiddleSeaDesc),
       condition: {
-         province: ["Italia"],
+         province: new Set(["Italia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreCoastalTileChecks(40, province, save);
          },

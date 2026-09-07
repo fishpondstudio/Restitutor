@@ -139,7 +139,7 @@ export const MissionEvents = {
       image: EventImage.CaesarsTriumph,
       desc: () => $t(L.WesternRomanEmpireRestoredDesc),
       condition: {
-         province: WesternRomanEmpireProvinces,
+         province: new Set(WesternRomanEmpireProvinces),
          annexAndCore: fromEntries(WesternRomanEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
       achievement: "RestoreWesternRomanEmpire",
@@ -172,7 +172,7 @@ export const MissionEvents = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.DominionOfTheWesternSeaDesc),
       condition: {
-         province: WesternMediterraneanProvinces,
+         province: new Set(WesternMediterraneanProvinces),
          annexAndCore: fromEntries(
             WesternMediterraneanProvinces.map((province) => [province, Number.POSITIVE_INFINITY]),
          ),
@@ -207,7 +207,7 @@ export const MissionEvents = {
       image: EventImage.ConstantinopleBuilt,
       desc: () => $t(L.DominionOfTheEasternSeaDesc),
       condition: {
-         province: EasternMediterraneanProvinces,
+         province: new Set(EasternMediterraneanProvinces),
          annexAndCore: fromEntries(
             EasternMediterraneanProvinces.map((province) => [province, Number.POSITIVE_INFINITY]),
          ),

@@ -13,7 +13,7 @@ export const BelgicaEvent = {
       image: EventImage.AncientRome,
       desc: () => $t(L.AugustaTreverorumCityOfEmperorsDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [300, 300],
       },
       buttons: [
@@ -39,7 +39,7 @@ export const BelgicaEvent = {
       image: EventImage.Weavers,
       desc: () => $t(L.TheWeavingHousesOfTrierDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [265, 265],
       },
       buttons: [
@@ -67,7 +67,7 @@ export const BelgicaEvent = {
       image: EventImage.HeroTriumph,
       desc: () => $t(L.ThePurpleIsRaisedAtTrierDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [350, 350],
       },
       buttons: [
@@ -94,7 +94,7 @@ export const BelgicaEvent = {
       image: EventImage.DruidRitual,
       desc: () => $t(L.TheOldGodsOfTheTreveriDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [320, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
@@ -132,7 +132,7 @@ export const BelgicaEvent = {
       image: EventImage.JeromeStudy,
       desc: () => $t(L.AthanasiusInExileAtTrierDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [335, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
@@ -163,7 +163,7 @@ export const BelgicaEvent = {
       image: EventImage.Watchtower,
       desc: () => $t(L.ValentinianFortifiesTheRhineDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [367, 367],
       },
       buttons: [
@@ -188,7 +188,7 @@ export const BelgicaEvent = {
       image: EventImage.GiltCup,
       desc: () => $t(L.TheGlassworksOfTheRhinelandDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [200, 200],
       },
       buttons: [
@@ -215,7 +215,7 @@ export const BelgicaEvent = {
       image: EventImage.StephenStoning,
       desc: () => $t(L.TheMartyrdomOfNicasiusAtReimsDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [407, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
@@ -246,7 +246,7 @@ export const BelgicaEvent = {
       image: EventImage.RuinedColonnade,
       desc: () => $t(L.TheCourtDepartsTrierDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [420, 420],
       },
       buttons: [
@@ -279,7 +279,7 @@ export const BelgicaEvent = {
       image: EventImage.FieldHarvest,
       desc: () => $t(L.TheGranariesOfTheRhineArmyDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [230, 230],
       },
       buttons: [
@@ -306,7 +306,7 @@ export const BelgicaEvent = {
       image: EventImage.BattleOfIssus,
       desc: () => $t(L.SouthwardIntoLugdunensisDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          year: [Number.NEGATIVE_INFINITY, 220],
          annexAndCore: { Lugdunensis: 2 },
       },
@@ -336,7 +336,7 @@ export const BelgicaEvent = {
       image: EventImage.PompeiiFalls,
       desc: () => $t(L.NorthwardIntoGermaniaDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          annexAndCore: { Germania: 4 },
       },
       buttons: [
@@ -365,7 +365,7 @@ export const BelgicaEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.AcrossTheSeaToBritanniaDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          annexAndCore: { Britannia: 4 },
       },
       buttons: [
@@ -394,7 +394,7 @@ export const BelgicaEvent = {
       image: EventImage.CivicTriumph,
       desc: () => $t(L.BelgicaAscendantDesc),
       condition: {
-         province: ["Belgica"],
+         province: new Set(["Belgica"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(20, province, save);
             yield* warPowerChecks(10_000, province, save);

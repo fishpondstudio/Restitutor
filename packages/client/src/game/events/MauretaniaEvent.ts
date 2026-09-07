@@ -20,7 +20,7 @@ export const MauretaniaEvent = {
       image: EventImage.Watchtower,
       desc: () => $t(L.TheBavaresCrossTheFrontierDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          year: [253, 253],
       },
       buttons: [
@@ -54,7 +54,7 @@ export const MauretaniaEvent = {
       image: EventImage.ImperialCity,
       desc: () => $t(L.MaximiansAtlasCampaignDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          year: [297, 297],
       },
       buttons: [
@@ -90,7 +90,7 @@ export const MauretaniaEvent = {
       image: EventImage.Donatism,
       desc: () => $t(L.TheCouncilInTheHouseAtCirtaDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          year: [305, 305],
       },
       buttons: [
@@ -125,7 +125,7 @@ export const MauretaniaEvent = {
       image: EventImage.Donatism,
       desc: () => $t(L.TheMacarianMissionDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          year: [347, 347],
       },
       buttons: [
@@ -159,7 +159,7 @@ export const MauretaniaEvent = {
       image: EventImage.SaintConsecration,
       desc: () => $t(L.TheDonatistsReturnFromExileDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          year: [362, 362],
       },
       buttons: [
@@ -194,7 +194,7 @@ export const MauretaniaEvent = {
       image: EventImage.HoratiiOath,
       desc: () => $t(L.FirmusRaisesTheKabylianHousesDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          year: [372, 372],
       },
       buttons: [
@@ -230,7 +230,7 @@ export const MauretaniaEvent = {
       image: EventImage.BattleOfIssus,
       desc: () => $t(L.TheDefectionFromGildoDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          year: [398, 398],
       },
       buttons: [
@@ -264,7 +264,7 @@ export const MauretaniaEvent = {
       image: EventImage.BarbariansAtRome,
       desc: () => $t(L.TheSiegeOfHippoRegiusDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          year: [430, 430],
       },
       buttons: [
@@ -299,7 +299,7 @@ export const MauretaniaEvent = {
       image: EventImage.ScipiosClemency2,
       desc: () => $t(L.TheFoedusOfHippoDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          year: [435, 435],
       },
       buttons: [
@@ -333,7 +333,7 @@ export const MauretaniaEvent = {
       image: EventImage.ScipiosClemency1,
       desc: () => $t(L.TheProvincesBeyondTheSettlementDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          year: [442, 442],
       },
       buttons: [
@@ -368,7 +368,7 @@ export const MauretaniaEvent = {
       image: EventImage.Gibraltar,
       desc: () => $t(L.TheTwoShoresOfThePillarsDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          annexAndCore: { Baetica: 2 },
          conditions: function* (province, save): ConditionChecks {
             yield* allCoreTileChecks(StraitOfGibraltarTiles, province, save);
@@ -403,7 +403,7 @@ export const MauretaniaEvent = {
       image: EventImage.HeroTriumph,
       desc: () => $t(L.BaeticaUnderMauretanianRuleDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          annexAndCore: { Baetica: Number.POSITIVE_INFINITY },
       },
       buttons: [
@@ -437,7 +437,7 @@ export const MauretaniaEvent = {
       image: EventImage.MediterraneanIsland,
       desc: () => $t(L.ThePriceOfPalmaDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          conditions: function* (province, save): ConditionChecks {
             yield* provinceResourceChecks("gold", 10_000, province, save);
             yield* isCoreTileChecks(8978513, "Tarraconensis", save);
@@ -471,7 +471,7 @@ export const MauretaniaEvent = {
       image: EventImage.CarthageCaptured,
       desc: () => $t(L.TheRoadEastThroughAfricaDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          annexAndCore: { Africa: 5 },
       },
       buttons: [
@@ -511,7 +511,7 @@ export const MauretaniaEvent = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.FromOceanToTheCentralSeaDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          annexAndCore: { Africa: Number.POSITIVE_INFINITY },
       },
       buttons: [
@@ -552,7 +552,7 @@ export const MauretaniaEvent = {
       image: EventImage.CivicTriumph,
       desc: () => $t(L.MauretaniaAscendantDesc),
       condition: {
-         province: ["Mauretania"],
+         province: new Set(["Mauretania"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(40, province, save);
          },

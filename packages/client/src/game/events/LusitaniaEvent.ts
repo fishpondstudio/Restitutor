@@ -19,7 +19,7 @@ export const LusitaniaEvent = {
       image: EventImage.Aqueduct,
       desc: () => $t(L.TheWatersOfAugustaEmeritaDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          year: [200, 200],
       },
       buttons: [
@@ -44,7 +44,7 @@ export const LusitaniaEvent = {
       image: EventImage.HorsePasture,
       desc: () => $t(L.TheHorsesOfTheLusitanianPlainsDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          year: [225, 225],
       },
       buttons: [
@@ -69,7 +69,7 @@ export const LusitaniaEvent = {
       image: EventImage.WaterMarket,
       desc: () => $t(L.TheFishSaltingHousesOfOlisipoDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          year: [245, 245],
       },
       buttons: [
@@ -95,7 +95,7 @@ export const LusitaniaEvent = {
       image: EventImage.VintageFestival,
       desc: () => $t(L.TheVillasOfTheAlentejoDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          year: [275, 275],
       },
       buttons: [
@@ -121,7 +121,7 @@ export const LusitaniaEvent = {
       image: EventImage.DiocletianStatue,
       desc: () => $t(L.EmeritaSeatOfTheDioceseDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          year: [298, 298],
       },
       buttons: [
@@ -147,7 +147,7 @@ export const LusitaniaEvent = {
       image: EventImage.SaintEulalia,
       desc: () => $t(L.EulaliaDefiesTheMagistrateDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          year: [304, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             yield* provinceResourceChecks("christianity", 10, province, save);
@@ -176,7 +176,7 @@ export const LusitaniaEvent = {
       image: EventImage.StephenDebate,
       desc: () => $t(L.ThePriscillianistControversyDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          year: [385, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             yield* provinceResourceChecks("christianity", 30, province, save);
@@ -210,7 +210,7 @@ export const LusitaniaEvent = {
       image: EventImage.PompeiiFalls,
       desc: () => $t(L.LusitaniaIsGrantedToTheAlansDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          year: [411, 411],
       },
       buttons: [
@@ -237,7 +237,7 @@ export const LusitaniaEvent = {
       image: EventImage.TolbiacBattle,
       desc: () => $t(L.GothAndAlanContestTheProvinceDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          year: [417, 417],
       },
       buttons: [
@@ -263,7 +263,7 @@ export const LusitaniaEvent = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.TheShipyardsOfOlisipoDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          year: [440, 440],
       },
       buttons: [
@@ -298,7 +298,7 @@ export const LusitaniaEvent = {
       image: EventImage.TolbiacBattle,
       desc: () => $t(L.TheFruitsOfTarraconensianFriendshipDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireAnyTreatyBetweenChecks(
                ["DefensePact", "Alliance", "Patron"],
@@ -332,7 +332,7 @@ export const LusitaniaEvent = {
       image: EventImage.TolbiacBattle,
       desc: () => $t(L.LusitaniaFootholdInBaeticaDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          annexAndCore: {
             Baetica: 2,
          },
@@ -359,7 +359,7 @@ export const LusitaniaEvent = {
       image: EventImage.RuinsWithPeasants,
       desc: () => $t(L.TheDistressOfTarraconensisDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireAnyTreatyBetweenChecks(["Alliance", "Patron"], province, "Tarraconensis", save);
             yield* provinceResourceChecks("gold", 10_000, province, save);
@@ -396,7 +396,7 @@ export const LusitaniaEvent = {
       image: EventImage.RuinsWithPeasants,
       desc: () => $t(L.TheWealthOfEmeritaDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(15, province, save);
             yield* provinceRevenueChecks(200, province, save);
@@ -418,7 +418,7 @@ export const LusitaniaEvent = {
       image: EventImage.RuinsWithPeasants,
       desc: () => $t(L.TheGoldenCoffersOfEmeritaDesc),
       condition: {
-         province: ["Lusitania"],
+         province: new Set(["Lusitania"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(20, province, save);
             yield* provinceRevenueChecks(300, province, save);

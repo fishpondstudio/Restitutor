@@ -119,7 +119,10 @@ export function tickAI(save: SaveGame): void {
       if (!hasFlag(G.flags, GameFlags.Sandbox) && province === save.state.playerProvince) {
          return;
       }
-      const tiles = Array.from(save.state.tiles.entries()).filter(([_, tileData]) => tileData.province === province);
+      const tiles = getProvinceTilesCached(province).flatMap((tile) => {
+         const tileData = save.state.tiles.get(tile);
+         return tileData ? [[tile, tileData] as const] : [];
+      });
       tiles.sort(([tileA, tileDataA], [tileB, tileDataB]) => {
          return tileDataA.upgradeCount - tileDataB.upgradeCount;
       });

@@ -23,7 +23,7 @@ export const SiciliaEvent = {
       image: EventImage.FieldHarvest,
       desc: () => $t(L.TheGranariesOfRomeDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          year: [200, 200],
       },
       buttons: [
@@ -49,7 +49,7 @@ export const SiciliaEvent = {
       image: EventImage.AgathaHealing,
       desc: () => $t(L.TheVeilBeforeTheFireDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          year: [252, 252],
       },
       buttons: [
@@ -77,7 +77,7 @@ export const SiciliaEvent = {
       image: EventImage.GreatHunt,
       desc: () => $t(L.TheVillaOfTheGreatHuntDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          year: [300, 300],
       },
       buttons: [
@@ -104,7 +104,7 @@ export const SiciliaEvent = {
       image: EventImage.Donatism,
       desc: () => $t(L.ABishopSummonedFromSyracuseDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          year: [314, 314],
       },
       buttons: [
@@ -131,7 +131,7 @@ export const SiciliaEvent = {
       image: EventImage.Flood,
       desc: () => $t(L.TheSeaWithdrawsDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          year: [365, 365],
       },
       buttons: [
@@ -159,7 +159,7 @@ export const SiciliaEvent = {
       image: EventImage.HonoriusCourt,
       desc: () => $t(L.WhenAfricaWithholdsItsGrainDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          year: [397, 397],
       },
       buttons: [
@@ -186,7 +186,7 @@ export const SiciliaEvent = {
       image: EventImage.VandalsInItaly,
       desc: () => $t(L.TheVandalSiegeOfPanormusDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          year: [440, 440],
       },
       buttons: [
@@ -213,7 +213,7 @@ export const SiciliaEvent = {
       image: EventImage.QueenEmbarkation,
       desc: () => $t(L.TheFleetRecalledEastDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          year: [441, 441],
       },
       buttons: [
@@ -241,7 +241,7 @@ export const SiciliaEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.TheArmadaThatNeverReturnedDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          year: [468, 468],
       },
       buttons: [
@@ -267,7 +267,7 @@ export const SiciliaEvent = {
       image: EventImage.ScipiosClemency1,
       desc: () => $t(L.ThePerpetualPeaceDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          year: [474, 474],
       },
       buttons: [
@@ -294,7 +294,7 @@ export const SiciliaEvent = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.TheItalianShoreSecuredDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          annexAndCore: { Italia: 5 },
       },
       buttons: [
@@ -319,7 +319,7 @@ export const SiciliaEvent = {
       image: EventImage.FieldHarvest,
       desc: () => $t(L.RomeAnswersToSiciliaDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* isCoreTileChecks(Tiles.Rome, province, save);
          },
@@ -343,7 +343,7 @@ export const SiciliaEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.TheSardinianMarriageSettlementDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Sardinia", save);
             yield* requirePeaceBetweenChecks(province, "Sardinia", save);
@@ -365,7 +365,7 @@ export const SiciliaEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.CorsicaLooksSouthDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Corsica", save);
             yield* requirePeaceBetweenChecks(province, "Corsica", save);
@@ -387,7 +387,7 @@ export const SiciliaEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.APactAcrossTheStraitDesc),
       condition: {
-         province: ["Sicilia"],
+         province: new Set(["Sicilia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Africa", save);
             yield* requirePeaceBetweenChecks(province, "Africa", save);

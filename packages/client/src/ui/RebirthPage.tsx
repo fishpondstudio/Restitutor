@@ -25,7 +25,7 @@ import { renderMarkup } from "./ParseMarkup";
 
 export function RebirthPage(): React.ReactNode {
    const [province, setProvince] = useState(G.save.state.playerProvince);
-   const provincialEvents = entriesOf(GameEvents).filter(([k, v]) => v.condition?.province?.includes(province));
+   const provincialEvents = entriesOf(GameEvents).filter(([k, v]) => v.condition?.province?.has(province));
    const [freeProvinces, setFreeProvinces] = useState(new Set<Province>(AlwaysFreeProvinces));
    const isDemo = hasFlag(G.flags, GameFlags.Demo);
    const legacyPointsNextRun = getLegacyPointsNextRun(G.save);
@@ -102,7 +102,7 @@ export function RebirthPage(): React.ReactNode {
                      {provincialEvents.map(([k, v]) => (
                         <div key={k}>
                            {v.name()}
-                           {(v.condition?.province?.length ?? 0) > 1 && "*"}
+                           {(v.condition?.province?.size ?? 0) > 1 && "*"}
                         </div>
                      ))}
                      <div className="text-sm text-dimmed text-italic mt5">{$t(L.InheritedRegionalEvents)}</div>

@@ -18,7 +18,7 @@ export const GallicEmpireEvents = {
       image: EventImage.RomanForum3,
       desc: () => $t(L.GallicEmpireProclaimedDesc),
       condition: {
-         province: GallicEmpireProvinces,
+         province: new Set(GallicEmpireProvinces),
          annexAndCore: fromEntries(GallicEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
       achievement: "FormGallicEmpire",

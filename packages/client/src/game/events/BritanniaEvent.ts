@@ -25,7 +25,7 @@ export const BritanniaEvent = {
       image: EventImage.RomanWall,
       desc: () => $t(L.TheEmperorAtEboracumDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          year: [208, 208],
       },
       buttons: [
@@ -61,7 +61,7 @@ export const BritanniaEvent = {
       image: EventImage.RomanAudience,
       desc: () => $t(L.TheImperialDivisionOfBritanniaDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          year: [214, 214],
       },
       buttons: [
@@ -97,7 +97,7 @@ export const BritanniaEvent = {
       image: EventImage.RomanGalley,
       desc: () => $t(L.CarausiusAndTheChannelFleetDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          year: [286, 286],
       },
       buttons: [
@@ -132,7 +132,7 @@ export const BritanniaEvent = {
       image: EventImage.RomanInvasion,
       desc: () => $t(L.ConstantiusLandsInBritanniaDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          year: [296, 296],
       },
       buttons: [
@@ -167,7 +167,7 @@ export const BritanniaEvent = {
       image: EventImage.ClaudiusEmperor,
       desc: () => $t(L.ConstantineSClaimFromEboracumDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          year: [306, 306],
       },
       buttons: [
@@ -201,7 +201,7 @@ export const BritanniaEvent = {
       image: EventImage.NicaeaCouncil,
       desc: () => $t(L.ASummonsToArelateDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          year: [314, 314],
       },
       buttons: [
@@ -234,7 +234,7 @@ export const BritanniaEvent = {
       image: EventImage.RomanExpedition,
       desc: () => $t(L.TheWinterCrossingOfConstansDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          year: [343, 343],
       },
       buttons: [
@@ -269,7 +269,7 @@ export const BritanniaEvent = {
       image: EventImage.EmpireDestruction,
       desc: () => $t(L.TheGreatConspiracyDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          year: [367, 367],
       },
       buttons: [
@@ -304,7 +304,7 @@ export const BritanniaEvent = {
       image: EventImage.EmperorAndSoldiers,
       desc: () => $t(L.MaximusAppealsToBritanniaDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          year: [383, 383],
       },
       buttons: [
@@ -339,7 +339,7 @@ export const BritanniaEvent = {
       image: EventImage.TroopDeparture,
       desc: () => $t(L.ConstantinePreparesToLeaveDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          year: [407, 407],
       },
       buttons: [
@@ -375,7 +375,7 @@ export const BritanniaEvent = {
       image: EventImage.TroopDeparture,
       desc: () => $t(L.BritanniaLooksToTheContinentDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* manpowerChecks(4500, province, save);
             yield* provinceRevenueChecks(1500, province, save);
@@ -408,7 +408,7 @@ export const BritanniaEvent = {
       image: EventImage.RomanGalley,
       desc: () => $t(L.ABridgeheadAcrossTheChannelDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* allCoreTileChecks([8978497, 8978498, 8912963, 8847427], province, save);
             return;
@@ -443,7 +443,7 @@ export const BritanniaEvent = {
       image: EventImage.ImperialPatronage,
       desc: () => $t(L.BritanniaBelgicaSeeksOurProtectionDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          annexAndCore: {
             Belgica: 5,
          },
@@ -469,7 +469,7 @@ export const BritanniaEvent = {
       desc: () => $t(L.LutetiaOpensTheHeartOfGaulDesc),
       condition: {
          playerOnly: true,
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          annexAndCore: {
             Lugdunensis: 5,
          },
@@ -504,7 +504,7 @@ export const BritanniaEvent = {
       image: EventImage.VercingetorixSurrenders,
       desc: () => $t(L.BritanniaRulesNorthernGaulDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          annexAndCore: {
             Lugdunensis: Number.POSITIVE_INFINITY,
             Belgica: Number.POSITIVE_INFINITY,
@@ -540,7 +540,7 @@ export const BritanniaEvent = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.BritanniaReachesTheMediterraneanDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* mediterraneanCoastChecks(5, province, save);
             return;
@@ -566,7 +566,7 @@ export const BritanniaEvent = {
       image: EventImage.Pyrenees,
       desc: () => $t(L.ABritannianFootholdInHispaniaDesc),
       condition: {
-         province: ["Britannia"],
+         province: new Set(["Britannia"]),
          annexAndCore: { Tarraconensis: 5 },
       },
       buttons: [

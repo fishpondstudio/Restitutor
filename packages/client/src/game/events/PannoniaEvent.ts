@@ -26,7 +26,7 @@ export const PannoniaEvent = {
       image: EventImage.ImperialCity,
       desc: () => $t(L.AquincumBecomesAColoniaDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          year: [194, 194],
       },
       buttons: [
@@ -61,7 +61,7 @@ export const PannoniaEvent = {
       image: EventImage.RomanExpedition,
       desc: () => $t(L.CaracallaOnTheDanubeDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          year: [214, 214],
       },
       buttons: [
@@ -95,7 +95,7 @@ export const PannoniaEvent = {
       image: EventImage.ClaudiusEmperor,
       desc: () => $t(L.IngenuusAtSirmiumDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          year: [258, 258],
       },
       buttons: [
@@ -131,7 +131,7 @@ export const PannoniaEvent = {
       image: EventImage.MoorlandCanal,
       desc: () => $t(L.TheUnfinishedWorksOfProbusDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          year: [282, 282],
       },
       buttons: [
@@ -167,7 +167,7 @@ export const PannoniaEvent = {
       image: EventImage.JulianDebate,
       desc: () => $t(L.TheConferenceAtCarnuntumDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          year: [308, 308],
       },
       buttons: [
@@ -202,7 +202,7 @@ export const PannoniaEvent = {
       image: EventImage.DeciusDeath,
       desc: () => $t(L.TheSlaughterAtMursaDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          year: [351, 351],
       },
       buttons: [
@@ -237,7 +237,7 @@ export const PannoniaEvent = {
       image: EventImage.TribalCrossing,
       desc: () => $t(L.TheMurderOfKingGabiniusDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          year: [374, 374],
       },
       buttons: [
@@ -273,7 +273,7 @@ export const PannoniaEvent = {
       image: EventImage.CivilianMigration,
       desc: () => $t(L.TheRoadsToItaliaDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          year: [405, 405],
       },
       buttons: [
@@ -309,7 +309,7 @@ export const PannoniaEvent = {
       image: EventImage.MountedParley,
       desc: () => $t(L.TheHunsDemandOurFrontierDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          year: [433, 433],
       },
       buttons: [
@@ -346,7 +346,7 @@ export const PannoniaEvent = {
       image: EventImage.PompeiiRefugees,
       desc: () => $t(L.TheEarthquakeAtSavariaDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          year: [456, 456],
       },
       buttons: [
@@ -380,7 +380,7 @@ export const PannoniaEvent = {
       image: EventImage.RomanExpedition,
       desc: () => $t(L.ClaimsOnTheUpperDanubeDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minTileUpgradeTimesChecks(10, province, save);
             yield* provinceResourceChecks("gold", 1000, province, save);
@@ -402,7 +402,7 @@ export const PannoniaEvent = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.APannonianCoastDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* mediterraneanCoastChecks(3, province, save);
          },
@@ -427,7 +427,7 @@ export const PannoniaEvent = {
       image: EventImage.ImperialPatronage,
       desc: () => $t(L.TheNoricanPetitionDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(15, province, save);
             yield* maxCoreTileChecks(5, "Noricum", save);
@@ -449,7 +449,7 @@ export const PannoniaEvent = {
       image: EventImage.CivicTriumph,
       desc: () => $t(L.PannoniaAscendantDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* victoryCountChecks(5, province, save);
             yield* makeCoreCountChecks(10, province, save);
@@ -477,7 +477,7 @@ export const PannoniaEvent = {
       image: EventImage.CiceroInSenate,
       desc: () => $t(L.PannoniaBetweenEastAndWestDesc),
       condition: {
-         province: ["Pannonia"],
+         province: new Set(["Pannonia"]),
          annexAndCore: {
             Noricum: Number.POSITIVE_INFINITY,
             Dalmatia: Number.POSITIVE_INFINITY,

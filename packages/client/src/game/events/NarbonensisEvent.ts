@@ -24,7 +24,7 @@ export const NarbonensisEvent = {
       image: EventImage.QueenEmbarkation,
       desc: () => $t(L.TheGarumAndOilTradeOfNarboDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          year: [196, 196],
       },
       buttons: [
@@ -50,7 +50,7 @@ export const NarbonensisEvent = {
       image: EventImage.Sailor,
       desc: () => $t(L.TheGreekMerchantsOfMassiliaDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          year: [230, 230],
       },
       buttons: [
@@ -76,7 +76,7 @@ export const NarbonensisEvent = {
       image: EventImage.PontDuGard,
       desc: () => $t(L.TheWatersOfNemaususDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          year: [350, 350],
       },
       buttons: [
@@ -102,7 +102,7 @@ export const NarbonensisEvent = {
       image: EventImage.JohnBeheading,
       desc: () => $t(L.TheMartyrdomOfGenesiusAtArelateDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          year: [305, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 10)?.describe(
@@ -134,7 +134,7 @@ export const NarbonensisEvent = {
       image: EventImage.CouncilOfTrent,
       desc: () => $t(L.TheCouncilOfArlesDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          year: [314, 314],
       },
       buttons: [
@@ -160,7 +160,7 @@ export const NarbonensisEvent = {
       image: EventImage.IdealCity,
       desc: () => $t(L.ArelateTheRomeOfGaulDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          year: [400, 400],
       },
       buttons: [
@@ -186,7 +186,7 @@ export const NarbonensisEvent = {
       image: EventImage.PonteMolle,
       desc: () => $t(L.TheBridgeOfBoatsAtArelateDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          year: [265, 265],
       },
       buttons: [
@@ -213,7 +213,7 @@ export const NarbonensisEvent = {
       image: EventImage.JeromeWilderness,
       desc: () => $t(L.TheMonksOfLerinsDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          year: [412, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
@@ -245,7 +245,7 @@ export const NarbonensisEvent = {
       image: EventImage.JohnCassian,
       desc: () => $t(L.CassianBringsTheDesertToMassiliaDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          year: [425, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
@@ -276,7 +276,7 @@ export const NarbonensisEvent = {
       image: EventImage.EmpireDesolation,
       desc: () => $t(L.TheSiltingOfTheHarborDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          year: [440, 440],
       },
       buttons: [
@@ -302,7 +302,7 @@ export const NarbonensisEvent = {
       image: EventImage.DelphiOracle,
       desc: () => $t(L.TheFruitsOfItalianFriendshipDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance", "Patron"], province, "Italia", save);
             return;
@@ -328,7 +328,7 @@ export const NarbonensisEvent = {
       image: EventImage.DelphiOracle,
       desc: () => $t(L.TheFruitsOfAquitanianFriendshipDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance", "Patron"], province, "Aquitania", save);
             return;
@@ -360,7 +360,7 @@ export const NarbonensisEvent = {
       image: EventImage.CivicTriumph,
       desc: () => $t(L.TheGoldenCoffersOfNarboDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* provinceRevenueChecks(300, province, save);
             yield* provinceResourceChecks("gold", 10_000, province, save);
@@ -388,7 +388,7 @@ export const NarbonensisEvent = {
       image: EventImage.Wedding1,
       desc: () => $t(L.TheCorsicanMarriageSettlementDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Corsica", save);
             yield* requirePeaceBetweenChecks(province, "Corsica", save);
@@ -411,7 +411,7 @@ export const NarbonensisEvent = {
       image: EventImage.EmpireDesolation,
       desc: () => $t(L.AnAlpineExchangeDesc),
       condition: {
-         province: ["Narbonensis"],
+         province: new Set(["Narbonensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireAnyTreatyBetweenChecks(["Alliance"], province, "Italia", save);
             const AugustaPraetoria = save.state.tiles.get(9175112);

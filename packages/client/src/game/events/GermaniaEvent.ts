@@ -18,7 +18,7 @@ export const GermaniaEvent = {
       image: EventImage.PotteryMarket,
       desc: () => $t(L.TheKilnsOfRheinzabernDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          year: [205, 205],
       },
       buttons: [
@@ -44,7 +44,7 @@ export const GermaniaEvent = {
       image: EventImage.Warship,
       desc: () => $t(L.TheRhineFleetAtColoniaDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          year: [230, 230],
       },
       buttons: [
@@ -72,7 +72,7 @@ export const GermaniaEvent = {
       image: EventImage.FrankishKing,
       desc: () => $t(L.PostumusIsRaisedUponTheShieldDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          year: [261, 261],
       },
       buttons: [
@@ -99,7 +99,7 @@ export const GermaniaEvent = {
       image: EventImage.EmpireDestruction,
       desc: () => $t(L.TheLimesGivesWayDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          year: [275, 275],
       },
       buttons: [
@@ -132,7 +132,7 @@ export const GermaniaEvent = {
       image: EventImage.GrapeHarvest,
       desc: () => $t(L.VinesBeyondTheAlpsDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          year: [280, 280],
       },
       buttons: [
@@ -161,7 +161,7 @@ export const GermaniaEvent = {
       image: EventImage.SaintGereon,
       desc: () => $t(L.GereonAndTheMartyrsOfColoniaDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          year: [305, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
@@ -198,7 +198,7 @@ export const GermaniaEvent = {
       image: EventImage.StoneBridge,
       desc: () => $t(L.ConstantineBridgesTheRhineDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          year: [310, 310],
       },
       buttons: [
@@ -225,7 +225,7 @@ export const GermaniaEvent = {
       image: EventImage.RomanInvasion,
       desc: () => $t(L.TheVictoryAtArgentoratumDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          year: [357, 357],
       },
       buttons: [
@@ -251,7 +251,7 @@ export const GermaniaEvent = {
       image: EventImage.Watchtower,
       desc: () => $t(L.ValentiniansChainOfFortsDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          year: [369, 369],
       },
       buttons: [
@@ -277,7 +277,7 @@ export const GermaniaEvent = {
       image: EventImage.BarbariansAtRome,
       desc: () => $t(L.TheRhineIsCrossedDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          year: [406, 406],
       },
       buttons: [
@@ -311,7 +311,7 @@ export const GermaniaEvent = {
       image: EventImage.ImperialCity,
       desc: () => $t(L.BeyondTheRhineFrontierDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          conditions: function* (province, save): ConditionChecks {
             yield* warPowerChecks(10_000, province, save);
          },
@@ -351,7 +351,7 @@ export const GermaniaEvent = {
       image: EventImage.CaptiveTriumph,
       desc: () => $t(L.RaetiaSeeksOurProtectionDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Raetia", save);
             yield* requirePeaceBetweenChecks(province, "Raetia", save);
@@ -371,7 +371,7 @@ export const GermaniaEvent = {
       image: EventImage.ImperialPatronage,
       desc: () => $t(L.BelgicaSeeksOurProtectionDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Belgica", save);
             yield* requirePeaceBetweenChecks(province, "Belgica", save);
@@ -391,7 +391,7 @@ export const GermaniaEvent = {
       image: EventImage.Alps,
       desc: () => $t(L.ThePassesToTheSouthDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          playerOnly: true,
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(25, province, save);
@@ -469,7 +469,7 @@ export const GermaniaEvent = {
       image: EventImage.RomanExpedition,
       desc: () => $t(L.GermaniaAscendantDesc),
       condition: {
-         province: ["Germania"],
+         province: new Set(["Germania"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(30, province, save);
          },

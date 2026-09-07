@@ -20,7 +20,7 @@ export const AquitaniaEvent = {
       image: EventImage.GrapeHarvest,
       desc: () => $t(L.TheWineFleetOfBurdigalaDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          year: [215, 215],
       },
       buttons: [
@@ -46,7 +46,7 @@ export const AquitaniaEvent = {
       image: EventImage.RomanVilla,
       desc: () => $t(L.TheGreatEstatesOfTheGaronneDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          year: [240, 240],
       },
       buttons: [
@@ -72,7 +72,7 @@ export const AquitaniaEvent = {
       image: EventImage.RuinsWithPeasants,
       desc: () => $t(L.TheBagaudaeRiseInTheCountrysideDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          year: [285, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceStability(province, save).value < 0)?.describe(
@@ -109,7 +109,7 @@ export const AquitaniaEvent = {
       image: EventImage.PhilosophySchool,
       desc: () => $t(L.TheSchoolsOfBordeauxDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          year: [325, 325],
       },
       buttons: [
@@ -135,7 +135,7 @@ export const AquitaniaEvent = {
       image: EventImage.EucharistDebate,
       desc: () => $t(L.HilaryOfPoitiersDefiesTheAriansDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          year: [356, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
@@ -174,7 +174,7 @@ export const AquitaniaEvent = {
       image: EventImage.SaintPaulinus,
       desc: () => $t(L.PaulinusForsakesTheWorldDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          year: [400, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 30)?.describe(
@@ -205,7 +205,7 @@ export const AquitaniaEvent = {
       image: EventImage.HomerReading,
       desc: () => $t(L.AusoniusReturnsToHisVillaDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          year: [374, 374],
       },
       buttons: [
@@ -230,7 +230,7 @@ export const AquitaniaEvent = {
       image: EventImage.RomanBathing,
       desc: () => $t(L.TheSpringsOfAquaeDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          year: [194, 194],
       },
       buttons: [
@@ -256,7 +256,7 @@ export const AquitaniaEvent = {
       image: EventImage.HorsePasture,
       desc: () => $t(L.TheHorseBreedersOfAquitaniaDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          year: [265, 265],
       },
       buttons: [
@@ -281,7 +281,7 @@ export const AquitaniaEvent = {
       image: EventImage.Vineyard,
       desc: () => $t(L.TheVineyardsFallFallowDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          year: [430, 430],
       },
       buttons: [
@@ -306,7 +306,7 @@ export const AquitaniaEvent = {
       image: EventImage.DelphiOracle,
       desc: () => $t(L.AGallicAllianceDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          onMap: { Lugdunensis: true },
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Alliance", "Patron"], province, "Lugdunensis", save);
@@ -336,7 +336,7 @@ export const AquitaniaEvent = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.APortOnTheMediterraneanDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          annexAndCore: { Narbonensis: 2 },
          conditions: function* (province, save): ConditionChecks {
             yield* isCoreTileChecks(8978507, province, save);
@@ -370,7 +370,7 @@ export const AquitaniaEvent = {
       image: EventImage.CaptiveTriumph,
       desc: () => $t(L.TheSubmissionOfNarbonensisDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          annexAndCore: { Narbonensis: Math.ceil(getOriginalTileCount("Narbonensis") * 0.7) },
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Narbonensis", save);
@@ -392,7 +392,7 @@ export const AquitaniaEvent = {
       image: EventImage.Pyrenees,
       desc: () => $t(L.AcrossThePyreneesDesc),
       condition: {
-         province: ["Aquitania"],
+         province: new Set(["Aquitania"]),
          annexAndCore: { Tarraconensis: 6 },
       },
       buttons: [

@@ -21,7 +21,7 @@ export const NoricumEvent = {
       image: EventImage.StoneBridge,
       desc: () => $t(L.TheRoadsOfNoricumDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          year: [195, 195],
       },
       buttons: [
@@ -56,7 +56,7 @@ export const NoricumEvent = {
       image: EventImage.ImperialRescript,
       desc: () => $t(L.TheCentonariiOfFlaviaSolvaDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          year: [205, 205],
       },
       buttons: [
@@ -90,7 +90,7 @@ export const NoricumEvent = {
       image: EventImage.TribalCrossing,
       desc: () => $t(L.RaidsOnTheNoricanFrontierDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          year: [236, 236],
       },
       buttons: [
@@ -125,7 +125,7 @@ export const NoricumEvent = {
       image: EventImage.EmperorAndSoldiers,
       desc: () => $t(L.ValeriansNorthernMusterDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          year: [253, 253],
       },
       buttons: [
@@ -160,7 +160,7 @@ export const NoricumEvent = {
       image: EventImage.RomanWall,
       desc: () => $t(L.DiocletiansFrontierReformsDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          year: [288, 288],
       },
       buttons: [
@@ -194,7 +194,7 @@ export const NoricumEvent = {
       image: EventImage.NicaeaCouncil,
       desc: () => $t(L.NoricanBishopsAtSerdicaDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          year: [343, 343],
       },
       buttons: [
@@ -228,7 +228,7 @@ export const NoricumEvent = {
       image: EventImage.Watchtower,
       desc: () => $t(L.TheBurgusAtTheYbbsDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          year: [370, 370],
       },
       buttons: [
@@ -263,7 +263,7 @@ export const NoricumEvent = {
       image: EventImage.MountedParley,
       desc: () => $t(L.AlaricWaitsInNoricumDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          year: [408, 408],
       },
       buttons: [
@@ -295,7 +295,7 @@ export const NoricumEvent = {
       image: EventImage.AugustineDeath,
       desc: () => $t(L.TheDeathOfSeverinusDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          year: [482, 482],
       },
       buttons: [
@@ -329,7 +329,7 @@ export const NoricumEvent = {
       image: EventImage.CivilianMigration,
       desc: () => $t(L.TheEvacuationOfNoricumDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          year: [488, 488],
       },
       buttons: [
@@ -364,7 +364,7 @@ export const NoricumEvent = {
       image: EventImage.RomanExpedition,
       desc: () => $t(L.ThreeRoadsToWarDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          conditions: function* (province, save): ConditionChecks {
             yield* manpowerChecks(40_000, province, save);
             yield* provinceRevenueChecks(120, province, save);
@@ -405,7 +405,7 @@ export const NoricumEvent = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.TheSeawardGateDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          conditions: function* (province, save): ConditionChecks {
             yield* mediterraneanCoastChecks(4, province, save);
          },
@@ -435,7 +435,7 @@ export const NoricumEvent = {
       image: EventImage.Alps,
       desc: () => $t(L.TheAlpineBalanceDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          onMap: { Raetia: true },
          playerOnly: true,
          conditions: function* (province, save): ConditionChecks {
@@ -469,7 +469,7 @@ export const NoricumEvent = {
       image: EventImage.CivicTriumph,
       desc: () => $t(L.OurRealmOfManyPeoplesDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(20, "Noricum", save);
          },
@@ -495,7 +495,7 @@ export const NoricumEvent = {
       image: EventImage.RomanTriumph2,
       desc: () => $t(L.TheDalmatianFrontierDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          annexAndCore: { Dalmatia: 3 },
       },
       buttons: [
@@ -518,7 +518,7 @@ export const NoricumEvent = {
       image: EventImage.RomanExpedition,
       desc: () => $t(L.BeyondTheDanubeDesc),
       condition: {
-         province: ["Noricum"],
+         province: new Set(["Noricum"]),
          annexAndCore: { Germania: 3 },
       },
       buttons: [

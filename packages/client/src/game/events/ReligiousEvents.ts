@@ -142,7 +142,7 @@ export const ReligiousEvents = {
       desc: () => $t(L.FirstCouncilOfNicaeaDesc),
       condition: {
          year: [325, 325],
-         religion: ChristianReligions,
+         religion: new Set(ChristianReligions),
       },
       buttons: [
          {
@@ -168,7 +168,7 @@ export const ReligiousEvents = {
       desc: () => $t(L.FirstCouncilOfConstantinopleDesc),
       condition: {
          year: [381, 381],
-         religion: ChristianReligions,
+         religion: new Set(ChristianReligions),
       },
       buttons: [
          {
@@ -194,7 +194,7 @@ export const ReligiousEvents = {
       desc: () => $t(L.CouncilOfEphesusDesc),
       condition: {
          year: [431, 431],
-         religion: ChristianReligions,
+         religion: new Set(ChristianReligions),
       },
       buttons: [
          {
@@ -220,7 +220,7 @@ export const ReligiousEvents = {
       desc: () => $t(L.CouncilOfChalcedonDesc),
       condition: {
          year: [451, 451],
-         religion: ChristianReligions,
+         religion: new Set(ChristianReligions),
       },
       buttons: [
          {
@@ -246,7 +246,7 @@ export const ReligiousEvents = {
       desc: () => $t(L.SecondCouncilOfConstantinopleDesc),
       condition: {
          year: [553, 553],
-         religion: ChristianReligions,
+         religion: new Set(ChristianReligions),
       },
       buttons: [
          {
@@ -272,7 +272,7 @@ export const ReligiousEvents = {
       desc: () => $t(L.ThirdCouncilOfConstantinopleDesc),
       condition: {
          year: [680, 680],
-         religion: ChristianReligions,
+         religion: new Set(ChristianReligions),
       },
       buttons: [
          {
@@ -298,7 +298,7 @@ export const ReligiousEvents = {
       desc: () => $t(L.SecondCouncilOfNicaeaDesc),
       condition: {
          year: [787, 787],
-         religion: ChristianReligions,
+         religion: new Set(ChristianReligions),
       },
       buttons: [
          {

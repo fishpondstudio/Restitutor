@@ -105,7 +105,7 @@ export const getGameEventCondition = defineConditionChecks(function* (
       return;
    }
    if (condition.province) {
-      (yield condition.province.includes(province))?.describe($t(L.OurProvinceIs$1, getProvinceName(province, save)), {
+      (yield condition.province.has(province))?.describe($t(L.OurProvinceIs$1, getProvinceName(province, save)), {
          hidden: true,
       });
    }
@@ -129,8 +129,8 @@ export const getGameEventCondition = defineConditionChecks(function* (
       }
    }
    if (condition.religion) {
-      (yield condition.religion.includes(state.religion))?.describe(
-         $t(L.OurReligionIs$1, condition.religion.map((religion) => Religion[religion].name()).join(", ")),
+      (yield condition.religion.has(state.religion))?.describe(
+         $t(L.OurReligionIs$1, Array.from(condition.religion, (religion) => Religion[religion].name()).join(", ")),
       );
    }
    if (condition.techs) {
@@ -207,7 +207,7 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
             }
          }
       }
-      if (config.condition.province && !config.condition.province.includes(province)) {
+      if (config.condition.province && !config.condition.province.has(province)) {
          return;
       }
       if (config.condition.onMap) {

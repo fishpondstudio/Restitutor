@@ -27,7 +27,7 @@ export const BaeticaEvent = {
       image: EventImage.OliveHarvest,
       desc: () => $t(L.TheOliveFleetOfTheBaetisDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          year: [200, 200],
       },
       buttons: [
@@ -53,7 +53,7 @@ export const BaeticaEvent = {
       image: EventImage.SwordfishFishing,
       desc: () => $t(L.TheGarumVatsOfGadesDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          year: [220, 220],
       },
       buttons: [
@@ -79,7 +79,7 @@ export const BaeticaEvent = {
       image: EventImage.SierraMorena,
       desc: () => $t(L.TheMinesOfTheSierraMorenaDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          year: [245, 245],
       },
       buttons: [
@@ -105,7 +105,7 @@ export const BaeticaEvent = {
       image: EventImage.RomanRuins1,
       desc: () => $t(L.TheAncestralGloryOfItalicaDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          year: [271, 271],
       },
       buttons: [
@@ -133,7 +133,7 @@ export const BaeticaEvent = {
       image: EventImage.SaintRoderick,
       desc: () => $t(L.TheMartyrsOfCordubaDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          year: [304, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             yield* provinceResourceChecks("christianity", 10, province, save);
@@ -162,7 +162,7 @@ export const BaeticaEvent = {
       image: EventImage.CadaverSynod,
       desc: () => $t(L.TheCouncilOfElviraDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          year: [306, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             yield* provinceResourceChecks("christianity", 20, province, save);
@@ -192,7 +192,7 @@ export const BaeticaEvent = {
       image: EventImage.NicaeaCouncil,
       desc: () => $t(L.HosiusReturnsFromNicaeaDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          year: [325, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             yield* provinceResourceChecks("christianity", 30, province, save);
@@ -224,7 +224,7 @@ export const BaeticaEvent = {
       image: EventImage.RomanDance,
       desc: () => $t(L.TheDancersOfGadesDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          year: [350, 350],
       },
       buttons: [
@@ -251,7 +251,7 @@ export const BaeticaEvent = {
       image: EventImage.VandalsInItaly,
       desc: () => $t(L.TheVandalsReceiveBaeticaDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          year: [411, 411],
       },
       buttons: [
@@ -278,7 +278,7 @@ export const BaeticaEvent = {
       image: EventImage.EmpireDesolation,
       desc: () => $t(L.TheEmptyHarborsAfterTheCrossingDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          year: [430, 430],
       },
       buttons: [
@@ -311,7 +311,7 @@ export const BaeticaEvent = {
       image: EventImage.DelphiOracle,
       desc: () => $t(L.TheLusitanianCounterweightDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          onMap: { Lusitania: true },
          conditions: function* (province, save): ConditionChecks {
             yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance", "Patron"], province, "Lusitania", save);
@@ -343,7 +343,7 @@ export const BaeticaEvent = {
       image: EventImage.Gibraltar,
       desc: () => $t(L.ThePillarsOfHerculesDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          conditions: function* (province, save): ConditionChecks {
             yield* allCoreTileChecks(StraitOfGibraltarTiles, province, save);
          },
@@ -372,7 +372,7 @@ export const BaeticaEvent = {
       image: EventImage.CivicTriumph,
       desc: () => $t(L.BaeticaAscendantDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(15, province, save);
          },
@@ -397,7 +397,7 @@ export const BaeticaEvent = {
       image: EventImage.MediterraneanIsland,
       desc: () => $t(L.TheAppealOfPalmaDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          annexAndCore: { Tarraconensis: 5 },
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Lusitania", save);
@@ -436,7 +436,7 @@ export const BaeticaEvent = {
       image: EventImage.Wedding2,
       desc: () => $t(L.TheLusitanianMarriageSettlementDesc),
       condition: {
-         province: ["Baetica"],
+         province: new Set(["Baetica"]),
          onMap: { Lusitania: true },
          conditions: function* (province, save): ConditionChecks {
             yield* provinceResourceChecks("diplomatic", 200, province, save);

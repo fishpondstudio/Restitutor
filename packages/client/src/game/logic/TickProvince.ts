@@ -108,7 +108,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
       if (state.usedEvents.has(key)) {
          continue;
       }
-      if (config.condition?.province && !config.condition.province.includes(province)) {
+      if (config.condition?.province && !config.condition.province.has(province)) {
          continue;
       }
       if (config.condition?.playerOnly && province !== save.state.playerProvince) {

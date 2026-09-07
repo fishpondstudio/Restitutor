@@ -8,7 +8,7 @@ export const ItaliaSharedEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.AnAfricanBridgeheadDesc),
       condition: {
-         province: ["Italia", "Sicilia", "Corsica", "Sardinia"],
+         province: new Set(["Italia", "Sicilia", "Corsica", "Sardinia"]),
          annexAndCore: { Africa: 2 },
       },
       buttons: [
@@ -40,7 +40,7 @@ export const ItaliaSharedEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.AFootholdInNarbonensisDesc),
       condition: {
-         province: ["Italia", "Sicilia", "Corsica", "Sardinia"],
+         province: new Set(["Italia", "Sicilia", "Corsica", "Sardinia"]),
          annexAndCore: { Narbonensis: 2 },
       },
       buttons: [
@@ -63,7 +63,7 @@ export const ItaliaSharedEvent = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.GatewayToHispaniaDesc),
       condition: {
-         province: ["Italia", "Sicilia", "Corsica", "Sardinia"],
+         province: new Set(["Italia", "Sicilia", "Corsica", "Sardinia"]),
          annexAndCore: { Tarraconensis: 2 },
       },
       buttons: [

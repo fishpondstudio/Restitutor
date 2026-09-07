@@ -22,7 +22,7 @@ export const RaetiaEvent = {
       image: EventImage.StoneBridge,
       desc: () => $t(L.TheMilestonesOfRaetiaDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [195, 195],
       },
       buttons: [
@@ -49,7 +49,7 @@ export const RaetiaEvent = {
       image: EventImage.EmperorAndSoldiers,
       desc: () => $t(L.CaracallaCrossesRaetiaDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [213, 213],
       },
       buttons: [
@@ -83,7 +83,7 @@ export const RaetiaEvent = {
       image: EventImage.VandalsInItaly,
       desc: () => $t(L.TheAlamanniBreakTheFrontierDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [233, 233],
       },
       buttons: [
@@ -117,7 +117,7 @@ export const RaetiaEvent = {
       image: EventImage.TribalCrossing,
       desc: () => $t(L.TheBrennerPassLiesOpenDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [268, 268],
       },
       buttons: [
@@ -151,7 +151,7 @@ export const RaetiaEvent = {
       image: EventImage.RomanAudience,
       desc: () => $t(L.TheAugustiAtAugustaVindelicumDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [288, 288],
       },
       buttons: [
@@ -185,7 +185,7 @@ export const RaetiaEvent = {
       image: EventImage.ImperialRescript,
       desc: () => $t(L.RaetiaDividedDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [297, 297],
       },
       buttons: [
@@ -220,7 +220,7 @@ export const RaetiaEvent = {
       image: EventImage.RomanExpedition,
       desc: () => $t(L.ConstantiusAtTheCampiCanniniDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [355, 355],
       },
       buttons: [
@@ -255,7 +255,7 @@ export const RaetiaEvent = {
       image: EventImage.RomanWall,
       desc: () => $t(L.ValentiniansFrontierTowersDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [369, 369],
       },
       buttons: [
@@ -289,7 +289,7 @@ export const RaetiaEvent = {
       image: EventImage.MountedParley,
       desc: () => $t(L.BautoCallsTheSteppeWarriorsDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [384, 384],
       },
       buttons: [
@@ -324,7 +324,7 @@ export const RaetiaEvent = {
       image: EventImage.WinterMarch,
       desc: () => $t(L.StilichosWinterInRaetiaDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [401, 401],
       },
       buttons: [
@@ -359,7 +359,7 @@ export const RaetiaEvent = {
       image: EventImage.BarbarianCaptives,
       desc: () => $t(L.BurcoAtTheCampiCanniniDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          year: [457, 457],
       },
       buttons: [
@@ -392,7 +392,7 @@ export const RaetiaEvent = {
       image: EventImage.HeroTriumph,
       desc: () => $t(L.ARealmBeyondTheNorthernFrontierDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          annexAndCore: {
             Germania: 4,
          },
@@ -432,7 +432,7 @@ export const RaetiaEvent = {
       image: EventImage.ImperialPatronage,
       desc: () => $t(L.AnAlpineProtectorateDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          onMap: { Noricum: true },
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(15, "Raetia", save);
@@ -455,7 +455,7 @@ export const RaetiaEvent = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.RaetiaReachesTheMediterraneanDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* mediterraneanCoastChecks(2, province, save);
          },
@@ -471,7 +471,7 @@ export const RaetiaEvent = {
       image: EventImage.CivicTriumph,
       desc: () => $t(L.RaetiaAscendantDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(20, province, save);
          },
@@ -490,7 +490,7 @@ export const RaetiaEvent = {
       image: EventImage.VortigernAndRowena,
       desc: () => $t(L.AGermanicRaetiaDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* minCulturePercentageChecks(0.25, "Germanic", province, save);
          },
@@ -543,7 +543,7 @@ export const RaetiaEvent = {
       image: EventImage.RomanTriumph2,
       desc: () => $t(L.ARaetianTriumphInItaliaDesc),
       condition: {
-         province: ["Raetia"],
+         province: new Set(["Raetia"]),
          annexAndCore: {
             Italia: 10,
          },

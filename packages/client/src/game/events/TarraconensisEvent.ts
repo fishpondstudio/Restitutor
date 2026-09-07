@@ -28,7 +28,7 @@ export const TarraconensisEvent = {
       image: EventImage.CopperMine,
       desc: () => $t(L.TheSilverOfCarthagoNovaDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          year: [205, 205],
       },
       buttons: [
@@ -54,7 +54,7 @@ export const TarraconensisEvent = {
       image: EventImage.ChariotRace2,
       desc: () => $t(L.TheGamesOfTarracoDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          year: [225, 225],
       },
       buttons: [
@@ -81,7 +81,7 @@ export const TarraconensisEvent = {
       image: EventImage.MartyrsPrayer,
       desc: () => $t(L.TheMartyrdomOfFructuosusDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          year: [259, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 10)?.describe(
@@ -112,7 +112,7 @@ export const TarraconensisEvent = {
       image: EventImage.ToledoBridge,
       desc: () => $t(L.WallsForBarcinoDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          year: [275, 275],
       },
       buttons: [
@@ -139,7 +139,7 @@ export const TarraconensisEvent = {
       image: EventImage.DiocletianStatue,
       desc: () => $t(L.TheNewTaxSurveyDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          year: [298, 298],
       },
       buttons: [
@@ -166,7 +166,7 @@ export const TarraconensisEvent = {
       image: EventImage.MoorlandCanal,
       desc: () => $t(L.TheIrrigatorsOfTheEbroDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          year: [331, 331],
       },
       buttons: [
@@ -193,7 +193,7 @@ export const TarraconensisEvent = {
       image: EventImage.AugustineStudy,
       desc: () => $t(L.PrudentiusSingsOfChristianRomeDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          year: [385, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             (yield getProvinceResource("christianity", province, save) >= 30)?.describe(
@@ -221,7 +221,7 @@ export const TarraconensisEvent = {
       image: EventImage.ClaudiusEmperor,
       desc: () => $t(L.MaximusTakesThePurpleInHispaniaDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          year: [408, 408],
       },
       buttons: [
@@ -247,7 +247,7 @@ export const TarraconensisEvent = {
       image: EventImage.NumantiaFalls,
       desc: () => $t(L.TheLastRomanProvinceInHispaniaDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          year: [411, 411],
       },
       buttons: [
@@ -274,7 +274,7 @@ export const TarraconensisEvent = {
       image: EventImage.PeasantRevolt,
       desc: () => $t(L.TheBagaudaeOfTheEbroDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          year: [441, 441],
       },
       buttons: [
@@ -307,7 +307,7 @@ export const TarraconensisEvent = {
       image: EventImage.ImperialCity,
       desc: () => $t(L.AFootholdInBaeticaDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          annexAndCore: { Baetica: 2 },
          year: [Number.NEGATIVE_INFINITY, 220],
       },
@@ -337,7 +337,7 @@ export const TarraconensisEvent = {
       image: EventImage.HeroTriumph,
       desc: () => $t(L.BaeticaLiesExposedDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          playerOnly: true,
          onMap: { Baetica: true },
          conditions: function* (province, save): ConditionChecks {
@@ -364,7 +364,7 @@ export const TarraconensisEvent = {
       image: EventImage.DelphiOracle,
       desc: () => $t(L.AnAccordWithLusitaniaDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          onMap: { Lusitania: true },
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Alliance", "Patron"], province, "Lusitania", save);
@@ -419,7 +419,7 @@ export const TarraconensisEvent = {
       image: EventImage.RuinsWithPeasants,
       desc: () => $t(L.TheDistressOfLusitaniaDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          playerOnly: true,
          conditions: function* (province, save): ConditionChecks {
             yield* requireAnyTreatyBetweenChecks(["Alliance", "Patron"], province, "Lusitania", save);
@@ -470,7 +470,7 @@ export const TarraconensisEvent = {
       image: EventImage.ImperialPatronage,
       desc: () => $t(L.LusitaniaUnderOurProtectionDesc),
       condition: {
-         province: ["Tarraconensis"],
+         province: new Set(["Tarraconensis"]),
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Lusitania", save);
             yield* requirePeaceBetweenChecks(province, "Lusitania", save);
