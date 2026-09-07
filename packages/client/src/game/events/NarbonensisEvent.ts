@@ -1,15 +1,20 @@
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
+import type { ConditionChecks } from "../logic/Calculation";
 import {
    annexTiles,
    forcePatronageEffect,
-   marriageCondition,
-   provinceResourceCondition,
-   provinceRevenueCondition,
+   marriageChecks,
+   provinceResourceChecks,
+   provinceRevenueChecks,
 } from "../logic/MissionLogic";
 import { getProvinceResource } from "../logic/ProvinceLogic";
-import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import {
+   requireAnyTreatyBetweenChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -99,12 +104,11 @@ export const NarbonensisEvent = {
       condition: {
          province: ["Narbonensis"],
          year: [305, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Narbonensis.name(), "10"),
-               value: getProvinceResource("christianity", province, save) >= 10,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 10)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Narbonensis.name(), "10"),
+            );
+         },
       },
       buttons: [
          {
@@ -211,12 +215,11 @@ export const NarbonensisEvent = {
       condition: {
          province: ["Narbonensis"],
          year: [412, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Narbonensis.name(), "20"),
-               value: getProvinceResource("christianity", province, save) >= 20,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Narbonensis.name(), "20"),
+            );
+         },
       },
       buttons: [
          {
@@ -244,12 +247,11 @@ export const NarbonensisEvent = {
       condition: {
          province: ["Narbonensis"],
          year: [425, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Narbonensis.name(), "20"),
-               value: getProvinceResource("christianity", province, save) >= 20,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Narbonensis.name(), "20"),
+            );
+         },
       },
       buttons: [
          {
@@ -301,8 +303,9 @@ export const NarbonensisEvent = {
       desc: () => $t(L.TheFruitsOfItalianFriendshipDesc),
       condition: {
          province: ["Narbonensis"],
-         conditions: (province, save) => {
-            return [requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Italia", save)];
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance", "Patron"], province, "Italia", save);
+            return;
          },
       },
       buttons: [
@@ -326,8 +329,9 @@ export const NarbonensisEvent = {
       desc: () => $t(L.TheFruitsOfAquitanianFriendshipDesc),
       condition: {
          province: ["Narbonensis"],
-         conditions: (province, save) => {
-            return [requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Aquitania", save)];
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance", "Patron"], province, "Aquitania", save);
+            return;
          },
       },
       buttons: [
@@ -357,11 +361,10 @@ export const NarbonensisEvent = {
       desc: () => $t(L.TheGoldenCoffersOfNarboDesc),
       condition: {
          province: ["Narbonensis"],
-         conditions: (province, save) => {
-            return [
-               provinceRevenueCondition(300, province, save),
-               provinceResourceCondition("gold", 10_000, province, save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* provinceRevenueChecks(300, province, save);
+            yield* provinceResourceChecks("gold", 10_000, province, save);
+            return;
          },
       },
       buttons: [
@@ -386,14 +389,13 @@ export const NarbonensisEvent = {
       desc: () => $t(L.TheCorsicanMarriageSettlementDesc),
       condition: {
          province: ["Narbonensis"],
-         conditions: (province, save) => {
-            return [
-               requireNoTreatyBetween(["Patron"], province, "Corsica", save),
-               requirePeaceBetween(province, "Corsica", save),
-               provinceResourceCondition("gold", 5000, province, save),
-               requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Corsica", save),
-               marriageCondition(province, "Corsica", save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Corsica", save);
+            yield* requirePeaceBetweenChecks(province, "Corsica", save);
+            yield* provinceResourceChecks("gold", 5000, province, save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Corsica", save);
+            yield* marriageChecks(province, "Corsica", save);
+            return;
          },
       },
       buttons: [
@@ -410,20 +412,17 @@ export const NarbonensisEvent = {
       desc: () => $t(L.AnAlpineExchangeDesc),
       condition: {
          province: ["Narbonensis"],
-         conditions: (province, save) => {
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireAnyTreatyBetweenChecks(["Alliance"], province, "Italia", save);
             const AugustaPraetoria = save.state.tiles.get(9175112);
+            (yield AugustaPraetoria?.province === province && AugustaPraetoria?.coreProvinces.has(province))?.describe(
+               $t(L.$1IsCoreTileOf$2, getTileName(9175112, save), Province.Narbonensis.name()),
+            );
             const Taurinorum = save.state.tiles.get(9175113);
-            return [
-               requireAnyTreatyBetween(["Alliance"], province, "Italia", save),
-               {
-                  name: $t(L.$1IsCoreTileOf$2, getTileName(9175112, save), Province.Narbonensis.name()),
-                  value: AugustaPraetoria?.province === province && AugustaPraetoria?.coreProvinces.has(province),
-               },
-               {
-                  name: $t(L.$1IsCoreTileOf$2, getTileName(9175113, save), Province.Italia.name()),
-                  value: Taurinorum?.province === "Italia" && Taurinorum?.coreProvinces.has("Italia"),
-               },
-            ];
+            (yield Taurinorum?.province === "Italia" && Taurinorum?.coreProvinces.has("Italia"))?.describe(
+               $t(L.$1IsCoreTileOf$2, getTileName(9175113, save), Province.Italia.name()),
+            );
+            return;
          },
       },
       buttons: [

@@ -19,6 +19,7 @@ import { getBorderingProvinces } from "../definitions/Tile";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
+import type { ConditionChecks } from "./Calculation";
 import {
    getAttitudeTowards,
    getDiplomaticDistance,
@@ -615,6 +616,10 @@ export function hasGeneralCondition(province: Province, save: SaveGame): ICondit
       name: $t(L.CurrentlyHasAGeneral),
       value: getCurrentGeneral(province, save) !== undefined,
    };
+}
+
+export function* hasGeneralChecks(province: Province, save: SaveGame): ConditionChecks {
+   (yield getCurrentGeneral(province, save) !== undefined)?.describe($t(L.CurrentlyHasAGeneral));
 }
 
 export function dismissGeneral(province: Province, save: SaveGame): void {

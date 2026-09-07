@@ -3,12 +3,8 @@ import { $t, L } from "../../utils/i18n";
 import { HispaniaProvinces } from "../definitions/TileConstants";
 import { TimedActions } from "../definitions/TimedAction";
 import { getOriginalTileCount } from "../GameState";
-import {
-   allCoreTileCondition,
-   anyCoreTileCondition,
-   isCoreTileCondition,
-   minCoreTileCondition,
-} from "../logic/MissionLogic";
+import type { ConditionChecks } from "../logic/Calculation";
+import { allCoreTileChecks, anyCoreTileChecks, isCoreTileChecks, minCoreTileChecks } from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
 import { EventImage } from "./EventImages";
@@ -21,11 +17,10 @@ export const HispaniaEvent = {
       desc: () => $t(L.TheRoadsIntoGaulDesc),
       condition: {
          province: HispaniaProvinces,
-         conditions: (province, save) => {
-            return [
-               minCoreTileCondition(getOriginalTileCount(province) + 10, province, save),
-               anyCoreTileCondition([8781900, 8847436, 8847437, 8912973, 8978509], province, save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(getOriginalTileCount(province) + 10, province, save);
+            yield* anyCoreTileChecks([8781900, 8847436, 8847437, 8912973, 8978509], province, save);
+            return;
          },
       },
       buttons: [
@@ -55,11 +50,10 @@ export const HispaniaEvent = {
       desc: () => $t(L.AcrossTheStraitOfGibraltarDesc),
       condition: {
          province: HispaniaProvinces,
-         conditions: (province, save) => {
-            return [
-               minCoreTileCondition(getOriginalTileCount(province) + 2, province, save),
-               isCoreTileCondition(8585300, province, save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(getOriginalTileCount(province) + 2, province, save);
+            yield* isCoreTileChecks(8585300, province, save);
+            return;
          },
       },
       buttons: [
@@ -93,13 +87,11 @@ export const HispaniaEvent = {
          playerOnly: true,
          province: HispaniaProvinces,
          onMap: { Suebi: true },
-         conditions: (province, save) => {
-            return [
-               {
-                  name: $t(L.$1NoLongerHas$2, getProvinceName("Suebi", save), TimedActions.BarbarianInvasions.name()),
-                  value: getTimedActionTimeLeft("BarbarianInvasions", "Suebi", save) <= 0,
-               },
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            (yield getTimedActionTimeLeft("BarbarianInvasions", "Suebi", save) <= 0)?.describe(
+               $t(L.$1NoLongerHas$2, getProvinceName("Suebi", save), TimedActions.BarbarianInvasions.name()),
+            );
+            return;
          },
       },
       buttons: [
@@ -131,8 +123,9 @@ export const HispaniaEvent = {
          playerOnly: true,
          onMap: { Mauretania: true },
          province: HispaniaProvinces,
-         conditions: (province, save) => {
-            return [allCoreTileCondition([8519765, 8519766, 8585302], province, save)];
+         conditions: function* (province, save): ConditionChecks {
+            yield* allCoreTileChecks([8519765, 8519766, 8585302], province, save);
+            return;
          },
       },
       buttons: [

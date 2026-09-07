@@ -1,10 +1,10 @@
-import type { ICondition } from "../actions/GameAction";
 import type { Province, ProvinceNameOverride } from "../definitions/Province";
 import type { ProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import type { Religion } from "../definitions/Religion";
 import type { Tech } from "../definitions/Tech";
 import type { ICustomEffect, IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
+import type { ConditionChecks } from "../logic/Calculation";
 import { AfricaEvent } from "./AfricaEvent";
 import { AquitaniaEvent } from "./AquitaniaEvent";
 import { BaeticaEvent } from "./BaeticaEvent";
@@ -56,7 +56,7 @@ export interface IGameEventCondition {
    techs?: Tech[];
    provinceUpgrades?: ProvinceUpgrade[];
    annexAndCore?: Partial<Record<Province, number>>;
-   conditions?: (province: Province, save: SaveGame) => ICondition[];
+   conditions?: (province: Province, save: SaveGame) => ConditionChecks;
 }
 
 const _GameEvents = {

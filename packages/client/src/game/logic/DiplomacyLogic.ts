@@ -13,6 +13,7 @@ import { type IModifier, makeModifierGetter } from "../definitions/Modifier";
 import type { IRelation, Province, ProvinceResourceCosts } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
+import type { ConditionChecks } from "./Calculation";
 import { getFamilyMemberFrom } from "./GovernorLogic";
 import { attachModifiers } from "./ModifierLogic";
 import { getProvinceName } from "./ProvinceLogic";
@@ -186,6 +187,17 @@ export function availableDiplomatCondition(fromProvince: Province, toProvince: P
       name: $t(L.$1HasAnAvailableDiplomat, getProvinceName(fromProvince, save)),
       value: currentRelations.has(toProvince) || currentRelations.size < getDiplomats(fromProvince, save).value,
    };
+}
+
+export function* availableDiplomatChecks(
+   fromProvince: Province,
+   toProvince: Province,
+   save: SaveGame,
+): ConditionChecks {
+   const currentRelations = getCurrentRelations(fromProvince, save);
+   (yield currentRelations.has(toProvince) || currentRelations.size < getDiplomats(fromProvince, save).value)?.describe(
+      $t(L.$1HasAnAvailableDiplomat, getProvinceName(fromProvince, save)),
+   );
 }
 
 export function canImproveRelations(fromProvince: Province, toProvince: Province, save: SaveGame): IConditionBreakdown {

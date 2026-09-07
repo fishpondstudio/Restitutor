@@ -173,9 +173,7 @@ export const getGameEventCondition = defineConditionChecks(function* (
       }
    }
    if (condition.conditions) {
-      for (const item of condition.conditions(province, save)) {
-         (yield item.value)?.describe(item.name, item);
-      }
+      yield* condition.conditions(province, save);
    }
 });
 

@@ -1,18 +1,23 @@
 import { $t, L } from "../../utils/i18n";
 import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
+import type { ConditionChecks } from "../logic/Calculation";
 import {
-   allCoreTileCondition,
+   allCoreTileChecks,
    annexTiles,
    forcePatronageEffect,
-   marriageCondition,
-   maxCoreTileCondition,
-   minCoreTileCondition,
-   provinceResourceCondition,
-   warPowerCondition,
+   marriageChecks,
+   maxCoreTileChecks,
+   minCoreTileChecks,
+   provinceResourceChecks,
+   warPowerChecks,
 } from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
-import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import {
+   requireAnyTreatyBetweenChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -130,7 +135,9 @@ export const BaeticaEvent = {
       condition: {
          province: ["Baetica"],
          year: [304, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [provinceResourceCondition("christianity", 10, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* provinceResourceChecks("christianity", 10, province, save);
+         },
       },
       buttons: [
          {
@@ -157,7 +164,9 @@ export const BaeticaEvent = {
       condition: {
          province: ["Baetica"],
          year: [306, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [provinceResourceCondition("christianity", 20, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* provinceResourceChecks("christianity", 20, province, save);
+         },
       },
       buttons: [
          {
@@ -185,7 +194,9 @@ export const BaeticaEvent = {
       condition: {
          province: ["Baetica"],
          year: [325, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [provinceResourceCondition("christianity", 30, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* provinceResourceChecks("christianity", 30, province, save);
+         },
       },
       buttons: [
          {
@@ -302,9 +313,9 @@ export const BaeticaEvent = {
       condition: {
          province: ["Baetica"],
          onMap: { Lusitania: true },
-         conditions: (province, save) => [
-            requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Lusitania", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance", "Patron"], province, "Lusitania", save);
+         },
       },
       buttons: [
          {
@@ -333,7 +344,9 @@ export const BaeticaEvent = {
       desc: () => $t(L.ThePillarsOfHerculesDesc),
       condition: {
          province: ["Baetica"],
-         conditions: (province, save) => [allCoreTileCondition(StraitOfGibraltarTiles, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* allCoreTileChecks(StraitOfGibraltarTiles, province, save);
+         },
       },
       buttons: [
          {
@@ -360,7 +373,9 @@ export const BaeticaEvent = {
       desc: () => $t(L.BaeticaAscendantDesc),
       condition: {
          province: ["Baetica"],
-         conditions: (province, save) => [minCoreTileCondition(15, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(15, province, save);
+         },
       },
       buttons: [
          {
@@ -384,13 +399,13 @@ export const BaeticaEvent = {
       condition: {
          province: ["Baetica"],
          annexAndCore: { Tarraconensis: 5 },
-         conditions: (province, save) => [
-            requireNoTreatyBetween(["Patron"], province, "Lusitania", save),
-            requirePeaceBetween(province, "Lusitania", save),
-            provinceResourceCondition("diplomatic", 200, province, save),
-            warPowerCondition(10_000, province, save),
-            allCoreTileCondition([8978513], "Tarraconensis", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Lusitania", save);
+            yield* requirePeaceBetweenChecks(province, "Lusitania", save);
+            yield* provinceResourceChecks("diplomatic", 200, province, save);
+            yield* warPowerChecks(10_000, province, save);
+            yield* allCoreTileChecks([8978513], "Tarraconensis", save);
+         },
       },
       buttons: [
          {
@@ -423,12 +438,12 @@ export const BaeticaEvent = {
       condition: {
          province: ["Baetica"],
          onMap: { Lusitania: true },
-         conditions: (province, save) => [
-            provinceResourceCondition("diplomatic", 200, province, save),
-            minCoreTileCondition(20, province, save),
-            maxCoreTileCondition(5, "Lusitania", save),
-            marriageCondition(province, "Lusitania", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* provinceResourceChecks("diplomatic", 200, province, save);
+            yield* minCoreTileChecks(20, province, save);
+            yield* maxCoreTileChecks(5, "Lusitania", save);
+            yield* marriageChecks(province, "Lusitania", save);
+         },
       },
       buttons: [
          {

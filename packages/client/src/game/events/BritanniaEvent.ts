@@ -1,15 +1,20 @@
 import { $t, L } from "../../utils/i18n";
+import type { ConditionChecks } from "../logic/Calculation";
 import {
-   allCoreTileCondition,
+   allCoreTileChecks,
    forcePatronageEffect,
-   isCoreTileCondition,
-   manpowerCondition,
-   maxCoreTileCondition,
-   mediterraneanCoastCondition,
-   minCoreTileCondition,
-   provinceRevenueCondition,
+   isCoreTileChecks,
+   manpowerChecks,
+   maxCoreTileChecks,
+   mediterraneanCoastChecks,
+   minCoreTileChecks,
+   provinceRevenueChecks,
 } from "../logic/MissionLogic";
-import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import {
+   requireAnyTreatyBetweenChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -371,8 +376,10 @@ export const BritanniaEvent = {
       desc: () => $t(L.BritanniaLooksToTheContinentDesc),
       condition: {
          province: ["Britannia"],
-         conditions: (province, save) => {
-            return [manpowerCondition(4500, province, save), provinceRevenueCondition(1500, province, save)];
+         conditions: function* (province, save): ConditionChecks {
+            yield* manpowerChecks(4500, province, save);
+            yield* provinceRevenueChecks(1500, province, save);
+            return;
          },
       },
       buttons: [
@@ -402,8 +409,9 @@ export const BritanniaEvent = {
       desc: () => $t(L.ABridgeheadAcrossTheChannelDesc),
       condition: {
          province: ["Britannia"],
-         conditions: (province, save) => {
-            return [allCoreTileCondition([8978497, 8978498, 8912963, 8847427], province, save)];
+         conditions: function* (province, save): ConditionChecks {
+            yield* allCoreTileChecks([8978497, 8978498, 8912963, 8847427], province, save);
+            return;
          },
       },
       buttons: [
@@ -439,14 +447,13 @@ export const BritanniaEvent = {
          annexAndCore: {
             Belgica: 5,
          },
-         conditions: (province, save) => {
-            return [
-               minCoreTileCondition(30, province, save),
-               maxCoreTileCondition(5, "Belgica", save),
-               requirePeaceBetween(province, "Belgica", save),
-               requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Belgica", save),
-               requireNoTreatyBetween(["Patron"], province, "Belgica", save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(30, province, save);
+            yield* maxCoreTileChecks(5, "Belgica", save);
+            yield* requirePeaceBetweenChecks(province, "Belgica", save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Belgica", save);
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Belgica", save);
+            return;
          },
       },
       buttons: [
@@ -466,8 +473,9 @@ export const BritanniaEvent = {
          annexAndCore: {
             Lugdunensis: 5,
          },
-         conditions: (province, save) => {
-            return [isCoreTileCondition(8978500, province, save)];
+         conditions: function* (province, save): ConditionChecks {
+            yield* isCoreTileChecks(8978500, province, save);
+            return;
          },
       },
       buttons: [
@@ -533,8 +541,9 @@ export const BritanniaEvent = {
       desc: () => $t(L.BritanniaReachesTheMediterraneanDesc),
       condition: {
          province: ["Britannia"],
-         conditions: (province, save) => {
-            return [mediterraneanCoastCondition(5, province, save)];
+         conditions: function* (province, save): ConditionChecks {
+            yield* mediterraneanCoastChecks(5, province, save);
+            return;
          },
       },
       buttons: [

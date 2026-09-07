@@ -1,15 +1,16 @@
 import { $t, L } from "../../utils/i18n";
-import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
+import type { ConditionChecks } from "../logic/Calculation";
+import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import {
    forcePatronageEffect,
-   isCoreTileCondition,
-   manpowerCondition,
-   maxCoreTileCondition,
-   mediterraneanCoastCondition,
-   minCoreTileCondition,
-   provinceRevenueCondition,
+   isCoreTileChecks,
+   manpowerChecks,
+   maxCoreTileChecks,
+   mediterraneanCoastChecks,
+   minCoreTileChecks,
+   provinceRevenueChecks,
 } from "../logic/MissionLogic";
-import { requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import { requireNoTreatyBetweenChecks, requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -364,10 +365,10 @@ export const NoricumEvent = {
       desc: () => $t(L.ThreeRoadsToWarDesc),
       condition: {
          province: ["Noricum"],
-         conditions: (province, save) => [
-            manpowerCondition(40_000, province, save),
-            provinceRevenueCondition(120, province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* manpowerChecks(40_000, province, save);
+            yield* provinceRevenueChecks(120, province, save);
+         },
       },
       buttons: [
          {
@@ -405,7 +406,9 @@ export const NoricumEvent = {
       desc: () => $t(L.TheSeawardGateDesc),
       condition: {
          province: ["Noricum"],
-         conditions: (province, save) => [mediterraneanCoastCondition(4, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* mediterraneanCoastChecks(4, province, save);
+         },
       },
       buttons: [
          {
@@ -435,15 +438,15 @@ export const NoricumEvent = {
          province: ["Noricum"],
          onMap: { Raetia: true },
          playerOnly: true,
-         conditions: (province, save) => [
-            minCoreTileCondition(15, "Noricum", save),
-            maxCoreTileCondition(5, "Raetia", save),
-            isCoreTileCondition(9437254, province, save),
-            requireNoTreatyBetween(["Patron"], province, "Raetia", save),
-            requirePeaceBetween(province, "Raetia", save),
-            availableDiplomatCondition(province, "Raetia", save),
-            availableDiplomatCondition("Raetia", province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(15, "Noricum", save);
+            yield* maxCoreTileChecks(5, "Raetia", save);
+            yield* isCoreTileChecks(9437254, province, save);
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Raetia", save);
+            yield* requirePeaceBetweenChecks(province, "Raetia", save);
+            yield* availableDiplomatChecks(province, "Raetia", save);
+            yield* availableDiplomatChecks("Raetia", province, save);
+         },
       },
       buttons: [
          {
@@ -467,7 +470,9 @@ export const NoricumEvent = {
       desc: () => $t(L.OurRealmOfManyPeoplesDesc),
       condition: {
          province: ["Noricum"],
-         conditions: (province, save) => [minCoreTileCondition(20, "Noricum", save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(20, "Noricum", save);
+         },
          annexAndCore: { Italia: 5, Raetia: 5, Pannonia: 5 },
       },
       buttons: [

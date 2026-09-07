@@ -2,12 +2,13 @@ import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
+import type { ConditionChecks } from "../logic/Calculation";
 import {
-   allCoreTileCondition,
+   allCoreTileChecks,
    annexTiles,
-   isCoreTileCondition,
-   minCoreTileCondition,
-   provinceResourceCondition,
+   isCoreTileChecks,
+   minCoreTileChecks,
+   provinceResourceChecks,
 } from "../logic/MissionLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -369,7 +370,9 @@ export const MauretaniaEvent = {
       condition: {
          province: ["Mauretania"],
          annexAndCore: { Baetica: 2 },
-         conditions: (province, save) => [allCoreTileCondition(StraitOfGibraltarTiles, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* allCoreTileChecks(StraitOfGibraltarTiles, province, save);
+         },
       },
       buttons: [
          {
@@ -435,10 +438,10 @@ export const MauretaniaEvent = {
       desc: () => $t(L.ThePriceOfPalmaDesc),
       condition: {
          province: ["Mauretania"],
-         conditions: (province, save) => [
-            provinceResourceCondition("gold", 10_000, province, save),
-            isCoreTileCondition(8978513, "Tarraconensis", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* provinceResourceChecks("gold", 10_000, province, save);
+            yield* isCoreTileChecks(8978513, "Tarraconensis", save);
+         },
       },
       buttons: [
          {
@@ -550,7 +553,9 @@ export const MauretaniaEvent = {
       desc: () => $t(L.MauretaniaAscendantDesc),
       condition: {
          province: ["Mauretania"],
-         conditions: (province, save) => [minCoreTileCondition(40, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(40, province, save);
+         },
       },
       buttons: [
          {

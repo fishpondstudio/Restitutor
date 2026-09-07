@@ -56,6 +56,7 @@ import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
 import { cacheProvince, getProvinceCoreTilesCached } from "./CacheLogic";
+import type { ConditionChecks } from "./Calculation";
 import { getAttitudeTowards, getRelation, getRelations } from "./DiplomacyLogic";
 import { EcumenicalCouncilChristianityPct, ongoingEcumenicalCouncilCondition } from "./EcumenicalCouncilLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
@@ -859,6 +860,10 @@ export function isGreatPowerCondition(province: Province, save: SaveGame): ICond
       name: $t(L.$1IsAGreatPower, getProvinceName(province, save)),
       value: isProvinceGreatPower(province, save),
    };
+}
+
+export function* isGreatPowerChecks(province: Province, save: SaveGame): ConditionChecks {
+   (yield isProvinceGreatPower(province, save))?.describe($t(L.$1IsAGreatPower, getProvinceName(province, save)));
 }
 
 export function isNorGreatPowerCondition(province: Province, save: SaveGame): ICondition {

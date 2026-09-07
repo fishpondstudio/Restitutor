@@ -6,6 +6,7 @@ import { OfferAllianceAction, OfferDefensePactAction, OfferPatronageAction } fro
 import { type Province, type Treaty, TreatyNames } from "../definitions/Province";
 import { TimedActions } from "../definitions/TimedAction";
 import type { SaveGame } from "../GameState";
+import type { ConditionChecks } from "./Calculation";
 import {
    addAttitudeModifier,
    getAttitudeTowards,
@@ -151,6 +152,92 @@ export function requireAnyTreatyBetween(
       ),
       value: treaties.some((t) => hasTreatyBetween(t, fromProvince, toProvince, save)),
    };
+}
+
+export function* requireHigherPrestigeChecks(
+   us: Province,
+   them: Province,
+   percentage: number,
+   save: SaveGame,
+): ConditionChecks {
+   const ourPrestige = getProvincePrestige(us, save).value;
+   const theirPrestige = getProvincePrestige(them, save).value;
+   (yield ourPrestige >= theirPrestige * percentage)?.describe(
+      $t(
+         L.$1PrestigeIsAtLeast$2Of$3,
+         getProvinceName(us, save),
+         formatPercent(percentage),
+         getProvinceName(them, save),
+      ),
+      {
+         desc: $t(
+            L.OurPrestige$1TheirPrestige$2WeNeedAtLeast$3,
+            formatNumber(ourPrestige),
+            formatNumber(theirPrestige),
+            formatNumber(percentage * theirPrestige),
+         ),
+      },
+   );
+}
+
+export function* requireMinimumAttitudeChecks(
+   from: Province,
+   to: Province,
+   attitude: number,
+   save: SaveGame,
+): ConditionChecks {
+   const current = getAttitudeTowards(from, to, save);
+   (yield current.value >= attitude)?.describe(
+      $t(
+         L.$1HasAtLeast$2AttitudeTowards$3,
+         getProvinceName(from, save),
+         formatNumber(attitude),
+         getProvinceName(to, save),
+      ),
+      { progress: [current.value, attitude] },
+   );
+}
+
+export function* requirePeaceBetweenChecks(
+   ourProvince: Province,
+   theirProvince: Province,
+   save: SaveGame,
+): ConditionChecks {
+   (yield getWarsBetween(ourProvince, theirProvince, save).length === 0)?.describe(
+      $t(L.$1IsNotAtWarWith$2, getProvinceName(ourProvince, save), getProvinceName(theirProvince, save)),
+   );
+}
+
+export function* requireNoTreatyBetweenChecks(
+   treaties: Exclude<Treaty, "Client">[],
+   fromProvince: Province,
+   toProvince: Province,
+   save: SaveGame,
+): ConditionChecks {
+   (yield treaties.every((t) => !hasTreatyBetween(t, fromProvince, toProvince, save)))?.describe(
+      $t(
+         L.$1DoesntHaveAnActive$2With$3,
+         getProvinceName(fromProvince, save),
+         treaties.map((t) => TreatyNames[t]()).join(", "),
+         getProvinceName(toProvince, save),
+      ),
+   );
+}
+
+export function* requireAnyTreatyBetweenChecks(
+   treaties: Exclude<Treaty, "Client">[],
+   fromProvince: Province,
+   toProvince: Province,
+   save: SaveGame,
+): ConditionChecks {
+   (yield treaties.some((t) => hasTreatyBetween(t, fromProvince, toProvince, save)))?.describe(
+      $t(
+         L.$1HasAnActive$2With$3,
+         getProvinceName(fromProvince, save),
+         treaties.map((t) => TreatyNames[t]()).join(", "),
+         getProvinceName(toProvince, save),
+      ),
+   );
 }
 
 export function hasTreatyBetween(

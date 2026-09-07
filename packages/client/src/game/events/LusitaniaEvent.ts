@@ -1,14 +1,15 @@
 import { $t, L } from "../../utils/i18n";
 import { getTileName } from "../definitions/TileName";
+import type { ConditionChecks } from "../logic/Calculation";
 import {
-   allCoreTileCondition,
+   allCoreTileChecks,
    annexTiles,
-   minCoreTileCondition,
-   provinceResourceCondition,
-   provinceRevenueCondition,
+   minCoreTileChecks,
+   provinceResourceChecks,
+   provinceRevenueChecks,
 } from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
-import { requireAnyTreatyBetween } from "../logic/TreatyLogic";
+import { requireAnyTreatyBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -148,7 +149,9 @@ export const LusitaniaEvent = {
       condition: {
          province: ["Lusitania"],
          year: [304, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [provinceResourceCondition("christianity", 10, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* provinceResourceChecks("christianity", 10, province, save);
+         },
       },
       buttons: [
          {
@@ -175,7 +178,9 @@ export const LusitaniaEvent = {
       condition: {
          province: ["Lusitania"],
          year: [385, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [provinceResourceCondition("christianity", 30, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* provinceResourceChecks("christianity", 30, province, save);
+         },
       },
       buttons: [
          {
@@ -294,9 +299,14 @@ export const LusitaniaEvent = {
       desc: () => $t(L.TheFruitsOfTarraconensianFriendshipDesc),
       condition: {
          province: ["Lusitania"],
-         conditions: (province, save) => [
-            requireAnyTreatyBetween(["DefensePact", "Alliance", "Patron"], province, "Tarraconensis", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireAnyTreatyBetweenChecks(
+               ["DefensePact", "Alliance", "Patron"],
+               province,
+               "Tarraconensis",
+               save,
+            );
+         },
       },
       buttons: [
          {
@@ -350,12 +360,11 @@ export const LusitaniaEvent = {
       desc: () => $t(L.TheDistressOfTarraconensisDesc),
       condition: {
          province: ["Lusitania"],
-         conditions: (province, save) => {
-            return [
-               requireAnyTreatyBetween(["Alliance", "Patron"], province, "Tarraconensis", save),
-               provinceResourceCondition("gold", 10_000, province, save),
-               allCoreTileCondition([8519758, 8585295], "Tarraconensis", save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireAnyTreatyBetweenChecks(["Alliance", "Patron"], province, "Tarraconensis", save);
+            yield* provinceResourceChecks("gold", 10_000, province, save);
+            yield* allCoreTileChecks([8519758, 8585295], "Tarraconensis", save);
+            return;
          },
       },
       buttons: [
@@ -388,10 +397,10 @@ export const LusitaniaEvent = {
       desc: () => $t(L.TheWealthOfEmeritaDesc),
       condition: {
          province: ["Lusitania"],
-         conditions: (province, save) => [
-            minCoreTileCondition(15, province, save),
-            provinceRevenueCondition(200, province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(15, province, save);
+            yield* provinceRevenueChecks(200, province, save);
+         },
       },
       buttons: [
          {
@@ -410,10 +419,10 @@ export const LusitaniaEvent = {
       desc: () => $t(L.TheGoldenCoffersOfEmeritaDesc),
       condition: {
          province: ["Lusitania"],
-         conditions: (province, save) => [
-            minCoreTileCondition(20, province, save),
-            provinceRevenueCondition(300, province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(20, province, save);
+            yield* provinceRevenueChecks(300, province, save);
+         },
       },
       buttons: [
          {

@@ -9,8 +9,9 @@ import {
 } from "../definitions/TileConstants";
 import { RefreshTiles } from "../Events";
 import { getOriginalTileCount } from "../GameState";
-import { allyCountCondition, minCoreTileCondition, techCountCondition } from "../logic/MissionLogic";
-import { isGreatPowerCondition, setProvinceNameOverride } from "../logic/ProvinceLogic";
+import type { ConditionChecks } from "../logic/Calculation";
+import { allyCountChecks, minCoreTileChecks, techCountChecks } from "../logic/MissionLogic";
+import { isGreatPowerChecks, setProvinceNameOverride } from "../logic/ProvinceLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -20,7 +21,9 @@ export const MissionEvents = {
       image: EventImage.ScipiosClemency1,
       desc: () => $t(L.AStrongAllianceDesc),
       condition: {
-         conditions: (province, save) => [allyCountCondition(2, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* allyCountChecks(2, province, save);
+         },
       },
       achievement: "FormAlliance",
       buttons: [
@@ -43,10 +46,10 @@ export const MissionEvents = {
       image: EventImage.ZenobiaCaptured,
       desc: () => $t(L.ANewHegemonRisesDesc),
       condition: {
-         conditions: (province, save) => [
-            isGreatPowerCondition(province, save),
-            minCoreTileCondition(getOriginalTileCount(province) + 5, province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* isGreatPowerChecks(province, save);
+            yield* minCoreTileChecks(getOriginalTileCount(province) + 5, province, save);
+         },
       },
       achievement: "BecomeGreatPower",
       buttons: [
@@ -71,7 +74,9 @@ export const MissionEvents = {
       image: EventImage.ImperialCity,
       desc: () => $t(L.AProvinceTransformedDesc),
       condition: {
-         conditions: (province, save) => [minCoreTileCondition(getOriginalTileCount(province) * 2, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(getOriginalTileCount(province) * 2, province, save);
+         },
       },
       buttons: [
          {
@@ -101,7 +106,9 @@ export const MissionEvents = {
       image: EventImage.PhilosophySchool,
       desc: () => $t(L.EveryArtMasteredDesc),
       condition: {
-         conditions: (province, save) => [techCountCondition(sizeOf(Tech), province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* techCountChecks(sizeOf(Tech), province, save);
+         },
       },
       achievement: "ResearchAllTechs",
       buttons: [

@@ -2,21 +2,22 @@ import { $t, L } from "../../utils/i18n";
 import { OfferAllianceAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
-import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
+import type { ConditionChecks } from "../logic/Calculation";
+import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import {
    annexTiles,
    forcePatronageEffect,
-   isCoreTileCondition,
-   maxCoreTileCondition,
-   provinceResourceCondition,
+   isCoreTileChecks,
+   maxCoreTileChecks,
+   provinceResourceChecks,
 } from "../logic/MissionLogic";
 import { getProvinceName, getProvinceResource } from "../logic/ProvinceLogic";
 import {
-   requireAnyTreatyBetween,
-   requireHigherPrestige,
-   requireMinimumAttitude,
-   requireNoTreatyBetween,
-   requirePeaceBetween,
+   requireAnyTreatyBetweenChecks,
+   requireHigherPrestigeChecks,
+   requireMinimumAttitudeChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
 } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -82,12 +83,11 @@ export const TarraconensisEvent = {
       condition: {
          province: ["Tarraconensis"],
          year: [259, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Tarraconensis.name(), "10"),
-               value: getProvinceResource("christianity", province, save) >= 10,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 10)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Tarraconensis.name(), "10"),
+            );
+         },
       },
       buttons: [
          {
@@ -195,12 +195,11 @@ export const TarraconensisEvent = {
       condition: {
          province: ["Tarraconensis"],
          year: [385, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Tarraconensis.name(), "30"),
-               value: getProvinceResource("christianity", province, save) >= 30,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 30)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Tarraconensis.name(), "30"),
+            );
+         },
       },
       buttons: [
          {
@@ -341,7 +340,9 @@ export const TarraconensisEvent = {
          province: ["Tarraconensis"],
          playerOnly: true,
          onMap: { Baetica: true },
-         conditions: (province, save) => [maxCoreTileCondition(3, "Baetica", save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* maxCoreTileChecks(3, "Baetica", save);
+         },
       },
       buttons: [
          {
@@ -365,14 +366,13 @@ export const TarraconensisEvent = {
       condition: {
          province: ["Tarraconensis"],
          onMap: { Lusitania: true },
-         conditions: (province, save) => {
-            return [
-               requireNoTreatyBetween(["Alliance", "Patron"], province, "Lusitania", save),
-               requirePeaceBetween(province, "Lusitania", save),
-               availableDiplomatCondition(province, "Lusitania", save),
-               availableDiplomatCondition("Lusitania", province, save),
-               requireMinimumAttitude("Lusitania", province, 25, save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Alliance", "Patron"], province, "Lusitania", save);
+            yield* requirePeaceBetweenChecks(province, "Lusitania", save);
+            yield* availableDiplomatChecks(province, "Lusitania", save);
+            yield* availableDiplomatChecks("Lusitania", province, save);
+            yield* requireMinimumAttitudeChecks("Lusitania", province, 25, save);
+            return;
          },
       },
       buttons: [
@@ -421,12 +421,11 @@ export const TarraconensisEvent = {
       condition: {
          province: ["Tarraconensis"],
          playerOnly: true,
-         conditions: (province, save) => {
-            return [
-               requireAnyTreatyBetween(["Alliance", "Patron"], province, "Lusitania", save),
-               provinceResourceCondition("gold", 5000, province, save),
-               isCoreTileCondition(8585296, "Lusitania", save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireAnyTreatyBetweenChecks(["Alliance", "Patron"], province, "Lusitania", save);
+            yield* provinceResourceChecks("gold", 5000, province, save);
+            yield* isCoreTileChecks(8585296, "Lusitania", save);
+            return;
          },
       },
       buttons: [
@@ -472,15 +471,14 @@ export const TarraconensisEvent = {
       desc: () => $t(L.LusitaniaUnderOurProtectionDesc),
       condition: {
          province: ["Tarraconensis"],
-         conditions: (province, save) => {
-            return [
-               requireNoTreatyBetween(["Patron"], province, "Lusitania", save),
-               requirePeaceBetween(province, "Lusitania", save),
-               requireAnyTreatyBetween(["Alliance"], province, "Lusitania", save),
-               requireHigherPrestige(province, "Lusitania", 2.5, save),
-               provinceResourceCondition("diplomatic", 100, province, save),
-               provinceResourceCondition("gold", 10_000, province, save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Lusitania", save);
+            yield* requirePeaceBetweenChecks(province, "Lusitania", save);
+            yield* requireAnyTreatyBetweenChecks(["Alliance"], province, "Lusitania", save);
+            yield* requireHigherPrestigeChecks(province, "Lusitania", 2.5, save);
+            yield* provinceResourceChecks("diplomatic", 100, province, save);
+            yield* provinceResourceChecks("gold", 10_000, province, save);
+            return;
          },
       },
       buttons: [

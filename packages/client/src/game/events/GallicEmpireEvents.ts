@@ -4,10 +4,11 @@ import { ProvinceNameOverrides } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { RefreshTiles } from "../Events";
 import { getOriginalTileCount } from "../GameState";
-import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { forcePatronageEffect, maxCoreTileCondition } from "../logic/MissionLogic";
+import type { ConditionChecks } from "../logic/Calculation";
+import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
+import { forcePatronageEffect, maxCoreTileChecks } from "../logic/MissionLogic";
 import { setProvinceNameOverride } from "../logic/ProvinceLogic";
-import { requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import { requireNoTreatyBetweenChecks, requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -49,13 +50,12 @@ export const GallicEmpireEvents = {
       condition: {
          nameOverride: "GallicEmpire",
          annexAndCore: { Britannia: Math.ceil(getOriginalTileCount("Britannia") * 0.7) },
-         conditions: (province, save) => {
-            return [
-               requireNoTreatyBetween(["Patron"], province, "Britannia", save),
-               requirePeaceBetween(province, "Britannia", save),
-               availableDiplomatCondition(province, "Britannia", save),
-               maxCoreTileCondition(5, "Britannia", save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Britannia", save);
+            yield* requirePeaceBetweenChecks(province, "Britannia", save);
+            yield* availableDiplomatChecks(province, "Britannia", save);
+            yield* maxCoreTileChecks(5, "Britannia", save);
+            return;
          },
       },
       buttons: [

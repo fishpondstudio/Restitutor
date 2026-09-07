@@ -1,14 +1,14 @@
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
-import {
-   forcePatronageEffect,
-   maxCoreTileCondition,
-   minCoreTileCondition,
-   warPowerCondition,
-} from "../logic/MissionLogic";
+import type { ConditionChecks } from "../logic/Calculation";
+import { forcePatronageEffect, maxCoreTileChecks, minCoreTileChecks, warPowerChecks } from "../logic/MissionLogic";
 import { getProvinceResource } from "../logic/ProvinceLogic";
-import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import {
+   requireAnyTreatyBetweenChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -163,12 +163,11 @@ export const GermaniaEvent = {
       condition: {
          province: ["Germania"],
          year: [305, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Germania.name(), "20"),
-               value: getProvinceResource("christianity", province, save) >= 20,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Germania.name(), "20"),
+            );
+         },
       },
       buttons: [
          {
@@ -313,7 +312,9 @@ export const GermaniaEvent = {
       desc: () => $t(L.BeyondTheRhineFrontierDesc),
       condition: {
          province: ["Germania"],
-         conditions: (province, save) => [warPowerCondition(10_000, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* warPowerChecks(10_000, province, save);
+         },
       },
       buttons: [
          {
@@ -351,12 +352,12 @@ export const GermaniaEvent = {
       desc: () => $t(L.RaetiaSeeksOurProtectionDesc),
       condition: {
          province: ["Germania"],
-         conditions: (province, save) => [
-            requireNoTreatyBetween(["Patron"], province, "Raetia", save),
-            requirePeaceBetween(province, "Raetia", save),
-            maxCoreTileCondition(3, "Raetia", save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Raetia", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Raetia", save);
+            yield* requirePeaceBetweenChecks(province, "Raetia", save);
+            yield* maxCoreTileChecks(3, "Raetia", save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Raetia", save);
+         },
       },
       buttons: [
          {
@@ -371,12 +372,12 @@ export const GermaniaEvent = {
       desc: () => $t(L.BelgicaSeeksOurProtectionDesc),
       condition: {
          province: ["Germania"],
-         conditions: (province, save) => [
-            requireNoTreatyBetween(["Patron"], province, "Belgica", save),
-            requirePeaceBetween(province, "Belgica", save),
-            maxCoreTileCondition(3, "Belgica", save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Belgica", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Belgica", save);
+            yield* requirePeaceBetweenChecks(province, "Belgica", save);
+            yield* maxCoreTileChecks(3, "Belgica", save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Belgica", save);
+         },
       },
       buttons: [
          {
@@ -392,7 +393,9 @@ export const GermaniaEvent = {
       condition: {
          province: ["Germania"],
          playerOnly: true,
-         conditions: (province, save) => [minCoreTileCondition(25, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(25, province, save);
+         },
       },
       buttons: [
          {
@@ -467,7 +470,9 @@ export const GermaniaEvent = {
       desc: () => $t(L.GermaniaAscendantDesc),
       condition: {
          province: ["Germania"],
-         conditions: (province, save) => [minCoreTileCondition(30, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(30, province, save);
+         },
       },
       buttons: [
          {

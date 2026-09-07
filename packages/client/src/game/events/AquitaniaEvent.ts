@@ -2,10 +2,15 @@ import { $t, L } from "../../utils/i18n";
 import { OfferAllianceAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
 import { getOriginalTileCount } from "../GameState";
-import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
-import { forcePatronageEffect, isCoreTileCondition, maxCoreTileCondition } from "../logic/MissionLogic";
+import type { ConditionChecks } from "../logic/Calculation";
+import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
+import { forcePatronageEffect, isCoreTileChecks, maxCoreTileChecks } from "../logic/MissionLogic";
 import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
-import { requireMinimumAttitude, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import {
+   requireMinimumAttitudeChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -69,12 +74,11 @@ export const AquitaniaEvent = {
       condition: {
          province: ["Aquitania"],
          year: [285, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1StabilityIsLessThan$2, Province.Aquitania.name(), "0"),
-               value: getProvinceStability(province, save).value < 0,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceStability(province, save).value < 0)?.describe(
+               $t(L.$1StabilityIsLessThan$2, Province.Aquitania.name(), "0"),
+            );
+         },
       },
       buttons: [
          {
@@ -133,12 +137,11 @@ export const AquitaniaEvent = {
       condition: {
          province: ["Aquitania"],
          year: [356, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Aquitania.name(), "20"),
-               value: getProvinceResource("christianity", province, save) >= 20,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Aquitania.name(), "20"),
+            );
+         },
       },
       buttons: [
          {
@@ -173,12 +176,11 @@ export const AquitaniaEvent = {
       condition: {
          province: ["Aquitania"],
          year: [400, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Aquitania.name(), "30"),
-               value: getProvinceResource("christianity", province, save) >= 30,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 30)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Aquitania.name(), "30"),
+            );
+         },
       },
       buttons: [
          {
@@ -306,14 +308,13 @@ export const AquitaniaEvent = {
       condition: {
          province: ["Aquitania"],
          onMap: { Lugdunensis: true },
-         conditions: (province, save) => {
-            return [
-               requireNoTreatyBetween(["Alliance", "Patron"], province, "Lugdunensis", save),
-               requirePeaceBetween(province, "Lugdunensis", save),
-               availableDiplomatCondition(province, "Lugdunensis", save),
-               availableDiplomatCondition("Lugdunensis", province, save),
-               requireMinimumAttitude("Lugdunensis", province, 25, save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Alliance", "Patron"], province, "Lugdunensis", save);
+            yield* requirePeaceBetweenChecks(province, "Lugdunensis", save);
+            yield* availableDiplomatChecks(province, "Lugdunensis", save);
+            yield* availableDiplomatChecks("Lugdunensis", province, save);
+            yield* requireMinimumAttitudeChecks("Lugdunensis", province, 25, save);
+            return;
          },
       },
       buttons: [
@@ -337,7 +338,9 @@ export const AquitaniaEvent = {
       condition: {
          province: ["Aquitania"],
          annexAndCore: { Narbonensis: 2 },
-         conditions: (province, save) => [isCoreTileCondition(8978507, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* isCoreTileChecks(8978507, province, save);
+         },
       },
       buttons: [
          {
@@ -369,13 +372,12 @@ export const AquitaniaEvent = {
       condition: {
          province: ["Aquitania"],
          annexAndCore: { Narbonensis: Math.ceil(getOriginalTileCount("Narbonensis") * 0.7) },
-         conditions: (province, save) => {
-            return [
-               requireNoTreatyBetween(["Patron"], province, "Narbonensis", save),
-               requirePeaceBetween(province, "Narbonensis", save),
-               availableDiplomatCondition(province, "Narbonensis", save),
-               maxCoreTileCondition(5, "Narbonensis", save),
-            ];
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Narbonensis", save);
+            yield* requirePeaceBetweenChecks(province, "Narbonensis", save);
+            yield* availableDiplomatChecks(province, "Narbonensis", save);
+            yield* maxCoreTileChecks(5, "Narbonensis", save);
+            return;
          },
       },
       buttons: [

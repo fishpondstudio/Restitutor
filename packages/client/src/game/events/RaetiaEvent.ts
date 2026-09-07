@@ -1,16 +1,17 @@
 import { $t, L } from "../../utils/i18n";
 import { Culture } from "../definitions/Culture";
-import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
+import type { ConditionChecks } from "../logic/Calculation";
+import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import {
    forcePatronageEffect,
-   isCoreTileCondition,
-   maxCoreTileCondition,
-   mediterraneanCoastCondition,
-   minCoreTileCondition,
-   minCulturePercentageCondition,
+   isCoreTileChecks,
+   maxCoreTileChecks,
+   mediterraneanCoastChecks,
+   minCoreTileChecks,
+   minCulturePercentageChecks,
 } from "../logic/MissionLogic";
 import { changeProvinceCulture } from "../logic/ProvinceLogic";
-import { requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import { requireNoTreatyBetweenChecks, requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -395,7 +396,9 @@ export const RaetiaEvent = {
          annexAndCore: {
             Germania: 4,
          },
-         conditions: (province, save) => [isCoreTileCondition(9240645, "Raetia", save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* isCoreTileChecks(9240645, "Raetia", save);
+         },
       },
       buttons: [
          {
@@ -431,14 +434,14 @@ export const RaetiaEvent = {
       condition: {
          province: ["Raetia"],
          onMap: { Noricum: true },
-         conditions: (province, save) => [
-            minCoreTileCondition(15, "Raetia", save),
-            maxCoreTileCondition(3, "Noricum", save),
-            requireNoTreatyBetween(["Patron"], province, "Noricum", save),
-            requirePeaceBetween(province, "Noricum", save),
-            availableDiplomatCondition(province, "Noricum", save),
-            availableDiplomatCondition("Noricum", province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(15, "Raetia", save);
+            yield* maxCoreTileChecks(3, "Noricum", save);
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Noricum", save);
+            yield* requirePeaceBetweenChecks(province, "Noricum", save);
+            yield* availableDiplomatChecks(province, "Noricum", save);
+            yield* availableDiplomatChecks("Noricum", province, save);
+         },
       },
       buttons: [
          {
@@ -453,7 +456,9 @@ export const RaetiaEvent = {
       desc: () => $t(L.RaetiaReachesTheMediterraneanDesc),
       condition: {
          province: ["Raetia"],
-         conditions: (province, save) => [mediterraneanCoastCondition(2, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* mediterraneanCoastChecks(2, province, save);
+         },
       },
       buttons: [
          { label: () => $t(L.CollectTheHarborCustoms), resources: { gold: 1000 } },
@@ -467,7 +472,9 @@ export const RaetiaEvent = {
       desc: () => $t(L.RaetiaAscendantDesc),
       condition: {
          province: ["Raetia"],
-         conditions: (province, save) => [minCoreTileCondition(20, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(20, province, save);
+         },
       },
       buttons: [
          { label: () => $t(L.ClaimAMandateToRule), resources: { mandate: 1 } },
@@ -484,7 +491,9 @@ export const RaetiaEvent = {
       desc: () => $t(L.AGermanicRaetiaDesc),
       condition: {
          province: ["Raetia"],
-         conditions: (province, save) => [minCulturePercentageCondition(0.25, "Germanic", province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCulturePercentageChecks(0.25, "Germanic", province, save);
+         },
       },
       buttons: [
          {

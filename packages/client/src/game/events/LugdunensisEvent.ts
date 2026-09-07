@@ -3,25 +3,30 @@ import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { getOriginalTileCount } from "../GameState";
-import { availableDiplomatCondition } from "../logic/DiplomacyLogic";
+import type { ConditionChecks } from "../logic/Calculation";
+import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import {
-   allCoreTileCondition,
-   anyCoreTileCondition,
+   allCoreTileChecks,
+   anyCoreTileChecks,
    forcePatronageEffect,
-   manpowerCondition,
-   marriageCondition,
-   maxCoreTileCondition,
-   minCoreCoastalTileCondition,
+   manpowerChecks,
+   marriageChecks,
+   maxCoreTileChecks,
+   minCoreCoastalTileChecks,
    nullifyNegativeAttitudesEffect,
-   provinceRevenueCondition,
-   provinceUsedResourceCondition,
-   techCountCondition,
-   victoryCountCondition,
-   warPowerCondition,
+   provinceRevenueChecks,
+   provinceUsedResourceChecks,
+   techCountChecks,
+   victoryCountChecks,
+   warPowerChecks,
 } from "../logic/MissionLogic";
 import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
-import { requireMinimumAttitude, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
-import { hasGeneralCondition } from "../logic/WarLogic";
+import {
+   requireMinimumAttitudeChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
+} from "../logic/TreatyLogic";
+import { hasGeneralChecks } from "../logic/WarLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -60,11 +65,11 @@ export const LugdunensisEvent = {
       desc: () => $t(L.AProsperousLugdunensisDesc),
       condition: {
          province: ["Lugdunensis"],
-         conditions: (province, save) => [
-            provinceRevenueCondition(200, province, save),
-            manpowerCondition(50_000, province, save),
-            techCountCondition(6, province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* provinceRevenueChecks(200, province, save);
+            yield* manpowerChecks(50_000, province, save);
+            yield* techCountChecks(6, province, save);
+         },
       },
       buttons: [
          {
@@ -82,11 +87,11 @@ export const LugdunensisEvent = {
       desc: () => $t(L.ThePrideOfGaulRidesForthDesc),
       condition: {
          province: ["Lugdunensis"],
-         conditions: (province, save) => [
-            victoryCountCondition(2, province, save),
-            warPowerCondition(10_000, province, save),
-            hasGeneralCondition(province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* victoryCountChecks(2, province, save);
+            yield* warPowerChecks(10_000, province, save);
+            yield* hasGeneralChecks(province, save);
+         },
       },
       buttons: [
          {
@@ -104,7 +109,9 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          annexAndCore: { Belgica: 6 },
-         conditions: (province, save) => [maxCoreTileCondition(4, "Belgica", save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* maxCoreTileChecks(4, "Belgica", save);
+         },
       },
       buttons: [
          {
@@ -131,14 +138,14 @@ export const LugdunensisEvent = {
       desc: () => $t(L.BoundByBloodAndOathDesc),
       condition: {
          province: ["Lugdunensis"],
-         conditions: (province, save) => [
-            requireNoTreatyBetween(["Patron"], province, "Belgica", save),
-            requirePeaceBetween(province, "Belgica", save),
-            maxCoreTileCondition(3, "Belgica", save),
-            marriageCondition(province, "Belgica", save),
-            availableDiplomatCondition(province, "Belgica", save),
-            requireMinimumAttitude("Belgica", province, 50, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Belgica", save);
+            yield* requirePeaceBetweenChecks(province, "Belgica", save);
+            yield* maxCoreTileChecks(3, "Belgica", save);
+            yield* marriageChecks(province, "Belgica", save);
+            yield* availableDiplomatChecks(province, "Belgica", save);
+            yield* requireMinimumAttitudeChecks("Belgica", province, 50, save);
+         },
       },
       buttons: [
          {
@@ -183,9 +190,9 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          annexAndCore: { Narbonensis: 5 },
-         conditions: (province, save) => [
-            anyCoreTileCondition([8978508, 8978507, 9044043, 9109579, 9175115], province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* anyCoreTileChecks([8978508, 8978507, 9044043, 9109579, 9175115], province, save);
+         },
       },
       buttons: [
          {
@@ -220,9 +227,9 @@ export const LugdunensisEvent = {
       desc: () => $t(L.TheRoadToBritanniaDesc),
       condition: {
          province: ["Lugdunensis"],
-         conditions: (province, save) => [
-            allCoreTileCondition([9109568, 9044033, 8978497, 8978498, 8912963, 8847427], province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* allCoreTileChecks([9109568, 9044033, 8978497, 8978498, 8912963, 8847427], province, save);
+         },
       },
       buttons: [
          {
@@ -260,13 +267,13 @@ export const LugdunensisEvent = {
       desc: () => $t(L.ACoastBoundTogetherDesc),
       condition: {
          province: ["Lugdunensis"],
-         conditions: (province, save) => [
-            minCoreCoastalTileCondition(15, province, save),
-            provinceUsedResourceCondition("gold", 20_000, province, save),
-            provinceUsedResourceCondition("administrative", 2000, province, save),
-            provinceUsedResourceCondition("diplomatic", 2000, province, save),
-            provinceUsedResourceCondition("military", 2000, province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreCoastalTileChecks(15, province, save);
+            yield* provinceUsedResourceChecks("gold", 20_000, province, save);
+            yield* provinceUsedResourceChecks("administrative", 2000, province, save);
+            yield* provinceUsedResourceChecks("diplomatic", 2000, province, save);
+            yield* provinceUsedResourceChecks("military", 2000, province, save);
+         },
       },
       buttons: [
          {
@@ -334,12 +341,11 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          year: [220, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
-               value: getProvinceStability(province, save).value < 0,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceStability(province, save).value < 0)?.describe(
+               $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
+            );
+         },
       },
       buttons: [
          {
@@ -371,12 +377,11 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          year: [200, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "20"),
-               value: getProvinceResource("christianity", province, save) >= 20,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "20"),
+            );
+         },
       },
       buttons: [
          {
@@ -411,12 +416,11 @@ export const LugdunensisEvent = {
          province: ["Lugdunensis"],
          year: [240, Number.POSITIVE_INFINITY],
          techs: ["D1"],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "50"),
-               value: getProvinceResource("christianity", province, save) >= 50,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 50)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "50"),
+            );
+         },
       },
       buttons: [
          {
@@ -452,12 +456,11 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          year: [250, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1StabilityIsAtLeast$2, Province.Lugdunensis.name(), "0"),
-               value: getProvinceStability(province, save).value >= 0,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceStability(province, save).value >= 0)?.describe(
+               $t(L.$1StabilityIsAtLeast$2, Province.Lugdunensis.name(), "0"),
+            );
+         },
       },
       buttons: [
          {
@@ -490,12 +493,11 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          year: [260, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1StabilityIsAtLeast$2, Province.Lugdunensis.name(), "0"),
-               value: getProvinceStability(province, save).value >= 0,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceStability(province, save).value >= 0)?.describe(
+               $t(L.$1StabilityIsAtLeast$2, Province.Lugdunensis.name(), "0"),
+            );
+         },
       },
       buttons: [
          {
@@ -569,12 +571,11 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          year: [280, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
-               value: getProvinceStability(province, save).value < 0,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceStability(province, save).value < 0)?.describe(
+               $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
+            );
+         },
       },
       buttons: [
          {
@@ -610,12 +611,11 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          year: [300, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "100"),
-               value: getProvinceResource("christianity", province, save) >= 100,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 100)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Lugdunensis.name(), "100"),
+            );
+         },
       },
       buttons: [
          {
@@ -650,12 +650,11 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          year: [330, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
-               value: getProvinceStability(province, save).value < 0,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceStability(province, save).value < 0)?.describe(
+               $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
+            );
+         },
       },
       buttons: [
          {
@@ -719,12 +718,11 @@ export const LugdunensisEvent = {
       condition: {
          province: ["Lugdunensis"],
          year: [380, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
-               value: getProvinceStability(province, save).value < 0,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceStability(province, save).value < 0)?.describe(
+               $t(L.$1StabilityIsLessThan$2, Province.Lugdunensis.name(), "0"),
+            );
+         },
       },
       buttons: [
          {

@@ -1,6 +1,7 @@
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
-import { minCoreTileCondition, victoryCountCondition, warPowerCondition } from "../logic/MissionLogic";
+import type { ConditionChecks } from "../logic/Calculation";
+import { minCoreTileChecks, victoryCountChecks, warPowerChecks } from "../logic/MissionLogic";
 import { getProvinceResource } from "../logic/ProvinceLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -95,12 +96,11 @@ export const BelgicaEvent = {
       condition: {
          province: ["Belgica"],
          year: [320, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
-               value: getProvinceResource("christianity", province, save) >= 20,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
+            );
+         },
       },
       buttons: [
          {
@@ -134,12 +134,11 @@ export const BelgicaEvent = {
       condition: {
          province: ["Belgica"],
          year: [335, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
-               value: getProvinceResource("christianity", province, save) >= 20,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
+            );
+         },
       },
       buttons: [
          {
@@ -218,12 +217,11 @@ export const BelgicaEvent = {
       condition: {
          province: ["Belgica"],
          year: [407, Number.POSITIVE_INFINITY],
-         conditions: (province, save) => [
-            {
-               name: $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
-               value: getProvinceResource("christianity", province, save) >= 20,
-            },
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Belgica.name(), "20"),
+            );
+         },
       },
       buttons: [
          {
@@ -397,11 +395,11 @@ export const BelgicaEvent = {
       desc: () => $t(L.BelgicaAscendantDesc),
       condition: {
          province: ["Belgica"],
-         conditions: (province, save) => [
-            minCoreTileCondition(20, province, save),
-            warPowerCondition(10_000, province, save),
-            victoryCountCondition(10, province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(20, province, save);
+            yield* warPowerChecks(10_000, province, save);
+            yield* victoryCountChecks(10, province, save);
+         },
       },
       buttons: [
          {

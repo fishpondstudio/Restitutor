@@ -12,7 +12,7 @@ getTileManpower(tile, save, "breakdown"); // IValueBreakdown
 getTileManpower(tile, save, "value"); // number
 ```
 
-These calls illustrate the intended API; only migrated getters support explicit modes. Conditions follow the same convention, returning `IConditionBreakdown` or `boolean`. Currently, `getTileUpgradeCost` and `getGameEventCondition` are migrated at the top level; their nested condition callbacks remain unchanged.
+These calls illustrate the intended API; only migrated getters support explicit modes. Conditions follow the same convention, returning `IConditionBreakdown` or `boolean`. Currently, `getTileUpgradeCost` and `getGameEventCondition` are migrated at the top level. Custom game-event conditions and their reusable condition helpers produce lazy `ConditionChecks`.
 
 `EvaluationResult<M, B>` describes the mode/result relationship. `EvaluationGetter<Args, B>` provides the public overloads for an arbitrary parameter tuple, including a union return for a runtime-variable mode. `EvaluationFunction<Key, B>` is its keyed `(key, save, mode?)` alias. `EvaluationImplementation<Key, B>` describes an internal generic implementation with a required mode.
 
@@ -132,17 +132,22 @@ The generator receives only gameplay arguments, ending in a required `SaveGame` 
 
 Preserve predicate order and keep predicates free of gameplay side effects: value mode intentionally skips work after a failure. The evaluator invokes the generator's `return()` on early termination so ordinary `finally` cleanup runs. Cleanup must not yield additional checks or perform gameplay effects. Exceptions propagate rather than being converted into failed conditions.
 
-Nested legacy producers may remain unchanged:
+Raw `ConditionChecks` producers compose directly with `yield*`:
 
 ```ts
-for (const item of condition.conditions(province, save)) {
-   (yield item.value)?.describe(item.name, item);
+function* eventChecks(province: Province, save: SaveGame): ConditionChecks {
+   yield* minCoreTileChecks(10, province, save);
+   yield* anyCoreTileChecks(targetTiles, province, save);
 }
+
+export const getEventChecks = defineConditionChecks(eventChecks);
 ```
 
-An earlier failure can skip this call entirely. Once invoked, however, the producer still eagerly constructs its full array. Stopping iteration does not short-circuit inside that legacy producer.
+Only the public getter is wrapped. Nested generators are producers, not independently evaluated getters; `yield*` forwards yielded predicates, explanation handles, completion, and early closure without creating an intermediate evaluator or breakdown. A `for...of` loop must not replace `yield*`, because it cannot forward explanation handles back to the nested generator.
 
-Unlike the identity declaration helpers, `defineConditionChecks` has a runtime driver: each evaluation uses an argument array, a generator instance, and iterator-result objects. Value mode creates no condition accumulator, explanation items, breakdown arrays, or metadata. Generator overhead can outweigh short-circuit savings when most checks pass, so profile representative early-failing, late-failing, and all-passing workloads before expanding migration.
+Unmigrated paths may still use eager `ICondition` or `ICondition[]` producers. Once invoked, those producers construct all condition objects and presentation metadata before their results can be evaluated, so do not call them from migrated event producers.
+
+Unlike the identity declaration helpers, `defineConditionChecks` has a runtime driver: each evaluation uses an argument array, a generator instance, and iterator-result objects. Delegated generators add their own iterator overhead but no nested evaluator or breakdown allocation. Value mode creates no condition accumulator, explanation items, breakdown arrays, or presentation metadata in migrated producers. Gameplay dependencies may still allocate legacy breakdowns or collections, so this is not an allocation-free guarantee for the full call graph. Generator overhead can outweigh short-circuit savings when most checks pass, so profile representative early-failing, late-failing, and all-passing workloads before expanding migration.
 
 `ConditionCalculation` and `defineConditionGetter` remain available for existing accumulator-based implementations. They record every supplied check and do not automatically short-circuit subsequent predicate evaluation.
 

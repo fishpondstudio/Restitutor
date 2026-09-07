@@ -1,16 +1,21 @@
 import { $t, L } from "../../utils/i18n";
+import type { ConditionChecks } from "../logic/Calculation";
 import {
    forcePatronageEffect,
-   makeCoreCountCondition,
-   marriageCondition,
-   maxCoreTileCondition,
-   mediterraneanCoastCondition,
-   minCoreTileCondition,
-   minTileUpgradeTimesCondition,
-   provinceResourceCondition,
-   victoryCountCondition,
+   makeCoreCountChecks,
+   marriageChecks,
+   maxCoreTileChecks,
+   mediterraneanCoastChecks,
+   minCoreTileChecks,
+   minTileUpgradeTimesChecks,
+   provinceResourceChecks,
+   victoryCountChecks,
 } from "../logic/MissionLogic";
-import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import {
+   requireAnyTreatyBetweenChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -376,10 +381,10 @@ export const PannoniaEvent = {
       desc: () => $t(L.ClaimsOnTheUpperDanubeDesc),
       condition: {
          province: ["Pannonia"],
-         conditions: (province, save) => [
-            minTileUpgradeTimesCondition(10, province, save),
-            provinceResourceCondition("gold", 1000, province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minTileUpgradeTimesChecks(10, province, save);
+            yield* provinceResourceChecks("gold", 1000, province, save);
+         },
       },
       buttons: [
          {
@@ -398,7 +403,9 @@ export const PannoniaEvent = {
       desc: () => $t(L.APannonianCoastDesc),
       condition: {
          province: ["Pannonia"],
-         conditions: (province, save) => [mediterraneanCoastCondition(3, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* mediterraneanCoastChecks(3, province, save);
+         },
       },
       buttons: [
          {
@@ -421,14 +428,14 @@ export const PannoniaEvent = {
       desc: () => $t(L.TheNoricanPetitionDesc),
       condition: {
          province: ["Pannonia"],
-         conditions: (province, save) => [
-            minCoreTileCondition(15, province, save),
-            maxCoreTileCondition(5, "Noricum", save),
-            marriageCondition(province, "Noricum", save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Noricum", save),
-            requirePeaceBetween(province, "Noricum", save),
-            requireNoTreatyBetween(["Patron"], province, "Noricum", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(15, province, save);
+            yield* maxCoreTileChecks(5, "Noricum", save);
+            yield* marriageChecks(province, "Noricum", save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Noricum", save);
+            yield* requirePeaceBetweenChecks(province, "Noricum", save);
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Noricum", save);
+         },
       },
       buttons: [
          {
@@ -443,10 +450,10 @@ export const PannoniaEvent = {
       desc: () => $t(L.PannoniaAscendantDesc),
       condition: {
          province: ["Pannonia"],
-         conditions: (province, save) => [
-            victoryCountCondition(5, province, save),
-            makeCoreCountCondition(10, province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* victoryCountChecks(5, province, save);
+            yield* makeCoreCountChecks(10, province, save);
+         },
       },
       buttons: [
          {

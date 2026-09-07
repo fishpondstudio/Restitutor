@@ -1,13 +1,18 @@
 import { $t, L } from "../../utils/i18n";
+import type { ConditionChecks } from "../logic/Calculation";
 import {
-   allCoreTileCondition,
+   allCoreTileChecks,
    forcePatronageEffect,
-   marriageCondition,
-   minCoreCoastalTileCondition,
-   minCoreTileCondition,
-   provinceResourceCondition,
+   marriageChecks,
+   minCoreCoastalTileChecks,
+   minCoreTileChecks,
+   provinceResourceChecks,
 } from "../logic/MissionLogic";
-import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import {
+   requireAnyTreatyBetweenChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -327,12 +332,12 @@ export const ItaliaEvent = {
       desc: () => $t(L.CorsicaBeneathOurProtectionDesc),
       condition: {
          province: ["Italia"],
-         conditions: (province, save) => [
-            requireNoTreatyBetween(["Patron"], province, "Corsica", save),
-            requirePeaceBetween(province, "Corsica", save),
-            minCoreTileCondition(40, province, save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Corsica", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Corsica", save);
+            yield* requirePeaceBetweenChecks(province, "Corsica", save);
+            yield* minCoreTileChecks(40, province, save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Corsica", save);
+         },
       },
       buttons: [
          {
@@ -347,13 +352,13 @@ export const ItaliaEvent = {
       desc: () => $t(L.BondsOfBloodAndSeaDesc),
       condition: {
          province: ["Italia"],
-         conditions: (province, save) => [
-            requireNoTreatyBetween(["Patron"], province, "Sardinia", save),
-            requirePeaceBetween(province, "Sardinia", save),
-            minCoreTileCondition(45, province, save),
-            requireAnyTreatyBetween(["Alliance"], province, "Sardinia", save),
-            marriageCondition(province, "Sardinia", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Sardinia", save);
+            yield* requirePeaceBetweenChecks(province, "Sardinia", save);
+            yield* minCoreTileChecks(45, province, save);
+            yield* requireAnyTreatyBetweenChecks(["Alliance"], province, "Sardinia", save);
+            yield* marriageChecks(province, "Sardinia", save);
+         },
       },
       buttons: [
          {
@@ -406,11 +411,11 @@ export const ItaliaEvent = {
       condition: {
          province: ["Italia"],
          playerOnly: true,
-         conditions: (province, save) => [
-            requireAnyTreatyBetween(["Alliance", "Patron"], province, "Macedonia", save),
-            allCoreTileCondition([9633865, 9699402], province, save),
-            provinceResourceCondition("gold", 5000, province, save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireAnyTreatyBetweenChecks(["Alliance", "Patron"], province, "Macedonia", save);
+            yield* allCoreTileChecks([9633865, 9699402], province, save);
+            yield* provinceResourceChecks("gold", 5000, province, save);
+         },
       },
       buttons: [
          {
@@ -430,7 +435,9 @@ export const ItaliaEvent = {
       desc: () => $t(L.MasteryOfTheMiddleSeaDesc),
       condition: {
          province: ["Italia"],
-         conditions: (province, save) => [minCoreCoastalTileCondition(40, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreCoastalTileChecks(40, province, save);
+         },
       },
       buttons: [
          {

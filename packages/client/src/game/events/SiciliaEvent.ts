@@ -1,13 +1,18 @@
 import { $t, L } from "../../utils/i18n";
 import { Tiles } from "../definitions/TileConstants";
+import type { ConditionChecks } from "../logic/Calculation";
 import {
    forcePatronageEffect,
-   isCoreTileCondition,
-   marriageCondition,
-   maxCoreTileCondition,
-   minCoreTileCondition,
+   isCoreTileChecks,
+   marriageChecks,
+   maxCoreTileChecks,
+   minCoreTileChecks,
 } from "../logic/MissionLogic";
-import { requireAnyTreatyBetween, requireNoTreatyBetween, requirePeaceBetween } from "../logic/TreatyLogic";
+import {
+   requireAnyTreatyBetweenChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
+} from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
@@ -315,7 +320,9 @@ export const SiciliaEvent = {
       desc: () => $t(L.RomeAnswersToSiciliaDesc),
       condition: {
          province: ["Sicilia"],
-         conditions: (province, save) => [isCoreTileCondition(Tiles.Rome, province, save)],
+         conditions: function* (province, save): ConditionChecks {
+            yield* isCoreTileChecks(Tiles.Rome, province, save);
+         },
       },
       buttons: [
          {
@@ -337,14 +344,14 @@ export const SiciliaEvent = {
       desc: () => $t(L.TheSardinianMarriageSettlementDesc),
       condition: {
          province: ["Sicilia"],
-         conditions: (province, save) => [
-            requireNoTreatyBetween(["Patron"], province, "Sardinia", save),
-            requirePeaceBetween(province, "Sardinia", save),
-            minCoreTileCondition(15, province, save),
-            maxCoreTileCondition(3, "Sardinia", save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Sardinia", save),
-            marriageCondition(province, "Sardinia", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Sardinia", save);
+            yield* requirePeaceBetweenChecks(province, "Sardinia", save);
+            yield* minCoreTileChecks(15, province, save);
+            yield* maxCoreTileChecks(3, "Sardinia", save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Sardinia", save);
+            yield* marriageChecks(province, "Sardinia", save);
+         },
       },
       buttons: [
          {
@@ -359,14 +366,14 @@ export const SiciliaEvent = {
       desc: () => $t(L.CorsicaLooksSouthDesc),
       condition: {
          province: ["Sicilia"],
-         conditions: (province, save) => [
-            requireNoTreatyBetween(["Patron"], province, "Corsica", save),
-            requirePeaceBetween(province, "Corsica", save),
-            minCoreTileCondition(15, province, save),
-            maxCoreTileCondition(3, "Corsica", save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Corsica", save),
-            marriageCondition(province, "Corsica", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Corsica", save);
+            yield* requirePeaceBetweenChecks(province, "Corsica", save);
+            yield* minCoreTileChecks(15, province, save);
+            yield* maxCoreTileChecks(3, "Corsica", save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Corsica", save);
+            yield* marriageChecks(province, "Corsica", save);
+         },
       },
       buttons: [
          {
@@ -381,14 +388,14 @@ export const SiciliaEvent = {
       desc: () => $t(L.APactAcrossTheStraitDesc),
       condition: {
          province: ["Sicilia"],
-         conditions: (province, save) => [
-            requireNoTreatyBetween(["Patron"], province, "Africa", save),
-            requirePeaceBetween(province, "Africa", save),
-            minCoreTileCondition(15, province, save),
-            maxCoreTileCondition(3, "Africa", save),
-            requireAnyTreatyBetween(["DefensePact", "Alliance"], province, "Africa", save),
-            marriageCondition(province, "Africa", save),
-         ],
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Africa", save);
+            yield* requirePeaceBetweenChecks(province, "Africa", save);
+            yield* minCoreTileChecks(15, province, save);
+            yield* maxCoreTileChecks(3, "Africa", save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Africa", save);
+            yield* marriageChecks(province, "Africa", save);
+         },
       },
       buttons: [
          {
