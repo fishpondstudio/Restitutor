@@ -608,7 +608,7 @@ function _getProvinceIncome(
    for (const [tile, data] of save.state.tiles) {
       if (data.province === province) {
          landTax += getTileLandTax(tile, save).value;
-         tileMaintenanceCost += getTileMaintenanceCost(tile, save).value;
+         tileMaintenanceCost += getTileMaintenanceCost(tile, save, "value");
          tileGoodsTax += getTileGoodsTax(tile, save);
          data.buildings.forEach((building) => {
             buildingMaintenanceCost += Buildings[building].maintenance.gold ?? 0;

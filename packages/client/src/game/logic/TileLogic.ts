@@ -5,7 +5,7 @@ import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBr
 import { type Building, Buildings } from "../definitions/Building";
 import type { CultureReligionStatus } from "../definitions/CultureReligionStatus";
 import { Price } from "../definitions/Goods";
-import { getProvinceTraits } from "../definitions/PersonTrait";
+import { attachProvinceTraitsToCalculation, getProvinceTraits } from "../definitions/PersonTrait";
 import type { GovernorPower, Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { ChristianHeresy, isChristianReligion } from "../definitions/Religion";
@@ -18,11 +18,16 @@ import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { isLand, terrainOf } from "../Land";
 import { MapGrid } from "../MapGrid";
-import { cacheTile, isConnectedToCapital } from "./CacheLogic";
+import { cacheTile, cacheTileEvaluation, isConnectedToCapital } from "./CacheLogic";
 import { defineValueGetter, type EvaluationMode, ValueCalculation } from "./Calculation";
 import { EcumenicalCouncilPct } from "./EcumenicalCouncilLogic";
 import { tileIsOurCoreCondition } from "./MissionLogic";
-import { attachModifiers, attachModifiersToCalculation, attachTileModifiers } from "./ModifierLogic";
+import {
+   attachModifiers,
+   attachModifiersToCalculation,
+   attachTileModifiers,
+   attachTileModifiersToCalculation,
+} from "./ModifierLogic";
 import {
    getCulturalCohesion,
    getNeighborProvinces,
@@ -607,94 +612,84 @@ export function getDistanceFromCapital(tile: Tile, save: SaveGame): number {
    return MapGrid.distanceTile(tile, capital);
 }
 
-export const getTileMaintenanceCost = cacheTile(_getTileMaintenanceCost);
-
-function _getTileMaintenanceCost(tile: Tile, save: SaveGame): IValueBreakdown {
-   const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
+export const getTileMaintenanceCost = cacheTileEvaluation<IValueBreakdown>((tile, save, mode) => {
+   const calc = new ValueCalculation(mode, 1, true);
    const data = save.state.tiles.get(tile);
    if (!data) {
-      return breakdown;
+      return calc.finish();
    }
    const state = save.state.provinces[data.province];
    if (!state) {
-      return breakdown;
+      return calc.finish();
    }
    const distance = getDistanceFromCapital(tile, save);
-   breakdown.add.push({
-      name: $t(L.DistanceFromCapital),
-      desc: $t(L.$1TilesFromCapital$2GoldPerTile, formatNumber(distance), formatNumber(MaintenanceCostPerTileDistance)),
-      value: distance * MaintenanceCostPerTileDistance,
-   });
+   calc
+      .add(distance * MaintenanceCostPerTileDistance)
+      ?.describe(
+         $t(L.DistanceFromCapital),
+         $t(L.$1TilesFromCapital$2GoldPerTile, formatNumber(distance), formatNumber(MaintenanceCostPerTileDistance)),
+      );
    if (data.culture === state.culture) {
-      breakdown.multiply.push({ name: $t(L.DominantCulture), value: -0.1 });
+      calc.multiply(-0.1)?.describe($t(L.DominantCulture));
    } else if (state.toleratedCultures.has(data.culture)) {
-      breakdown.multiply.push({ name: $t(L.ToleratedCulture), value: 0 });
+      calc.multiply(0)?.describe($t(L.ToleratedCulture));
    } else {
-      breakdown.multiply.push({ name: $t(L.MinorCulture), value: 0.1 });
+      calc.multiply(0.1)?.describe($t(L.MinorCulture));
    }
    if (data.religion === state.religion) {
-      breakdown.multiply.push({ name: $t(L.DominantReligion), value: -0.1 });
+      calc.multiply(-0.1)?.describe($t(L.DominantReligion));
    } else if (state.toleratedReligions.has(data.religion)) {
-      breakdown.multiply.push({ name: $t(L.ToleratedReligion), value: 0 });
+      calc.multiply(0)?.describe($t(L.ToleratedReligion));
    } else {
-      breakdown.multiply.push({ name: $t(L.MinorReligion), value: 0.1 });
+      calc.multiply(0.1)?.describe($t(L.MinorReligion));
    }
    if (data.buildings.has("Temple")) {
-      breakdown.multiply.push({ name: Buildings.Temple.name(), value: -0.2 });
+      calc.multiply(-0.2)?.describe(Buildings.Temple.name());
    }
    const unevenUpgrades =
       Math.max(data.infrastructure, data.production, data.population) -
       Math.min(data.infrastructure, data.production, data.population);
    if (unevenUpgrades > 0) {
-      breakdown.multiply.push({
-         name: $t(L.UnevenUpgrade),
-         desc: $t(L.UnevenUpgradeDesc$1$2, "10%", formatNumber(unevenUpgrades)),
-         value: unevenUpgrades * 0.1,
-      });
+      calc
+         .multiply(unevenUpgrades * 0.1)
+         ?.describe($t(L.UnevenUpgrade), $t(L.UnevenUpgradeDesc$1$2, "10%", formatNumber(unevenUpgrades)));
    }
    if (data.religion in ChristianHeresy) {
       const heresy = data.religion as ChristianHeresy;
       for (const council of ChristianHeresy[heresy].councils) {
          if (getTimedActionTimeLeft(council, data.province, save) > 0) {
-            breakdown.multiply.push({ name: TimedActions[council].name(), value: EcumenicalCouncilPct });
+            calc.multiply(EcumenicalCouncilPct)?.describe(TimedActions[council].name());
             break;
          }
       }
    }
    const stability = getProvinceStability(data.province, save).value;
    if (stability > 0) {
-      breakdown.multiply.push({
-         name: $t(L.FromStability),
-         value: -clamp(stability, 0, 50) * 0.01,
-         desc: $t(L.$1PerStabilityMax$2Reduction, "1%", "50%"),
-      });
+      calc
+         .multiply(-clamp(stability, 0, 50) * 0.01)
+         ?.describe($t(L.FromStability), $t(L.$1PerStabilityMax$2Reduction, "1%", "50%"));
    }
    if (hasProvinceUpgrade("CulturalEfficiency", data.province, save)) {
       const culturalCohesion = getCulturalCohesion(data.province, save);
       if (culturalCohesion > 0.5) {
-         breakdown.multiply.push({
-            name: ProvinceUpgrades.CulturalEfficiency.name(),
-            value: (0.5 - culturalCohesion) * 0.4,
-         });
+         calc.multiply((0.5 - culturalCohesion) * 0.4)?.describe(ProvinceUpgrades.CulturalEfficiency.name());
       }
    }
    if (
       hasProvinceUpgrade("WartimeAdministration", data.province, save) &&
       getCurrentWars(data.province, save).filter((war) => war.actualWarScore < war.requiredWarScore).length > 0
    ) {
-      breakdown.multiply.push({ name: ProvinceUpgrades.WartimeAdministration.name(), value: -0.1 });
+      calc.multiply(-0.1)?.describe(ProvinceUpgrades.WartimeAdministration.name());
    }
-   attachTileModifiers(data.modifiers.Maintenance, breakdown);
-   attachModifiers("TileMaintenance", breakdown, data.province, save);
-   getProvinceTraits("Efficient", data.province, save).forEach((trait) => {
-      breakdown.multiply.push({ ...trait, value: -0.02 });
-   });
+   attachTileModifiersToCalculation(data.modifiers.Maintenance, calc);
+   attachModifiersToCalculation("TileMaintenance", calc, data.province, save);
+   attachProvinceTraitsToCalculation("Efficient", -0.02, calc, data.province, save);
    const overextension = getProvinceOverextension(data.province, save).value;
    if (overextension > 0) {
-      breakdown.multiply.push({ name: $t(L.FromOverextension), value: overextension * 0.01 });
+      calc.multiply(overextension * 0.01)?.describe($t(L.FromOverextension));
    }
-   return finalizeBreakdown(breakdown);
-}
+   return calc.finish();
+});
 
 const MaintenanceCostPerTileDistance = 1;
 

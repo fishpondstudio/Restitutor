@@ -89,17 +89,19 @@ export function cacheTileEvaluation<B extends EvaluationBreakdown>(
 function cacheEvaluation<Key, B extends EvaluationBreakdown>(
    func: EvaluationImplementation<Key, B>,
 ): EvaluationFunction<Key, B> {
-   const cache = createKeyedCache<Key, B>();
+   const cache = createKeyedCache<Key, B | B["value"]>();
 
    function evaluate(key: Key, save: SaveGame, mode: EvaluationMode = "breakdown"): B | B["value"] {
-      const breakdown = cache.get(key);
-      if (breakdown !== undefined) {
-         return mode === "value" ? breakdown.value : breakdown;
+      const cached = cache.get(key);
+      if (cached !== undefined) {
+         if (typeof cached === "object") {
+            return mode === "value" ? cached.value : cached;
+         }
+         if (mode === "value") {
+            return cached;
+         }
       }
-      if (mode === "value") {
-         return func(key, save, "value");
-      }
-      const result = func(key, save, "breakdown");
+      const result = func(key, save, mode);
       cache.set(key, result);
       return result;
    }

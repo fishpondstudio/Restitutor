@@ -12,7 +12,7 @@ getTileManpower(tile, save, "breakdown"); // IValueBreakdown
 getTileManpower(tile, save, "value"); // number
 ```
 
-These calls illustrate the intended API; only migrated getters support explicit modes. Conditions follow the same convention, returning `IConditionBreakdown` or `boolean`. Currently, `getTileUpgradeCost` and `getGameEventCondition` are migrated at the top level. Custom game-event conditions and their reusable condition helpers produce lazy `ConditionChecks`.
+These calls illustrate the intended API; only migrated getters support explicit modes. Conditions follow the same convention, returning `IConditionBreakdown` or `boolean`. Currently, `getTileUpgradeCost`, `getTileMaintenanceCost`, and `getGameEventCondition` are migrated at the top level. Custom game-event conditions and their reusable condition helpers produce lazy `ConditionChecks`.
 
 `EvaluationResult<M, B>` describes the mode/result relationship. `EvaluationGetter<Args, B>` provides the public overloads for an arbitrary parameter tuple, including a union return for a runtime-variable mode. `EvaluationFunction<Key, B>` is its keyed `(key, save, mode?)` alias. `EvaluationImplementation<Key, B>` describes an internal generic implementation with a required mode.
 
@@ -162,6 +162,8 @@ They preserve static/dynamic modifier order and the existing duration-descriptio
 
 Keep using `attachModifiers` and `attachTileModifiers` in legacy implementations. Do not build temporary legacy breakdowns to feed migrated calculations.
 
+`PersonTrait.ts` provides `attachProvinceTraitsToCalculation(trait, value, calc, province, save)` for multiplier contributions from matching governor and selected-advisor traits. It preserves trait order and descriptions while skipping presentation work in value mode. Keep using `getProvinceTraits` in legacy implementations.
+
 ## Cached getters
 
 Use `cacheTileEvaluation` or `cacheProvinceEvaluation` from `CacheLogic.ts` for migrated keyed getters. They expose the public overloads while supplying a required mode to the implementation:
@@ -190,11 +192,20 @@ All four public cache helpers share the same keyed storage and `GameStateUpdated
 
 Evaluation cache behavior (`cacheTileEvaluation` and `cacheProvinceEvaluation`):
 
-- Only breakdowns are cached. A breakdown miss calculates and stores the full result.
-- A cached breakdown serves either mode, using `.value` for primitive requests.
-- A value miss calculates the primitive directly without storing it or creating a cache map. Repeated value requests recompute until a breakdown is cached.
+| Cached entry | Requested mode | Behavior |
+| --- | --- | --- |
+| Missing | Value | Calculate and cache the primitive |
+| Missing | Breakdown | Calculate and cache the full breakdown |
+| Primitive | Value | Return the cached primitive |
+| Primitive | Breakdown | Calculate the full breakdown and replace the primitive |
+| Breakdown | Value | Return the cached breakdown's `.value` |
+| Breakdown | Breakdown | Return the cached breakdown object |
 
-`GameStateUpdated` replaces the shared weak-map store, immediately invalidating both caching policies without per-wrapper generation counters.
+Each key stores either a primitive or a breakdown, without an additional result wrapper. Primitive results, including `0`, `false`, and `NaN`, are cache hits. A later breakdown request upgrades the entry; that breakdown becomes authoritative for both modes. Only successful calculations are stored, so a failed upgrade leaves the cached primitive intact.
+
+The first value miss creates cache storage if needed. Repeated value requests avoid recalculation, at the cost of retaining entries for value-only keys until invalidation. Profile cold, repeated-value, and mixed-mode workloads to assess this memory/performance trade-off.
+
+`GameStateUpdated` replaces the shared weak-map store, immediately invalidating primitive and breakdown entries as well as general-purpose cached results without per-wrapper generation counters.
 
 Create wrappers at module scope, like the existing cached getters. The caches retain the existing event-based freshness contract: mutations between update events are not automatically detected. Returned breakdowns should be treated as read-only by consumers.
 

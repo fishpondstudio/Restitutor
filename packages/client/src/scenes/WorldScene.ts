@@ -196,7 +196,7 @@ export class WorldScene extends Scene {
                   const visual = this._overlayContainer.map.get(tile);
                   if (visual) {
                      const text = visual as UnicodeText;
-                     text.text = `${round(getTileMaintenanceCost(tile, G.save).value, 1)}`;
+                     text.text = `${round(getTileMaintenanceCost(tile, G.save, "value"), 1)}`;
                      this._adjustTextSize(text);
                   }
                }
@@ -295,7 +295,7 @@ export class WorldScene extends Scene {
             break;
          }
          case "Maintenance": {
-            const visual = new UnicodeText(`${round(getTileMaintenanceCost(tile, G.save).value, 1)}`, {
+            const visual = new UnicodeText(`${round(getTileMaintenanceCost(tile, G.save, "value"), 1)}`, {
                fontName: Fonts.MainFont,
             });
             this._adjustTextSize(visual);

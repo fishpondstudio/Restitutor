@@ -1,6 +1,7 @@
 import { forEach, keysOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { SaveGame } from "../GameState";
+import type { EvaluationMode, ValueCalculation } from "../logic/Calculation";
 import type { Province } from "./Province";
 
 export interface IPersonTrait {
@@ -60,6 +61,36 @@ export const PersonTrait = {
 
 export const GovernorTraits = keysOf(PersonTrait);
 export const AdvisorTraits = GovernorTraits.filter((trait) => trait !== "Fertile" && trait !== "Thrifty");
+
+export function attachProvinceTraitsToCalculation<M extends EvaluationMode>(
+   trait: PersonTrait,
+   value: number,
+   calc: ValueCalculation<M>,
+   province: Province,
+   save: SaveGame,
+): ValueCalculation<M> {
+   const data = save.state.provinces[province];
+   if (!data) {
+      return calc;
+   }
+   const governor = data.governor.male;
+   for (const t of governor.traits) {
+      if (trait === t) {
+         calc.multiply(value)?.describe($t(L.GovernorsTrait$1, PersonTrait[t].name()), governor.name.join(" "));
+      }
+   }
+   forEach(data.advisors, (_, advisor) => {
+      const selected = advisor.selected;
+      if (selected) {
+         for (const t of selected.traits) {
+            if (trait === t) {
+               calc.multiply(value)?.describe($t(L.AdvisorsTrait$1, PersonTrait[t].name()), selected.name);
+            }
+         }
+      }
+   });
+   return calc;
+}
 
 export function getProvinceTraits(
    trait: PersonTrait,
