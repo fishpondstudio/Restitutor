@@ -18,10 +18,10 @@ export const getResearchCostBreakdown = defineValueGetter(
       }
       calc.add(200)?.describe($t(L.BaseCost));
       calc
-         .multiply(0.2 * state.unlockedTech.size)
+         .multiply(0.15 * state.unlockedTech.size)
          ?.describe(
             $t(L.ResearchedTech),
-            $t(L.EachTechResearchedAdds$1OfTheBaseCost$2, "20%", formatNumber(state.unlockedTech.size)),
+            $t(L.EachTechResearchedAdds$1OfTheBaseCost$2, "15%", formatNumber(state.unlockedTech.size)),
          );
       let researchedProvinceCount = 0;
       forEach(save.state.provinces, (_, provinceState) => {
