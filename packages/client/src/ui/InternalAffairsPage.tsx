@@ -149,10 +149,24 @@ export function InternalAffairsPage(): React.ReactNode {
                <div>{colorNumber(stability.value)}</div>
             </div>
          </BreakdownTooltip>
-         <div className="row mx10 my5">
-            <div className="f1">{ProvinceResourceNames.mandate()}</div>
-            <div>{formatNumber(getProvinceResource("mandate", G.save.state.playerProvince, G.save))}</div>
-         </div>
+         <FloatingTip
+            label={
+               <>
+                  {$t(L.MandatesCanBeAcquiredFrom)}
+                  <ul>
+                     <li>{$t(L.RestorationBonus)}</li>
+                     <li>{$t(L.Events)}</li>
+                     <li>{$t(L.EliminatingAPolityInAPeaceTreaty)}</li>
+                     <li>{$t(L.AnnexingAClient)}</li>
+                  </ul>
+               </>
+            }
+         >
+            <div className="row mx10 my5">
+               <div className="f1">{ProvinceResourceNames.mandate()}</div>
+               <div>{formatNumber(getProvinceResource("mandate", G.save.state.playerProvince, G.save))}</div>
+            </div>
+         </FloatingTip>
          <div className="divider" />
          <div className="m10">
             <FloatingTip label={html($t(L.SettleUnrestAutomaticallyEveryMonth$1, "0"))}>

@@ -6,7 +6,7 @@ import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getAnnexClientCost, getRelation } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
-import { getProvinceName } from "../logic/ProvinceLogic";
+import { addProvinceResource, getProvinceName } from "../logic/ProvinceLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { getWarsBetween } from "../logic/WarLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
@@ -136,6 +136,9 @@ export function AnnexClientAction(ourProvince: Province, clientProvince: Provinc
                data.province = ourProvince;
                tiles.add(tile);
             }
+         }
+         if (tiles.size > 0) {
+            addProvinceResource("mandate", 1, ourProvince, save);
          }
          RefreshTiles.emit({ tiles, options: { indicator: true, visual: true } });
       },

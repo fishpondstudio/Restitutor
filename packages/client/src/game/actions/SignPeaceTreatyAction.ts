@@ -13,7 +13,7 @@ import { getRelation } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { addProvinceResource, addProvinceStat, ensureProvinceCapitals } from "../logic/ProvinceLogic";
 import { showGameEventModal } from "../logic/TickProvince";
-import { getCurrentGeneral, getTruceDuration, type IWar, WarFlag } from "../logic/WarLogic";
+import { getCurrentGeneral, getTruceDuration, type IWar, isEligibleForMandate, WarFlag } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
 export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveGame): IGameAction {
@@ -29,6 +29,9 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
          },
       ]),
       effect: ({ headless }) => {
+         if (isEligibleForMandate(war, save)) {
+            addProvinceResource("mandate", 1, war.attacker, save);
+         }
          for (const tile of war.tiles) {
             const data = save.state.tiles.get(tile);
             if (data) {

@@ -1,7 +1,8 @@
 import { formatNumber } from "@project/shared/src/utils/Helper";
 import { CasusBelli } from "../game/definitions/CasusBelli";
 import { getTileName } from "../game/definitions/TileName";
-import { getTruceDuration, type IWar } from "../game/logic/WarLogic";
+import { getProvinceName } from "../game/logic/ProvinceLogic";
+import { getTruceDuration, type IWar, isEligibleForMandate } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { BreakdownComp } from "./BreakdownComp";
@@ -15,22 +16,41 @@ export function PeaceTreatyTooltip({ war }: { war: IWar }): React.ReactNode {
    return (
       <>
          <ul className="m10">
-            <li>{html($t(L.$1ShallCede$2To$3, war.defender, tileNames, war.attacker))}</li>
+            {isEligibleForMandate(war, G.save) && (
+               <li className="text-yellow">
+                  {$t(
+                     L.$1WillCeaseToExistWhichWillGrant$2$3Mandate,
+                     getProvinceName(war.defender, G.save),
+                     getProvinceName(war.attacker, G.save),
+                     "1",
+                  )}
+               </li>
+            )}
+            <li>
+               {html(
+                  $t(
+                     L.$1ShallCede$2To$3,
+                     getProvinceName(war.defender, G.save),
+                     tileNames,
+                     getProvinceName(war.attacker, G.save),
+                  ),
+               )}
+            </li>
             <li>
                {$t(
                   L.A$1MonthTruceShallBeEnactedBetween$2And$3,
                   formatNumber(truceDuration.value),
-                  war.attacker,
-                  war.defender,
+                  getProvinceName(war.attacker, G.save),
+                  getProvinceName(war.defender, G.save),
                )}
             </li>
             <li>
                {html(
                   $t(
                      L.$1GetsA$2CasusBelliAgainst$3For$4Years,
-                     war.defender,
+                     getProvinceName(war.defender, G.save),
                      CasusBelli.Reconquista.name(),
-                     war.attacker,
+                     getProvinceName(war.attacker, G.save),
                      "10",
                   ),
                )}

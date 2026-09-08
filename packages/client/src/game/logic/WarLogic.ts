@@ -722,3 +722,12 @@ export function warIsOngoingCondition(war: IWar, save: SaveGame): ICondition {
       value: isWarOngoing(war, save),
    };
 }
+
+export function isEligibleForMandate(war: IWar, save: SaveGame): boolean {
+   for (const [tile, tileData] of save.state.tiles) {
+      if (tileData.province === war.defender && !war.tiles.has(tile)) {
+         return false;
+      }
+   }
+   return true;
+}

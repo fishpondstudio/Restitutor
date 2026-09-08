@@ -495,7 +495,7 @@ class TimedActionDefinitions {
    };
    AnnexClient: ITimedAction = {
       name: () => $t(L.AnnexClient),
-      desc: () => $t(L.AnnexingAClientImmediatelyAnnexesAllTheirTiles),
+      desc: () => $t(L.TimedActionAnnexClientDesc$1, "1"),
       duration: 0,
       cooldown: 12 * 10,
    };
