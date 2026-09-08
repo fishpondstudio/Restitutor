@@ -22,15 +22,17 @@ export function IllegitimateChildModal({
 }): React.ReactNode {
    const effect = getRecognizeIllegitimateChildEffect(province, G.save);
    const person = (child.male ?? child.female) as IPerson;
+   const gender = child.male ? $t(L.Male) : $t(L.Female);
    return (
       <GenericEventModal
          title={$t(L.AQuestionOfLegitimacy)}
          content={$t(
-            L.AQuestionOfLegitimacyDesc$1$2$3$4,
+            L.AQuestionOfLegitimacyDesc$1$2$3$4$5,
             person.name.join(" "),
             formatNumber(person.administrative),
             formatNumber(person.diplomatic),
             formatNumber(person.military),
+            gender,
          )}
          image={EventImage.RomulusAndRemus.url}
          titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.RomulusAndRemus.credit)}</div>}
@@ -40,7 +42,7 @@ export function IllegitimateChildModal({
                tooltip={
                   <div className="m10 col-gap-5">
                      {getGameEffectDesc(effect, province, G.save)}
-                     <div>{$t(L.$1JoinsTheGovernorsFamily, person.name.join(" "))}</div>
+                     <div>{$t(L.$1$2JoinsTheGovernorsFamily, person.name.join(" "), gender)}</div>
                   </div>
                }
                label={$t(L.WelcomeTheChildIntoOurFamily)}
@@ -52,7 +54,9 @@ export function IllegitimateChildModal({
             />,
             <GameEventButton
                key="refuse"
-               tooltip={<div className="m10">{$t(L.$1DoesNotJoinTheGovernorsFamily, person.name.join(" "))}</div>}
+               tooltip={
+                  <div className="m10">{$t(L.$1$2DoesNotJoinTheGovernorsFamily, person.name.join(" "), gender)}</div>
+               }
                label={$t(L.RefuseTheChildAndDenyAllClaims)}
                onClick={hideModal}
             />,

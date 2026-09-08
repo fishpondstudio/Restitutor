@@ -7,6 +7,7 @@ import { useTypedEvent } from "../utils/Hook";
 import { ModalTitleBar } from "../utils/ModalManager";
 import "@xyflow/react/dist/style.css";
 import "./FamilyTreeSingletonModal.css";
+import { Popover } from "@mantine/core";
 import type React from "react";
 import { DivorceAction, DivorceChristianityCost, DivorceGameEffect } from "../game/actions/SpouseActions";
 import { ProvinceResourceNames } from "../game/definitions/Province";
@@ -14,6 +15,7 @@ import { getGameEffectDesc } from "../game/GameEffect";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { FamilyNode } from "./FamilyNode";
+import { LoversComponent } from "./LoversComponent";
 import { ModalFullHeight } from "./UIConstant";
 
 export function FamilyTreeSingletonModal(): React.ReactNode {
@@ -77,8 +79,22 @@ export function FamilyTreeSingletonModal(): React.ReactNode {
                         </>
                      )}
                   >
-                     {$t(L.Divorce)}
+                     <div className="row g5">
+                        <div className="mi sm">heart_broken</div>
+                        {$t(L.Divorce)}
+                     </div>
                   </ActionButton>
+                  <Popover position="bottom-start" withOverlay>
+                     <Popover.Target>
+                        <button className="btn row g5">
+                           <div className="mi sm">person_heart</div>
+                           {$t(L.Lovers$1, formatNumber(state.governor.concubines.length))}
+                        </button>
+                     </Popover.Target>
+                     <Popover.Dropdown className="panel p0">
+                        <LoversComponent />
+                     </Popover.Dropdown>
+                  </Popover>
                </Controls>
             </ReactFlow>
          </div>

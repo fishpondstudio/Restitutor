@@ -66,21 +66,21 @@ export interface ITickFamilyResult {
 
 export function getOffspringChance(
    family: IFamily,
+   female: IPerson,
    province: Province,
    save: SaveGame,
-   female: IPerson | null = family.female,
 ): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    if (!family.male || !female) {
-      breakdown.add.push({ name: $t(L.NoSpouse), value: 0 });
+      breakdown.add.push({ name: $t(L.NoPartner), value: 0 });
       return finalizeBreakdown(breakdown);
    }
    if (family.male.age < MinimumOffspringAge) {
-      breakdown.add.push({ name: $t(L.HusbandsAgeBelow$1, "15"), value: 0 });
+      breakdown.add.push({ name: $t(L.FathersAgeBelow$1, "15"), value: 0 });
       return finalizeBreakdown(breakdown);
    }
    if (female.age < MinimumOffspringAge) {
-      breakdown.add.push({ name: $t(L.WifesAgeBelow$1, "15"), value: 0 });
+      breakdown.add.push({ name: $t(L.MothersAgeBelow$1, "15"), value: 0 });
       return finalizeBreakdown(breakdown);
    }
    // Only apply Fertile trait of the governor!
@@ -90,7 +90,7 @@ export function getOffspringChance(
    const age = female.age;
    if (age >= 15 && age <= 35) {
       breakdown.add.push({
-         name: $t(L.WifesAgeFrom$1To$2, "15", "35"),
+         name: $t(L.MothersAgeFrom$1To$2, "15", "35"),
          value: 10,
          desc: $t(L.$1WhenAgeIsInThisAgeRange, "10"),
       });
@@ -98,7 +98,7 @@ export function getOffspringChance(
    }
    if (age >= 36 && age <= 45) {
       breakdown.add.push({
-         name: $t(L.WifesAgeFrom$1To$2, "36", "45"),
+         name: $t(L.MothersAgeFrom$1To$2, "36", "45"),
          value: 5,
          desc: $t(L.$1WhenAgeIsInThisAgeRange, "5"),
       });
@@ -106,7 +106,7 @@ export function getOffspringChance(
    }
    if (age > 45) {
       breakdown.add.push({
-         name: $t(L.WifesAgeAbove$1, "45"),
+         name: $t(L.MothersAgeAbove$1, "45"),
          value: 1,
          desc: $t(L.$1WhenAgeIsInThisAgeRange, "1"),
       });
@@ -247,7 +247,7 @@ function tickFamilyMembers(
    if (male) {
       const females = governor.female ? [governor.female, ...governor.concubines] : governor.concubines;
       for (const female of females) {
-         const offspringChance = getOffspringChance(governor, province, save, female).value;
+         const offspringChance = getOffspringChance(governor, female, province, save).value;
          if (Math.random() >= offspringChance / 100) {
             continue;
          }

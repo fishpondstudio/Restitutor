@@ -7,12 +7,20 @@ import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
 import { isChristianReligion } from "../definitions/Religion";
 import type { SocialClass } from "../definitions/SocialClass";
+import { TimedActions } from "../definitions/TimedAction";
 import { applyGameEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { showSuccess } from "../logic/AlertLogic";
-import { canGetMarried, ensureTraits, isEligibleForMarriage, removeEmptyFamily } from "../logic/GovernorLogic";
+import {
+   canGetMarried,
+   ensureTraits,
+   isEligibleForMarriage,
+   MinimumOffspringAge,
+   removeEmptyFamily,
+} from "../logic/GovernorLogic";
 import { GovernorMaxExcl, GovernorMinIncl } from "../logic/ProvinceLogic";
 import { addSocialClassLoyalty } from "../logic/SocialClassLogic";
+import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { requireHigherPrestige, requireMinimumAttitude } from "../logic/TreatyLogic";
 import { randomFemaleName } from "../RomanNames";
 import { EmptyGameAction } from "./EmptyGameAction";
@@ -44,7 +52,7 @@ export function LookForLocalSpouseAction(
             family.female = ensureTraits({
                traits: new Set(),
                name: randomFemaleName(),
-               age: clamp(randInt(family.male.age - 5, family.male.age + 5), 0, Number.POSITIVE_INFINITY),
+               age: clamp(randInt(family.male.age - 5, family.male.age + 5 + 1), 0, Number.POSITIVE_INFINITY),
                administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
                diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
                military: randInt(GovernorMinIncl, GovernorMaxExcl),
@@ -134,6 +142,55 @@ export function DivorceAction(province: Province, save: SaveGame): IGameAction {
       effect: ({ headless }) => {
          state.governor.female = null;
          applyGameEffect(DivorceGameEffect, $t(L.Divorce), province, save);
+      },
+   };
+}
+
+export const TakeLoverEffect: IGameEffect = {
+   modifiers: {
+      Stability: { type: "add", value: -5, duration: TimedActions.TakeLover.duration },
+      Prestige: { type: "multiply", value: -0.05, duration: TimedActions.TakeLover.duration },
+   },
+};
+
+export function TakeLoverAction(province: Province, save: SaveGame): IGameAction {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return EmptyGameAction;
+   }
+   return {
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "TakeLover" }, province, save),
+         {
+            name: $t(L.OurGovernorIsAtLeast$1YearsOld, "15"),
+            value: state.governor.male.age >= MinimumOffspringAge,
+         },
+      ]),
+      cost: {
+         gold: 1000,
+         christianity: isChristianReligion(state.religion) ? 5 : 0,
+      },
+      effect: () => {
+         startTimedAction("TakeLover", province, save);
+         const name = randomFemaleName();
+         state.governor.concubines.push(
+            ensureTraits({
+               traits: new Set(),
+               name: name,
+               age: clamp(
+                  randInt(state.governor.male.age - 5, state.governor.male.age + 5 + 1),
+                  MinimumOffspringAge,
+                  Number.POSITIVE_INFINITY,
+               ),
+               administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
+               diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
+               military: randInt(GovernorMinIncl, GovernorMaxExcl),
+               province: province,
+               flag: PersonFlags.None,
+               joinMonth: save.state.month,
+            }),
+         );
+         applyGameEffect(TakeLoverEffect, $t(L.TakeALoverWith$1, name.join(" ")), province, save);
       },
    };
 }

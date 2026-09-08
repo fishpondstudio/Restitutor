@@ -661,6 +661,11 @@ class TimedActionDefinitions {
       duration: 0,
       cooldown: 12 * 2,
    };
+   TakeLover: ITimedAction = {
+      name: () => $t(L.TakeALover),
+      duration: 10 * 12,
+      cooldown: 10 * 12,
+   };
 }
 
 export const RelocateCapitalModifier: { modifier: Modifier } & IBaseModifier = {

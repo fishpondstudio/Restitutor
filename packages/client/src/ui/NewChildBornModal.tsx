@@ -17,11 +17,12 @@ export function NewChildBornModal({ province, child }: { province: Province; chi
       <GenericEventModal
          title={$t(L.AChildIsBorn)}
          content={$t(
-            L.AChildIsBornDesc$1$2$3$4,
+            L.AChildIsBornDesc$1$2$3$4$5,
             person.name.join(" "),
             formatNumber(person.administrative),
             formatNumber(person.diplomatic),
             formatNumber(person.military),
+            child.male ? $t(L.Male) : $t(L.Female),
          )}
          image={EventImage.RomulusAndRemus.url}
          titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.RomulusAndRemus.credit)}</div>}
