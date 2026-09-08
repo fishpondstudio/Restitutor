@@ -55,6 +55,7 @@ export function RebirthPage(): React.ReactNode {
          <FloatingTip label={$t(L.CurrentlyUnderDevelopmentMoreProvincesWillBeAddedSoon)}>
             <div className="mx10 my5">
                <Select
+                  autoFocus={true}
                   className="w100"
                   value={province}
                   onChange={(value) => {
