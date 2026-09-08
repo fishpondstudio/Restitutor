@@ -5,6 +5,7 @@ import { EN } from "../languages/en";
 import { ES } from "../languages/es";
 import { FR } from "../languages/fr";
 import { RU } from "../languages/ru";
+import { TR } from "../languages/tr";
 import { ZH_CN } from "../languages/zh-CN";
 
 export const Languages = {
@@ -14,6 +15,7 @@ export const Languages = {
    "zh-CN": ZH_CN,
    ru: RU,
    fr: FR,
+   tr: TR,
 } as const satisfies Record<Language, Record<string, string>>;
 
 export const LanguagesImage = {
@@ -23,4 +25,5 @@ export const LanguagesImage = {
    "zh-CN": "CN",
    ru: "RU",
    fr: "FR",
+   tr: "TR",
 } as const satisfies Record<Language, keyof typeof CountryCode>;
