@@ -2,14 +2,14 @@ import { Menu } from "@mantine/core";
 import { useForceUpdate } from "@mantine/hooks";
 import { clamp, cls, entriesOf, hasFlag } from "@project/shared/src/utils/Helper";
 import { memo } from "react";
-import { DiscordUrl, SteamUrl } from "../game/definitions/Constant";
+import { DiscordUrl, SteamCommunityUrl, SteamUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated, GameSpeedChanged, GameTimeUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
 import { getGameDate } from "../game/logic/GameDateTime";
 import { useShortcut } from "../game/Shortcut";
 import { openUrl } from "../rpc/SteamClient";
 import { getOverlay, Overlays, setOverlay } from "../scenes/Overlays";
-import { G, isDev, setSpeed } from "../utils/Global";
+import { G, GameFlags, isDev, setSpeed } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { FloatingTip } from "./components/FloatingTip";
@@ -136,11 +136,11 @@ export const DiscordComp = memo(_DiscordComp);
 
 function _SteamComp(): React.ReactNode {
    return (
-      <FloatingTip label={$t(L.WishlistTheFullGameOnSteam)}>
+      <FloatingTip label={hasFlag(G.flags, GameFlags.Demo) ? $t(L.WishlistTheFullGameOnSteam) : $t(L.SteamCommunity)}>
          <img
             src={IconCatalog.Steam}
             style={{ display: "block", height: "1.25rem" }}
-            onClick={() => openUrl(SteamUrl)}
+            onClick={() => openUrl(hasFlag(G.flags, GameFlags.Demo) ? SteamUrl : SteamCommunityUrl)}
          />
       </FloatingTip>
    );
