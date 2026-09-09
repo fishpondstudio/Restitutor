@@ -1,4 +1,7 @@
-import { createTile, keysOf, type Tile } from "@project/shared/src/utils/Helper";
+import { createTile, keysOf, pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
+import { isLand } from "../Land";
+import { MapGrid } from "../MapGrid";
+import { RomeMap } from "../RomeMap";
 import { Province } from "./Province";
 import { SpawnedProvinces } from "./SpawnedProvince";
 
@@ -124,3 +127,46 @@ export const BlackSeaTiles: Set<Tile> = new Set([
    10747978, 10747979, 10747980, 10747981, 10813511, 10813512, 10813514, 10813515, 10813516, 10813517, 10879051,
    10879052, 10879053, 10879054, 10944588, 10944589, 10944590, 11010124, 11010125, 11010126,
 ]);
+
+// Provinces and the tile range they can settle from the frontier.
+export const Frontier: Partial<Record<Province, number>> = {
+   Britannia: 3,
+   Germania: 3,
+   Raetia: 3,
+   Noricum: 3,
+   Pannonia: 3,
+   Dacia: 3,
+   Moesia: 3,
+   Mauretania: 1,
+   Aegyptus: 1,
+} as const;
+
+export const NewSettlementTiles: Set<Tile> = new Set();
+
+for (const province of keysOf(Frontier)) {
+   const range = Frontier[province] ?? 0;
+   let frontier: Tile[] = [];
+   RomeMap.forEach((config, tile) => {
+      if (config.province === province) {
+         frontier.push(tile);
+      }
+   });
+   const visited = new Set(frontier);
+   for (let distance = 0; distance < range; distance++) {
+      const next: Tile[] = [];
+      for (const tile of frontier) {
+         for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
+            const neighborTile = pointToTile(neighbor);
+            if (visited.has(neighborTile) || !isLand(neighborTile)) {
+               continue;
+            }
+            visited.add(neighborTile);
+            next.push(neighborTile);
+            if (!RomeMap.has(neighborTile)) {
+               NewSettlementTiles.add(neighborTile);
+            }
+         }
+      }
+      frontier = next;
+   }
+}

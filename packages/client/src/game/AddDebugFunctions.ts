@@ -17,6 +17,7 @@ import { type IFamily, PersonFlags } from "./definitions/Family";
 import { GreatWork } from "./definitions/GreatWork";
 import type { Province } from "./definitions/Province";
 import { SpawnedProvinces } from "./definitions/SpawnedProvince";
+import { NewSettlementTiles } from "./definitions/TileConstants";
 import { TileName } from "./definitions/TileName";
 import type { TimedAction } from "./definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "./Events";
@@ -204,6 +205,11 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.showNamedTiles = () => {
       G.scene.getCurrent(WorldScene)?.drawSelectors(new Set(keysOf(TileName)));
+   };
+
+   // @ts-expect-error
+   globalThis.showNewSettlementTiles = () => {
+      G.scene.getCurrent(WorldScene)?.drawSelectors(NewSettlementTiles);
    };
 
    // @ts-expect-error
