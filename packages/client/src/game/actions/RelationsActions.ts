@@ -178,11 +178,16 @@ export function ProclaimCrusadeAction(ourProvince: Province, theirProvince: Prov
          },
       ]),
       execute: () => {
-         const relation = getRelation(ourProvince, theirProvince, save);
-         if (relation) {
-            relation.casusBelli.set("ReligiousWar", { monthsLeft: TimedActions.ProclaimCrusade.duration });
-         }
          startTimedAction("ProclaimCrusade", ourProvince, save);
+      },
+      effect: {
+         name: TimedActions.ProclaimCrusade.name(),
+         casusBelli: {
+            [theirProvince]: {
+               casusBelli: "ReligiousWar",
+               duration: TimedActions.ProclaimCrusade.duration,
+            },
+         },
       },
    };
 }

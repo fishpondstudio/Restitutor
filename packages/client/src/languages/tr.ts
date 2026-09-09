@@ -3142,7 +3142,6 @@ export const TR = {
    ConsultTheHispanicMagistrates: "Consult the Hispanic magistrates",
    ProclaimTheHispanicConquest: "Proclaim the Hispanic conquest",
    $1WarPowerForEachCoreCoastalTileUpTo$2: "$1 War Power for each core coastal tile (up to $2)",
-   DivorcingHasTheFollowingEffects: "Divorcing has the following effects",
    RestitutorModsManager$1: "Restitutor Mods Manager $1",
    ModsManager: "Mods Manager",
    SteamWorkshop: "Steam Workshop",

@@ -1,7 +1,7 @@
 import { cls } from "@project/shared/src/utils/Helper";
 import { deepEqual } from "fast-equals";
 import { memo } from "react";
-import { type IConditionBreakdown, type IGameAction } from "../game/actions/GameAction";
+import type { IConditionBreakdown, IGameAction } from "../game/actions/GameAction";
 import type { ProvinceResourceCosts } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
 import { applyGameEffect, getGameEffectDesc, type IGameEffect } from "../game/GameEffect";

@@ -48,6 +48,7 @@ import {
 import type { Religion } from "../definitions/Religion";
 import { SocialClass } from "../definitions/SocialClass";
 import { MaxRaidMonths, SpawnedProvinces } from "../definitions/SpawnedProvince";
+import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { getProvinceTilesCached } from "./CacheLogic";
 import {
@@ -775,6 +776,9 @@ function tryDoHeadless(action: IGameAction, aiAction: AIAction, province: Provin
    const isConditionMet = action.condition === undefined || action.condition.value === true;
    if (isConditionMet && (action.cost === undefined || trySpendProvinceResources(action.cost, province, save))) {
       action.execute({ headless: true });
+      if (action.effect) {
+         applyGameEffect(action.effect, action.effect.name, province, save);
+      }
       if (action.cost) {
          tabulateCost(action.cost, aiAction, state.blackboard.resources);
       }
