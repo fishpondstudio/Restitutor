@@ -31,8 +31,8 @@ export const NewChildBornEffects2 = {
 
 export const RecognizeIllegitimateChildEffect = {
    modifiers: {
-      Stability: { type: "add", value: -10, duration: 12 * 5 },
-      Prestige: { type: "multiply", value: -0.1, duration: 12 * 5 },
+      Stability: { type: "add", value: -5, duration: 12 * 5 },
+      Prestige: { type: "multiply", value: -0.05, duration: 12 * 5 },
    },
 } as const satisfies IGameEffect;
 
@@ -40,7 +40,7 @@ export function getRecognizeIllegitimateChildEffect(province: Province, save: Sa
    const state = save.state.provinces[province];
    return {
       ...RecognizeIllegitimateChildEffect,
-      resources: state && isChristianReligion(state.religion) ? { christianity: -10 } : undefined,
+      resources: state && isChristianReligion(state.religion) ? { christianity: -5 } : undefined,
    };
 }
 

@@ -1,38 +1,32 @@
 Hi,
 
-I am pleased to present Patch 0.22. This patch adds some balancing changes before the early access release.
+I am pleased to present Patch 0.23. This patch expands the frontier, introduces new relationships for governors, and improves the map.
 
-[h3]Balancing Changes[/h3]
+[h3]Frontier Settlements[/h3]
 
 [list]
-[*] Making a tile our core now adds 10% of the base cost per core made, replacing the previous compounded increase.
-[*] The Warmonger Penalty now adds 10% of the base war-score cost per war started, replacing the previous compounded increase.
-[*] Research costs now add 20% of the base cost for each technology already researched. Each province that has researched the same technology reduces its cost by 1%.
+[*] New lands can now be settled beyond the frontiers of Britannia, Germania, Raetia, Noricum, Pannonia, Dacia, Moesia, Mauretania, and Aegyptus.
+[*] Settleable land is highlighted on the map. A tile must border one of your core tiles to be settled. Settling costs 1 Mandate and has a five-year cooldown.
+[*] New settlements begin with 1 Infrastructure, 1 Production, and 1 Population and automatically become core tiles.
+[*] Tiles you settle do not count toward Legacy Points. Tiles settled by other provinces do count once you annex and core them.
+[*] To simulate the gradual process of settling new land, a newly settled tile's Land Tax, Tile Output, and Manpower start at -80% and recover by 20 percentage points every five years, reaching full output after 20 years.
 [/list]
 
-[h3]Mechanic Changes[/h3]
+[h3]More Ways to Gain Mandate[/h3]
+
+In addition to gaining Mandate from the Restoration Bonus and events, you can now gain Mandate by eliminating a polity from the map, either through a peace treaty or by annexing a client. All polity types count, including provinces and Barbarian polities.
+
+[h3]Family & Relationships[/h3]
 
 [list]
-[*] Personal best bonus when rebirth: each annexed and cored tile beyond your previous best grants 1 additional Legacy Point.
-[*] Expanded family tree bonus: this currently does not have gameplay changes but enables future expansion. Since this needs to migrate data, I'd rather do it before the release
-[*] Historical attitude: new runs now begin with longer-lasting historical attitudes toward up to four nearby provinces - two favorable relationships and two hostile ones.
-[*] Denounce is now a relation action instead of great power action. It is unlocked by Trade Networks and Demand Tribute has moved to Civic Assembly.
+[*] Governors can now take lovers in the Family Tree window. Taking a lover costs 1,000 Gold and, for Christian provinces, 5 Christian Influence; it also applies -5 Stability and -5% Prestige for 10 years.
+[*] Each relationship now has an Offspring Chance, calculated separately for each mother.
+[*] A child born to a lover is illegitimate. When this happens, an event allows you to recognize the child and welcome them into the family, applying -5 Stability and -5% Prestige for 10 years and costing 5 Christian Influence for Christian provinces. You can also deny the child without any negative effects.
+[*] You can end an affair at any time. Children already welcomed into the family remain, and ending an affair does not reset the cooldown for taking a new lover.
 [/list]
 
-[h3]NPC Improvement[/h3]
+[h3]Map[/h3]
 
 [list]
-[*] NPC provinces now respect positive attitudes when choosing war goals
-[*] NPC provinces now change rivals through the same rules as the player
-[*] NPC provinces will now make use of denounce
-[*] NPC provinces now set Government Focus toward their governor's weakest skill
-[/list]
-
-
-[h3]UI & QoL[/h3]
-
-[list]
-[*]Added sound effects for clicks, errors, event notifications, rebellions, and declarations of war. The default sound volume is now 50%.
-[*]When one of our tiles enters rebellion, the game now shows the tile name with a warning and sound effect.
-[*]The Great Works catalog is now displayed in a larger two-column layout, and tooltips have improved placement.
+[*] Active wars are now marked on the world map with red borders. Solid lines identify borders involving war-goal tiles, while dashed lines show the rest of the shared border between the belligerents.
 [/list]
