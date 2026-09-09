@@ -497,7 +497,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </button>
             <ActionButton
                className="py2"
-               action={GuaranteeDefenseAction(G.save.state.playerProvince, province, G.save)}
+               action={() => GuaranteeDefenseAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="GuaranteeDefense" />
@@ -509,7 +509,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </ActionButton>
             <ActionButton
                className="py2"
-               action={DeterAggressionAction(G.save.state.playerProvince, province, G.save)}
+               action={() => DeterAggressionAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="DeterAggression" />
@@ -521,7 +521,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </ActionButton>
             <ActionButton
                className="py2"
-               action={DenounceAction(G.save.state.playerProvince, province, G.save)}
+               action={() => DenounceAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="Denounce" />
@@ -533,7 +533,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </ActionButton>
             <ActionButton
                className="py2"
-               action={SendAGiftAction(G.save.state.playerProvince, province, G.save)}
+               action={() => SendAGiftAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="SendAGift" />
@@ -545,7 +545,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </ActionButton>
             <ActionButton
                className="py2"
-               action={ProclaimCrusadeAction(G.save.state.playerProvince, province, G.save)}
+               action={() => ProclaimCrusadeAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="ProclaimCrusade" />
@@ -562,7 +562,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                <div className="m10 col stretch g5">
                   <ActionButton
                      className="py2"
-                     action={SummonGovernorAction(G.save.state.playerProvince, province, G.save)}
+                     action={() => SummonGovernorAction(G.save.state.playerProvince, province, G.save)}
                      tooltip={(element) => (
                         <>
                            <TimedActionDescComp action="SummonGovernor" />
@@ -574,7 +574,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                   </ActionButton>
                   <ActionButton
                      className="py2"
-                     action={RequestMilitaryAidAction(G.save.state.playerProvince, province, G.save)}
+                     action={() => RequestMilitaryAidAction(G.save.state.playerProvince, province, G.save)}
                      tooltip={(element) => (
                         <>
                            <TimedActionDescComp action="RequestMilitaryAid" />
@@ -586,7 +586,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                   </ActionButton>
                   <ActionButton
                      className="py2"
-                     action={AnnexClientAction(G.save.state.playerProvince, province, G.save)}
+                     action={() => AnnexClientAction(G.save.state.playerProvince, province, G.save)}
                      tooltip={(element) => (
                         <>
                            <TimedActionDescComp action="AnnexClient" />
@@ -631,7 +631,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             />
             <ActionButton
                className="py2"
-               action={FabricateCasusBelliAction(G.save.state.playerProvince, province, G.save)}
+               action={() => FabricateCasusBelliAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="FabricateCasusBelli" />
@@ -643,7 +643,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </ActionButton>
             <ActionButton
                className="py2"
-               action={UndermineTheirArmyAction(G.save.state.playerProvince, province, G.save)}
+               action={() => UndermineTheirArmyAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="UndermineTheirArmy" />
@@ -655,7 +655,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </ActionButton>
             <ActionButton
                className="py2"
-               action={CorruptOfficialsAction(G.save.state.playerProvince, province, G.save)}
+               action={() => CorruptOfficialsAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="CorruptOfficials" />
@@ -667,7 +667,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </ActionButton>
             <ActionButton
                className="py2"
-               action={SubvertGarrisonAction(G.save.state.playerProvince, province, G.save)}
+               action={() => SubvertGarrisonAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="SubvertGarrison" />
@@ -679,7 +679,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </ActionButton>
             <ActionButton
                className="py2"
-               action={InciteUnrestAction(G.save.state.playerProvince, province, G.save)}
+               action={() => InciteUnrestAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="InciteUnrest" />
@@ -691,7 +691,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             </ActionButton>
             <ActionButton
                className="py2"
-               action={RevealElectionBackingAction(G.save.state.playerProvince, province, G.save)}
+               action={() => RevealElectionBackingAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      {usToThem.revealElectionBacking && (
@@ -719,25 +719,25 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
          <div className="m10 col stretch g5">
             <ActionButton
                className="btn py2"
-               action={{
+               action={() => ({
                   ...DemandTileCostCondition(G.save.state.playerProvince, province, [], G.save),
                   effect: () => showPanel(DemandTileModal, { province }),
-               }}
+               })}
             >
                {$t(L.DemandATile)}
             </ActionButton>
             <ActionButton
                className="btn py2"
-               action={{
+               action={() => ({
                   ...DemandTributeCostCondition(G.save.state.playerProvince, province, G.save),
                   effect: () => showPanel(DemandTributeModal, { province }),
-               }}
+               })}
             >
                {TimedActions.DemandTribute.name()}
             </ActionButton>
             <ActionButton
                className="btn py2"
-               action={DemandElectionBackingAction(G.save.state.playerProvince, province, G.save)}
+               action={() => DemandElectionBackingAction(G.save.state.playerProvince, province, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="DemandElectionBacking" />
@@ -916,7 +916,12 @@ function RelationsActionButton({
       );
    }
    return (
-      <ActionButton action={actionFunc(ourProvince, province, G.save)} tooltip={tooltip} className="py2" id={doId}>
+      <ActionButton
+         action={() => actionFunc(ourProvince, province, G.save)}
+         tooltip={tooltip}
+         className="py2"
+         id={doId}
+      >
          {doLabel}
       </ActionButton>
    );
@@ -932,7 +937,7 @@ function SabotageButton({
    return (
       <ActionButton
          className="text-sm"
-         action={SabotageAction(fromProvince, toProvince, G.save)}
+         action={() => SabotageAction(fromProvince, toProvince, G.save)}
          tooltip={(element) => (
             <>
                <div className="m10">

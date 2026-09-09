@@ -222,8 +222,8 @@ export function TradeSingletonModal({ provinces }: { provinces: Set<Province> })
                            weOfferAmount: offer_.weOfferAmount * tradeCapacity.value,
                            theyOfferAmount: offer_.theyOfferAmount * tradeCapacity.value * (1 + profit.value),
                         };
-                        const action = TradeWithAction(G.save.state.playerProvince, province, offer, G.save);
-                        if (showAvailable && !canDoAction(action, G.save.state.playerProvince, G.save)) return null;
+                        const action = () => TradeWithAction(G.save.state.playerProvince, province, offer, G.save);
+                        if (showAvailable && !canDoAction(action(), G.save.state.playerProvince, G.save)) return null;
                         const weOffer = (
                            <>
                               {formatNumber(offer.weOfferAmount)}{" "}

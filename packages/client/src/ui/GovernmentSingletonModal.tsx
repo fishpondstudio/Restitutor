@@ -249,7 +249,7 @@ function FocusComp({ type }: { type: GovernorPower }): React.ReactNode {
          <ActionButton
             id={`GovernmentModal_Focus_${type}`}
             className="w100"
-            action={SetGovernmentFocusAction(type, G.save.state.playerProvince, G.save)}
+            action={() => SetGovernmentFocusAction(type, G.save.state.playerProvince, G.save)}
             tooltip={(element) => (
                <>
                   <TimedActionDescComp action="SetGovernmentFocus" />

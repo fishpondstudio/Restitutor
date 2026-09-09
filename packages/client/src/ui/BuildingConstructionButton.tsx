@@ -57,7 +57,7 @@ export function BuildingConstructionButton({
       <ActionButton
          className={className}
          style={style}
-         action={ConstructBuildingAction(building, tile, G.save.state.playerProvince, G.save)}
+         action={() => ConstructBuildingAction(building, tile, G.save.state.playerProvince, G.save)}
          tooltip={tooltip}
       >
          {children}
@@ -81,7 +81,7 @@ export function DemolishBuildingButton({
       <ActionButton
          className={cls("red", className)}
          style={style}
-         action={DemolishBuildingAction(building, tile, G.save.state.playerProvince, G.save)}
+         action={() => DemolishBuildingAction(building, tile, G.save.state.playerProvince, G.save)}
          tooltip={(element) => (
             <>
                <div className="m10">{$t(L.AreYouSureYouWantToDemolishThisBuilding)}</div>

@@ -146,12 +146,9 @@ export function LookForSpouseModal({ family, province }: { family?: IFamily; pro
                                  </div>
                               </div>
                               <ActionButton
-                                 action={OfferMarriageAction(
-                                    selectedFamily,
-                                    spouse,
-                                    G.save.state.playerProvince,
-                                    G.save,
-                                 )}
+                                 action={() =>
+                                    OfferMarriageAction(selectedFamily, spouse, G.save.state.playerProvince, G.save)
+                                 }
                                  tooltip={(element) => (
                                     <>
                                        <div className="m10">{$t(L.OfferingMarriageIncreasesAttitudeBy$1, "50")}</div>
@@ -192,7 +189,7 @@ function LocalSpouseButton({ family, socialClass }: { family: IFamily; socialCla
                {element}
             </>
          )}
-         action={LookForLocalSpouseAction(socialClass, family, G.save.state.playerProvince, G.save)}
+         action={() => LookForLocalSpouseAction(socialClass, family, G.save.state.playerProvince, G.save)}
       >
          {SocialClass[socialClass].name()}
       </ActionButton>

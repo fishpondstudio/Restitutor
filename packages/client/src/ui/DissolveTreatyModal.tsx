@@ -49,7 +49,7 @@ export function DissolveTreatyModal(): React.ReactNode {
                         <div className="text-sm text-dimmed text-italic">{TreatyNames[treaty.type]()}</div>
                      </div>
                      <ActionButton
-                        action={{
+                        action={() => ({
                            cost: { consulPoint: 1 },
                            condition: finalizeCondition([
                               ...timedActionConditions({ action: "DissolveTreaty" }, selectedProvince, G.save),
@@ -59,7 +59,7 @@ export function DissolveTreatyModal(): React.ReactNode {
                               startTimedAction("DissolveTreaty", G.save.state.playerProvince, G.save);
                               dissolveTreaty(selectedProvince, otherProvince, G.save);
                            },
-                        }}
+                        })}
                      >
                         {$t(L.Dissolve)}
                      </ActionButton>

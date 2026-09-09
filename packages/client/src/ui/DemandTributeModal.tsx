@@ -99,7 +99,7 @@ export function DemandTributeModal({ province }: { province: Province }): React.
                   ))}
                </>
             }
-            action={{
+            action={() => ({
                ...DemandTributeCostCondition(G.save.state.playerProvince, province, G.save),
                effect: () => {
                   setRollStarted(true);
@@ -116,7 +116,7 @@ export function DemandTributeModal({ province }: { province: Province }): React.
                      G.save,
                   );
                },
-            }}
+            })}
             acceptTooltip={
                <ul className="m10">
                   <li>{$t(L.$1Gold, formatNumber(tributeAmount))}</li>

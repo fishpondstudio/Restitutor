@@ -35,7 +35,7 @@ export function NullifyTruceModal(): React.ReactNode {
                      </div>
                   </div>
                   <ActionButton
-                     action={{
+                     action={() => ({
                         cost: { consulPoint: 1 },
                         condition: finalizeCondition([
                            ...timedActionConditions({ action: "NullifyTruce" }, playerProvince, G.save),
@@ -45,7 +45,7 @@ export function NullifyTruceModal(): React.ReactNode {
                            nullifyTruce(playerProvince, province, G.save);
                            hideModal();
                         },
-                     }}
+                     })}
                   >
                      {TimedActions.NullifyTruce.name()}
                   </ActionButton>

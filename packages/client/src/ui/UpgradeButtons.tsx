@@ -41,7 +41,7 @@ export function UpgradeInfrastructureButton({
          id={id}
          className={className}
          style={style}
-         action={UpgradeInfrastructureAction(tile, G.save.state.playerProvince, G.save)}
+         action={() => UpgradeInfrastructureAction(tile, G.save.state.playerProvince, G.save)}
          tooltip={tooltip}
       >
          {children}
@@ -78,7 +78,7 @@ export function UpgradeProductionButton({
          id={id}
          className={className}
          style={style}
-         action={UpgradeProductionAction(tile, G.save.state.playerProvince, G.save)}
+         action={() => UpgradeProductionAction(tile, G.save.state.playerProvince, G.save)}
          tooltip={tooltip}
       >
          {children}
@@ -116,7 +116,7 @@ export function UpgradePopulationButton({
          className={className}
          style={style}
          tooltip={tooltip}
-         action={UpgradePopulationAction(tile, G.save.state.playerProvince, G.save)}
+         action={() => UpgradePopulationAction(tile, G.save.state.playerProvince, G.save)}
       >
          {children}
       </ActionButton>

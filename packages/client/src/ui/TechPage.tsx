@@ -60,7 +60,7 @@ export function TechPage({ tech }: { tech: Tech }): React.ReactNode {
                   <ActionButton
                      id={`TechPage_Research_${tech}`}
                      className="w100 py2"
-                     action={ResearchTechAction(tech, G.save.state.playerProvince, G.save)}
+                     action={() => ResearchTechAction(tech, G.save.state.playerProvince, G.save)}
                      tooltip={(element) => (
                         <>
                            {element}

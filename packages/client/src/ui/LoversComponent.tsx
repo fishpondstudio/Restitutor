@@ -18,7 +18,7 @@ export function LoversComponent(): React.ReactNode {
          <div className="m10">
             <ActionButton
                className="w100"
-               action={TakeLoverAction(G.save.state.playerProvince, G.save)}
+               action={() => TakeLoverAction(G.save.state.playerProvince, G.save)}
                tooltip={(element) => (
                   <>
                      {element}

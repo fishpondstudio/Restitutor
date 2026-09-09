@@ -15,7 +15,7 @@ export function AppeaseButton({ tile, className }: { tile: Tile; className?: str
             </>
          )}
          className={cls("btn", className)}
-         action={AppeaseAction(tile, G.save.state.playerProvince, G.save)}
+         action={() => AppeaseAction(tile, G.save.state.playerProvince, G.save)}
       >
          {TimedActions.Appease.name()}
       </ActionButton>

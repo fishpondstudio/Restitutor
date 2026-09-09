@@ -32,7 +32,7 @@ export function NamePublicEnemyModal(): React.ReactNode {
             />
             <ActionButton
                className="py2 mt10 w100"
-               action={{
+               action={() => ({
                   cost: { consulPoint: 1 },
                   condition: finalizeCondition([
                      ...timedActionConditions(
@@ -76,7 +76,7 @@ export function NamePublicEnemyModal(): React.ReactNode {
                         }
                      });
                   },
-               }}
+               })}
             >
                {$t(L.NamePublicEnemy)}
             </ActionButton>

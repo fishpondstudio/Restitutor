@@ -69,7 +69,7 @@ export function PersonNode({
                   </FloatingTip>
                ) : (
                   <ActionButton
-                     action={ChangeHeirAction(family, G.save.state.playerProvince, G.save)}
+                     action={() => ChangeHeirAction(family, G.save.state.playerProvince, G.save)}
                      className="btn p2"
                      tooltip={(element) => (
                         <>

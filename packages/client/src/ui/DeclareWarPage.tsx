@@ -200,15 +200,17 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
                sound="sword"
                id={`DeclareWarPage_DeclareWar_${province}`}
                className="w100 red py2"
-               action={DeclareWarAction(
-                  G.save.state.playerProvince,
-                  coAttackers,
-                  province,
-                  coDefenders,
-                  selectedTiles,
-                  selectedCasusBelli,
-                  G.save,
-               )}
+               action={() =>
+                  DeclareWarAction(
+                     G.save.state.playerProvince,
+                     coAttackers,
+                     province,
+                     coDefenders,
+                     selectedTiles,
+                     selectedCasusBelli,
+                     G.save,
+                  )
+               }
             >
                {$t(L.DeclareWar)}
             </ActionButton>

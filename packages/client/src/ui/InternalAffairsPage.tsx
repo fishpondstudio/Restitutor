@@ -375,7 +375,7 @@ export function InternalAffairsPage(): React.ReactNode {
          <div className="m10" style={Grid2}>
             <ActionButton
                className="btn"
-               action={ConvertToChristianityAction(G.save.state.playerProvince, G.save)}
+               action={() => ConvertToChristianityAction(G.save.state.playerProvince, G.save)}
                tooltip={(element) => (
                   <>
                      <div className="m10">{$t(L.ConvertingToChristianityDescription)}</div>

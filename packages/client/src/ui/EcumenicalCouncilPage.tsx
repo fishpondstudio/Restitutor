@@ -67,7 +67,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
          </div>
          <div style={{ ...Grid2 }} className="m10">
             <ActionButton
-               action={{
+               action={() => ({
                   cost: {
                      gold: 500,
                   },
@@ -83,7 +83,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                      startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                      addProvinceResource("christianity", 1, G.save.state.playerProvince, G.save);
                   },
-               }}
+               })}
                tooltip={(element) => (
                   <>
                      <div className="m10">+1 {ProvinceResourceNames.christianity()}</div>
@@ -94,7 +94,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                {TimedActions.EcumenicalCouncilAction.name()}
             </ActionButton>
             <ActionButton
-               action={{
+               action={() => ({
                   cost: {
                      administrative: 50,
                   },
@@ -110,7 +110,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                      startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                      addProvinceResource("christianity", 1, G.save.state.playerProvince, G.save);
                   },
-               }}
+               })}
                tooltip={(element) => (
                   <>
                      <div className="m10">+1 {ProvinceResourceNames.christianity()}</div>
@@ -121,7 +121,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                {$t(L.DraftAgenda)}
             </ActionButton>
             <ActionButton
-               action={{
+               action={() => ({
                   cost: {
                      diplomatic: 50,
                   },
@@ -137,7 +137,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                      startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                      addProvinceResource("christianity", 1, G.save.state.playerProvince, G.save);
                   },
-               }}
+               })}
                tooltip={(element) => (
                   <>
                      <div className="m10">+1 {ProvinceResourceNames.christianity()}</div>
@@ -148,7 +148,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                {$t(L.LobbyBishops)}
             </ActionButton>
             <ActionButton
-               action={{
+               action={() => ({
                   cost: {
                      military: 50,
                   },
@@ -164,7 +164,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                      startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                      addProvinceResource("christianity", 1, G.save.state.playerProvince, G.save);
                   },
-               }}
+               })}
                tooltip={(element) => (
                   <>
                      <div className="m10">+1 {ProvinceResourceNames.christianity()}</div>
@@ -232,7 +232,7 @@ function ReconcilePanel(): React.ReactNode {
                         <td>{Religion[tileData.religion].name()}</td>
                         <td>
                            <ActionButton
-                              action={{
+                              action={() => ({
                                  condition: finalizeCondition([
                                     ...timedActionConditions(
                                        {
@@ -249,7 +249,7 @@ function ReconcilePanel(): React.ReactNode {
                                     tileData.religion = state.religion;
                                     startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                                  },
-                              }}
+                              })}
                               tooltip={(element) => (
                                  <>
                                     <div className="m10">
@@ -334,7 +334,7 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
          {selectedProvince ? (
             <div style={Grid2} className="m10">
                <ActionButton
-                  action={{
+                  action={() => ({
                      cost: { christianity: 1 },
                      condition: finalizeCondition([
                         ...timedActionConditions(
@@ -354,7 +354,7 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                            relation.casusBelli.set("ReligiousWar", { monthsLeft: 12 });
                         }
                      },
-                  }}
+                  })}
                   tooltip={(element) => (
                      <>
                         <div className="m10">
@@ -434,7 +434,7 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
 function CouncilActionButton({ modifier }: { modifier: Omit<IAddModifier, "save"> }): React.ReactNode {
    return (
       <ActionButton
-         action={{
+         action={() => ({
             cost: { christianity: 1 },
             condition: finalizeCondition([
                ...timedActionConditions(
@@ -451,7 +451,7 @@ function CouncilActionButton({ modifier }: { modifier: Omit<IAddModifier, "save"
                   save: G.save,
                });
             },
-         }}
+         })}
          tooltip={(element) => (
             <>
                <div className="m10">

@@ -218,7 +218,7 @@ export function ArmySingletonModal(): React.ReactNode {
          <div className="m10" style={Grid3}>
             <ActionButton
                id="ArmyModal_RecruitGeneral"
-               action={RecruitGeneralAction(G.save.state.playerProvince, G.save)}
+               action={() => RecruitGeneralAction(G.save.state.playerProvince, G.save)}
                tooltip={(element) => (
                   <>
                      <TimedActionDescComp action="RecruitAGeneral" />
@@ -234,7 +234,7 @@ export function ArmySingletonModal(): React.ReactNode {
             </ActionButton>
             <ActionButton
                id="ArmyModal_MakeGovernorGeneral"
-               action={MakeGovernorGeneralAction(G.save.state.playerProvince, G.save)}
+               action={() => MakeGovernorGeneralAction(G.save.state.playerProvince, G.save)}
                tooltip={(element) => (
                   <>
                      <div className="m10">
@@ -247,12 +247,12 @@ export function ArmySingletonModal(): React.ReactNode {
                {$t(L.MakeGovernorGeneral)}
             </ActionButton>
             <ActionButton
-               action={{
+               action={() => ({
                   condition: finalizeCondition([hasGeneralCondition(G.save.state.playerProvince, G.save)]),
                   effect: () => {
                      dismissGeneral(G.save.state.playerProvince, G.save);
                   },
-               }}
+               })}
                tooltip={(element) => (
                   <>
                      <div className="m10">
@@ -339,7 +339,7 @@ function UpgradeSkillButton({
    return (
       <ActionButton
          id={id}
-         action={UpgradeGeneralSkillAction(skill, G.save.state.playerProvince, G.save)}
+         action={() => UpgradeGeneralSkillAction(skill, G.save.state.playerProvince, G.save)}
          tooltip={(element) => (
             <>
                <div className="m10">{$t(L.EachGeneralSkillLevelContributesToTheCorrespondingUnitsPower)}</div>

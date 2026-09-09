@@ -135,13 +135,12 @@ export function SenatePage(): React.ReactNode {
                            <ActionButton
                               id={`SenateModal_Candidate_${i}_Revoke`}
                               className="btn f1"
-                              action={{
+                              action={() => ({
                                  effect: () => {
                                     votes.delete(i);
                                     G.save.state.senate.votes.set(G.save.state.playerProvince, votes);
-                                    GameStateUpdated.emit();
                                  },
-                              }}
+                              })}
                               tooltip={(element) => {
                                  return (
                                     <>
@@ -157,7 +156,7 @@ export function SenatePage(): React.ReactNode {
                            <ActionButton
                               id={`SenateModal_Candidate_${i}_Pledge`}
                               className="btn f1"
-                              action={{
+                              action={() => ({
                                  condition: finalizeCondition([
                                     {
                                        name: $t(L.WeHavePledgedSupportToLessThan2Candidates),
@@ -172,9 +171,8 @@ export function SenatePage(): React.ReactNode {
                                  effect: () => {
                                     votes.add(i);
                                     G.save.state.senate.votes.set(G.save.state.playerProvince, votes);
-                                    GameStateUpdated.emit();
                                  },
-                              }}
+                              })}
                               tooltip={(element) => {
                                  return (
                                     <>

@@ -32,10 +32,10 @@ export function ActionButton({
    id?: string;
    style?: React.CSSProperties;
    sound?: SoundClip;
-   action: IGameAction;
+   action: () => IGameAction;
 }>): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
-   const { cost, condition, effect } = action;
+   const { cost, condition } = action();
    const isConditionMet = condition === undefined || condition.value === true;
    const hasEnoughResources =
       cost === undefined || hasEnoughProvinceResources(cost, G.save.state.playerProvince, G.save);
@@ -48,6 +48,7 @@ export function ActionButton({
          style={style}
          disabled={!isDebug && (!isConditionMet || !hasEnoughResources)}
          onClick={() => {
+            const { cost, condition, effect } = action();
             if (
                isDebug ||
                ((condition === undefined || condition.value === true) &&

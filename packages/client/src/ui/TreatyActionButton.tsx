@@ -28,7 +28,7 @@ export function TreatyActionButton({
    if (hasTreatyBetween(treaty, ourProvince, theirProvince, G.save)) {
       return (
          <ActionButton
-            action={{
+            action={() => ({
                condition: finalizeCondition([
                   {
                      name: $t(
@@ -43,7 +43,7 @@ export function TreatyActionButton({
                effect: () => {
                   cancelTreaty(treaty, ourProvince, theirProvince, G.save);
                },
-            }}
+            })}
             tooltip={(element) => (
                <>
                   <div className="row mx10 my5">
@@ -74,7 +74,7 @@ export function TreatyActionButton({
    }
    return (
       <ActionButton
-         action={OfferTreatyAction[treaty](ourProvince, theirProvince, G.save)}
+         action={() => OfferTreatyAction[treaty](ourProvince, theirProvince, G.save)}
          tooltip={(element) => (
             <>
                <div className="h3">{$t(L.Offer$1, TreatyNames[treaty]())}</div>

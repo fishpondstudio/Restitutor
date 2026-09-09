@@ -17,7 +17,7 @@ export function TimedActionButton({
       <ActionButton
          id={id}
          className={className}
-         action={makeGameAction(timedAction, G.save.state.playerProvince, G.save)}
+         action={() => makeGameAction(timedAction, G.save.state.playerProvince, G.save)}
          tooltip={(element) => (
             <>
                <TimedActionDescComp action={timedAction} />

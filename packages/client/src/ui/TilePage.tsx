@@ -99,7 +99,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                {state.capital !== tile && isMyProvince && (
                   <ActionButton
                      className="text-sm"
-                     action={{
+                     action={() => ({
                         cost: { mandate: 1 },
                         condition: finalizeCondition([
                            ...timedActionConditions({ action: "RelocateCapital" }, G.save.state.playerProvince, G.save),
@@ -118,7 +118,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                            state.capital = tile;
                            RefreshTiles.emit({ tiles: [tile, oldCapital], options: { indicator: true, visual: true } });
                         },
-                     }}
+                     })}
                      tooltip={(element) => (
                         <>
                            <div className="m10">
@@ -176,7 +176,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                <div className="f1">{$t(L.Religion)}</div>
                {isMyProvince && (
                   <ActionButton
-                     action={{
+                     action={() => ({
                         cost: { christianity: totalUpgrades },
                         condition: finalizeCondition([
                            ...timedActionConditions({ action: "EvangelizeTile" }, G.save.state.playerProvince, G.save),
@@ -193,7 +193,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                         effect: () => {
                            tileData.religion = state.religion;
                         },
-                     }}
+                     })}
                      tooltip={(element) => (
                         <>
                            <TimedActionDescComp action="EvangelizeTile" />

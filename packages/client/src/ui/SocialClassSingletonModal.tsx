@@ -76,7 +76,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                            <div>
                               <ActionButton
                                  className="btn SocialClassModal_Adopt"
-                                 action={GrantSocialClassBonusAction(key, G.save.state.playerProvince, G.save)}
+                                 action={() => GrantSocialClassBonusAction(key, G.save.state.playerProvince, G.save)}
                                  tooltip={(element) => (
                                     <>
                                        <div className="m10">
@@ -231,7 +231,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                         </FloatingTip>
                         <div className="m10 my5" style={Grid2}>
                            <ActionButton
-                              action={{
+                              action={() => ({
                                  cost: {
                                     administrative: getTotalUpgrades(G.save.state.playerProvince, G.save) / 2,
                                  },
@@ -251,7 +251,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                        G.save,
                                     );
                                  },
-                              }}
+                              })}
                               tooltip={(element) => (
                                  <>
                                     <TimedActionDescComp action="SocialClassCurtail" />
@@ -262,7 +262,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                               {$t(L.SocialClassCurtail)}
                            </ActionButton>
                            <ActionButton
-                              action={{
+                              action={() => ({
                                  cost: {
                                     gold: getTotalUpgrades(G.save.state.playerProvince, G.save) * 6,
                                  },
@@ -277,7 +277,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                     startTimedAction("SocialClassFavor", G.save.state.playerProvince, G.save);
                                     addSocialClassLoyalty(key, 20, G.save.state.playerProvince, G.save);
                                  },
-                              }}
+                              })}
                               tooltip={(element) => (
                                  <>
                                     <TimedActionDescComp action="SocialClassFavor" />

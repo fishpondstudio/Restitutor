@@ -46,7 +46,7 @@ export function MakeCoreButton({
             </>
          )}
          className={cls("btn", className)}
-         action={MakeCoreAction(tile, G.save.state.playerProvince, G.save)}
+         action={() => MakeCoreAction(tile, G.save.state.playerProvince, G.save)}
       >
          {TimedActions.MakeCore.name()}
       </ActionButton>

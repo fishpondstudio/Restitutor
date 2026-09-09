@@ -11,7 +11,7 @@ export function CrackDownButton({ tile, className }: { tile: Tile; className?: s
    return (
       <ActionButton
          className={cls("btn", className)}
-         action={CrackDownAction(tile, G.save.state.playerProvince, G.save)}
+         action={() => CrackDownAction(tile, G.save.state.playerProvince, G.save)}
          tooltip={(element) => (
             <>
                <TimedActionDescComp action="Crackdown" />

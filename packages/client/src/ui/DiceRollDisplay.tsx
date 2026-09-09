@@ -17,7 +17,7 @@ export function DiceRollComp({
 }: {
    chance: number;
    chanceTooltip: React.ReactNode;
-   action: IGameAction;
+   action: () => IGameAction;
    onAccept: () => void;
    onReject: () => void;
    acceptTooltip: React.ReactNode;
@@ -25,11 +25,6 @@ export function DiceRollComp({
 }): React.ReactNode {
    const [diceRoll, setDiceRoll] = useState<number | null>(null);
    const [rollComplete, setRollComplete] = useState(false);
-   const oldEffect = action.effect;
-   action.effect = ({ headless }: { headless: boolean }) => {
-      setDiceRoll(round(Math.random() * 100, 2));
-      oldEffect({ headless });
-   };
    return (
       <>
          <FloatingTip fixedWidth className="p0" label={() => chanceTooltip}>
@@ -53,7 +48,16 @@ export function DiceRollComp({
             <div className="m10">
                <ActionButton
                   className="w100 py2"
-                  action={action}
+                  action={() => {
+                     const gameAction = action();
+                     return {
+                        ...gameAction,
+                        effect: ({ headless }) => {
+                           setDiceRoll(round(Math.random() * 100, 2));
+                           gameAction.effect({ headless });
+                        },
+                     };
+                  }}
                   tooltip={(element) => {
                      return (
                         <>

@@ -177,7 +177,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                     (raid.defender === G.save.state.playerProvince ? (
                                        <div style={{ ...Grid2, gap: "0.3125rem" }}>
                                           <ActionButton
-                                             action={{
+                                             action={() => ({
                                                 cost: {
                                                    gold: getTotalUpgrades(G.save.state.playerProvince, G.save) * 12,
                                                 },
@@ -209,7 +209,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       headless: true,
                                                    });
                                                 },
-                                             }}
+                                             })}
                                              tooltip={(element) => (
                                                 <>
                                                    <div className="m10">
@@ -222,7 +222,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                              {$t(L.Ransom)}
                                           </ActionButton>
                                           <ActionButton
-                                             action={{
+                                             action={() => ({
                                                 condition: finalizeCondition([
                                                    ...timedActionConditions(
                                                       {
@@ -259,7 +259,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       headless: true,
                                                    });
                                                 },
-                                             }}
+                                             })}
                                              tooltip={(element) => (
                                                 <>
                                                    <div className="m10">
@@ -275,7 +275,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                     ) : (
                                        <div style={{ ...Grid2, gap: "0.3125rem" }}>
                                           <ActionButton
-                                             action={{
+                                             action={() => ({
                                                 cost: {
                                                    administrative: getTotalUpgrades(raid.attacker, G.save),
                                                 },
@@ -322,7 +322,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       save: G.save,
                                                    });
                                                 },
-                                             }}
+                                             })}
                                              tooltip={(element) => (
                                                 <>
                                                    <div className="m10">
@@ -352,7 +352,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                              {$t(L.Incite)}
                                           </ActionButton>
                                           <ActionButton
-                                             action={{
+                                             action={() => ({
                                                 cost: {
                                                    diplomatic: getTotalUpgrades(raid.attacker, G.save),
                                                 },
@@ -401,7 +401,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       G.save,
                                                    );
                                                 },
-                                             }}
+                                             })}
                                              tooltip={(element) => (
                                                 <>
                                                    <div className="m10">

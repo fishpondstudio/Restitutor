@@ -84,12 +84,12 @@ export function TreasuryPage(): React.ReactNode {
          <div className="mx10 my10">
             <ActionButton
                className="w100 py2"
-               action={{
+               action={() => ({
                   condition: canTakeLoan(province, G.save),
                   effect: () => {
                      takeLoan(province, getLoanAmount(province, G.save), G.save);
                   },
-               }}
+               })}
             >
                {$t(L.TakeALoan$1Gold, formatNumber(getLoanAmount(province, G.save)))}
             </ActionButton>
@@ -104,12 +104,12 @@ export function TreasuryPage(): React.ReactNode {
                </BreakdownTooltip>
                <ActionButton
                   className="TreasuryPage_Repay_Loan"
-                  action={{
+                  action={() => ({
                      cost: { gold: loan.principal + loan.interest },
                      effect: () => {
                         filterInPlace(state.loans, (l) => l !== loan);
                      },
-                  }}
+                  })}
                >
                   {$t(L.Repay)}
                </ActionButton>

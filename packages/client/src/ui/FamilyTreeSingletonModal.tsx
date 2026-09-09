@@ -62,7 +62,7 @@ export function FamilyTreeSingletonModal(): React.ReactNode {
                   showFitView={true}
                >
                   <ActionButton
-                     action={DivorceAction(G.save.state.playerProvince, G.save)}
+                     action={() => DivorceAction(G.save.state.playerProvince, G.save)}
                      tooltip={(element) => (
                         <>
                            <div className="h3">{$t(L.DivorcingHasTheFollowingEffects)}</div>

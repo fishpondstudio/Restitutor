@@ -138,7 +138,7 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
                </div>
             </>
          }
-         action={{
+         action={() => ({
             ...DemandTileCostCondition(
                G.save.state.playerProvince,
                tileData.province,
@@ -160,7 +160,7 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
                   G.save,
                );
             },
-         }}
+         })}
          onAccept={() => {
             tileData.province = G.save.state.playerProvince;
             unlockAchievement("DemandTile");

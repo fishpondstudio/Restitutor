@@ -292,7 +292,7 @@ function SignPeaceTreatyButton({ war, province }: { war: IWar; province: Provinc
       <ActionButton
          id="WarModal_SignPeaceTreaty"
          className="py2 primary"
-         action={SignPeaceTreatyAction(war, province, G.save)}
+         action={() => SignPeaceTreatyAction(war, province, G.save)}
          tooltip={(element) => (
             <>
                <div className="h2">{$t(L.SignPeaceTreaty)}</div>
@@ -323,7 +323,7 @@ function NegotiateWhitePeaceButton({ war, province }: { war: IWar; province: Pro
                {element}
             </>
          )}
-         action={NegotiateWhitePeaceAction(war, province, G.save)}
+         action={() => NegotiateWhitePeaceAction(war, province, G.save)}
       >
          {$t(L.NegotiateWhitePeace)}
       </ActionButton>
@@ -363,7 +363,7 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
                {element}
             </>
          )}
-         action={{
+         action={() => ({
             cost: { diplomatic: WhitePeaceCostPerTile * war.tiles.size },
             condition: finalizeCondition([
                {
@@ -397,7 +397,7 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
                   hideModal();
                }
             },
-         }}
+         })}
       >
          {$t(L.LeaveWarCoalition)}
       </ActionButton>
@@ -415,7 +415,7 @@ function ProclaimRightOfReprisalButton({ war, province }: { war: IWar; province:
                   {element}
                </>
             )}
-            action={{
+            action={() => ({
                cost: { diplomatic: 50 },
                condition: finalizeCondition([
                   ...timedActionConditions({ action: "ProclaimRightOfReprisal" }, province, G.save),
@@ -427,7 +427,7 @@ function ProclaimRightOfReprisalButton({ war, province }: { war: IWar; province:
                      monthsLeft: BreachOfThePeaceDurationYear * 12,
                   });
                },
-            }}
+            })}
          >
             {TimedActions.ProclaimRightOfReprisal.name()}
          </ActionButton>
@@ -446,7 +446,7 @@ function MakeWarSpeechButton({ war, province }: { war: IWar; province: Province 
    return (
       <ActionButton
          className="btn py2"
-         action={{
+         action={() => ({
             cost: { administrative: 50 },
             condition: finalizeCondition([
                ...timedActionConditions({ action: "MakeWarSpeech" }, province, G.save),
@@ -464,7 +464,7 @@ function MakeWarSpeechButton({ war, province }: { war: IWar; province: Province 
                war.actualWarScore += 1;
                startTimedAction("MakeWarSpeech", province, G.save);
             },
-         }}
+         })}
          tooltip={(element) => (
             <>
                <TimedActionDescComp action="MakeWarSpeech" />
@@ -487,7 +487,7 @@ function FortifyOurBordersButton({ war, province }: { war: IWar; province: Provi
    return (
       <ActionButton
          className="btn py2"
-         action={{
+         action={() => ({
             cost: { administrative: 50 },
             condition: finalizeCondition([
                ...timedActionConditions({ action: "FortifyBorders" }, province, G.save),
@@ -500,7 +500,7 @@ function FortifyOurBordersButton({ war, province }: { war: IWar; province: Provi
             effect: () => {
                startTimedAction("FortifyBorders", province, G.save);
             },
-         }}
+         })}
          tooltip={(element) => (
             <>
                <TimedActionDescComp action="FortifyBorders" />
@@ -522,7 +522,7 @@ function HireMercenariesButton({ war, province }: { war: IWar; province: Provinc
    }
    return (
       <ActionButton
-         action={HireMercenariesAction(war, province, G.save)}
+         action={() => HireMercenariesAction(war, province, G.save)}
          tooltip={(element) => (
             <>
                <TimedActionDescComp action="HireMercenaries" />
@@ -548,7 +548,7 @@ function PlunderWarTilesButton({ war, province }: { war: IWar; province: Provinc
    const plunder = getWarPlunder(war, G.save);
    return (
       <ActionButton
-         action={{
+         action={() => ({
             condition: finalizeCondition([
                ...timedActionConditions({ action: "PlunderWarTile" }, province, G.save),
                {
@@ -565,7 +565,7 @@ function PlunderWarTilesButton({ war, province }: { war: IWar; province: Provinc
                war.flag = setFlag(war.flag, WarFlag.Plunder);
                war.requiredWarScore += plunder.warScore.value;
             },
-         }}
+         })}
          tooltip={(element) => (
             <>
                {element}
@@ -592,7 +592,7 @@ function ForceAttackButton({ war, province }: { war: IWar; province: Province })
    }
    return (
       <ActionButton
-         action={{
+         action={() => ({
             condition: finalizeCondition([
                ...timedActionConditions({ action: "ForceAttack" }, province, G.save),
                {
@@ -604,7 +604,7 @@ function ForceAttackButton({ war, province }: { war: IWar; province: Province })
             effect: () => {
                startTimedAction("ForceAttack", province, G.save);
             },
-         }}
+         })}
          tooltip={(element) => (
             <>
                <TimedActionDescComp action="ForceAttack" />
@@ -627,7 +627,7 @@ function DecimateOurArmyButton({ war, province }: { war: IWar; province: Provinc
    return (
       <ActionButton
          className="btn py2"
-         action={{
+         action={() => ({
             cost: {
                gold: getArmyMaintenanceCost(province, G.save).value,
             },
@@ -646,7 +646,7 @@ function DecimateOurArmyButton({ war, province }: { war: IWar; province: Provinc
                   G.save,
                );
             },
-         }}
+         })}
          tooltip={(element) => (
             <>
                <TimedActionDescComp action="DecimateOurArmy" />
