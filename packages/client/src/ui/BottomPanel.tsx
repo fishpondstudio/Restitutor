@@ -34,7 +34,7 @@ function SceneSwitcherComp(): React.ReactNode {
          data={[
             {
                label: (
-                  <FloatingTip label={$t(L.WorldMap)}>
+                  <FloatingTip label={() => $t(L.WorldMap)}>
                      <img src={IconCatalog.MapIcon} height={24} className="display-block" />
                   </FloatingTip>
                ),
@@ -42,7 +42,7 @@ function SceneSwitcherComp(): React.ReactNode {
             },
             {
                label: (
-                  <FloatingTip label={$t(L.TechTree)}>
+                  <FloatingTip label={() => $t(L.TechTree)}>
                      <img
                         src={IconCatalog.TechTree}
                         id={

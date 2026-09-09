@@ -54,7 +54,7 @@ export function GovernmentSingletonModal(): React.ReactNode {
          </div>
          <div className="h1 row">
             <div className="f1">{$t(L.Governor)}</div>
-            <FloatingTip label={$t(L.ViewFamilyTree)}>
+            <FloatingTip label={() => $t(L.ViewFamilyTree)}>
                <div className="row g5 pointer" onClick={() => showPanel(FamilyTreeSingletonModal, {})}>
                   {state.governor.male.name.join(" ")}
                   <img src={IconCatalog.FamilyTree} style={{ height: "1.3125rem" }} />
@@ -222,11 +222,11 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
                      <Fragment key={trait}>
                         {i > 0 && ", "}
                         <FloatingTip
-                           label={
+                           label={() => (
                               <>
                                  {PersonTrait[trait].name()}: {getPersonTraitDescription(trait)}
                               </>
-                           }
+                           )}
                         >
                            <span>{PersonTrait[trait].name()}</span>
                         </FloatingTip>

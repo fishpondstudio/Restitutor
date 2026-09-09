@@ -38,7 +38,7 @@ export function LoversComponent(): React.ReactNode {
                <FloatingTip
                   fixedWidth
                   className="p0"
-                  label={<PersonTooltip person={concubine} family={state.governor} />}
+                  label={() => <PersonTooltip person={concubine} family={state.governor} />}
                >
                   <div className="row m10 g5">
                      <div className="mi">female</div>

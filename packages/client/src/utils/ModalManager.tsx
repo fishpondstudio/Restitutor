@@ -150,7 +150,7 @@ export function ModalImageHeader({
                background: "linear-gradient(to bottom, transparent, rgba(40, 40, 40, 1))",
             }}
          />
-         <FloatingTip label={$t(L.ImageCredit$1, image.credit)}>
+         <FloatingTip label={() => $t(L.ImageCredit$1, image.credit)}>
             <div className="text-roman text-lg" style={{ position: "absolute", bottom: "0.625rem", left: "0.625rem" }}>
                {title}
             </div>

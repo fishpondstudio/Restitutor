@@ -73,7 +73,7 @@ export const FloatingTip = factory<
    Factory<{
       props: {
          className?: string;
-         label: React.ReactNode | (() => React.ReactNode);
+         label: () => React.ReactNode;
          children: React.ReactNode;
          position?: Placement;
          disabled?: boolean;
@@ -127,7 +127,7 @@ export const FloatingTip = factory<
                   }}
                   ref={floating}
                >
-                  {typeof label === "function" ? label() : label}
+                  {label()}
                </div>
             </Portal>
          )}

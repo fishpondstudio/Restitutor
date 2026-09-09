@@ -47,7 +47,7 @@ export function BreakdownTooltip({
    }
    return (
       <FloatingTip
-         label={
+         label={() =>
             tooltip ? (
                tooltip(<BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} hideAdditive={hideAdditive} />)
             ) : (

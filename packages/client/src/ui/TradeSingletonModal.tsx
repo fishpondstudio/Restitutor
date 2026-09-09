@@ -75,7 +75,7 @@ export function TradeSingletonModal({ provinces }: { provinces: Set<Province> })
                </div>
             </BreakdownTooltip>
             <div className="divider vertical" />
-            <FloatingTip label={$t(L.TradeOffersRefreshEveryYear)}>
+            <FloatingTip label={() => $t(L.TradeOffersRefreshEveryYear)}>
                <div className="f1 row mx10 my5">
                   <div className="f1">{$t(L.ActiveTrades)}</div>
                   <div>{formatNumber(trades.size)}</div>
@@ -145,7 +145,7 @@ export function TradeSingletonModal({ provinces }: { provinces: Set<Province> })
                      <th>
                         <div className="row">
                            <div className="f1"></div>
-                           <FloatingTip label={$t(L.OnlyShowAvailableTrades)}>
+                           <FloatingTip label={() => $t(L.OnlyShowAvailableTrades)}>
                               <div>
                                  <Switch
                                     size="xs"
@@ -192,7 +192,9 @@ export function TradeSingletonModal({ provinces }: { provinces: Set<Province> })
                               )}
                            </td>
                            <td className="text-right">
-                              <FloatingTip label={<>{html($t(L.CancellingThisTradeWillNotResetTradeCooldown))}</>}>
+                              <FloatingTip
+                                 label={() => <>{html($t(L.CancellingThisTradeWillNotResetTradeCooldown))}</>}
+                              >
                                  <button
                                     className="btn red"
                                     onClick={() => {
@@ -339,7 +341,7 @@ function WeOfferWarning({ offer, month }: { offer: TradeOffer; month: number }):
       <FloatingTip
          className="p0"
          fixedWidth
-         label={
+         label={() => (
             <>
                {isWarning ? (
                   <div className="m10">
@@ -364,7 +366,7 @@ function WeOfferWarning({ offer, month }: { offer: TradeOffer; month: number }):
                   <div>{formatNumber(getProvinceResource(offer.weOffer, G.save.state.playerProvince, G.save))}</div>
                </div>
             </>
-         }
+         )}
       >
          <div className="row g5 fstart">
             <div className={cls("mi xs", isWarning ? "text-dimmed" : "text-red")}>

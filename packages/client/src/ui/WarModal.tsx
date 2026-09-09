@@ -89,7 +89,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
             </div>
          </div>
          <FloatingTip
-            label={<WarChanceTooltip successChance={successChance} requiredWarScore={war.requiredWarScore} />}
+            label={() => <WarChanceTooltip successChance={successChance} requiredWarScore={war.requiredWarScore} />}
          >
             <div className="row mx10 my5">
                <div className="f1">{$t(L.LengthOfTheWarEstTimeLeft)}</div>
@@ -142,7 +142,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                                  disabled={log.rolls.length === 0}
                                  className="p0"
                                  fixedWidth
-                                 label={
+                                 label={() => (
                                     <>
                                        <div className="m10">
                                           {$t(L.WarMonthlyAttackExplanation$1$2, "3", formatPercent(log.successChance))}
@@ -175,7 +175,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                                           <div>{WarResultNames[log.result]()}</div>
                                        </div>
                                     </>
-                                 }
+                                 )}
                               >
                                  <div className="row g0">
                                     {log.rolls.map((roll, i) => {
@@ -242,7 +242,10 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                   })}
                </div>
                <div className="h1">{$t(L.CasusBelli)}</div>
-               <FloatingTip disabled={!CasusBelli[war.casusBelli].effect} label={CasusBelli[war.casusBelli].effect?.()}>
+               <FloatingTip
+                  disabled={!CasusBelli[war.casusBelli].effect}
+                  label={() => CasusBelli[war.casusBelli].effect?.()}
+               >
                   <div className="mx10 my5">{CasusBelli[war.casusBelli].name()}</div>
                </FloatingTip>
                {war.attacker === G.save.state.playerProvince && (
@@ -270,7 +273,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
 function WarLogScoreComp({ log }: { log: IWarLog }): React.ReactNode {
    if (hasFlag(log.flag, WarLogFlag.ForceAttack)) {
       return (
-         <FloatingTip label={$t(L.TimedActionForceAttackDesc$1$2, "10%", "1")}>
+         <FloatingTip label={() => $t(L.TimedActionForceAttackDesc$1$2, "10%", "1")}>
             <span className="text-red">0*</span>
          </FloatingTip>
       );

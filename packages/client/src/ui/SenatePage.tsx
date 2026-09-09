@@ -42,7 +42,9 @@ export function SenatePage(): React.ReactNode {
    const revealedVotes = getRevealedConsulVotes(G.save.state.playerProvince, G.save);
    return (
       <SidebarComp title={<SidebarImageHeader image={HeaderImages.Senate} title={$t(L.SenateAndConsuls)} />}>
-         <FloatingTip label={$t(L.ConsulPointsWillExpireWhenTheNextConsulsAreElectedIn$1Months, monthsToNextElection)}>
+         <FloatingTip
+            label={() => $t(L.ConsulPointsWillExpireWhenTheNextConsulsAreElectedIn$1Months, monthsToNextElection)}
+         >
             <div className="h1 row">
                <div className="f1">{$t(L.SenateDecrees)}</div>
                <div>
@@ -77,12 +79,14 @@ export function SenatePage(): React.ReactNode {
                return (
                   <FloatingTip
                      key={i}
-                     label={html(
-                        $t(
-                           L.ThisConsulIsSupportedByTheFollowingProvinces$1,
-                           provinces.map((p) => getProvinceName(p, G.save)).join(", "),
-                        ),
-                     )}
+                     label={() =>
+                        html(
+                           $t(
+                              L.ThisConsulIsSupportedByTheFollowingProvinces$1,
+                              provinces.map((p) => getProvinceName(p, G.save)).join(", "),
+                           ),
+                        )
+                     }
                   >
                      <div className="box p10 text-display text-center" key={i}>
                         {name}
@@ -93,7 +97,7 @@ export function SenatePage(): React.ReactNode {
          </div>
          <div className="divider" />
          <div className="m10">
-            <FloatingTip label={$t(L.AutomaticallyPledgeSupportToTwoRandomCandidatesEveryElectionYear)}>
+            <FloatingTip label={() => $t(L.AutomaticallyPledgeSupportToTwoRandomCandidatesEveryElectionYear)}>
                <div className="row my5">
                   <div className="f1">{$t(L.AutomaticallyPledgeSupport)}</div>
                   <Switch
@@ -107,7 +111,7 @@ export function SenatePage(): React.ReactNode {
             </FloatingTip>
          </div>
          <div className="h1">{$t(L.ConsulElectionOf$1Ad, nextElectionYear)}</div>
-         <FloatingTip label={$t(L.DefaultPledgeSupportTooltip)}>
+         <FloatingTip label={() => $t(L.DefaultPledgeSupportTooltip)}>
             <div className="m10 row">
                <div className="f1">{$t(L.ProvincialBacking)}</div>
                <div>{getProvinceStat("consulVotes", G.save.state.playerProvince, G.save)}</div>
@@ -118,7 +122,7 @@ export function SenatePage(): React.ReactNode {
                const supportedProvinces = revealedVotes.get(i) ?? [];
                return (
                   <div key={i} className="box p10 col stretch">
-                     <FloatingTip label={name}>
+                     <FloatingTip label={() => name}>
                         <div
                            className="text-display text-center mb5 mt-5"
                            style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}
@@ -188,7 +192,7 @@ export function SenatePage(): React.ReactNode {
                            </ActionButton>
                         )}
                         <FloatingTip
-                           label={
+                           label={() =>
                               supportedProvinces.length > 0
                                  ? $t(
                                       L.AccordingToOurIntelligenceThisCandidateIsSupportedBy$1,

@@ -323,7 +323,7 @@ function SettingsGeneralTab(): React.ReactNode {
                <div className="f1">{$t(L.GameVersion)}</div>
                <div>{getVersion()}</div>
             </div>
-            <FloatingTip label={$t(L.YouCanOnlyLoadSaveFilesThatMatchTheSupportedSaveVersion)}>
+            <FloatingTip label={() => $t(L.YouCanOnlyLoadSaveFilesThatMatchTheSupportedSaveVersion)}>
                <div className="row my5">
                   <div className="f1">{$t(L.SupportedSaveVersion)}</div>
                   <div>{G.save.options.version}</div>

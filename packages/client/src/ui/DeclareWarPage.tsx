@@ -141,7 +141,9 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
          />
          <div className="divider my10" />
          <BreakdownRow className="mx10 my5" name={$t(L.WarScore)} breakdown={warScore} formatFunc={formatNumber} />
-         <FloatingTip label={<WarChanceTooltip successChance={successChance} requiredWarScore={warScore.value} />}>
+         <FloatingTip
+            label={() => <WarChanceTooltip successChance={successChance} requiredWarScore={warScore.value} />}
+         >
             <div className="row mx10 my5">
                <div className="f1">{$t(L.EstTimeToWin)}</div>
                <div>

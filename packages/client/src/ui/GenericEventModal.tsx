@@ -16,7 +16,7 @@ export function GenericEventModal({
    dismiss,
 }: {
    title: React.ReactNode;
-   titleTooltip: React.ReactNode;
+   titleTooltip: () => React.ReactNode;
    content: React.ReactNode;
    image: string;
    buttons: React.ReactNode[];

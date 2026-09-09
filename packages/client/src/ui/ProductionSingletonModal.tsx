@@ -55,7 +55,7 @@ export function ProductionSingletonModal(): React.ReactNode {
                >
                   <ProductionCapacityButton />
                   <GoodsTaxRateButton />
-                  <FloatingTip label={$t(L.ResetProduction)}>
+                  <FloatingTip label={() => $t(L.ResetProduction)}>
                      <button
                         className="btn"
                         onClick={() => {
@@ -66,7 +66,7 @@ export function ProductionSingletonModal(): React.ReactNode {
                         <div className="mi sm">reset_wrench</div>
                      </button>
                   </FloatingTip>
-                  <FloatingTip label={html($t(L.AutomaticallySetupProduction))}>
+                  <FloatingTip label={() => html($t(L.AutomaticallySetupProduction))}>
                      <button
                         className="btn"
                         onClick={() => {
@@ -92,7 +92,7 @@ function ProductionCapacityButton(): React.ReactNode {
       <FloatingTip
          fixedWidth
          className="p0"
-         label={
+         label={() => (
             <>
                <div className="m10">{Modifiers.ProductionCapacity.desc()}</div>
                <div className="row m10">
@@ -104,7 +104,7 @@ function ProductionCapacityButton(): React.ReactNode {
                <div className="h2">{$t(L.ProductionCapacity)}</div>
                <BreakdownComp breakdown={getProvinceProductionCapacity(G.save.state.playerProvince, G.save)} />
             </>
-         }
+         )}
       >
          <button className={cls("btn text-body", usedCapacity >= totalCapacity.value ? "text-red" : null)}>
             {formatNumber(usedCapacity)}/{formatNumber(totalCapacity.value)}
@@ -121,11 +121,11 @@ function GoodsTaxRateButton(): React.ReactNode {
          <Popover.Target>
             <button className="btn text-body">
                <FloatingTip
-                  label={
+                  label={() => (
                      <>
                         {$t(L.GoodsTaxRate)}: {formatPercent(goodsTaxRate)}
                      </>
-                  }
+                  )}
                >
                   <div>{formatPercent(goodsTaxRate)}</div>
                </FloatingTip>

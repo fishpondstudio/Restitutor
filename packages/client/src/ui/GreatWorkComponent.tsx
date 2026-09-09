@@ -15,7 +15,7 @@ export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): Rea
       <FloatingTip
          fixedWidth
          className="p0"
-         label={
+         label={() => (
             <>
                <div style={{ position: "relative" }}>
                   <img src={config.image.url} className="display-block w100" style={{ aspectRatio: "1/1" }} />
@@ -48,7 +48,7 @@ export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): Rea
                </div>
                <div className="mx10 my5 text-dimmed text-xs">{$t(L.ImageCredit$1, config.image.credit)}</div>
             </>
-         }
+         )}
       >
          <div
             className="row pointer"

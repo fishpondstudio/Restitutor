@@ -25,7 +25,7 @@ export function NewChildBornModal({ province, child }: { province: Province; chi
             child.male ? $t(L.Male) : $t(L.Female),
          )}
          image={EventImage.RomulusAndRemus.url}
-         titleTooltip={<div className="m10">{$t(L.ImageCredit$1, EventImage.RomulusAndRemus.credit)}</div>}
+         titleTooltip={() => <div className="m10">{$t(L.ImageCredit$1, EventImage.RomulusAndRemus.credit)}</div>}
          buttons={[
             <GameEventButton
                key={0}

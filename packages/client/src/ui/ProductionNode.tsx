@@ -42,7 +42,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
          <FloatingTip
             fixedWidth
             className="p0"
-            label={
+            label={() => (
                <>
                   {insufficientInput.size > 0 && (
                      <div className="m10 text-red">
@@ -148,7 +148,7 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
                      </div>
                   </div>
                </>
-            }
+            )}
          >
             <div>
                <div className="h10" />
@@ -172,9 +172,9 @@ export function ProductionNode({ data }: NodeProps<ProductionNode>): React.React
             {!isRawGoods && !isUnlocked && (
                <FloatingTip
                   fixedWidth
-                  label={
+                  label={() => (
                      <>{html($t(L.Unlock$1ProductionByResearching$2, config.name(), tech ? Tech[tech].name() : ""))}</>
-                  }
+                  )}
                >
                   <div className="mi cc" style={{ margin: "0.25rem" }}>
                      lock

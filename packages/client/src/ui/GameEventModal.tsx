@@ -78,7 +78,7 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
          }
          content={data.desc()}
          image={image.url}
-         titleTooltip={
+         titleTooltip={() => (
             <>
                {condition.breakdown.length > 0 && (
                   <>
@@ -89,7 +89,7 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
                <div className="divider"></div>
                <div className="m10 text-xs text-dimmed">{$t(L.ImageCredit$1, image.credit)}</div>
             </>
-         }
+         )}
          buttons={buttons}
          dismiss={true}
       />
@@ -106,7 +106,7 @@ export function GameEventButton({
    label: React.ReactNode;
 }): React.ReactNode {
    return (
-      <FloatingTip fixedWidth className="p0" label={tooltip}>
+      <FloatingTip fixedWidth className="p0" label={() => tooltip}>
          <div className="modal-transparent-button" onClick={onClick}>
             {label}
          </div>

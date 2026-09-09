@@ -23,7 +23,7 @@ export function ProvinceListSingletonModal(): React.ReactNode {
    const ranking = getProvincePrestigeRanking(G.save);
    return (
       <ModalComp size="lg" title={<ModalTitleBar title={$t(L.Prestige)} dismiss />}>
-         <FloatingTip label={$t(L.PrestigeRankingOfAllProvinces)}>
+         <FloatingTip label={() => $t(L.PrestigeRankingOfAllProvinces)}>
             <div className="h1 row">
                <div className="f1">{$t(L.MostPrestigiousProvinces)}</div>
                <div>{monthToDate(G.save.state.month).getFullYear()} A.D.</div>
@@ -55,7 +55,7 @@ export function ProvinceListSingletonModal(): React.ReactNode {
                         >
                            <td>
                               {index < 5 ? (
-                                 <FloatingTip label={$t(L.GreatPower)}>
+                                 <FloatingTip label={() => $t(L.GreatPower)}>
                                     <div className="mi sm">stars</div>
                                  </FloatingTip>
                               ) : null}

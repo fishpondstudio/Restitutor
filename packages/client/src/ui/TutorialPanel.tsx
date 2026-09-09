@@ -25,7 +25,7 @@ export function TutorialPanel(): React.ReactNode {
       <div className="tutorial-panel panel">
          <FloatingTip
             className="p0"
-            label={<div className="m10">{html(tutorial.desc(G.save))}</div>}
+            label={() => <div className="m10">{html(tutorial.desc(G.save))}</div>}
             disabled={!minimizeTutorial}
          >
             <div className="row g5 m10">
@@ -68,7 +68,7 @@ export function TutorialPanel(): React.ReactNode {
                   {tutorial.button()}
                </button>
                <FloatingTip
-                  label={
+                  label={() =>
                      hasFlag(G.save.options.flag, GameOptionFlag.CollapseTutorial)
                         ? $t(L.ExpandTutorialPanel)
                         : $t(L.CollapseTutorialPanel)

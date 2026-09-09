@@ -291,14 +291,16 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
    return (
       <div key={heresy}>
          <FloatingTip
-            label={$t(
-               L.AllTilesFollowing$1Get$2$3And$4$5,
-               Religion[heresy].name(),
-               formatPercentDelta(-EcumenicalCouncilPct),
-               $t(L.Defense),
-               formatPercentDelta(EcumenicalCouncilPct),
-               $t(L.Maintenance),
-            )}
+            label={() =>
+               $t(
+                  L.AllTilesFollowing$1Get$2$3And$4$5,
+                  Religion[heresy].name(),
+                  formatPercentDelta(-EcumenicalCouncilPct),
+                  $t(L.Defense),
+                  formatPercentDelta(EcumenicalCouncilPct),
+                  $t(L.Maintenance),
+               )
+            }
          >
             <div className="h1">{Religion[heresy].name()}</div>
          </FloatingTip>

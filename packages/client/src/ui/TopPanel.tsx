@@ -114,10 +114,12 @@ export function TopLeftPanel(): React.ReactNode {
                   <img src={IconCatalog.Menu} style={{ width: `${IconWidth}rem` }} />
                </div>
                <FloatingTip
-                  label={$t(
-                     L.$1IsOurProvinceClickToHighlightItOnTheMap,
-                     getProvinceName(G.save.state.playerProvince, G.save),
-                  )}
+                  label={() =>
+                     $t(
+                        L.$1IsOurProvinceClickToHighlightItOnTheMap,
+                        getProvinceName(G.save.state.playerProvince, G.save),
+                     )
+                  }
                >
                   <div
                      className="f1 pointer text-md text-display text-right text-ellipsis"
@@ -233,7 +235,7 @@ export function TopLeftPanel(): React.ReactNode {
          </div>
          <div className="divider" />
          <div className="f1 row mx10 stretch">
-            <FloatingTip label={$t(L.GoldAndMonthlyIncome)}>
+            <FloatingTip label={() => $t(L.GoldAndMonthlyIncome)}>
                <div
                   id="TopPanel_Gold"
                   className="row g0 pointer"
@@ -274,12 +276,12 @@ export function TopLeftPanel(): React.ReactNode {
             </BreakdownTooltip>
             <div className="divider vertical" />
             <div style={IconRowStyle}>
-               <FloatingTip label={$t(L.FamilyTree)}>
+               <FloatingTip label={() => $t(L.FamilyTree)}>
                   <div className="pointer" id="TopPanel_FamilyTree" onClick={openFamilyTree}>
                      <img src={IconCatalog.FamilyTree} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip label={$t(L.TilesAndUpgrades)}>
+               <FloatingTip label={() => $t(L.TilesAndUpgrades)}>
                   <div
                      id="TopPanel_TileCount"
                      className="pointer"
@@ -293,7 +295,7 @@ export function TopLeftPanel(): React.ReactNode {
                <FloatingTip
                   fixedWidth
                   className="p0"
-                  label={
+                  label={() => (
                      <div className="m10">
                         <div className="row my5">
                            <div className="f1">{$t(L.GoverningCostCapacity)}</div>
@@ -313,7 +315,7 @@ export function TopLeftPanel(): React.ReactNode {
                            <div>{colorNumber(getProvinceStability(G.save.state.playerProvince, G.save).value)}</div>
                         </div>
                      </div>
-                  }
+                  )}
                >
                   <div
                      id="TopPanel_InternalAffairs"
@@ -325,7 +327,7 @@ export function TopLeftPanel(): React.ReactNode {
                      <img src={IconCatalog.Stability} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip label={$t(L.SocialClass)}>
+               <FloatingTip label={() => $t(L.SocialClass)}>
                   <div
                      className="pointer"
                      id="TopPanel_SocialClass"
@@ -334,7 +336,7 @@ export function TopLeftPanel(): React.ReactNode {
                      <img src={IconCatalog.SocialClass} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip fixedWidth className="p0" label={<DiplomatsTooltip />}>
+               <FloatingTip fixedWidth className="p0" label={() => <DiplomatsTooltip />}>
                   <div
                      id="TopPanel_Diplomats"
                      className="pointer"
@@ -345,7 +347,7 @@ export function TopLeftPanel(): React.ReactNode {
                      <img src={IconCatalog.Diplomat} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip label={$t(L.Production)}>
+               <FloatingTip label={() => $t(L.Production)}>
                   <div
                      className="pointer"
                      id="TopPanel_Production"
@@ -354,7 +356,7 @@ export function TopLeftPanel(): React.ReactNode {
                      <img src={IconCatalog.Production} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip label={$t(L.Trade)}>
+               <FloatingTip label={() => $t(L.Trade)}>
                   <div
                      className="pointer"
                      id="TopPanel_Trade"
@@ -363,22 +365,22 @@ export function TopLeftPanel(): React.ReactNode {
                      <img src={IconCatalog.Trade} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip label={$t(L.SenateAndConsuls)}>
+               <FloatingTip label={() => $t(L.SenateAndConsuls)}>
                   <div className="pointer" id="TopPanel_Senate" onClick={() => showPanel(SenatePage, {})}>
                      <img src={IconCatalog.Senate} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip label={$t(L.Missions)}>
+               <FloatingTip label={() => $t(L.Missions)}>
                   <div className="pointer" id="TopPanel_Mission" onClick={() => showPanel(MissionPage, {})}>
                      <img src={IconCatalog.Mission} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip label={$t(L.Chronicle)}>
+               <FloatingTip label={() => $t(L.Chronicle)}>
                   <div className="pointer" id="TopPanel_Chronicle" onClick={() => showPanel(ChroniclePage, {})}>
                      <img src={IconCatalog.Chronicle} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip label={$t(L.LegacyUpgrade)}>
+               <FloatingTip label={() => $t(L.LegacyUpgrade)}>
                   <div
                      className="pointer"
                      id="TopPanel_LegacyUpgrade"

@@ -122,7 +122,7 @@ function TimeComp(): React.ReactNode {
 
 function _DiscordComp(): React.ReactNode {
    return (
-      <FloatingTip label={$t(L.JoinOurDiscordServer)}>
+      <FloatingTip label={() => $t(L.JoinOurDiscordServer)}>
          <img
             src={IconCatalog.Discord}
             style={{ display: "block", height: "1.125rem" }}
@@ -136,7 +136,9 @@ export const DiscordComp = memo(_DiscordComp);
 
 function _SteamComp(): React.ReactNode {
    return (
-      <FloatingTip label={hasFlag(G.flags, GameFlags.Demo) ? $t(L.WishlistTheFullGameOnSteam) : $t(L.SteamCommunity)}>
+      <FloatingTip
+         label={() => (hasFlag(G.flags, GameFlags.Demo) ? $t(L.WishlistTheFullGameOnSteam) : $t(L.SteamCommunity))}
+      >
          <img
             src={IconCatalog.Steam}
             style={{ display: "block", height: "1.25rem" }}

@@ -140,11 +140,13 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                </div>
                {treatySabotaged > 0 && (
                   <FloatingTip
-                     label={$t(
-                        L.$1sTreatyHasBeenSabotagedFor$2Months,
-                        getProvinceName(province, G.save),
-                        formatNumber(TimedActions.TreatySabotaged.duration),
-                     )}
+                     label={() =>
+                        $t(
+                           L.$1sTreatyHasBeenSabotagedFor$2Months,
+                           getProvinceName(province, G.save),
+                           formatNumber(TimedActions.TreatySabotaged.duration),
+                        )
+                     }
                   >
                      <div className="row mx10 my5 text-yellow">
                         <div className="f1">{$t(L.TreatySabotaged)}</div>
@@ -198,11 +200,13 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      </BreakdownTooltip>
                      {truceMonthsLeft > 0 && (
                         <FloatingTip
-                           label={$t(
-                              L.WeAreInATruceWith$1For$2Months,
-                              getProvinceName(province, G.save),
-                              formatNumber(truceMonthsLeft),
-                           )}
+                           label={() =>
+                              $t(
+                                 L.WeAreInATruceWith$1For$2Months,
+                                 getProvinceName(province, G.save),
+                                 formatNumber(truceMonthsLeft),
+                              )
+                           }
                         >
                            <div className="row mx10 my5 text-yellow">
                               <div className="f1">{$t(L.Truce)}</div>
@@ -218,11 +222,11 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                            <FloatingTip
                               key={cb}
                               disabled={!effect}
-                              label={
+                              label={() => (
                                  <>
                                     {$t(L.CasusBelliEffect)} {effect?.()}
                                  </>
-                              }
+                              )}
                            >
                               <div className="row mx10 my5 text-sm text-red">
                                  <div className="f1">{CasusBelli[cb].name()}</div>
@@ -239,7 +243,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                      <div className="mx10 my5 text-display">{$t(L.OngoingWars)}</div>
                      {wars.map((war, idx) => {
                         return (
-                           <FloatingTip className="p0" fixedWidth key={idx} label={<WarTooltip war={war} />}>
+                           <FloatingTip className="p0" fixedWidth key={idx} label={() => <WarTooltip war={war} />}>
                               <div
                                  className={cls("row mx10 my5 text-sm", isMe ? "pointer" : null)}
                                  onClick={() => {
@@ -263,7 +267,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                   </>
                )}
                <FloatingTip
-                  label={
+                  label={() => (
                      <ul>
                         <li>
                            {$t(
@@ -291,7 +295,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                            )}
                         </li>
                      </ul>
-                  }
+                  )}
                >
                   <div className="h1 row">
                      <div className="f1">{$t(L.Rivals)}</div>
@@ -415,7 +419,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
    return (
       <div className="box m10" style={{ width: DiplomacyActionWidth, marginLeft: 0 }}>
          <div className="m10 col stretch g5">
-            <FloatingTip label={$t(L.WeWillConfirmDeclaringWarInTheNextScreen)}>
+            <FloatingTip label={() => $t(L.WeWillConfirmDeclaringWarInTheNextScreen)}>
                <button
                   id={`DiplomacyPage_DeclareWar_${province}`}
                   className="btn py2 red"
@@ -431,13 +435,13 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             <div className="f1">{$t(L.Treaties)}</div>
             <FloatingTip
                style={{ maxWidth: "25rem" }}
-               label={
+               label={() => (
                   <>
                      <div className="text-sm">{$t(L.ObligationOfOtherPartyInCaseOfWar)}</div>
                      <div className="h10" />
                      <AllianceTableComp />
                   </>
-               }
+               )}
             >
                <div className="mi sm">info</div>
             </FloatingTip>
@@ -905,7 +909,7 @@ function RelationsActionButton({
                GameStateUpdated.emit();
             }}
          >
-            <FloatingTip label={isDoingTooltip}>
+            <FloatingTip label={() => isDoingTooltip}>
                <div>{cancelLabel}</div>
             </FloatingTip>
          </button>

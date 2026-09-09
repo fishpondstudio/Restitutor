@@ -78,7 +78,7 @@ function MissionEvent({ event }: { event: GameEvent }): React.ReactNode {
 
    return (
       <div className="box m10 text-sm" id={`MissionPage_${event}`}>
-         <FloatingTip label={config.desc()}>
+         <FloatingTip label={() => config.desc()}>
             <div className="h1 row">
                {config.type === "random" ? "*" : ""}
                {config.name()}
@@ -121,7 +121,7 @@ function MissionEvent({ event }: { event: GameEvent }): React.ReactNode {
             {buttons.length > 1 ? ` ${$t(L.ChooseOne)}` : ""}
          </div>
          {buttons.map((button, index) => (
-            <FloatingTip key={index} label={getGameEventButtonDesc(button, G.save.state.playerProvince, G.save)}>
+            <FloatingTip key={index} label={() => getGameEventButtonDesc(button, G.save.state.playerProvince, G.save)}>
                <div className="row ml10 mr5 my5 g5">
                   <div className="mi xs">arrow_forward</div>
                   <div className="f1">{button.label()}</div>

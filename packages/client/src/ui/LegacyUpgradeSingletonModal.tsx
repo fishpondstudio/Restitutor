@@ -54,7 +54,7 @@ export function LegacyUpgradeSingletonModal(): React.ReactNode {
                   <FloatingTip
                      fixedWidth
                      className="p0"
-                     label={
+                     label={() => (
                         <>
                            <div className="m10">
                               <div className="row my5">
@@ -73,7 +73,7 @@ export function LegacyUpgradeSingletonModal(): React.ReactNode {
                            <div className="divider" />
                            <div className="m10 text-dimmed">{$t(L.LegacyUpgradeCostIncrementDesc$1, "1")}</div>
                         </>
-                     }
+                     )}
                   >
                      <button className="btn">
                         {formatNumber(legacyPoints)}/{formatNumber(cost)}

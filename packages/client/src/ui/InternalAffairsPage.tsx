@@ -150,7 +150,7 @@ export function InternalAffairsPage(): React.ReactNode {
             </div>
          </BreakdownTooltip>
          <FloatingTip
-            label={
+            label={() => (
                <>
                   {$t(L.MandatesCanBeAcquiredFrom)}
                   <ul>
@@ -160,7 +160,7 @@ export function InternalAffairsPage(): React.ReactNode {
                      <li>{$t(L.AnnexingAClient)}</li>
                   </ul>
                </>
-            }
+            )}
          >
             <div className="row mx10 my5">
                <div className="f1">{ProvinceResourceNames.mandate()}</div>
@@ -169,7 +169,7 @@ export function InternalAffairsPage(): React.ReactNode {
          </FloatingTip>
          <div className="divider" />
          <div className="m10">
-            <FloatingTip label={html($t(L.SettleUnrestAutomaticallyEveryMonth$1, "0"))}>
+            <FloatingTip label={() => html($t(L.SettleUnrestAutomaticallyEveryMonth$1, "0"))}>
                <div className="row my5">
                   <div className="f1">{$t(L.AutomaticallySettleUnrest)}</div>
                   <Switch
@@ -187,7 +187,7 @@ export function InternalAffairsPage(): React.ReactNode {
          <FloatingTip
             className="p0"
             fixedWidth
-            label={
+            label={() => (
                <>
                   <div className="m10 row">
                      <div className="f1">{$t(L.ProgressToNextRestoration)}</div>
@@ -198,7 +198,7 @@ export function InternalAffairsPage(): React.ReactNode {
                      {html($t(L.EveryTilesGrantRestorationWithBonusChoice$1, TilesPerRestoration))}
                   </div>
                </>
-            }
+            )}
          >
             <div className="m10">
                <div className="row my5">
@@ -250,13 +250,13 @@ export function InternalAffairsPage(): React.ReactNode {
             <div>{Religion[state.religion].name()}</div>
          </div>
          <FloatingTip
-            label={
+            label={() => (
                <>
                   <div>{$t(L.ReligiousCohesionTooltip)}</div>
                   <div className="h10" />
                   <div>{$t(L.CohesionEffectTooltip)}</div>
                </>
-            }
+            )}
          >
             <div className="row mx10 my5">
                <div className="f1">{$t(L.ReligiousCohesion)}</div>
@@ -289,7 +289,7 @@ export function InternalAffairsPage(): React.ReactNode {
                }
                return (
                   <Menu key={idx} position="bottom-start">
-                     <FloatingTip label={html($t(L.SelectAToleratedReligionThisSelectionCannotBeChanged))}>
+                     <FloatingTip label={() => html($t(L.SelectAToleratedReligionThisSelectionCannotBeChanged))}>
                         <Menu.Target>
                            <div className="box px5 py2 pointer" key={idx}>
                               <div className="mi sm">add</div>
@@ -328,7 +328,7 @@ export function InternalAffairsPage(): React.ReactNode {
          <FloatingTip
             className="p0"
             fixedWidth
-            label={
+            label={() => (
                <>
                   <div className="m10">
                      <div className="row my5">
@@ -356,7 +356,7 @@ export function InternalAffairsPage(): React.ReactNode {
                      )}
                   </div>
                </>
-            }
+            )}
          >
             <div className="row g5 m10">
                <div>{ProvinceResourceNames.christianity()}</div>
@@ -393,13 +393,13 @@ export function InternalAffairsPage(): React.ReactNode {
             <div>{Culture[state.culture].name()}</div>
          </div>
          <FloatingTip
-            label={
+            label={() => (
                <>
                   <div>{$t(L.CulturalCohesionTooltip)}</div>
                   <div className="h10" />
                   <div>{$t(L.CohesionEffectTooltip)}</div>
                </>
-            }
+            )}
          >
             <div className="row mx10 my5">
                <div className="f1">{$t(L.CulturalCohesion)}</div>
@@ -440,7 +440,7 @@ export function InternalAffairsPage(): React.ReactNode {
                }
                return (
                   <Menu key={idx} position="bottom-start">
-                     <FloatingTip label={html($t(L.SelectAToleratedCultureThisSelectionCannotBeChanged))}>
+                     <FloatingTip label={() => html($t(L.SelectAToleratedCultureThisSelectionCannotBeChanged))}>
                         <Menu.Target>
                            <div className="box px5 py2 pointer" key={idx}>
                               <div className="mi sm">add</div>
@@ -508,7 +508,7 @@ export function InternalAffairsPage(): React.ReactNode {
                   <div className="row mx10 my5">
                      <div className="f1">{$t(L.Autonomy)}</div>
                      <div className="row g5">
-                        <FloatingTip label={$t(L.SetTileAutonomyTo$1, "0")}>
+                        <FloatingTip label={() => $t(L.SetTileAutonomyTo$1, "0")}>
                            <button
                               className="btn text-xs"
                               onClick={() => {
@@ -519,7 +519,7 @@ export function InternalAffairsPage(): React.ReactNode {
                               {$t(L.Reset)}
                            </button>
                         </FloatingTip>
-                        <FloatingTip label={$t(L.SettlingUnrestAdjustsAutonomySoThatTileUnrestIsAtMost$1, "0")}>
+                        <FloatingTip label={() => $t(L.SettlingUnrestAdjustsAutonomySoThatTileUnrestIsAtMost$1, "0")}>
                            <button
                               className="btn text-xs"
                               onClick={() => {

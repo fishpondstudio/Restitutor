@@ -52,7 +52,7 @@ export function RebirthPage(): React.ReactNode {
          <div className="h1">{$t(L.LegacyPointsForNextRun)}</div>
          <BreakdownComp breakdown={legacyPointsNextRun} />
          <div className="h1">{$t(L.NextRunProvince)}</div>
-         <FloatingTip label={$t(L.CurrentlyUnderDevelopmentMoreProvincesWillBeAddedSoon)}>
+         <FloatingTip label={() => $t(L.CurrentlyUnderDevelopmentMoreProvincesWillBeAddedSoon)}>
             <div className="mx10 my5">
                <Select
                   autoFocus={true}
@@ -98,7 +98,7 @@ export function RebirthPage(): React.ReactNode {
                <div>{Religion[Province[province].religion].name()}</div>
             </div>
             <FloatingTip
-               label={
+               label={() => (
                   <>
                      {provincialEvents.map(([k, v]) => (
                         <div key={k}>
@@ -108,7 +108,7 @@ export function RebirthPage(): React.ReactNode {
                      ))}
                      <div className="text-sm text-dimmed text-italic mt5">{$t(L.InheritedRegionalEvents)}</div>
                   </>
-               }
+               )}
             >
                <div className="row my5">
                   <div className="f1">{$t(L.ProvincialEvents)}</div>

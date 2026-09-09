@@ -38,7 +38,7 @@ export function TileListSingletonModal(): React.ReactNode {
                      <th></th>
                      {entriesOf(Buildings).map(([building, buildingData]) => (
                         <th key={building}>
-                           <FloatingTip label={buildingData.name()}>
+                           <FloatingTip label={() => buildingData.name()}>
                               <img src={buildingData.image} height={30} className="img-border thin" />
                            </FloatingTip>
                         </th>
@@ -156,7 +156,7 @@ function UpgradeButtonsColumns({ tile }: { tile: Tile }): React.ReactNode {
             </UpgradePopulationButton>
          </td>
          <td>
-            <FloatingTip label={html($t(L.TotalUpgrades$1UpgradeTimes$2, totalUpgrades, tileData.upgradeCount))}>
+            <FloatingTip label={() => html($t(L.TotalUpgrades$1UpgradeTimes$2, totalUpgrades, tileData.upgradeCount))}>
                <div>
                   {totalUpgrades}/{tileData.upgradeCount}
                </div>

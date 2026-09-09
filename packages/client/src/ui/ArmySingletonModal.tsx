@@ -89,7 +89,7 @@ export function ArmySingletonModal(): React.ReactNode {
          <div className="row g5 mx10 my5">
             <div className="f1">{$t(L.ActualConscription)}</div>
             {targetConscription > actualConscription && (
-               <FloatingTip label={$t(L.ActualConscriptionIncreasingAt$1PerMonth, "1%")}>
+               <FloatingTip label={() => $t(L.ActualConscriptionIncreasingAt$1PerMonth, "1%")}>
                   <div className="mi sm text-green">trending_up</div>
                </FloatingTip>
             )}
@@ -104,7 +104,7 @@ export function ArmySingletonModal(): React.ReactNode {
          <div className="row g5 mx10 my5 text-display text-lg">
             <div className="f1">{$t(L.StandingArmy)}</div>
             {targetConscription > actualConscription && (
-               <FloatingTip label={$t(L.ActualConscriptionIncreasingAt$1PerMonth, "1%")}>
+               <FloatingTip label={() => $t(L.ActualConscriptionIncreasingAt$1PerMonth, "1%")}>
                   <div className="mi sm text-green">trending_up</div>
                </FloatingTip>
             )}
@@ -196,12 +196,12 @@ export function ArmySingletonModal(): React.ReactNode {
          <div className="h1 row g5">
             <div>{$t(L.ArmyGeneral)}</div>
             {getCurrentGeneral(G.save.state.playerProvince, G.save) === undefined && (
-               <FloatingTip label={$t(L.GeneralIsCurrentlyVacantConsiderAppointingAGeneral)}>
+               <FloatingTip label={() => $t(L.GeneralIsCurrentlyVacantConsiderAppointingAGeneral)}>
                   <div className="mi sm text-yellow">warning</div>
                </FloatingTip>
             )}
             <div className="f1" />
-            <FloatingTip label={<GeneralSkillPointTooltip />} className="p0" fixedWidth>
+            <FloatingTip label={() => <GeneralSkillPointTooltip />} className="p0" fixedWidth>
                <div className="row g5">
                   <div>
                      {getProvinceResource("generalSkillPoint", G.save.state.playerProvince, G.save)}{" "}
@@ -306,10 +306,12 @@ export function ArmySingletonModal(): React.ReactNode {
             <div className="f1">{$t(L.CurrentMorale)}</div>
             {armyMaintenance > armyMorale && (
                <FloatingTip
-                  label={$t(
-                     L.MoraleIsIncreasingAt$1PerMonthToReachArmyMaintenance,
-                     formatPercent(ArmyMoraleMonthlyIncrease / 100),
-                  )}
+                  label={() =>
+                     $t(
+                        L.MoraleIsIncreasingAt$1PerMonthToReachArmyMaintenance,
+                        formatPercent(ArmyMoraleMonthlyIncrease / 100),
+                     )
+                  }
                >
                   <div className="mi sm text-green">trending_up</div>
                </FloatingTip>

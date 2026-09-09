@@ -48,7 +48,7 @@ export function PersonNode({
                fixedWidth
                className="p0"
                disabled={!person}
-               label={person && <PersonTooltip person={person} family={family} />}
+               label={() => person && <PersonTooltip person={person} family={family} />}
             >
                <div className="f1">
                   <div className="text-display">{person ? person.name.join(" ") : ""}</div>
@@ -64,7 +64,7 @@ export function PersonNode({
             {male &&
                isGovernorSon(family, G.save.state.playerProvince, G.save) &&
                (hasFlag(person.flag, PersonFlags.IsHeir) ? (
-                  <FloatingTip label={$t(L.CurrentHeir)}>
+                  <FloatingTip label={() => $t(L.CurrentHeir)}>
                      <div className="mi text-yellow">crown</div>
                   </FloatingTip>
                ) : (
@@ -93,7 +93,10 @@ export function PersonNode({
                className="btn"
                id={family.male === state.governor.male ? "FamilyNode_LookForSpouse_Governor" : undefined}
             >
-               <FloatingTip label={$t(L.CannotLookForSpouseWhileFamilyHasChildren)} disabled={eligibleForMarriage}>
+               <FloatingTip
+                  label={() => $t(L.CannotLookForSpouseWhileFamilyHasChildren)}
+                  disabled={eligibleForMarriage}
+               >
                   <div>{$t(L.LookForSpouse)}</div>
                </FloatingTip>
             </button>

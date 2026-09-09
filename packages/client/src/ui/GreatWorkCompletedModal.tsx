@@ -33,7 +33,7 @@ export function GreatWorkCompletedModal({ greatWork }: { greatWork: GreatWork })
          }
          content={renderMarkup($t(L.GreatWorkCompletedDesc$1$2, config.name(), config.tile))}
          image={config.image.url}
-         titleTooltip={<div className="m10">{$t(L.ImageCredit$1, config.image.credit)}</div>}
+         titleTooltip={() => <div className="m10">{$t(L.ImageCredit$1, config.image.credit)}</div>}
          buttons={[
             <GameEventButton
                key="1"

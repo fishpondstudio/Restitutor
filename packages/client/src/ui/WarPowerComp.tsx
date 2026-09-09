@@ -87,7 +87,7 @@ function WarPowerColComp({
                      key={province.toString()}
                      fixedWidth
                      className="p0"
-                     label={
+                     label={() => (
                         <>
                            {condition.breakdown.length > 0 && (
                               <>
@@ -99,7 +99,7 @@ function WarPowerColComp({
                            <div className="h2">{$t(L.WarPower)}</div>
                            <BreakdownComp breakdown={warPower} />
                         </>
-                     }
+                     )}
                   >
                      <div className="row g5 mx10 my5">
                         {condition &&

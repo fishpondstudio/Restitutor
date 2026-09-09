@@ -14,7 +14,7 @@ function _ChronicleEntryComp({ entry }: { entry: IChronicleEntry }): React.React
    return (
       <Fragment>
          <div className="m10 row">
-            <FloatingTip label={date.toLocaleDateString()}>
+            <FloatingTip label={() => date.toLocaleDateString()}>
                <div
                   className="frame frame-thin text-sm text-center col stretch"
                   style={{ width: "3.125rem", height: "3.125rem" }}

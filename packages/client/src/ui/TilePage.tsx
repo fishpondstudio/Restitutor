@@ -142,12 +142,14 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                <div className="f1">{$t(L.Core)}</div>
                <MakeCoreButton className="text-sm" tile={tile} />
                <FloatingTip
-                  label={$t(
-                     L.ProvincesWithACoreClaimOnThisTile$1,
-                     Array.from(tileData.coreProvinces)
-                        .map((province) => getProvinceName(province, G.save))
-                        .join(", "),
-                  )}
+                  label={() =>
+                     $t(
+                        L.ProvincesWithACoreClaimOnThisTile$1,
+                        Array.from(tileData.coreProvinces)
+                           .map((province) => getProvinceName(province, G.save))
+                           .join(", "),
+                     )
+                  }
                >
                   <div>
                      {Array.from(tileData.coreProvinces).map((province, idx) => (
@@ -166,7 +168,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             <div className="row my5 g5">
                <div className="f1">{$t(L.Culture)}</div>
                <div>{Culture[tileData.culture].name()}</div>
-               <FloatingTip label={cultureStatus.name()}>
+               <FloatingTip label={() => cultureStatus.name()}>
                   <CircleComp color={cultureStatus.color} />
                </FloatingTip>
             </div>
@@ -204,7 +206,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   </ActionButton>
                )}
                <div>{Religion[tileData.religion].name()}</div>
-               <FloatingTip label={religionStatus.name()}>
+               <FloatingTip label={() => religionStatus.name()}>
                   <CircleComp color={religionStatus.color} />
                </FloatingTip>
             </div>
@@ -212,14 +214,14 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                <FloatingTip
                   className="p0"
                   fixedWidth
-                  label={
+                  label={() => (
                      <>
                         <div className="m10">
                            {$t(L.$1IsCurrentlyContestedInAnOngoingWar, getTileName(tile, G.save))}
                         </div>
                         <WarTooltip war={war} />
                      </>
-                  }
+                  )}
                >
                   <div className="row my5 text-red">
                      <div className="f1">{$t(L.OngoingWar)}</div>
@@ -280,7 +282,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                <FloatingTip
                   fixedWidth
                   className="p0"
-                  label={
+                  label={() => (
                      <div className="m10">
                         <div className="row my5">
                            <div className="f1">{$t(L.TileOutput)}</div>
@@ -309,7 +311,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                            <div>{formatNumber(goodsTax)}</div>
                         </div>
                      </div>
-                  }
+                  )}
                >
                   <div className="row my5">
                      <div className="f1">{$t(L.GoodsTax)}</div>
@@ -331,11 +333,11 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             {Array.from(tileData.buildings).map((building) => (
                <FloatingTip
                   key={building}
-                  label={
+                  label={() => (
                      <>
                         {Buildings[building].name()} ({Buildings[building].desc()})
                      </>
-                  }
+                  )}
                >
                   <img
                      src={Buildings[building].image}
@@ -373,7 +375,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
          <FloatingTip
             fixedWidth
             className="p0"
-            label={
+            label={() => (
                <>
                   <div className="h2">{$t(L.Autonomy)}</div>
                   <div className="m10">{$t(L.AutonomyTooltip)}</div>
@@ -384,7 +386,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                      </>
                   )}
                </>
-            }
+            )}
          >
             <div className="row mx10">
                <div className="f1">{$t(L.Autonomy)}</div>

@@ -73,7 +73,7 @@ export function SidebarImageHeader({
          >
             close
          </div>
-         <FloatingTip label={$t(L.ImageCredit$1, image.credit)}>
+         <FloatingTip label={() => $t(L.ImageCredit$1, image.credit)}>
             <div className="text-roman text-xl" style={{ position: "absolute", bottom: "0.625rem", left: "0.625rem" }}>
                {title}
             </div>

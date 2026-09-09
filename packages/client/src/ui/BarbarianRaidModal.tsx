@@ -117,7 +117,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                     <FloatingTip
                                        className="p0"
                                        fixedWidth
-                                       label={
+                                       label={() => (
                                           <>
                                              <div className="m10">
                                                 {$t(
@@ -138,7 +138,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                 <div className="text-red"> {BarbarianRaidNegativeEffect}</div>
                                              </div>
                                           </>
-                                       }
+                                       )}
                                     >
                                        <div>
                                           <div className="row">

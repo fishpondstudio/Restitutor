@@ -43,7 +43,7 @@ export function IncompatibleSaveModal({
                      {$t(L.OpenSaveFolder)}
                   </button>
                )}
-               <FloatingTip label={$t(L.AllYourProgressWillBeResetIncludingYourLegacyPoints)}>
+               <FloatingTip label={() => $t(L.AllYourProgressWillBeResetIncludingYourLegacyPoints)}>
                   <button
                      className="btn py2 w100 text-red"
                      onClick={async () => {

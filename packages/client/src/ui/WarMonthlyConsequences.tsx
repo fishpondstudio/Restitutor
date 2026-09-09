@@ -28,7 +28,7 @@ export function WarMonthlyConsequences({
          <FloatingTip
             fixedWidth
             className="p0"
-            label={
+            label={() => (
                <>
                   <div className="m10">
                      <i>
@@ -60,7 +60,7 @@ export function WarMonthlyConsequences({
                      </table>
                   </div>
                </>
-            }
+            )}
          >
             <div className="row mx10 my5">
                <div className="f1">
@@ -78,7 +78,7 @@ export function WarMonthlyConsequences({
          <FloatingTip
             fixedWidth
             className="p0"
-            label={
+            label={() => (
                <>
                   <div className="m10">
                      <i>{$t(L.IncreasesBy$1EveryYear, formatNumber(calculateWarMonthlyStability(1, casusBelli)))}</i>{" "}
@@ -108,7 +108,7 @@ export function WarMonthlyConsequences({
                      </table>
                   </div>
                </>
-            }
+            )}
          >
             <div className="row mx10 my5">
                <div className="f1">

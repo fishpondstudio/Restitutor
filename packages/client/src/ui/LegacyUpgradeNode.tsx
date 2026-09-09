@@ -39,7 +39,7 @@ export function LegacyUpgradeNode({ data }: NodeProps<LegacyUpgradeNode>): React
          fixedWidth
          className="p0"
          disabled={state.legacyUpgrades.has(data.legacyUpgrade)}
-         label={
+         label={() => (
             <>
                <div className="m10">
                   {getLegacyUpgradeName(data.legacyUpgrade)}
@@ -51,7 +51,7 @@ export function LegacyUpgradeNode({ data }: NodeProps<LegacyUpgradeNode>): React
                   <ConditionBreakdownComp condition={upgradeCondition} />
                </div>
             </>
-         }
+         )}
       >
          <div
             className={cls("legacy-upgrade-node frame frame-hover px10", cssClass)}

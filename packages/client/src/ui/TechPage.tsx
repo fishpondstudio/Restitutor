@@ -113,7 +113,11 @@ export function TechPage({ tech }: { tech: Tech }): React.ReactNode {
                   const def = TimedActions[timedAction];
                   return (
                      <Fragment key={index}>
-                        <FloatingTip className="p0" fixedWidth label={<TimedActionDescComp action={timedAction} />}>
+                        <FloatingTip
+                           className="p0"
+                           fixedWidth
+                           label={() => <TimedActionDescComp action={timedAction} />}
+                        >
                            <div className="m10">
                               <div>{def.name()}</div>
                               <div className="text-sm text-dimmed">
@@ -132,7 +136,7 @@ export function TechPage({ tech }: { tech: Tech }): React.ReactNode {
                <div className="h1">{$t(L.Modifiers)}</div>
                {entriesOf(config.modifiers).map(([modifier, modifierConfig], index) => (
                   <Fragment key={index}>
-                     <FloatingTip label={Modifiers[modifier].desc()}>
+                     <FloatingTip label={() => Modifiers[modifier].desc()}>
                         <div className="m10">{modifierToString(modifier, modifierConfig)}</div>
                      </FloatingTip>
                      <div className="divider" />

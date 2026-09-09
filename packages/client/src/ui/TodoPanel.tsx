@@ -68,7 +68,7 @@ export function TodoPanel(): React.ReactNode {
                const tooltip = todo.tooltip(G.save);
                if (!tooltip) return null;
                return (
-                  <FloatingTip key={id} fixedWidth className="p0" label={tooltip}>
+                  <FloatingTip key={id} fixedWidth className="p0" label={() => tooltip}>
                      <div
                         id={todo.id}
                         className={cls("item", todo.className(G.save))}

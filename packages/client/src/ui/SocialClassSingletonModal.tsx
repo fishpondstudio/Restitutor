@@ -140,7 +140,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                         <FloatingTip
                            className="p0"
                            fixedWidth
-                           label={
+                           label={() => (
                               <>
                                  <div className="h2">{$t(L.$1Class, SocialClass[key].name())}</div>
                                  <div className="row mx10 my5">
@@ -191,7 +191,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                     breakdown={SocialClassInfluenceYearly[key](G.save.state.playerProvince, G.save)}
                                  />
                               </>
-                           }
+                           )}
                         >
                            <div>
                               <div className="mx10 my5 row">
