@@ -3485,4 +3485,6 @@ export const ZH_CN = {
    TakeALoverWith$1: "纳一名情人（$1）",
    TheFollowingEffectsWillBeApplied: "将产生以下效果",
    PauseWhenTheGameWindowLosesFocus: "游戏窗口失去焦点时暂停",
+   EndTheAffair: "结束私情",
+   EndTheAffairDesc: "结束这段私情不会重置纳新情人的冷却时间。这段私情所生的子女若已加入我们的家族，仍将留在家族中。",
 };

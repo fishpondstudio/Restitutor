@@ -22,13 +22,13 @@ export function LoversComponent(): React.ReactNode {
          {state.governor.concubines.map((concubine, idx) => (
             <Fragment key={idx}>
                <div className="divider" />
-               <FloatingTip
-                  fixedWidth
-                  className="p0"
-                  label={() => <PersonTooltip person={concubine} family={state.governor} />}
-               >
-                  <div className="row m10 g5">
-                     <div className="mi">female</div>
+               <div className="row m10 g5">
+                  <div className="mi">female</div>
+                  <FloatingTip
+                     fixedWidth
+                     className="p0"
+                     label={() => <PersonTooltip person={concubine} family={state.governor} />}
+                  >
                      <div className="f1">
                         <div className="text-display">{concubine.name.join(" ")}</div>
                         <div className="text-xs">
@@ -39,8 +39,25 @@ export function LoversComponent(): React.ReactNode {
                            )}
                         </div>
                      </div>
-                  </div>
-               </FloatingTip>
+                  </FloatingTip>
+                  <div className="w10" />
+                  <ActionButton
+                     className="py5"
+                     action={() => ({
+                        execute: () => {
+                           state.governor.concubines.splice(idx, 1);
+                        },
+                     })}
+                     tooltip={() => (
+                        <>
+                           <div className="h2">{$t(L.EndTheAffair)}</div>
+                           <div className="m10">{$t(L.EndTheAffairDesc)}</div>
+                        </>
+                     )}
+                  >
+                     <div className="mi sm">heart_broken</div>
+                  </ActionButton>
+               </div>
             </Fragment>
          ))}
       </>

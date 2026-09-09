@@ -3558,4 +3558,6 @@ export const FR = {
    TakeALoverWith$1: "Take a Lover ($1)",
    TheFollowingEffectsWillBeApplied: "The following effects will be applied",
    PauseWhenTheGameWindowLosesFocus: "Pause when the game window loses focus",
+   EndTheAffair: "End the Affair",
+   EndTheAffairDesc: "Ending this affair does not reset the cooldown for taking a new lover. Any children from this affair who have joined our family will remain part of it.",
 };

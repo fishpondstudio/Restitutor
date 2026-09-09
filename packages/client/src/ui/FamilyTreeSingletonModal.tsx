@@ -10,7 +10,6 @@ import "./FamilyTreeSingletonModal.css";
 import { Popover } from "@mantine/core";
 import type React from "react";
 import { DivorceAction, DivorceChristianityCost } from "../game/actions/SpouseActions";
-import { VersionNumber } from "../game/definitions/Constant";
 import { ProvinceResourceNames } from "../game/definitions/Province";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
@@ -80,19 +79,17 @@ export function FamilyTreeSingletonModal(): React.ReactNode {
                         {$t(L.Divorce)}
                      </div>
                   </ActionButton>
-                  {VersionNumber >= 23 && (
-                     <Popover position="bottom-start" withOverlay>
-                        <Popover.Target>
-                           <button className="btn row g5">
-                              <div className="mi sm">person_heart</div>
-                              {$t(L.Lovers$1, formatNumber(state.governor.concubines.length))}
-                           </button>
-                        </Popover.Target>
-                        <Popover.Dropdown className="panel p0">
-                           <LoversComponent />
-                        </Popover.Dropdown>
-                     </Popover>
-                  )}
+                  <Popover position="bottom-start" withOverlay>
+                     <Popover.Target>
+                        <button className="btn row g5">
+                           <div className="mi sm">person_heart</div>
+                           {$t(L.Lovers$1, formatNumber(state.governor.concubines.length))}
+                        </button>
+                     </Popover.Target>
+                     <Popover.Dropdown className="panel p0">
+                        <LoversComponent />
+                     </Popover.Dropdown>
+                  </Popover>
                </Controls>
             </ReactFlow>
          </div>

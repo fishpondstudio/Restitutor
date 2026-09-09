@@ -3569,4 +3569,6 @@ export const DE = {
    TakeALoverWith$1: "Eine Geliebte nehmen ($1)",
    TheFollowingEffectsWillBeApplied: "Die folgenden Auswirkungen werden angewendet",
    PauseWhenTheGameWindowLosesFocus: "Pausieren, wenn das Spielfenster den Fokus verliert",
+   EndTheAffair: "Die Affäre beenden",
+   EndTheAffairDesc: "Das Beenden dieser Affäre setzt die Abklingzeit für eine neue Geliebte nicht zurück. Kinder aus dieser Affäre, die unserer Familie beigetreten sind, bleiben Teil unserer Familie.",
 };

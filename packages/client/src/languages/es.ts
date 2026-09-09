@@ -3565,4 +3565,6 @@ export const ES = {
    TakeALoverWith$1: "Tomar una amante ($1)",
    TheFollowingEffectsWillBeApplied: "Se aplicarán los siguientes efectos",
    PauseWhenTheGameWindowLosesFocus: "Pausar cuando la ventana del juego pierda el foco",
+   EndTheAffair: "Poner fin a la aventura",
+   EndTheAffairDesc: "Poner fin a esta aventura no reinicia el tiempo de espera para tomar una nueva amante. Los hijos de esta aventura que se hayan unido a nuestra familia seguirán formando parte de ella.",
 };
