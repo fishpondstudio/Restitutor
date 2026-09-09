@@ -322,7 +322,7 @@ export const AquitaniaEvent = {
             label: () => $t(L.$1ShallStandAsOurAlly, Province.Lugdunensis.name()),
             custom: [
                {
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      OfferAllianceAction(province, "Lugdunensis", save).effect({ headless: false });
                   },
                   desc: (province, save) => $t(L.$1BecomesOurAlly, Province.Lugdunensis.name()),

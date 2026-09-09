@@ -413,7 +413,7 @@ export const GermaniaEvent = {
                         getTileName(9109577, save),
                         "5",
                      ),
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      save.state.tiles.get(9175112)?.modifiers.Defense.push({
                         type: "multiply",
                         value: -0.1,
@@ -445,7 +445,7 @@ export const GermaniaEvent = {
                         getTileName(9175113, save),
                         "5",
                      ),
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      save.state.tiles.get(9240648)?.modifiers.Defense.push({
                         type: "multiply",
                         value: -0.1,

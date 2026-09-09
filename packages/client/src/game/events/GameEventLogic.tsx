@@ -34,7 +34,7 @@ export function applyGameEventButton(
 ): void {
    applyGameEffect(button, source, province, save);
    button.custom?.forEach((effect) => {
-      effect.effect?.(province, save);
+      effect.execute?.(province, save);
    });
 }
 

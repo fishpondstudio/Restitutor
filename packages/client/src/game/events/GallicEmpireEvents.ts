@@ -31,7 +31,7 @@ export const GallicEmpireEvents = {
             },
             custom: [
                {
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      setProvinceNameOverride(province, "GallicEmpire", save);
                      RefreshTiles.emit({ tiles: [], options: { visual: true } });
                   },

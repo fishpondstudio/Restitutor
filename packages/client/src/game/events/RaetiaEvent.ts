@@ -506,7 +506,7 @@ export const RaetiaEvent = {
                         Culture.Germanic.name(),
                         Culture.Raetian.name(),
                      ),
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      const state = save.state.provinces[province];
                      if (state) {
                         changeProvinceCulture("Germanic", province, save);
@@ -524,7 +524,7 @@ export const RaetiaEvent = {
             custom: [
                {
                   desc: () => $t(L.Make$1AToleratedCulture, Culture.Germanic.name()),
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      const state = save.state.provinces[province];
                      if (state) {
                         state.toleratedCultures.add("Germanic");

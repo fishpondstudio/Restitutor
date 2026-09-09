@@ -377,7 +377,7 @@ export const LusitaniaEvent = {
                      const tileNames = [8519758, 8585295].map((tile) => getTileName(tile, save)).join(", ");
                      return $t(L.$1Annexes$2, getProvinceName(province, save), tileNames);
                   },
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      annexTiles({ tiles: [8519758, 8585295], province, save });
                   },
                },

@@ -451,7 +451,7 @@ export const MauretaniaEvent = {
                {
                   desc: (province, save) =>
                      $t(L.$1Becomes$2sCoreTile, getTileName(8978513, save), Province[province].name()),
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      annexTiles({ tiles: [8978513], core: true, province, save });
                   },
                },

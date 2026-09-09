@@ -354,7 +354,7 @@ export function minReligionCountCondition(
 
 export function forcePatronageEffect(client: Province): ICustomEffect {
    return {
-      effect: (province, save) => {
+      execute: (province, save) => {
          if (province === client) return;
          dissolveAllTreaties(client, save);
          OfferPatronageAction(province, client, save).effect({ headless: false });
@@ -365,7 +365,7 @@ export function forcePatronageEffect(client: Province): ICustomEffect {
 
 export function nullifyNegativeAttitudesEffect(fromProvince: Province): ICustomEffect {
    return {
-      effect: (province, save) => {
+      execute: (province, save) => {
          const relation = getRelation(fromProvince, province, save);
          if (relation) {
             filterInPlace(relation.attitudeModifier, (modifier) => {

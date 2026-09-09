@@ -63,7 +63,7 @@ export interface IGameEffect {
 }
 
 export interface ICustomEffect {
-   effect?: (province: Province, save: SaveGame) => void;
+   execute?: (province: Province, save: SaveGame) => void;
    desc?: (province: Province, save: SaveGame) => string;
 }
 

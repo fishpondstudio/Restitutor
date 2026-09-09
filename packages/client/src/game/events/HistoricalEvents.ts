@@ -24,7 +24,7 @@ export const HistoricalEvents = {
             },
             custom: [
                {
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      if (!hasFlag(save.options.flag, GameOptionFlag.PauseGameOnEvent) && isPaused()) {
                         revertSpeed();
                      }
@@ -39,7 +39,7 @@ export const HistoricalEvents = {
             },
             custom: [
                {
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      if (!hasFlag(save.options.flag, GameOptionFlag.PauseGameOnEvent) && isPaused()) {
                         revertSpeed();
                      }
@@ -54,7 +54,7 @@ export const HistoricalEvents = {
             },
             custom: [
                {
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      if (!hasFlag(save.options.flag, GameOptionFlag.PauseGameOnEvent) && isPaused()) {
                         revertSpeed();
                      }
@@ -525,7 +525,7 @@ export const HistoricalEvents = {
             custom: [
                {
                   desc: (province, save) => $t(L.GainReligiousWarCasusBelliFor$1Years, "10"),
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      const state = save.state.provinces[province];
                      if (!state) {
                         return;

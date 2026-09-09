@@ -155,7 +155,7 @@ export const MissionEvents = {
             },
             custom: [
                {
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      setProvinceNameOverride(province, "WesternRomanEmpire", save);
                      RefreshTiles.emit({ tiles: [], options: { visual: true } });
                   },

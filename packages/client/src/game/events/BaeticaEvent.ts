@@ -417,7 +417,7 @@ export const BaeticaEvent = {
                      const tileNames = [8978513].map((tile) => getTileName(tile, save)).join(", ");
                      return $t(L.$1Annexes$2, getProvinceName(province, save), tileNames);
                   },
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      annexTiles({ tiles: [8978513], province, save });
                   },
                },

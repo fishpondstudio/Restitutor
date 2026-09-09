@@ -438,7 +438,7 @@ export const NarbonensisEvent = {
                         getTileName(9175113, save),
                         Province.Narbonensis.name(),
                      ),
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      annexTiles({ tiles: [9175112], core: true, province: "Italia", save });
                      annexTiles({ tiles: [9175113], core: true, province, save });
                   },

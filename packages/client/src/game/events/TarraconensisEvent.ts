@@ -381,7 +381,7 @@ export const TarraconensisEvent = {
             resources: { administrative: 100 },
             custom: [
                {
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      OfferAllianceAction(province, "Lusitania", save).effect({ headless: false });
                   },
                   desc: (province, save) => $t(L.$1BecomesOurAlly, Province.Lusitania.name()),
@@ -393,7 +393,7 @@ export const TarraconensisEvent = {
             resources: { diplomatic: 100 },
             custom: [
                {
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      OfferAllianceAction(province, "Lusitania", save).effect({ headless: false });
                   },
                   desc: (province, save) => $t(L.$1BecomesOurAlly, Province.Lusitania.name()),
@@ -405,7 +405,7 @@ export const TarraconensisEvent = {
             resources: { military: 100 },
             custom: [
                {
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      OfferAllianceAction(province, "Lusitania", save).effect({ headless: false });
                   },
                   desc: (province, save) => $t(L.$1BecomesOurAlly, Province.Lusitania.name()),
@@ -436,7 +436,7 @@ export const TarraconensisEvent = {
                {
                   desc: (province, save) =>
                      $t(L.$1Annexes$2, getProvinceName(province, save), getTileName(8585296, save)),
-                  effect: (province, save) => {
+                  execute: (province, save) => {
                      annexTiles({ tiles: [8585296], province, save });
                   },
                },
