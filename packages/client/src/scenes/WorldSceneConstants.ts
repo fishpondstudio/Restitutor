@@ -11,6 +11,14 @@ export const InternalBorder: ILineStyleOptions = {
    color: 0x888888,
 };
 
+export const WarBorder: ILineStyleOptions = {
+   ...InternalBorder,
+   scaleMode: LINE_SCALE_MODE.NORMAL,
+   width: 5,
+   alpha: 1,
+   color: 0xe74c3c,
+};
+
 export const ExternalBorder: ILineStyleOptions = {
    width: 2,
    alpha: 1,

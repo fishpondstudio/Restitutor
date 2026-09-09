@@ -1,7 +1,7 @@
 import { LINE_SCALE_MODE, SmoothGraphics } from "@pixi/graphics-smooth";
 import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
 import { AABB, type IAABB } from "@project/shared/src/utils/AABB";
-import { hasFlag, pointToTile, round, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
+import { drawDashedLine, hasFlag, pointToTile, round, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
 import type { IHaveXY } from "@project/shared/src/utils/Vector2";
 import {
    type ColorSource,
@@ -40,7 +40,7 @@ import { MapContainer, MapParticleContainer } from "../utils/MapContainer";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
 import { getOverlay } from "./Overlays";
-import { ExternalBorder, InternalBorder } from "./WorldSceneConstants";
+import { ExternalBorder, InternalBorder, WarBorder } from "./WorldSceneConstants";
 
 const MarginX = 2000;
 const TextureHeight = 256;
@@ -59,6 +59,7 @@ export class WorldScene extends Scene {
    private _selectedProvince: Province;
    private _staticOutline: SmoothGraphics;
    private _dynamicOutline: SmoothGraphics;
+   private _warOutline: SmoothGraphics;
    private _lastZoom = 0;
    private _clickTileHandler: ((tile: Tile, e: FederatedPointerEvent) => void) | undefined;
    private readonly _isEditor: boolean;
@@ -93,6 +94,9 @@ export class WorldScene extends Scene {
 
       this._dynamicOutline = this.viewport.addChild(new SmoothGraphics());
       this._dynamicOutline.position.set(MarginX, 0);
+
+      this._warOutline = this.viewport.addChild(new SmoothGraphics());
+      this._warOutline.position.set(MarginX, 0);
 
       this._labelContainer = this.viewport.addChild(new MapContainer<Province, UnicodeText>());
       this._labelContainer.position.set(MarginX, 0);
@@ -138,6 +142,7 @@ export class WorldScene extends Scene {
 
       this._updateAlpha();
       this._drawStaticOutlineAndLabel();
+      this._drawWarOutline();
 
       RefreshTiles.on(({ tiles, options }) => {
          for (const tile of tiles) {
@@ -158,6 +163,9 @@ export class WorldScene extends Scene {
          if (options.visual) {
             this._drawStaticOutlineAndLabel();
             this.drawProvinceOutline(this._selectedProvince);
+         }
+         if (options.indicator || options.visual) {
+            this._drawWarOutline();
          }
       });
 
@@ -469,7 +477,7 @@ export class WorldScene extends Scene {
 
    public update(dt: number, unscaled: number): void {
       if (this._indicatorContainer.children.length > 0) {
-         this._indicatorContainer.alpha = Math.sin(Math.PI * 2 * time) * 0.5 + 0.5;
+         this._indicatorContainer.alpha = Math.sin(Math.PI * 2 * time) * 0.3 + 0.7;
          time += unscaled;
       }
    }
@@ -561,6 +569,56 @@ export class WorldScene extends Scene {
             runFunc(() => resolve(this)),
          ).start();
       });
+   }
+
+   private _drawWarOutline(): void {
+      this._warOutline.clear();
+      const { wars, tiles } = G.save.state;
+      if (wars.length === 0) {
+         return;
+      }
+      this._warOutline.lineStyle(WarBorder);
+      for (const [tile, { province }] of tiles) {
+         const provinceWars = wars.filter((war) => war.attacker === province || war.defender === province);
+         if (provinceWars.length === 0) {
+            continue;
+         }
+         const p = tileToPoint(tile);
+         for (let dir = 0; dir < 6; dir++) {
+            const neighborPoint = MapGrid.getNeighbor(p, dir);
+            if (!neighborPoint) {
+               continue;
+            }
+            const neighborTile = pointToTile(neighborPoint);
+            if (tile >= neighborTile) {
+               continue;
+            }
+            const neighborProvince = tiles.get(neighborTile)?.province;
+            if (neighborProvince === undefined) {
+               continue;
+            }
+            const borderingWars = provinceWars.filter(
+               (war) =>
+                  (war.attacker === province && war.defender === neighborProvince) ||
+                  (war.defender === province && war.attacker === neighborProvince),
+            );
+            if (borderingWars.length === 0) {
+               continue;
+            }
+            const involved = borderingWars.some((war) => war.tiles.has(tile) || war.tiles.has(neighborTile));
+            const center = MapGrid.gridToPosition(p);
+            const offset1 = MapGrid.layout.hexCornerOffset(dir);
+            const offset2 = MapGrid.layout.hexCornerOffset((dir + 1) % 6);
+            const start = { x: center.x + offset1.x, y: center.y + offset1.y };
+            const end = { x: center.x + offset2.x, y: center.y + offset2.y };
+            if (involved) {
+               this._warOutline.moveTo(start.x, start.y);
+               this._warOutline.lineTo(end.x, end.y);
+            } else {
+               drawDashedLine(this._warOutline, start, end, 5, 15);
+            }
+         }
+      }
    }
 
    private _drawStaticOutlineAndLabel(): void {

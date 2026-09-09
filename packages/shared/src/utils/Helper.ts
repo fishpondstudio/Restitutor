@@ -905,47 +905,40 @@ export function drawDashedLine(
    gapLength = 5,
    animate?: { time: number; speed: number },
 ) {
-   let currentX = start.x;
-   let currentY = start.y;
-
-   if (animate) {
-      const dx = to.x - start.x;
-      const dy = to.y - start.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      // Animated marching ants effect
-      const totalLength = dashLength + gapLength;
-      const offset = (animate.time * animate.speed) % totalLength;
-      // Calculate starting position with offset
-      const offsetDistance = offset;
-      const offsetX = (dx / distance) * offsetDistance;
-      const offsetY = (dy / distance) * offsetDistance;
-
-      currentX = start.x + offsetX;
-      currentY = start.y + offsetY;
+   const totalLength = dashLength + gapLength;
+   if (dashLength <= 0 || gapLength < 0 || !Number.isFinite(totalLength)) {
+      return;
    }
 
-   const dx = to.x - currentX;
-   const dy = to.y - currentY;
-   const distance = Math.sqrt(dx * dx + dy * dy);
-
-   const dashCount = Math.floor(distance / (dashLength + gapLength));
-   const dashX = (dx / distance) * dashLength;
-   const dashY = (dy / distance) * dashLength;
-   const gapX = (dx / distance) * gapLength;
-   const gapY = (dy / distance) * gapLength;
-
-   for (let i = 0; i < dashCount; i++) {
-      g.moveTo(currentX, currentY);
-      currentX += dashX;
-      currentY += dashY;
-      g.lineTo(currentX, currentY);
-      currentX += gapX;
-      currentY += gapY;
+   const dx = to.x - start.x;
+   const dy = to.y - start.y;
+   const distance = Math.hypot(dx, dy);
+   if (distance === 0 || !Number.isFinite(distance)) {
+      return;
    }
 
-   g.moveTo(currentX, currentY);
-   g.lineTo(to.x, to.y);
+   const phase = (animate ? animate.time * animate.speed : 0) % totalLength;
+   if (!Number.isFinite(phase)) {
+      return;
+   }
+   if (gapLength === 0) {
+      g.moveTo(start.x, start.y);
+      g.lineTo(to.x, to.y);
+      return;
+   }
+
+   const offset = phase < 0 ? phase + totalLength : phase;
+   const unitX = dx / distance;
+   const unitY = dy / distance;
+   for (let dashStart = offset > 0 ? offset - totalLength : 0; dashStart < distance; dashStart += totalLength) {
+      const clippedStart = Math.max(0, dashStart);
+      const clippedEnd = Math.min(distance, dashStart + dashLength);
+      if (clippedEnd <= clippedStart) {
+         continue;
+      }
+      g.moveTo(start.x + unitX * clippedStart, start.y + unitY * clippedStart);
+      g.lineTo(start.x + unitX * clippedEnd, start.y + unitY * clippedEnd);
+   }
 }
 
 export function setLastOf<T>(set: Set<T>): T | undefined {
