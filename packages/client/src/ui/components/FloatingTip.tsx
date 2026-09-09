@@ -73,7 +73,7 @@ export const FloatingTip = factory<
    Factory<{
       props: {
          className?: string;
-         label: React.ReactNode;
+         label: React.ReactNode | (() => React.ReactNode);
          children: React.ReactNode;
          position?: Placement;
          disabled?: boolean;
@@ -114,8 +114,8 @@ export const FloatingTip = factory<
 
    return (
       <>
-         <Portal reuseTargetNode>
-            {shouldShow && (
+         {shouldShow && (
+            <Portal reuseTargetNode>
                <div
                   className={cls("floating-tip panel", className)}
                   style={{
@@ -127,10 +127,10 @@ export const FloatingTip = factory<
                   }}
                   ref={floating}
                >
-                  {label}
+                  {typeof label === "function" ? label() : label}
                </div>
-            )}
-         </Portal>
+            </Portal>
+         )}
 
          {cloneElement(children, {
             ..._childrenProps,

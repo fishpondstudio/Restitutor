@@ -116,9 +116,15 @@ function _ActionButtonContent({
    condition: IConditionBreakdown | undefined;
    cost: ProvinceResourceCosts | undefined;
 }>): React.ReactNode {
-   const tooltipContent = <ActionButtonTooltip condition={condition} cost={cost} />;
    return (
-      <FloatingTip label={tooltip ? tooltip(tooltipContent) : tooltipContent} fixedWidth className="p0">
+      <FloatingTip
+         label={() => {
+            const tooltipContent = <ActionButtonTooltip condition={condition} cost={cost} />;
+            return tooltip ? tooltip(tooltipContent) : tooltipContent;
+         }}
+         fixedWidth
+         className="p0"
+      >
          <div data-skip-sound={true}>{children}</div>
       </FloatingTip>
    );
