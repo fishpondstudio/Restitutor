@@ -170,7 +170,7 @@ function ConstructionButtonColumn({ building, tile }: { building: Building; tile
    const tileData = G.save.state.tiles.get(tile);
    refreshOnTypedEventWhen(GameStateUpdated, () => {
       const data = G.save.state.tiles.get(tile);
-      return [data?.buildings.has(building)];
+      return [data?.buildings.has(building), data?.buildings.size];
    });
    if (!tileData) {
       return null;
