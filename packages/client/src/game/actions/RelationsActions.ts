@@ -144,17 +144,16 @@ export function SendAGiftAction(ourProvince: Province, theirProvince: Province, 
       condition: finalizeCondition([...timedActionConditions({ action: "SendAGift" }, ourProvince, save)]),
       execute: () => {
          startTimedAction("SendAGift", ourProvince, save);
-         addAttitudeModifier(
-            theirProvince,
-            ourProvince,
-            {
+      },
+      effect: {
+         name: $t(L.ReceivedAGiftFrom$1, getProvinceName(ourProvince, save)),
+         attitudes: {
+            [theirProvince]: {
                type: "add",
-               name: $t(L.ReceivedAGiftFrom$1, getProvinceName(ourProvince, save)),
                value: 25,
                duration: TimedActions.SendAGift.duration,
             },
-            save,
-         );
+         },
       },
    };
 }

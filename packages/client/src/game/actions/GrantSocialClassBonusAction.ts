@@ -1,7 +1,6 @@
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
 import { SocialClass, type SocialClassBonus, SocialClassBonuses } from "../definitions/SocialClass";
-import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import {
    addSocialClassInfluence,
@@ -42,6 +41,10 @@ export function GrantSocialClassBonusAction(bonus: SocialClassBonus, province: P
             };
          }),
       ]),
+      effect: {
+         name: $t(L.SocialClassAgenda),
+         ...config.effect,
+      },
       execute: () => {
          startTimedAction("GrantSocialClassBonus", province, save);
          config.supporting.forEach((socialClass) => {
@@ -50,7 +53,6 @@ export function GrantSocialClassBonusAction(bonus: SocialClassBonus, province: P
          config.opposing.forEach((socialClass) => {
             addSocialClassLoyalty(socialClass, -10, province, save);
          });
-         applyGameEffect(config.effect, $t(L.SocialClassAgenda), province, save);
       },
    };
 }

@@ -79,9 +79,6 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                  action={() => GrantSocialClassBonusAction(key, G.save.state.playerProvince, G.save)}
                                  tooltip={(element) => (
                                     <>
-                                       <div className="m10">
-                                          {getGameEffectDesc(config.effect, G.save.state.playerProvince, G.save)}
-                                       </div>
                                        <div className="h2">{$t(L.AfterAdoptingThisAgenda)}</div>
                                        {config.supporting.map((sc) => {
                                           return (

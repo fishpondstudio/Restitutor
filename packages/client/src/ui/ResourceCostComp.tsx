@@ -1,6 +1,6 @@
 import { entriesOf, formatNumber } from "@project/shared/src/utils/Helper";
+import { deepEqual } from "fast-equals";
 import { memo } from "react";
-import { areProvinceCostsEqual } from "../game/actions/GameAction";
 import { type ProvinceResource, ProvinceResourceNames } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
 import { hasEnoughProvinceResources } from "../game/logic/ProvinceLogic";
@@ -9,7 +9,7 @@ import { refreshOnTypedEvent } from "../utils/Hook";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 
 export const ResourceCostComp = memo(_ResourceCostComp, (prev, next) => {
-   return areProvinceCostsEqual(prev.cost, next.cost);
+   return deepEqual(prev.cost, next.cost);
 });
 
 function _ResourceCostComp({ cost }: { cost: Partial<Record<ProvinceResource, number>> }): React.ReactNode {

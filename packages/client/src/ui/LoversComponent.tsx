@@ -1,7 +1,6 @@
 import type React from "react";
 import { Fragment } from "react";
-import { TakeLoverAction, TakeLoverEffect } from "../game/actions/SpouseActions";
-import { getGameEffectDesc } from "../game/GameEffect";
+import { TakeLoverAction } from "../game/actions/SpouseActions";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
@@ -16,19 +15,7 @@ export function LoversComponent(): React.ReactNode {
    return (
       <>
          <div className="m10">
-            <ActionButton
-               className="w100"
-               action={() => TakeLoverAction(G.save.state.playerProvince, G.save)}
-               tooltip={(element) => (
-                  <>
-                     {element}
-                     <div className="h2">{$t(L.TheFollowingEffectsWillBeApplied)}</div>
-                     <div className="m10">
-                        {getGameEffectDesc(TakeLoverEffect, G.save.state.playerProvince, G.save)}
-                     </div>
-                  </>
-               )}
-            >
+            <ActionButton className="w100" action={() => TakeLoverAction(G.save.state.playerProvince, G.save)}>
                {$t(L.TakeALover)}
             </ActionButton>
          </div>

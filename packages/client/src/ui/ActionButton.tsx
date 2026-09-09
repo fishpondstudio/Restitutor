@@ -1,13 +1,10 @@
 import { cls } from "@project/shared/src/utils/Helper";
+import { deepEqual } from "fast-equals";
 import { memo } from "react";
-import {
-   areConditionBreakdownsEqual,
-   areProvinceCostsEqual,
-   type IConditionBreakdown,
-   type IGameAction,
-} from "../game/actions/GameAction";
+import { type IConditionBreakdown, type IGameAction } from "../game/actions/GameAction";
 import type { ProvinceResourceCosts } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
+import { applyGameEffect, getGameEffectDesc, type IGameEffect } from "../game/GameEffect";
 import { hasEnoughProvinceResources, trySpendProvinceResources } from "../game/logic/ProvinceLogic";
 import { useDebugKey } from "../game/Shortcut";
 import { G } from "../utils/Global";
@@ -35,7 +32,7 @@ export function ActionButton({
    action: () => IGameAction;
 }>): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
-   const { cost, condition } = action();
+   const { cost, condition, effect } = action();
    const isConditionMet = condition === undefined || condition.value === true;
    const hasEnoughResources =
       cost === undefined || hasEnoughProvinceResources(cost, G.save.state.playerProvince, G.save);
@@ -48,13 +45,16 @@ export function ActionButton({
          style={style}
          disabled={!isDebug && (!isConditionMet || !hasEnoughResources)}
          onClick={() => {
-            const { cost, condition, execute: effect } = action();
+            const { cost, condition, effect, execute } = action();
             if (
                isDebug ||
                ((condition === undefined || condition.value === true) &&
                   (cost === undefined || trySpendProvinceResources(cost, G.save.state.playerProvince, G.save)))
             ) {
-               effect({ headless: false });
+               execute({ headless: false });
+               if (effect) {
+                  applyGameEffect(effect, effect.name, G.save.state.playerProvince, G.save);
+               }
                GameStateUpdated.emit();
                playSound(sound);
             } else {
@@ -62,7 +62,7 @@ export function ActionButton({
             }
          }}
       >
-         <ActionButtonContent condition={condition} cost={cost} tooltip={tooltip}>
+         <ActionButtonContent condition={condition} cost={cost} effect={effect} tooltip={tooltip}>
             {children}
          </ActionButtonContent>
       </button>
@@ -70,15 +70,21 @@ export function ActionButton({
 }
 
 const ActionButtonTooltip = memo(_ActionButtonTooltip, (prev, next) => {
-   return areConditionBreakdownsEqual(prev.condition, next.condition) && areProvinceCostsEqual(prev.cost, next.cost);
+   return (
+      deepEqual(prev.condition, next.condition) &&
+      deepEqual(prev.cost, next.cost) &&
+      deepEqual(prev.effect, next.effect)
+   );
 });
 
 function _ActionButtonTooltip({
    condition,
    cost,
+   effect,
 }: {
    condition: IConditionBreakdown | undefined;
    cost: ProvinceResourceCosts | undefined;
+   effect: IGameEffect | undefined;
 }): React.ReactNode {
    return (
       <>
@@ -94,6 +100,12 @@ function _ActionButtonTooltip({
                <ResourceCostComp cost={cost} />
             </>
          )}
+         {effect && (
+            <>
+               <div className="h2">{$t(L.TheFollowingEffectsWillBeApplied)}</div>
+               <div className="m10">{getGameEffectDesc(effect, G.save.state.playerProvince, G.save)}</div>
+            </>
+         )}
       </>
    );
 }
@@ -102,8 +114,9 @@ const ActionButtonContent = memo(_ActionButtonContent, (prev, next) => {
    return (
       prev.children === next.children &&
       prev.tooltip === next.tooltip &&
-      areConditionBreakdownsEqual(prev.condition, next.condition) &&
-      areProvinceCostsEqual(prev.cost, next.cost)
+      deepEqual(prev.condition, next.condition) &&
+      deepEqual(prev.cost, next.cost) &&
+      deepEqual(prev.effect, next.effect)
    );
 });
 
@@ -112,15 +125,17 @@ function _ActionButtonContent({
    tooltip,
    condition,
    cost,
+   effect,
 }: React.PropsWithChildren<{
    tooltip?: (element: React.ReactNode) => React.ReactNode;
    condition: IConditionBreakdown | undefined;
    cost: ProvinceResourceCosts | undefined;
+   effect: IGameEffect | undefined;
 }>): React.ReactNode {
    return (
       <FloatingTip
          label={() => {
-            const tooltipContent = <ActionButtonTooltip condition={condition} cost={cost} />;
+            const tooltipContent = <ActionButtonTooltip condition={condition} cost={cost} effect={effect} />;
             return tooltip ? tooltip(tooltipContent) : tooltipContent;
          }}
          fixedWidth

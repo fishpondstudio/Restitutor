@@ -8,7 +8,7 @@ import type { Province } from "../definitions/Province";
 import { isChristianReligion } from "../definitions/Religion";
 import type { SocialClass } from "../definitions/SocialClass";
 import { TimedActions } from "../definitions/TimedAction";
-import { applyGameEffect, type IGameEffect } from "../GameEffect";
+import type { IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { showSuccess } from "../logic/AlertLogic";
 import {
@@ -139,9 +139,12 @@ export function DivorceAction(province: Province, save: SaveGame): IGameAction {
             progress: [marriageMonths, DivorceMinimumMonths],
          },
       ]),
+      effect: {
+         name: $t(L.Divorce),
+         ...DivorceGameEffect,
+      },
       execute: ({ headless }) => {
          state.governor.female = null;
-         applyGameEffect(DivorceGameEffect, $t(L.Divorce), province, save);
       },
    };
 }
@@ -158,6 +161,7 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
    if (!state) {
       return EmptyGameAction;
    }
+   const name = randomFemaleName();
    return {
       condition: finalizeCondition([
          ...timedActionConditions({ action: "TakeLover" }, province, save),
@@ -170,9 +174,12 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
          gold: 1000,
          christianity: isChristianReligion(state.religion) ? 5 : 0,
       },
+      effect: {
+         name: $t(L.TakeALoverWith$1, name.join(" ")),
+         ...TakeLoverEffect,
+      },
       execute: () => {
          startTimedAction("TakeLover", province, save);
-         const name = randomFemaleName();
          state.governor.concubines.push(
             ensureTraits({
                traits: new Set(),
@@ -190,7 +197,6 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
                joinMonth: save.state.month,
             }),
          );
-         applyGameEffect(TakeLoverEffect, $t(L.TakeALoverWith$1, name.join(" ")), province, save);
       },
    };
 }

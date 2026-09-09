@@ -1,11 +1,7 @@
-import { clamp, forEach, sizeOf } from "@project/shared/src/utils/Helper";
+import { clamp, forEach } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
-import {
-   type Province,
-   type ProvinceResource,
-   type ProvinceResourceCosts,
-   ProvinceResourceNames,
-} from "../definitions/Province";
+import { type Province, type ProvinceResourceCosts, ProvinceResourceNames } from "../definitions/Province";
+import type { IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { hasEnoughProvinceResources } from "../logic/ProvinceLogic";
 
@@ -14,8 +10,13 @@ export interface IGameCostCondition {
    condition?: IConditionBreakdown;
 }
 
+export interface IGameEffectWithName extends IGameEffect {
+   name: string;
+}
+
 export interface IGameAction extends IGameCostCondition {
    execute: (options: { headless: boolean }) => void;
+   effect?: IGameEffectWithName;
 }
 
 export interface ICondition {
@@ -137,70 +138,6 @@ export function finalizeBreakdown(breakdown: IValueBreakdown, round?: (value: nu
       breakdown.value = round(breakdown.value);
    }
    return breakdown;
-}
-
-export function areValueBreakdownsEqual(a: IValueBreakdown | undefined, b: IValueBreakdown | undefined): boolean {
-   if (a === undefined && b === undefined) {
-      return true;
-   }
-   if (a === undefined || b === undefined) {
-      return false;
-   }
-   if (a.value !== b.value) {
-      return false;
-   }
-   if (a.totalAdd !== b.totalAdd) {
-      return false;
-   }
-   if (a.totalMultiply !== b.totalMultiply) {
-      return false;
-   }
-   if (a.add.length !== b.add.length) {
-      return false;
-   }
-   for (let i = 0; i < a.add.length; i++) {
-      if (a.add[i].name !== b.add[i].name || a.add[i].desc !== b.add[i].desc || a.add[i].value !== b.add[i].value) {
-         return false;
-      }
-   }
-   if (a.multiply.length !== b.multiply.length) {
-      return false;
-   }
-   for (let i = 0; i < a.multiply.length; i++) {
-      if (
-         a.multiply[i].name !== b.multiply[i].name ||
-         a.multiply[i].desc !== b.multiply[i].desc ||
-         a.multiply[i].value !== b.multiply[i].value
-      ) {
-         return false;
-      }
-   }
-   if (a.reverse !== b.reverse) {
-      return false;
-   }
-   return true;
-}
-
-export function areProvinceCostsEqual(
-   a: ProvinceResourceCosts | undefined,
-   b: ProvinceResourceCosts | undefined,
-): boolean {
-   if (a === undefined && b === undefined) {
-      return true;
-   }
-   if (a === undefined || b === undefined) {
-      return false;
-   }
-   if (sizeOf(a) !== sizeOf(b)) {
-      return false;
-   }
-   let resource: ProvinceResource;
-   for (resource in a) {
-      if (a[resource] !== b[resource]) {
-         return false;
-      }
-   }
-   return true;
 }
 
 export function canDoAction(action: IGameCostCondition, province: Province, save: SaveGame): boolean {

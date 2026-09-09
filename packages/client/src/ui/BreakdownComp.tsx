@@ -1,10 +1,11 @@
 import { cls, formatDelta, formatPercent, formatPercentDelta } from "@project/shared/src/utils/Helper";
+import { deepEqual } from "fast-equals";
 import { memo } from "react";
-import { areValueBreakdownsEqual, type IValueBreakdown, type IValueBreakdownItem } from "../game/actions/GameAction";
+import type { IValueBreakdown, IValueBreakdownItem } from "../game/actions/GameAction";
 import { $t, L } from "../utils/i18n";
 
 export const BreakdownComp = memo(_BreakdownComp, (prev, next) => {
-   return areValueBreakdownsEqual(prev.breakdown, next.breakdown);
+   return deepEqual(prev.breakdown, next.breakdown);
 });
 
 function _BreakdownComp({
