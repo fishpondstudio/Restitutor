@@ -27,6 +27,8 @@ export class GameOption {
    flag: GameOptionFlag = GameOptionFlag.None | GameOptionFlag.PauseOnBlur;
    chronicleALerts: Set<ChronicleEntryType> = new Set();
    volume = 0.5;
+   wasdMovementSpeed = 500;
+   wasdMovementResponsiveness = 15;
    shortcuts: Partial<Record<Shortcut, IShortcutConfig>> = structuredClone(DefaultShortcuts);
    version = SupportedSaveVersion;
    build = 0;

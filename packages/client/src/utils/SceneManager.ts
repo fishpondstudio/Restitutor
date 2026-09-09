@@ -3,6 +3,7 @@ import { type Application, type ColorSource, Container, type FederatedPointerEve
 import { OnResize, OnSceneSwitched } from "../game/Events";
 import { Camera } from "./Camera";
 import type { SceneLifecycle } from "./SceneLifecycle";
+import type { WASDBindings } from "./WASDMovement";
 
 export abstract class Scene implements SceneLifecycle {
    public readonly viewport: Camera;
@@ -11,7 +12,10 @@ export abstract class Scene implements SceneLifecycle {
    constructor(context: ISceneContext) {
       this.context = context;
       const { app } = context;
-      this.viewport = new Camera(app, { scrollSensitivity: this.scrollSensitivity.bind(this) });
+      this.viewport = new Camera(app, {
+         scrollSensitivity: this.scrollSensitivity.bind(this),
+         wasdBindings: this.wasdBindings.bind(this),
+      });
    }
 
    abstract backgroundColor(): ColorSource;
@@ -21,6 +25,9 @@ export abstract class Scene implements SceneLifecycle {
    onClicked(e: FederatedPointerEvent): void {}
    scrollSensitivity(): number {
       return 1;
+   }
+   wasdBindings(): WASDBindings | undefined {
+      return undefined;
    }
 
    protected setBackgroundColor(color: ColorSource): void {

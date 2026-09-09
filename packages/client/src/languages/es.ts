@@ -3686,4 +3686,13 @@ export const ES = {
    NewTileSettlementPhase$1: "Asentamiento de un nuevo territorio (fase $1)",
    $1LandTaxTileOutputAndManpowerFor$2Years: "$1 al impuesto territorial, al rendimiento territorial y a la mano de obra durante $2 años",
    Settle$1: "Asentar el territorio $1",
+   MapMovementSpeedDescription: "La velocidad a la que se mueve el mapa con los atajos de teclado. Los valores más altos mueven el mapa más rápido.",
+   MapMovementResponsivenessDescription: "La rapidez con la que empieza y se detiene el desplazamiento del mapa con el teclado. Los valores más altos dan una respuesta más inmediata; los más bajos, un movimiento más suave.",
+   MoveMapUp: "Mover el mapa hacia arriba",
+   MoveMapDown: "Mover el mapa hacia abajo",
+   MoveMapLeft: "Mover el mapa hacia la izquierda",
+   MoveMapRight: "Mover el mapa hacia la derecha",
+   WASDControl: "Controles WASD",
+   MovementSpeed: "Velocidad de desplazamiento",
+   MovementResponsiveness: "Respuesta del desplazamiento",
 };

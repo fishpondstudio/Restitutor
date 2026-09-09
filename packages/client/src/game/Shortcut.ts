@@ -132,12 +132,12 @@ export function initShortcut(): void {
 export function useDebugKey(): boolean {
    const [isDebug, setIsDebug] = useState(false);
    useTypedEvent(OnKeydown, (e) => {
-      if (isDev() && e.key.toLowerCase() === "d") {
+      if (isDev() && e.key.toLowerCase() === "`") {
          setIsDebug(true);
       }
    });
    useTypedEvent(OnKeyup, (e) => {
-      if (e.key.toLowerCase() === "d") {
+      if (e.key.toLowerCase() === "`") {
          setIsDebug(false);
       }
    });

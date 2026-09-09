@@ -1,5 +1,13 @@
 import { SegmentedControl, Select, Slider, Switch } from "@mantine/core";
-import { entriesOf, hasFlag, range, safeParseFloat, safeParseInt, toggleFlag } from "@project/shared/src/utils/Helper";
+import {
+   entriesOf,
+   formatNumber,
+   hasFlag,
+   range,
+   safeParseFloat,
+   safeParseInt,
+   toggleFlag,
+} from "@project/shared/src/utils/Helper";
 import { Fragment, useEffect, useState } from "react";
 import { DiscordUrl, PatchNotesUrl, SteamCommunityUrl, SteamUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated } from "../game/Events";
@@ -233,6 +241,45 @@ function SettingsGeneralTab(): React.ReactNode {
             />
             <div>{$t(L.Year)}</div>
          </div>
+         <div className="h1">{$t(L.WASDControl)}</div>
+         <div className="row g5 m10">
+            <div>{$t(L.MovementSpeed)}</div>
+            <FloatingTip label={() => $t(L.MapMovementSpeedDescription)}>
+               <div className="mi sm">info</div>
+            </FloatingTip>
+            <div className="f1"></div>
+            <Slider
+               w="10rem"
+               min={100}
+               max={2000}
+               step={100}
+               label={formatNumber}
+               value={G.save.options.wasdMovementSpeed}
+               onChange={(value) => {
+                  G.save.options.wasdMovementSpeed = value;
+                  GameOptionUpdated.emit();
+               }}
+            />
+         </div>
+         <div className="row g5 m10">
+            <div>{$t(L.MovementResponsiveness)}</div>
+            <FloatingTip label={() => $t(L.MapMovementResponsivenessDescription)}>
+               <div className="mi sm">info</div>
+            </FloatingTip>
+            <div className="f1"></div>
+            <Slider
+               w="10rem"
+               min={1}
+               max={30}
+               step={1}
+               label={formatNumber}
+               value={G.save.options.wasdMovementResponsiveness}
+               onChange={(value) => {
+                  G.save.options.wasdMovementResponsiveness = value;
+                  GameOptionUpdated.emit();
+               }}
+            />
+         </div>
          <div className="h1">{$t(L.Tutorial)}</div>
          <div className="row m10">
             <div className="f1">{$t(L.ShowTutorial)}</div>
@@ -257,8 +304,9 @@ function SettingsGeneralTab(): React.ReactNode {
          <div className="h1">{$t(L.Misc)}</div>
          <div className="row m10">
             <div>{$t(L.Volume)}</div>
+            <div className="f1" />
             <Slider
-               className="f1"
+               w="10rem"
                min={0}
                max={1}
                step={0.1}

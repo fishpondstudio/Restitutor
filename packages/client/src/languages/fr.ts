@@ -3679,4 +3679,13 @@ export const FR = {
    NewTileSettlementPhase$1: "New Tile Settlement (Phase $1)",
    $1LandTaxTileOutputAndManpowerFor$2Years: "$1 Land Tax, Tile Output, and Manpower for $2 years",
    Settle$1: "Settle $1",
+   MapMovementSpeedDescription: "How fast the map moves when using keyboard shortcuts. Higher values move the map faster.",
+   MapMovementResponsivenessDescription: "How quickly keyboard map movement starts and stops. Higher values feel snappier; lower values feel smoother.",
+   MoveMapUp: "Move Map Up",
+   MoveMapDown: "Move Map Down",
+   MoveMapLeft: "Move Map Left",
+   MoveMapRight: "Move Map Right",
+   WASDControl: "WASD Control",
+   MovementSpeed: "Movement Speed",
+   MovementResponsiveness: "Movement Responsiveness",
 };

@@ -115,7 +115,7 @@ export const DefaultShortcuts = {
       meta: false,
    },
    OpenChronicle: {
-      key: "w",
+      key: "t",
       ctrl: false,
       alt: false,
       shift: false,
@@ -130,6 +130,34 @@ export const DefaultShortcuts = {
    },
    OpenRebirth: {
       key: "r",
+      ctrl: false,
+      alt: false,
+      shift: false,
+      meta: false,
+   },
+   MoveMapUp: {
+      key: "w",
+      ctrl: false,
+      alt: false,
+      shift: false,
+      meta: false,
+   },
+   MoveMapDown: {
+      key: "s",
+      ctrl: false,
+      alt: false,
+      shift: false,
+      meta: false,
+   },
+   MoveMapLeft: {
+      key: "a",
+      ctrl: false,
+      alt: false,
+      shift: false,
+      meta: false,
+   },
+   MoveMapRight: {
+      key: "d",
       ctrl: false,
       alt: false,
       shift: false,
@@ -158,4 +186,8 @@ export const Shortcut = {
    OpenChronicle: () => $t(L.OpenChronicle),
    OpenLegacyUpgrade: () => $t(L.OpenLegacyUpgrade),
    OpenRebirth: () => $t(L.OpenRebirth),
+   MoveMapUp: () => $t(L.MoveMapUp),
+   MoveMapDown: () => $t(L.MoveMapDown),
+   MoveMapLeft: () => $t(L.MoveMapLeft),
+   MoveMapRight: () => $t(L.MoveMapRight),
 } as const satisfies Record<Shortcut, () => string>;

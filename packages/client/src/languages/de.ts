@@ -3690,4 +3690,13 @@ export const DE = {
    NewTileSettlementPhase$1: "Besiedlung eines neuen Gebiets (Phase $1)",
    $1LandTaxTileOutputAndManpowerFor$2Years: "$1 Grundsteuer, Gebietsproduktion und Mannstärke für $2 Jahre",
    Settle$1: "Gebiet $1 besiedeln",
+   MapMovementSpeedDescription: "Wie schnell sich die Karte mit Tastenkürzeln bewegen lässt. Höhere Werte bewegen die Karte schneller.",
+   MapMovementResponsivenessDescription: "Wie schnell die Kartenbewegung per Tastatur beginnt und endet. Höhere Werte reagieren direkter, niedrigere sorgen für sanftere Bewegungen.",
+   MoveMapUp: "Karte nach oben bewegen",
+   MoveMapDown: "Karte nach unten bewegen",
+   MoveMapLeft: "Karte nach links bewegen",
+   MoveMapRight: "Karte nach rechts bewegen",
+   WASDControl: "WASD-Steuerung",
+   MovementSpeed: "Bewegungsgeschwindigkeit",
+   MovementResponsiveness: "Reaktionsgeschwindigkeit der Bewegung",
 };

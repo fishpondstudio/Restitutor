@@ -1,9 +1,0 @@
-Mandate
-
-[x] Eliminating a polity from map in a peace treaty now grants 1 Mandate
-[x] Annexing a client now grants 1 Mandate
-
-NPC Improvement
-[x] NPC does not declare war on province with positive attitude
-[x] Make use of denounce before declaring war
-[ ] Player should get event popup when denounced

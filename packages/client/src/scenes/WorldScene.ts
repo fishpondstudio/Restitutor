@@ -17,7 +17,6 @@ import { Fonts } from "../Fonts";
 import { Goods } from "../game/definitions/Goods";
 import { GreatWork, TileToGreatWork } from "../game/definitions/GreatWork";
 import type { Province } from "../game/definitions/Province";
-import type { Terrain } from "../game/definitions/Terrain";
 import { NewSettlementTiles } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
@@ -41,14 +40,15 @@ import { G, GameFlags, isDev } from "../utils/Global";
 import { MapContainer, MapParticleContainer } from "../utils/MapContainer";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
 import { UnicodeText } from "../utils/UnicodeText";
+import type { WASDBindings } from "../utils/WASDMovement";
 import { getOverlay } from "./Overlays";
 import { ExternalBorder, InternalBorder, WarBorder } from "./WorldSceneConstants";
+import { adjustTextSize, getTerrainTextures, isMapMovementBlocked } from "./WorldSceneUtils";
 
 const MarginX = 2000;
 const TextureHeight = 256;
 const ProvinceLabelFontSize = 36;
 let time = 0;
-let TerrainTextures: Record<Terrain, Texture[]> | undefined;
 
 export class WorldScene extends Scene {
    private _indicatorContainer: MapContainer<Tile, Sprite>;
@@ -68,6 +68,19 @@ export class WorldScene extends Scene {
 
    backgroundColor(): ColorSource {
       return 0xabd3de;
+   }
+
+   override wasdBindings(): WASDBindings | undefined {
+      if (isMapMovementBlocked()) {
+         return undefined;
+      }
+      const { shortcuts } = G.save.options;
+      return {
+         up: shortcuts.MoveMapUp,
+         down: shortcuts.MoveMapDown,
+         left: shortcuts.MoveMapLeft,
+         right: shortcuts.MoveMapRight,
+      };
    }
 
    constructor(context: ISceneContext) {
@@ -185,7 +198,7 @@ export class WorldScene extends Scene {
                   if (visual) {
                      const text = visual as UnicodeText;
                      text.text = `${tileData.infrastructure + tileData.production + tileData.population}`;
-                     this._adjustTextSize(text);
+                     adjustTextSize(text);
                   }
                }
                break;
@@ -196,7 +209,7 @@ export class WorldScene extends Scene {
                   if (visual) {
                      const text = visual as UnicodeText;
                      text.text = `${round(getTileDefense(tile, G.save).value, 1)}`;
-                     this._adjustTextSize(text);
+                     adjustTextSize(text);
                   }
                }
                break;
@@ -207,7 +220,7 @@ export class WorldScene extends Scene {
                   if (visual) {
                      const text = visual as UnicodeText;
                      text.text = `${round(getTileMaintenanceCost(tile, G.save, "value"), 1)}`;
-                     this._adjustTextSize(text);
+                     adjustTextSize(text);
                   }
                }
                break;
@@ -229,9 +242,6 @@ export class WorldScene extends Scene {
       this.drawProvinceOutline(G.save.state.playerProvince);
 
       this._isEditor = G.params.has("editor");
-      if (this._isEditor) {
-         this._enableTileEditor();
-      }
    }
 
    private _makeTile(tile: Tile): void {
@@ -288,7 +298,7 @@ export class WorldScene extends Scene {
             const visual = new UnicodeText(`${tileData.infrastructure + tileData.production + tileData.population}`, {
                fontName: Fonts.MainFont,
             });
-            this._adjustTextSize(visual);
+            adjustTextSize(visual);
             this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
@@ -299,7 +309,7 @@ export class WorldScene extends Scene {
             const visual = new UnicodeText(`${round(getTileDefense(tile, G.save).value, 1)}`, {
                fontName: Fonts.MainFont,
             });
-            this._adjustTextSize(visual);
+            adjustTextSize(visual);
             this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
@@ -310,7 +320,7 @@ export class WorldScene extends Scene {
             const visual = new UnicodeText(`${round(getTileMaintenanceCost(tile, G.save, "value"), 1)}`, {
                fontName: Fonts.MainFont,
             });
-            this._adjustTextSize(visual);
+            adjustTextSize(visual);
             this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
@@ -337,20 +347,13 @@ export class WorldScene extends Scene {
 
    private _renderTerrain(tile: number) {
       const { x, y } = MapGrid.gridToPosition(tileToPoint(tile));
-      const textures = this._getTerrainTextures(getTileTerrain(tile));
+      const textures = getTerrainTextures(getTileTerrain(tile));
       const visual = new Sprite(textures[tile % textures.length]);
       this._overlayContainer.map.set(tile, visual);
       visual.anchor.set(0.5, 0.5);
       visual.position.set(x, y);
       visual.scale.set(TileHeight / TextureHeight);
       return visual;
-   }
-
-   private _adjustTextSize(text: UnicodeText): void {
-      text.size = 50;
-      while (text.width > TileWidth - 20) {
-         text.size -= 1;
-      }
    }
 
    override scrollSensitivity(): number {
@@ -708,39 +711,6 @@ export class WorldScene extends Scene {
       selector.scale.set(TileHeight / TextureHeight);
       selector.anchor.set(0.5, 0.5);
       selector.alpha = 0.25;
-   }
-
-   private _getTerrainTextures(terrain: Terrain): Texture[] {
-      if (!TerrainTextures) {
-         TerrainTextures = {
-            Mountain: [
-               G.textures.get("Shaded/Mountain1") as Texture,
-               G.textures.get("Shaded/Mountain2") as Texture,
-               G.textures.get("Shaded/Mountain3") as Texture,
-            ],
-            Hill: [
-               G.textures.get("Shaded/Hill1") as Texture,
-               G.textures.get("Shaded/Hill2") as Texture,
-               G.textures.get("Shaded/Hill3") as Texture,
-            ],
-            Forest: [
-               G.textures.get("Shaded/Forest1") as Texture,
-               G.textures.get("Shaded/Forest2") as Texture,
-               G.textures.get("Shaded/Forest3") as Texture,
-            ],
-            Plain: [
-               G.textures.get("Shaded/Plain1") as Texture,
-               G.textures.get("Shaded/Plain2") as Texture,
-               G.textures.get("Shaded/Plain3") as Texture,
-            ],
-            Arid: [
-               G.textures.get("Shaded/Arid1") as Texture,
-               G.textures.get("Shaded/Arid2") as Texture,
-               G.textures.get("Shaded/Arid3") as Texture,
-            ],
-         };
-      }
-      return TerrainTextures[terrain];
    }
 
    private _enableTileEditor(): void {

@@ -3606,4 +3606,13 @@ export const ZH_CN = {
    NewTileSettlementPhase$1: "新地块定居（阶段$1）",
    $1LandTaxTileOutputAndManpowerFor$2Years: "$1土地税、地块产出和人力，持续$2年",
    Settle$1: "定居$1",
+   MapMovementSpeedDescription: "使用快捷键移动地图时的速度。数值越高，地图移动越快。",
+   MapMovementResponsivenessDescription: "使用键盘移动地图时，开始和停止移动的响应速度。数值越高，响应越迅速；数值越低，移动越平滑。",
+   MoveMapUp: "向上移动地图",
+   MoveMapDown: "向下移动地图",
+   MoveMapLeft: "向左移动地图",
+   MoveMapRight: "向右移动地图",
+   WASDControl: "WASD控制",
+   MovementSpeed: "移动速度",
+   MovementResponsiveness: "移动响应速度",
 };

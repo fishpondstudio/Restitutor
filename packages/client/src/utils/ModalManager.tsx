@@ -10,11 +10,19 @@ import { CloseButtonClass } from "../ui/UIConstant";
 import { useTypedEvent } from "./Hook";
 import { $t, L } from "./i18n";
 
+let openModalCount = 0;
+
+export function hasOpenModal(): boolean {
+   return openModalCount > 0;
+}
+
 export function ModalManager(): React.ReactNode {
    const [modals, setModals] = useState<ShowModalEvent[]>([]);
    const onClosed = useCallback((closedModal: ShowModalEvent) => {
       setModals((prevModals) => {
-         return prevModals.filter((modal) => modal !== closedModal);
+         const newModals = prevModals.filter((modal) => modal !== closedModal);
+         openModalCount = newModals.length;
+         return newModals;
       });
    }, []);
 
@@ -26,6 +34,7 @@ export function ModalManager(): React.ReactNode {
          ) {
             return prevModals;
          }
+         openModalCount = prevModals.length + 1;
          return [...prevModals, modal];
       });
    });
