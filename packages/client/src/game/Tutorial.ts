@@ -10,7 +10,7 @@ import { Tiles } from "./definitions/TileConstants";
 import { getTileName } from "./definitions/TileName";
 import { LugdunensisEvent } from "./events/LugdunensisEvent";
 import type { SaveGame } from "./GameState";
-import { BaseDiplomats, getRelation } from "./logic/DiplomacyLogic";
+import { addAttitudeModifier, BaseDiplomats, getAttitudeTowards, getRelation } from "./logic/DiplomacyLogic";
 import { addModifier } from "./logic/ModifierLogic";
 import {
    ConsulCandidatesCount,
@@ -18,6 +18,7 @@ import {
    fillOfferAmount,
    getProvinceResource,
    getProvinceStat,
+   getProvinceTrades,
 } from "./logic/ProvinceLogic";
 import { getTimedActionTimeLeft } from "./logic/TimedActionLogic";
 import { getCurrentGeneral, getCurrentWars, WarOneTimeDiplomaticPoint } from "./logic/WarLogic";
@@ -284,15 +285,27 @@ export const Tutorial: ITutorial[] = [
       name: () => $t(L.TutorialSetUpTradeWith$1, Province.Aquitania.name()),
       desc: () => $t(L.TutorialSetUpTradeDesc$1$2$3, Goods.wood.name(), "Aquitania", ProvinceResourceNames.gold()),
       progress: (save) => {
-         const trade = getRelation(save.state.playerProvince, "Aquitania", save)?.trade;
-         if (trade) {
-            return [1, 1];
-         }
-         return [0, 1];
+         // We recognize any trade for tutorial, not just with Aquitania.
+         return [getProvinceTrades(save.state.playerProvince, save).size, 1];
       },
       setup: (save) => {
          const aquitania = save.state.provinces.Aquitania;
          if (aquitania) {
+            const currentAttitude = getAttitudeTowards("Aquitania", save.state.playerProvince, save).value;
+            // We add a temporary attitude modifier to make the trade possible.
+            if (currentAttitude < 0) {
+               addAttitudeModifier(
+                  "Aquitania",
+                  save.state.playerProvince,
+                  {
+                     name: $t(L.Tutorial),
+                     type: "add",
+                     value: -currentAttitude,
+                     duration: 12,
+                  },
+                  save,
+               );
+            }
             aquitania.tradeOffers[2] = fillOfferAmount({ theyOffer: "gold", weOffer: "wood" });
          }
       },

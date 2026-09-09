@@ -8,6 +8,8 @@ import { requireMinimumAttitude } from "../logic/TreatyLogic";
 import { getWarsBetween } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction, type IGameCostCondition } from "./GameAction";
 
+export const MinimumTradeAttitude = -10;
+
 export function CanTradeCostCondition(
    ourProvince: Province,
    theirProvince: Province,
@@ -22,7 +24,7 @@ export function CanTradeCostCondition(
             name: $t(L.WeAreNotAtWarWithThem),
             value: getWarsBetween(ourProvince, theirProvince, save).length === 0,
          },
-         requireMinimumAttitude(ourProvince, theirProvince, -10, save),
+         requireMinimumAttitude(theirProvince, ourProvince, MinimumTradeAttitude, save),
          {
             name: $t(L.WeDontAlreadyHaveAnActiveTradeWithThem),
             value: getRelation(ourProvince, theirProvince, save)?.trade === undefined,
