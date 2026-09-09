@@ -666,6 +666,11 @@ class TimedActionDefinitions {
       duration: 10 * 12,
       cooldown: 10 * 12,
    };
+   SettleTile: ITimedAction = {
+      name: () => $t(L.SettleANewTile),
+      duration: 0,
+      cooldown: 12 * 5,
+   };
 }
 
 export const RelocateCapitalModifier: { modifier: Modifier } & IBaseModifier = {

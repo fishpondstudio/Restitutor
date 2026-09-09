@@ -89,6 +89,11 @@ export function migrateSave(save: SaveGame): void {
       if (!data.autonomy) {
          data.autonomy = 0;
       }
+      const modifiers = data.modifiers as typeof data.modifiers & {
+         GoodsTax?: typeof data.modifiers.TileOutput;
+      };
+      modifiers.TileOutput ??= modifiers.GoodsTax ?? [];
+      delete modifiers.GoodsTax;
    }
 }
 

@@ -12,8 +12,8 @@ import { BarbarianRaidNegativeEffect } from "../definitions/SpawnedProvince";
 import { Tech } from "../definitions/Tech";
 import type { Terrain } from "../definitions/Terrain";
 import { type ITileData, initTileData, TerrainToGoods } from "../definitions/Tile";
+import { NewSettlementTiles } from "../definitions/TileConstants";
 import { TimedActions } from "../definitions/TimedAction";
-import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { isLand, terrainOf } from "../Land";
 import { MapGrid } from "../MapGrid";
@@ -474,7 +474,7 @@ export function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
       name: $t(L.Production),
       value: data.production,
    });
-   attachTileModifiers(data.modifiers.GoodsTax, breakdown);
+   attachTileModifiers(data.modifiers.TileOutput, breakdown);
    attachModifiers("TileOutput", breakdown, data.province, save);
    if (hasProvinceUpgrade("ProductiveInvestment", data.province, save) && data.upgradeCount > 0) {
       breakdown.multiply.push({
@@ -926,12 +926,14 @@ export function settleTile(tile: Tile, province: Province, save: SaveGame): ITil
    if (!isLand(tile)) {
       return undefined;
    }
+   if (!NewSettlementTiles.has(tile)) {
+      return undefined;
+   }
    const tileData = initTileData(province, randOne(TerrainToGoods[getTileTerrain(tile)]));
    tileData.infrastructure = 1;
    tileData.production = 1;
    tileData.population = 1;
    save.state.tiles.set(tile, tileData);
-   GameStateUpdated.emit();
    return tileData;
 }
 

@@ -3632,4 +3632,9 @@ export const RU = {
    TileTafis: "Тафис",
    TileEsna: "Эсна",
    TileNovumHydreuma: "Новум Гидреума",
+   SettleANewTile: "Заселить новое владение",
+   TileBordersOneOfOurCoreTiles: "Владение граничит с одним из наших ядровых владений",
+   NewTileSettlementPhase$1: "Заселение нового владения (этап $1)",
+   $1LandTaxTileOutputAndManpowerFor$2Years: "$1 к земельному налогу, производству владения и людским ресурсам на $2 лет",
+   Settle$1: "Заселить владение $1",
 };

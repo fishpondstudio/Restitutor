@@ -3674,4 +3674,9 @@ export const FR = {
    TileTafis: "Tafis",
    TileEsna: "Esna",
    TileNovumHydreuma: "Novum Hydreuma",
+   SettleANewTile: "Settle a New Tile",
+   TileBordersOneOfOurCoreTiles: "Tile borders one of our core tiles",
+   NewTileSettlementPhase$1: "New Tile Settlement (Phase $1)",
+   $1LandTaxTileOutputAndManpowerFor$2Years: "$1 Land Tax, Tile Output, and Manpower for $2 years",
+   Settle$1: "Settle $1",
 };

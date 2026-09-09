@@ -18,6 +18,7 @@ import { Goods } from "../game/definitions/Goods";
 import { GreatWork, TileToGreatWork } from "../game/definitions/GreatWork";
 import type { Province } from "../game/definitions/Province";
 import type { Terrain } from "../game/definitions/Terrain";
+import { NewSettlementTiles } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
 import { isLand, LandSize } from "../game/Land";
@@ -31,6 +32,7 @@ import { showPanel } from "../ui/common/ShowPanel";
 import { hideSidebar } from "../ui/common/SidebarManager";
 import { DiplomacyPage } from "../ui/DiplomacyPage";
 import { EditTilePage } from "../ui/EditTilePage";
+import { SettleTilePage } from "../ui/SettleTilePage";
 import { playSound } from "../ui/Sound";
 import { TilePage } from "../ui/TilePage";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
@@ -252,6 +254,8 @@ export class WorldScene extends Scene {
          } else {
             this._capitalContainer.map.delete(tile);
          }
+      } else if (NewSettlementTiles.has(tile)) {
+         bg.tint = 0xe0ebe1;
       } else {
          bg.tint = 0xf2fcff;
       }
@@ -379,7 +383,11 @@ export class WorldScene extends Scene {
          if (isDev()) {
             console.log(tile, getTileName(tile, G.save));
          }
-         hideSidebar();
+         if (NewSettlementTiles.has(tile)) {
+            showPanel(SettleTilePage, { tile });
+         } else {
+            hideSidebar();
+         }
          return;
       }
 

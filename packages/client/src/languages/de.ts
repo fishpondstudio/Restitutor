@@ -3685,4 +3685,9 @@ export const DE = {
    TileTafis: "Tafis",
    TileEsna: "Esna",
    TileNovumHydreuma: "Novum Hydreuma",
+   SettleANewTile: "Ein neues Gebiet besiedeln",
+   TileBordersOneOfOurCoreTiles: "Das Gebiet grenzt an eines unserer Kerngebiete",
+   NewTileSettlementPhase$1: "Besiedlung eines neuen Gebiets (Phase $1)",
+   $1LandTaxTileOutputAndManpowerFor$2Years: "$1 Grundsteuer, Gebietsproduktion und Mannstärke für $2 Jahre",
+   Settle$1: "Gebiet $1 besiedeln",
 };

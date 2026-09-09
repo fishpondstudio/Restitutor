@@ -10,6 +10,7 @@ import { GreatWork, TileToGreatWork } from "../game/definitions/GreatWork";
 import { modifierToString } from "../game/definitions/Modifier";
 import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
+import { NewSettlementTiles } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
 import { RelocateCapitalModifier, TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "../game/Events";
@@ -50,6 +51,7 @@ import { html } from "./components/RenderHTMLComp";
 import { DiplomacyPage } from "./DiplomacyPage";
 import { GreatWorkComponent } from "./GreatWorkComponent";
 import { MakeCoreButton } from "./MakeCoreButton";
+import { SettleTilePage } from "./SettleTilePage";
 import { TileBuildingsModal } from "./TileBuildingsModal";
 import { Grid2 } from "./UIConstant";
 import { UpgradeInfrastructureButton, UpgradePopulationButton, UpgradeProductionButton } from "./UpgradeButtons";
@@ -59,6 +61,9 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const tileData = G.save.state.tiles.get(tile);
    if (!tileData) {
+      if (NewSettlementTiles.has(tile)) {
+         return <SettleTilePage tile={tile} />;
+      }
       return null;
    }
    const state = G.save.state.provinces[tileData.province];

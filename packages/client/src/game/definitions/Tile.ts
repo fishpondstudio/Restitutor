@@ -40,7 +40,7 @@ export interface ITileData {
       Defense: IModifier[];
       Manpower: IModifier[];
       LandTax: IModifier[];
-      GoodsTax: IModifier[];
+      TileOutput: IModifier[];
       Maintenance: IModifier[];
       Unrest: IModifier[];
    };
@@ -108,7 +108,7 @@ export function initTileData(province: Province, goods: Goods): ITileData {
          Defense: [],
          Manpower: [],
          LandTax: [],
-         GoodsTax: [],
+         TileOutput: [],
          Maintenance: [],
          Unrest: [],
       },

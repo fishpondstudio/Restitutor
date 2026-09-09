@@ -3601,4 +3601,9 @@ export const ZH_CN = {
    TileTafis: "塔菲斯",
    TileEsna: "埃斯纳",
    TileNovumHydreuma: "诺乌姆·海德鲁玛",
+   SettleANewTile: "定居新地块",
+   TileBordersOneOfOurCoreTiles: "地块与我们的一个核心地块相邻",
+   NewTileSettlementPhase$1: "新地块定居（阶段$1）",
+   $1LandTaxTileOutputAndManpowerFor$2Years: "$1土地税、地块产出和人力，持续$2年",
+   Settle$1: "定居$1",
 };
