@@ -30,7 +30,7 @@ export function SummonGovernorAction(ourProvince: Province, clientProvince: Prov
             value: getWarsBetween(ourProvince, clientProvince, save).length === 0,
          },
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("SummonGovernor", ourProvince, save);
          addModifier({
             modifier: "Prestige",
@@ -80,7 +80,7 @@ export function RequestMilitaryAidAction(ourProvince: Province, clientProvince: 
             value: getWarsBetween(ourProvince, clientProvince, save).length === 0,
          },
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("RequestMilitaryAid", ourProvince, save);
          const name = $t(
             L.$1RequestedMilitaryAidFrom$2,
@@ -128,7 +128,7 @@ export function AnnexClientAction(ourProvince: Province, clientProvince: Provinc
             value: getWarsBetween(ourProvince, clientProvince, save).length === 0,
          },
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("AnnexClient", ourProvince, save);
          const tiles = new Set<Tile>();
          for (const [tile, data] of save.state.tiles) {

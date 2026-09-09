@@ -39,7 +39,7 @@ export function LookForLocalSpouseAction(
             value: isEligibleForMarriage(family),
          },
       ]),
-      effect: ({ headless }) => {
+      execute: ({ headless }) => {
          if (!family.male && family.female) {
             const daughter = family.female;
             family.female = null;
@@ -88,7 +88,7 @@ export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Pr
 
    return {
       condition: finalizeCondition(conditions),
-      effect: ({ headless }) => {
+      execute: ({ headless }) => {
          if (ours.male && theirs.female) {
             theirs.female.joinMonth = save.state.month;
             ours.female = theirs.female;
@@ -139,7 +139,7 @@ export function DivorceAction(province: Province, save: SaveGame): IGameAction {
             progress: [marriageMonths, DivorceMinimumMonths],
          },
       ]),
-      effect: ({ headless }) => {
+      execute: ({ headless }) => {
          state.governor.female = null;
          applyGameEffect(DivorceGameEffect, $t(L.Divorce), province, save);
       },
@@ -170,7 +170,7 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
          gold: 1000,
          christianity: isChristianReligion(state.religion) ? 5 : 0,
       },
-      effect: () => {
+      execute: () => {
          startTimedAction("TakeLover", province, save);
          const name = randomFemaleName();
          state.governor.concubines.push(

@@ -18,7 +18,7 @@ export function ConstructBuildingAction(
    return {
       cost: config.construction,
       condition: getTileBuildingCondition(building, tile, province, save),
-      effect: () => {
+      execute: () => {
          const tileData = save.state.tiles.get(tile);
          if (tileData) {
             tileData.buildings.add(building);
@@ -41,7 +41,7 @@ export function DemolishBuildingAction(
             value: save.state.tiles.get(tile)?.buildings.has(building) ?? false,
          },
       ]),
-      effect: () => {
+      execute: () => {
          const tileData = save.state.tiles.get(tile);
          if (tileData) {
             tileData.buildings.delete(building);

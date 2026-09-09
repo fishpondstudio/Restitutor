@@ -21,7 +21,7 @@ export function CrackDownAction(tile: Tile, province: Province, save: SaveGame):
          ...timedActionConditions({ action: "Crackdown" }, province, save),
          { name: $t(L.CurrentlyInRebellion), value: tileData.rebellion >= 10 },
       ]),
-      effect: () => {
+      execute: () => {
          tileData.rebellion = 0;
          tileData.modifiers.Unrest.push({
             type: "add",

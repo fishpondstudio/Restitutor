@@ -44,7 +44,7 @@ export function NamePublicEnemyModal(): React.ReactNode {
                         G.save,
                      ),
                   ]),
-                  effect: () => {
+                  execute: () => {
                      startTimedAction("PublicEnemy", selectedProvince, G.save);
                      addModifier({
                         modifier: "Prestige",

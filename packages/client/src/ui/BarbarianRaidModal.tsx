@@ -191,7 +191,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       G.save,
                                                    ),
                                                 ]),
-                                                effect: () => {
+                                                execute: () => {
                                                    const rel = getRelation(
                                                       G.save.state.playerProvince,
                                                       raid.attacker,
@@ -205,7 +205,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       G.save.state.playerProvince,
                                                       G.save,
                                                    );
-                                                   NegotiateWhitePeaceAction(raid, raid.attacker, G.save).effect({
+                                                   NegotiateWhitePeaceAction(raid, raid.attacker, G.save).execute({
                                                       headless: true,
                                                    });
                                                 },
@@ -240,7 +240,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       G.save,
                                                    ),
                                                 ]),
-                                                effect: () => {
+                                                execute: () => {
                                                    const rel = getRelation(
                                                       G.save.state.playerProvince,
                                                       raid.attacker,
@@ -255,7 +255,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       G.save,
                                                    );
                                                    rel.infiltrate.value -= 25;
-                                                   NegotiateWhitePeaceAction(raid, raid.attacker, G.save).effect({
+                                                   NegotiateWhitePeaceAction(raid, raid.attacker, G.save).execute({
                                                       headless: true,
                                                    });
                                                 },
@@ -289,7 +289,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       G.save,
                                                    ),
                                                 ]),
-                                                effect: () => {
+                                                execute: () => {
                                                    startTimedAction(
                                                       "BarbarianActions",
                                                       G.save.state.playerProvince,
@@ -366,7 +366,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                                       G.save,
                                                    ),
                                                 ]),
-                                                effect: () => {
+                                                execute: () => {
                                                    startTimedAction(
                                                       "BarbarianActions",
                                                       G.save.state.playerProvince,

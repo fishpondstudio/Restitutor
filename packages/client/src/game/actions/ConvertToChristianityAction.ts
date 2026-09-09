@@ -26,7 +26,7 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
             value: !isChristianReligion(state.religion),
          },
       ]),
-      effect: () => {
+      execute: () => {
          changeProvinceReligion("Christianity", province, save);
          if (province === save.state.playerProvince) {
             unlockAchievement("AdoptChristianity");

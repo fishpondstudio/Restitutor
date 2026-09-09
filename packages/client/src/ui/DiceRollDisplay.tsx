@@ -52,9 +52,9 @@ export function DiceRollComp({
                      const gameAction = action();
                      return {
                         ...gameAction,
-                        effect: ({ headless }) => {
+                        execute: ({ headless }) => {
                            setDiceRoll(round(Math.random() * 100, 2));
-                           gameAction.effect({ headless });
+                           gameAction.execute({ headless });
                         },
                      };
                   }}

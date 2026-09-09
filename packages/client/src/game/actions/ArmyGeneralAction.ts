@@ -25,7 +25,7 @@ export function MakeGovernorGeneralAction(province: Province, save: SaveGame): I
             value: state.governor.male.age >= 16,
          },
       ]),
-      effect: () => {
+      execute: () => {
          const governor = state.governor.male;
          governor.flag = setFlag(governor.flag, PersonFlags.IsGeneral);
          setProvinceStat("infantrySkill", 1, province, save);
@@ -43,7 +43,7 @@ export function RecruitGeneralAction(province: Province, save: SaveGame): IGameA
             value: getCurrentGeneral(province, save) === undefined,
          },
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("RecruitAGeneral", province, save);
          setProvinceStat("infantrySkill", 1, province, save);
          setProvinceStat("rangedSkill", 1, province, save);
@@ -64,7 +64,7 @@ export function UpgradeGeneralSkillAction(
             value: getCurrentGeneral(province, save) !== undefined,
          },
       ]),
-      effect: () => {
+      execute: () => {
          addProvinceStat(skill, 1, province, save);
       },
       cost: {

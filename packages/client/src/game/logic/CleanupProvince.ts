@@ -21,7 +21,7 @@ export function cleanUpProvince(province: Province, save: SaveGame): void {
    });
    filterInPlace(save.state.wars, (war) => {
       if (war.attacker === province || war.defender === province) {
-         NegotiateWhitePeaceAction(war, province, save).effect({ headless: true });
+         NegotiateWhitePeaceAction(war, province, save).execute({ headless: true });
          return false;
       }
       war.coAttackers.delete(province);

@@ -21,7 +21,7 @@ export function AppeaseAction(tile: Tile, province: Province, save: SaveGame): I
          { name: $t(L.CurrentlyNotInRebellion), value: tileData.rebellion < 10 },
          { name: $t(L.RebellionIsAtLeast$1, "5"), value: tileData.rebellion >= 5 },
       ]),
-      effect: () => {
+      execute: () => {
          tileData.rebellion = clamp(tileData.rebellion - 5, 0, 10);
          RefreshTiles.emit({ tiles: [tile], options: { indicator: true } });
       },

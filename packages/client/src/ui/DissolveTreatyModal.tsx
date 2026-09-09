@@ -55,7 +55,7 @@ export function DissolveTreatyModal(): React.ReactNode {
                               ...timedActionConditions({ action: "DissolveTreaty" }, selectedProvince, G.save),
                               requireDefensePactAllyOrPatronCount(selectedProvince, 2, G.save),
                            ]),
-                           effect: () => {
+                           execute: () => {
                               startTimedAction("DissolveTreaty", G.save.state.playerProvince, G.save);
                               dissolveTreaty(selectedProvince, otherProvince, G.save);
                            },

@@ -357,7 +357,7 @@ export function forcePatronageEffect(client: Province): ICustomEffect {
       execute: (province, save) => {
          if (province === client) return;
          dissolveAllTreaties(client, save);
-         OfferPatronageAction(province, client, save).effect({ headless: false });
+         OfferPatronageAction(province, client, save).execute({ headless: false });
       },
       desc: (province, save) => $t(L.$1BecomesOurClient, getProvinceName(client, save)),
    };

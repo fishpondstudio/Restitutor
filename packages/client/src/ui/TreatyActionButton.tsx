@@ -40,7 +40,7 @@ export function TreatyActionButton({
                      value: true,
                   },
                ]),
-               effect: () => {
+               execute: () => {
                   cancelTreaty(treaty, ourProvince, theirProvince, G.save);
                },
             })}

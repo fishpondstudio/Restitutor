@@ -35,7 +35,7 @@ export function OfferDefensePactAction(fromProvince: Province, toProvince: Provi
          requireMinimumAttitude(toProvince, fromProvince, 0, save),
          availableDiplomatCondition(toProvince, fromProvince, save),
       ]),
-      effect: () => {
+      execute: () => {
          const fromTo = getRelation(fromProvince, toProvince, save);
          const toFrom = getRelation(toProvince, fromProvince, save);
          if (!fromTo || !toFrom) {
@@ -71,7 +71,7 @@ export function OfferAllianceAction(fromProvince: Province, toProvince: Province
          requireMinimumAttitude(toProvince, fromProvince, 50, save),
          availableDiplomatCondition(toProvince, fromProvince, save),
       ]),
-      effect: () => {
+      execute: () => {
          const fromTo = getRelation(fromProvince, toProvince, save);
          const toFrom = getRelation(toProvince, fromProvince, save);
          if (!fromTo || !toFrom) {
@@ -118,7 +118,7 @@ export function OfferPatronageAction(fromProvince: Province, toProvince: Provinc
          requireMinimumAttitude(toProvince, fromProvince, 100, save),
          availableDiplomatCondition(toProvince, fromProvince, save),
       ]),
-      effect: () => {
+      execute: () => {
          const fromTo = getRelation(fromProvince, toProvince, save);
          const toFrom = getRelation(toProvince, fromProvince, save);
          if (!fromTo || !toFrom) {

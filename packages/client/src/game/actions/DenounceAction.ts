@@ -12,7 +12,7 @@ export function DenounceAction(ourProvince: Province, theirProvince: Province, s
    return {
       cost: { diplomatic: 50 },
       condition: finalizeCondition([...timedActionConditions({ action: "Denounce" }, ourProvince, save)]),
-      effect: () => {
+      execute: () => {
          startTimedAction("Denounce", ourProvince, save);
          const name = $t(L.$1Denounced$2, getProvinceName(ourProvince, save), getProvinceName(theirProvince, save));
          addAttitudeModifier(

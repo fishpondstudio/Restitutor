@@ -48,7 +48,7 @@ export function ActionButton({
          style={style}
          disabled={!isDebug && (!isConditionMet || !hasEnoughResources)}
          onClick={() => {
-            const { cost, condition, effect } = action();
+            const { cost, condition, execute: effect } = action();
             if (
                isDebug ||
                ((condition === undefined || condition.value === true) &&

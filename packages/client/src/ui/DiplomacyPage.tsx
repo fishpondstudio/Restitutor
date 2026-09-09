@@ -721,7 +721,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                className="btn py2"
                action={() => ({
                   ...DemandTileCostCondition(G.save.state.playerProvince, province, [], G.save),
-                  effect: () => showPanel(DemandTileModal, { province }),
+                  execute: () => showPanel(DemandTileModal, { province }),
                })}
             >
                {$t(L.DemandATile)}
@@ -730,7 +730,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                className="btn py2"
                action={() => ({
                   ...DemandTributeCostCondition(G.save.state.playerProvince, province, G.save),
-                  effect: () => showPanel(DemandTributeModal, { province }),
+                  execute: () => showPanel(DemandTributeModal, { province }),
                })}
             >
                {TimedActions.DemandTribute.name()}
@@ -776,7 +776,7 @@ function SelectRival({ province, index }: { province: Province; index: number })
                showError(failedCondition.name);
                return;
             }
-            action.effect({ headless: false });
+            action.execute({ headless: false });
             GameStateUpdated.emit();
          }}
          searchable
@@ -905,7 +905,7 @@ function RelationsActionButton({
          <button
             className="btn py2"
             onClick={() => {
-               action.effect({ headless: false });
+               action.execute({ headless: false });
                GameStateUpdated.emit();
             }}
          >

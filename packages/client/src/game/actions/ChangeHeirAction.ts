@@ -29,7 +29,7 @@ export function ChangeHeirAction(family: IFamily, province: Province, save: Save
             value: hasFlag(family.male.flag, PersonFlags.IsHeir),
          },
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("ChangeHeir", province, save);
          setHeir(family, province, save);
       },

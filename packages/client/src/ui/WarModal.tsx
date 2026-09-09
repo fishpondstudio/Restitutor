@@ -373,7 +373,7 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
                warIsOngoingCondition(war, G.save),
                { name: $t(L.WarHasBeenGoingOnForAtLeastAYear), value: war.log.length >= 12 },
             ]),
-            effect: ({ headless }) => {
+            execute: ({ headless }) => {
                war.coAttackers.delete(province);
                war.coDefenders.delete(province);
                addAttitudeModifier(
@@ -421,7 +421,7 @@ function ProclaimRightOfReprisalButton({ war, province }: { war: IWar; province:
                   ...timedActionConditions({ action: "ProclaimRightOfReprisal" }, province, G.save),
                   warIsOngoingCondition(war, G.save),
                ]),
-               effect: ({ headless }) => {
+               execute: ({ headless }) => {
                   startTimedAction("ProclaimRightOfReprisal", province, G.save);
                   getRelation(province, war.attacker, G.save)?.casusBelli.set("BreachOfThePeace", {
                      monthsLeft: BreachOfThePeaceDurationYear * 12,
@@ -460,7 +460,7 @@ function MakeWarSpeechButton({ war, province }: { war: IWar; province: Province 
                },
                warIsOngoingCondition(war, G.save),
             ]),
-            effect: () => {
+            execute: () => {
                war.actualWarScore += 1;
                startTimedAction("MakeWarSpeech", province, G.save);
             },
@@ -497,7 +497,7 @@ function FortifyOurBordersButton({ war, province }: { war: IWar; province: Provi
                   value: war.attacker === province || war.defender === province,
                },
             ]),
-            effect: () => {
+            execute: () => {
                startTimedAction("FortifyBorders", province, G.save);
             },
          })}
@@ -561,7 +561,7 @@ function PlunderWarTilesButton({ war, province }: { war: IWar; province: Provinc
                },
                warIsOngoingCondition(war, G.save),
             ]),
-            effect: () => {
+            execute: () => {
                war.flag = setFlag(war.flag, WarFlag.Plunder);
                war.requiredWarScore += plunder.warScore.value;
             },
@@ -601,7 +601,7 @@ function ForceAttackButton({ war, province }: { war: IWar; province: Province })
                },
                warIsOngoingCondition(war, G.save),
             ]),
-            effect: () => {
+            execute: () => {
                startTimedAction("ForceAttack", province, G.save);
             },
          })}
@@ -636,7 +636,7 @@ function DecimateOurArmyButton({ war, province }: { war: IWar; province: Provinc
                { name: $t(L.WeAreTheLeadAttackerOfTheWar), value: war.attacker === province },
                warIsOngoingCondition(war, G.save),
             ]),
-            effect: () => {
+            execute: () => {
                startTimedAction("DecimateOurArmy", province, G.save);
                war.actualWarScore += 1;
                setProvinceStat(

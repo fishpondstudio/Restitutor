@@ -106,7 +106,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                            tileIsOurCoreCondition(tile, G.save.state.playerProvince, G.save),
                            { name: $t(L.TileIsNotAtWar), value: !war },
                         ]),
-                        effect: () => {
+                        execute: () => {
                            startTimedAction("RelocateCapital", tileData.province, G.save);
                            addModifier({
                               ...RelocateCapitalModifier,
@@ -190,7 +190,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                               value: !isChristianReligion(tileData.religion),
                            },
                         ]),
-                        effect: () => {
+                        execute: () => {
                            tileData.religion = state.religion;
                         },
                      })}

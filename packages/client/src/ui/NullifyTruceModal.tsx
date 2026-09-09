@@ -40,7 +40,7 @@ export function NullifyTruceModal(): React.ReactNode {
                         condition: finalizeCondition([
                            ...timedActionConditions({ action: "NullifyTruce" }, playerProvince, G.save),
                         ]),
-                        effect: () => {
+                        execute: () => {
                            startTimedAction("NullifyTruce", playerProvince, G.save);
                            nullifyTruce(playerProvince, province, G.save);
                            hideModal();

@@ -28,7 +28,7 @@ export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveG
             value: save.state.wars.includes(war) && war.actualWarScore >= war.requiredWarScore,
          },
       ]),
-      effect: ({ headless }) => {
+      execute: ({ headless }) => {
          if (isEligibleForMandate(war, save)) {
             addProvinceResource("mandate", 1, war.attacker, save);
          }

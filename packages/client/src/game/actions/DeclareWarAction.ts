@@ -97,7 +97,7 @@ export function DeclareWarAction(
          },
          ...(casusBelli === "BarbarianRaid" ? [] : [isWithinDiplomaticRange(attacker, defender, save)]),
       ]),
-      effect: ({ headless }: { headless: boolean }) => {
+      execute: ({ headless }: { headless: boolean }) => {
          const war = {
             attacker: attacker,
             coAttackers: new Map(

@@ -242,7 +242,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                        G.save,
                                     ),
                                  ]),
-                                 effect: () => {
+                                 execute: () => {
                                     startTimedAction("SocialClassCurtail", G.save.state.playerProvince, G.save);
                                     addSocialClassInfluence(
                                        key,
@@ -273,7 +273,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                        G.save,
                                     ),
                                  ]),
-                                 effect: () => {
+                                 execute: () => {
                                     startTimedAction("SocialClassFavor", G.save.state.playerProvince, G.save);
                                     addSocialClassLoyalty(key, 20, G.save.state.playerProvince, G.save);
                                  },

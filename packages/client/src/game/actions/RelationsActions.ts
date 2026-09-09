@@ -26,7 +26,7 @@ import { finalizeCondition, type IGameAction } from "./GameAction";
 export function ImproveRelationsAction(ourProvince: Province, theirProvince: Province, save: SaveGame): IGameAction {
    return {
       condition: canImproveRelations(ourProvince, theirProvince, save),
-      effect: () => {
+      execute: () => {
          improveRelations(ourProvince, theirProvince, save);
       },
    };
@@ -38,7 +38,7 @@ export function CancelImproveRelationsAction(
    save: SaveGame,
 ): IGameAction {
    return {
-      effect: () => {
+      execute: () => {
          cancelImproveRelations(ourProvince, theirProvince, save);
       },
    };
@@ -47,7 +47,7 @@ export function CancelImproveRelationsAction(
 export function InfiltrateAction(ourProvince: Province, theirProvince: Province, save: SaveGame): IGameAction {
    return {
       condition: canInfiltrate(ourProvince, theirProvince, save),
-      effect: () => {
+      execute: () => {
          infiltrate(ourProvince, theirProvince, save);
       },
    };
@@ -55,7 +55,7 @@ export function InfiltrateAction(ourProvince: Province, theirProvince: Province,
 
 export function CancelInfiltrationAction(ourProvince: Province, theirProvince: Province, save: SaveGame): IGameAction {
    return {
-      effect: () => {
+      execute: () => {
          cancelInfiltration(ourProvince, theirProvince, save);
       },
    };
@@ -84,7 +84,7 @@ export function GuaranteeDefenseAction(ourProvince: Province, theirProvince: Pro
          },
          requireHigherPrestige(ourProvince, theirProvince, 1, save),
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("GuaranteeDefense", ourProvince, save);
          relation.guaranteeDefense = save.state.month;
          addAttitudeModifier(
@@ -122,7 +122,7 @@ export function DeterAggressionAction(ourProvince: Province, theirProvince: Prov
             value: !isClientOfAnyProvince(theirProvince, save),
          },
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("DeterAggression", ourProvince, save);
          relation.deterAggression = save.state.month;
          addModifier({
@@ -142,7 +142,7 @@ export function SendAGiftAction(ourProvince: Province, theirProvince: Province, 
    return {
       cost: { gold: getTotalUpgrades(theirProvince, save) * TimedActions.SendAGift.duration },
       condition: finalizeCondition([...timedActionConditions({ action: "SendAGift" }, ourProvince, save)]),
-      effect: () => {
+      execute: () => {
          startTimedAction("SendAGift", ourProvince, save);
          addAttitudeModifier(
             theirProvince,
@@ -178,7 +178,7 @@ export function ProclaimCrusadeAction(ourProvince: Province, theirProvince: Prov
             value: !isChristianReligion(theirState.religion),
          },
       ]),
-      effect: () => {
+      execute: () => {
          const relation = getRelation(ourProvince, theirProvince, save);
          if (relation) {
             relation.casusBelli.set("ReligiousWar", { monthsLeft: TimedActions.ProclaimCrusade.duration });

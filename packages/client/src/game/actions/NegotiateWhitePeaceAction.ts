@@ -27,7 +27,7 @@ export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: S
          warIsOngoingCondition(war, save),
          { name: $t(L.WarHasBeenGoingOnForAtLeastAYear), value: war.log.length >= 12 },
       ]),
-      effect: ({ headless }) => {
+      execute: ({ headless }) => {
          if (war.defender === save.state.playerProvince && war.casusBelli !== "BarbarianRaid") {
             unlockAchievement("DefendProvince");
          }

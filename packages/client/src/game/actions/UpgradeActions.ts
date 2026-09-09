@@ -19,7 +19,7 @@ export function UpgradePopulationAction(tile: Tile, province: Province, save: Sa
          tileIsOurCoreCondition(tile, province, save),
       ]),
       cost: { military: getTileUpgradeCost(tile, "military", save, "value") },
-      effect: () => {
+      execute: () => {
          ++tileData.upgradeCount;
          ++tileData.population;
       },
@@ -37,7 +37,7 @@ export function UpgradeProductionAction(tile: Tile, province: Province, save: Sa
          ...timedActionConditions({ action: "UpgradeProduction" }, province, save),
          tileIsOurCoreCondition(tile, province, save),
       ]),
-      effect: () => {
+      execute: () => {
          ++tileData.upgradeCount;
          ++tileData.production;
       },
@@ -55,7 +55,7 @@ export function UpgradeInfrastructureAction(tile: Tile, province: Province, save
          ...timedActionConditions({ action: "UpgradeInfrastructure" }, province, save),
          tileIsOurCoreCondition(tile, province, save),
       ]),
-      effect: () => {
+      execute: () => {
          ++tileData.upgradeCount;
          ++tileData.infrastructure;
       },

@@ -79,7 +79,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                      ),
                      ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),
                   ]),
-                  effect: () => {
+                  execute: () => {
                      startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                      addProvinceResource("christianity", 1, G.save.state.playerProvince, G.save);
                   },
@@ -106,7 +106,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                      ),
                      ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),
                   ]),
-                  effect: () => {
+                  execute: () => {
                      startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                      addProvinceResource("christianity", 1, G.save.state.playerProvince, G.save);
                   },
@@ -133,7 +133,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                      ),
                      ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),
                   ]),
-                  effect: () => {
+                  execute: () => {
                      startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                      addProvinceResource("christianity", 1, G.save.state.playerProvince, G.save);
                   },
@@ -160,7 +160,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                      ),
                      ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),
                   ]),
-                  effect: () => {
+                  execute: () => {
                      startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                      addProvinceResource("christianity", 1, G.save.state.playerProvince, G.save);
                   },
@@ -245,7 +245,7 @@ function ReconcilePanel(): React.ReactNode {
                                     ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),
                                  ]),
                                  cost: { christianity: tileUpgrades },
-                                 effect: () => {
+                                 execute: () => {
                                     tileData.religion = state.religion;
                                     startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                                  },
@@ -347,7 +347,7 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                         ),
                         ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),
                      ]),
-                     effect: () => {
+                     execute: () => {
                         startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                         const relation = getRelation(G.save.state.playerProvince, selectedProvince, G.save);
                         if (relation) {
@@ -444,7 +444,7 @@ function CouncilActionButton({ modifier }: { modifier: Omit<IAddModifier, "save"
                ),
                ongoingEcumenicalCouncilCondition(G.save.state.playerProvince, G.save),
             ]),
-            effect: () => {
+            execute: () => {
                startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
                addModifier({
                   ...modifier,

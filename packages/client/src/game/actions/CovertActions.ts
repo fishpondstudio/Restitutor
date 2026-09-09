@@ -35,7 +35,7 @@ export function FabricateCasusBelliAction(ourProvince: Province, theirProvince: 
             value: !relation.casusBelli.has("DiplomaticDispute"),
          },
       ]),
-      effect: () => {
+      execute: () => {
          if (tryUseInfiltration(FabricateCasusBelliCost, ourProvince, theirProvince, save)) {
             startTimedAction("FabricateCasusBelli", ourProvince, save);
             relation.casusBelli.set("DiplomaticDispute", {
@@ -57,7 +57,7 @@ export function UndermineTheirArmyAction(ourProvince: Province, theirProvince: P
          ...timedActionConditions({ action: "UndermineTheirArmy" }, ourProvince, save),
          requireInfiltration(UndermineArmyCost, { consume: true }, ourProvince, theirProvince, save),
       ]),
-      effect: () => {
+      execute: () => {
          if (tryUseInfiltration(UndermineArmyCost, ourProvince, theirProvince, save)) {
             addModifier({
                modifier: "WarPower",
@@ -85,7 +85,7 @@ export function CorruptOfficialsAction(ourProvince: Province, theirProvince: Pro
          ...timedActionConditions({ action: "CorruptOfficials" }, ourProvince, save),
          requireInfiltration(25, { consume: false }, ourProvince, theirProvince, save),
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("CorruptOfficials", ourProvince, save);
          relation.infiltrate.value += 50;
       },
@@ -107,7 +107,7 @@ export function SubvertGarrisonAction(ourProvince: Province, theirProvince: Prov
             value: getProvincesInRange(1, ourProvince, save).has(theirProvince),
          },
       ]),
-      effect: () => {
+      execute: () => {
          if (tryUseInfiltration(SubvertGarrisonCost, ourProvince, theirProvince, save)) {
             for (const [tile, tileData] of save.state.tiles) {
                if (tileData.province === theirProvince && getBorderingProvinces(tile, save).includes(ourProvince)) {
@@ -140,7 +140,7 @@ export function InciteUnrestAction(ourProvince: Province, theirProvince: Provinc
             value: getProvincesInRange(1, ourProvince, save).has(theirProvince),
          },
       ]),
-      effect: () => {
+      execute: () => {
          if (tryUseInfiltration(InciteUnrestCost, ourProvince, theirProvince, save)) {
             for (const [tile, tileData] of save.state.tiles) {
                if (tileData.province === theirProvince && getBorderingProvinces(tile, save).includes(ourProvince)) {
@@ -172,7 +172,7 @@ export function RevealElectionBackingAction(
          ...timedActionConditions({ action: "RevealElectionBacking" }, ourProvince, save),
          requireInfiltration(RevealElectionSupportCost, { consume: true }, ourProvince, theirProvince, save),
       ]),
-      effect: () => {
+      execute: () => {
          if (tryUseInfiltration(RevealElectionSupportCost, ourProvince, theirProvince, save)) {
             startTimedAction("RevealElectionBacking", ourProvince, save);
             relation.revealElectionBacking = save.state.month;
@@ -185,7 +185,7 @@ export function SabotageAction(fromProvince: Province, toProvince: Province, sav
    return {
       cost: { gold: 1000 },
       condition: canSabotage(fromProvince, toProvince, save),
-      effect: () => {
+      execute: () => {
          trySabotage(fromProvince, toProvince, save);
       },
    };

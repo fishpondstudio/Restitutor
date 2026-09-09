@@ -106,7 +106,7 @@ export function makeGameAction(timedAction: TimedEffectAction, province: Provinc
          ...timedActionConditions({ action: timedAction }, province, save),
          ...(condition?.condition?.breakdown ?? []),
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction(timedAction, province, save);
       },
    };

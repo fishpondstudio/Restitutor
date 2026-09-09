@@ -382,7 +382,7 @@ export const TarraconensisEvent = {
             custom: [
                {
                   execute: (province, save) => {
-                     OfferAllianceAction(province, "Lusitania", save).effect({ headless: false });
+                     OfferAllianceAction(province, "Lusitania", save).execute({ headless: false });
                   },
                   desc: (province, save) => $t(L.$1BecomesOurAlly, Province.Lusitania.name()),
                },
@@ -394,7 +394,7 @@ export const TarraconensisEvent = {
             custom: [
                {
                   execute: (province, save) => {
-                     OfferAllianceAction(province, "Lusitania", save).effect({ headless: false });
+                     OfferAllianceAction(province, "Lusitania", save).execute({ headless: false });
                   },
                   desc: (province, save) => $t(L.$1BecomesOurAlly, Province.Lusitania.name()),
                },
@@ -406,7 +406,7 @@ export const TarraconensisEvent = {
             custom: [
                {
                   execute: (province, save) => {
-                     OfferAllianceAction(province, "Lusitania", save).effect({ headless: false });
+                     OfferAllianceAction(province, "Lusitania", save).execute({ headless: false });
                   },
                   desc: (province, save) => $t(L.$1BecomesOurAlly, Province.Lusitania.name()),
                },

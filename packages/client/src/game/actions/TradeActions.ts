@@ -41,7 +41,7 @@ export function TradeWithAction(
 ): IGameAction {
    return {
       ...CanTradeCostCondition(ourProvince, theirProvince, save),
-      effect: () => {
+      execute: () => {
          startTimedAction("TradeGoods", ourProvince, save);
          const relation = getRelation(ourProvince, theirProvince, save);
          if (relation) {

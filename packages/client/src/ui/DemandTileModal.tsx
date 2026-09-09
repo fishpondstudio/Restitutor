@@ -145,7 +145,7 @@ function DemandTileChance({ tile, onRollStart }: { tile: Tile; onRollStart: () =
                canDemandTile(tile, G.save.state.playerProvince, G.save),
                G.save,
             ),
-            effect: () => {
+            execute: () => {
                onRollStart();
                startTimedAction("DemandTile", G.save.state.playerProvince, G.save);
                addAttitudeModifier(

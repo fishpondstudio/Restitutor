@@ -29,7 +29,7 @@ export function MakeCoreAction(tile: Tile, province: Province, save: SaveGame): 
             value: !tileData.coreProvinces.has(province),
          },
       ]),
-      effect: () => {
+      execute: () => {
          tileData.coreProvinces.add(province);
          addProvinceStat("makeCoreCount", 1, province, save);
          if (hasProvinceUpgrade("CoastalMandate", province, save) && isCoastal(tile)) {

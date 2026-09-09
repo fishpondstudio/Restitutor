@@ -15,7 +15,7 @@ export interface IGameCostCondition {
 }
 
 export interface IGameAction extends IGameCostCondition {
-   effect: (options: { headless: boolean }) => void;
+   execute: (options: { headless: boolean }) => void;
 }
 
 export interface ICondition {

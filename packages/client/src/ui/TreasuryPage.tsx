@@ -86,7 +86,7 @@ export function TreasuryPage(): React.ReactNode {
                className="w100 py2"
                action={() => ({
                   condition: canTakeLoan(province, G.save),
-                  effect: () => {
+                  execute: () => {
                      takeLoan(province, getLoanAmount(province, G.save), G.save);
                   },
                })}
@@ -106,7 +106,7 @@ export function TreasuryPage(): React.ReactNode {
                   className="TreasuryPage_Repay_Loan"
                   action={() => ({
                      cost: { gold: loan.principal + loan.interest },
-                     effect: () => {
+                     execute: () => {
                         filterInPlace(state.loans, (l) => l !== loan);
                      },
                   })}

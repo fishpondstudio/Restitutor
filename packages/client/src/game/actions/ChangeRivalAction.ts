@@ -40,7 +40,7 @@ export function ChangeRivalAction(
             value: state.rivals[index] === null || cooldown <= 0,
          },
       ]),
-      effect: () => {
+      execute: () => {
          addAttitudeModifier(
             selectedProvince,
             province,

@@ -249,7 +249,7 @@ export function ArmySingletonModal(): React.ReactNode {
             <ActionButton
                action={() => ({
                   condition: finalizeCondition([hasGeneralCondition(G.save.state.playerProvince, G.save)]),
-                  effect: () => {
+                  execute: () => {
                      dismissGeneral(G.save.state.playerProvince, G.save);
                   },
                })}

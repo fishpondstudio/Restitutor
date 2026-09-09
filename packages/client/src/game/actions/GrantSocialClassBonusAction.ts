@@ -42,7 +42,7 @@ export function GrantSocialClassBonusAction(bonus: SocialClassBonus, province: P
             };
          }),
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("GrantSocialClassBonus", province, save);
          config.supporting.forEach((socialClass) => {
             addSocialClassInfluence(socialClass, 10, province, save);

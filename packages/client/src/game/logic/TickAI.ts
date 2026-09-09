@@ -774,7 +774,7 @@ function tryDoHeadless(action: IGameAction, aiAction: AIAction, province: Provin
    }
    const isConditionMet = action.condition === undefined || action.condition.value === true;
    if (isConditionMet && (action.cost === undefined || trySpendProvinceResources(action.cost, province, save))) {
-      action.effect({ headless: true });
+      action.execute({ headless: true });
       if (action.cost) {
          tabulateCost(action.cost, aiAction, state.blackboard.resources);
       }

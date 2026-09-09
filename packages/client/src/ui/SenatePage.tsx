@@ -136,7 +136,7 @@ export function SenatePage(): React.ReactNode {
                               id={`SenateModal_Candidate_${i}_Revoke`}
                               className="btn f1"
                               action={() => ({
-                                 effect: () => {
+                                 execute: () => {
                                     votes.delete(i);
                                     G.save.state.senate.votes.set(G.save.state.playerProvince, votes);
                                  },
@@ -168,7 +168,7 @@ export function SenatePage(): React.ReactNode {
                                        G.save,
                                     ),
                                  ]),
-                                 effect: () => {
+                                 execute: () => {
                                     votes.add(i);
                                     G.save.state.senate.votes.set(G.save.state.playerProvince, votes);
                                  },

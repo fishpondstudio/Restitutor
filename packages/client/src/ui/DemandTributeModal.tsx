@@ -101,7 +101,7 @@ export function DemandTributeModal({ province }: { province: Province }): React.
             }
             action={() => ({
                ...DemandTributeCostCondition(G.save.state.playerProvince, province, G.save),
-               effect: () => {
+               execute: () => {
                   setRollStarted(true);
                   startTimedAction("DemandTribute", G.save.state.playerProvince, G.save);
                   addAttitudeModifier(

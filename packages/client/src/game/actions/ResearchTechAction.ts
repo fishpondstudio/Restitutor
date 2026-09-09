@@ -21,7 +21,7 @@ export function ResearchTechAction(tech: Tech, province: Province, save: SaveGam
          { name: $t(L.AllPrerequisitesAreResearched), value: allPrerequisitesUnlocked },
          { name: $t(L.NotResearchedYet), value: !state.unlockedTech.has(tech) },
       ]),
-      effect: ({ headless }) => {
+      execute: ({ headless }) => {
          state.unlockedTech.add(tech);
          if (!headless) {
             RefreshTechTree.emit();

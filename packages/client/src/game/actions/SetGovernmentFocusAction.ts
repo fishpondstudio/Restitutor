@@ -15,7 +15,7 @@ export function SetGovernmentFocusAction(type: GovernorPower, province: Province
          ...timedActionConditions({ action: "SetGovernmentFocus" }, province, save),
          { name: $t(L.NotCurrentFocus), value: state.focus !== type },
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("SetGovernmentFocus", province, save);
          state.focus = type;
       },

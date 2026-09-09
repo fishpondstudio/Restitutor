@@ -27,7 +27,7 @@ export function DemandElectionBackingAction(
             value: getProvinceStat("consulVotes", theirProvince, save) >= 1,
          },
       ]),
-      effect: () => {
+      execute: () => {
          addProvinceStat("consulVotes", -1, theirProvince, save);
          addProvinceStat("consulVotes", 1, ourProvince, save);
          startTimedAction("DemandElectionBacking", ourProvince, save);

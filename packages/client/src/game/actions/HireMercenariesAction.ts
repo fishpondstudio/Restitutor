@@ -34,7 +34,7 @@ export function HireMercenariesAction(war: IWar, province: Province, save: SaveG
          },
          warIsOngoingCondition(war, save),
       ]),
-      effect: () => {
+      execute: () => {
          startTimedAction("HireMercenaries", province, save);
          setProvinceStat("actualConscription", getProvinceStat("targetConscription", province, save), province, save);
       },
