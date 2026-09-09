@@ -4,6 +4,7 @@ import { type Building, Buildings } from "../game/definitions/Building";
 import { Terrains } from "../game/definitions/Terrain";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
+import { getProvinceTilesCached } from "../game/logic/CacheLogic";
 import { getTileTerrain, isCapital } from "../game/logic/TileLogic";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
@@ -19,6 +20,7 @@ import { UpgradeInfrastructureButton, UpgradePopulationButton, UpgradeProduction
 
 const BuildingConstructionButtonStyle = { width: 30, height: 30, padding: 0 };
 const UpgradeButtonStyle = { minWidth: 40 };
+const BuildingEntries = entriesOf(Buildings);
 export function TileListSingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    return (
@@ -26,38 +28,41 @@ export function TileListSingletonModal(): React.ReactNode {
          <div className="m10">
             <table className="data-table">
                <thead>
-                  <tr>
-                     <th></th>
-                     <th>{$t(L.Core)}</th>
-                     <th>{$t(L.Culture)}</th>
-                     <th>{$t(L.Religion)}</th>
-                     <th>{$t(L.Infra)}</th>
-                     <th>{$t(L.Prod)}</th>
-                     <th>{$t(L.Pop)}</th>
-                     <th>{$t(L.Upg)}</th>
-                     <th></th>
-                     {entriesOf(Buildings).map(([building, buildingData]) => (
-                        <th key={building}>
-                           <FloatingTip label={() => buildingData.name()}>
-                              <img src={buildingData.image} height={30} className="img-border thin" />
-                           </FloatingTip>
-                        </th>
-                     ))}
-                  </tr>
+                  <TileListHeader />
                </thead>
                <tbody>
-                  {Array.from(G.save.state.tiles).map(([tile, tileData]) => {
-                     if (tileData.province !== G.save.state.playerProvince) {
-                        return null;
-                     }
-                     return <TileListRow key={tile} tile={tile} />;
-                  })}
+                  {getProvinceTilesCached(G.save.state.playerProvince).map((tile) => (
+                     <TileListRow key={tile} tile={tile} />
+                  ))}
                </tbody>
             </table>
          </div>
       </ModalComp>
    );
 }
+
+const TileListHeader = memo(function TileListHeader() {
+   return (
+      <tr>
+         <th></th>
+         <th>{$t(L.Core)}</th>
+         <th>{$t(L.Culture)}</th>
+         <th>{$t(L.Religion)}</th>
+         <th>{$t(L.Infra)}</th>
+         <th>{$t(L.Prod)}</th>
+         <th>{$t(L.Pop)}</th>
+         <th>{$t(L.Upg)}</th>
+         <th></th>
+         {BuildingEntries.map(([building, buildingData]) => (
+            <th key={building}>
+               <FloatingTip label={() => buildingData.name()}>
+                  <img src={buildingData.image} height={30} className="img-border thin" />
+               </FloatingTip>
+            </th>
+         ))}
+      </tr>
+   );
+});
 
 const ConstructionButton = <div className="mi sm">construction</div>;
 const DemolishButton = <div className="mi sm">delete</div>;
@@ -106,7 +111,7 @@ function _TileListRow({ tile }: { tile: Tile }): React.ReactNode {
                {$t(L.View)}
             </button>
          </td>
-         {entriesOf(Buildings).map(([building, config]) => {
+         {BuildingEntries.map(([building]) => {
             return <ConstructionButtonColumn key={building} building={building} tile={tile} />;
          })}
       </tr>
