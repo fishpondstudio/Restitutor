@@ -377,16 +377,16 @@ export class WorldScene extends Scene {
       const tileData = G.save.state.tiles.get(tile);
 
       if (!tileData) {
-         this._selectedTiles.clear();
-         this._selectedTiles.add(tile);
-         this.drawSelectors(this._selectedTiles);
-         if (isDev()) {
-            console.log(tile, getTileName(tile, G.save));
-         }
          if (NewSettlementTiles.has(tile)) {
+            this._selectedTiles.clear();
+            this._selectedTiles.add(tile);
+            this.drawSelectors(this._selectedTiles);
             showPanel(SettleTilePage, { tile });
          } else {
             hideSidebar();
+         }
+         if (isDev()) {
+            console.log(tile, getTileName(tile, G.save));
          }
          return;
       }
