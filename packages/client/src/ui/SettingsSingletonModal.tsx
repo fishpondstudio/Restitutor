@@ -206,6 +206,16 @@ function SettingsGeneralTab(): React.ReactNode {
             />
          </div>
          <div className="row m10">
+            <div className="f1">{$t(L.PauseWhenTheGameWindowLosesFocus)}</div>
+            <Switch
+               checked={hasFlag(G.save.options.flag, GameOptionFlag.PauseOnBlur)}
+               onChange={() => {
+                  G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.PauseOnBlur);
+                  GameOptionUpdated.emit();
+               }}
+            />
+         </div>
+         <div className="row m10">
             <div className="f1">{$t(L.ShowChroniclePopup)}</div>
             <div>{$t(L.Every)}</div>
             <Select

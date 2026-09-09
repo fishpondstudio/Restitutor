@@ -1,10 +1,12 @@
+import { hasFlag } from "@project/shared/src/utils/Helper";
 import { GameOptionUpdated, GameStateUpdated } from "./game/Events";
+import { GameOptionFlag } from "./game/GameOption";
 import { tickLogic } from "./game/logic/TickLogic";
 import { initShortcut } from "./game/Shortcut";
 import { TechTreeScene } from "./scenes/TechTreeScene";
 import { WorldScene } from "./scenes/WorldScene";
 import { tickActions } from "./utils/actions/ActionRuntime";
-import { G } from "./utils/Global";
+import { G, setSpeed } from "./utils/Global";
 import { Watermark } from "./Watermark";
 
 export function startGameLoop(): void {
@@ -26,6 +28,10 @@ export function startGameLoop(): void {
    });
    GameStateUpdated.emit();
    GameOptionUpdated.emit();
-
+   window.addEventListener("blur", () => {
+      if (hasFlag(G.save.options.flag, GameOptionFlag.PauseOnBlur)) {
+         setSpeed(0);
+      }
+   });
    initShortcut();
 }

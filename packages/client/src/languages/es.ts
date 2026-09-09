@@ -3565,4 +3565,5 @@ export const ES = {
    TakeALover: "Tomar una amante",
    TakeALoverWith$1: "Tomar una amante ($1)",
    TheFollowingEffectsWillBeApplied: "Se aplicarán los siguientes efectos",
+   PauseWhenTheGameWindowLosesFocus: "Pausar cuando la ventana del juego pierda el foco",
 };

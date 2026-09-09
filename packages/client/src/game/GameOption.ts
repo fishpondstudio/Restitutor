@@ -15,6 +15,7 @@ export const GameOptionFlag = {
    HideSteamDiscordButton: 1 << 3,
    CollapseTutorial: 1 << 4,
    ShowAllMissions: 1 << 5,
+   PauseOnBlur: 1 << 6,
 };
 
 export type GameOptionFlag = ValueOf<typeof GameOptionFlag>;
@@ -23,7 +24,7 @@ export class GameOption {
    country: keyof typeof CountryCode = "EARTH";
    chatLanguages: Set<keyof typeof Languages> = new Set(["en"]);
    language: keyof typeof Languages = "en";
-   flag: GameOptionFlag = GameOptionFlag.None;
+   flag: GameOptionFlag = GameOptionFlag.None | GameOptionFlag.PauseOnBlur;
    chronicleALerts: Set<ChronicleEntryType> = new Set();
    volume = 0.5;
    shortcuts: Partial<Record<Shortcut, IShortcutConfig>> = structuredClone(DefaultShortcuts);

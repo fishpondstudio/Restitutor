@@ -3558,4 +3558,5 @@ export const FR = {
    TakeALover: "Take a Lover",
    TakeALoverWith$1: "Take a Lover ($1)",
    TheFollowingEffectsWillBeApplied: "The following effects will be applied",
+   PauseWhenTheGameWindowLosesFocus: "Pause when the game window loses focus",
 };

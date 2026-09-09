@@ -3569,4 +3569,5 @@ export const DE = {
    TakeALover: "Eine Geliebte nehmen",
    TakeALoverWith$1: "Eine Geliebte nehmen ($1)",
    TheFollowingEffectsWillBeApplied: "Die folgenden Auswirkungen werden angewendet",
+   PauseWhenTheGameWindowLosesFocus: "Pausieren, wenn das Spielfenster den Fokus verliert",
 };

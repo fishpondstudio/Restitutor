@@ -3516,4 +3516,5 @@ export const RU = {
    TakeALover: "Завести любовницу",
    TakeALoverWith$1: "Завести любовницу ($1)",
    TheFollowingEffectsWillBeApplied: "Будут применены следующие эффекты",
+   PauseWhenTheGameWindowLosesFocus: "Ставить на паузу, когда окно игры теряет фокус",
 };

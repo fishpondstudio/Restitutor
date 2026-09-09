@@ -3485,4 +3485,5 @@ export const ZH_CN = {
    TakeALover: "纳一名情人",
    TakeALoverWith$1: "纳一名情人（$1）",
    TheFollowingEffectsWillBeApplied: "将产生以下效果",
+   PauseWhenTheGameWindowLosesFocus: "游戏窗口失去焦点时暂停",
 };

@@ -60,7 +60,6 @@ const createWindow = async () => {
          webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             devTools: !app.isPackaged,
-            backgroundThrottling: false,
          },
          minHeight: MIN_HEIGHT,
          minWidth: MIN_WIDTH,
