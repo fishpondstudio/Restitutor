@@ -9,7 +9,6 @@ import { type ChristianHeresy, Religion } from "../game/definitions/Religion";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
-import { getRelation } from "../game/logic/DiplomacyLogic";
 import {
    EcumenicalCouncilChristianityPct,
    EcumenicalCouncilPct,
@@ -349,10 +348,15 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                      ]),
                      execute: () => {
                         startTimedAction("EcumenicalCouncilAction", G.save.state.playerProvince, G.save);
-                        const relation = getRelation(G.save.state.playerProvince, selectedProvince, G.save);
-                        if (relation) {
-                           relation.casusBelli.set("ReligiousWar", { monthsLeft: 12 });
-                        }
+                     },
+                     effect: {
+                        name: TimedActions.EcumenicalCouncilAction.name(),
+                        casusBelli: {
+                           [selectedProvince]: {
+                              casusBelli: "ReligiousWar",
+                              duration: 12,
+                           },
+                        },
                      },
                   })}
                   tooltip={(element) => (

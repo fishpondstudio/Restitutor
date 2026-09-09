@@ -10,7 +10,7 @@ import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { showSuccess } from "../game/logic/AlertLogic";
-import { addAttitudeModifier, getRelation } from "../game/logic/DiplomacyLogic";
+import { addAttitudeModifier } from "../game/logic/DiplomacyLogic";
 import { monthToDate } from "../game/logic/GameDateTime";
 import {
    getArmyMaintenanceCost,
@@ -423,9 +423,15 @@ function ProclaimRightOfReprisalButton({ war, province }: { war: IWar; province:
                ]),
                execute: ({ headless }) => {
                   startTimedAction("ProclaimRightOfReprisal", province, G.save);
-                  getRelation(province, war.attacker, G.save)?.casusBelli.set("BreachOfThePeace", {
-                     monthsLeft: BreachOfThePeaceDurationYear * 12,
-                  });
+               },
+               effect: {
+                  name: TimedActions.ProclaimRightOfReprisal.name(),
+                  casusBelli: {
+                     [war.attacker]: {
+                        casusBelli: "BreachOfThePeace",
+                        duration: BreachOfThePeaceDurationYear * 12,
+                     },
+                  },
                },
             })}
          >
