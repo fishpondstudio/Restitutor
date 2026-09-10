@@ -1,6 +1,6 @@
 import { Popover, ScrollArea, Switch } from "@mantine/core";
-import { cls, entriesOf, formatDelta, formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
-import { useState } from "react";
+import { cls, entriesOf, formatDelta, formatNumber, formatPercent, keysOf } from "@project/shared/src/utils/Helper";
+import { useEffect, useState } from "react";
 import { canDoAction } from "../game/actions/GameAction";
 import { TradeWithAction } from "../game/actions/TradeActions";
 import { Goods } from "../game/definitions/Goods";
@@ -28,10 +28,33 @@ import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 
+const savedFilters = {
+   selectedProvinces: new Set<Province>(),
+   showAvailable: false,
+   selectedWeOffer: new Set<Goods | "gold">(),
+   selectedTheyOffer: new Set<Goods | "gold">(),
+};
+
 export function TradeSingletonModal({ provinces }: { provinces: Set<Province> }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
-   const [selectedProvinces, setSelectedProvinces] = useState<Set<Province>>(provinces);
-   const [showAvailable, setShowAvailable] = useState(false);
+   const [selectedProvinces, setSelectedProvinces] = useState(
+      () => new Set(provinces.size > 0 ? provinces : savedFilters.selectedProvinces),
+   );
+   const [showAvailable, setShowAvailable] = useState(() => (provinces.size > 0 ? false : savedFilters.showAvailable));
+   const [selectedWeOffer, setSelectedWeOffer] = useState(
+      () => new Set(provinces.size > 0 ? [] : savedFilters.selectedWeOffer),
+   );
+   const [selectedTheyOffer, setSelectedTheyOffer] = useState(
+      () => new Set(provinces.size > 0 ? [] : savedFilters.selectedTheyOffer),
+   );
+   useEffect(() => {
+      savedFilters.selectedProvinces = selectedProvinces;
+      savedFilters.showAvailable = showAvailable;
+      savedFilters.selectedWeOffer = selectedWeOffer;
+      savedFilters.selectedTheyOffer = selectedTheyOffer;
+   }, [selectedProvinces, showAvailable, selectedWeOffer, selectedTheyOffer]);
+   const hasActiveFilters =
+      selectedProvinces.size > 0 || selectedWeOffer.size > 0 || selectedTheyOffer.size > 0 || showAvailable;
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
       return null;
@@ -84,67 +107,45 @@ export function TradeSingletonModal({ provinces }: { provinces: Set<Province> })
          </div>
          <div className="m10">
             <table className="data-table">
-               <thead>
+               <thead style={{ position: "sticky", top: 0, zIndex: 1 }}>
                   <tr>
-                     <th className="row fstart g5">
-                        <div>{$t(L.Province)}</div>
-                        <Popover position="bottom-start">
-                           <Popover.Target>
-                              <div className={cls("mi sm pointer", selectedProvinces.size > 0 ? "text-primary" : "")}>
-                                 filter_list
-                              </div>
-                           </Popover.Target>
-                           <Popover.Dropdown className="p0 panel">
-                              <ScrollArea h="50vh">
-                                 <button
-                                    className="btn text-sm m5"
-                                    onClick={() => {
-                                       setSelectedProvinces(new Set());
-                                    }}
-                                 >
-                                    {$t(L.ClearAll)}
-                                 </button>
-                                 <div className="divider" />
-                                 {entriesOf(G.save.state.provinces)
-                                    .sort((a, b) => a[0].localeCompare(b[0]))
-                                    .map(([p, data]) => {
-                                       if (p === G.save.state.playerProvince) return null;
-                                       return (
-                                          <div
-                                             key={p}
-                                             className={cls(
-                                                "row hover-highlight g5 p5 pr10 pointer text-sm",
-                                                selectedProvinces.has(p) ? "primary text-primary" : "",
-                                             )}
-                                             onClick={() => {
-                                                setSelectedProvinces((prev) => {
-                                                   const result = new Set(prev);
-                                                   if (result.has(p)) {
-                                                      result.delete(p);
-                                                   } else {
-                                                      result.add(p);
-                                                   }
-                                                   return result;
-                                                });
-                                             }}
-                                          >
-                                             <div className="mi sm">
-                                                {selectedProvinces.has(p) ? "check_box" : "check_box_outline_blank"}
-                                             </div>
-                                             <div className="f1">{getProvinceName(p, G.save)}</div>
-                                          </div>
-                                       );
-                                    })}
-                              </ScrollArea>
-                           </Popover.Dropdown>
-                        </Popover>
+                     <th>
+                        <div className={cls("row fstart g5", selectedProvinces.size > 0 ? "text-primary" : "")}>
+                           <div>{$t(L.Province)}</div>
+                           <TradeProvinceFilter selected={selectedProvinces} onChange={setSelectedProvinces} />
+                        </div>
                      </th>
-                     <th colSpan={2}>{$t(L.WeOffer)}</th>
-                     <th>{$t(L.TheyOffer)}</th>
+                     <th colSpan={2}>
+                        <div className={cls("row fstart g5", selectedWeOffer.size > 0 ? "text-primary" : "")}>
+                           <div>{$t(L.WeOffer)}</div>
+                           <TradeGoodsFilter selected={selectedWeOffer} onChange={setSelectedWeOffer} />
+                        </div>
+                     </th>
+                     <th>
+                        <div className={cls("row fstart g5", selectedTheyOffer.size > 0 ? "text-primary" : "")}>
+                           <div>{$t(L.TheyOffer)}</div>
+                           <TradeGoodsFilter selected={selectedTheyOffer} onChange={setSelectedTheyOffer} />
+                        </div>
+                     </th>
                      <th>{$t(L.Duration)}</th>
                      <th>
                         <div className="row">
                            <div className="f1"></div>
+                           {hasActiveFilters && (
+                              <FloatingTip label={() => "Clear all filters"}>
+                                 <div
+                                    className="mi sm text-primary pointer"
+                                    onClick={() => {
+                                       setSelectedProvinces(new Set());
+                                       setSelectedWeOffer(new Set());
+                                       setSelectedTheyOffer(new Set());
+                                       setShowAvailable(false);
+                                    }}
+                                 >
+                                    filter_list_off
+                                 </div>
+                              </FloatingTip>
+                           )}
                            <FloatingTip label={() => $t(L.OnlyShowAvailableTrades)}>
                               <div>
                                  <Switch
@@ -216,6 +217,8 @@ export function TradeSingletonModal({ provinces }: { provinces: Set<Province> })
                      if (province === G.save.state.playerProvince) return null;
                      if (selectedProvinces.size > 0 && !selectedProvinces.has(province)) return null;
                      return data.tradeOffers.map((offer_, idx) => {
+                        if (selectedWeOffer.size > 0 && !selectedWeOffer.has(offer_.weOffer)) return null;
+                        if (selectedTheyOffer.size > 0 && !selectedTheyOffer.has(offer_.theyOffer)) return null;
                         const profit = getTradeProfit(G.save.state.playerProvince, province, G.save);
                         const offer = {
                            ...offer_,
@@ -322,6 +325,108 @@ export function TradeSingletonModal({ provinces }: { provinces: Set<Province> })
             </table>
          </div>
       </ModalComp>
+   );
+}
+
+function TradeProvinceFilter({
+   selected,
+   onChange,
+}: {
+   selected: Set<Province>;
+   onChange: (selected: Set<Province>) => void;
+}): React.ReactNode {
+   return (
+      <Popover position="bottom-start">
+         <Popover.Target>
+            <div className="mi sm pointer">filter_list</div>
+         </Popover.Target>
+         <Popover.Dropdown className="p0 panel">
+            <div className="m5">
+               <button className="btn text-sm w100" onClick={() => onChange(new Set())}>
+                  {$t(L.ClearAll)}
+               </button>
+            </div>
+            <div className="divider" />
+            <ScrollArea h="50vh">
+               {keysOf(G.save.state.provinces)
+                  .sort((a, b) => a.localeCompare(b))
+                  .map((province) => {
+                     if (province === G.save.state.playerProvince) return null;
+                     return (
+                        <div
+                           key={province}
+                           className={cls(
+                              "row hover-highlight g5 p5 pr10 pointer text-sm",
+                              selected.has(province) ? "primary text-primary" : "",
+                           )}
+                           onClick={() => {
+                              const result = new Set(selected);
+                              if (result.has(province)) {
+                                 result.delete(province);
+                              } else {
+                                 result.add(province);
+                              }
+                              onChange(result);
+                           }}
+                        >
+                           <div className="mi sm">
+                              {selected.has(province) ? "check_box" : "check_box_outline_blank"}
+                           </div>
+                           <div className="f1">{getProvinceName(province, G.save)}</div>
+                        </div>
+                     );
+                  })}
+            </ScrollArea>
+         </Popover.Dropdown>
+      </Popover>
+   );
+}
+
+function TradeGoodsFilter({
+   selected,
+   onChange,
+}: {
+   selected: Set<Goods | "gold">;
+   onChange: (selected: Set<Goods | "gold">) => void;
+}): React.ReactNode {
+   const goods: (Goods | "gold")[] = ["gold", ...keysOf(Goods)];
+   return (
+      <Popover position="bottom-start">
+         <Popover.Target>
+            <div className="mi sm pointer">filter_list</div>
+         </Popover.Target>
+         <Popover.Dropdown className="p0 panel">
+            <div className="m5">
+               <button className="btn text-sm w100" onClick={() => onChange(new Set())}>
+                  {$t(L.ClearAll)}
+               </button>
+            </div>
+            <div className="divider" />
+            <ScrollArea h="50vh">
+               {goods.map((goods) => (
+                  <div
+                     key={goods}
+                     className={cls(
+                        "row hover-highlight g5 p5 pr10 pointer text-sm",
+                        selected.has(goods) ? "primary text-primary" : "",
+                     )}
+                     onClick={() => {
+                        const result = new Set(selected);
+                        if (result.has(goods)) {
+                           result.delete(goods);
+                        } else {
+                           result.add(goods);
+                        }
+                        onChange(result);
+                     }}
+                  >
+                     <div className="mi sm">{selected.has(goods) ? "check_box" : "check_box_outline_blank"}</div>
+                     <div className="f1">{goods === "gold" ? $t(L.Gold) : Goods[goods].name()}</div>
+                  </div>
+               ))}
+            </ScrollArea>
+         </Popover.Dropdown>
+      </Popover>
    );
 }
 
