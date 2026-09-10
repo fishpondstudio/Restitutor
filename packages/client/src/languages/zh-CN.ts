@@ -3619,4 +3619,7 @@ export const ZH_CN = {
    EdgePanSize: "边缘滚动区域大小",
    ProvincesAvailableInTheFreeDemo$1: "免费试玩版中可用的行省：$1",
    ClearAllFilters: "清除所有筛选条件",
+   OurGovernorIsCurrentlyInCommand: "我们的总督目前正在统率军队。",
+   TimeLeftBeforeTheCurrentGeneralRetires: "距离现任将军退役的剩余时间。",
+   $1Left: "剩余$1",
 };

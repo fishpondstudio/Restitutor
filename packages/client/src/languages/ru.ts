@@ -3650,4 +3650,7 @@ export const RU = {
    EdgePanSize: "Размер области прокрутки у края экрана",
    ProvincesAvailableInTheFreeDemo$1: "Провинции, доступные в бесплатной демоверсии: $1",
    ClearAllFilters: "Очистить все фильтры",
+   OurGovernorIsCurrentlyInCommand: "Наш наместник сейчас командует армией.",
+   TimeLeftBeforeTheCurrentGeneralRetires: "Время до выхода нынешнего генерала в отставку.",
+   $1Left: "Осталось $1",
 };

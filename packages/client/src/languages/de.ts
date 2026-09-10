@@ -3703,4 +3703,7 @@ export const DE = {
    EdgePanSize: "Randscrollbereich",
    ProvincesAvailableInTheFreeDemo$1: "In der kostenlosen Demo verfügbare Provinzen: $1",
    ClearAllFilters: "Alle Filter löschen",
+   OurGovernorIsCurrentlyInCommand: "Unser Statthalter hat derzeit das Kommando.",
+   TimeLeftBeforeTheCurrentGeneralRetires: "Verbleibende Zeit, bis der derzeitige General in den Ruhestand tritt.",
+   $1Left: "$1 verbleibend",
 };

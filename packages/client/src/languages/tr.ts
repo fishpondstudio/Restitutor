@@ -3657,4 +3657,7 @@ export const TR = {
    EdgePanSize: "Edge Pan Size",
    ProvincesAvailableInTheFreeDemo$1: "Provinces available in the free demo: $1",
    ClearAllFilters: "Clear all filters",
+   OurGovernorIsCurrentlyInCommand: "Our governor is currently in command.",
+   TimeLeftBeforeTheCurrentGeneralRetires: "Time left before the current general retires.",
+   $1Left: "$1 left",
 };

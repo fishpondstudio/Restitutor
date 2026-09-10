@@ -1,11 +1,12 @@
 import { Slider } from "@mantine/core";
-import { formatNumber, formatPercent, formatPercentDelta } from "@project/shared/src/utils/Helper";
+import { cls, formatNumber, formatPercent, formatPercentDelta } from "@project/shared/src/utils/Helper";
 import {
    MakeGovernorGeneralAction,
    RecruitGeneralAction,
    UpgradeGeneralSkillAction,
 } from "../game/actions/ArmyGeneralAction";
 import { finalizeCondition } from "../game/actions/GameAction";
+import { durationToString } from "../game/definitions/Modifier";
 import { ProvinceResourceNames, ProvinceStatNames } from "../game/definitions/Province";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
@@ -20,6 +21,7 @@ import {
    setProvinceStat,
 } from "../game/logic/ProvinceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
+import { getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
 import {
    ArmyMoraleMonthlyIncrease,
    dismissGeneral,
@@ -195,11 +197,7 @@ export function ArmySingletonModal(): React.ReactNode {
          </div>
          <div className="h1 row g5">
             <div>{$t(L.ArmyGeneral)}</div>
-            {getCurrentGeneral(G.save.state.playerProvince, G.save) === undefined && (
-               <FloatingTip label={() => $t(L.GeneralIsCurrentlyVacantConsiderAppointingAGeneral)}>
-                  <div className="mi sm text-yellow">warning</div>
-               </FloatingTip>
-            )}
+            <GeneralStatusComp />
             <div className="f1" />
             <FloatingTip label={() => <GeneralSkillPointTooltip />} className="p0" fixedWidth>
                <div className="row g5">
@@ -371,6 +369,32 @@ function GeneralSkillPointTooltip(): React.ReactNode {
          <div className="mx10 my5">{html($t(L.GeneralSkillPointsFromWar))}</div>
          <div className="divider" />
          <div className="mx10 my5">{$t(L.GeneralSkillPointsCarryover)}</div>
+      </>
+   );
+}
+
+function GeneralStatusComp(): React.ReactNode {
+   const currentGeneral = getCurrentGeneral(G.save.state.playerProvince, G.save);
+   const timeLeft = getTimedActionTimeLeft("RecruitAGeneral", G.save.state.playerProvince, G.save);
+   return (
+      <>
+         {currentGeneral === undefined && (
+            <FloatingTip label={() => $t(L.GeneralIsCurrentlyVacantConsiderAppointingAGeneral)}>
+               <div className="mi sm text-yellow">warning</div>
+            </FloatingTip>
+         )}
+         {currentGeneral === "Governor" && (
+            <FloatingTip label={() => $t(L.OurGovernorIsCurrentlyInCommand)}>
+               <div className="ml5 text-dimmed">({$t(L.Governor)})</div>
+            </FloatingTip>
+         )}
+         {currentGeneral === "Recruit" && (
+            <FloatingTip label={() => $t(L.TimeLeftBeforeTheCurrentGeneralRetires)}>
+               <div className={cls("ml5", timeLeft < 12 ? "text-yellow" : "text-dimmed")}>
+                  ({$t(L.$1Left, durationToString(timeLeft))})
+               </div>
+            </FloatingTip>
+         )}
       </>
    );
 }

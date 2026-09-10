@@ -3699,4 +3699,7 @@ export const ES = {
    EdgePanSize: "Tamaño de la zona de desplazamiento en los bordes",
    ProvincesAvailableInTheFreeDemo$1: "Provincias disponibles en la demo gratuita: $1",
    ClearAllFilters: "Borrar todos los filtros",
+   OurGovernorIsCurrentlyInCommand: "Nuestro gobernador está actualmente al mando.",
+   TimeLeftBeforeTheCurrentGeneralRetires: "Tiempo restante hasta que se retire el general actual.",
+   $1Left: "Quedan $1",
 };
