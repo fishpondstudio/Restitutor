@@ -2,6 +2,7 @@ import { clamp, lerp, sizeOf, type ValueOf } from "@project/shared/src/utils/Hel
 import { type IHaveXY, lerpVector2, v2 } from "@project/shared/src/utils/Vector2";
 import type { Application, FederatedPointerEvent, IDestroyOptions } from "pixi.js";
 import { Container, Rectangle } from "pixi.js";
+import { EdgePanMovement, type IEdgePanOptions } from "./EdgePanMovement";
 import type { SceneLifecycle } from "./SceneLifecycle";
 import { type WASDBindings, WASDMovement } from "./WASDMovement";
 
@@ -18,6 +19,7 @@ export type WheelMode = ValueOf<typeof WheelMode>;
 export interface ICameraOptions {
    scrollSensitivity: () => number;
    wasdBindings: () => WASDBindings | undefined;
+   edgePanOptions: () => IEdgePanOptions | undefined;
 }
 
 export class Camera extends Container implements SceneLifecycle {
@@ -30,6 +32,7 @@ export class Camera extends Container implements SceneLifecycle {
       this.interactiveChildren = false;
 
       this.wasdMovement = new WASDMovement(this, options.wasdBindings);
+      this.edgePanMovement = new EdgePanMovement(this, app.renderer.events.domElement, options.edgePanOptions);
       this.on("pointerdown", this.onPointerDown);
       this.on("pointermove", this.onPointerMove);
       this.on("pointerup", this.onPointerUp);
@@ -39,6 +42,7 @@ export class Camera extends Container implements SceneLifecycle {
    }
 
    private wasdMovement: WASDMovement;
+   private edgePanMovement: EdgePanMovement;
    private pressedPointers: Map<number, { x: number; y: number; dx: number; dy: number; moved: boolean }> = new Map();
    private lastPointerUpAt = 0;
    private lastPointerUpPosition: IHaveXY | null = null;
@@ -208,6 +212,7 @@ export class Camera extends Container implements SceneLifecycle {
 
    private update = () => {
       this.wasdMovement.update(this.app.ticker.deltaMS / 1000);
+      this.edgePanMovement.update(this.app.ticker.deltaMS / 1000);
       if (this.targetZoom) {
          const posBefore = this.screenToWorld(this.cursorPos!);
          const newZoom = lerp(this.zoom, this.targetZoom, Math.min(0.01 * this.app.ticker.deltaMS, 1 / 3));
@@ -324,6 +329,7 @@ export class Camera extends Container implements SceneLifecycle {
 
    public onEnable(): void {
       this.wasdMovement.onEnable();
+      this.edgePanMovement.onEnable();
       this.app.renderer.events.domElement.addEventListener("contextmenu", this.disableContextMenu.bind(this));
       this.app.renderer.events.domElement.addEventListener("wheel", this.onMouseWheel);
       this.app.ticker.add(this.update);
@@ -331,6 +337,7 @@ export class Camera extends Container implements SceneLifecycle {
 
    public onDisable(): void {
       this.wasdMovement.onDisable();
+      this.edgePanMovement.onDisable();
       this.app.renderer.events.domElement.removeEventListener("contextmenu", this.disableContextMenu);
       this.app.renderer.events.domElement.removeEventListener("wheel", this.onMouseWheel);
       this.app.ticker.remove(this.update);

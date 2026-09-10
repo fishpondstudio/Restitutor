@@ -20,6 +20,7 @@ import type { Province } from "../game/definitions/Province";
 import { NewSettlementTiles } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
+import { GameOptionFlag } from "../game/GameOption";
 import { isLand, LandSize } from "../game/Land";
 import { getGameDate } from "../game/logic/GameDateTime";
 import { MapBackgroundColors, MapColorsH, MapForegroundColors, MapTextColors } from "../game/logic/MapColor";
@@ -36,6 +37,7 @@ import { playSound } from "../ui/Sound";
 import { TilePage } from "../ui/TilePage";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
+import type { IEdgePanOptions } from "../utils/EdgePanMovement";
 import { G, GameFlags, isDev } from "../utils/Global";
 import { MapContainer, MapParticleContainer } from "../utils/MapContainer";
 import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneManager";
@@ -81,6 +83,13 @@ export class WorldScene extends Scene {
          left: shortcuts.MoveMapLeft,
          right: shortcuts.MoveMapRight,
       };
+   }
+
+   override edgePanOptions(): IEdgePanOptions | undefined {
+      if (!hasFlag(G.save.options.flag, GameOptionFlag.EdgePanEnabled) || isMapMovementBlocked()) {
+         return undefined;
+      }
+      return { edgeSize: G.save.options.edgePanSize, speed: G.save.options.wasdMovementSpeed };
    }
 
    constructor(context: ISceneContext) {

@@ -241,6 +241,39 @@ function SettingsGeneralTab(): React.ReactNode {
             />
             <div>{$t(L.Year)}</div>
          </div>
+         <div className="h1">{$t(L.EdgePan)}</div>
+         <div className="row g5 m10">
+            <div>{$t(L.EdgePan)}</div>
+            <FloatingTip label={() => $t(L.EdgePanDescription)}>
+               <div className="mi sm">info</div>
+            </FloatingTip>
+            <div className="f1"></div>
+            <Switch
+               aria-label={$t(L.EdgePan)}
+               checked={hasFlag(G.save.options.flag, GameOptionFlag.EdgePanEnabled)}
+               onChange={() => {
+                  G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.EdgePanEnabled);
+                  GameOptionUpdated.emit();
+               }}
+            />
+         </div>
+         <div className="row g5 m10">
+            <div>{$t(L.EdgePanSize)}</div>
+            <div className="f1"></div>
+            <Slider
+               w="10rem"
+               min={1}
+               max={100}
+               step={1}
+               label={formatNumber}
+               thumbLabel={$t(L.EdgePanSize)}
+               value={G.save.options.edgePanSize}
+               onChange={(value) => {
+                  G.save.options.edgePanSize = value;
+                  GameOptionUpdated.emit();
+               }}
+            />
+         </div>
          <div className="h1">{$t(L.WASDControl)}</div>
          <div className="row g5 m10">
             <div>{$t(L.MovementSpeed)}</div>

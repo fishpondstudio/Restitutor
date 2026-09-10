@@ -16,6 +16,7 @@ export const GameOptionFlag = {
    CollapseTutorial: 1 << 4,
    ShowAllMissions: 1 << 5,
    PauseOnBlur: 1 << 6,
+   EdgePanEnabled: 1 << 7,
 };
 
 export type GameOptionFlag = ValueOf<typeof GameOptionFlag>;
@@ -27,6 +28,7 @@ export class GameOption {
    flag: GameOptionFlag = GameOptionFlag.None | GameOptionFlag.PauseOnBlur;
    chronicleALerts: Set<ChronicleEntryType> = new Set();
    volume = 0.5;
+   edgePanSize = 20;
    wasdMovementSpeed = 500;
    wasdMovementResponsiveness = 15;
    shortcuts: Partial<Record<Shortcut, IShortcutConfig>> = structuredClone(DefaultShortcuts);

@@ -2,6 +2,7 @@ import type { IHaveXY } from "@project/shared/src/utils/Vector2";
 import { type Application, type ColorSource, Container, type FederatedPointerEvent, type Texture } from "pixi.js";
 import { OnResize, OnSceneSwitched } from "../game/Events";
 import { Camera } from "./Camera";
+import type { IEdgePanOptions } from "./EdgePanMovement";
 import type { SceneLifecycle } from "./SceneLifecycle";
 import type { WASDBindings } from "./WASDMovement";
 
@@ -15,6 +16,7 @@ export abstract class Scene implements SceneLifecycle {
       this.viewport = new Camera(app, {
          scrollSensitivity: this.scrollSensitivity.bind(this),
          wasdBindings: this.wasdBindings.bind(this),
+         edgePanOptions: this.edgePanOptions.bind(this),
       });
    }
 
@@ -27,6 +29,9 @@ export abstract class Scene implements SceneLifecycle {
       return 1;
    }
    wasdBindings(): WASDBindings | undefined {
+      return undefined;
+   }
+   edgePanOptions(): IEdgePanOptions | undefined {
       return undefined;
    }
 

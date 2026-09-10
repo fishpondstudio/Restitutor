@@ -3615,4 +3615,7 @@ export const ZH_CN = {
    WASDControl: "WASD控制",
    MovementSpeed: "移动速度",
    MovementResponsiveness: "移动响应速度",
+   EdgePan: "边缘滚动",
+   EdgePanDescription: "将鼠标停在边缘附近即可移动地图，悬停在面板上时同样有效。使用WASD控制的移动速度。",
+   EdgePanSize: "边缘滚动区域大小",
 };

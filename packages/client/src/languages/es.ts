@@ -3695,4 +3695,7 @@ export const ES = {
    WASDControl: "Controles WASD",
    MovementSpeed: "Velocidad de desplazamiento",
    MovementResponsiveness: "Respuesta del desplazamiento",
+   EdgePan: "Desplazamiento en los bordes",
+   EdgePanDescription: "Mueve el mapa manteniendo el cursor cerca de un borde, incluso sobre los paneles. Usa la velocidad de desplazamiento de los controles WASD.",
+   EdgePanSize: "Tamaño de la zona de desplazamiento en los bordes",
 };

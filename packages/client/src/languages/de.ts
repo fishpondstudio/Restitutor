@@ -3699,4 +3699,7 @@ export const DE = {
    WASDControl: "WASD-Steuerung",
    MovementSpeed: "Bewegungsgeschwindigkeit",
    MovementResponsiveness: "Reaktionsgeschwindigkeit der Bewegung",
+   EdgePan: "Randscrollen",
+   EdgePanDescription: "Bewege die Karte, indem du den Mauszeiger nahe an einen Rand hältst, auch über Bedienfeldern. Verwendet die Bewegungsgeschwindigkeit der WASD-Steuerung.",
+   EdgePanSize: "Randscrollbereich",
 };

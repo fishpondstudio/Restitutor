@@ -3688,4 +3688,7 @@ export const FR = {
    WASDControl: "WASD Control",
    MovementSpeed: "Movement Speed",
    MovementResponsiveness: "Movement Responsiveness",
+   EdgePan: "Edge Pan",
+   EdgePanDescription: "Move the map by holding the mouse near an edge, even over panels. Uses the WASD movement speed.",
+   EdgePanSize: "Edge Pan Size",
 };
