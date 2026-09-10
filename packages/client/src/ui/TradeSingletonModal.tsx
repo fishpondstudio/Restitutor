@@ -347,7 +347,7 @@ function TradeProvinceFilter({
                </button>
             </div>
             <div className="divider" />
-            <ScrollArea h="50vh">
+            <ScrollArea mah="50vh" h="300">
                {keysOf(G.save.state.provinces)
                   .sort((a, b) => a.localeCompare(b))
                   .map((province) => {
@@ -402,7 +402,7 @@ function TradeGoodsFilter({
                </button>
             </div>
             <div className="divider" />
-            <ScrollArea h="50vh">
+            <ScrollArea mah="50vh" h="300">
                {goods.map((goods) => (
                   <div
                      key={goods}
