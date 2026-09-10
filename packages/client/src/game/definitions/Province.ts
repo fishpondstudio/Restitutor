@@ -500,7 +500,7 @@ export const EnabledProvinces: Province[] = [
    "Pannonia",
 ];
 EnabledProvinces.sort();
-export const AlwaysFreeProvinces: Province[] = ["Lugdunensis"];
+export const AlwaysFreeProvinces = new Set<Province>(["Lugdunensis"]);
 
 export const ProvinceOriginalTiles: Map<Province, Tile[]> = new Map();
 for (const [tile, data] of RomeMap) {

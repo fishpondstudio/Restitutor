@@ -132,7 +132,7 @@ export function TradeSingletonModal({ provinces }: { provinces: Set<Province> })
                         <div className="row">
                            <div className="f1"></div>
                            {hasActiveFilters && (
-                              <FloatingTip label={() => "Clear all filters"}>
+                              <FloatingTip label={() => $t(L.ClearAllFilters)}>
                                  <div
                                     className="mi sm text-primary pointer"
                                     onClick={() => {

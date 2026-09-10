@@ -2608,7 +2608,6 @@ export const ZH_CN = {
    TechCulturalPolicy: "文化政策",
    TechReligiousPolicy: "宗教政策",
    TechRangedDoctrine: "远程战术",
-   FreeDemoProvinceAvailability$1: "*$1 和另一个行省（每两周轮换一次）可在免费试玩版中使用。",
    $1HasAtLeast$2CoreCoastalTiles: "$1 至少拥有 $2 个核心沿海地块",
    TheSecularGamesOfSeptimiusSeverus: "塞普蒂米乌斯·塞维鲁的百年祭典",
    TheSecularGamesOfSeptimiusSeverusDesc: "传令官宣布举行一场前无古人、后无来者的盛会。战神广场连续三夜燃起祭祀之火，演员、赛车手和珍禽异兽吸引全意大利的人涌向罗马。仪式预示着新时代的到来，但如此盛大的排场必须有人买单。",
@@ -3618,4 +3617,6 @@ export const ZH_CN = {
    EdgePan: "边缘滚动",
    EdgePanDescription: "将鼠标停在边缘附近即可移动地图，悬停在面板上时同样有效。使用WASD控制的移动速度。",
    EdgePanSize: "边缘滚动区域大小",
+   ProvincesAvailableInTheFreeDemo$1: "免费试玩版中可用的行省：$1",
+   ClearAllFilters: "清除所有筛选条件",
 };

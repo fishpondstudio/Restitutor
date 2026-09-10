@@ -2625,7 +2625,6 @@ export const DE = {
    TechCulturalPolicy: "Kulturpolitik",
    TechReligiousPolicy: "Religionspolitik",
    TechRangedDoctrine: "Fernkampfdoktrin",
-   FreeDemoProvinceAvailability$1: "*$1 und eine weitere Provinz (wechselt alle zwei Wochen) sind in der kostenlosen Demo verfügbar.",
    $1HasAtLeast$2CoreCoastalTiles: "$1 hat mindestens $2 Kerngebiete an der Küste",
    TheSecularGamesOfSeptimiusSeverus: "Die Säkularspiele des Septimius Severus",
    TheSecularGamesOfSeptimiusSeverusDesc:
@@ -3702,4 +3701,6 @@ export const DE = {
    EdgePan: "Randscrollen",
    EdgePanDescription: "Bewege die Karte, indem du den Mauszeiger nahe an einen Rand hältst, auch über Bedienfeldern. Verwendet die Bewegungsgeschwindigkeit der WASD-Steuerung.",
    EdgePanSize: "Randscrollbereich",
+   ProvincesAvailableInTheFreeDemo$1: "In der kostenlosen Demo verfügbare Provinzen: $1",
+   ClearAllFilters: "Alle Filter löschen",
 };

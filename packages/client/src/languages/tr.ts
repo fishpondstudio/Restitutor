@@ -2614,7 +2614,6 @@ export const TR = {
    TechCulturalPolicy: "Cultural Policy",
    TechReligiousPolicy: "Religious Policy",
    TechRangedDoctrine: "Ranged Doctrine",
-   FreeDemoProvinceAvailability$1: "*$1 and one other province (rotating every two weeks) are available in the free demo.",
    $1HasAtLeast$2CoreCoastalTiles: "$1 has at least $2 core coastal tiles",
    TheSecularGamesOfSeptimiusSeverus: "The Secular Games of Septimius Severus",
    TheSecularGamesOfSeptimiusSeverusDesc:
@@ -3656,4 +3655,6 @@ export const TR = {
    EdgePan: "Edge Pan",
    EdgePanDescription: "Move the map by holding the mouse near an edge, even over panels. Uses the WASD movement speed.",
    EdgePanSize: "Edge Pan Size",
+   ProvincesAvailableInTheFreeDemo$1: "Provinces available in the free demo: $1",
+   ClearAllFilters: "Clear all filters",
 };

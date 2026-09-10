@@ -1,6 +1,6 @@
 import { Select } from "@mantine/core";
-import { cls, entriesOf, hasFlag, setFlag, WEEK } from "@project/shared/src/utils/Helper";
-import { Fragment, useEffect, useState } from "react";
+import { cls, entriesOf, hasFlag, setFlag } from "@project/shared/src/utils/Helper";
+import { Fragment, useState } from "react";
 import { unlockAchievement } from "../game/Achievement";
 import { Culture } from "../game/definitions/Culture";
 import { AlwaysFreeProvinces, EnabledProvinces, Province } from "../game/definitions/Province";
@@ -26,26 +26,8 @@ import { renderMarkup } from "./ParseMarkup";
 export function RebirthPage(): React.ReactNode {
    const [province, setProvince] = useState(G.save.state.playerProvince);
    const provincialEvents = entriesOf(GameEvents).filter(([k, v]) => v.condition?.province?.has(province));
-   const [freeProvinces, setFreeProvinces] = useState(new Set<Province>(AlwaysFreeProvinces));
-   const isDemo = hasFlag(G.flags, GameFlags.Demo);
+   const isDemo = hasFlag(G.flags, GameFlags.Demo) || 1;
    const legacyPointsNextRun = getLegacyPointsNextRun(G.save);
-   useEffect(() => {
-      if (!isDemo) {
-         return;
-      }
-      fetch("https://api.fishpondstudio.com/time")
-         .then(async (res) => {
-            return res.json();
-         })
-         .then((data) => {
-            const serverTime = data.time;
-            if (isDemo) {
-               const id = Math.floor(serverTime / (WEEK * 2));
-               const candidates = EnabledProvinces.filter((p) => !AlwaysFreeProvinces.includes(p));
-               setFreeProvinces(new Set(["Lugdunensis", candidates[id % candidates.length]]));
-            }
-         });
-   }, [isDemo]);
    const greatWorks = Array.from(getProvinceOriginalGreatWorks(province, G.save));
    return (
       <SidebarComp title={<SidebarImageHeader image={HeaderImages.Rebirth} title={$t(L.Rebirth)} />}>
@@ -75,7 +57,7 @@ export function RebirthPage(): React.ReactNode {
                   allowDeselect={false}
                   data={EnabledProvinces.map((p) => ({
                      value: p,
-                     label: `${getProvinceName(p, G.save)}${isDemo && freeProvinces.has(p) ? "*" : ""}`,
+                     label: `${getProvinceName(p, G.save)}${isDemo && AlwaysFreeProvinces.has(p) ? "*" : ""}`,
                   }))}
                />
             </div>
@@ -83,8 +65,10 @@ export function RebirthPage(): React.ReactNode {
          {isDemo && (
             <div className="box m10 p10 text-sm yellow text-yellow">
                {$t(
-                  L.FreeDemoProvinceAvailability$1,
-                  AlwaysFreeProvinces.map((p) => getProvinceName(p, G.save)).join(", "),
+                  L.ProvincesAvailableInTheFreeDemo$1,
+                  Array.from(AlwaysFreeProvinces)
+                     .map((p) => getProvinceName(p, G.save))
+                     .join(", "),
                )}
             </div>
          )}
@@ -161,10 +145,10 @@ export function RebirthPage(): React.ReactNode {
          <div className="m10">
             <button
                id="RebirthPage_RebirthButton"
-               disabled={isDemo && !freeProvinces.has(province)}
+               disabled={isDemo && !AlwaysFreeProvinces.has(province)}
                className={cls("btn py2 w100")}
                onClick={async () => {
-                  if (isDemo && !freeProvinces.has(province)) {
+                  if (isDemo && !AlwaysFreeProvinces.has(province)) {
                      return;
                   }
                   rebirth(province, G.save);

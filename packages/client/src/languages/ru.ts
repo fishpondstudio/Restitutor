@@ -2614,7 +2614,6 @@ export const RU = {
    TechCulturalPolicy: "Культурный курс",
    TechReligiousPolicy: "Религиозный курс",
    TechRangedDoctrine: "Тактика стрелков",
-   FreeDemoProvinceAvailability$1: "*$1 и ещё одна провинция (сменяется каждые две недели) доступны в бесплатной демоверсии.",
    $1HasAtLeast$2CoreCoastalTiles: "У $1 не менее $2 ядровых прибрежных владений",
    TheSecularGamesOfSeptimiusSeverus: "Секулярные игры Септимия Севера",
    TheSecularGamesOfSeptimiusSeverusDesc:
@@ -3649,4 +3648,6 @@ export const RU = {
    EdgePan: "Прокрутка у края экрана",
    EdgePanDescription: "Перемещайте карту, удерживая указатель мыши у края экрана, в том числе поверх панелей. Используется скорость перемещения с помощью WASD.",
    EdgePanSize: "Размер области прокрутки у края экрана",
+   ProvincesAvailableInTheFreeDemo$1: "Провинции, доступные в бесплатной демоверсии: $1",
+   ClearAllFilters: "Очистить все фильтры",
 };
