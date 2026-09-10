@@ -12,6 +12,7 @@ import {
    LINE_JOIN,
    Sprite,
    type Texture,
+   TilingSprite,
 } from "pixi.js";
 import { Fonts } from "../Fonts";
 import { Goods } from "../game/definitions/Goods";
@@ -44,7 +45,7 @@ import { destroyAllChildren, type ISceneContext, Scene } from "../utils/SceneMan
 import { UnicodeText } from "../utils/UnicodeText";
 import type { WASDBindings } from "../utils/WASDMovement";
 import { getOverlay } from "./Overlays";
-import { ExternalBorder, InternalBorder, WarBorder } from "./WorldSceneConstants";
+import { CoastBorder, Coastlines, ExternalBorder, InternalBorder, OceanColor, WarBorder } from "./WorldSceneConstants";
 import { adjustTextSize, getTerrainTextures, isMapMovementBlocked } from "./WorldSceneUtils";
 
 const MarginX = 2000;
@@ -53,6 +54,8 @@ const ProvinceLabelFontSize = 36;
 let time = 0;
 
 export class WorldScene extends Scene {
+   private _ocean: TilingSprite;
+   private _coastline: SmoothGraphics;
    private _indicatorContainer: MapContainer<Tile, Sprite>;
    private _tileContainer: MapParticleContainer<Tile, Sprite>;
    private _capitalContainer: MapContainer<Tile, Sprite>;
@@ -69,7 +72,7 @@ export class WorldScene extends Scene {
    private readonly _isEditor: boolean;
 
    backgroundColor(): ColorSource {
-      return 0xabd3de;
+      return OceanColor;
    }
 
    override wasdBindings(): WASDBindings | undefined {
@@ -99,6 +102,16 @@ export class WorldScene extends Scene {
       const max = MapGrid.maxPosition();
       this.viewport.setWorldSize(max.x + MarginX * 2, max.y);
 
+      this._ocean = this.viewport.addChild(new TilingSprite(G.textures.get("Misc/Ocean")!));
+      this._ocean.width = this.viewport.worldWidth;
+      this._ocean.height = this.viewport.worldHeight;
+      this._ocean.tileScale.set(2);
+      this._ocean.eventMode = "none";
+
+      this._coastline = this.viewport.addChild(new SmoothGraphics());
+      this._coastline.position.set(MarginX, 0);
+      this._coastline.eventMode = "none";
+
       this._tileContainer = this.viewport.addChild(new MapParticleContainer<Tile, Sprite>(LandSize, {}));
       this._tileContainer.position.set(MarginX, 0);
 
@@ -110,17 +123,21 @@ export class WorldScene extends Scene {
 
       this._staticOutline = this.viewport.addChild(new SmoothGraphics());
       this._staticOutline.position.set(MarginX, 0);
+      this._staticOutline.eventMode = "none";
 
       this._indicatorContainer = this.viewport.addChild(new MapContainer<Tile, Sprite>());
       this._indicatorContainer.position.set(MarginX, 0);
 
       this._selectors = this.viewport.addChild(new Container<Sprite>());
+      this._selectors.eventMode = "none";
 
       this._dynamicOutline = this.viewport.addChild(new SmoothGraphics());
       this._dynamicOutline.position.set(MarginX, 0);
+      this._dynamicOutline.eventMode = "none";
 
       this._warOutline = this.viewport.addChild(new SmoothGraphics());
       this._warOutline.position.set(MarginX, 0);
+      this._warOutline.eventMode = "none";
 
       this._labelContainer = this.viewport.addChild(new MapContainer<Province, UnicodeText>());
       this._labelContainer.position.set(MarginX, 0);
@@ -164,9 +181,9 @@ export class WorldScene extends Scene {
       this.viewport.zoom = this._lastZoom;
       this.viewport.center = { x: MarginX + (minPos.x + maxPos.x) / 2, y: (minPos.y + maxPos.y) / 2 };
 
-      this._updateAlpha();
       this._drawStaticOutlineAndLabel();
       this._drawWarOutline();
+      this._updateAlpha();
 
       RefreshTiles.on(({ tiles, options }) => {
          for (const tile of tiles) {
@@ -472,6 +489,7 @@ export class WorldScene extends Scene {
       const factor = (this.viewport.zoom - minZoom) / (maxZoom - minZoom);
       this._overlayContainer.alpha = 0.5 + 0.5 * factor;
       this._capitalContainer.alpha = 0.5 + 0.5 * factor;
+      this._ocean.alpha = factor;
    }
 
    override onMoved(point: IHaveXY): void {
@@ -642,16 +660,9 @@ export class WorldScene extends Scene {
    }
 
    private _drawStaticOutlineAndLabel(): void {
+      this._coastline.clear();
       this._staticOutline.clear();
-      this._staticOutline.lineStyle({
-         width: 2,
-         color: 0x888888,
-         alpha: 1,
-         alignment: 0.5,
-         scaleMode: LINE_SCALE_MODE.NONE,
-         cap: LINE_CAP.ROUND,
-         join: LINE_JOIN.ROUND,
-      });
+      const coastSegments: [IHaveXY, IHaveXY][] = [];
       const drawnBorders = new Set<bigint>();
       for (const [tile, tileData] of G.save.state.tiles) {
          const p = tileToPoint(tile);
@@ -670,11 +681,25 @@ export class WorldScene extends Scene {
                   const offset2 = MapGrid.layout.hexCornerOffset((dir + 1) % 6);
                   const c1 = { x: center.x + offset1.x, y: center.y + offset1.y };
                   const c2 = { x: center.x + offset2.x, y: center.y + offset2.y };
-                  this._staticOutline.lineStyle(G.save.state.tiles.has(neighborTile) ? InternalBorder : ExternalBorder);
+                  let border = InternalBorder;
+                  if (!isLand(neighborTile)) {
+                     border = CoastBorder;
+                     coastSegments.push([c1, c2]);
+                  } else if (!G.save.state.tiles.has(neighborTile)) {
+                     border = ExternalBorder;
+                  }
+                  this._staticOutline.lineStyle(border);
                   this._staticOutline.moveTo(c1.x, c1.y);
                   this._staticOutline.lineTo(c2.x, c2.y);
                }
             }
+         }
+      }
+      for (const shade of Coastlines) {
+         this._coastline.lineStyle(shade);
+         for (const [start, end] of coastSegments) {
+            this._coastline.moveTo(start.x, start.y);
+            this._coastline.lineTo(end.x, end.y);
          }
       }
       const provinceToTiles = new Map<Province, Set<Tile>>();

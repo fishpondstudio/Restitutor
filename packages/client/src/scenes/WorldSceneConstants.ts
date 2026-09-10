@@ -1,5 +1,8 @@
 import { type ILineStyleOptions, LINE_SCALE_MODE } from "@pixi/graphics-smooth";
+import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
 import { LINE_CAP, LINE_JOIN } from "pixi.js";
+
+export const OceanColor = hslToRgb(193, 45, 75);
 
 export const InternalBorder: ILineStyleOptions = {
    width: 1,
@@ -28,3 +31,14 @@ export const ExternalBorder: ILineStyleOptions = {
    join: LINE_JOIN.ROUND,
    color: 0x888888,
 };
+
+export const CoastBorder: ILineStyleOptions = {
+   ...ExternalBorder,
+   color: hslToRgb(193, 25, 50),
+};
+
+export const Coastlines: ILineStyleOptions[] = [
+   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 20 + 25 + 30, alpha: 1, color: hslToRgb(193, 45, 73) },
+   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 20 + 25, alpha: 1, color: hslToRgb(193, 45, 71) },
+   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 20, alpha: 1, color: hslToRgb(193, 45, 69) },
+];

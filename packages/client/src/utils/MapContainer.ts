@@ -3,7 +3,9 @@ import { Container, type DisplayObject, ParticleContainer, type Sprite } from "p
 class OwnedChildMap<K, V extends DisplayObject> implements Iterable<[K, V]> {
    private readonly _map = new Map<K, V>();
 
-   constructor(private readonly _owner: Container) {}
+   constructor(private readonly _owner: Container) {
+      this._owner.eventMode = "none";
+   }
 
    public set(key: K, child: V): V {
       const oldChild = this._map.get(key);

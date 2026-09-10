@@ -47,7 +47,7 @@ export class TechTreeScene extends Scene {
    private _selectedTechFrame: Sprite | undefined;
 
    backgroundColor(): ColorSource {
-      return 0xf5edda;
+      return 0xffffff;
    }
 
    constructor(context: ISceneContext) {
