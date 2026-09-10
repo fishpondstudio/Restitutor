@@ -12,7 +12,6 @@ import "./Table.css";
 export interface TableColumn<Row> {
    id: string;
    header: React.ReactNode;
-   headerExtra?: React.ReactNode;
    headerProps?: Omit<React.ComponentPropsWithoutRef<"th">, "children">;
    compare?: (a: Row, b: Row) => number;
 }
@@ -22,9 +21,9 @@ export interface TableSort {
    direction: "asc" | "desc";
 }
 
-export type TableVirtualization =
-   | { scrollParent: HTMLElement | null; height?: never }
-   | { height: NonNullable<React.CSSProperties["height"]>; scrollParent?: never };
+export interface TableVirtualization {
+   scrollParent: HTMLElement | null;
+}
 
 type RowProps = Omit<React.ComponentPropsWithoutRef<"tr">, "children">;
 type NativeTableProps = Omit<React.ComponentPropsWithoutRef<"table">, "children">;
@@ -35,8 +34,6 @@ export interface TableProps<Row> extends NativeTableProps {
    columns: readonly TableColumn<Row>[];
    renderCells: (row: Row) => React.ReactNode;
    rowProps?: (row: Row) => RowProps;
-   filter?: (row: Row) => boolean;
-   pinnedRows?: readonly Row[];
    defaultSort?: TableSort;
    emptyContent?: React.ReactNode;
    virtualize?: false | TableVirtualization;
@@ -91,8 +88,6 @@ export function Table<Row>({
    columns,
    renderCells,
    rowProps,
-   filter,
-   pinnedRows = [],
    defaultSort,
    emptyContent,
    virtualize = false,
@@ -110,13 +105,12 @@ export function Table<Row>({
    }
    const sortColumn = columns.find((column) => column.id === sort?.columnId && column.compare);
    // Game-state updates can mutate row data without changing the array identity.
-   const filteredRows = filter ? rows.filter(filter) : [...rows];
+   const sortedRows = [...rows];
    if (sortColumn?.compare && sort) {
       const compare = sortColumn.compare;
       const direction = sort.direction === "asc" ? 1 : -1;
-      filteredRows.sort((a, b) => direction * compare(a, b));
+      sortedRows.sort((a, b) => direction * compare(a, b));
    }
-   const visibleRows = pinnedRows.length > 0 ? [...pinnedRows, ...filteredRows] : filteredRows;
    const columnCount = Math.max(
       1,
       columns.reduce((count, column) => count + (column.headerProps?.colSpan ?? 1), 0),
@@ -129,7 +123,7 @@ export function Table<Row>({
                <th key={column.id} {...column.headerProps}>
                   {column.compare ? (
                      <div
-                        className={cls("row fstart g0 pointer", direction ? "text-yellow" : null)}
+                        className={cls("row fstart g0 pointer", direction ? "text-primary" : null)}
                         onClick={() => toggleSort(column.id)}
                      >
                         <div>{column.header}</div>
@@ -140,7 +134,6 @@ export function Table<Row>({
                   ) : (
                      column.header
                   )}
-                  {column.headerExtra}
                </th>
             );
          })}
@@ -148,15 +141,14 @@ export function Table<Row>({
    );
    const tableProps = { ...nativeProps, className: cls("data-table", className) };
 
-   if (virtualize && (virtualize.scrollParent || virtualize.height !== undefined)) {
+   if (virtualize && virtualize.scrollParent) {
       return (
          <TableVirtuoso<Row, TableContext<Row>>
-            data={visibleRows}
+            data={sortedRows}
             computeItemKey={(_, row) => rowKey(row)}
             components={VirtualComponents}
             context={{ tableProps, rowProps, columnCount, emptyContent }}
-            customScrollParent={virtualize.scrollParent ?? undefined}
-            style={virtualize.height !== undefined ? { height: virtualize.height } : undefined}
+            customScrollParent={virtualize.scrollParent}
             fixedHeaderContent={() => header}
             itemContent={(_, row) => renderCells(row)}
          />
@@ -167,12 +159,12 @@ export function Table<Row>({
       <table {...tableProps}>
          <thead>{header}</thead>
          <tbody>
-            {visibleRows.map((row) => (
+            {sortedRows.map((row) => (
                <tr {...rowProps?.(row)} key={rowKey(row)}>
                   {renderCells(row)}
                </tr>
             ))}
-            {visibleRows.length === 0 && emptyContent != null && (
+            {sortedRows.length === 0 && emptyContent != null && (
                <tr>
                   <td colSpan={columnCount}>{emptyContent}</td>
                </tr>
