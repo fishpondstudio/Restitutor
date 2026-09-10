@@ -90,16 +90,23 @@ export function ModalComp({
    children,
    size,
    scrollbars = "y",
+   scrollViewportRef,
 }: React.PropsWithChildren<{
    title?: React.ReactNode;
    size?: MantineSize;
    style?: React.CSSProperties;
    scrollbars?: "y" | "x" | "xy" | false;
+   scrollViewportRef?: React.Ref<HTMLDivElement>;
 }>): React.ReactNode {
    return (
       <div className={cls("modal panel", size ?? "md")}>
          {title}
-         <ScrollArea.Autosize scrollbars={scrollbars} type="hover" className="modal-content">
+         <ScrollArea.Autosize
+            scrollbars={scrollbars}
+            type="hover"
+            className="modal-content"
+            viewportRef={scrollViewportRef}
+         >
             {children}
          </ScrollArea.Autosize>
       </div>

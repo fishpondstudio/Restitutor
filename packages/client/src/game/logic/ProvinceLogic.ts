@@ -830,8 +830,7 @@ export function getProvincePrestigeRanking(save: SaveGame): Map<Province, number
          return [province, getProvincePrestige(province, save).value] as [Province, number];
       })
       .sort(([_provinceA, prestigeA], [_provinceB, prestigeB]) => prestigeB - prestigeA)
-      .slice(0, 10)
-      .forEach(([province, prestige], index) => {
+      .forEach(([province], index) => {
          _cachedProvincePrestigeRanking.set(province, index + 1);
       });
    return _cachedProvincePrestigeRanking;

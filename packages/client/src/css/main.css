@@ -240,63 +240,10 @@ td {
    border: 0;
 }
 
-table {
-   border-collapse: collapse;
-   border-spacing: 0;
-   line-height: 1.25;
-}
-
 u {
    text-underline-position: under;
    text-decoration-thickness: 0.125rem;
    text-decoration-color: currentcolor;
-}
-
-.data-table {
-   width: 100%;
-   border-collapse: collapse;
-   border-spacing: 0;
-   font-size: var(--mantine-font-size-sm);
-   line-height: 1.25;
-   box-shadow: 0 0 0 0.0625rem var(--mantine-color-dark-3);
-   border-radius: var(--mantine-radius-default);
-   overflow: hidden;
-
-   th {
-      background-image: url("../assets/images/ButtonDark.svg");
-      background-color: rgba(0, 0, 0, 0.25);
-      color: var(--mantine-color-gray-0);
-   }
-
-   th {
-      font-size: var(--mantine-font-size-md);
-      color: var(--mantine-color-default-text);
-      text-align: left;
-      font-family: "TitleFont", serif;
-   }
-
-   th.text-right,
-   td.text-right {
-      text-align: right;
-   }
-
-   td {
-      border-top: 0.0625rem solid var(--mantine-color-dark-3);
-   }
-
-   tbody tr:hover {
-      background-color: rgba(255, 255, 255, 0.05);
-   }
-
-   td,
-   th {
-      padding: 0.3125rem 0.3125rem;
-
-      &.condensed {
-         padding: 0;
-         width: 0;
-      }
-   }
 }
 
 .mantine-ScrollArea-scrollbar {

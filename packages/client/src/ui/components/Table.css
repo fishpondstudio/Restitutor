@@ -1,0 +1,47 @@
+.data-table {
+   width: 100%;
+   border-spacing: 0;
+   line-height: 1.25;
+   border-collapse: separate;
+   font-size: var(--mantine-font-size-sm);
+   box-shadow: 0 0 0 0.0625rem var(--mantine-color-dark-3);
+   border-radius: var(--mantine-radius-default);
+
+   thead {
+      box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.5);
+   }
+
+   thead tr {
+      background-image: url("../../assets/images/ButtonDark.svg");
+      background-color: var(--mantine-color-dark-8);
+      clip-path: inset(0 round var(--mantine-radius-default) var(--mantine-radius-default) 0 0);
+      font-size: var(--mantine-font-size-md);
+      color: var(--mantine-color-default-text);
+      text-align: left;
+      font-family: "TitleFont", serif;
+   }
+
+   th.text-right,
+   td.text-right {
+      text-align: right;
+   }
+
+   tbody tr:last-child td {
+      border-bottom: none;
+   }
+
+   tbody tr:not(.table-filler):hover {
+      background-color: rgba(255, 255, 255, 0.05);
+   }
+
+   td,
+   th {
+      padding: 0.3125rem;
+      border-bottom: 0.0625rem solid var(--mantine-color-dark-3);
+
+      &.condensed {
+         padding: 0;
+         width: 0;
+      }
+   }
+}
