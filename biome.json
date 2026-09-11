@@ -12,6 +12,8 @@
          "packages/**/*.tsx",
          "packages/**/*.css",
          "!packages/client/dist/**/*",
+         "!packages/client/ios/**/*",
+         "!packages/client/android/**/*",
          "!packages/electron/dist/**/*",
          "!packages/electron/out/**/*"
       ]
