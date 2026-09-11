@@ -9,9 +9,9 @@ import DeathOfKings from "../assets/music/DeathOfKings.mp3";
 import EnchantedJourney from "../assets/music/EnchantedJourney.mp3";
 import FiveArmies from "../assets/music/FiveArmies.mp3";
 import Legionnaire from "../assets/music/Legionnaire.mp3";
-import LordOfTheLand from "../assets/music/LordOfTheLand.mp3";
 import LostFrontier from "../assets/music/LostFrontier.mp3";
 import MemoriesOfStone from "../assets/music/MemoriesOfStone.mp3";
+import MidnightTale from "../assets/music/MidnightTale.mp3";
 import ProcessionOfTheKing from "../assets/music/ProcessionOfTheKing.mp3";
 import RoyalCoupling from "../assets/music/RoyalCoupling.mp3";
 import TempleOfTheManes from "../assets/music/TempleOfTheManes.mp3";
@@ -40,8 +40,8 @@ export const MusicCatalog: readonly TaggedMusicTrack[] = [
    { url: TempleOfTheManes, tag: "Default" },
    { url: Titan, tag: "Default" },
    { url: Angevin, tag: "Default" },
-   { url: LordOfTheLand, tag: "Default" },
    { url: MemoriesOfStone, tag: "Default" },
+   { url: MidnightTale, tag: "Default" },
 
    { url: VirtutesVocis, tag: "Christian" },
    { url: VirtutesInstrumenti, tag: "Christian" },
