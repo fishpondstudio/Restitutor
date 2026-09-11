@@ -20,7 +20,7 @@ if (fullBuild) {
 cmd("pnpm run build", path.join(rootPath, "packages", "client"));
 cmd("npx wrangler pages deploy ./dist --project-name restitutor", path.join(rootPath, "packages", "client"));
 
-cmd("zip -r restitutor.zip .", path.join(rootPath, "packages", "client", "dist"));
+cmd("zip -r restitutor.zip -9 .", path.join(rootPath, "packages", "client", "dist"));
 fs.ensureDirSync(path.join(rootPath, "packages", "client", "output"));
 fs.removeSync(path.join(rootPath, "packages", "client", "output", `restitutor-${build}.zip`));
 fs.moveSync(path.join(rootPath, "packages", "client", "dist", "restitutor.zip"), path.join(rootPath, "packages", "client", "output", `restitutor-${build}.zip`));
