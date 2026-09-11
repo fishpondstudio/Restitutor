@@ -1,4 +1,5 @@
 import { clamp, formatNumber, randInt } from "@project/shared/src/utils/Helper";
+import { startTrackByTag } from "../../ui/Music";
 import { G } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
 import { hideModal } from "../../utils/ModalManager";
@@ -66,6 +67,7 @@ export function LookForLocalSpouseAction(
             addSocialClassLoyalty(socialClass, 50, province, save);
          }
          if (!headless) {
+            startTrackByTag("Wedding");
             hideModal();
          }
       },
@@ -105,6 +107,7 @@ export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Pr
          }
          removeEmptyFamily(save);
          if (!headless) {
+            startTrackByTag("Wedding");
             hideModal();
          }
       },

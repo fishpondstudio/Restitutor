@@ -1559,7 +1559,6 @@ export const ZH_CN = {
    View: "查看",
    ViewFamilyTree: "查看家族谱",
    ViewPatchNotes: "查看补丁说明",
-   Volume: "音量",
    VoteForConsulElection: "执政官选举投票",
    WarChanceEstimateOnly: "此仅为估算，因为各方军力每月可能变动，获得或失去战争分数的概率亦会随之改变。",
    WarEndedDesc$1$2$3$4$5: "远方传来消息，总督！经过$1个月的鏖战，$2-$3战争已告终结。$4取得胜利，我们对$5的条约义务业已履行。",
@@ -3622,4 +3621,10 @@ export const ZH_CN = {
    OurGovernorIsCurrentlyInCommand: "我们的总督目前正在统率军队。",
    TimeLeftBeforeTheCurrentGeneralRetires: "距离现任将军退役的剩余时间。",
    $1Left: "剩余$1",
+   SoundEffectsVolume: "音效音量",
+   MusicVolume: "音乐音量",
+   MusicCredits: "音乐鸣谢",
+   Credits: "鸣谢",
+   SoundEffectsCredits: "音效鸣谢",
+   ImageCredits: "图片鸣谢",
 };

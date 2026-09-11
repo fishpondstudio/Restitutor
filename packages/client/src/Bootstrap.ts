@@ -19,6 +19,7 @@ import { showPanel } from "./ui/common/ShowPanel";
 import { hideLoading } from "./ui/components/LoadingComp";
 import { initHighlighter } from "./ui/Highlighter";
 import { IncompatibleSaveModal } from "./ui/IncompatibleSaveModal";
+import { initMusic } from "./ui/Music";
 import { loadSounds } from "./ui/Sound";
 import { G, isDev, setLanguage } from "./utils/Global";
 import { SceneManager } from "./utils/SceneManager";
@@ -110,6 +111,7 @@ export async function bootstrap(): Promise<void> {
    document.documentElement.style.setProperty("font-size", `${G.save.options.uiScale}rem`);
    setLanguage(G.save.options.language);
    loadSounds();
+   initMusic();
    addDebugFunctions();
    subscribeToModifierUpdate();
    loadGameScene();

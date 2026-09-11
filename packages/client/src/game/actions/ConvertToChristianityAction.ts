@@ -1,3 +1,4 @@
+import { startTrackByTag } from "../../ui/Music";
 import { $t, L } from "../../utils/i18n";
 import { unlockAchievement } from "../Achievement";
 import type { Province } from "../definitions/Province";
@@ -26,7 +27,7 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
             value: !isChristianReligion(state.religion),
          },
       ]),
-      execute: () => {
+      execute: ({ headless }) => {
          changeProvinceReligion("Christianity", province, save);
          if (province === save.state.playerProvince) {
             unlockAchievement("AdoptChristianity");
@@ -35,6 +36,9 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
             if (tileData.province === province && tileData.coreProvinces.has(province)) {
                tileData.religion = "Christianity";
             }
+         }
+         if (!headless) {
+            startTrackByTag("Religion");
          }
       },
    };

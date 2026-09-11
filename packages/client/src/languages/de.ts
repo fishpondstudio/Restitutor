@@ -1568,7 +1568,6 @@ export const DE = {
    View: "Anzeigen",
    ViewFamilyTree: "Stammbaum anzeigen",
    ViewPatchNotes: "Patchnotizen anzeigen",
-   Volume: "Lautstärke",
    VoteForConsulElection: "Bei der Konsulwahl abstimmen",
    WarChanceEstimateOnly: "Dies ist nur eine Schätzung, da sich die Kriegsmacht jedes Beteiligten monatlich ändern kann und sich damit auch die Chancen auf Gewinn oder Verlust von Kriegswertung verändern.",
    WarEndedDesc$1$2$3$4$5: "Nachrichten aus der Ferne, Statthalter! Nach einem $1-monatigen Kampf ist der Krieg zwischen $2 und $3 beendet. $4 ist siegreich hervorgegangen, und unsere Vertragspflicht gegenüber $5 ist erfüllt.",
@@ -3706,4 +3705,10 @@ export const DE = {
    OurGovernorIsCurrentlyInCommand: "Unser Statthalter hat derzeit das Kommando.",
    TimeLeftBeforeTheCurrentGeneralRetires: "Verbleibende Zeit, bis der derzeitige General in den Ruhestand tritt.",
    $1Left: "$1 verbleibend",
+   SoundEffectsVolume: "Lautstärke der Soundeffekte",
+   MusicVolume: "Musiklautstärke",
+   MusicCredits: "Musiknachweise",
+   Credits: "Mitwirkende",
+   SoundEffectsCredits: "Soundeffektnachweise",
+   ImageCredits: "Bildnachweise",
 };

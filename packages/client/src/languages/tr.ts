@@ -1565,7 +1565,6 @@ export const TR = {
    View: "View",
    ViewFamilyTree: "View Family Tree",
    ViewPatchNotes: "View Patch Notes",
-   Volume: "Volume",
    VoteForConsulElection: "Vote for consul election",
    WarChanceEstimateOnly: "This is only an estimate as the war power of each participant can change every month and the chances of gaining or losing war score will change accordingly.",
    WarEndedDesc$1$2$3$4$5: "News from far away, governor! After a $1-month fight, the $2-$3 war has come to an end. $4 has emerged victorious and our treaty duty to $5 has been fulfilled.",
@@ -3660,4 +3659,10 @@ export const TR = {
    OurGovernorIsCurrentlyInCommand: "Our governor is currently in command.",
    TimeLeftBeforeTheCurrentGeneralRetires: "Time left before the current general retires.",
    $1Left: "$1 left",
+   SoundEffectsVolume: "Sound Effects Volume",
+   MusicVolume: "Music Volume",
+   MusicCredits: "Music Credits",
+   Credits: "Credits",
+   SoundEffectsCredits: "Sound Effects Credits",
+   ImageCredits: "Image Credits",
 };

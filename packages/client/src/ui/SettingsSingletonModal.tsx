@@ -1,4 +1,4 @@
-import { SegmentedControl, Select, Slider, Switch } from "@mantine/core";
+import { ScrollArea, SegmentedControl, Select, Slider, Switch } from "@mantine/core";
 import {
    entriesOf,
    formatNumber,
@@ -9,6 +9,8 @@ import {
    toggleFlag,
 } from "@project/shared/src/utils/Helper";
 import { Fragment, useEffect, useState } from "react";
+import MusicCredits from "../assets/music/Credits.txt?raw";
+import SoundCredits from "../assets/sounds/Credits.txt?raw";
 import { DiscordUrl, PatchNotesUrl, SteamCommunityUrl, SteamUrl } from "../game/definitions/Constant";
 import { GameOptionUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
@@ -22,23 +24,25 @@ import { isSteam, openUrl, SteamClient } from "../rpc/SteamClient";
 import { G, GameFlags } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { ModalTitleBar } from "../utils/ModalManager";
 import { ChangeLanguageComp } from "./ChangeLanguageComp";
 import { ConfirmModal } from "./ConfirmModal";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
+import { getImageCredits } from "./ImageCredits";
 import { Todos } from "./TodoPanel";
 import { Grid2 } from "./UIConstant";
 
-type SettingsTab = "general" | "shortcuts" | "todos";
+type SettingsTab = "general" | "shortcuts" | "todos" | "credits";
 
 export function SettingsSingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameOptionUpdated);
    const [tab, setTab] = useState<SettingsTab>("general");
    return (
-      <ModalComp size="lg" title={<ModalTitleBar title={$t(L.Settings)} dismiss />}>
-         <div className="row g0">
-            <div className="fstart" style={{ width: "10rem" }}>
+      <div className="modal panel lg">
+         <ModalTitleBar title={$t(L.Settings)} dismiss />
+         <div className="row g0 stretch" style={{ minHeight: 0 }}>
+            <div style={{ flex: "0 0 10rem" }}>
                <SegmentedControl
                   fullWidth
                   className="text-display p10"
@@ -60,23 +64,42 @@ export function SettingsSingletonModal(): React.ReactNode {
                      { label: $t(L.General), value: "general" },
                      { label: $t(L.Shortcuts), value: "shortcuts" },
                      { label: $t(L.Todo), value: "todos" },
+                     { label: $t(L.Credits), value: "credits" },
                   ]}
                   value={tab}
                   onChange={(value) => setTab(value as SettingsTab)}
                />
             </div>
             <div className="divider vertical" />
-            <div className="f1">
+            <ScrollArea.Autosize scrollbars="y" type="hover" className="modal-content">
                {tab === "general" && <SettingsGeneralTab />}
                {tab === "shortcuts" && <SettingsShortcutsTab />}
                {tab === "todos" && <SettingsTodoTab />}
-            </div>
+               {tab === "credits" && <SettingsCreditsTab />}
+            </ScrollArea.Autosize>
          </div>
-      </ModalComp>
+      </div>
    );
 }
 
 const ModifierKeys = new Set(["Alt", "Control", "Meta", "Shift"]);
+
+function SettingsCreditsTab(): React.ReactNode {
+   return (
+      <>
+         <div className="h1">{$t(L.MusicCredits)}</div>
+         <div className="m10 text-mono text-dimmed text-sm">{MusicCredits}</div>
+         <div className="h1">{$t(L.ImageCredits)}</div>
+         <div className="m10 text-mono text-dimmed text-sm">
+            {getImageCredits().map((credit) => (
+               <div key={credit}>{credit}</div>
+            ))}
+         </div>
+         <div className="h1">{$t(L.SoundEffectsCredits)}</div>
+         <div className="m10 text-mono text-dimmed text-sm">{SoundCredits}</div>
+      </>
+   );
+}
 
 function SettingsShortcutsTab(): React.ReactNode {
    const [recording, setRecording] = useState<ShortcutId | null>(null);
@@ -201,6 +224,27 @@ function SettingsGeneralTab(): React.ReactNode {
       <>
          <div className="m10">
             <ChangeLanguageComp />
+         </div>
+         <div className="m10" style={Grid2}>
+            <button
+               className="btn"
+               onClick={async () => {
+                  const fileHandle = await saveToFile(G.save);
+                  showSuccess($t(L.GameSavedToFile$1, fileHandle.name));
+               }}
+            >
+               {$t(L.SaveToFile)}
+            </button>
+            <button
+               className="btn"
+               onClick={async () => {
+                  G.save = await loadFromFile();
+                  saveGame(G.save);
+                  window.location.reload();
+               }}
+            >
+               {$t(L.LoadFromFile)}
+            </button>
          </div>
          <div className="h1">{$t(L.Gameplay)}</div>
          <div className="row m10">
@@ -336,16 +380,33 @@ function SettingsGeneralTab(): React.ReactNode {
          </div>
          <div className="h1">{$t(L.Misc)}</div>
          <div className="row m10">
-            <div>{$t(L.Volume)}</div>
+            <div>{$t(L.SoundEffectsVolume)}</div>
             <div className="f1" />
             <Slider
                w="10rem"
                min={0}
                max={1}
                step={0.1}
+               thumbLabel={$t(L.SoundEffectsVolume)}
                value={G.save.options.volume}
                onChange={(value) => {
                   G.save.options.volume = value;
+                  GameOptionUpdated.emit();
+               }}
+            />
+         </div>
+         <div className="row m10">
+            <div>{$t(L.MusicVolume)}</div>
+            <div className="f1" />
+            <Slider
+               w="10rem"
+               min={0}
+               max={1}
+               step={0.05}
+               thumbLabel={$t(L.MusicVolume)}
+               value={G.save.options.musicVolume}
+               onChange={(value) => {
+                  G.save.options.musicVolume = value;
                   GameOptionUpdated.emit();
                }}
             />
@@ -419,25 +480,6 @@ function SettingsGeneralTab(): React.ReactNode {
          </div>
          <div className="divider" />
          <div className="m10" style={Grid2}>
-            <button
-               className="btn"
-               onClick={async () => {
-                  const fileHandle = await saveToFile(G.save);
-                  showSuccess($t(L.GameSavedToFile$1, fileHandle.name));
-               }}
-            >
-               {$t(L.SaveToFile)}
-            </button>
-            <button
-               className="btn"
-               onClick={async () => {
-                  G.save = await loadFromFile();
-                  saveGame(G.save);
-                  window.location.reload();
-               }}
-            >
-               {$t(L.LoadFromFile)}
-            </button>
             {isSteam() && (
                <button
                   className="btn"

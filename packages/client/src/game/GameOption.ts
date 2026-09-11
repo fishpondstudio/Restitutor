@@ -28,6 +28,7 @@ export class GameOption {
    flag: GameOptionFlag = GameOptionFlag.None | GameOptionFlag.PauseOnBlur;
    chronicleALerts: Set<ChronicleEntryType> = new Set();
    volume = 0.5;
+   musicVolume = 0.5;
    edgePanSize = 20;
    wasdMovementSpeed = 500;
    wasdMovementResponsiveness = 15;

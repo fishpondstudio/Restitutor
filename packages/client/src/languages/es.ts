@@ -1567,7 +1567,6 @@ export const ES = {
    View: "Ver",
    ViewFamilyTree: "Ver el árbol genealógico",
    ViewPatchNotes: "Ver las notas de la versión",
-   Volume: "Volumen",
    VoteForConsulElection: "Votar en las elecciones de cónsules",
    WarChanceEstimateOnly: "Esto es solo una estimación, ya que el poder bélico de cada participante puede cambiar cada mes y las probabilidades de obtener o perder puntuación de guerra cambiarán en consecuencia.",
    WarEndedDesc$1$2$3$4$5: "¡Noticias lejanas, gobernador! Tras un combate de $1 meses, la guerra $2-$3 ha terminado. $4 ha salido victorioso y hemos cumplido nuestra obligación de tratado con $5.",
@@ -3702,4 +3701,10 @@ export const ES = {
    OurGovernorIsCurrentlyInCommand: "Nuestro gobernador está actualmente al mando.",
    TimeLeftBeforeTheCurrentGeneralRetires: "Tiempo restante hasta que se retire el general actual.",
    $1Left: "Quedan $1",
+   SoundEffectsVolume: "Volumen de los efectos de sonido",
+   MusicVolume: "Volumen de la música",
+   MusicCredits: "Créditos de la música",
+   Credits: "Créditos",
+   SoundEffectsCredits: "Créditos de los efectos de sonido",
+   ImageCredits: "Créditos de las imágenes",
 };

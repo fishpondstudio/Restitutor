@@ -8,6 +8,7 @@
       "build": "tsc -b .",
       "translate": "node scripts/Translate.js",
       "achievement": "node scripts/GenerateAchievement.mts",
+      "music": "node scripts/PrepareMusic.js",
       "check": "biome check --write --diagnostic-level=error"
    },
    "keywords": [],
