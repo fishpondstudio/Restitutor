@@ -20,6 +20,14 @@ if (fullBuild) {
 cmd("pnpm run build", path.join(rootPath, "packages", "client"));
 cmd("npx wrangler pages deploy ./dist --project-name restitutor", path.join(rootPath, "packages", "client"));
 
+cmd("zip -r restitutor.zip .", path.join(rootPath, "packages", "client", "dist"));
+fs.ensureDirSync(path.join(rootPath, "packages", "client", "output"));
+fs.removeSync(path.join(rootPath, "packages", "client", "output", `restitutor-${build}.zip`));
+fs.moveSync(path.join(rootPath, "packages", "client", "dist", "restitutor.zip"), path.join(rootPath, "packages", "client", "output", `restitutor-${build}.zip`));
+fs.writeJsonSync(path.join(rootPath, "packages", "client", "output", "restitutor-v1.json"), { build: build });
+cmd(`scp restitutor-${build}.zip ubuntu@de.fishpondstudio.com:/opt/ota/`, path.join(rootPath, "packages", "client", "output"));
+cmd(`scp restitutor-v1.json ubuntu@de.fishpondstudio.com:/opt/ota/`, path.join(rootPath, "packages", "client", "output"));
+
 if (fullBuild) {
    fs.removeSync("./node_modules");
    cmd("npm install", path.join(rootPath, "packages", "electron"));
