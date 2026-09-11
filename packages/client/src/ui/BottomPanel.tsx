@@ -35,7 +35,7 @@ function SceneSwitcherComp(): React.ReactNode {
             {
                label: (
                   <FloatingTip label={() => $t(L.WorldMap)}>
-                     <img src={IconCatalog.MapIcon} height={24} className="display-block" />
+                     <img src={IconCatalog.MapIcon} style={{ height: "1.5rem" }} className="display-block" />
                   </FloatingTip>
                ),
                value: WorldScene.name,
@@ -50,7 +50,7 @@ function SceneSwitcherComp(): React.ReactNode {
                               ? "BottomPanel_TechTree_Active"
                               : "BottomPanel_TechTree_Inactive"
                         }
-                        height={24}
+                        style={{ height: "1.5rem" }}
                         className="display-block"
                      />
                   </FloatingTip>
