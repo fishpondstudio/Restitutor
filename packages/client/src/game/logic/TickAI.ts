@@ -107,7 +107,6 @@ import {
    setProvinceTargetConscription,
 } from "./WarLogic";
 
-const AIDeclareWarChance = 0.2;
 const AIWarMaxUnrest = 20;
 const MaxYear = 600;
 
@@ -544,7 +543,10 @@ function doWar(province: Province, save: SaveGame): void {
       return;
    }
 
-   if (Math.random() > AIDeclareWarChance || save.state.month % 12 !== Provinces.indexOf(province) % 12) {
+   const aiWar = G.params.get("aiWar");
+   const aiDecareWarChance = aiWar ? Number.parseFloat(aiWar) : 0.2;
+
+   if (Math.random() > aiDecareWarChance || save.state.month % 12 !== Provinces.indexOf(province) % 12) {
       return;
    }
 

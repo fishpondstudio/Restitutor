@@ -707,8 +707,8 @@ export function getTileMakeCoreCost(tile: Tile, save: SaveGame): IValueBreakdown
    const makeCoreCount = getProvinceStat("makeCoreCount", data.province, save);
    breakdown.multiply.push({
       name: $t(L.NumberOfCoresMade),
-      desc: $t(L.EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade, "10%", formatNumber(makeCoreCount)),
-      value: 0.1 * makeCoreCount,
+      desc: $t(L.EachCoreMadeAdds$1OfTheBaseCost$2CoresHaveBeenMade, "1%", formatNumber(makeCoreCount)),
+      value: 0.01 * makeCoreCount,
    });
    if (data.culture === state.culture) {
       breakdown.multiply.push({ name: $t(L.DominantCulture), value: -0.1 });
