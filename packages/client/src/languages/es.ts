@@ -3707,4 +3707,7 @@ export const ES = {
    Credits: "Créditos",
    SoundEffectsCredits: "Créditos de los efectos de sonido",
    ImageCredits: "Créditos de las imágenes",
+   OceanMareNostrum: "Mare Nostrum",
+   OceanOceanusAtlanticus: "Océano Atlántico",
+   OceanPontusEuxinus: "Ponto Euxino",
 };

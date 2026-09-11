@@ -3627,4 +3627,7 @@ export const ZH_CN = {
    Credits: "鸣谢",
    SoundEffectsCredits: "音效鸣谢",
    ImageCredits: "图片鸣谢",
+   OceanMareNostrum: "我等之海",
+   OceanOceanusAtlanticus: "大西洋",
+   OceanPontusEuxinus: "好客之海",
 };

@@ -3700,4 +3700,7 @@ export const FR = {
    Credits: "Credits",
    SoundEffectsCredits: "Sound Effects Credits",
    ImageCredits: "Image Credits",
+   OceanMareNostrum: "Mare Nostrum",
+   OceanOceanusAtlanticus: "Oceanus Atlanticus",
+   OceanPontusEuxinus: "Pontus Euxinus",
 };

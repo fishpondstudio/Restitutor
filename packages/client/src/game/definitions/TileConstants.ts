@@ -1,4 +1,5 @@
 import { createTile, keysOf, pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
+import { $t, L } from "../../utils/i18n";
 import { isLand } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
@@ -170,3 +171,9 @@ for (const province of keysOf(Frontier)) {
       frontier = next;
    }
 }
+
+export const OceanLabels: Record<Tile, () => string> = {
+   9764949: () => $t(L.OceanMareNostrum),
+   8454216: () => $t(L.OceanOceanusAtlanticus),
+   10616907: () => $t(L.OceanPontusEuxinus),
+};

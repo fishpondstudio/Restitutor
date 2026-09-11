@@ -19,7 +19,7 @@ import { Fonts } from "../Fonts";
 import { Goods } from "../game/definitions/Goods";
 import { GreatWork, TileToGreatWork } from "../game/definitions/GreatWork";
 import type { Province } from "../game/definitions/Province";
-import { NewSettlementTiles } from "../game/definitions/TileConstants";
+import { NewSettlementTiles, OceanLabels } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
@@ -51,7 +51,7 @@ import { adjustTextSize, getTerrainTextures, isMapMovementBlocked } from "./Worl
 
 const MarginX = 2000;
 const TextureHeight = 256;
-const ProvinceLabelFontSize = 36;
+const MapLabelFontSize = 36;
 let time = 0;
 
 export class WorldScene extends Scene {
@@ -142,6 +142,12 @@ export class WorldScene extends Scene {
 
       this._labelContainer = this.viewport.addChild(new MapContainer<Province, UnicodeText>());
       this._labelContainer.position.set(MarginX, 0);
+
+      const oceanLabelContainer = this.viewport.addChild(new Container<UnicodeText>());
+      oceanLabelContainer.position.set(MarginX, 0);
+      oceanLabelContainer.eventMode = "none";
+
+      this._drawOceanLabels(oceanLabelContainer);
 
       const minZoom = Math.max(
          app.screen.width / this.viewport.worldWidth,
@@ -394,6 +400,10 @@ export class WorldScene extends Scene {
       const point = MapGrid.positionToGrid(pos);
       const tile = pointToTile(point);
 
+      if (isDev()) {
+         console.log(tile, tileToPoint(tile));
+      }
+
       if (this._clickTileHandler) {
          this._clickTileHandler(tile, e);
          return;
@@ -416,7 +426,7 @@ export class WorldScene extends Scene {
             hideSidebar();
          }
          if (isDev()) {
-            console.log(tile, getTileName(tile, G.save));
+            console.log(getTileName(tile, G.save));
          }
          return;
       }
@@ -442,7 +452,7 @@ export class WorldScene extends Scene {
          this._selectedTiles.clear();
          if (e.button === 0) {
             if (isDev()) {
-               console.log(tile, tileToPoint(tile), G.save.state.tiles.get(tile));
+               console.log(G.save.state.tiles.get(tile));
             }
             this._selectedTiles.add(tile);
             showPanel(TilePage, { tile });
@@ -720,12 +730,27 @@ export class WorldScene extends Scene {
             province,
             new UnicodeText(getProvinceName(province, G.save), {
                fontName: Fonts.RomanFont,
-               fontSize: ProvinceLabelFontSize,
+               fontSize: MapLabelFontSize,
                tint: MapTextColors[province],
             }),
          );
          text.anchor.set(0.5, 0.5);
          const position = findProvinceLabelPosition(tiles, text.width);
+         text.position.set(position.x, position.y);
+      }
+   }
+
+   private _drawOceanLabels(container: Container<UnicodeText>): void {
+      for (const [tile, label] of Object.entries(OceanLabels)) {
+         const text = container.addChild(
+            new UnicodeText(label(), {
+               fontName: Fonts.RomanFont,
+               fontSize: 64,
+               tint: hslToRgb(193, 40, 65),
+            }),
+         );
+         text.anchor.set(0.5, 0.5);
+         const position = MapGrid.gridToPosition(tileToPoint(Number(tile)));
          text.position.set(position.x, position.y);
       }
    }

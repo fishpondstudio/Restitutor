@@ -3658,4 +3658,7 @@ export const RU = {
    Credits: "Авторы",
    SoundEffectsCredits: "Авторы звуковых эффектов",
    ImageCredits: "Авторы изображений",
+   OceanMareNostrum: "Наше море",
+   OceanOceanusAtlanticus: "Атлантический океан",
+   OceanPontusEuxinus: "Понт Эвксинский",
 };

@@ -3711,4 +3711,7 @@ export const DE = {
    Credits: "Mitwirkende",
    SoundEffectsCredits: "Soundeffektnachweise",
    ImageCredits: "Bildnachweise",
+   OceanMareNostrum: "Mare Nostrum",
+   OceanOceanusAtlanticus: "Atlantischer Ozean",
+   OceanPontusEuxinus: "Pontos Euxeinos",
 };
