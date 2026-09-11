@@ -8,6 +8,7 @@ import {
    Container,
    type DisplayObject,
    type FederatedPointerEvent,
+   Graphics,
    LINE_CAP,
    LINE_JOIN,
    Sprite,
@@ -55,7 +56,7 @@ let time = 0;
 
 export class WorldScene extends Scene {
    private _ocean: TilingSprite;
-   private _coastline: SmoothGraphics;
+   private _coastline: Graphics;
    private _indicatorContainer: MapContainer<Tile, Sprite>;
    private _tileContainer: MapParticleContainer<Tile, Sprite>;
    private _capitalContainer: MapContainer<Tile, Sprite>;
@@ -108,7 +109,7 @@ export class WorldScene extends Scene {
       this._ocean.tileScale.set(2);
       this._ocean.eventMode = "none";
 
-      this._coastline = this.viewport.addChild(new SmoothGraphics());
+      this._coastline = this.viewport.addChild(new Graphics());
       this._coastline.position.set(MarginX, 0);
       this._coastline.eventMode = "none";
 

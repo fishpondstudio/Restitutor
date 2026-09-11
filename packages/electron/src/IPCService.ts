@@ -145,7 +145,7 @@ export class IPCService {
                const info = this._client.workshop.installInfo(mod);
                if (info) {
                   const file = path.join(info.folder, "index.js");
-                  if (await exists(file)) {
+                  if ((await exists(file)) && !(await exists(path.join(info.folder, "index.html")))) {
                      const content = await readFile(file, "utf8");
                      result.push(content);
                   }

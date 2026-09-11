@@ -215,4 +215,4 @@ export const _Buildings = {
 } as const satisfies Record<string, IBuilding>;
 
 export type Building = keyof typeof _Buildings;
-export const Buildings = Object.freeze(_Buildings as Record<Building, IBuilding>);
+export const Buildings = _Buildings as Record<Building, IBuilding>;

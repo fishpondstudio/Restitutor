@@ -11,9 +11,10 @@ import { loadGame, resetGame, saveAndBackupGame } from "./game/LoadSave";
 import { RomeMap } from "./game/RomeMap";
 import { showBootstrapModal } from "./game/ShowBootstrapModal";
 import { getVersion } from "./game/Version";
+import { loadAddonMods } from "./LoadAddonMods";
 import { loadGameScene } from "./LoadGameScene";
 import { migrateSave } from "./MigrateSave";
-import { isSteam, SteamClient } from "./rpc/SteamClient";
+import { isSteam } from "./rpc/SteamClient";
 import { showPanel } from "./ui/common/ShowPanel";
 import { hideLoading } from "./ui/components/LoadingComp";
 import { initHighlighter } from "./ui/Highlighter";
@@ -129,15 +130,4 @@ function initErrorTracking(): void {
       sendDefaultPii: true,
       release: getVersion(),
    });
-}
-
-async function loadAddonMods(): Promise<void> {
-   if (isSteam()) {
-      const mods = await SteamClient.loadAddonMods();
-      for (const mod of mods) {
-         const script = document.createElement("script");
-         script.textContent = mod;
-         document.body.appendChild(script);
-      }
-   }
 }

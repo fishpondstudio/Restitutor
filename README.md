@@ -33,4 +33,4 @@ Type checking:
 
 - Game's source code is licensed under **GNU General Public License v3.0**
 - Third party libraries are licensed under their corresponding licenses
-- Game's artworks and assets are included in this repository for development convenience. However, due to the complications of the original licenses, please **do not redistribute them**
+- Game's artworks and assets included in this repository can be used to create mods for this game. Check each asset's license for other use cases
