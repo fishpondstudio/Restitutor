@@ -15,7 +15,7 @@ When running `pnpm` command, if you get Corepack `EPERM` error, retry with appro
 
 ## Localization
 
-Localization guide: docs/internal/doc/Localization.md
+Localization guide: docs/internal/Localization.md
 
 After changing language files in packages/client/src/languages
 - Run `pnpm run translate` in the **root** folder to lint translation
