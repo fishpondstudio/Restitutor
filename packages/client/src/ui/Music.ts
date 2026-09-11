@@ -8,7 +8,8 @@ import LostFrontier from "../assets/music/LostFrontier.mp3";
 import RoyalCoupling from "../assets/music/RoyalCoupling.mp3";
 import TheAncientLegend from "../assets/music/TheAncientLegend.mp3";
 import WagnerBridalChorusPiano from "../assets/music/WagnerBridalChorusPiano.mp3";
-import { GameOptionUpdated } from "../game/Events";
+import { GameOptionUpdated, GameStateUpdated } from "../game/Events";
+import { getCurrentWars } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { MusicPlayer, type MusicPlaylist, type MusicTrack } from "./MusicPlayer";
 
@@ -36,6 +37,7 @@ export const MusicCatalog: readonly TaggedMusicTrack[] = [
 ] as const;
 
 const DefaultPlaylist: MusicPlaylist = MusicCatalog.filter((track) => track.tags.includes("Default"));
+const WarPlaylist: MusicPlaylist = MusicCatalog.filter((track) => track.tags.includes("War"));
 
 let player: MusicPlayer | undefined;
 let playlist: MusicPlaylist = DefaultPlaylist;
@@ -91,6 +93,15 @@ export function initMusic(): void {
    window.addEventListener("pagehide", (event) => (event.persisted ? music.pause() : dispose()), events);
    disposeMusic = dispose;
    updatePlayback();
+   GameStateUpdated.on(updatePlaylist);
+}
+
+function updatePlaylist(): void {
+   if (getCurrentWars(G.save.state.playerProvince, G.save).length > 0) {
+      setPlaylist(WarPlaylist);
+   } else {
+      setPlaylist(DefaultPlaylist);
+   }
 }
 
 if (import.meta.hot) {
