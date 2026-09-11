@@ -5,8 +5,6 @@ import Americana from "../assets/music/Americana.mp3";
 import Angevin from "../assets/music/Angevin.mp3";
 import CourtOfTheQueen from "../assets/music/CourtOfTheQueen.mp3";
 import Crusade from "../assets/music/Crusade.mp3";
-import DeathOfKings from "../assets/music/DeathOfKings.mp3";
-import EnchantedJourney from "../assets/music/EnchantedJourney.mp3";
 import FiveArmies from "../assets/music/FiveArmies.mp3";
 import Legionnaire from "../assets/music/Legionnaire.mp3";
 import LostFrontier from "../assets/music/LostFrontier.mp3";
@@ -17,7 +15,6 @@ import RoyalCoupling from "../assets/music/RoyalCoupling.mp3";
 import TempleOfTheManes from "../assets/music/TempleOfTheManes.mp3";
 import TheAncientLegend from "../assets/music/TheAncientLegend.mp3";
 import Titan from "../assets/music/Titan.mp3";
-import VirtutesInstrumenti from "../assets/music/VirtutesInstrumenti.mp3";
 import VirtutesVocis from "../assets/music/VirtutesVocis.mp3";
 import { isChristianReligion } from "../game/definitions/Religion";
 import { GameOptionUpdated, GameStateUpdated } from "../game/Events";
@@ -44,20 +41,17 @@ export const MusicCatalog: readonly TaggedMusicTrack[] = [
    { url: MidnightTale, tag: "Default" },
 
    { url: VirtutesVocis, tag: "Christian" },
-   { url: VirtutesInstrumenti, tag: "Christian" },
    { url: AmazingGrace2011, tag: "Christian" },
 
    { url: Legionnaire, tag: "War" },
    { url: Crusade, tag: "War" },
    { url: FiveArmies, tag: "War" },
 
-   { url: CourtOfTheQueen, tag: "Wedding" },
    { url: ProcessionOfTheKing, tag: "Wedding" },
 
-   { url: DeathOfKings, tag: "Funeral" },
-   { url: AgnusDeiX, tag: "Funeral" },
+   { url: CourtOfTheQueen, tag: "Birth" },
 
-   { url: EnchantedJourney, tag: "Birth" },
+   { url: AgnusDeiX, tag: "Funeral" },
 ] as const;
 
 let player: MusicPlayer | undefined;
