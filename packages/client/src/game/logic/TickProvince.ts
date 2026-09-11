@@ -15,6 +15,7 @@ import { showPanel } from "../../ui/common/ShowPanel";
 import { GameEventModal } from "../../ui/GameEventModal";
 import { GovernorWithoutHeirModal } from "../../ui/GovernorWithoutHeirModal";
 import { IllegitimateChildModal } from "../../ui/IllegitimateChildModal";
+import { startTrack } from "../../ui/Music";
 import { NewChildBornModal } from "../../ui/NewChildBornModal";
 import { NewGovernorModal } from "../../ui/NewGovernorModal";
 import { renderMarkup } from "../../ui/ParseMarkup";
@@ -159,6 +160,9 @@ export function tickProvince(province: Province, save: SaveGame): void {
       const family = state.governor;
       const result = tickFamily(family, province, save);
       if (!result.family.male) {
+         if (province === save.state.playerProvince) {
+            startTrack("Funeral");
+         }
          const successor = getSuccessor(province, save);
          if (successor?.male) {
             successor.male.flag = clearFlag(successor.male.flag, PersonFlags.IsHeir);
@@ -178,6 +182,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
          for (const birth of result.births) {
             if (birth.legitimate) {
                if (province === save.state.playerProvince && !hasFlag(G.flags, GameFlags.Sandbox)) {
+                  startTrack("Birth");
                   showGameEventModal(NewChildBornModal, { province, child: birth.child });
                } else {
                   applyGameEffect(

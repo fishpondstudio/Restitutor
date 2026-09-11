@@ -54,8 +54,8 @@ function readMarker(info) {
    return Object.entries(info.format.tags ?? {}).find(([key]) => key.toUpperCase() === markerName)?.[1];
 }
 
-function normalizationFilter(truePeak = settings.truePeak) {
-   return `loudnorm=I=${settings.loudness}:TP=${truePeak}:LRA=${settings.loudnessRange}`;
+function normalizationFilter(truePeak = settings.truePeak, loudness = settings.loudness) {
+   return `loudnorm=I=${loudness}:TP=${truePeak}:LRA=${settings.loudnessRange}`;
 }
 
 function readMeasurements(output) {
@@ -106,9 +106,10 @@ async function prepare(path, info, outputPath) {
    const source = measure(path);
    const sourceSize = statSync(path).size;
    let peakTarget = settings.truePeak;
+   let loudnessTarget = settings.loudness;
    for (let attempt = 0; attempt < 3; attempt++) {
       const filter = [
-         normalizationFilter(peakTarget),
+         normalizationFilter(peakTarget, loudnessTarget),
          `measured_I=${source.input_i}`,
          `measured_TP=${source.input_tp}`,
          `measured_LRA=${source.input_lra}`,
@@ -158,7 +159,9 @@ async function prepare(path, info, outputPath) {
          continue;
       }
       if (Math.abs(loudness - settings.loudness) > 0.5) {
-         throw new Error(`Encoded loudness ${loudness} LUFS is outside the target tolerance of 0.5 LU.`);
+         loudnessTarget += settings.loudness - loudness;
+         console.log(`  Encoded loudness ${loudness} LUFS; retrying from the original with a corrected target.`);
+         continue;
       }
       const encoded = probe(outputPath);
       const audio = encoded.streams?.[0];
@@ -187,7 +190,7 @@ async function prepare(path, info, outputPath) {
       );
       return;
    }
-   throw new Error("Encoded true peak remains above the target after three attempts; original retained.");
+   throw new Error("Encoded audio remains outside the loudness or true peak targets after three attempts; original retained.");
 }
 
 async function main() {

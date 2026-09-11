@@ -1,4 +1,5 @@
 import { EmptyString, forEach, formatNumber } from "@project/shared/src/utils/Helper";
+import { startTrack } from "../../ui/Music";
 import { $t, L } from "../../utils/i18n";
 import { finalizeCondition, type IGameCostCondition } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
@@ -601,36 +602,57 @@ class TimedActionDefinitions {
       name: () => $t(L.TheFirstCouncilOfNicaea),
       duration: 12 * 10,
       cooldown: 0,
+      onStart: (province, save) => {
+         startTrack("Christian");
+      },
    };
    EcumenicalCouncil2: ITimedAction = {
       name: () => $t(L.TheFirstCouncilOfConstantinople),
       duration: 12 * 10,
       cooldown: 0,
+      onStart: (province, save) => {
+         startTrack("Christian");
+      },
    };
    EcumenicalCouncil3: ITimedAction = {
       name: () => $t(L.TheCouncilOfEphesus),
       duration: 12 * 10,
       cooldown: 0,
+      onStart: (province, save) => {
+         startTrack("Christian");
+      },
    };
    EcumenicalCouncil4: ITimedAction = {
       name: () => $t(L.TheCouncilOfChalcedon),
       duration: 12 * 10,
       cooldown: 0,
+      onStart: (province, save) => {
+         startTrack("Christian");
+      },
    };
    EcumenicalCouncil5: ITimedAction = {
       name: () => $t(L.TheSecondCouncilOfConstantinople),
       duration: 12 * 10,
       cooldown: 0,
+      onStart: (province, save) => {
+         startTrack("Christian");
+      },
    };
    EcumenicalCouncil6: ITimedAction = {
       name: () => $t(L.TheThirdCouncilOfConstantinople),
       duration: 12 * 10,
       cooldown: 0,
+      onStart: (province, save) => {
+         startTrack("Christian");
+      },
    };
    EcumenicalCouncil7: ITimedAction = {
       name: () => $t(L.TheSecondCouncilOfNicaea),
       duration: 12 * 10,
       cooldown: 0,
+      onStart: (province, save) => {
+         startTrack("Christian");
+      },
    };
    EcumenicalCouncilAction: ITimedAction = {
       name: () => $t(L.SponsorDelegate),

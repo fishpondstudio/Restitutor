@@ -38,7 +38,7 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
             }
          }
          if (!headless) {
-            startTrack("Religion");
+            startTrack("Christian");
          }
       },
    };
