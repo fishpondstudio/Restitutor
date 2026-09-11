@@ -26,7 +26,7 @@ import { renderMarkup } from "./ParseMarkup";
 export function RebirthPage(): React.ReactNode {
    const [province, setProvince] = useState(G.save.state.playerProvince);
    const provincialEvents = entriesOf(GameEvents).filter(([k, v]) => v.condition?.province?.has(province));
-   const isDemo = hasFlag(G.flags, GameFlags.Demo) || 1;
+   const isDemo = hasFlag(G.flags, GameFlags.Demo);
    const legacyPointsNextRun = getLegacyPointsNextRun(G.save);
    const greatWorks = Array.from(getProvinceOriginalGreatWorks(province, G.save));
    return (
