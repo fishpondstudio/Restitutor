@@ -23,7 +23,7 @@ For example, reduce a building's construction cost. Wrap your code in a function
 })();
 ```
 
-The [loader](../packages/client/src/LoadAddonMods.ts) runs enabled addons from installed Steam Workshop folders, not arbitrary local folders or browser development sessions. Reload the game after editing a script.
+The [loader](../packages/client/src/LoadAddonMods.ts) runs enabled addons from installed Steam Workshop folders, not arbitrary local folders or browser development sessions. Reload the game after editing a script. You can subscribe to this [barebone example](https://steamcommunity.com/sharedfiles/filedetails/?id=3790897222) from Steam Workshop and modify its content to develop your addon before setting up your own Steam Workshop item.
 
 Addons run after save and scene initialization and game-loop startup, with access to three globals:
 
