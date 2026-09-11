@@ -38,8 +38,8 @@ export const CoastBorder: ILineStyleOptions = {
 };
 
 export const Coastlines: ILineStyleOptions[] = [
-   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 140, alpha: 1, color: hslToRgb(193, 45, 74) },
-   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 90, alpha: 1, color: hslToRgb(193, 45, 73) },
-   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 50, alpha: 1, color: hslToRgb(193, 45, 71) },
-   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 20, alpha: 1, color: hslToRgb(193, 45, 69) },
+   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 180, alpha: 1, color: hslToRgb(193, 45, 74) },
+   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 120, alpha: 1, color: hslToRgb(193, 45, 73) },
+   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 70, alpha: 1, color: hslToRgb(193, 45, 71) },
+   { ...CoastBorder, scaleMode: LINE_SCALE_MODE.NORMAL, width: 30, alpha: 1, color: hslToRgb(193, 45, 69) },
 ];
