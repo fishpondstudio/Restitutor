@@ -36,21 +36,21 @@ export const MusicCatalog: readonly TaggedMusicTrack[] = [
    { url: AgnusDeiX, tags: ["Funeral"] },
 ] as const;
 
-const DefaultPlaylist: MusicPlaylist = MusicCatalog.filter((track) => track.tags.includes("Default"));
-const WarPlaylist: MusicPlaylist = MusicCatalog.filter((track) => track.tags.includes("War"));
-
 let player: MusicPlayer | undefined;
-let playlist: MusicPlaylist = DefaultPlaylist;
+let playlistTags = new Set<MusicTag>(["Default"]);
+let playlist: MusicPlaylist = MusicCatalog.filter((track) => track.tags.some((tag) => playlistTags.has(tag)));
 let pendingTrack: MusicTrack | undefined;
 let disposeMusic: (() => void) | undefined;
 
-// Reuse playlist arrays so repeated game-state updates preserve the shuffle queue.
-export function setPlaylist(next: MusicPlaylist): void {
-   playlist = next;
-   player?.setPlaylist(next);
+export function setPlaylist(tags: readonly MusicTag[]): void {
+   const next = new Set(tags);
+   if (next.size === playlistTags.size && [...next].every((tag) => playlistTags.has(tag))) return;
+   playlistTags = next;
+   playlist = MusicCatalog.filter((track) => track.tags.some((tag) => playlistTags.has(tag)));
+   player?.setPlaylist(playlist);
 }
 
-export function startTrackByTag(tag: MusicTag): void {
+export function startTrack(tag: MusicTag): void {
    const candidates = MusicCatalog.filter((track) => track.tags.includes(tag));
    if (candidates.length === 0) return;
    const track = randOne(candidates);
@@ -98,9 +98,9 @@ export function initMusic(): void {
 
 function updatePlaylist(): void {
    if (getCurrentWars(G.save.state.playerProvince, G.save).length > 0) {
-      setPlaylist(WarPlaylist);
+      setPlaylist(["War"]);
    } else {
-      setPlaylist(DefaultPlaylist);
+      setPlaylist(["Default"]);
    }
 }
 

@@ -1,4 +1,4 @@
-import { startTrackByTag } from "../../ui/Music";
+import { startTrack } from "../../ui/Music";
 import { $t, L } from "../../utils/i18n";
 import { unlockAchievement } from "../Achievement";
 import type { Province } from "../definitions/Province";
@@ -38,7 +38,7 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
             }
          }
          if (!headless) {
-            startTrackByTag("Religion");
+            startTrack("Religion");
          }
       },
    };
