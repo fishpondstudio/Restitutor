@@ -26,7 +26,7 @@ export function ChangeHeirAction(family: IFamily, province: Province, save: Save
          },
          {
             name: $t(L.NotCurrentHeir),
-            value: hasFlag(family.male.flag, PersonFlags.IsHeir),
+            value: !hasFlag(family.male.flag, PersonFlags.IsHeir),
          },
       ]),
       execute: () => {
