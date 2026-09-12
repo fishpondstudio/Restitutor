@@ -1,21 +1,4 @@
 import { hasFlag, randOne } from "@project/shared/src/utils/Helper";
-import AgnusDeiX from "../assets/music/AgnusDeiX.mp3";
-import AmazingGrace2011 from "../assets/music/AmazingGrace2011.mp3";
-import Americana from "../assets/music/Americana.mp3";
-import Angevin from "../assets/music/Angevin.mp3";
-import CourtOfTheQueen from "../assets/music/CourtOfTheQueen.mp3";
-import Crusade from "../assets/music/Crusade.mp3";
-import FiveArmies from "../assets/music/FiveArmies.mp3";
-import Legionnaire from "../assets/music/Legionnaire.mp3";
-import LostFrontier from "../assets/music/LostFrontier.mp3";
-import MemoriesOfStone from "../assets/music/MemoriesOfStone.mp3";
-import MidnightTale from "../assets/music/MidnightTale.mp3";
-import ProcessionOfTheKing from "../assets/music/ProcessionOfTheKing.mp3";
-import RoyalCoupling from "../assets/music/RoyalCoupling.mp3";
-import TempleOfTheManes from "../assets/music/TempleOfTheManes.mp3";
-import TheAncientLegend from "../assets/music/TheAncientLegend.mp3";
-import Titan from "../assets/music/Titan.mp3";
-import VirtutesVocis from "../assets/music/VirtutesVocis.mp3";
 import { isChristianReligion } from "../game/definitions/Religion";
 import { GameOptionUpdated, GameStateUpdated } from "../game/Events";
 import { getCurrentWars } from "../game/logic/WarLogic";
@@ -29,29 +12,31 @@ interface TaggedMusicTrack extends MusicTrack {
    readonly tag: MusicTag;
 }
 
+const MusicBaseUrl = "https://restitutor-music.fishpondstudio.com";
+
 export const MusicCatalog: readonly TaggedMusicTrack[] = [
-   { url: LostFrontier, tag: "Default" },
-   { url: TheAncientLegend, tag: "Default" },
-   { url: RoyalCoupling, tag: "Default" },
-   { url: Americana, tag: "Default" },
-   { url: TempleOfTheManes, tag: "Default" },
-   { url: Titan, tag: "Default" },
-   { url: Angevin, tag: "Default" },
-   { url: MemoriesOfStone, tag: "Default" },
-   { url: MidnightTale, tag: "Default" },
+   { url: `${MusicBaseUrl}/LostFrontier.mp3`, tag: "Default" },
+   { url: `${MusicBaseUrl}/TheAncientLegend.mp3`, tag: "Default" },
+   { url: `${MusicBaseUrl}/RoyalCoupling.mp3`, tag: "Default" },
+   { url: `${MusicBaseUrl}/Americana.mp3`, tag: "Default" },
+   { url: `${MusicBaseUrl}/TempleOfTheManes.mp3`, tag: "Default" },
+   { url: `${MusicBaseUrl}/Titan.mp3`, tag: "Default" },
+   { url: `${MusicBaseUrl}/Angevin.mp3`, tag: "Default" },
+   { url: `${MusicBaseUrl}/MemoriesOfStone.mp3`, tag: "Default" },
+   { url: `${MusicBaseUrl}/MidnightTale.mp3`, tag: "Default" },
 
-   { url: VirtutesVocis, tag: "Christian" },
-   { url: AmazingGrace2011, tag: "Christian" },
+   { url: `${MusicBaseUrl}/VirtutesVocis.mp3`, tag: "Christian" },
+   { url: `${MusicBaseUrl}/AmazingGrace2011.mp3`, tag: "Christian" },
 
-   { url: Legionnaire, tag: "War" },
-   { url: Crusade, tag: "War" },
-   { url: FiveArmies, tag: "War" },
+   { url: `${MusicBaseUrl}/Legionnaire.mp3`, tag: "War" },
+   { url: `${MusicBaseUrl}/Crusade.mp3`, tag: "War" },
+   { url: `${MusicBaseUrl}/FiveArmies.mp3`, tag: "War" },
 
-   { url: ProcessionOfTheKing, tag: "Wedding" },
+   { url: `${MusicBaseUrl}/ProcessionOfTheKing.mp3`, tag: "Wedding" },
 
-   { url: CourtOfTheQueen, tag: "Birth" },
+   { url: `${MusicBaseUrl}/CourtOfTheQueen.mp3`, tag: "Birth" },
 
-   { url: AgnusDeiX, tag: "Funeral" },
+   { url: `${MusicBaseUrl}/AgnusDeiX.mp3`, tag: "Funeral" },
 ] as const;
 
 let player: MusicPlayer | undefined;

@@ -176,6 +176,7 @@ export class MusicPlayer {
 
    private createDeck(): Deck {
       const audio = new Audio();
+      audio.crossOrigin = "anonymous";
       audio.preload = "auto";
       const source = this.context.createMediaElementSource(audio);
       const gain = this.context.createGain();
