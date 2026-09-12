@@ -1,7 +1,6 @@
 import { type MantineSize, Overlay, ScrollArea, Transition } from "@mantine/core";
 import { cls } from "@project/shared/src/utils/Helper";
-import type { TypedEvent } from "@project/shared/src/utils/TypedEvent";
-import { useCallback, useEffect, useState } from "react";
+import { createRef, useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { CloseModal, ShowModal } from "../game/Events";
 import type { ImageWithCredit } from "../game/events/ImageWithCredit";
 import type { ShowModalEvent } from "../ui/common/PanelTypes";
@@ -10,20 +9,46 @@ import { CloseButtonClass } from "../ui/UIConstant";
 import { useTypedEvent } from "./Hook";
 import { $t, L } from "./i18n";
 
-let openModalCount = 0;
+const topModalRef = createRef<HTMLDivElement>();
+let modalOpen = false;
 
 export function hasOpenModal(): boolean {
-   return openModalCount > 0;
+   return modalOpen;
+}
+
+export function tryDismissTopModal(): boolean {
+   const modal = topModalRef.current;
+   if (!modal) {
+      return false;
+   }
+   const buttons = modal.getElementsByClassName(CloseButtonClass);
+   const button = buttons[buttons.length - 1];
+   if (
+      button instanceof HTMLElement &&
+      button.checkVisibility({
+         checkOpacity: true,
+         checkVisibilityCSS: true,
+         contentVisibilityAuto: true,
+         opacityProperty: true,
+         visibilityProperty: true,
+      })
+   ) {
+      button.click();
+      return true;
+   }
+   return false;
 }
 
 export function ModalManager(): React.ReactNode {
    const [modals, setModals] = useState<ShowModalEvent[]>([]);
+   useLayoutEffect(() => {
+      modalOpen = modals.length > 0;
+      return () => {
+         modalOpen = false;
+      };
+   }, [modals.length]);
    const onClosed = useCallback((closedModal: ShowModalEvent) => {
-      setModals((prevModals) => {
-         const newModals = prevModals.filter((modal) => modal !== closedModal);
-         openModalCount = newModals.length;
-         return newModals;
-      });
+      setModals((prevModals) => prevModals.filter((modal) => modal !== closedModal));
    }, []);
 
    useTypedEvent(ShowModal, (modal) => {
@@ -34,18 +59,13 @@ export function ModalManager(): React.ReactNode {
          ) {
             return prevModals;
          }
-         openModalCount = prevModals.length + 1;
          return [...prevModals, modal];
       });
    });
 
    return modals.map((modal, index) => {
       return (
-         <Modal
-            key={index}
-            closeEvent={index === modals.length - 1 ? CloseModal : null}
-            onClosed={() => onClosed(modal)}
-         >
+         <Modal key={index} isTop={index === modals.length - 1} onClosed={() => onClosed(modal)}>
             {modal.content}
          </Modal>
       );
@@ -54,29 +74,32 @@ export function ModalManager(): React.ReactNode {
 
 function Modal({
    children,
-   closeEvent,
+   isTop,
    onClosed,
 }: React.PropsWithChildren<{
    children: React.ReactNode;
-   closeEvent: TypedEvent<void> | null;
+   isTop: boolean;
    onClosed: () => void;
 }>): React.ReactNode {
    const [mounted, setMounted] = useState(false);
    useEffect(() => {
       setMounted(true);
+      if (!isTop) {
+         return;
+      }
       const onClose = () => {
          setMounted(false);
       };
-      closeEvent?.on(onClose);
+      CloseModal.on(onClose);
       return () => {
-         closeEvent?.off(onClose);
+         CloseModal.off(onClose);
       };
-   }, [closeEvent]);
+   }, [isTop]);
    return (
       <Transition mounted={mounted} transition="fade" onExited={onClosed}>
          {(style) => {
             return (
-               <Overlay style={style} className="modal-overlay">
+               <Overlay ref={isTop ? topModalRef : undefined} style={style} className="modal-overlay">
                   {children}
                </Overlay>
             );
@@ -134,15 +157,8 @@ export function hideModal() {
 }
 
 document.addEventListener("mousedown", (event) => {
-   if (!(event.target instanceof HTMLElement)) {
-      return;
-   }
-   if (event.target.classList.contains("modal-overlay")) {
-      const buttons = event.target.getElementsByClassName(CloseButtonClass);
-      const button = buttons[buttons.length - 1];
-      if (button instanceof HTMLElement) {
-         button.click();
-      }
+   if (event.target instanceof HTMLElement && event.target === topModalRef.current) {
+      tryDismissTopModal();
    }
 });
 

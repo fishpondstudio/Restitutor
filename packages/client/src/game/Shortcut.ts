@@ -1,10 +1,11 @@
 import { forEach } from "@project/shared/src/utils/Helper";
 import { type DependencyList, useEffect, useState } from "react";
 import { showPanel } from "../ui/common/ShowPanel";
+import { tryDismissSidebar } from "../ui/common/SidebarManager";
 import { SettingsSingletonModal } from "../ui/SettingsSingletonModal";
-import { CloseButtonClass } from "../ui/UIConstant";
 import { G, isDev, revertSpeed, setSpeed } from "../utils/Global";
 import { useTypedEvent } from "../utils/Hook";
+import { hasOpenModal, tryDismissTopModal } from "../utils/ModalManager";
 import { CurrentShortcuts, OnKeydown, OnKeyup } from "./Events";
 import type { IShortcutConfig, Shortcut } from "./ShortcutDefinition";
 
@@ -73,23 +74,10 @@ CurrentShortcuts.set("Pause", () => {
 });
 
 CurrentShortcuts.set("CloseOpenModal", () => {
-   const buttons = document.getElementsByClassName(CloseButtonClass);
-   if (buttons.length === 0) {
-      showPanel(SettingsSingletonModal, {});
+   if (tryDismissTopModal() || hasOpenModal() || tryDismissSidebar()) {
       return;
    }
-   const button = buttons[buttons.length - 1] as HTMLElement;
-   if (
-      button.checkVisibility({
-         checkOpacity: true,
-         checkVisibilityCSS: true,
-         contentVisibilityAuto: true,
-         opacityProperty: true,
-         visibilityProperty: true,
-      })
-   ) {
-      button.click();
-   }
+   showPanel(SettingsSingletonModal, {});
 });
 
 export const useShortcut = (shortcut: Shortcut, callback: (event: KeyboardEvent) => void, deps: DependencyList) => {

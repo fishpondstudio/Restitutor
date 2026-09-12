@@ -1,7 +1,33 @@
 import { Transition } from "@mantine/core";
-import { useState } from "react";
+import { createRef, useState } from "react";
 import { ToggleSidebar, UpdateSidebar } from "../../game/Events";
 import { useTypedEvent } from "../../utils/Hook";
+import { CloseButtonClass } from "../UIConstant";
+
+const sidebarRef = createRef<HTMLDivElement>();
+
+export function tryDismissSidebar(): boolean {
+   const sidebar = sidebarRef.current;
+   if (!sidebar) {
+      return false;
+   }
+   const buttons = sidebar.getElementsByClassName(CloseButtonClass);
+   const button = buttons[buttons.length - 1];
+   if (
+      button instanceof HTMLElement &&
+      button.checkVisibility({
+         checkOpacity: true,
+         checkVisibilityCSS: true,
+         contentVisibilityAuto: true,
+         opacityProperty: true,
+         visibilityProperty: true,
+      })
+   ) {
+      button.click();
+      return true;
+   }
+   return false;
+}
 
 export function hideSidebar(): void {
    ToggleSidebar.emit(false);
@@ -25,6 +51,7 @@ export function Sidebar(): React.ReactNode {
       >
          {(styles) => (
             <div
+               ref={sidebarRef}
                style={{
                   ...styles,
                   position: "absolute",
