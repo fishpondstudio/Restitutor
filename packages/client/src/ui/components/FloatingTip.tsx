@@ -2,11 +2,30 @@ import { autoPlacement, getOverflowAncestors, offset, type Placement, shift, use
 import { type Factory, factory, getRefProp, isElement, Portal } from "@mantine/core";
 import { useMergedRef } from "@mantine/hooks";
 import { cls } from "@project/shared/src/utils/Helper";
-import { cloneElement, useCallback, useEffect, useRef, useState } from "react";
+import { cloneElement, memo, useCallback, useEffect, useRef, useState } from "react";
 
 export function useFloatingTooltip<T extends HTMLElement = any>({ position }: { position: Placement }) {
    const [opened, setOpened] = useState(false);
    const boundaryRef = useRef<T>(null);
+   const cursorRef = useRef({ x: 0, y: 0 });
+   const placementRef = useRef(position);
+   const animationFrameRef = useRef<number | null>(null);
+   const [positionReference] = useState(() => ({
+      getBoundingClientRect() {
+         const { x, y } = cursorRef.current;
+         return {
+            width: 0,
+            height: 0,
+            x,
+            y,
+            left: x,
+            // if placement is bottom, add 20px to offset cursor size!
+            top: y + (placementRef.current.includes("bottom") ? 20 : 0),
+            right: x,
+            bottom: y,
+         };
+      },
+   }));
 
    const { x, y, elements, refs, update, placement } = useFloating({
       placement: position,
@@ -22,52 +41,63 @@ export function useFloatingTooltip<T extends HTMLElement = any>({ position }: { 
       ],
    });
 
-   // biome-ignore lint/correctness/useExhaustiveDependencies: not my code
+   const { setPositionReference } = refs;
+
+   useEffect(() => {
+      setPositionReference(positionReference);
+   }, [setPositionReference, positionReference]);
+
+   useEffect(() => {
+      placementRef.current = placement;
+   }, [placement]);
+
+   const scheduleUpdate = useCallback(() => {
+      if (!refs.floating.current || animationFrameRef.current !== null) {
+         return;
+      }
+      animationFrameRef.current = requestAnimationFrame(() => {
+         animationFrameRef.current = null;
+         update();
+      });
+   }, [refs.floating, update]);
+
    const handleMouseMove = useCallback(
       ({ clientX, clientY }: MouseEvent | React.MouseEvent<T, MouseEvent>) => {
-         refs.setPositionReference({
-            getBoundingClientRect() {
-               return {
-                  width: 0,
-                  height: 0,
-                  x: clientX,
-                  y: clientY,
-                  left: clientX,
-                  // if placement is bottom, add 20px to offset cursor size!
-                  top: clientY + (placement.includes("bottom") ? 20 : 0),
-                  right: clientX,
-                  bottom: clientY,
-               };
-            },
-         });
+         cursorRef.current.x = clientX;
+         cursorRef.current.y = clientY;
+         scheduleUpdate();
       },
-      [elements.reference],
+      [scheduleUpdate],
    );
 
-   // biome-ignore lint/correctness/useExhaustiveDependencies: not my code
    useEffect(() => {
-      if (refs.floating.current) {
-         const boundary = boundaryRef.current!;
-         boundary.addEventListener("mousemove", handleMouseMove);
-
-         const parents = getOverflowAncestors(refs.floating.current);
-         parents.forEach((parent) => {
-            parent.addEventListener("scroll", update);
-         });
-
-         return () => {
-            boundary.removeEventListener("mousemove", handleMouseMove);
-            parents.forEach((parent) => {
-               parent.removeEventListener("scroll", update);
-            });
-         };
+      const boundary = boundaryRef.current;
+      if (!opened || !elements.floating || !boundary) {
+         return;
       }
 
-      return undefined;
-   }, [elements.reference, refs.floating.current, update, handleMouseMove, opened]);
+      boundary.addEventListener("mousemove", handleMouseMove);
+      const parents = getOverflowAncestors(elements.floating);
+      parents.forEach((parent) => {
+         parent.addEventListener("scroll", scheduleUpdate);
+      });
+
+      return () => {
+         boundary.removeEventListener("mousemove", handleMouseMove);
+         parents.forEach((parent) => {
+            parent.removeEventListener("scroll", scheduleUpdate);
+         });
+         if (animationFrameRef.current !== null) {
+            cancelAnimationFrame(animationFrameRef.current);
+            animationFrameRef.current = null;
+         }
+      };
+   }, [elements.floating, handleMouseMove, opened, scheduleUpdate]);
 
    return { handleMouseMove, x, y, opened, setOpened, boundaryRef, floating: refs.setFloating };
 }
+
+const FloatingTipContent = memo(({ label }: { label: () => React.ReactNode }) => <>{label()}</>);
 
 export const FloatingTip = factory<
    Factory<{
@@ -120,14 +150,15 @@ export const FloatingTip = factory<
                   className={cls("floating-tip panel", className)}
                   style={{
                      ...style,
-                     top: (y && Math.round(y)) ?? "",
-                     left: (x && Math.round(x)) ?? "",
+                     top: 0,
+                     left: 0,
+                     transform: `translate(${Math.round(x ?? 0)}px, ${Math.round(y ?? 0)}px)`,
                      width: fixedWidth ? "18.75rem" : style?.width,
                      maxWidth: fixedWidth ? "18.75rem" : style?.maxWidth,
                   }}
                   ref={floating}
                >
-                  {label()}
+                  <FloatingTipContent label={label} />
                </div>
             </Portal>
          )}

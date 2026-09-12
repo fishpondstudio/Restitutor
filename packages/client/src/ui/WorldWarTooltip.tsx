@@ -10,11 +10,9 @@ import { hasOpenModal } from "../utils/ModalManager";
 import { WarTooltip } from "./WarTooltip";
 
 export function WorldWarTooltip(): React.ReactNode {
-   const [cursor, setCursor] = useState<{ clientX: number; clientY: number } | null>(null);
-   const cursorRef = useRef(cursor);
+   const [war, setWar] = useState<IWar | undefined>(undefined);
+   const cursorRef = useRef<{ clientX: number; clientY: number } | null>(null);
    refreshOnTypedEvent(OnSceneSwitched);
-   refreshOnTypedEvent(GameStateUpdated);
-   refreshOnTypedEvent(OnResize);
    const scene = G.scene?.getCurrent(WorldScene);
    const { refs, floatingStyles, update } = useFloating({
       strategy: "fixed",
@@ -27,65 +25,94 @@ export function WorldWarTooltip(): React.ReactNode {
       whileElementsMounted: autoUpdate,
    });
 
-   useLayoutEffect(() => {
-      const previous = cursorRef.current;
-      cursorRef.current = cursor;
-      if (cursor && (cursor.clientX !== previous?.clientX || cursor.clientY !== previous?.clientY)) {
-         update();
-      }
-   }, [cursor, update]);
+   const { setPositionReference } = refs;
 
    useLayoutEffect(() => {
       if (!scene) {
          return;
       }
-      refs.setPositionReference({
+      setPositionReference({
          getBoundingClientRect: () =>
             new DOMRect(cursorRef.current?.clientX ?? 0, cursorRef.current?.clientY ?? 0, 0, 0),
          contextElement: G.pixi.view as HTMLCanvasElement,
       });
-      return () => refs.setPositionReference(null);
-   }, [scene, refs]);
+      return () => setPositionReference(null);
+   }, [scene, setPositionReference]);
 
    useEffect(() => {
-      setCursor(null);
+      cursorRef.current = null;
+      setWar(undefined);
       if (!scene) {
          return;
       }
       const canvas = G.pixi.view as HTMLCanvasElement;
-      const clear = () => setCursor(null);
-      const onMouseMove = (event: MouseEvent) => {
-         setCursor(event.buttons === 0 && !hasOpenModal() ? { clientX: event.clientX, clientY: event.clientY } : null);
+      let animationFrame: number | null = null;
+      const cancelUpdate = () => {
+         if (animationFrame !== null) {
+            cancelAnimationFrame(animationFrame);
+            animationFrame = null;
+         }
       };
-      const onCameraMoved = () => setCursor((current) => (current ? { ...current } : null));
+      const clear = () => {
+         cursorRef.current = null;
+         cancelUpdate();
+         setWar(undefined);
+      };
+      const scheduleUpdate = () => {
+         if (!cursorRef.current || animationFrame !== null) {
+            return;
+         }
+         animationFrame = requestAnimationFrame(() => {
+            animationFrame = null;
+            const cursor = cursorRef.current;
+            if (!cursor || hasOpenModal()) {
+               clear();
+               return;
+            }
+            const bounds = canvas.getBoundingClientRect();
+            const hoveredWar = scene.getWarFromScreenPosition({
+               x: ((cursor.clientX - bounds.left) * G.pixi.screen.width) / bounds.width,
+               y: ((cursor.clientY - bounds.top) * G.pixi.screen.height) / bounds.height,
+            });
+            setWar(hoveredWar);
+            if (hoveredWar) {
+               update();
+            }
+         });
+      };
+      const onMouseMove = (event: MouseEvent) => {
+         if (event.buttons !== 0 || hasOpenModal()) {
+            clear();
+            return;
+         }
+         cursorRef.current = { clientX: event.clientX, clientY: event.clientY };
+         scheduleUpdate();
+      };
       canvas.addEventListener("mousemove", onMouseMove);
       canvas.addEventListener("mouseleave", clear);
       canvas.addEventListener("mousedown", clear);
       window.addEventListener("blur", clear);
-      scene.viewport.on("moved", onCameraMoved);
-      scene.viewport.on("zoomed", onCameraMoved);
+      scene.viewport.on("moved", scheduleUpdate);
+      scene.viewport.on("zoomed", scheduleUpdate);
+      GameStateUpdated.on(scheduleUpdate);
+      OnResize.on(scheduleUpdate);
       ShowModal.on(clear);
       return () => {
+         cancelUpdate();
+         cursorRef.current = null;
          canvas.removeEventListener("mousemove", onMouseMove);
          canvas.removeEventListener("mouseleave", clear);
          canvas.removeEventListener("mousedown", clear);
          window.removeEventListener("blur", clear);
-         scene.viewport.off("moved", onCameraMoved);
-         scene.viewport.off("zoomed", onCameraMoved);
+         scene.viewport.off("moved", scheduleUpdate);
+         scene.viewport.off("zoomed", scheduleUpdate);
+         GameStateUpdated.off(scheduleUpdate);
+         OnResize.off(scheduleUpdate);
          ShowModal.off(clear);
       };
-   }, [scene]);
+   }, [scene, update]);
 
-   if (!cursor || !scene || hasOpenModal()) {
-      return null;
-   }
-   const canvas = G.pixi.view as HTMLCanvasElement;
-   const bounds = canvas.getBoundingClientRect();
-   const war = scene.getWarFromScreenPosition({
-      x: ((cursor.clientX - bounds.left) * G.pixi.screen.width) / bounds.width,
-      y: ((cursor.clientY - bounds.top) * G.pixi.screen.height) / bounds.height,
-   });
-   if (!war) {
+   if (!war || !scene || hasOpenModal()) {
       return null;
    }
    return (
