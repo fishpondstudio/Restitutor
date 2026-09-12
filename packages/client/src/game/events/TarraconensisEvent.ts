@@ -365,6 +365,7 @@ export const TarraconensisEvent = {
       image: EventImage.DelphiOracle,
       desc: () => $t(L.AnAccordWithLusitaniaDesc),
       condition: {
+         playerOnly: true,
          province: new Set(["Tarraconensis"]),
          onMap: { Lusitania: true },
          conditions: function* (province, save): ConditionChecks {

@@ -307,6 +307,7 @@ export const AquitaniaEvent = {
       image: EventImage.DelphiOracle,
       desc: () => $t(L.AGallicAllianceDesc),
       condition: {
+         playerOnly: true,
          province: new Set(["Aquitania"]),
          onMap: { Lugdunensis: true },
          conditions: function* (province, save): ConditionChecks {

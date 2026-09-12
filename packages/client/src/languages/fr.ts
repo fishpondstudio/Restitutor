@@ -1841,7 +1841,6 @@ export const FR = {
    Restoration$1: "Restauration $1",
    ImageCredit$1: "Crédit image : $1",
    CavalryPredominance: "Prédominance de la cavalerie",
-   CavalryPredominanceDesc: "+1 % de Puissance militaire pour chaque 1 % de composition en unités de cavalerie",
    ChristianFervor: "Ferveur chrétienne",
    ChristianFervorDesc: "+1 d'Influence chrétienne par an tant que notre religion est le christianisme",
    MercantileSynergy: "Synergie marchande",
@@ -2229,7 +2228,6 @@ export const FR = {
    CommercialAlliances: "Alliances commerciales",
    CommercialAlliancesDesc: "+1 capacité commerciale pour chaque traité diplomatique",
    RangedPredominance: "Prédominance des unités à distance",
-   RangedPredominanceDesc: "+1 % de puissance de guerre pour chaque 1 % de composition d'unités à distance",
    BravestOfTheGauls: "Les plus braves des Gaulois",
    BravestOfTheGaulsDesc: "+1 point de compétence de général après avoir remporté une guerre en tant qu'attaquant principal",
    MartialSociety: "Société martiale",
@@ -3719,4 +3717,6 @@ export const FR = {
    CavalryCountersRangedUnitsAndIsCounteredByInfantry: "Cavalry counters <i>ranged units</i> and is countered by <i>infantry</i>.",
    CavalryEffectivenessIncreaseDesc$1$2: "Each $1 of the enemy's war power contributed by ranged units <i>increases</i> our cavalry's effectiveness by $2.",
    CavalryEffectivenessDecreaseDesc$1$2: "Each $1 of the enemy's war power contributed by infantry <i>decreases</i> our cavalry's effectiveness by $2.",
+   CavalryPredominanceDesc$1$2$3: "$1 War Power for each $2 Cavalry Unit composition (up to $3)",
+   RangedPredominanceDesc$1$2$3: "$1 War Power for each $2 Ranged Unit composition (up to $3)",
 };

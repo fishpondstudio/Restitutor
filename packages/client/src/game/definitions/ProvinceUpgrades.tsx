@@ -105,7 +105,7 @@ const _ProvinceUpgrades = {
    },
    CavalryWarPower: {
       name: () => $t(L.CavalryPredominance),
-      desc: () => $t(L.CavalryPredominanceDesc),
+      desc: () => $t(L.CavalryPredominanceDesc$1$2$3, "+1%", "1%", "+25%"),
    },
    TradeProfitForEachTrade: {
       name: () => $t(L.MercantileSynergy),
@@ -145,7 +145,7 @@ const _ProvinceUpgrades = {
    },
    RangedPredominance: {
       name: () => $t(L.RangedPredominance),
-      desc: () => $t(L.RangedPredominanceDesc),
+      desc: () => $t(L.RangedPredominanceDesc$1$2$3, "+1%", "1%", "+25%"),
    },
    BravestOfTheGauls: {
       name: () => $t(L.BravestOfTheGauls),

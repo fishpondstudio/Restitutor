@@ -1839,7 +1839,6 @@ export const RU = {
    Restoration$1: "Восстановление $1",
    ImageCredit$1: "Автор изображения: $1",
    CavalryPredominance: "Кавалерийское превосходство",
-   CavalryPredominanceDesc: "+1% к военной мощи за каждый 1% состава кавалерийских отрядов",
    ChristianFervor: "Христианское рвение",
    ChristianFervorDesc: "+1 к христианскому влиянию в год, пока наша религия является христианской",
    MercantileSynergy: "Торговая синергия",
@@ -2225,7 +2224,6 @@ export const RU = {
    CommercialAlliances: "Торговые альянсы",
    CommercialAlliancesDesc: "+1 к торговой ёмкости за каждый дипломатический договор",
    RangedPredominance: "Превосходство стрелков",
-   RangedPredominanceDesc: "+1% к военной мощи за каждый 1% состава стрелков",
    BravestOfTheGauls: "Храбрейшие из галлов",
    BravestOfTheGaulsDesc: "+1 к очкам навыка генерала после победы в войне в качестве главного атакующего",
    MartialSociety: "Военное общество",
@@ -3677,4 +3675,6 @@ export const RU = {
    CavalryCountersRangedUnitsAndIsCounteredByInfantry: "Кавалерия имеет преимущество против <i>стрелков</i>, но уязвима перед <i>пехотой</i>.",
    CavalryEffectivenessIncreaseDesc$1$2: "Каждые $1 военной мощи противника, приходящиеся на стрелков, <i>повышают</i> эффективность нашей кавалерии на $2.",
    CavalryEffectivenessDecreaseDesc$1$2: "Каждые $1 военной мощи противника, приходящиеся на пехоту, <i>снижают</i> эффективность нашей кавалерии на $2.",
+   CavalryPredominanceDesc$1$2$3: "$1 к военной мощи за каждые $2 состава кавалерийских отрядов (до $3)",
+   RangedPredominanceDesc$1$2$3: "$1 к военной мощи за каждые $2 состава стрелков (до $3)",
 };

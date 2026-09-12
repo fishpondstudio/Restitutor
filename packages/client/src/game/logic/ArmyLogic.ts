@@ -226,13 +226,13 @@ export function getWarPower(province: Province, save: SaveGame, enemy?: ArmyUnit
    if (hasProvinceUpgrade("CavalryWarPower", province, save)) {
       result.multiply.push({
          name: ProvinceUpgrades.CavalryWarPower.name(),
-         value: cavalryUnit * 0.01,
+         value: Math.min(cavalryUnit * 0.01, 0.25),
       });
    }
    if (hasProvinceUpgrade("RangedPredominance", province, save)) {
       result.multiply.push({
          name: ProvinceUpgrades.RangedPredominance.name(),
-         value: rangedUnit * 0.01,
+         value: Math.min(rangedUnit * 0.01, 0.25),
       });
    }
    if (hasProvinceUpgrade("MartialSociety", province, save)) {

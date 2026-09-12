@@ -1833,7 +1833,6 @@ export const ZH_CN = {
    Restoration$1: "复兴 $1",
    ImageCredit$1: "图片来源: $1",
    CavalryPredominance: "骑兵优势",
-   CavalryPredominanceDesc: "骑兵部队组成每 1% 提供 +1% 军力",
    ChristianFervor: "基督教热忱",
    ChristianFervorDesc: "当我们的宗教属于基督宗教时，每年 +1 基督宗教影响力",
    MercantileSynergy: "商业协同",
@@ -2219,7 +2218,6 @@ export const ZH_CN = {
    CommercialAlliances: "商业同盟",
    CommercialAlliancesDesc: "每项外交条约提供 +1 贸易容量",
    RangedPredominance: "远程优势",
-   RangedPredominanceDesc: "远程部队组成每 1% 提供 +1% 军力",
    BravestOfTheGauls: "高卢最勇者",
    BravestOfTheGaulsDesc: "作为主导进攻方赢得战争后获得 +1 将军技能点",
    MartialSociety: "尚武社会",
@@ -3646,4 +3644,6 @@ export const ZH_CN = {
    CavalryCountersRangedUnitsAndIsCounteredByInfantry: "骑兵克制<i>远程单位</i>，并被<i>步兵</i>克制。",
    CavalryEffectivenessIncreaseDesc$1$2: "敌军远程单位贡献的军力每占敌军总军力的$1，就使我方骑兵的作战效能<i>提高</i>$2。",
    CavalryEffectivenessDecreaseDesc$1$2: "敌军步兵贡献的军力每占敌军总军力的$1，就使我方骑兵的作战效能<i>降低</i>$2。",
+   CavalryPredominanceDesc$1$2$3: "骑兵部队组成每 $2 提供 $1 军力（上限 $3）",
+   RangedPredominanceDesc$1$2$3: "远程部队组成每 $2 提供 $1 军力（上限 $3）",
 };

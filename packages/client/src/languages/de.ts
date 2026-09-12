@@ -1843,7 +1843,6 @@ export const DE = {
    Restoration$1: "Wiederherstellung $1",
    ImageCredit$1: "Bildnachweis: $1",
    CavalryPredominance: "Vorherrschaft der Kavallerie",
-   CavalryPredominanceDesc: "+1 % Kriegsmacht für jeden Kavallerieanteil von 1 %",
    ChristianFervor: "Christlicher Eifer",
    ChristianFervorDesc: "+1 christlicher Einfluss pro Jahr, solange unsere Religion christlich ist",
    MercantileSynergy: "Handelssynergie",
@@ -2230,7 +2229,6 @@ export const DE = {
    CommercialAlliances: "Handelsbündnisse",
    CommercialAlliancesDesc: "+1 Handelskapazität für jeden diplomatischen Vertrag",
    RangedPredominance: "Vorherrschaft des Fernkampfs",
-   RangedPredominanceDesc: "+1 % Kriegsmacht für jeden Fernkampfanteil von 1 %",
    BravestOfTheGauls: "Die Tapfersten der Gallier",
    BravestOfTheGaulsDesc: "+1 Fähigkeitspunkt des Generals nach einem Kriegssieg als Hauptangreifer",
    MartialSociety: "Kriegerische Gesellschaft",
@@ -3730,4 +3728,6 @@ export const DE = {
    CavalryCountersRangedUnitsAndIsCounteredByInfantry: "Kavallerie kontert <i>Fernkampfeinheiten</i> und wird von <i>Infanterie</i> gekontert.",
    CavalryEffectivenessIncreaseDesc$1$2: "Je $1 der gegnerischen Kriegsmacht, die auf Fernkampfeinheiten entfallen, <i>erhöhen</i> die Effektivität unserer Kavallerie um $2.",
    CavalryEffectivenessDecreaseDesc$1$2: "Je $1 der gegnerischen Kriegsmacht, die auf Infanterie entfallen, <i>verringern</i> die Effektivität unserer Kavallerie um $2.",
+   CavalryPredominanceDesc$1$2$3: "$1 Kriegsmacht für jeden Kavallerieanteil von $2 (bis zu $3)",
+   RangedPredominanceDesc$1$2$3: "$1 Kriegsmacht für jeden Fernkampfanteil von $2 (bis zu $3)",
 };

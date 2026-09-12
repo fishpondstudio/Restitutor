@@ -387,8 +387,14 @@ function doArmyComposition(province: Province, save: SaveGame): void {
       setArmyComposition(Math.max(0, ranged - 1), Math.max(0, cavalry - 1), province, save);
       return;
    }
-   const increase = Math.min(1, infantry / 2);
-   setArmyComposition(ranged + increase, cavalry + increase, province, save);
+   const defendCount = getProvinceStat("defendCount", province, save);
+   const increase = Math.round(Math.min(1, infantry / 2));
+   setArmyComposition(
+      clamp(ranged + increase, 0, defendCount * 2),
+      clamp(cavalry + increase, 0, defendCount),
+      province,
+      save,
+   );
 }
 
 function doGeneralUpgrade(province: Province, save: SaveGame): void {

@@ -1841,7 +1841,6 @@ export const ES = {
    Restoration$1: "Restauración $1",
    ImageCredit$1: "Crédito de la imagen: $1",
    CavalryPredominance: "Predominio de la caballería",
-   CavalryPredominanceDesc: "+1 % de poder bélico por cada 1 % de composición de unidades de caballería",
    ChristianFervor: "Fervor cristiano",
    ChristianFervorDesc: "+1 de influencia cristiana por año mientras nuestra religión sea cristiana",
    MercantileSynergy: "Sinergia mercantil",
@@ -2227,7 +2226,6 @@ export const ES = {
    CommercialAlliances: "Alianzas comerciales",
    CommercialAlliancesDesc: "+1 de capacidad comercial por cada tratado diplomático",
    RangedPredominance: "Predominio de las unidades a distancia",
-   RangedPredominanceDesc: "+1 % de poder bélico por cada 1 % de composición de unidades a distancia",
    BravestOfTheGauls: "Los más valientes de la Galia",
    BravestOfTheGaulsDesc: "+1 punto de habilidad del general tras ganar una guerra como atacante principal",
    MartialSociety: "Sociedad marcial",
@@ -3726,4 +3724,6 @@ export const ES = {
    CavalryCountersRangedUnitsAndIsCounteredByInfantry: "La caballería contrarresta a las <i>unidades a distancia</i> y es contrarrestada por la <i>infantería</i>.",
    CavalryEffectivenessIncreaseDesc$1$2: "Cada $1 del poder bélico enemigo aportado por las unidades a distancia <i>aumenta</i> la eficacia de nuestra caballería en $2.",
    CavalryEffectivenessDecreaseDesc$1$2: "Cada $1 del poder bélico enemigo aportado por la infantería <i>reduce</i> la eficacia de nuestra caballería en $2.",
+   CavalryPredominanceDesc$1$2$3: "$1 de poder bélico por cada $2 de composición de unidades de caballería (hasta $3)",
+   RangedPredominanceDesc$1$2$3: "$1 de poder bélico por cada $2 de composición de unidades a distancia (hasta $3)",
 };
