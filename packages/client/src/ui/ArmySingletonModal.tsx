@@ -20,22 +20,16 @@ import { TimedActions } from "../game/definitions/TimedAction";
 import { GameOptionUpdated, GameStateUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
 import {
-   GeneralArmyMaintenancePct,
-   getArmyMaintenanceCost,
-   getProvinceManpower,
-   getWarPower,
-} from "../game/logic/ArmyLogic";
-import { getProvinceStat } from "../game/logic/ProvinceLogic";
-import { getProvinceResource, provinceResourceOf } from "../game/logic/ResourceLogic";
-import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
-import { getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
-import {
    ArmyCounterBonus,
    ArmyMoraleMonthlyIncrease,
    dismissGeneral,
+   GeneralArmyMaintenancePct,
    getArmyComposition,
+   getArmyMaintenanceCost,
    getCurrentGeneral,
+   getProvinceManpower,
    getUnitWarPower,
+   getWarPower,
    hasGeneralCondition,
    MaxArmyMaintenance,
    MaxConscription,
@@ -45,7 +39,11 @@ import {
    setProvinceArmyMaintenance,
    setProvinceTargetConscription,
    UnitPowerUpgradeBonus,
-} from "../game/logic/WarLogic";
+} from "../game/logic/ArmyLogic";
+import { getProvinceStat } from "../game/logic/ProvinceLogic";
+import { getProvinceResource, provinceResourceOf } from "../game/logic/ResourceLogic";
+import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
+import { getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";

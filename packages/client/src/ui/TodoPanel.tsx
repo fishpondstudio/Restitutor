@@ -9,6 +9,7 @@ import { Tech } from "../game/definitions/Tech";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import type { SaveGame } from "../game/GameState";
+import { getCurrentGeneral } from "../game/logic/ArmyLogic";
 import { getCurrentRelations, getDiplomats, getRelations } from "../game/logic/DiplomacyLogic";
 import { getOngoingEcumenicalCouncil } from "../game/logic/EcumenicalCouncilLogic";
 import { getEligibleForMarriage } from "../game/logic/GovernorLogic";
@@ -22,7 +23,6 @@ import { PendingGameEventTimeoutMonths } from "../game/logic/TickProvince";
 import { getTileUnrest } from "../game/logic/TileLogic";
 import { getTimedActionTimeLeft, makeGameAction } from "../game/logic/TimedActionLogic";
 import {
-   getCurrentGeneral,
    getCurrentWars,
    getTruceMonthsLeft,
    getWarPowerComparison,

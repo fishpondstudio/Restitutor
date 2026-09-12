@@ -3,9 +3,9 @@ import { $t, L } from "../../utils/i18n";
 import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
+import { getCurrentGeneral, getGeneralSkillUpgradeCost } from "../logic/ArmyLogic";
 import { addProvinceStat, getProvinceStat, setProvinceStat } from "../logic/ProvinceLogic";
 import { startTimedAction } from "../logic/TimedActionLogic";
-import { getCurrentGeneral, getGeneralSkillUpgradeCost } from "../logic/WarLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 

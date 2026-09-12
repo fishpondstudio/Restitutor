@@ -9,12 +9,13 @@ import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
+import { getCurrentGeneral } from "../logic/ArmyLogic";
 import { getRelation } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { addProvinceStat, ensureProvinceCapitals } from "../logic/ProvinceLogic";
 import { addProvinceResource } from "../logic/ResourceLogic";
 import { showGameEventModal } from "../logic/TickProvince";
-import { getCurrentGeneral, getTruceDuration, type IWar, isEligibleForMandate, WarFlag } from "../logic/WarLogic";
+import { getTruceDuration, type IWar, isEligibleForMandate, WarFlag } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
 export function SignPeaceTreatyAction(war: IWar, province: Province, save: SaveGame): IGameAction {

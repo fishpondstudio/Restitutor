@@ -21,13 +21,53 @@ import type { IFamily, IFullFamily, IGovernorFamily, IPerson } from "../definiti
 import { PersonFlags } from "../definitions/Family";
 import { GovernorTraits, PersonTrait } from "../definitions/PersonTrait";
 import type { Province } from "../definitions/Province";
+import { isChristianReligion } from "../definitions/Religion";
+import { applyGameEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { randomFemaleName, randomMaleName } from "../RomanNames";
-import { onGeneralEnded } from "./WarLogic";
+import { onGeneralEnded } from "./ArmyLogic";
 
 export const GovernorMinIncl = 3;
 export const GovernorMaxIncl = 6;
 export const GovernorMaxExcl = GovernorMaxIncl + 1;
+
+export const NewGovernorEffect = {
+   modifiers: {
+      Prestige: { type: "multiply", value: -0.1, duration: 12 },
+   },
+} as const satisfies IGameEffect;
+
+export const GovernorWithoutHeirEffect = {
+   modifiers: {
+      Prestige: { type: "multiply", value: -0.1, duration: 36 },
+      Stability: { type: "add", value: -10, duration: 36 },
+   },
+} as const satisfies IGameEffect;
+
+export const NewChildBornEffects1 = {
+   resources: { gold: 1000 },
+} as const satisfies IGameEffect;
+
+export const NewChildBornEffects2 = {
+   modifiers: {
+      Stability: { type: "add", value: 10, duration: 12 },
+   },
+} as const satisfies IGameEffect;
+
+export const RecognizeIllegitimateChildEffect = {
+   modifiers: {
+      Stability: { type: "add", value: -5, duration: 12 * 5 },
+      Prestige: { type: "multiply", value: -0.05, duration: 12 * 5 },
+   },
+} as const satisfies IGameEffect;
+
+export function getRecognizeIllegitimateChildEffect(province: Province, save: SaveGame): IGameEffect {
+   const state = save.state.provinces[province];
+   return {
+      ...RecognizeIllegitimateChildEffect,
+      resources: state && isChristianReligion(state.religion) ? { christianity: -5 } : undefined,
+   };
+}
 
 export function getDeathChance(governor: IPerson, province: Province, save: SaveGame): IValueBreakdown {
    const age = governor.age;
@@ -205,6 +245,21 @@ export function ensureHeir(province: Province, save: SaveGame): void {
    if (heir) {
       setHeir(heir, province, save);
    }
+}
+
+export function recognizeIllegitimateChild(parentId: string, child: IFamily, province: Province, save: SaveGame): void {
+   const parent = findFamilyById(parentId, save);
+   if (!parent || parent.children.some((existingChild) => existingChild.id === child.id)) {
+      return;
+   }
+   parent.children.push(child);
+   applyGameEffect(
+      getRecognizeIllegitimateChildEffect(province, save),
+      $t(L.$1Event, $t(L.AQuestionOfLegitimacy)),
+      province,
+      save,
+   );
+   ensureHeir(province, save);
 }
 
 export function tickFamily(governor: IFamily, province: Province, save: SaveGame): ITickFamilyResult {

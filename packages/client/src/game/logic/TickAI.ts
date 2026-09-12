@@ -50,6 +50,16 @@ import { SocialClass } from "../definitions/SocialClass";
 import { MaxRaidMonths, SpawnedProvinces } from "../definitions/SpawnedProvince";
 import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
+import {
+   getArmyComposition,
+   MaxArmyMaintenance,
+   MaxConscription,
+   MinArmyMaintenance,
+   MinConscription,
+   setArmyComposition,
+   setProvinceArmyMaintenance,
+   setProvinceTargetConscription,
+} from "./ArmyLogic";
 import { getProvinceTilesCached } from "./CacheLogic";
 import {
    cancelImproveRelations,
@@ -89,7 +99,6 @@ import {
 import { getTreatyCount } from "./TreatyLogic";
 import {
    calculateWarLengthForStability,
-   getArmyComposition,
    getCurrentWars,
    getWarEstimatedTime,
    getWarMonthlyMilitaryPoint,
@@ -97,13 +106,6 @@ import {
    getWarPowerComparison,
    getWarScore,
    getWarTiles,
-   MaxArmyMaintenance,
-   MaxConscription,
-   MinArmyMaintenance,
-   MinConscription,
-   setArmyComposition,
-   setProvinceArmyMaintenance,
-   setProvinceTargetConscription,
 } from "./WarLogic";
 
 const AIWarMaxUnrest = 20;

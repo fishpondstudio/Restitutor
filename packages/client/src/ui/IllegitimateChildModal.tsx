@@ -4,7 +4,7 @@ import type { Province } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
 import { EventImage } from "../game/events/EventImages";
 import { getGameEffectDesc } from "../game/GameEffect";
-import { getRecognizeIllegitimateChildEffect, recognizeIllegitimateChild } from "../game/logic/GovernorEventLogic";
+import { getRecognizeIllegitimateChildEffect, recognizeIllegitimateChild } from "../game/logic/GovernorLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";

@@ -37,18 +37,22 @@ import { type GameEvent, GameEvents } from "../events/GameEvents";
 import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { showWarning } from "./AlertLogic";
+import { ArmyMoraleMonthlyIncrease } from "./ArmyLogic";
 import { calculateTilesConnectedToCapital } from "./CacheLogic";
 import { cleanUpProvince } from "./CleanupProvince";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
 import { getGameDate } from "./GameDateTime";
 import {
+   ensureHeir,
    GovernorWithoutHeirEffect,
+   generateRandomGovernor,
+   getSuccessor,
    NewChildBornEffects1,
    NewChildBornEffects2,
    NewGovernorEffect,
    recognizeIllegitimateChild,
-} from "./GovernorEventLogic";
-import { ensureHeir, generateRandomGovernor, getSuccessor, tickFamily } from "./GovernorLogic";
+   tickFamily,
+} from "./GovernorLogic";
 import { canTakeLoan, getLoanAmount, getMonthlyInterestRate, takeLoan } from "./LoanLogic";
 import { tickProduction } from "./ProductionLogic";
 import {
@@ -66,7 +70,6 @@ import { addProvinceResource, getProvinceResource, spendProvinceResource } from 
 import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
-import { ArmyMoraleMonthlyIncrease } from "./WarLogic";
 
 export const PendingGameEventTimeoutMonths = 12;
 

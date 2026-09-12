@@ -43,7 +43,7 @@ import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
-import { getArmyMaintenanceCost, getWarPower } from "./ArmyLogic";
+import { getArmyMaintenanceCost, getWarPower, getWarPowerPerTile } from "./ArmyLogic";
 import { cacheProvince } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getRelation } from "./DiplomacyLogic";
@@ -63,7 +63,7 @@ import {
 import { startTimedAction } from "./TimedActionLogic";
 import { getProvinceTrades } from "./TradeLogic";
 import { getClients, getPatrons } from "./TreatyLogic";
-import { calculateWarTotalStability, getCurrentWars, getWarPowerPerTile } from "./WarLogic";
+import { calculateWarTotalStability, getCurrentWars } from "./WarLogic";
 
 export function getProvinceStat(stat: ProvinceStat, province: Province, save: SaveGame): number {
    const state = save.state.provinces[province];

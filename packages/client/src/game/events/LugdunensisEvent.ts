@@ -3,6 +3,7 @@ import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
 import { getOriginalTileCount } from "../GameState";
+import { hasGeneralChecks } from "../logic/ArmyLogic";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import {
@@ -27,7 +28,6 @@ import {
    requireNoTreatyBetweenChecks,
    requirePeaceBetweenChecks,
 } from "../logic/TreatyLogic";
-import { hasGeneralChecks } from "../logic/WarLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 

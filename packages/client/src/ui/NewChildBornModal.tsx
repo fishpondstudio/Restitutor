@@ -4,7 +4,7 @@ import type { Province } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
 import { EventImage } from "../game/events/EventImages";
 import { applyGameEffect, getGameEffectDesc } from "../game/GameEffect";
-import { NewChildBornEffects1, NewChildBornEffects2 } from "../game/logic/GovernorEventLogic";
+import { NewChildBornEffects1, NewChildBornEffects2 } from "../game/logic/GovernorLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";

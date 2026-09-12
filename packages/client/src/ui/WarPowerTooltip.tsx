@@ -1,6 +1,5 @@
 import { cls, formatDelta, formatNumber, formatPercent, formatPercentDelta } from "@project/shared/src/utils/Helper";
-import type { IWarPowerBreakdown } from "../game/logic/ArmyLogic";
-import { ArmyUnitNames, ArmyUnits } from "../game/logic/WarLogic";
+import { ArmyUnitNames, ArmyUnits, type IWarPowerBreakdown } from "../game/logic/ArmyLogic";
 import { $t, L } from "../utils/i18n";
 import { BreakdownComp, ValueListComp } from "./BreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";

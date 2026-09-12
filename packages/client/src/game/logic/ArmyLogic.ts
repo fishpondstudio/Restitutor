@@ -1,11 +1,13 @@
-import { formatDelta, formatNumber } from "@project/shared/src/utils/Helper";
+import { clamp, clearFlag, formatDelta, formatNumber, hasFlag } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
-import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
+import { finalizeBreakdown, type ICondition, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
+import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { cacheProvince, getProvinceCoreTilesCached } from "./CacheLogic";
+import type { ConditionChecks } from "./Calculation";
 import { getProvinceCultures } from "./InternalAffairsLogic";
 import { attachModifiers } from "./ModifierLogic";
 import {
@@ -13,20 +15,66 @@ import {
    getProvinceCoreCoastalTileCount,
    getProvinceName,
    getProvinceStat,
+   getProvinceTileCount,
+   setProvinceStat,
 } from "./ProvinceLogic";
+import { provinceResourceOf } from "./ResourceLogic";
 import { getTileManpower } from "./TileLogic";
-import { getTimedActionTimeLeft } from "./TimedActionLogic";
+import { endTimedActionAndResetCooldown, getTimedActionTimeLeft } from "./TimedActionLogic";
 import { getProvinceTrades } from "./TradeLogic";
-import {
-   ArmyCounterBonus,
-   type ArmyUnit,
-   ArmyUnitNames,
-   type ArmyUnitPowers,
-   getArmyComposition,
-   getCurrentWars,
-   getUnitWarPower,
-   MonthlyExtraArmyMaintenancePct,
-} from "./WarLogic";
+import { getCurrentWars, MonthlyExtraArmyMaintenancePct } from "./WarLogic";
+
+export const MaxConscription = 50;
+export const MinConscription = 5;
+export const MinArmyMaintenance = 50;
+export const MaxArmyMaintenance = 100;
+export const ArmyMoraleMonthlyIncrease = 10;
+
+export const UnitPowerUpgradeBonus = 0.5;
+export const ArmyCounterBonus = 0.25;
+export const ArmyUnits = ["infantry", "ranged", "cavalry"] as const;
+export type ArmyUnit = (typeof ArmyUnits)[number];
+export const ArmyUnitNames: Record<ArmyUnit, () => string> = {
+   infantry: () => $t(L.Infantry),
+   ranged: () => $t(L.Ranged),
+   cavalry: () => $t(L.Cavalry),
+};
+export type ArmyUnitPowers = Record<ArmyUnit, number>;
+type ArmyComposition = Record<ArmyUnit, number>;
+
+export function getArmyComposition(province: Province, save: SaveGame): ArmyComposition {
+   const ranged = clamp(getProvinceStat("rangedUnit", province, save), 0, 100);
+   const cavalry = clamp(getProvinceStat("cavalryUnit", province, save), 0, 100 - ranged);
+   return { infantry: 100 - ranged - cavalry, ranged, cavalry };
+}
+
+export function setArmyComposition(ranged: number, cavalry: number, province: Province, save: SaveGame): void {
+   ranged = clamp(ranged, 0, 100);
+   cavalry = clamp(cavalry, 0, 100 - ranged);
+   setProvinceStat("rangedUnit", ranged, province, save);
+   setProvinceStat("cavalryUnit", cavalry, province, save);
+}
+
+const ArmyUnitPowerConfig = {
+   infantry: { basePower: 1, skillName: () => $t(L.GeneralInfantrySkill), modifier: "InfantryUnitPower" },
+   ranged: { basePower: 2, skillName: () => $t(L.GeneralRangedSkill), modifier: "RangedUnitPower" },
+   cavalry: { basePower: 3, skillName: () => $t(L.GeneralCavalrySkill), modifier: "CavalryUnitPower" },
+} as const;
+
+export function getUnitWarPower(unit: ArmyUnit, province: Province, save: SaveGame): IValueBreakdown {
+   const config = ArmyUnitPowerConfig[unit];
+   const result = makeValueBreakdown();
+   result.add.push({ name: $t(L.BasePower), value: config.basePower });
+   const skill = getProvinceStat(`${unit}Skill`, province, save);
+   if (skill > 0) {
+      result.multiply.push({
+         name: config.skillName(),
+         value: skill * UnitPowerUpgradeBonus,
+      });
+   }
+   attachModifiers(config.modifier, result, province, save);
+   return finalizeBreakdown(result);
+}
 
 export const getProvinceManpower = cacheProvince(_getProvinceManpower);
 
@@ -274,4 +322,94 @@ export function getWarPower(province: Province, save: SaveGame, enemy?: ArmyUnit
       });
    }
    return { infantry, ranged, cavalry, total: finalizeBreakdown(result) };
+}
+
+export function getArmyUnitPowers(province: Province, save: SaveGame): ArmyUnitPowers {
+   const power = getWarPower(province, save);
+   const unitTotal = power.infantry.value + power.ranged.value + power.cavalry.value;
+   const scale = unitTotal > 0 ? power.total.value / unitTotal : 0;
+   return {
+      infantry: power.infantry.value * scale,
+      ranged: power.ranged.value * scale,
+      cavalry: power.cavalry.value * scale,
+   };
+}
+
+export type GeneralType = "Recruit" | "Governor";
+
+export function getCurrentGeneral(province: Province, save: SaveGame): GeneralType | undefined {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return undefined;
+   }
+   if (hasFlag(state.governor.male.flag, PersonFlags.IsGeneral)) {
+      return "Governor";
+   }
+   if (getTimedActionTimeLeft("RecruitAGeneral", province, save) > 0) {
+      return "Recruit";
+   }
+   return undefined;
+}
+
+export function onGeneralEnded(province: Province, save: SaveGame): void {
+   const sp = provinceResourceOf("generalSkillPoint", province, save);
+   sp[0] = Math.floor(sp[0] / 2);
+   sp[1] = 0;
+   setProvinceStat("infantrySkill", 0, province, save);
+   setProvinceStat("rangedSkill", 0, province, save);
+   setProvinceStat("cavalrySkill", 0, province, save);
+}
+
+export function hasGeneralCondition(province: Province, save: SaveGame): ICondition {
+   return {
+      name: $t(L.CurrentlyHasAGeneral),
+      value: getCurrentGeneral(province, save) !== undefined,
+   };
+}
+
+export function* hasGeneralChecks(province: Province, save: SaveGame): ConditionChecks {
+   (yield getCurrentGeneral(province, save) !== undefined)?.describe($t(L.CurrentlyHasAGeneral));
+}
+
+export function dismissGeneral(province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   const governor = state.governor.male;
+   governor.flag = clearFlag(governor.flag, PersonFlags.IsGeneral);
+   endTimedActionAndResetCooldown("RecruitAGeneral", province, save);
+   onGeneralEnded(province, save);
+}
+
+export function getGeneralSkillUpgradeCost(level: number): number {
+   return level;
+}
+
+export function getWarPowerPerTile(province: Province, save: SaveGame): number {
+   const tileCount = getProvinceTileCount(province, save);
+   if (tileCount === 0) {
+      return 0;
+   }
+   return getWarPower(province, save).total.value / tileCount;
+}
+
+export function setProvinceArmyMaintenance(value: number, province: Province, save: SaveGame): void {
+   value = clamp(value, MinArmyMaintenance, MaxArmyMaintenance);
+   if (value < getProvinceStat("armyMorale", province, save)) {
+      setProvinceStat("armyMorale", value, province, save);
+   }
+   setProvinceStat("armyMaintenance", value, province, save);
+}
+
+export function setProvinceTargetConscription(value: number, province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   const targetConscription = clamp(value, MinConscription, MaxConscription);
+   if (targetConscription < getProvinceStat("actualConscription", province, save)) {
+      setProvinceStat("actualConscription", targetConscription, province, save);
+   }
+   setProvinceStat("targetConscription", targetConscription, province, save);
 }

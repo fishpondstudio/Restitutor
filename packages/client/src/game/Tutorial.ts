@@ -10,13 +10,14 @@ import { Tiles } from "./definitions/TileConstants";
 import { getTileName } from "./definitions/TileName";
 import { LugdunensisEvent } from "./events/LugdunensisEvent";
 import type { SaveGame } from "./GameState";
+import { getCurrentGeneral } from "./logic/ArmyLogic";
 import { addAttitudeModifier, BaseDiplomats, getAttitudeTowards, getRelation } from "./logic/DiplomacyLogic";
 import { addModifier } from "./logic/ModifierLogic";
 import { ConsulCandidatesCount, ConsulElectionMonths, getProvinceStat } from "./logic/ProvinceLogic";
 import { getProvinceResource } from "./logic/ResourceLogic";
 import { getTimedActionTimeLeft } from "./logic/TimedActionLogic";
 import { fillOfferAmount, getProvinceTrades } from "./logic/TradeLogic";
-import { getCurrentGeneral, getCurrentWars, WarOneTimeDiplomaticPoint } from "./logic/WarLogic";
+import { getCurrentWars, WarOneTimeDiplomaticPoint } from "./logic/WarLogic";
 import { provinceSel, techSel } from "./ProvinceSelector";
 
 const TutorialEnemyProvince: Province = "Belgica" as const;
