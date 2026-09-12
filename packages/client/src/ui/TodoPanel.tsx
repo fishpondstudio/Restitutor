@@ -14,12 +14,8 @@ import { getOngoingEcumenicalCouncil } from "../game/logic/EcumenicalCouncilLogi
 import { getEligibleForMarriage } from "../game/logic/GovernorLogic";
 import { getLegacyUpgradeCost } from "../game/logic/LegacyUpgradeLogic";
 import { getProvinceProductionCapacity, getProvinceUsedProductionCapacity } from "../game/logic/ProductionLogic";
-import {
-   getProvinceName,
-   getProvinceOverextension,
-   getProvinceResource,
-   monthsToNextConsulElection,
-} from "../game/logic/ProvinceLogic";
+import { getProvinceName, getProvinceOverextension, monthsToNextConsulElection } from "../game/logic/ProvinceLogic";
+import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { isSocialClassDisloyal, isSocialClassDominant } from "../game/logic/SocialClassLogic";
 import { getTechsCanBeResearched, hasResearched } from "../game/logic/TechLogic";
 import { PendingGameEventTimeoutMonths } from "../game/logic/TickProvince";

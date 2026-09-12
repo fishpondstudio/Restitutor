@@ -24,20 +24,22 @@ import { GameStateUpdated } from "../game/Events";
 import {
    getChristianityYearly,
    getCulturalCohesion,
+   getReligiousCohesion,
+   getToleratedCulture,
+   getToleratedReligion,
+} from "../game/logic/InternalAffairsLogic";
+import {
    getProgressToNextRestoration,
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,
    getProvinceGreatWorks,
    getProvinceOverextension,
-   getProvinceResource,
    getProvinceStability,
-   getReligiousCohesion,
    getRestoration,
    getTilesAnnexedAndCored,
-   getToleratedCulture,
-   getToleratedReligion,
    TilesPerRestoration,
 } from "../game/logic/ProvinceLogic";
+import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { getTileUnrest, isCapital } from "../game/logic/TileLogic";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";

@@ -10,16 +10,10 @@ import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { showSuccess } from "../game/logic/AlertLogic";
+import { getArmyMaintenanceCost, getMercenaryCost, getWarPower } from "../game/logic/ArmyLogic";
 import { addAttitudeModifier } from "../game/logic/DiplomacyLogic";
 import { monthToDate } from "../game/logic/GameDateTime";
-import {
-   getArmyMaintenanceCost,
-   getMercenaryCost,
-   getProvinceName,
-   getProvinceStat,
-   getWarPower,
-   setProvinceStat,
-} from "../game/logic/ProvinceLogic";
+import { getProvinceName, getProvinceStat, setProvinceStat } from "../game/logic/ProvinceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import {

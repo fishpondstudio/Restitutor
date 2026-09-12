@@ -2,6 +2,7 @@ import { $t, L } from "../../utils/i18n";
 import { Culture } from "../definitions/Culture";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
+import { changeProvinceCulture } from "../logic/InternalAffairsLogic";
 import {
    forcePatronageEffect,
    isCoreTileChecks,
@@ -10,7 +11,6 @@ import {
    minCoreTileChecks,
    minCulturePercentageChecks,
 } from "../logic/MissionLogic";
-import { changeProvinceCulture } from "../logic/ProvinceLogic";
 import { requireNoTreatyBetweenChecks, requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";

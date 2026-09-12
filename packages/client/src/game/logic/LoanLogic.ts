@@ -5,7 +5,8 @@ import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBr
 import type { ILoan, Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { attachModifiers } from "./ModifierLogic";
-import { addProvinceResource, getProvinceIncome } from "./ProvinceLogic";
+import { getProvinceIncome } from "./ProvinceLogic";
+import { addProvinceResource } from "./ResourceLogic";
 
 export function getLoanAmount(province: Province, save: SaveGame): number {
    let result = 0;

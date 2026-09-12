@@ -6,7 +6,7 @@ import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
 import { defineValueGetter, type EvaluationMode, ValueCalculation } from "./Calculation";
 import { attachModifiersToCalculation } from "./ModifierLogic";
-import { hasEnoughProvinceResources } from "./ProvinceLogic";
+import { hasEnoughProvinceResources } from "./ResourceLogic";
 import { stringToPosition } from "./StringToPosition";
 
 export const getResearchCostBreakdown = defineValueGetter(

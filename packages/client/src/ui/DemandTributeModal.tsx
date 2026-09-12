@@ -7,12 +7,8 @@ import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { addAttitudeModifier } from "../game/logic/DiplomacyLogic";
 import { addModifier } from "../game/logic/ModifierLogic";
-import {
-   addProvinceResource,
-   getProvinceName,
-   getProvincePrestige,
-   getTotalUpgrades,
-} from "../game/logic/ProvinceLogic";
+import { getProvinceName, getProvincePrestige, getTotalUpgrades } from "../game/logic/ProvinceLogic";
+import { addProvinceResource } from "../game/logic/ResourceLogic";
 import { startTimedAction } from "../game/logic/TimedActionLogic";
 import { getWarParticipants } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";

@@ -12,15 +12,10 @@ import { LugdunensisEvent } from "./events/LugdunensisEvent";
 import type { SaveGame } from "./GameState";
 import { addAttitudeModifier, BaseDiplomats, getAttitudeTowards, getRelation } from "./logic/DiplomacyLogic";
 import { addModifier } from "./logic/ModifierLogic";
-import {
-   ConsulCandidatesCount,
-   ConsulElectionMonths,
-   fillOfferAmount,
-   getProvinceResource,
-   getProvinceStat,
-   getProvinceTrades,
-} from "./logic/ProvinceLogic";
+import { ConsulCandidatesCount, ConsulElectionMonths, getProvinceStat } from "./logic/ProvinceLogic";
+import { getProvinceResource } from "./logic/ResourceLogic";
 import { getTimedActionTimeLeft } from "./logic/TimedActionLogic";
+import { fillOfferAmount, getProvinceTrades } from "./logic/TradeLogic";
 import { getCurrentGeneral, getCurrentWars, WarOneTimeDiplomaticPoint } from "./logic/WarLogic";
 import { provinceSel, techSel } from "./ProvinceSelector";
 

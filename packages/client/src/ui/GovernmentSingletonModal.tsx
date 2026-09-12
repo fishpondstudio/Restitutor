@@ -7,13 +7,8 @@ import { getPersonTraitDescription, PersonTrait } from "../game/definitions/Pers
 import { type GovernorPower, ProvinceResourceNames } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
 import { showError } from "../game/logic/AlertLogic";
-import {
-   getProvinceGovernmentPoint,
-   getProvinceName,
-   getProvinceResource,
-   trySpendProvinceResources,
-} from "../game/logic/ProvinceLogic";
-import { notEnoughResourcesError } from "../game/logic/ResourceLogic";
+import { getProvinceGovernmentPoint, getProvinceName } from "../game/logic/ProvinceLogic";
+import { getProvinceResource, notEnoughResourcesError, trySpendProvinceResources } from "../game/logic/ResourceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";

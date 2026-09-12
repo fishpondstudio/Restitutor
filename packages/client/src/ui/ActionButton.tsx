@@ -5,7 +5,7 @@ import type { IConditionBreakdown, IGameAction } from "../game/actions/GameActio
 import type { ProvinceResourceCosts } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
 import { applyGameEffect, getGameEffectDesc, type IGameEffect } from "../game/GameEffect";
-import { hasEnoughProvinceResources, trySpendProvinceResources } from "../game/logic/ProvinceLogic";
+import { hasEnoughProvinceResources, trySpendProvinceResources } from "../game/logic/ResourceLogic";
 import { useDebugKey } from "../game/Shortcut";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";

@@ -15,11 +15,12 @@ import { showSuccess } from "../logic/AlertLogic";
 import {
    canGetMarried,
    ensureTraits,
+   GovernorMaxExcl,
+   GovernorMinIncl,
    isEligibleForMarriage,
    MinimumOffspringAge,
    removeEmptyFamily,
 } from "../logic/GovernorLogic";
-import { GovernorMaxExcl, GovernorMinIncl } from "../logic/ProvinceLogic";
 import { addSocialClassLoyalty } from "../logic/SocialClassLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { requireHigherPrestige, requireMinimumAttitude } from "../logic/TreatyLogic";

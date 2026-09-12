@@ -9,7 +9,8 @@ import { GameOption } from "./game/GameOption";
 import { GameState, type SaveGame } from "./game/GameState";
 import { emptyRelation, fixRelations, getRelations } from "./game/logic/DiplomacyLogic";
 import { ensureHeir } from "./game/logic/GovernorLogic";
-import { initProvince, provinceResourceOf, setProvinceStat } from "./game/logic/ProvinceLogic";
+import { initProvince, setProvinceStat } from "./game/logic/ProvinceLogic";
+import { provinceResourceOf } from "./game/logic/ResourceLogic";
 import { socialClassInfluenceStat, socialClassLoyaltyStat } from "./game/logic/SocialClassLogic";
 
 export function migrateSave(save: SaveGame): void {

@@ -20,6 +20,7 @@ import { MapGrid } from "../MapGrid";
 import { cacheTile, cacheTileEvaluation, isConnectedToCapital } from "./CacheLogic";
 import { defineValueGetter, type EvaluationMode, ValueCalculation } from "./Calculation";
 import { EcumenicalCouncilPct } from "./EcumenicalCouncilLogic";
+import { getCulturalCohesion } from "./InternalAffairsLogic";
 import { tileIsOurCoreCondition } from "./MissionLogic";
 import {
    attachModifiers,
@@ -28,7 +29,6 @@ import {
    attachTileModifiersToCalculation,
 } from "./ModifierLogic";
 import {
-   getCulturalCohesion,
    getNeighborProvinces,
    getProvinceName,
    getProvinceOverextension,

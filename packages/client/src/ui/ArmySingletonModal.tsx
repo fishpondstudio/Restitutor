@@ -23,11 +23,10 @@ import {
    GeneralArmyMaintenancePct,
    getArmyMaintenanceCost,
    getProvinceManpower,
-   getProvinceResource,
-   getProvinceStat,
    getWarPower,
-   provinceResourceOf,
-} from "../game/logic/ProvinceLogic";
+} from "../game/logic/ArmyLogic";
+import { getProvinceStat } from "../game/logic/ProvinceLogic";
+import { getProvinceResource, provinceResourceOf } from "../game/logic/ResourceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
 import {

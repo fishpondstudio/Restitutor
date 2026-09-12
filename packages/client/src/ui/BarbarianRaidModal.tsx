@@ -7,6 +7,7 @@ import { BarbarianRaidNegativeEffect, MaxRaidMonths } from "../game/definitions/
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
+import { getWarPower } from "../game/logic/ArmyLogic";
 import {
    addAttitudeModifier,
    getAttitudeTowards,
@@ -14,7 +15,7 @@ import {
    requireInfiltration,
 } from "../game/logic/DiplomacyLogic";
 import { addModifier } from "../game/logic/ModifierLogic";
-import { getProvinceName, getTotalUpgrades, getWarPower } from "../game/logic/ProvinceLogic";
+import { getProvinceName, getTotalUpgrades } from "../game/logic/ProvinceLogic";
 import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";

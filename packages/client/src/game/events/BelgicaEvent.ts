@@ -2,7 +2,7 @@ import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import type { ConditionChecks } from "../logic/Calculation";
 import { minCoreTileChecks, victoryCountChecks, warPowerChecks } from "../logic/MissionLogic";
-import { getProvinceResource } from "../logic/ProvinceLogic";
+import { getProvinceResource } from "../logic/ResourceLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 

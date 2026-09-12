@@ -25,10 +25,9 @@ import {
    getProvinceTileCount,
    getTotalUpgrades,
    initProvince,
-   provinceResourceOf,
-   resetProvinceResource,
-   rollTradeOffers,
 } from "./logic/ProvinceLogic";
+import { provinceResourceOf, resetProvinceResource } from "./logic/ResourceLogic";
+import { rollTradeOffers } from "./logic/TradeLogic";
 import type { IWar } from "./logic/WarLogic";
 import { randomMaleName } from "./RomanNames";
 import { RomeMap } from "./RomeMap";

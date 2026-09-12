@@ -5,7 +5,8 @@ import { getOriginalTileCount } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import { forcePatronageEffect, isCoreTileChecks, maxCoreTileChecks } from "../logic/MissionLogic";
-import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
+import { getProvinceStability } from "../logic/ProvinceLogic";
+import { getProvinceResource } from "../logic/ResourceLogic";
 import {
    requireMinimumAttitudeChecks,
    requireNoTreatyBetweenChecks,

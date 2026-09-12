@@ -60,6 +60,7 @@ import {
    improveRelations,
 } from "./DiplomacyLogic";
 import { getGameDate } from "./GameDateTime";
+import { getToleratedCulture, getToleratedReligion } from "./InternalAffairsLogic";
 import {
    ensureProductionCapacity,
    getProvinceProductionCapacity,
@@ -71,16 +72,12 @@ import {
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,
    getProvinceIncome,
-   getProvinceResource,
    getProvinceStat,
    getProvincesByDistance,
    getProvincesInRange,
-   getToleratedCulture,
-   getToleratedReligion,
-   hasEnoughProvinceResources,
    pledgeProvinceConsulVotes,
-   trySpendProvinceResources,
 } from "./ProvinceLogic";
+import { getProvinceResource, hasEnoughProvinceResources, trySpendProvinceResources } from "./ResourceLogic";
 import { getCheapestLockedTech } from "./TechLogic";
 import { getBuildingSlot, getTileUnrest, getTileWar } from "./TileLogic";
 import {

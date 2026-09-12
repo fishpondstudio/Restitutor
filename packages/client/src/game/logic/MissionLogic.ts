@@ -7,22 +7,20 @@ import { type Province, type ProvinceResource, ProvinceResourceNames } from "../
 import { RefreshTiles } from "../Events";
 import type { ICustomEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
+import { getProvinceManpower, getWarPower } from "./ArmyLogic";
 import { getProvinceCoreTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getMarriageAlliance, getRelation } from "./DiplomacyLogic";
+import { getCulturePercentage } from "./InternalAffairsLogic";
 import {
-   getCulturePercentage,
    getMediterraneanCoastalTiles,
    getProvinceCoreCoastalTileCount,
    getProvinceIncome,
-   getProvinceManpower,
    getProvinceName,
-   getProvinceResource,
    getProvinceStat,
    getTileUpgradeTimes,
-   getWarPower,
-   provinceResourceOf,
 } from "./ProvinceLogic";
+import { getProvinceResource, provinceResourceOf } from "./ResourceLogic";
 import { isCoreTile } from "./TileLogic";
 import { dissolveAllTreaties, getAllies } from "./TreatyLogic";
 

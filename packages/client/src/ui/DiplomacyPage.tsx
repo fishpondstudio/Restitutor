@@ -37,6 +37,7 @@ import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import type { SaveGame } from "../game/GameState";
 import { showError } from "../game/logic/AlertLogic";
+import { getWarPower } from "../game/logic/ArmyLogic";
 import {
    getAnnexCostDiscount,
    getAttitudeTowards,
@@ -54,7 +55,7 @@ import {
    RivalAttitudeDuration,
    RivalAttitudeModifier,
 } from "../game/logic/DiplomacyLogic";
-import { getProvinceName, getProvincePrestige, getProvinceTileCount, getWarPower } from "../game/logic/ProvinceLogic";
+import { getProvinceName, getProvincePrestige, getProvinceTileCount } from "../game/logic/ProvinceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { getTimedActionCooldownLeft, getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
 import { getAllies, getClients, getDefensePacts, getPatrons } from "../game/logic/TreatyLogic";

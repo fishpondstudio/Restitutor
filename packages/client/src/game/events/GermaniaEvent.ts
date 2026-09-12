@@ -3,7 +3,7 @@ import { Province } from "../definitions/Province";
 import { getTileName } from "../definitions/TileName";
 import type { ConditionChecks } from "../logic/Calculation";
 import { forcePatronageEffect, maxCoreTileChecks, minCoreTileChecks, warPowerChecks } from "../logic/MissionLogic";
-import { getProvinceResource } from "../logic/ProvinceLogic";
+import { getProvinceResource } from "../logic/ResourceLogic";
 import {
    requireAnyTreatyBetweenChecks,
    requireNoTreatyBetweenChecks,

@@ -1,6 +1,7 @@
 import { formatNumber } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
 import { GameStateUpdated } from "../game/Events";
+import { getWarPower } from "../game/logic/ArmyLogic";
 import { monthToDate } from "../game/logic/GameDateTime";
 import {
    getProvinceIncome,
@@ -9,7 +10,6 @@ import {
    getProvincePrestigeRanking,
    getProvinceStability,
    getProvinceTileCount,
-   getWarPower,
 } from "../game/logic/ProvinceLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";

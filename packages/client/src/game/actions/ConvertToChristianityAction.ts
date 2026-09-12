@@ -4,7 +4,9 @@ import { unlockAchievement } from "../Achievement";
 import type { Province } from "../definitions/Province";
 import { isChristianReligion } from "../definitions/Religion";
 import type { SaveGame } from "../GameState";
-import { changeProvinceReligion, getProvinceGoverningCost, getProvinceResource } from "../logic/ProvinceLogic";
+import { changeProvinceReligion } from "../logic/InternalAffairsLogic";
+import { getProvinceGoverningCost } from "../logic/ProvinceLogic";
+import { getProvinceResource } from "../logic/ResourceLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 

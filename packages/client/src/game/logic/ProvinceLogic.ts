@@ -2,10 +2,8 @@ import {
    clamp,
    entriesOf,
    forEach,
-   formatDelta,
    formatNumber,
    fromEntries,
-   keysOf,
    pointToTile,
    range,
    shuffle,
@@ -17,13 +15,9 @@ import type { ICondition, IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import { Buildings } from "../definitions/Building";
-import type { Culture } from "../definitions/Culture";
-import { Goods, Price } from "../definitions/Goods";
+import { Goods } from "../definitions/Goods";
 import { type GreatWork, TileToGreatWork } from "../definitions/GreatWork";
-import { LegacyUpgrades } from "../definitions/LegacyUpgrade";
-import { makeModifierGetter } from "../definitions/Modifier";
 import {
-   type ActiveTrade,
    type GovernorPower,
    type IProvince,
    Province,
@@ -31,15 +25,11 @@ import {
    type ProvinceNameOverride,
    ProvinceNameOverrides,
    ProvinceOriginalTiles,
-   type ProvinceResource,
    ProvinceResources,
    type ProvinceStat,
    ProvinceStats,
-   type TradeOffer,
-   type TradeOfferBase,
 } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
-import { isChristianReligion, type Religion } from "../definitions/Religion";
 import type { SpawnedProvince } from "../definitions/SpawnedProvince";
 import {
    BarbarianRaidNegativeEffect,
@@ -48,43 +38,32 @@ import {
 } from "../definitions/SpawnedProvince";
 import { getBorderingProvinces } from "../definitions/Tile";
 import { MediterraneanTiles, StraitOfGibraltarTiles, Tiles } from "../definitions/TileConstants";
-import { getTileName } from "../definitions/TileName";
 import { GameStateUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { RomeMap } from "../RomeMap";
-import { cacheProvince, getProvinceCoreTilesCached } from "./CacheLogic";
+import { getArmyMaintenanceCost, getWarPower } from "./ArmyLogic";
+import { cacheProvince } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
-import { getAttitudeTowards, getRelation, getRelations } from "./DiplomacyLogic";
-import { EcumenicalCouncilChristianityPct, ongoingEcumenicalCouncilCondition } from "./EcumenicalCouncilLogic";
+import { getRelation } from "./DiplomacyLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
-import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
+import { getCulturalCohesion, getReligiousCohesion } from "./InternalAffairsLogic";
 import { addModifier, attachModifiers } from "./ModifierLogic";
+import { addProvinceResource } from "./ResourceLogic";
 import { getBaselineTechs } from "./TechLogic";
 import {
    getTileGoodsTax,
    getTileGoverningCost,
    getTileLandTax,
    getTileMaintenanceCost,
-   getTileManpower,
    isCoastal,
    settleTile,
 } from "./TileLogic";
-import { getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
-import { getClients, getPatrons, getTreatyCount } from "./TreatyLogic";
-import {
-   ArmyCounterBonus,
-   type ArmyUnit,
-   ArmyUnitNames,
-   type ArmyUnitPowers,
-   calculateWarTotalStability,
-   getArmyComposition,
-   getCurrentWars,
-   getUnitWarPower,
-   getWarPowerPerTile,
-   MonthlyExtraArmyMaintenancePct,
-} from "./WarLogic";
+import { startTimedAction } from "./TimedActionLogic";
+import { getProvinceTrades } from "./TradeLogic";
+import { getClients, getPatrons } from "./TreatyLogic";
+import { calculateWarTotalStability, getCurrentWars, getWarPowerPerTile } from "./WarLogic";
 
 export function getProvinceStat(stat: ProvinceStat, province: Province, save: SaveGame): number {
    const state = save.state.provinces[province];
@@ -113,117 +92,6 @@ export function addProvinceStat(stat: ProvinceStat, value: number, province: Pro
    }
    const oldValue = getProvinceStat(stat, province, save);
    state.stats[stat] = oldValue + value;
-}
-
-export function provinceResourceOf(resource: ProvinceResource, province: Province, save: SaveGame): [number, number] {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return [0, 0];
-   }
-   if (state.resources[resource] === undefined) {
-      state.resources[resource] = [0, 0];
-   }
-   return state.resources[resource];
-}
-
-export function getProvinceResource(resource: ProvinceResource, province: Province, save: SaveGame): number {
-   const [total, used] = provinceResourceOf(resource, province, save);
-   return total - used;
-}
-
-export function addProvinceResource(
-   resource: ProvinceResource,
-   value: number,
-   province: Province,
-   save: SaveGame,
-): void {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   if (state.resources[resource] === undefined) {
-      state.resources[resource] = [0, 0];
-   }
-   state.resources[resource][0] += value;
-}
-
-export function spendProvinceResource(
-   resource: ProvinceResource,
-   value: number,
-   province: Province,
-   save: SaveGame,
-): void {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   if (state.resources[resource] === undefined) {
-      state.resources[resource] = [0, 0];
-   }
-   state.resources[resource][1] += value;
-}
-
-export function refundProvinceResource(
-   resource: ProvinceResource,
-   value: number,
-   province: Province,
-   save: SaveGame,
-): void {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   if (state.resources[resource] === undefined) {
-      state.resources[resource] = [0, 0];
-   }
-   state.resources[resource][1] -= value;
-}
-
-export function resetProvinceResource(resource: ProvinceResource, province: Province, save: SaveGame): void {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   state.resources[resource] = [0, 0];
-}
-
-export function hasEnoughProvinceResources(
-   resources: Partial<Record<ProvinceResource, number>>,
-   province: Province,
-   save: SaveGame,
-): boolean {
-   for (const [resource, value] of entriesOf(resources)) {
-      if (getProvinceResource(resource, province, save) < value) {
-         return false;
-      }
-   }
-   return true;
-}
-
-export function trySpendProvinceResources(
-   resources: Partial<Record<ProvinceResource, number>>,
-   province: Province,
-   save: SaveGame,
-): boolean {
-   if (!hasEnoughProvinceResources(resources, province, save)) {
-      return false;
-   }
-   for (const [resource, value] of entriesOf(resources)) {
-      spendProvinceResource(resource, value, province, save);
-   }
-   return true;
-}
-
-export const getProvinceManpower = cacheProvince(_getProvinceManpower);
-
-function _getProvinceManpower(province: Province, save: SaveGame): IValueBreakdown {
-   const breakdown: IValueBreakdown = makeValueBreakdown();
-   for (const [tile, data] of save.state.tiles) {
-      if (data.province === province) {
-         breakdown.add.push({ name: getTileName(tile, save), value: getTileManpower(tile, save).value });
-      }
-   }
-   return finalizeBreakdown(breakdown);
 }
 
 export function getProvinceOriginalTileCount(province: Province): number {
@@ -358,93 +226,6 @@ export function getProvincesByDistance(province: Province, save: SaveGame): Prov
       .map(([p]) => p);
 }
 
-const InfantryMaintenanceCost = 0.01;
-const RangedMaintenanceCost = 0.02;
-const CavalryMaintenanceCost = 0.03;
-
-export const GeneralArmyMaintenancePct = 0.1;
-
-export function getArmyMaintenanceCost(province: Province, save: SaveGame): IValueBreakdown {
-   const maintenance = getProvinceStat("armyMaintenance", province, save);
-   const breakdown: IValueBreakdown = makeValueBreakdown({
-      reverse: true,
-      multiplyBase: { name: $t(L.ArmyMaintenance), value: maintenance / 100 },
-   });
-   const manpower = getProvinceManpower(province, save);
-   const conscription = getProvinceStat("actualConscription", province, save) / 100;
-   const { ranged: rangedUnit, cavalry: cavalryUnit, infantry: infantryUnit } = getArmyComposition(province, save);
-   const infantryCost = manpower.value * conscription * InfantryMaintenanceCost * infantryUnit * 0.01;
-   breakdown.add.push({
-      name: $t(L.InfantryCost),
-      desc: $t(L.$1GoldPerArmySize, formatNumber(InfantryMaintenanceCost)),
-      value: infantryCost,
-   });
-   const rangedCost = manpower.value * conscription * RangedMaintenanceCost * rangedUnit * 0.01;
-   breakdown.add.push({
-      name: $t(L.RangedCost),
-      desc: $t(L.$1GoldPerArmySize, formatNumber(RangedMaintenanceCost)),
-      value: rangedCost,
-   });
-   const cavalryCost = manpower.value * conscription * CavalryMaintenanceCost * cavalryUnit * 0.01;
-   breakdown.add.push({
-      name: $t(L.CavalryCost),
-      desc: $t(L.$1GoldPerArmySize, formatNumber(CavalryMaintenanceCost)),
-      value: cavalryCost,
-   });
-   const wars = getCurrentWars(province, save);
-   for (const war of wars) {
-      if (war.attacker === province) {
-         breakdown.multiply.push({
-            name: $t(L.$1$2War, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
-            value: MonthlyExtraArmyMaintenancePct,
-         });
-      }
-   }
-   const recruitAGeneral = getTimedActionTimeLeft("RecruitAGeneral", province, save);
-   if (recruitAGeneral > 0) {
-      breakdown.multiply.push({
-         name: $t(L.RecruitAGeneral),
-         value: GeneralArmyMaintenancePct,
-      });
-   }
-   attachModifiers("ArmyMaintenance", breakdown, province, save);
-   return finalizeBreakdown(breakdown);
-}
-
-export function getMercenaryCost(province: Province, save: SaveGame): IValueBreakdown {
-   const result = makeValueBreakdown();
-   const actualConscription = getProvinceStat("actualConscription", province, save);
-   const targetConscription = getProvinceStat("targetConscription", province, save);
-   if (actualConscription < targetConscription) {
-      const diff = (targetConscription - actualConscription) * 0.01;
-      const manpower = getProvinceManpower(province, save);
-      const { ranged: rangedUnit, cavalry: cavalryUnit, infantry: infantryUnit } = getArmyComposition(province, save);
-
-      const infantryUnits = manpower.value * diff * infantryUnit * 0.01;
-      const infantryCost = infantryUnits * InfantryMaintenanceCost;
-      result.add.push({
-         name: $t(L.InfantryMercenaryCost),
-         value: infantryCost * 12,
-         desc: $t(L.$1Infantry, formatDelta(infantryUnits)),
-      });
-      const rangedUnits = manpower.value * diff * rangedUnit * 0.01;
-      const rangedCost = rangedUnits * RangedMaintenanceCost;
-      result.add.push({
-         name: $t(L.RangedMercenaryCost),
-         value: rangedCost * 12,
-         desc: $t(L.$1Ranged, formatDelta(rangedUnits)),
-      });
-      const cavalryUnits = manpower.value * diff * cavalryUnit * 0.01;
-      const cavalryCost = cavalryUnits * CavalryMaintenanceCost;
-      result.add.push({
-         name: $t(L.CavalryMercenaryCost),
-         value: cavalryCost * 12,
-         desc: $t(L.$1Cavalry, formatDelta(cavalryUnits)),
-      });
-   }
-   return finalizeBreakdown(result);
-}
-
 export const getProvinceOverextension = cacheProvince(_getProvinceOverextension);
 function _getProvinceOverextension(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
@@ -486,10 +267,6 @@ function _getProvinceGoverningCost(province: Province, save: SaveGame): IValueBr
    }
    return finalizeBreakdown(breakdown);
 }
-
-export const GovernorMinIncl = 3;
-export const GovernorMaxIncl = 6;
-export const GovernorMaxExcl = GovernorMaxIncl + 1;
 
 export function initProvince(province: Province, capital: Tile): IProvince {
    return {
@@ -663,155 +440,6 @@ function _getProvinceIncome(
    };
 }
 
-const AttackerWarPowerDiscount = -0.2;
-const DefenderWarPowerDiscount = -0.1;
-const CoAttackerWarPowerDiscount = -0.1;
-const CoDefenderWarPowerDiscount = -0.05;
-
-export interface IWarPowerBreakdown {
-   infantry: IValueBreakdown;
-   ranged: IValueBreakdown;
-   cavalry: IValueBreakdown;
-   total: IValueBreakdown;
-}
-
-export function getWarPower(province: Province, save: SaveGame, enemy?: ArmyUnitPowers): IWarPowerBreakdown {
-   const result = makeValueBreakdown({
-      multiplyBase: { name: $t(L.CurrentMorale), value: getProvinceStat("armyMorale", province, save) / 100 },
-   });
-   const totalArmy =
-      (getProvinceManpower(province, save).value * getProvinceStat("actualConscription", province, save)) / 100;
-   const composition = getArmyComposition(province, save);
-   const { ranged: rangedUnit, cavalry: cavalryUnit } = composition;
-   const unitPowers = {
-      infantry: getUnitWarPower("infantry", province, save).value,
-      ranged: getUnitWarPower("ranged", province, save).value,
-      cavalry: getUnitWarPower("cavalry", province, save).value,
-   };
-   const enemyTotal = enemy ? enemy.infantry + enemy.ranged + enemy.cavalry : 0;
-   const counterScale = enemyTotal > 0 ? ArmyCounterBonus / enemyTotal : 0;
-   const makeUnitPower = (unit: ArmyUnit, strong: ArmyUnit, weak: ArmyUnit): IValueBreakdown => {
-      const soldiers = totalArmy * composition[unit] * 0.01;
-      const unitPower = unitPowers[unit];
-      const breakdown = makeValueBreakdown({ multiplyBase: { name: $t(L.Effectiveness), value: 1 } });
-      breakdown.add.push({
-         name: $t(L.BasePower),
-         value: soldiers * unitPower,
-         desc: $t(L.$1Units$2Power, formatNumber(soldiers), formatNumber(unitPower)),
-      });
-      if (enemy) {
-         breakdown.multiply.push(
-            { name: $t(L.Vs$1, ArmyUnitNames[strong]()), value: counterScale * enemy[strong] },
-            { name: $t(L.Vs$1, ArmyUnitNames[weak]()), value: -counterScale * enemy[weak] },
-         );
-      }
-      return finalizeBreakdown(breakdown);
-   };
-   const infantry = makeUnitPower("infantry", "cavalry", "ranged");
-   const ranged = makeUnitPower("ranged", "infantry", "cavalry");
-   const cavalry = makeUnitPower("cavalry", "ranged", "infantry");
-   result.add.push({ name: $t(L.CombinedPower), value: infantry.value + ranged.value + cavalry.value });
-   if (hasProvinceUpgrade("CavalryWarPower", province, save)) {
-      result.multiply.push({
-         name: ProvinceUpgrades.CavalryWarPower.name(),
-         value: cavalryUnit * 0.01,
-      });
-   }
-   if (hasProvinceUpgrade("RangedPredominance", province, save)) {
-      result.multiply.push({
-         name: ProvinceUpgrades.RangedPredominance.name(),
-         value: rangedUnit * 0.01,
-      });
-   }
-   if (hasProvinceUpgrade("MartialSociety", province, save)) {
-      const actualConscription = getProvinceStat("actualConscription", province, save);
-      result.multiply.push({
-         name: ProvinceUpgrades.MartialSociety.name(),
-         value: actualConscription * 0.01,
-      });
-   }
-   if (hasProvinceUpgrade("UnitedFrontier", province, save)) {
-      result.multiply.push({
-         name: ProvinceUpgrades.UnitedFrontier.name(),
-         value: Math.min(getNeighborProvinces(province, save).size * 0.05, 0.5),
-      });
-   }
-   if (hasProvinceUpgrade("MoorishMuster", province, save)) {
-      const coreTileGroups = Math.floor(getProvinceCoreTilesCached(province).length / 10);
-      if (coreTileGroups > 0) {
-         result.multiply.push({
-            name: ProvinceUpgrades.MoorishMuster.name(),
-            value: coreTileGroups * 0.05,
-         });
-      }
-   }
-   if (hasProvinceUpgrade("NavalTradition", province, save)) {
-      result.multiply.push({
-         name: ProvinceUpgrades.NavalTradition.name(),
-         value: Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.005, 0.5),
-      });
-   }
-   if (hasProvinceUpgrade("MercantileMobilization", province, save)) {
-      const tradeCount = getProvinceTrades(province, save).size;
-      if (tradeCount > 0) {
-         result.multiply.push({
-            name: ProvinceUpgrades.MercantileMobilization.name(),
-            value: tradeCount * 0.1,
-         });
-      }
-   }
-   if (hasProvinceUpgrade("ExperiencedCommand", province, save)) {
-      const generalSkill =
-         getProvinceStat("infantrySkill", province, save) +
-         getProvinceStat("rangedSkill", province, save) +
-         getProvinceStat("cavalrySkill", province, save);
-      if (generalSkill > 0) {
-         result.multiply.push({
-            name: ProvinceUpgrades.ExperiencedCommand.name(),
-            value: generalSkill * 0.02,
-         });
-      }
-   }
-   if (hasProvinceUpgrade("MulticulturalArmy", province, save)) {
-      const cultures = getProvinceCultures(province, save);
-      result.multiply.push({
-         name: ProvinceUpgrades.MulticulturalArmy.name(),
-         value: Math.min(cultures.size * 0.05, 0.5),
-      });
-   }
-   attachModifiers("WarPower", result, province, save);
-   const wars = getCurrentWars(province, save);
-   if (wars.length > 1) {
-      wars.forEach((war) => {
-         if (war.attacker === province) {
-            result.multiply.push({
-               name: $t(L.$1$2WarAttacker, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
-               value: AttackerWarPowerDiscount,
-            });
-         }
-         if (war.defender === province) {
-            result.multiply.push({
-               name: $t(L.$1$2WarDefender, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
-               value: DefenderWarPowerDiscount,
-            });
-         }
-         if (war.coAttackers.has(province)) {
-            result.multiply.push({
-               name: $t(L.$1$2WarCoAttacker, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
-               value: CoAttackerWarPowerDiscount,
-            });
-         }
-         if (war.coDefenders.has(province)) {
-            result.multiply.push({
-               name: $t(L.$1$2WarCoDefender, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
-               value: CoDefenderWarPowerDiscount,
-            });
-         }
-      });
-   }
-   return { infantry, ranged, cavalry, total: finalizeBreakdown(result) };
-}
-
 export function ensureProvinceCapitals(save: SaveGame): Tile[] {
    const result: Tile[] = [];
    forEach(save.state.provinces, (province, state) => {
@@ -873,140 +501,11 @@ export function isNorGreatPowerCondition(province: Province, save: SaveGame): IC
    };
 }
 
-export function getProvinceTrades(province: Province, save: SaveGame): Map<Province, ActiveTrade> {
-   const result = new Map<Province, ActiveTrade>();
-   const relations = getRelations(province, save);
-   if (relations) {
-      for (const [otherProvince, relation] of relations) {
-         if (relation.trade) {
-            result.set(otherProvince, relation.trade);
-         }
-      }
-   }
-   return result;
-}
-
-export function rollTradeOffers(save: SaveGame): void {
-   forEach(save.state.provinces, (province, state) => {
-      const goods = shuffle(keysOf(Goods));
-      state.tradeOffers = [
-         fillOfferAmount({ theyOffer: goods[0], weOffer: goods[1] }),
-         fillOfferAmount({ theyOffer: goods[2], weOffer: "gold" }),
-         fillOfferAmount({ theyOffer: "gold", weOffer: goods[3] }),
-      ];
-   });
-}
-
-export function fillOfferAmount(offer: TradeOfferBase): TradeOffer {
-   const result: TradeOffer = { ...offer, theyOfferAmount: 0, weOfferAmount: 0 };
-   if (result.theyOffer !== "gold" && result.weOffer !== "gold") {
-      if (Price[result.weOffer] > Price[result.theyOffer]) {
-         result.weOfferAmount = 1;
-         result.theyOfferAmount = Price[result.weOffer] / Price[result.theyOffer];
-      } else {
-         result.theyOfferAmount = 1;
-         result.weOfferAmount = Price[result.theyOffer] / Price[result.weOffer];
-      }
-   }
-   if (result.weOffer === "gold") {
-      result.theyOfferAmount = 1;
-      result.weOfferAmount = Price[result.theyOffer];
-   }
-   if (result.theyOffer === "gold") {
-      result.weOfferAmount = 1;
-      result.theyOfferAmount = Price[result.weOffer];
-   }
-   return result;
-}
-
-export function getProvinceTradeCapacity(province: Province, save: SaveGame): IValueBreakdown {
-   const result = makeValueBreakdown();
-   result.add.push({ name: $t(L.BaseValue), value: 1 });
-   let harbour = 0;
-   for (const [tile, data] of save.state.tiles) {
-      if (data.province === province && data.buildings.has("Harbour")) {
-         ++harbour;
-      }
-   }
-   if (harbour > 0) {
-      result.add.push({ name: Buildings.Harbour.name(), value: harbour });
-   }
-   if (hasProvinceUpgrade("CommercialAlliances", province, save)) {
-      const treatyCount = getTreatyCount(province, save);
-      result.add.push({ name: ProvinceUpgrades.CommercialAlliances.name(), value: treatyCount });
-   }
-   if (hasProvinceUpgrade("CommandOfThePillars", province, save) && hasStraitOfGibraltar(province, save)) {
-      result.add.push({ name: ProvinceUpgrades.CommandOfThePillars.name(), value: 3 });
-   }
-   attachModifiers("TradeCapacity", result, province, save);
-   return finalizeBreakdown(result);
-}
-
 export function hasStraitOfGibraltar(province: Province, save: SaveGame): boolean {
    return StraitOfGibraltarTiles.every((tile) => {
       const data = save.state.tiles.get(tile);
       return data?.province === province && data.coreProvinces.has(province);
    });
-}
-
-export function getProvinceTradeProfit(province: Province, save: SaveGame): IValueBreakdown {
-   const result = makeValueBreakdown({ multiplyBase: { name: $t(L.BaseValue), value: 0.1 } });
-   result.add.push({ name: $t(L.ReferenceValue), value: 1 });
-   if (hasProvinceUpgrade("TradeProfitForEachTrade", province, save)) {
-      const tradeCount = getProvinceTrades(province, save).size;
-      if (tradeCount > 0) {
-         result.multiply.push({
-            name: ProvinceUpgrades.TradeProfitForEachTrade.name(),
-            value: 0.1 * tradeCount,
-         });
-      }
-   }
-   if (hasProvinceUpgrade("MaritimeProsperity", province, save)) {
-      let harbour = 0;
-      for (const [tile, data] of save.state.tiles) {
-         if (data.province === province && data.buildings.has("Harbour")) {
-            ++harbour;
-         }
-      }
-      if (harbour > 0) {
-         result.multiply.push({ name: ProvinceUpgrades.MaritimeProsperity.name(), value: harbour * 0.1 });
-      }
-   }
-   if (hasProvinceUpgrade("CommandOfThePillars", province, save) && hasStraitOfGibraltar(province, save)) {
-      result.multiply.push({ name: ProvinceUpgrades.CommandOfThePillars.name(), value: 0.3 });
-   }
-   attachModifiers("TradeProfit", result, province, save);
-   return finalizeBreakdown(result);
-}
-
-export function getTradeProfit(ourProvince: Province, theirProvince: Province, save: SaveGame): IValueBreakdown {
-   const tradeProfit = getProvinceTradeProfit(ourProvince, save);
-   if (hasLegacyUpgrade("TradeProfitForAttitude", ourProvince, save)) {
-      const attitude = getAttitudeTowards(theirProvince, ourProvince, save);
-      if (attitude.value > 0) {
-         tradeProfit.multiply.push({
-            name: $t(L.LegacyUpgrade),
-            desc: LegacyUpgrades.TradeProfitForAttitude.name(),
-            value: attitude.value * 0.01,
-         });
-      }
-   }
-   return finalizeBreakdown(tradeProfit);
-}
-
-export function generateTrade(
-   offer: TradeOfferBase,
-   extraProfit: number,
-   province: Province,
-   save: SaveGame,
-): { trade: TradeOffer; profit: number } {
-   const tradeCapacity = getProvinceTradeCapacity(province, save).value;
-   const tradeProfit = getProvinceTradeProfit(province, save).value;
-   const result = fillOfferAmount({ ...offer });
-   const totalProfit = tradeProfit + extraProfit;
-   result.weOfferAmount *= tradeCapacity;
-   result.theyOfferAmount *= tradeCapacity * (1 + totalProfit);
-   return { trade: result, profit: totalProfit };
 }
 
 export const ConsulCandidatesCount = 10;
@@ -1076,65 +575,6 @@ export function getProgressToNextRestoration(province: Province, save: SaveGame)
 }
 
 export const TilesPerRestoration = 5;
-
-export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1, (result, province, save) => {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   if (hasProvinceUpgrade("ChristianFervor", province, save) && isChristianReligion(state.religion)) {
-      result.add.push({ name: ProvinceUpgrades.ChristianFervor.name(), value: 1 });
-   }
-   const ongoingCouncil = ongoingEcumenicalCouncilCondition(province, save);
-   if (ongoingCouncil.value) {
-      result.multiply.push({ name: ongoingCouncil.name, value: EcumenicalCouncilChristianityPct });
-   }
-});
-
-export const getToleratedReligion = makeModifierGetter("ToleratedReligion", 0, (result, province, save) => {});
-export const getToleratedCulture = makeModifierGetter("ToleratedCulture", 0, (result, province, save) => {
-   if (hasProvinceUpgrade("InclusiveCitizenship", province, save)) {
-      result.add.push({ name: ProvinceUpgrades.InclusiveCitizenship.name(), value: 1 });
-   }
-});
-
-export function getReligiousCohesion(province: Province, save: SaveGame): number {
-   let sameReligion = 0;
-   let total = 0;
-   const state = save.state.provinces[province];
-   if (!state) {
-      return 0;
-   }
-   for (const [tile, data] of save.state.tiles) {
-      if (data.province === province) {
-         const totalUpgrades = data.infrastructure + data.production + data.population;
-         if (data.religion === state.religion || state.toleratedReligions.has(data.religion)) {
-            sameReligion += totalUpgrades;
-         }
-         total += totalUpgrades;
-      }
-   }
-   return sameReligion / total;
-}
-
-export function getCulturalCohesion(province: Province, save: SaveGame): number {
-   let sameCulture = 0;
-   let total = 0;
-   const state = save.state.provinces[province];
-   if (!state) {
-      return 0;
-   }
-   for (const [tile, data] of save.state.tiles) {
-      if (data.province === province) {
-         const totalUpgrades = data.infrastructure + data.production + data.population;
-         if (data.culture === state.culture || state.toleratedCultures.has(data.culture)) {
-            sameCulture += totalUpgrades;
-         }
-         total += totalUpgrades;
-      }
-   }
-   return sameCulture / total;
-}
 
 export function spawnProvince(province: Province, source: string, save: SaveGame): Tile[] {
    if (save.state.provinces[province]) {
@@ -1227,28 +667,6 @@ export function getNeighborProvinces(province: Province, save: SaveGame): Set<Pr
    return result;
 }
 
-export function changeProvinceReligion(religion: Religion, province: Province, save: SaveGame): void {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   if (state.toleratedReligions.has(religion)) {
-      state.toleratedReligions.delete(religion);
-   }
-   state.religion = religion;
-}
-
-export function changeProvinceCulture(culture: Culture, province: Province, save: SaveGame): void {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   if (state.toleratedCultures.has(culture)) {
-      state.toleratedCultures.delete(culture);
-   }
-   state.culture = culture;
-}
-
 export function isLandlocked(province: Province, save: SaveGame): boolean {
    for (const [tile, data] of save.state.tiles) {
       if (data.province === province && isCoastal(tile)) {
@@ -1338,54 +756,6 @@ export function getMediterraneanCoastalTiles(requireCore: boolean, province: Pro
       }
    }
    return result;
-}
-
-export function getCulturePercentage(
-   culture: Culture,
-   province: Province,
-   save: SaveGame,
-): { count: number; percentage: number } {
-   let count = 0;
-   let totalTiles = 0;
-   for (const data of save.state.tiles.values()) {
-      if (data.province !== province) {
-         continue;
-      }
-      totalTiles++;
-      if (data.culture === culture) {
-         count++;
-      }
-   }
-   return { count, percentage: totalTiles === 0 ? 0 : count / totalTiles };
-}
-
-export function getReligionPercentage(
-   religion: Religion,
-   province: Province,
-   save: SaveGame,
-): { count: number; percentage: number } {
-   let count = 0;
-   let totalTiles = 0;
-   for (const data of save.state.tiles.values()) {
-      if (data.province !== province) {
-         continue;
-      }
-      totalTiles++;
-      if (data.religion === religion) {
-         count++;
-      }
-   }
-   return { count, percentage: totalTiles === 0 ? 0 : count / totalTiles };
-}
-
-export function getProvinceCultures(province: Province, save: SaveGame): Set<Culture> {
-   const cultures = new Set<Culture>();
-   for (const data of save.state.tiles.values()) {
-      if (data.province === province && data.coreProvinces.has(province)) {
-         cultures.add(data.culture);
-      }
-   }
-   return cultures;
 }
 
 export function getTileUpgradeTimes(province: Province, save: SaveGame): number {

@@ -1,5 +1,5 @@
 import { resetGame } from "../game/LoadSave";
-import { provinceResourceOf } from "../game/logic/ProvinceLogic";
+import { provinceResourceOf } from "../game/logic/ResourceLogic";
 import { getVersion } from "../game/Version";
 import { isSteam, SteamClient } from "../rpc/SteamClient";
 import { G } from "../utils/Global";

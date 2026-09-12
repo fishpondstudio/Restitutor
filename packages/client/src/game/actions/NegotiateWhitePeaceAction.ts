@@ -11,7 +11,7 @@ import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getRelation } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
-import { addProvinceResource } from "../logic/ProvinceLogic";
+import { addProvinceResource } from "../logic/ResourceLogic";
 import { showGameEventModal } from "../logic/TickProvince";
 import { getTruceDuration, type IWar, WhitePeaceCostPerTile, warIsOngoingCondition } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";

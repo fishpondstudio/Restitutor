@@ -5,7 +5,7 @@ import { FloatingEdge, LegacyUpgradeNode } from "./LegacyUpgradeNode";
 import "./LegacyUpgradeSingletonModal.css";
 import { formatNumber } from "@project/shared/src/utils/Helper";
 import { GameStateUpdated } from "../game/Events";
-import { getProvinceResource } from "../game/logic/ProvinceLogic";
+import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";

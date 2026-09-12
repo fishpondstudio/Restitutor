@@ -11,7 +11,7 @@ import {
 import { type LegacyUpgrade, LegacyUpgrades } from "../game/definitions/LegacyUpgrade";
 import { GameStateUpdated } from "../game/Events";
 import { canUpgradeLegacyUpgrade, getLegacyUpgradeCost, getLegacyUpgradeName } from "../game/logic/LegacyUpgradeLogic";
-import { trySpendProvinceResources } from "../game/logic/ProvinceLogic";
+import { trySpendProvinceResources } from "../game/logic/ResourceLogic";
 import { G, isDev } from "../utils/Global";
 import { ConditionBreakdownComp } from "./ConditionBreakdownComp";
 import { remToPx } from "./common/UIScaling";

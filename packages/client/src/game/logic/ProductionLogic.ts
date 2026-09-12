@@ -16,13 +16,13 @@ import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { getRelations } from "./DiplomacyLogic";
 import { attachModifiers } from "./ModifierLogic";
+import { getProvinceStat } from "./ProvinceLogic";
 import {
    addProvinceResource,
    getProvinceResource,
-   getProvinceStat,
    hasEnoughProvinceResources,
    spendProvinceResource,
-} from "./ProvinceLogic";
+} from "./ResourceLogic";
 import { hasResearched } from "./TechLogic";
 import { getTileOutput } from "./TileLogic";
 

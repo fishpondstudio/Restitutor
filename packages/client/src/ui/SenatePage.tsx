@@ -7,12 +7,8 @@ import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { getRevealedConsulVotes } from "../game/logic/DiplomacyLogic";
 import { monthToDate } from "../game/logic/GameDateTime";
-import {
-   getProvinceName,
-   getProvinceResource,
-   getProvinceStat,
-   monthsToNextConsulElection,
-} from "../game/logic/ProvinceLogic";
+import { getProvinceName, getProvinceStat, monthsToNextConsulElection } from "../game/logic/ProvinceLogic";
+import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";

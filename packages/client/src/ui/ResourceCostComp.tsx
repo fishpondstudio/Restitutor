@@ -3,7 +3,7 @@ import { deepEqual } from "fast-equals";
 import { memo } from "react";
 import { type ProvinceResource, ProvinceResourceNames } from "../game/definitions/Province";
 import { GameStateUpdated } from "../game/Events";
-import { hasEnoughProvinceResources } from "../game/logic/ProvinceLogic";
+import { hasEnoughProvinceResources } from "../game/logic/ResourceLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";

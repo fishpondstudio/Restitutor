@@ -11,7 +11,8 @@ import {
    getMonthlyInterestRate,
    takeLoan,
 } from "../game/logic/LoanLogic";
-import { getProvinceIncome, getProvinceResource } from "../game/logic/ProvinceLogic";
+import { getProvinceIncome } from "../game/logic/ProvinceLogic";
+import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";

@@ -10,7 +10,8 @@ import {
    getProvinceProductionCapacity,
    getProvinceUsedProductionCapacity,
 } from "../game/logic/ProductionLogic";
-import { getProvinceResource, getProvinceStat } from "../game/logic/ProvinceLogic";
+import { getProvinceStat } from "../game/logic/ProvinceLogic";
+import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { hasResearched } from "../game/logic/TechLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";

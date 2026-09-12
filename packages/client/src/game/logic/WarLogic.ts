@@ -19,6 +19,7 @@ import { getBorderingProvinces } from "../definitions/Tile";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
+import { getWarPower, type IWarPowerBreakdown } from "./ArmyLogic";
 import type { ConditionChecks } from "./Calculation";
 import {
    getAttitudeTowards,
@@ -34,13 +35,11 @@ import {
    getProvincePrestige,
    getProvinceStat,
    getProvinceTileCount,
-   getWarPower,
-   type IWarPowerBreakdown,
    isLandlocked,
    isTileConnectedBySea,
-   provinceResourceOf,
    setProvinceStat,
 } from "./ProvinceLogic";
+import { provinceResourceOf } from "./ResourceLogic";
 import { getTileDefense, getTileTerrain } from "./TileLogic";
 import { endTimedActionAndResetCooldown, getTimedActionTimeLeft } from "./TimedActionLogic";
 

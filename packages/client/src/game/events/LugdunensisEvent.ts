@@ -20,7 +20,8 @@ import {
    victoryCountChecks,
    warPowerChecks,
 } from "../logic/MissionLogic";
-import { getProvinceResource, getProvinceStability } from "../logic/ProvinceLogic";
+import { getProvinceStability } from "../logic/ProvinceLogic";
+import { getProvinceResource } from "../logic/ResourceLogic";
 import {
    requireMinimumAttitudeChecks,
    requireNoTreatyBetweenChecks,

@@ -19,7 +19,8 @@ import {
    ongoingEcumenicalCouncilCondition,
 } from "../game/logic/EcumenicalCouncilLogic";
 import { addModifier, type IAddModifier } from "../game/logic/ModifierLogic";
-import { addProvinceResource, getProvinceName } from "../game/logic/ProvinceLogic";
+import { getProvinceName } from "../game/logic/ProvinceLogic";
+import { addProvinceResource } from "../game/logic/ResourceLogic";
 import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";

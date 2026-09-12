@@ -13,22 +13,20 @@ import type { SaveGame } from "../GameState";
 import { randomMaleName } from "../RomanNames";
 import { fixRelations } from "./DiplomacyLogic";
 import { getGameDate, monthToDate, tickToMonth, tickToYear } from "./GameDateTime";
+import { getChristianityYearly } from "./InternalAffairsLogic";
 import {
-   addProvinceResource,
    ConsulCandidatesCount,
    ConsulElectionMonths,
    clearProvincePrestigeRankingCache,
-   getChristianityYearly,
    getProvinceStat,
-   resetProvinceResource,
-   rollTradeOffers,
    setProvinceStat,
-   trySpendProvinceResources,
 } from "./ProvinceLogic";
+import { addProvinceResource, resetProvinceResource, trySpendProvinceResources } from "./ResourceLogic";
 import { addSocialClassInfluence, SocialClassInfluenceYearly } from "./SocialClassLogic";
 import { tickAI } from "./TickAI";
 import { tickProvince } from "./TickProvince";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
+import { rollTradeOffers } from "./TradeLogic";
 import { getWarMonthlyMilitaryPoint, getWarPowerComparison, type IWar, WarLogFlag, WarResult } from "./WarLogic";
 
 export function tickLogic(save: SaveGame, dt: number, unscaled: number): void {

@@ -9,7 +9,7 @@ import {
    provinceResourceChecks,
    provinceRevenueChecks,
 } from "../logic/MissionLogic";
-import { getProvinceResource } from "../logic/ProvinceLogic";
+import { getProvinceResource } from "../logic/ResourceLogic";
 import {
    requireAnyTreatyBetweenChecks,
    requireNoTreatyBetweenChecks,

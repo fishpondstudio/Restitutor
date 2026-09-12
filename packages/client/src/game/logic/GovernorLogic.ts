@@ -23,8 +23,11 @@ import { GovernorTraits, PersonTrait } from "../definitions/PersonTrait";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { randomFemaleName, randomMaleName } from "../RomanNames";
-import { GovernorMaxExcl, GovernorMaxIncl, GovernorMinIncl } from "./ProvinceLogic";
 import { onGeneralEnded } from "./WarLogic";
+
+export const GovernorMinIncl = 3;
+export const GovernorMaxIncl = 6;
+export const GovernorMaxExcl = GovernorMaxIncl + 1;
 
 export function getDeathChance(governor: IPerson, province: Province, save: SaveGame): IValueBreakdown {
    const age = governor.age;

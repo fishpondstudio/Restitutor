@@ -52,19 +52,17 @@ import { ensureHeir, generateRandomGovernor, getSuccessor, tickFamily } from "./
 import { canTakeLoan, getLoanAmount, getMonthlyInterestRate, takeLoan } from "./LoanLogic";
 import { tickProduction } from "./ProductionLogic";
 import {
-   addProvinceResource,
    addProvinceStat,
    getProvinceGoverningCost,
    getProvinceGovernmentPoint,
    getProvinceIncome,
-   getProvinceResource,
    getProvinceStat,
    getProvinceTileCount,
    getRestoration,
    pledgeProvinceConsulVotes,
    setProvinceStat,
-   spendProvinceResource,
 } from "./ProvinceLogic";
+import { addProvinceResource, getProvinceResource, spendProvinceResource } from "./ResourceLogic";
 import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";

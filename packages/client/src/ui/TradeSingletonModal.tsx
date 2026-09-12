@@ -9,14 +9,14 @@ import type { Province, TradeOffer } from "../game/definitions/Province";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { getRelation } from "../game/logic/DiplomacyLogic";
+import { getProvinceName } from "../game/logic/ProvinceLogic";
+import { getProvinceResource } from "../game/logic/ResourceLogic";
 import {
-   getProvinceName,
-   getProvinceResource,
    getProvinceTradeCapacity,
    getProvinceTradeProfit,
    getProvinceTrades,
    getTradeProfit,
-} from "../game/logic/ProvinceLogic";
+} from "../game/logic/TradeLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";

@@ -25,7 +25,8 @@ import {
    type ProvinceStats,
 } from "../definitions/Province";
 import { initSaveGame, SaveGame } from "../GameState";
-import { addProvinceResource, getProvinceResource, getTilesAnnexedAndCored, provinceResourceOf } from "./ProvinceLogic";
+import { getTilesAnnexedAndCored } from "./ProvinceLogic";
+import { addProvinceResource, getProvinceResource, provinceResourceOf } from "./ResourceLogic";
 
 export function makeLegacyUpgradeNodes(province: Province, save: SaveGame): { nodes: Node[]; edges: Edge[] } {
    const nodes: Node[] = [];
