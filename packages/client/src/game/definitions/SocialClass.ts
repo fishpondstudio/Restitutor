@@ -152,7 +152,7 @@ const _SocialClassBonuses = {
    InfantryUnitPower: {
       effect: {
          modifiers: {
-            InfantryUnitPower: { type: "add", value: 1, duration: DefaultDuration },
+            InfantryUnitPower: { type: "multiply", value: 0.5, duration: DefaultDuration },
          },
       },
       supporting: ["LowerClass", "MilitaryClass"],
@@ -161,7 +161,7 @@ const _SocialClassBonuses = {
    CavalryUnitPower: {
       effect: {
          modifiers: {
-            CavalryUnitPower: { type: "add", value: 1, duration: DefaultDuration },
+            CavalryUnitPower: { type: "multiply", value: 0.5, duration: DefaultDuration },
          },
       },
       supporting: ["MiddleClass", "MilitaryClass"],
@@ -170,7 +170,7 @@ const _SocialClassBonuses = {
    RangedUnitPower: {
       effect: {
          modifiers: {
-            RangedUnitPower: { type: "add", value: 1, duration: DefaultDuration },
+            RangedUnitPower: { type: "multiply", value: 0.5, duration: DefaultDuration },
          },
       },
       supporting: ["UpperClass", "MilitaryClass"],

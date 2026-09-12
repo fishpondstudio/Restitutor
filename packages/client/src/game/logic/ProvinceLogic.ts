@@ -74,11 +74,14 @@ import {
 import { getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
 import { getClients, getPatrons, getTreatyCount } from "./TreatyLogic";
 import {
+   ArmyCounterBonus,
+   type ArmyUnit,
+   ArmyUnitNames,
+   type ArmyUnitPowers,
    calculateWarTotalStability,
-   getCavalryUnitWarPower,
+   getArmyComposition,
    getCurrentWars,
-   getInfantryUnitWarPower,
-   getRangedUnitWarPower,
+   getUnitWarPower,
    getWarPowerPerTile,
    MonthlyExtraArmyMaintenancePct,
 } from "./WarLogic";
@@ -369,9 +372,7 @@ export function getArmyMaintenanceCost(province: Province, save: SaveGame): IVal
    });
    const manpower = getProvinceManpower(province, save);
    const conscription = getProvinceStat("actualConscription", province, save) / 100;
-   const rangedUnit = getProvinceStat("rangedUnit", province, save);
-   const cavalryUnit = getProvinceStat("cavalryUnit", province, save);
-   const infantryUnit = 100 - rangedUnit - cavalryUnit;
+   const { ranged: rangedUnit, cavalry: cavalryUnit, infantry: infantryUnit } = getArmyComposition(province, save);
    const infantryCost = manpower.value * conscription * InfantryMaintenanceCost * infantryUnit * 0.01;
    breakdown.add.push({
       name: $t(L.InfantryCost),
@@ -417,9 +418,7 @@ export function getMercenaryCost(province: Province, save: SaveGame): IValueBrea
    if (actualConscription < targetConscription) {
       const diff = (targetConscription - actualConscription) * 0.01;
       const manpower = getProvinceManpower(province, save);
-      const rangedUnit = getProvinceStat("rangedUnit", province, save);
-      const cavalryUnit = getProvinceStat("cavalryUnit", province, save);
-      const infantryUnit = 100 - rangedUnit - cavalryUnit;
+      const { ranged: rangedUnit, cavalry: cavalryUnit, infantry: infantryUnit } = getArmyComposition(province, save);
 
       const infantryUnits = manpower.value * diff * infantryUnit * 0.01;
       const infantryCost = infantryUnits * InfantryMaintenanceCost;
@@ -669,34 +668,49 @@ const DefenderWarPowerDiscount = -0.1;
 const CoAttackerWarPowerDiscount = -0.1;
 const CoDefenderWarPowerDiscount = -0.05;
 
-export function getWarPower(province: Province, save: SaveGame): IValueBreakdown {
+export interface IWarPowerBreakdown {
+   infantry: IValueBreakdown;
+   ranged: IValueBreakdown;
+   cavalry: IValueBreakdown;
+   total: IValueBreakdown;
+}
+
+export function getWarPower(province: Province, save: SaveGame, enemy?: ArmyUnitPowers): IWarPowerBreakdown {
    const result = makeValueBreakdown({
       multiplyBase: { name: $t(L.CurrentMorale), value: getProvinceStat("armyMorale", province, save) / 100 },
    });
    const totalArmy =
       (getProvinceManpower(province, save).value * getProvinceStat("actualConscription", province, save)) / 100;
-   const rangedUnit = getProvinceStat("rangedUnit", province, save);
-   const cavalryUnit = getProvinceStat("cavalryUnit", province, save);
-   const infantryUnit = 100 - rangedUnit - cavalryUnit;
-
-   const infantryUnitWarPower = getInfantryUnitWarPower(province, save).value;
-   const rangedUnitWarPower = getRangedUnitWarPower(province, save).value;
-   const cavalryUnitWarPower = getCavalryUnitWarPower(province, save).value;
-   result.add.push({
-      name: $t(L.Infantry),
-      value: totalArmy * infantryUnit * 0.01 * infantryUnitWarPower,
-      desc: $t(L.UnitPower$1, formatNumber(infantryUnitWarPower)),
-   });
-   result.add.push({
-      name: $t(L.Ranged),
-      value: totalArmy * rangedUnit * 0.01 * rangedUnitWarPower,
-      desc: $t(L.UnitPower$1, formatNumber(rangedUnitWarPower)),
-   });
-   result.add.push({
-      name: $t(L.Cavalry),
-      value: totalArmy * cavalryUnit * 0.01 * cavalryUnitWarPower,
-      desc: $t(L.UnitPower$1, formatNumber(cavalryUnitWarPower)),
-   });
+   const composition = getArmyComposition(province, save);
+   const { ranged: rangedUnit, cavalry: cavalryUnit } = composition;
+   const unitPowers = {
+      infantry: getUnitWarPower("infantry", province, save).value,
+      ranged: getUnitWarPower("ranged", province, save).value,
+      cavalry: getUnitWarPower("cavalry", province, save).value,
+   };
+   const enemyTotal = enemy ? enemy.infantry + enemy.ranged + enemy.cavalry : 0;
+   const counterScale = enemyTotal > 0 ? ArmyCounterBonus / enemyTotal : 0;
+   const makeUnitPower = (unit: ArmyUnit, strong: ArmyUnit, weak: ArmyUnit): IValueBreakdown => {
+      const soldiers = totalArmy * composition[unit] * 0.01;
+      const unitPower = unitPowers[unit];
+      const breakdown = makeValueBreakdown({ multiplyBase: { name: $t(L.Effectiveness), value: 1 } });
+      breakdown.add.push({
+         name: $t(L.BasePower),
+         value: soldiers * unitPower,
+         desc: $t(L.$1Units$2Power, formatNumber(soldiers), formatNumber(unitPower)),
+      });
+      if (enemy) {
+         breakdown.multiply.push(
+            { name: $t(L.Vs$1, ArmyUnitNames[strong]()), value: counterScale * enemy[strong] },
+            { name: $t(L.Vs$1, ArmyUnitNames[weak]()), value: -counterScale * enemy[weak] },
+         );
+      }
+      return finalizeBreakdown(breakdown);
+   };
+   const infantry = makeUnitPower("infantry", "cavalry", "ranged");
+   const ranged = makeUnitPower("ranged", "infantry", "cavalry");
+   const cavalry = makeUnitPower("cavalry", "ranged", "infantry");
+   result.add.push({ name: $t(L.CombinedPower), value: infantry.value + ranged.value + cavalry.value });
    if (hasProvinceUpgrade("CavalryWarPower", province, save)) {
       result.multiply.push({
          name: ProvinceUpgrades.CavalryWarPower.name(),
@@ -795,7 +809,7 @@ export function getWarPower(province: Province, save: SaveGame): IValueBreakdown
          }
       });
    }
-   return finalizeBreakdown(result);
+   return { infantry, ranged, cavalry, total: finalizeBreakdown(result) };
 }
 
 export function ensureProvinceCapitals(save: SaveGame): Tile[] {
@@ -1185,7 +1199,7 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
    }
    targetWarPower = 2 * (targetWarPower / neighboringProvinces.size) * config.tiles.length;
 
-   const currentWarPower = getWarPower(province, save).value;
+   const currentWarPower = getWarPower(province, save).total.value;
    addModifier({
       modifier: "WarPower",
       name: source,

@@ -20,6 +20,18 @@ export function migrateSave(save: SaveGame): void {
    forEach(save.state.provinces, (province, data) => {
       data = Object.assign(initProvince(province, data.capital), data);
       save.state.provinces[province] = data;
+      if (save.options.version === 10) {
+         for (const type of ["InfantryUnitPower", "RangedUnitPower", "CavalryUnitPower"] as const) {
+            for (const modifiers of [data.modifiers[type], data.dynamicModifiers[type]]) {
+               for (const modifier of modifiers ?? []) {
+                  if (modifier.type === "add") {
+                     modifier.type = "multiply";
+                     modifier.value *= 0.5;
+                  }
+               }
+            }
+         }
+      }
       migrateFamily(data.governor, save.state.month);
       ensureHeir(province, save);
       const relations = getRelations(province, save);
@@ -84,6 +96,9 @@ export function migrateSave(save: SaveGame): void {
          }
       }
    });
+   if (save.options.version === 10) {
+      save.options.version = 11;
+   }
    fixRelations(save);
    for (const [tile, data] of save.state.tiles) {
       if (!data.autonomy) {

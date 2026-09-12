@@ -13,3 +13,10 @@
 ## Map Visual
 
 [x] Add war progress / result floater text
+
+## Gameplay System Changes (0.24)
+
+- Army composition: remove the 25% caps on ranged and cavalry. Either can reach 100%, with infantry filling the remainder and all shares constrained to a valid total of 100%. Maintenance and mercenary costs use the same normalized composition.
+- Unit counters: infantry counters cavalry, cavalry counters ranged, and ranged counters infantry. Effectiveness is 100% plus 25% times the difference between the opposing power shares that a unit counters and is countered by, ranging from 75% to 125%.
+- Unit-power scaling: retain base power of 1/2/3 for infantry/ranged/cavalry. General skill levels now add 50% of the corresponding unit's base power instead of a flat +1. Unit-power bonuses from technology, legacy upgrades, and social classes likewise change from +1 to +50%.
+- Combat integration: war resolution, AI war planning and peace decisions, and war previews use counter-adjusted power comparisons. General province power displays remain opponent-independent.

@@ -51,7 +51,7 @@ export class TechDefinitions {
       requires: ["A3"],
       name: () => $t(L.TechPacification),
       modifiers: {
-         InfantryUnitPower: { type: "add", value: 1 },
+         InfantryUnitPower: { type: "multiply", value: 0.5 },
       },
       timedActions: ["Crackdown"],
       goods: ["lumber"],
@@ -84,7 +84,7 @@ export class TechDefinitions {
       name: () => $t(L.TechMercenaries),
       timedActions: ["HireMercenaries"],
       modifiers: {
-         CavalryUnitPower: { type: "add", value: 1 },
+         CavalryUnitPower: { type: "multiply", value: 0.5 },
       },
       buildings: ["ArmyCamp"],
       goods: ["ironIngots"],
@@ -113,7 +113,7 @@ export class TechDefinitions {
       buildings: ["Castra"],
       goods: ["weapon"],
       modifiers: {
-         RangedUnitPower: { type: "add", value: 1 },
+         RangedUnitPower: { type: "multiply", value: 0.5 },
       },
    } as const;
 
@@ -169,7 +169,7 @@ export class TechDefinitions {
       requires: ["E3"],
       name: () => $t(L.TechInfantryDrills),
       modifiers: {
-         InfantryUnitPower: { type: "add", value: 1 },
+         InfantryUnitPower: { type: "multiply", value: 0.5 },
       },
       timedActions: ["InciteUnrest", "PlunderWarTile"],
    } as const;
@@ -201,7 +201,7 @@ export class TechDefinitions {
       name: () => $t(L.TechAuxilia),
       modifiers: {
          PopulationUpgradeCost: { type: "multiply", value: -0.2 },
-         RangedUnitPower: { type: "add", value: 1 },
+         RangedUnitPower: { type: "multiply", value: 0.5 },
       },
       buildings: ["Citadel"],
       timedActions: ["SubvertGarrison", "RequestMilitaryAid"],
@@ -235,7 +235,7 @@ export class TechDefinitions {
       timedActions: ["UndermineTheirArmy"],
       buildings: ["Barracks"],
       modifiers: {
-         CavalryUnitPower: { type: "add", value: 1 },
+         CavalryUnitPower: { type: "multiply", value: 0.5 },
       },
    } as const;
 
@@ -264,7 +264,7 @@ export class TechDefinitions {
       requires: ["H2", "H3"],
       name: () => $t(L.TechArmyLogistics),
       modifiers: {
-         InfantryUnitPower: { type: "add", value: 1 },
+         InfantryUnitPower: { type: "multiply", value: 0.5 },
          WarPower: { type: "multiply", value: 0.1 },
       },
    } as const;
@@ -291,7 +291,7 @@ export class TechDefinitions {
       requires: ["I2", "I3"],
       name: () => $t(L.TechRangedDoctrine),
       modifiers: {
-         RangedUnitPower: { type: "add", value: 1 },
+         RangedUnitPower: { type: "multiply", value: 0.5 },
          WarPower: { type: "multiply", value: 0.1 },
       },
    } as const;

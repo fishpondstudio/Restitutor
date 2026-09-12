@@ -1,12 +1,18 @@
 import { Progress } from "@mantine/core";
 import { formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
-import { getWarEstimatedTime, getWarSuccessChance, type IWar, isWarStalled } from "../game/logic/WarLogic";
+import { getWarEstimatedTime, getWarPowerComparison, type IWar, isWarStalled } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { WarChanceComp } from "./WarPowerComp";
 
 export function WarTooltip({ war }: { war: IWar }): React.ReactNode {
-   const successChance = getWarSuccessChance(war.attacker, war.coAttackers, war.defender, war.coDefenders, G.save);
+   const successChance = getWarPowerComparison(
+      war.attacker,
+      war.coAttackers,
+      war.defender,
+      war.coDefenders,
+      G.save,
+   ).successChance;
    const estimatedTimeLeft = getWarEstimatedTime(war.requiredWarScore - war.actualWarScore, successChance);
    return (
       <>

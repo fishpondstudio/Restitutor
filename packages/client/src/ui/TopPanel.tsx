@@ -48,6 +48,7 @@ import { TodoPanel } from "./TodoPanel";
 import { TopRightPanel } from "./TopRightPanel";
 import { TradeSingletonModal } from "./TradeSingletonModal";
 import { TreasuryPage } from "./TreasuryPage";
+import { WarPowerTooltip } from "./WarPowerTooltip";
 
 export function TopPanel(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -210,7 +211,7 @@ export function TopLeftPanel(): React.ReactNode {
                </div>
             </BreakdownTooltip>
             <div className="divider vertical" />
-            <BreakdownTooltip
+            <WarPowerTooltip
                breakdown={warPower}
                tooltip={(element) => (
                   <>
@@ -229,9 +230,9 @@ export function TopLeftPanel(): React.ReactNode {
                >
                   <img src={IconCatalog.Army} style={{ width: `${IconWidth}rem` }} />
                   <div className="f1" />
-                  {formatNumber(warPower.value)}
+                  {formatNumber(warPower.total.value)}
                </div>
-            </BreakdownTooltip>
+            </WarPowerTooltip>
          </div>
          <div className="divider" />
          <div className="f1 row mx10 stretch">

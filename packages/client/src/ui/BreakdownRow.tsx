@@ -49,9 +49,9 @@ export function BreakdownTooltip({
       <FloatingTip
          label={() =>
             tooltip ? (
-               tooltip(<BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} hideAdditive={hideAdditive} />)
+               tooltip(<BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} options={{ hideAdditive }} />)
             ) : (
-               <BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} hideAdditive={hideAdditive} />
+               <BreakdownComp breakdown={breakdown} formatFunc={formatDeltaFunc} options={{ hideAdditive }} />
             )
          }
          fixedWidth

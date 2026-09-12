@@ -29,7 +29,7 @@ import {
    getCurrentGeneral,
    getCurrentWars,
    getTruceMonthsLeft,
-   getWarSuccessChance,
+   getWarPowerComparison,
    type IWar,
    isWarStalled,
 } from "../game/logic/WarLogic";
@@ -99,13 +99,13 @@ function WarTodo(war: IWar, index: number): [string, ITodo] {
       name: (save) => $t(L.$1$2War, getProvinceName(war.attacker, save), getProvinceName(war.defender, save)),
       icon: (save) => {
          if (war.attacker === save.state.playerProvince) {
-            const successChance = getWarSuccessChance(
+            const successChance = getWarPowerComparison(
                war.attacker,
                war.coAttackers,
                war.defender,
                war.coDefenders,
                save,
-            );
+            ).successChance;
             if (war.actualWarScore >= war.requiredWarScore) {
                return IconCatalog.WarOngoing;
             }
@@ -120,13 +120,13 @@ function WarTodo(war: IWar, index: number): [string, ITodo] {
       },
       className: (save) => {
          if (war.attacker === save.state.playerProvince) {
-            const successChance = getWarSuccessChance(
+            const successChance = getWarPowerComparison(
                war.attacker,
                war.coAttackers,
                war.defender,
                war.coDefenders,
                save,
-            );
+            ).successChance;
             if (war.actualWarScore >= war.requiredWarScore) {
                return "green animate-bounce-right";
             }

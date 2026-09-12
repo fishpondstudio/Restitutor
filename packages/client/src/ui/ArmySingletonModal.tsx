@@ -27,24 +27,25 @@ import {
    getProvinceStat,
    getWarPower,
    provinceResourceOf,
-   setProvinceStat,
 } from "../game/logic/ProvinceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
 import {
+   ArmyCounterBonus,
    ArmyMoraleMonthlyIncrease,
    dismissGeneral,
-   getCavalryUnitWarPower,
+   getArmyComposition,
    getCurrentGeneral,
-   getInfantryUnitWarPower,
-   getRangedUnitWarPower,
+   getUnitWarPower,
    hasGeneralCondition,
    MaxArmyMaintenance,
    MaxConscription,
    MinArmyMaintenance,
    MinConscription,
+   setArmyComposition,
    setProvinceArmyMaintenance,
    setProvinceTargetConscription,
+   UnitPowerUpgradeBonus,
 } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -59,9 +60,11 @@ import { html } from "./components/RenderHTMLComp";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid3 } from "./UIConstant";
+import { WarPowerRow } from "./WarPowerTooltip";
 
 export function ArmySingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
+   const { infantry, ranged, cavalry } = getArmyComposition(G.save.state.playerProvince, G.save);
    const manpower = getProvinceManpower(G.save.state.playerProvince, G.save);
    const maintenanceCost = getArmyMaintenanceCost(G.save.state.playerProvince, G.save);
    const actualConscription = getProvinceStat("actualConscription", G.save.state.playerProvince, G.save);
@@ -108,53 +111,57 @@ export function ArmySingletonModal(): React.ReactNode {
                </>
             )}
          </div>
-         <div className="h1">{$t(L.ArmyComposition)}</div>
+         <div className="h1 row g5">
+            <div>{$t(L.ArmyComposition)}</div>
+            <FloatingTip
+               label={() =>
+                  $t(
+                     L.ArmyUnitEffectivenessDesc$1$2$3,
+                     formatPercent(1 - ArmyCounterBonus),
+                     formatPercent(1 + ArmyCounterBonus),
+                     formatPercent(1),
+                  )
+               }
+            >
+               <div className="mi sm">info</div>
+            </FloatingTip>
+            <div className="f1" />
+         </div>
          <div className="row g0 my5 text-sm">
             <div className="f1">
                <div className="mx10 my5 row">
                   <div className="f1">{$t(L.Infantry)}</div>
-                  <div>
-                     {100 -
-                        getProvinceStat("cavalryUnit", G.save.state.playerProvince, G.save) -
-                        getProvinceStat("rangedUnit", G.save.state.playerProvince, G.save)}
-                     %
-                  </div>
+                  <div>{infantry}%</div>
                </div>
                <BreakdownRow
                   className="mx10 my5"
                   name={$t(L.UnitPower)}
-                  breakdown={getInfantryUnitWarPower(G.save.state.playerProvince, G.save)}
+                  breakdown={getUnitWarPower("infantry", G.save.state.playerProvince, G.save)}
                />
                <div className="mx10 my5">
-                  <Slider
-                     styles={{ thumb: { display: "none" } }}
-                     value={
-                        100 -
-                        getProvinceStat("cavalryUnit", G.save.state.playerProvince, G.save) -
-                        getProvinceStat("rangedUnit", G.save.state.playerProvince, G.save)
-                     }
-                  />
+                  <Slider styles={{ thumb: { display: "none" } }} value={infantry} />
                </div>
             </div>
             <div className="divider vertical" />
             <div className="f1">
                <div className="mx10 my5 row">
                   <div className="f1">{$t(L.Ranged)}</div>
-                  <div>{getProvinceStat("rangedUnit", G.save.state.playerProvince, G.save)}%</div>
+                  <div>{ranged}%</div>
                </div>
                <BreakdownRow
                   className="mx10 my5"
                   name={$t(L.UnitPower)}
-                  breakdown={getRangedUnitWarPower(G.save.state.playerProvince, G.save)}
+                  breakdown={getUnitWarPower("ranged", G.save.state.playerProvince, G.save)}
                />
                <div className="mx10 my5">
                   <Slider
                      min={0}
-                     max={25}
+                     max={Math.max(1, 100 - cavalry)}
+                     disabled={cavalry === 100}
                      step={1}
-                     value={getProvinceStat("rangedUnit", G.save.state.playerProvince, G.save)}
+                     value={ranged}
                      onChange={(value) => {
-                        setProvinceStat("rangedUnit", value, G.save.state.playerProvince, G.save);
+                        setArmyComposition(value, cavalry, G.save.state.playerProvince, G.save);
                         GameStateUpdated.emit();
                      }}
                   />
@@ -164,21 +171,22 @@ export function ArmySingletonModal(): React.ReactNode {
             <div className="f1">
                <div className="mx10 my5 row">
                   <div className="f1">{$t(L.Cavalry)}</div>
-                  <div>{getProvinceStat("cavalryUnit", G.save.state.playerProvince, G.save)}%</div>
+                  <div>{cavalry}%</div>
                </div>
                <BreakdownRow
                   className="mx10 my5"
                   name={$t(L.UnitPower)}
-                  breakdown={getCavalryUnitWarPower(G.save.state.playerProvince, G.save)}
+                  breakdown={getUnitWarPower("cavalry", G.save.state.playerProvince, G.save)}
                />
                <div className="mx10 my5">
                   <Slider
                      min={0}
-                     max={25}
+                     max={Math.max(1, 100 - ranged)}
+                     disabled={ranged === 100}
                      step={1}
-                     value={getProvinceStat("cavalryUnit", G.save.state.playerProvince, G.save)}
+                     value={cavalry}
                      onChange={(value) => {
-                        setProvinceStat("cavalryUnit", value, G.save.state.playerProvince, G.save);
+                        setArmyComposition(ranged, value, G.save.state.playerProvince, G.save);
                         GameStateUpdated.emit();
                      }}
                   />
@@ -291,7 +299,7 @@ export function ArmySingletonModal(): React.ReactNode {
          </div>
          <div className="h1">{$t(L.MonthlyCostAndWarPower)}</div>
          <BreakdownRow className="mx10 my5" name={$t(L.MonthlyGoldCost)} breakdown={maintenanceCost} />
-         <BreakdownRow
+         <WarPowerRow
             className="mx10 my5 text-display text-lg"
             name={$t(L.WarPower)}
             breakdown={getWarPower(G.save.state.playerProvince, G.save)}
@@ -523,7 +531,7 @@ function UpgradeSkillButton({
          action={() => UpgradeGeneralSkillAction(skill, G.save.state.playerProvince, G.save)}
          tooltip={(element) => (
             <>
-               <div className="m10">{$t(L.EachGeneralSkillLevelContributesToTheCorrespondingUnitsPower)}</div>
+               <div className="m10">{$t(L.GeneralSkillBasePowerDesc$1, formatPercent(UnitPowerUpgradeBonus))}</div>
                {element}
             </>
          )}

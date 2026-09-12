@@ -1,6 +1,6 @@
-export const VersionNumber = 23;
+export const VersionNumber = 24;
 export const Version = `0.${VersionNumber}`;
-export const SupportedSaveVersion = 10;
+export const SupportedSaveVersion = 11;
 export const GoldenRatio = (1 + Math.sqrt(5)) / 2;
 
 export const RetailSteamId = 4431750;

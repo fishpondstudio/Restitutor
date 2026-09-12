@@ -10,8 +10,8 @@ import { getRelation } from "../game/logic/DiplomacyLogic";
 import {
    getWarEstimatedTime,
    getWarParticipants,
+   getWarPowerComparison,
    getWarScore,
-   getWarSuccessChance,
    getWarTiles,
 } from "../game/logic/WarLogic";
 import { WorldScene } from "../scenes/WorldScene";
@@ -35,7 +35,8 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
    const [selectedTiles, setSelectedTiles] = useState<Set<Tile>>(new Set());
    const defenderState = G.save.state.provinces[province];
    const { coAttackers, coDefenders } = getWarParticipants(G.save.state.playerProvince, province, G.save);
-   const successChance = getWarSuccessChance(G.save.state.playerProvince, coAttackers, province, coDefenders, G.save);
+   const comparison = getWarPowerComparison(G.save.state.playerProvince, coAttackers, province, coDefenders, G.save);
+   const { successChance } = comparison;
    const warTiles = getWarTiles(G.save);
    const relation = getRelation(G.save.state.playerProvince, province, G.save);
    const casusBelli: ComboboxItem[] = [
@@ -138,6 +139,7 @@ export function DeclareWarPage({ province }: { province: Province }): React.Reac
             coAttackers={coAttackers}
             coDefenders={coDefenders}
             defender={province}
+            comparison={comparison}
          />
          <div className="divider my10" />
          <BreakdownRow className="mx10 my5" name={$t(L.WarScore)} breakdown={warScore} formatFunc={formatNumber} />

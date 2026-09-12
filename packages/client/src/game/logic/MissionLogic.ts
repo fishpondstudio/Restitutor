@@ -117,7 +117,7 @@ export function* allyCountChecks(minimum: number, province: Province, save: Save
 }
 
 export function* warPowerChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
-   const warPower = getWarPower(province, save).value;
+   const warPower = getWarPower(province, save).total.value;
    (yield warPower >= minimum)?.describe($t(L.Reach$1WarPower, formatNumber(minimum)), {
       progress: [warPower, minimum],
    });

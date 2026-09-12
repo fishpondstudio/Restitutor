@@ -29,7 +29,7 @@ import { addSocialClassInfluence, SocialClassInfluenceYearly } from "./SocialCla
 import { tickAI } from "./TickAI";
 import { tickProvince } from "./TickProvince";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
-import { getWarMonthlyMilitaryPoint, getWarSuccessChance, type IWar, WarLogFlag, WarResult } from "./WarLogic";
+import { getWarMonthlyMilitaryPoint, getWarPowerComparison, type IWar, WarLogFlag, WarResult } from "./WarLogic";
 
 export function tickLogic(save: SaveGame, dt: number, unscaled: number): void {
    save.state.tick++;
@@ -182,7 +182,13 @@ export function tickWar(war: IWar, save: SaveGame): void {
       return;
    }
    const militaryPoints = getWarMonthlyMilitaryPoint(war);
-   const successChance = getWarSuccessChance(war.attacker, war.coAttackers, war.defender, war.coDefenders, save);
+   const successChance = getWarPowerComparison(
+      war.attacker,
+      war.coAttackers,
+      war.defender,
+      war.coDefenders,
+      save,
+   ).successChance;
    if (trySpendProvinceResources({ military: militaryPoints }, war.attacker, save)) {
       const rolls = [Math.random(), Math.random(), Math.random()];
       const success = rolls.filter((roll) => roll < successChance).length >= Math.ceil(rolls.length / 2);

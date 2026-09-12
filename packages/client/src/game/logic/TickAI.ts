@@ -92,17 +92,19 @@ import {
 import { getTreatyCount } from "./TreatyLogic";
 import {
    calculateWarLengthForStability,
+   getArmyComposition,
    getCurrentWars,
    getWarEstimatedTime,
    getWarMonthlyMilitaryPoint,
    getWarParticipants,
+   getWarPowerComparison,
    getWarScore,
-   getWarSuccessChance,
    getWarTiles,
    MaxArmyMaintenance,
    MaxConscription,
    MinArmyMaintenance,
    MinConscription,
+   setArmyComposition,
    setProvinceArmyMaintenance,
    setProvinceTargetConscription,
 } from "./WarLogic";
@@ -309,6 +311,7 @@ export function tickAI(save: SaveGame): void {
       doDenounce(province, save);
       doFocus(province, save);
       doDiplomacy(province, save);
+      doArmyComposition(province, save);
       doGeneralUpgrade(province, save);
       lookForSpouse(state.governor, province, save);
       if (getTimedActionTimeLeft("BarbarianInvasions", province, save) > 0) {
@@ -373,6 +376,20 @@ function getReligionToTolerate(province: Province, save: SaveGame): Religion | u
       }
    }
    return mostCommon;
+}
+
+function doArmyComposition(province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   const { infantry, ranged, cavalry } = getArmyComposition(province, save);
+   if (state.loans.length > 0 || getProvinceIncome(province, save).income <= 0) {
+      setArmyComposition(Math.max(0, ranged - 1), Math.max(0, cavalry - 1), province, save);
+      return;
+   }
+   const increase = Math.min(1, infantry / 2);
+   setArmyComposition(ranged + increase, cavalry + increase, province, save);
 }
 
 function doGeneralUpgrade(province: Province, save: SaveGame): void {
@@ -525,13 +542,13 @@ function doWar(province: Province, save: SaveGame): void {
          continue;
       }
       if (
-         getWarSuccessChance(
+         getWarPowerComparison(
             currentWar.attacker,
             currentWar.coAttackers,
             currentWar.defender,
             currentWar.coDefenders,
             save,
-         ) <= 0.5
+         ).successChance <= 0.5
       ) {
          const action = NegotiateWhitePeaceAction(currentWar, province, save);
          logAI(`${province} negotiates white peace with ${currentWar.defender} due to low success chance`);
@@ -879,7 +896,13 @@ function findWarGoal(province: Province, save: SaveGame): { tile: Tile; estimate
       if (!canDoAction(action, province, save)) {
          continue;
       }
-      const successChance = getWarSuccessChance(province, coAttackers, otherProvince, coDefenders, save);
+      const successChance = getWarPowerComparison(
+         province,
+         coAttackers,
+         otherProvince,
+         coDefenders,
+         save,
+      ).successChance;
       if (successChance <= 0.5) {
          continue;
       }

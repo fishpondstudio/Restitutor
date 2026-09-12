@@ -28,7 +28,7 @@ import {
    getTruceDuration,
    getWarEstimatedTime,
    getWarPlunder,
-   getWarSuccessChance,
+   getWarPowerComparison,
    type IWar,
    type IWarLog,
    isWarStalled,
@@ -45,7 +45,6 @@ import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
-import { BreakdownTooltip } from "./BreakdownRow";
 import { showPanel } from "./common/ShowPanel";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
@@ -56,11 +55,13 @@ import { Grid3 } from "./UIConstant";
 import { WarChanceTooltip } from "./WarChanceTooltip";
 import { WarMonthlyConsequences } from "./WarMonthlyConsequences";
 import { WarPowerComp } from "./WarPowerComp";
+import { WarPowerTooltip } from "./WarPowerTooltip";
 import { WhitePeaceTooltip } from "./WhitePeaceTooltip";
 
 export function WarModal({ war }: { war: IWar }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
-   const successChance = getWarSuccessChance(war.attacker, war.coAttackers, war.defender, war.coDefenders, G.save);
+   const comparison = getWarPowerComparison(war.attacker, war.coAttackers, war.defender, war.coDefenders, G.save);
+   const { successChance } = comparison;
    const isWon = war.actualWarScore >= war.requiredWarScore;
    const estimatedTimeLeft = getWarEstimatedTime(war.requiredWarScore - war.actualWarScore, successChance);
    const forceAttack = getTimedActionTimeLeft("ForceAttack", war.attacker, G.save);
@@ -71,6 +72,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
             coAttackers={war.coAttackers}
             coDefenders={war.coDefenders}
             defender={war.defender}
+            comparison={comparison}
          />
          <div className="h10" />
          <div className="h1 row">
@@ -256,11 +258,11 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                {getCurrentWars(G.save.state.playerProvince, G.save).length > 1 && (
                   <>
                      <div className="divider" />
-                     <BreakdownTooltip breakdown={getWarPower(G.save.state.playerProvince, G.save)}>
+                     <WarPowerTooltip breakdown={getWarPower(G.save.state.playerProvince, G.save)}>
                         <div className="m10 text-italic text-red text-sm">
                            {$t(L.WeAreInvolvedInMultipleOngoingWarsOurWarPowerIsReduced)}
                         </div>
-                     </BreakdownTooltip>
+                     </WarPowerTooltip>
                   </>
                )}
             </div>

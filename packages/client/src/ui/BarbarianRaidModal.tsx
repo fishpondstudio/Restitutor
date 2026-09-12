@@ -26,6 +26,7 @@ import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { HeaderImages } from "./HeaderImages";
 import { Grid2 } from "./UIConstant";
+import { WarPowerTooltip } from "./WarPowerTooltip";
 
 export function BarbarianRaidModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -84,7 +85,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                  </BreakdownTooltip>
                               </td>
                               <td>
-                                 <BreakdownTooltip
+                                 <WarPowerTooltip
                                     breakdown={warPower}
                                     tooltip={(element) => (
                                        <>
@@ -102,7 +103,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                     )}
                                  >
                                     <div>
-                                       <div>{formatNumber(warPower.value)}</div>
+                                       <div>{formatNumber(warPower.total.value)}</div>
                                        <div className="row g5 text-dimmed">
                                           <div className="mi xs">schedule</div>
                                           <div className="f1">
@@ -110,7 +111,7 @@ export function BarbarianRaidModal(): React.ReactNode {
                                           </div>
                                        </div>
                                     </div>
-                                 </BreakdownTooltip>
+                                 </WarPowerTooltip>
                               </td>
                               <td>
                                  {raid && (

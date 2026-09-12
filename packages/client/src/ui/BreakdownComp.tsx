@@ -11,19 +11,22 @@ export const BreakdownComp = memo(_BreakdownComp, (prev, next) => {
 function _BreakdownComp({
    breakdown,
    formatFunc = formatDelta,
-   hideAdditive = false,
+   options = {},
 }: {
    breakdown: IValueBreakdown;
    formatFunc?: (value: number) => React.ReactNode;
-   hideAdditive?: boolean;
+   options?: {
+      hideAdditive?: boolean;
+      hideAdditiveHeader?: boolean;
+   };
 }): React.ReactNode {
    const hasMultiply = breakdown.multiply.length > 0 || breakdown.multiplyBase.value !== 1;
-   hideAdditive = hideAdditive && breakdown.totalAdd === 1;
+   const hideAdditive = options.hideAdditive && breakdown.totalAdd === 1;
    return (
       <>
          {!hideAdditive && (
             <>
-               {hasMultiply && (
+               {!options.hideAdditiveHeader && hasMultiply && (
                   <div className="h3 row g0">
                      <div className="f1">{$t(L.Additive)}</div>
                      <div>{formatFunc(breakdown.totalAdd)}</div>

@@ -301,7 +301,11 @@ export function TradeSingletonModal({ provinces }: { provinces: Set<Province> })
                                              </div>
                                           </div>
                                           <div className="h2">{$t(L.TradeProfit)}</div>
-                                          <BreakdownComp breakdown={profit} formatFunc={formatPercent} hideAdditive />
+                                          <BreakdownComp
+                                             breakdown={profit}
+                                             formatFunc={formatPercent}
+                                             options={{ hideAdditive: true }}
+                                          />
                                           {element}
                                           <div className="divider" />
                                           <div className="text-display mx10 my5">{$t(L.FinePrint)}</div>
