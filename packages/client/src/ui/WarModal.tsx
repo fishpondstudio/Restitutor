@@ -405,7 +405,7 @@ function LeaveWarCoalitionButton({ war, province }: { war: IWar; province: Provi
 }
 
 function ProclaimRightOfReprisalButton({ war, province }: { war: IWar; province: Province }): React.ReactNode {
-   if (war.coDefenders.has(province)) {
+   if (war.coDefenders.has(province) || war.defender === province) {
       return (
          <ActionButton
             className="btn py2"
