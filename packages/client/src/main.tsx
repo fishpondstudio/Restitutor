@@ -20,6 +20,7 @@ import { LoadingComp } from "./ui/components/LoadingComp";
 import { ModsManager } from "./ui/mods/ModsManager";
 import { TopPanel } from "./ui/TopPanel";
 import { TutorialPanel } from "./ui/TutorialPanel";
+import { WorldWarTooltip } from "./ui/WorldWarTooltip";
 import { G, isDev } from "./utils/Global";
 import { ModalManager } from "./utils/ModalManager";
 
@@ -102,6 +103,7 @@ if (isSteam() && G.params.has("mod")) {
          <BottomPanel />
          <TutorialPanel />
          <ASCIIMapPanel />
+         <WorldWarTooltip />
          <Popover />
          <ModalManager />
          <LoadingComp />

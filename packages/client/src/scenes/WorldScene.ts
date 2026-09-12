@@ -416,6 +416,12 @@ export class WorldScene extends Scene {
       return 1.5;
    }
 
+   public getWarFromScreenPosition(point: IHaveXY): IWar | undefined {
+      const pos = this.viewport.screenToWorld(point);
+      pos.x -= MarginX;
+      return this._tileWar.get(pointToTile(MapGrid.positionToGrid(pos)));
+   }
+
    override onClicked(e: FederatedPointerEvent): void {
       const pos = this.viewport.screenToWorld(e);
       pos.x -= MarginX;
