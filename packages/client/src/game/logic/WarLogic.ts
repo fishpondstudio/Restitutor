@@ -63,7 +63,7 @@ export interface IWar {
    flag: WarFlag;
 }
 
-type WarResult = "Success" | "Repelled" | "Stalled";
+export type WarResult = keyof typeof WarResult;
 
 export const WarLogFlag = {
    None: 0,
@@ -80,16 +80,10 @@ export interface IWarLog {
    flag: WarLogFlag;
 }
 
-export const WarResultScore = {
-   Success: 1,
-   Repelled: -1,
-   Stalled: 0,
-} as const satisfies Record<WarResult, number>;
-
-export const WarResultNames: Record<WarResult, () => string> = {
-   Success: () => $t(L.Success),
-   Repelled: () => $t(L.Repelled),
-   Stalled: () => $t(L.Stalled),
+export const WarResult = {
+   Success: { name: () => $t(L.Success), score: 1, color: 0x288a51 },
+   Repelled: { name: () => $t(L.Repelled), score: -1, color: 0xc0392b },
+   Stalled: { name: () => $t(L.Stalled), score: 0, color: 0x34495e },
 } as const;
 
 export const MaxConscription = 50;

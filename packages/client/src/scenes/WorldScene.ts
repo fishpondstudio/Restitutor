@@ -1,7 +1,16 @@
 import { LINE_SCALE_MODE, SmoothGraphics } from "@pixi/graphics-smooth";
 import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
 import { AABB, type IAABB } from "@project/shared/src/utils/AABB";
-import { drawDashedLine, hasFlag, pointToTile, round, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
+import {
+   clamp,
+   drawDashedLine,
+   formatPercent,
+   hasFlag,
+   pointToTile,
+   round,
+   type Tile,
+   tileToPoint,
+} from "@project/shared/src/utils/Helper";
 import type { IHaveXY } from "@project/shared/src/utils/Vector2";
 import {
    type ColorSource,
@@ -29,6 +38,7 @@ import { MapBackgroundColors, MapColorsH, MapForegroundColors, MapTextColors } f
 import { findProvinceLabelPosition } from "../game/logic/MapLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { getTileDefense, getTileMaintenanceCost, getTileTerrain, getTileWar, isCapital } from "../game/logic/TileLogic";
+import type { IWar } from "../game/logic/WarLogic";
 import { MapGrid, TileHeight, TileWidth } from "../game/MapGrid";
 import { showPanel } from "../ui/common/ShowPanel";
 import { hideSidebar } from "../ui/common/SidebarManager";
@@ -39,6 +49,7 @@ import { playSound } from "../ui/Sound";
 import { TilePage } from "../ui/TilePage";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
+import { Easing } from "../utils/actions/Easing";
 import type { IEdgePanOptions } from "../utils/EdgePanMovement";
 import { G, GameFlags, isDev } from "../utils/Global";
 import { MapContainer, MapParticleContainer } from "../utils/MapContainer";
@@ -62,6 +73,8 @@ export class WorldScene extends Scene {
    private _capitalContainer: MapContainer<Tile, Sprite>;
    private _overlayContainer: MapContainer<Tile, DisplayObject>;
    private _labelContainer: MapContainer<Province, UnicodeText>;
+   private _warProgressContainer: MapContainer<Tile, UnicodeText>;
+   private _floaterContainer: Container<UnicodeText>;
    private _selectors: Container<Sprite>;
    private _selectedTiles = new Set<Tile>();
    private _selectedProvince: Province;
@@ -69,6 +82,7 @@ export class WorldScene extends Scene {
    private _dynamicOutline: SmoothGraphics;
    private _warOutline: SmoothGraphics;
    private _lastZoom = 0;
+   private _tileWar = new Map<Tile, IWar>();
    private _clickTileHandler: ((tile: Tile, e: FederatedPointerEvent) => void) | undefined;
    private readonly _isEditor: boolean;
 
@@ -147,7 +161,12 @@ export class WorldScene extends Scene {
       oceanLabelContainer.position.set(MarginX, 0);
       oceanLabelContainer.eventMode = "none";
 
-      this._drawOceanLabels(oceanLabelContainer);
+      this._warProgressContainer = this.viewport.addChild(new MapContainer<Tile, UnicodeText>());
+      this._warProgressContainer.position.set(MarginX, 0);
+
+      this._floaterContainer = this.viewport.addChild(new Container<UnicodeText>());
+      this._floaterContainer.position.set(MarginX, 0);
+      this._floaterContainer.eventMode = "none";
 
       const minZoom = Math.max(
          app.screen.width / this.viewport.worldWidth,
@@ -188,8 +207,10 @@ export class WorldScene extends Scene {
       this.viewport.zoom = this._lastZoom;
       this.viewport.center = { x: MarginX + (minPos.x + maxPos.x) / 2, y: (minPos.y + maxPos.y) / 2 };
 
+      this._drawOceanLabels(oceanLabelContainer);
       this._drawStaticOutlineAndLabel();
       this._drawWarOutline();
+      this._drawWarProgress();
       this._updateAlpha();
 
       RefreshTiles.on(({ tiles, options }) => {
@@ -214,6 +235,7 @@ export class WorldScene extends Scene {
          }
          if (options.indicator || options.visual) {
             this._drawWarOutline();
+            this._drawWarProgress();
          }
       });
 
@@ -224,6 +246,7 @@ export class WorldScene extends Scene {
       });
 
       GameStateUpdated.on(() => {
+         this._drawWarProgress();
          switch (getOverlay()) {
             case "Upgrade": {
                for (const [tile, tileData] of G.save.state.tiles) {
@@ -517,6 +540,83 @@ export class WorldScene extends Scene {
       for (const [, visual] of this._overlayContainer.map) {
          visual.visible = visual.x >= minX && visual.x <= maxX && visual.y >= minY && visual.y <= maxY;
       }
+   }
+
+   private _drawWarProgress(): void {
+      this._tileWar.clear();
+      for (const war of G.save.state.wars) {
+         const progress = war.requiredWarScore > 0 ? clamp(war.actualWarScore / war.requiredWarScore, 0, 1) : 1;
+         const text = formatPercent(progress);
+         for (const tile of war.tiles) {
+            if (this._tileWar.has(tile)) {
+               continue;
+            }
+            this._tileWar.set(tile, war);
+
+            const label = this._warProgressContainer.map.getOrAdd(tile, () => {
+               const l = new UnicodeText(text, {
+                  fontName: `${Fonts.MainFont}Outline`,
+                  fontSize: 28,
+                  tint: 0xffffff,
+               });
+               l.anchor.set(0.5);
+               l.position.copyFrom(MapGrid.gridToPosition(tileToPoint(tile)));
+               return l;
+            });
+            label.text = text;
+         }
+      }
+      for (const [tile] of this._warProgressContainer.map) {
+         if (!this._tileWar.has(tile)) {
+            this._warProgressContainer.map.delete(tile);
+         }
+      }
+   }
+
+   public showFloaterText({
+      tile,
+      text,
+      color,
+      font,
+      size = 24,
+   }: {
+      tile: Tile;
+      text: string;
+      font?: string;
+      color?: number;
+      size?: number;
+   }): void {
+      const position = MapGrid.gridToPosition(tileToPoint(tile));
+      const bounds = this.viewport.visibleWorldRect();
+      if (
+         position.x + MarginX + TileWidth / 2 < bounds.left ||
+         position.x + MarginX - TileWidth / 2 > bounds.right ||
+         position.y + TileHeight / 2 < bounds.top ||
+         position.y - TileHeight / 2 > bounds.bottom
+      ) {
+         return;
+      }
+      const floater = this._floaterContainer.addChild(
+         new UnicodeText(text, {
+            fontName: font ?? Fonts.MainFont,
+            fontSize: size,
+            tint: color ?? 0xffffff,
+         }),
+      );
+      floater.anchor.set(0.5);
+      floater.position.set(position.x, position.y - TileHeight / 5);
+      sequence(
+         to(floater, { y: floater.y - TileHeight / 3, alpha: 0 }, 2, Easing.OutSine),
+         runFunc(() => {
+            if (!floater.destroyed) {
+               floater.destroy({ children: true });
+            }
+         }),
+      ).start();
+   }
+
+   override onDisable(): void {
+      super.onDisable();
    }
 
    override onResize(width: number, height: number): void {

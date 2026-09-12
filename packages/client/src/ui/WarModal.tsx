@@ -34,8 +34,7 @@ import {
    isWarStalled,
    WarFlag,
    WarLogFlag,
-   WarResultNames,
-   WarResultScore,
+   WarResult,
    WhitePeaceCostPerTile,
    warIsOngoingCondition,
 } from "../game/logic/WarLogic";
@@ -161,9 +160,9 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                                                    <div className="h5" />
                                                    <div>{formatPercent(roll)}</div>
                                                    <div>
-                                                      {WarResultNames[
+                                                      {WarResult[
                                                          roll < log.successChance ? "Success" : "Repelled"
-                                                      ]()}
+                                                      ].name()}
                                                    </div>
                                                    <div className="h10" />
                                                 </div>
@@ -172,7 +171,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                                        </div>
                                        <div className="box row m10 p10">
                                           <div className="f1">{$t(L.FinalResult)}</div>
-                                          <div>{WarResultNames[log.result]()}</div>
+                                          <div>{WarResult[log.result].name()}</div>
                                        </div>
                                     </>
                                  )}
@@ -188,7 +187,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                                  </div>
                               </FloatingTip>
                            </td>
-                           <td>{WarResultNames[log.result]()}</td>
+                           <td>{WarResult[log.result].name()}</td>
                            <td className="text-right">
                               <WarLogScoreComp log={log} />
                            </td>
@@ -278,7 +277,7 @@ function WarLogScoreComp({ log }: { log: IWarLog }): React.ReactNode {
          </FloatingTip>
       );
    }
-   return colorNumber(WarResultScore[log.result]);
+   return colorNumber(WarResult[log.result].score);
 }
 
 function SignPeaceTreatyButton({ war, province }: { war: IWar; province: Province }): React.ReactNode {

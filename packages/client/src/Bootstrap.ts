@@ -48,6 +48,25 @@ export async function bootstrap(): Promise<void> {
          },
          { chars: BitmapFont.ASCII, resolution: 2, padding: 8 },
       );
+      if (f.family === Fonts.MainFont) {
+         BitmapFont.from(
+            `${f.family}Outline`,
+            {
+               fill: "#ffffff",
+               fontSize: 64,
+               fontFamily: f.family,
+               fontWeight: weight,
+               stroke: "rgba(0, 0, 0, 0.25)",
+               strokeThickness: 8,
+               dropShadow: true,
+               dropShadowAlpha: 0.5,
+               dropShadowBlur: 16,
+               dropShadowColor: "#000000",
+               dropShadowDistance: 0,
+            },
+            { chars: BitmapFont.ASCII, resolution: 2, padding: 8 },
+         );
+      }
    });
    console.timeEnd("Load Font");
 

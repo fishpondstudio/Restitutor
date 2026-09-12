@@ -1,4 +1,6 @@
-import { clamp, forEach, hasFlag, mapSafeAdd, range, setFlag } from "@project/shared/src/utils/Helper";
+import { clamp, forEach, formatDelta, hasFlag, mapSafeAdd, range, setFlag } from "@project/shared/src/utils/Helper";
+import { Fonts } from "../../Fonts";
+import { WorldScene } from "../../scenes/WorldScene";
 import { ChronicleModal } from "../../ui/ChronicleModal";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { GreatWorkCompletedModal } from "../../ui/GreatWorkCompletedModal";
@@ -27,7 +29,7 @@ import { addSocialClassInfluence, SocialClassInfluenceYearly } from "./SocialCla
 import { tickAI } from "./TickAI";
 import { tickProvince } from "./TickProvince";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
-import { getWarMonthlyMilitaryPoint, getWarSuccessChance, type IWar, WarLogFlag } from "./WarLogic";
+import { getWarMonthlyMilitaryPoint, getWarSuccessChance, type IWar, WarLogFlag, WarResult } from "./WarLogic";
 
 export function tickLogic(save: SaveGame, dt: number, unscaled: number): void {
    save.state.tick++;
@@ -217,5 +219,16 @@ export function tickWar(war: IWar, save: SaveGame): void {
          result: "Stalled",
          flag: WarLogFlag.None,
       });
+   }
+   const scene = G.scene.getCurrent(WorldScene);
+   if (scene) {
+      const log = war.log[0];
+      const result = WarResult[log.result];
+      const forceAttack = hasFlag(log.flag, WarLogFlag.ForceAttack);
+      const score = forceAttack ? 0 : result.score;
+      const text = `${result.name()} ${formatDelta(score)}${forceAttack ? "*" : ""}`;
+      for (const tile of war.tiles) {
+         scene.showFloaterText({ tile, text, color: result.color, font: Fonts.TitleFont });
+      }
    }
 }

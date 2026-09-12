@@ -34,6 +34,16 @@ class OwnedChildMap<K, V extends DisplayObject> implements Iterable<[K, V]> {
       return this._map.get(key);
    }
 
+   public getOrAdd(key: K, create: () => V): V {
+      let child = this._map.get(key);
+      if (!child) {
+         child = create();
+         this._map.set(key, child);
+         this._owner.addChild(child);
+      }
+      return child;
+   }
+
    public has(key: K): boolean {
       return this._map.has(key);
    }
