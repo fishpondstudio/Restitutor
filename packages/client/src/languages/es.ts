@@ -3716,7 +3716,14 @@ export const ES = {
    $1Units$2Power: "$1 unidades × $2 de poder",
    Vs$1: "Contra: $1",
    CombinedPower: "Poder combinado",
-   ArmyUnitEffectivenessDesc$1$2$3:
-      "La infantería tiene ventaja contra la caballería; la caballería, contra las unidades a distancia; y las unidades a distancia, contra la infantería. La eficacia de las unidades oscila entre $1 y $2 según cómo se distribuye el poder del ejército enemigo entre los tipos de unidades. Un valor de $3 es neutral.",
    GeneralSkillBasePowerDesc$1: "Cada nivel de habilidad del general añade un $1 del poder base del tipo de unidad correspondiente.",
+   InfantryCountersCavalryAndIsCounteredByRangedUnits: "La infantería contrarresta a la <i>caballería</i> y es contrarrestada por las <i>unidades a distancia</i>.",
+   InfantryEffectivenessIncreaseDesc$1$2: "Cada $1 del poder bélico enemigo aportado por la caballería <i>aumenta</i> la eficacia de nuestra infantería en $2.",
+   InfantryEffectivenessDecreaseDesc$1$2: "Cada $1 del poder bélico enemigo aportado por las unidades a distancia <i>reduce</i> la eficacia de nuestra infantería en $2.",
+   RangedUnitsCounterInfantryAndAreCounteredByCavalry: "Las unidades a distancia contrarrestan a la <i>infantería</i> y son contrarrestadas por la <i>caballería</i>.",
+   RangedEffectivenessIncreaseDesc$1$2: "Cada $1 del poder bélico enemigo aportado por la infantería <i>aumenta</i> la eficacia de nuestras unidades a distancia en $2.",
+   RangedEffectivenessDecreaseDesc$1$2: "Cada $1 del poder bélico enemigo aportado por la caballería <i>reduce</i> la eficacia de nuestras unidades a distancia en $2.",
+   CavalryCountersRangedUnitsAndIsCounteredByInfantry: "La caballería contrarresta a las <i>unidades a distancia</i> y es contrarrestada por la <i>infantería</i>.",
+   CavalryEffectivenessIncreaseDesc$1$2: "Cada $1 del poder bélico enemigo aportado por las unidades a distancia <i>aumenta</i> la eficacia de nuestra caballería en $2.",
+   CavalryEffectivenessDecreaseDesc$1$2: "Cada $1 del poder bélico enemigo aportado por la infantería <i>reduce</i> la eficacia de nuestra caballería en $2.",
 };

@@ -111,22 +111,7 @@ export function ArmySingletonModal(): React.ReactNode {
                </>
             )}
          </div>
-         <div className="h1 row g5">
-            <div>{$t(L.ArmyComposition)}</div>
-            <FloatingTip
-               label={() =>
-                  $t(
-                     L.ArmyUnitEffectivenessDesc$1$2$3,
-                     formatPercent(1 - ArmyCounterBonus),
-                     formatPercent(1 + ArmyCounterBonus),
-                     formatPercent(1),
-                  )
-               }
-            >
-               <div className="mi sm">info</div>
-            </FloatingTip>
-            <div className="f1" />
-         </div>
+         <div className="h1">{$t(L.ArmyComposition)}</div>
          <div className="row g0 my5 text-sm">
             <div className="f1">
                <div className="mx10 my5 row">
@@ -137,6 +122,22 @@ export function ArmySingletonModal(): React.ReactNode {
                   className="mx10 my5"
                   name={$t(L.UnitPower)}
                   breakdown={getUnitWarPower("infantry", G.save.state.playerProvince, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        <div className="m10">
+                           {html($t(L.InfantryCountersCavalryAndIsCounteredByRangedUnits))}
+                           <div className="h5" />
+                           {html(
+                              $t(L.InfantryEffectivenessIncreaseDesc$1$2, "1%", formatPercent(0.01 * ArmyCounterBonus)),
+                           )}
+                           <div className="h5" />
+                           {html(
+                              $t(L.InfantryEffectivenessDecreaseDesc$1$2, "1%", formatPercent(0.01 * ArmyCounterBonus)),
+                           )}
+                        </div>
+                        {element}
+                     </>
+                  )}
                />
                <div className="mx10 my5">
                   <Slider styles={{ thumb: { display: "none" } }} value={infantry} />
@@ -152,19 +153,25 @@ export function ArmySingletonModal(): React.ReactNode {
                   className="mx10 my5"
                   name={$t(L.UnitPower)}
                   breakdown={getUnitWarPower("ranged", G.save.state.playerProvince, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        <div className="m10">
+                           {html($t(L.RangedUnitsCounterInfantryAndAreCounteredByCavalry))}
+                           <div className="h5" />
+                           {html(
+                              $t(L.RangedEffectivenessIncreaseDesc$1$2, "1%", formatPercent(0.01 * ArmyCounterBonus)),
+                           )}
+                           <div className="h5" />
+                           {html(
+                              $t(L.RangedEffectivenessDecreaseDesc$1$2, "1%", formatPercent(0.01 * ArmyCounterBonus)),
+                           )}
+                        </div>
+                        {element}
+                     </>
+                  )}
                />
                <div className="mx10 my5">
-                  <Slider
-                     min={0}
-                     max={Math.max(1, 100 - cavalry)}
-                     disabled={cavalry === 100}
-                     step={1}
-                     value={ranged}
-                     onChange={(value) => {
-                        setArmyComposition(value, cavalry, G.save.state.playerProvince, G.save);
-                        GameStateUpdated.emit();
-                     }}
-                  />
+                  <ArmyCompositionSlider unit="ranged" value={ranged} />
                </div>
             </div>
             <div className="divider vertical" />
@@ -177,19 +184,25 @@ export function ArmySingletonModal(): React.ReactNode {
                   className="mx10 my5"
                   name={$t(L.UnitPower)}
                   breakdown={getUnitWarPower("cavalry", G.save.state.playerProvince, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        <div className="m10">
+                           {html($t(L.CavalryCountersRangedUnitsAndIsCounteredByInfantry))}
+                           <div className="h5" />
+                           {html(
+                              $t(L.CavalryEffectivenessIncreaseDesc$1$2, "1%", formatPercent(0.01 * ArmyCounterBonus)),
+                           )}
+                           <div className="h5" />
+                           {html(
+                              $t(L.CavalryEffectivenessDecreaseDesc$1$2, "1%", formatPercent(0.01 * ArmyCounterBonus)),
+                           )}
+                        </div>
+                        {element}
+                     </>
+                  )}
                />
                <div className="mx10 my5">
-                  <Slider
-                     min={0}
-                     max={Math.max(1, 100 - ranged)}
-                     disabled={ranged === 100}
-                     step={1}
-                     value={cavalry}
-                     onChange={(value) => {
-                        setArmyComposition(ranged, value, G.save.state.playerProvince, G.save);
-                        GameStateUpdated.emit();
-                     }}
-                  />
+                  <ArmyCompositionSlider unit="cavalry" value={cavalry} />
                </div>
             </div>
          </div>
@@ -305,6 +318,26 @@ export function ArmySingletonModal(): React.ReactNode {
             breakdown={getWarPower(G.save.state.playerProvince, G.save)}
          />
       </ModalComp>
+   );
+}
+
+function ArmyCompositionSlider({ unit, value }: { unit: "ranged" | "cavalry"; value: number }): React.ReactNode {
+   return (
+      <Slider
+         min={0}
+         max={100}
+         step={1}
+         value={value}
+         onChange={(nextValue) => {
+            const province = G.save.state.playerProvince;
+            const composition = getArmyComposition(province, G.save);
+            const other = unit === "ranged" ? "cavalry" : "ranged";
+            composition[unit] = nextValue;
+            composition[other] = Math.min(composition[other], 100 - nextValue);
+            setArmyComposition(composition.ranged, composition.cavalry, province, G.save);
+            GameStateUpdated.emit();
+         }}
+      />
    );
 }
 
