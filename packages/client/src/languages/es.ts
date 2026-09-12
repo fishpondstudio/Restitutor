@@ -3710,4 +3710,11 @@ export const ES = {
    OceanMareNostrum: "Mare Nostrum",
    OceanOceanusAtlanticus: "Océano Atlántico",
    OceanPontusEuxinus: "Ponto Euxino",
+   LowerTargetConscription: "Reducir la conscripción objetivo",
+   Confirm: "Confirmar",
+   DontShowThisConfirmationAgain: "No volver a mostrar esta confirmación",
+   ConscriptionReductionWarning$1$2$2: "Reducir la conscripción objetivo de $1 a $2 reducirá <i>inmediatamente</i> la conscripción actual a $2, disminuyendo el tamaño de tu ejército permanente. Recuperar el tamaño de tu ejército permanente lleva tiempo.",
+   ArmyMaintenanceReductionWarning$1$2$2: "Reducir el mantenimiento del ejército de $1 a $2 reducirá <i>inmediatamente</i> la moral actual a $2. La moral tarda en recuperarse, incluso después de volver a aumentar el mantenimiento del ejército.",
+   SkipConfirmationWhenLoweringConscription: "Omitir la confirmación al reducir la conscripción",
+   SkipConfirmationWhenLoweringArmyMaintenance: "Omitir la confirmación al reducir el mantenimiento del ejército",
 };

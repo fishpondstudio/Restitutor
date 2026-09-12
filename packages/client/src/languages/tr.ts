@@ -3668,4 +3668,11 @@ export const TR = {
    OceanMareNostrum: "Mare Nostrum",
    OceanOceanusAtlanticus: "Oceanus Atlanticus",
    OceanPontusEuxinus: "Pontus Euxinus",
+   LowerTargetConscription: "Lower target conscription",
+   Confirm: "Confirm",
+   DontShowThisConfirmationAgain: "Don't show this confirmation again",
+   ConscriptionReductionWarning$1$2$2: "Lowering Target Conscription from $1 to $2 will <i>immediately</i> reduce Actual Conscription to $2, shrinking your standing army. Rebuilding your standing army takes time.",
+   ArmyMaintenanceReductionWarning$1$2$2: "Lowering Army Maintenance from $1 to $2 will <i>immediately</i> reduce Current Morale to $2. Morale takes time to recover, even after Army Maintenance is raised again.",
+   SkipConfirmationWhenLoweringConscription: "Skip confirmation when lowering conscription",
+   SkipConfirmationWhenLoweringArmyMaintenance: "Skip confirmation when lowering army maintenance",
 };

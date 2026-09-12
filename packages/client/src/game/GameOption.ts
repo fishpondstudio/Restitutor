@@ -17,6 +17,8 @@ export const GameOptionFlag = {
    ShowAllMissions: 1 << 5,
    PauseOnBlur: 1 << 6,
    EdgePanEnabled: 1 << 7,
+   SkipConscriptionReductionConfirmation: 1 << 8,
+   SkipArmyMaintenanceReductionConfirmation: 1 << 9,
 };
 
 export type GameOptionFlag = ValueOf<typeof GameOptionFlag>;

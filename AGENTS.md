@@ -2,6 +2,7 @@
 
 - If something is ambiguous or unclear, ask for clarifications - do not silently make assumptions.
 - Do not add tests unless explicitly asked to.
+- Game is by default running on http://localhost:5173/ - do not use browser (including headless tools) to verify unless explicitly asked to.
 - Do not stage your changes unless explicitly asked to.
 - Do not add comments unless necessary or explicitly asked to. Comment why (non-obvious things), not what or how.
 

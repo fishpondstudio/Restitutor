@@ -1,5 +1,13 @@
-import { Slider } from "@mantine/core";
-import { cls, formatNumber, formatPercent, formatPercentDelta } from "@project/shared/src/utils/Helper";
+import { Checkbox, Slider } from "@mantine/core";
+import {
+   cls,
+   formatNumber,
+   formatPercent,
+   formatPercentDelta,
+   hasFlag,
+   setFlag,
+} from "@project/shared/src/utils/Helper";
+import { useState } from "react";
 import {
    MakeGovernorGeneralAction,
    RecruitGeneralAction,
@@ -9,7 +17,8 @@ import { finalizeCondition } from "../game/actions/GameAction";
 import { durationToString } from "../game/definitions/Modifier";
 import { ProvinceResourceNames, ProvinceStatNames } from "../game/definitions/Province";
 import { TimedActions } from "../game/definitions/TimedAction";
-import { GameStateUpdated } from "../game/Events";
+import { GameOptionUpdated, GameStateUpdated } from "../game/Events";
+import { GameOptionFlag } from "../game/GameOption";
 import {
    GeneralArmyMaintenancePct,
    getArmyMaintenanceCost,
@@ -40,9 +49,11 @@ import {
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownRow } from "./BreakdownRow";
+import { ConfirmModal } from "./ConfirmModal";
+import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
@@ -64,28 +75,7 @@ export function ArmySingletonModal(): React.ReactNode {
          <div className="mx10 my5" id="ArmyModal_TargetConscription">
             {$t(L.TargetConscription)}
          </div>
-         <Slider
-            className="m10"
-            value={targetConscription}
-            onChange={(value) => {
-               setProvinceTargetConscription(value, G.save.state.playerProvince, G.save);
-               GameStateUpdated.emit();
-            }}
-            min={MinConscription}
-            max={MaxConscription}
-            marks={[
-               { value: 5, label: "5%" },
-               { value: 10, label: "10%" },
-               { value: 15, label: "15%" },
-               { value: 20, label: "20%" },
-               { value: 25, label: "25%" },
-               { value: 30, label: "30%" },
-               { value: 35, label: "35%" },
-               { value: 40, label: "40%" },
-               { value: 45, label: "45%" },
-               { value: 50, label: "50%" },
-            ]}
-         />
+         <TargetConscriptionSlider />
          <div className="h20" />
          <div className="divider" />
          <div className="row g5 mx10 my5">
@@ -280,24 +270,7 @@ export function ArmySingletonModal(): React.ReactNode {
          <div className="mx10 my5" id="ArmyModal_ArmyMaintenance">
             {$t(L.ArmyMaintenance)}
          </div>
-         <Slider
-            className="m10"
-            value={armyMaintenance}
-            onChange={(value) => {
-               setProvinceArmyMaintenance(value, G.save.state.playerProvince, G.save);
-               GameStateUpdated.emit();
-            }}
-            min={MinArmyMaintenance}
-            max={MaxArmyMaintenance}
-            marks={[
-               { value: 50, label: "50%" },
-               { value: 60, label: "60%" },
-               { value: 70, label: "70%" },
-               { value: 80, label: "80%" },
-               { value: 90, label: "90%" },
-               { value: 100, label: "100%" },
-            ]}
-         />
+         <ArmyMaintenanceSlider />
          <div className="h20" />
          <div className="divider" />
          <div className="row mx10 my5">
@@ -324,6 +297,216 @@ export function ArmySingletonModal(): React.ReactNode {
             breakdown={getWarPower(G.save.state.playerProvince, G.save)}
          />
       </ModalComp>
+   );
+}
+
+function TargetConscriptionSlider(): React.ReactNode {
+   const [preview, setPreview] = useState<number>();
+   const currentValue = getProvinceStat("targetConscription", G.save.state.playerProvince, G.save);
+   return (
+      <Slider
+         className="m10"
+         value={preview ?? currentValue}
+         onChange={setPreview}
+         onChangeEnd={(value) => {
+            const save = G.save;
+            const province = save.state.playerProvince;
+            const previousValue = getProvinceStat("targetConscription", province, save);
+            if (value === previousValue) {
+               setPreview(undefined);
+               return;
+            }
+            const apply = () => {
+               setPreview(undefined);
+               if (G.save !== save || G.save.state.playerProvince !== province) {
+                  return;
+               }
+               setProvinceTargetConscription(value, province, save);
+               GameStateUpdated.emit();
+            };
+            if (
+               value < previousValue &&
+               value < getProvinceStat("actualConscription", province, save) &&
+               !hasFlag(save.options.flag, GameOptionFlag.SkipConscriptionReductionConfirmation)
+            ) {
+               let skipConfirmation = false;
+               showPanel(ConfirmModal, {
+                  title: $t(L.LowerTargetConscription),
+                  message: (
+                     <>
+                        <div className="box red">
+                           <div className="row mx10 my5 g5">
+                              <div>{$t(L.TargetConscription)}</div>
+                              <div className="f1" />
+                              <div>{formatPercent(previousValue / 100)}</div>
+                              <div className="mi sm text-red">arrow_right_alt</div>
+                              <div>{formatPercent(value / 100)}</div>
+                           </div>
+                           <div className="row mx10 my5 g5">
+                              <div>{$t(L.ActualConscription)}</div>
+                              <div className="f1" />
+                              <div>{formatPercent(getProvinceStat("actualConscription", province, save) / 100)}</div>
+                              <div className="mi sm text-red">arrow_right_alt</div>
+                              <div>{formatPercent(value / 100)}</div>
+                           </div>
+                        </div>
+                        <div className="mt10 text-sm text-dimmed">
+                           {html(
+                              $t(
+                                 L.ConscriptionReductionWarning$1$2$2,
+                                 formatPercent(previousValue / 100),
+                                 formatPercent(value / 100),
+                              ),
+                           )}
+                        </div>
+                        <Checkbox
+                           className="mt10"
+                           label={$t(L.DontShowThisConfirmationAgain)}
+                           defaultChecked={false}
+                           onChange={(event) => {
+                              skipConfirmation = event.currentTarget.checked;
+                           }}
+                        />
+                     </>
+                  ),
+                  onCancel: () => setPreview(undefined),
+                  confirm: {
+                     label: $t(L.Confirm),
+                     onClick: () => {
+                        if (G.save === save && G.save.state.playerProvince === province && skipConfirmation) {
+                           save.options.flag = setFlag(
+                              save.options.flag,
+                              GameOptionFlag.SkipConscriptionReductionConfirmation,
+                           );
+                           GameOptionUpdated.emit();
+                        }
+                        apply();
+                        hideModal();
+                     },
+                  },
+               });
+               return;
+            }
+            apply();
+         }}
+         min={MinConscription}
+         max={MaxConscription}
+         marks={[
+            { value: 5, label: "5%" },
+            { value: 10, label: "10%" },
+            { value: 15, label: "15%" },
+            { value: 20, label: "20%" },
+            { value: 25, label: "25%" },
+            { value: 30, label: "30%" },
+            { value: 35, label: "35%" },
+            { value: 40, label: "40%" },
+            { value: 45, label: "45%" },
+            { value: 50, label: "50%" },
+         ]}
+      />
+   );
+}
+
+function ArmyMaintenanceSlider(): React.ReactNode {
+   const [preview, setPreview] = useState<number>();
+   const currentValue = getProvinceStat("armyMaintenance", G.save.state.playerProvince, G.save);
+   return (
+      <Slider
+         className="m10"
+         value={preview ?? currentValue}
+         onChange={setPreview}
+         onChangeEnd={(value) => {
+            const save = G.save;
+            const province = save.state.playerProvince;
+            const previousValue = getProvinceStat("armyMaintenance", province, save);
+            if (value === previousValue) {
+               setPreview(undefined);
+               return;
+            }
+            const apply = () => {
+               setPreview(undefined);
+               if (G.save !== save || G.save.state.playerProvince !== province) {
+                  return;
+               }
+               setProvinceArmyMaintenance(value, province, save);
+               GameStateUpdated.emit();
+            };
+            if (
+               value < previousValue &&
+               value < getProvinceStat("armyMorale", province, save) &&
+               !hasFlag(save.options.flag, GameOptionFlag.SkipArmyMaintenanceReductionConfirmation)
+            ) {
+               let skipConfirmation = false;
+               showPanel(ConfirmModal, {
+                  title: $t(L.LowerArmyMaintenance),
+                  message: (
+                     <>
+                        <div className="box red">
+                           <div className="row mx10 my5 g5">
+                              <div>{$t(L.ArmyMaintenance)}</div>
+                              <div className="f1" />
+                              <div>{formatPercent(previousValue / 100)}</div>
+                              <div className="mi sm text-red">arrow_right_alt</div>
+                              <div>{formatPercent(value / 100)}</div>
+                           </div>
+                           <div className="row mx10 my5 g5">
+                              <div>{$t(L.CurrentMorale)}</div>
+                              <div className="f1" />
+                              <div>{formatPercent(getProvinceStat("armyMorale", province, save) / 100)}</div>
+                              <div className="mi sm text-red">arrow_right_alt</div>
+                              <div>{formatPercent(value / 100)}</div>
+                           </div>
+                        </div>
+                        <div className="mt10 text-sm text-dimmed">
+                           {html(
+                              $t(
+                                 L.ArmyMaintenanceReductionWarning$1$2$2,
+                                 formatPercent(previousValue / 100),
+                                 formatPercent(value / 100),
+                              ),
+                           )}
+                        </div>
+                        <Checkbox
+                           className="mt10"
+                           label={$t(L.DontShowThisConfirmationAgain)}
+                           defaultChecked={false}
+                           onChange={(event) => {
+                              skipConfirmation = event.currentTarget.checked;
+                           }}
+                        />
+                     </>
+                  ),
+                  onCancel: () => setPreview(undefined),
+                  confirm: {
+                     label: $t(L.Confirm),
+                     onClick: () => {
+                        if (G.save === save && G.save.state.playerProvince === province && skipConfirmation) {
+                           save.options.flag = setFlag(
+                              save.options.flag,
+                              GameOptionFlag.SkipArmyMaintenanceReductionConfirmation,
+                           );
+                           GameOptionUpdated.emit();
+                        }
+                        apply();
+                        hideModal();
+                     },
+                  },
+               });
+               return;
+            }
+            apply();
+         }}
+         min={MinArmyMaintenance}
+         max={MaxArmyMaintenance}
+         marks={[
+            { value: 50, label: "50%" },
+            { value: 60, label: "60%" },
+            { value: 70, label: "70%" },
+            { value: 80, label: "80%" },
+            { value: 90, label: "90%" },
+            { value: 100, label: "100%" },
+         ]}
+      />
    );
 }
 

@@ -3630,4 +3630,11 @@ export const ZH_CN = {
    OceanMareNostrum: "我等之海",
    OceanOceanusAtlanticus: "大西洋",
    OceanPontusEuxinus: "好客之海",
+   LowerTargetConscription: "降低目标征兵",
+   Confirm: "确认",
+   DontShowThisConfirmationAgain: "不再显示此确认提示",
+   ConscriptionReductionWarning$1$2$2: "将目标征兵从$1降至$2，会<i>立即</i>将实际征兵降至$2，使你的常备军规模缩小。恢复常备军规模需要时间。",
+   ArmyMaintenanceReductionWarning$1$2$2: "将军队维护费从$1降至$2，会<i>立即</i>将当前士气降至$2。即使再次提高军队维护费，士气也需要时间恢复。",
+   SkipConfirmationWhenLoweringConscription: "降低征兵时跳过确认",
+   SkipConfirmationWhenLoweringArmyMaintenance: "降低军队维护费时跳过确认",
 };

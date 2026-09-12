@@ -3661,4 +3661,11 @@ export const RU = {
    OceanMareNostrum: "Наше море",
    OceanOceanusAtlanticus: "Атлантический океан",
    OceanPontusEuxinus: "Понт Эвксинский",
+   LowerTargetConscription: "Снизить целевой призыв",
+   Confirm: "Подтвердить",
+   DontShowThisConfirmationAgain: "Больше не показывать это подтверждение",
+   ConscriptionReductionWarning$1$2$2: "Снижение целевого призыва с $1 до $2 <i>немедленно</i> снизит фактический призыв до $2, сократив численность вашей постоянной армии. Восстановление численности постоянной армии требует времени.",
+   ArmyMaintenanceReductionWarning$1$2$2: "Снижение содержания армии с $1 до $2 <i>немедленно</i> снизит текущий боевой дух до $2. Восстановление боевого духа требует времени, даже если вновь увеличить содержание армии.",
+   SkipConfirmationWhenLoweringConscription: "Пропускать подтверждение при снижении призыва",
+   SkipConfirmationWhenLoweringArmyMaintenance: "Пропускать подтверждение при снижении содержания армии",
 };

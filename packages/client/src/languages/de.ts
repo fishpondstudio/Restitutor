@@ -3714,4 +3714,11 @@ export const DE = {
    OceanMareNostrum: "Mare Nostrum",
    OceanOceanusAtlanticus: "Atlantischer Ozean",
    OceanPontusEuxinus: "Pontos Euxeinos",
+   LowerTargetConscription: "Zieleinberufung senken",
+   Confirm: "Bestätigen",
+   DontShowThisConfirmationAgain: "Diese Bestätigung nicht mehr anzeigen",
+   ConscriptionReductionWarning$1$2$2: "Wenn du die Zieleinberufung von $1 auf $2 senkst, sinkt die aktuelle Einberufung <i>sofort</i> auf $2. Dadurch wird dein stehendes Heer kleiner. Dein stehendes Heer wieder aufzubauen, braucht Zeit.",
+   ArmyMaintenanceReductionWarning$1$2$2: "Wenn du den Armeeunterhalt von $1 auf $2 senkst, sinkt die aktuelle Moral <i>sofort</i> auf $2. Die Moral braucht Zeit, um sich zu erholen, auch wenn der Armeeunterhalt wieder erhöht wird.",
+   SkipConfirmationWhenLoweringConscription: "Bestätigung beim Senken der Einberufung überspringen",
+   SkipConfirmationWhenLoweringArmyMaintenance: "Bestätigung beim Senken des Armeeunterhalts überspringen",
 };

@@ -267,6 +267,33 @@ function SettingsGeneralTab(): React.ReactNode {
                }}
             />
          </div>
+
+         <div className="row m10">
+            <div className="f1">{$t(L.SkipConfirmationWhenLoweringConscription)}</div>
+            <Switch
+               checked={hasFlag(G.save.options.flag, GameOptionFlag.SkipConscriptionReductionConfirmation)}
+               onChange={() => {
+                  G.save.options.flag = toggleFlag(
+                     G.save.options.flag,
+                     GameOptionFlag.SkipConscriptionReductionConfirmation,
+                  );
+                  GameOptionUpdated.emit();
+               }}
+            />
+         </div>
+         <div className="row m10">
+            <div className="f1">{$t(L.SkipConfirmationWhenLoweringArmyMaintenance)}</div>
+            <Switch
+               checked={hasFlag(G.save.options.flag, GameOptionFlag.SkipArmyMaintenanceReductionConfirmation)}
+               onChange={() => {
+                  G.save.options.flag = toggleFlag(
+                     G.save.options.flag,
+                     GameOptionFlag.SkipArmyMaintenanceReductionConfirmation,
+                  );
+                  GameOptionUpdated.emit();
+               }}
+            />
+         </div>
          <div className="row m10">
             <div className="f1">{$t(L.ShowChroniclePopup)}</div>
             <div>{$t(L.Every)}</div>
