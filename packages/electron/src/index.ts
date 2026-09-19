@@ -22,6 +22,9 @@ if (existsSync(logPath)) {
 
 app.commandLine.appendSwitch("log-file", logPath);
 app.commandLine.appendSwitch("enable-experimental-web-platform-features");
+if (process.platform === "linux") {
+   app.commandLine.appendSwitch("ozone-platform-hint", "auto");
+}
 
 export function getGameSavePath(): string {
    return path.join(app.getPath("appData"), `${ProductName}Saves`);
@@ -84,10 +87,14 @@ const createWindow = async () => {
             throw new Error(`Game content is missing: ${gameIndex}`);
          }
          await mainWindow.loadFile(gameIndex, { search: params.toString() });
-         mainWindow.webContents.openDevTools();
+         if (!app.isPackaged) {
+            mainWindow.webContents.openDevTools();
+         }
       } else {
          await mainWindow.loadURL(`http://localhost:5173/?${params.toString()}`);
-         mainWindow.webContents.openDevTools();
+         if (!app.isPackaged) {
+            mainWindow.webContents.openDevTools();
+         }
       }
 
       if (steam.utils.isSteamRunningOnSteamDeck()) {
