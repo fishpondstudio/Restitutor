@@ -19,6 +19,10 @@ module.exports = {
       asar: {
          unpack: "*.{node,dll,dylib,so,lib}",
       },
+      // steamworks.js ships one .node per arch and picks by process.arch at runtime; keep both as-is instead of lipo-ing.
+      osxUniversal: {
+         x64ArchFiles: "**/steamworksjs.darwin-*.node",
+      },
    },
    rebuildConfig: {},
    makers: [
