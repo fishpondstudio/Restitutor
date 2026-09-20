@@ -1,7 +1,9 @@
+import "./linux-ozone";
 import path from "node:path";
 import { type Client, init, shutdown } from "@fishpondstudio/steamworks.js";
 import type { workshop } from "@fishpondstudio/steamworks.js/client";
 import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
+
 import { ensureDirSync, existsSync, renameSync } from "fs-extra";
 import { SaveKey } from "../../client/src/game/definitions/Constant";
 import { getInstallRoot } from "./InstallRoot";
@@ -22,9 +24,6 @@ if (existsSync(logPath)) {
 
 app.commandLine.appendSwitch("log-file", logPath);
 app.commandLine.appendSwitch("enable-experimental-web-platform-features");
-if (process.platform === "linux") {
-   app.commandLine.appendSwitch("ozone-platform-hint", "auto");
-}
 
 export function getGameSavePath(): string {
    return path.join(app.getPath("appData"), `${ProductName}Saves`);

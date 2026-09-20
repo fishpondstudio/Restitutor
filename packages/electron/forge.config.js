@@ -37,6 +37,32 @@ module.exports = {
             const targetPath = path.join(outputPath, "game");
             console.log(`Copying from ${clientDist} to ${targetPath}`);
             fs.copySync(clientDist, targetPath, { overwrite: true });
+
+            // Electron appendSwitch("ozone-platform") is ignored on some Linux builds;
+            // CLI flag works. Wrap the binary so Wayland sessions get native ozone.
+            if (platform === "linux") {
+               const bin = path.join(outputPath, "Restitutor");
+               const real = path.join(outputPath, "Restitutor.bin");
+               if (!fs.existsSync(bin)) {
+                  throw new Error(`Linux binary missing: ${bin}`);
+               }
+               if (!fs.existsSync(real)) {
+                  fs.renameSync(bin, real);
+               }
+               const wrapper = `#!/usr/bin/env bash
+set -euo pipefail
+DIR="$(cd "$(dirname "$0")" && pwd)"
+OZ=( )
+if [[ -n "\${WAYLAND_DISPLAY:-}" || "\${XDG_SESSION_TYPE:-}" == "wayland" ]]; then
+  OZ=(--ozone-platform=wayland)
+else
+  OZ=(--ozone-platform=x11)
+fi
+exec "$DIR/Restitutor.bin" "\${OZ[@]}" "$@"
+`
+               fs.writeFileSync(bin, wrapper, { mode: 0o755 });
+               console.log(`Wrapped Linux binary with Wayland/X11 ozone launcher`);
+            }
          }
       },
    },
