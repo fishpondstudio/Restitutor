@@ -38,22 +38,25 @@ module.exports = {
             console.log(`Copying from ${clientDist} to ${targetPath}`);
             fs.copySync(clientDist, targetPath, { overwrite: true });
 
-            // Electron appendSwitch("ozone-platform") is ignored on some Linux builds;
-            // CLI flag works. Wrap the binary so Wayland sessions get native ozone.
+            // On Hyprland, appendSwitch(ozone-platform) alone still lands on XWayland;
+            // the CLI flag works. Wrap so WAYLAND_DISPLAY sessions get native ozone.
+            // linux-ozone.ts covers electron-forge start; this wrapper covers packaged builds.
             if (platform === "linux") {
                const bin = path.join(outputPath, "Restitutor");
                const real = path.join(outputPath, "Restitutor.bin");
                if (!fs.existsSync(bin)) {
                   throw new Error(`Linux binary missing: ${bin}`);
                }
-               if (!fs.existsSync(real)) {
-                  fs.renameSync(bin, real);
+               // Always replace .bin so a stale leftover cannot ship with a new wrapper.
+               if (fs.existsSync(real)) {
+                  fs.removeSync(real);
                }
+               fs.renameSync(bin, real);
                const wrapper = `#!/usr/bin/env bash
 set -euo pipefail
 DIR="$(cd "$(dirname "$0")" && pwd)"
 OZ=( )
-if [[ -n "\${WAYLAND_DISPLAY:-}" || "\${XDG_SESSION_TYPE:-}" == "wayland" ]]; then
+if [[ -n "\${WAYLAND_DISPLAY:-}" ]]; then
   OZ=(--ozone-platform=wayland)
 else
   OZ=(--ozone-platform=x11)

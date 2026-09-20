@@ -86,14 +86,9 @@ const createWindow = async () => {
             throw new Error(`Game content is missing: ${gameIndex}`);
          }
          await mainWindow.loadFile(gameIndex, { search: params.toString() });
-         if (!app.isPackaged) {
-            mainWindow.webContents.openDevTools();
-         }
       } else {
          await mainWindow.loadURL(`http://localhost:5173/?${params.toString()}`);
-         if (!app.isPackaged) {
-            mainWindow.webContents.openDevTools();
-         }
+         mainWindow.webContents.openDevTools();
       }
 
       if (steam.utils.isSteamRunningOnSteamDeck()) {

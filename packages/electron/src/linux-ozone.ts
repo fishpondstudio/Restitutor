@@ -1,8 +1,9 @@
 import { app } from "electron";
 
-// Must run before any other app.* — Chromium picks ozone during early init.
+// Prefer native Wayland only when the socket is actually available.
+// XDG_SESSION_TYPE=wayland without WAYLAND_DISPLAY (e.g. Steam forced to XWayland) would abort if we force ozone=wayland.
 if (process.platform === "linux") {
-   if (process.env.WAYLAND_DISPLAY || process.env.XDG_SESSION_TYPE === "wayland") {
+   if (process.env.WAYLAND_DISPLAY) {
       app.commandLine.appendSwitch("ozone-platform", "wayland");
    } else {
       app.commandLine.appendSwitch("ozone-platform", "x11");
