@@ -37,8 +37,10 @@ cmd(`scp restitutor-v1.json ubuntu@de.fishpondstudio.com:/opt/ota/`, path.join(r
 if (fullBuild) {
    fs.removeSync("./node_modules");
    cmd("npm install", path.join(rootPath, "packages", "electron"));
-   cmd("npm run package -- --platform=win32,linux", path.join(rootPath, "packages", "electron"));
-   cmd("npm run package -- --platform=darwin --arch=universal", path.join(rootPath, "packages", "electron"));
+   // `npm run package` always cleans out/; run clean+build once, then forge package twice so win/linux survive.
+   cmd("npm run clean && npm run build", path.join(rootPath, "packages", "electron"));
+   cmd("npx electron-forge package --platform=win32,linux", path.join(rootPath, "packages", "electron"));
+   cmd("npx electron-forge package --platform=darwin --arch=universal", path.join(rootPath, "packages", "electron"));
    cmd(`rcodesign sign --p12-file local/app-sign.p12 --p12-password-file local/p12-password`
       + ` --code-signature-flags runtime`
       + ` --entitlements-xml-file local/entitlements.plist`

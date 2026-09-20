@@ -7,7 +7,7 @@
 | 項目 | 之前 | 現在 |
 |---|---|---|
 | macOS 產物 | `out/Restitutor-darwin-x64`（Intel 版，Apple Silicon 靠 Rosetta 跑） | `out/Restitutor-darwin-universal`（x64 + arm64 合在同一個 .app） |
-| 打包指令 | `--platform=win32,linux,darwin` | `--platform=win32,linux` + `--platform=darwin --arch=universal` |
+| 打包指令 | `--platform=win32,linux,darwin` | 先 `clean+build` 一次，再 `electron-forge package --platform=win32,linux` + `--platform=darwin --arch=universal`（不可連跑兩次 `npm run package`，否則第二次 clean 會清掉 win/linux） |
 | Steam depot | `darwin.vdf` ContentRoot 指向 `Restitutor-darwin-x64` | 指向 `Restitutor-darwin-universal`（**depot ID 4431753 不變**） |
 | steamcmd | `builder_linux/steamcmd.sh` | `builder_osx/steamcmd.sh` |
 | 執行平台 | Linux self-hosted runner（`/home/insraq`） | **macOS**（腳本開頭會直接檢查 `process.platform`，非 darwin 直接退出） |
