@@ -32,7 +32,7 @@ import type { Province } from "../game/definitions/Province";
 import { Religion } from "../game/definitions/Religion";
 import { NewSettlementTiles, OceanLabels } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
-import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
+import { GameOptionUpdated, GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
 import { isLand, LandSize } from "../game/Land";
 import { isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
@@ -82,6 +82,7 @@ export class WorldScene extends Scene {
    private _capitalContainer: MapContainer<Tile, Sprite>;
    private _overlayContainer: MapContainer<Tile, DisplayObject>;
    private _labelContainer: MapContainer<Province, UnicodeText>;
+   private _oceanLabelContainer: Container<UnicodeText>;
    private _warProgressContainer: MapContainer<Tile, UnicodeText>;
    private _floaterContainer: Container<UnicodeText>;
    private _selectors: Container<Sprite>;
@@ -166,9 +167,9 @@ export class WorldScene extends Scene {
       this._labelContainer = this.viewport.addChild(new MapContainer<Province, UnicodeText>());
       this._labelContainer.position.set(MarginX, 0);
 
-      const oceanLabelContainer = this.viewport.addChild(new Container<UnicodeText>());
-      oceanLabelContainer.position.set(MarginX, 0);
-      oceanLabelContainer.eventMode = "none";
+      this._oceanLabelContainer = this.viewport.addChild(new Container<UnicodeText>());
+      this._oceanLabelContainer.position.set(MarginX, 0);
+      this._oceanLabelContainer.eventMode = "none";
 
       this._warProgressContainer = this.viewport.addChild(new MapContainer<Tile, UnicodeText>());
       this._warProgressContainer.position.set(MarginX, 0);
@@ -216,7 +217,7 @@ export class WorldScene extends Scene {
       this.viewport.zoom = this._lastZoom;
       this.viewport.center = { x: MarginX + (minPos.x + maxPos.x) / 2, y: (minPos.y + maxPos.y) / 2 };
 
-      this._drawOceanLabels(oceanLabelContainer);
+      this._drawOceanLabels(this._oceanLabelContainer);
       this._drawStaticOutlineAndLabel();
       this._drawWarOutline();
       this._drawWarProgress();
@@ -246,6 +247,13 @@ export class WorldScene extends Scene {
             this._drawWarOutline();
             this._drawWarProgress();
          }
+      });
+
+      // Province/ocean names are baked into static PixiJS text, not React - a language
+      // switch needs an explicit redraw or they stay in the old language until reload.
+      GameOptionUpdated.on(() => {
+         this._drawOceanLabels(this._oceanLabelContainer);
+         this._drawStaticOutlineAndLabel();
       });
 
       RefreshOverlay.on(() => {
@@ -903,6 +911,7 @@ export class WorldScene extends Scene {
    }
 
    private _drawOceanLabels(container: Container<UnicodeText>): void {
+      container.removeChildren();
       for (const [tile, label] of Object.entries(OceanLabels)) {
          const text = container.addChild(
             new UnicodeText(label(), {
