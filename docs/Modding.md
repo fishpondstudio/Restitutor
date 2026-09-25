@@ -34,7 +34,7 @@ Access the running game through [`G`](../packages/client/src/utils/Global.tsx):
 | Member | Contents |
 | --- | --- |
 | `G.save` | The in-memory [SaveGame](../packages/client/src/game/GameState.ts), including `state` and `options`. |
-| `G.save.state` | Current provinces, tiles, player province, and other game state. |
+| `G.save.state` | Current scenario, provinces, tiles, player province, and other game state. |
 | `G.scene` | The [scene manager](../packages/client/src/utils/SceneManager.ts). |
 | `G.pixi` | The Pixi `Application`; its renderer is available as `G.pixi.renderer`. |
 | `G.textures` | A `Map<string, Texture>` of loaded game textures. |
@@ -72,6 +72,7 @@ Do not emit from inside an update listener (it causes recursion), or call `clear
 | `D.ProvinceUpgrades` | [Province upgrades](../packages/client/src/game/definitions/ProvinceUpgrades.tsx) |
 | `D.Religion` | [Religions](../packages/client/src/game/definitions/Religion.ts) |
 | `D.RestorationBonus` | [Restoration bonuses](../packages/client/src/game/definitions/RestorationBonus.ts) |
+| `D.Scenarios` | [Scenario start dates, initial provinces, and events](../packages/client/src/game/scenarios/Scenarios.ts) |
 | `D.SocialClass` | [Social classes](../packages/client/src/game/definitions/SocialClass.ts) |
 | `D.SocialClassBonuses` | [Social class bonuses](../packages/client/src/game/definitions/SocialClass.ts) |
 | `D.SpawnedProvinces` | [Spawned provinces](../packages/client/src/game/definitions/SpawnedProvince.ts) |

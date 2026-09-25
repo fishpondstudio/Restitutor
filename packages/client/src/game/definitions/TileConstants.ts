@@ -2,7 +2,7 @@ import { createTile, keysOf, pointToTile, type Tile, tileToPoint } from "@projec
 import { $t, L } from "../../utils/i18n";
 import { isLand } from "../Land";
 import { MapGrid } from "../MapGrid";
-import { RomeMap } from "../RomeMap";
+import { getInitialTiles, Scenario } from "../scenarios/Scenarios";
 import { Province } from "./Province";
 import { SpawnedProvinces } from "./SpawnedProvince";
 
@@ -175,34 +175,38 @@ export const Frontier: Partial<Record<Province, number>> = {
    Aegyptus: 1,
 } as const;
 
-export const NewSettlementTiles: Set<Tile> = new Set();
+let settlementTiles: Set<Tile> | undefined;
 
-for (const province of keysOf(Frontier)) {
-   const range = Frontier[province] ?? 0;
-   let frontier: Tile[] = [];
-   RomeMap.forEach((config, tile) => {
-      if (config.province === province) {
-         frontier.push(tile);
-      }
-   });
-   const visited = new Set(frontier);
-   for (let distance = 0; distance < range; distance++) {
-      const next: Tile[] = [];
-      for (const tile of frontier) {
-         for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
-            const neighborTile = pointToTile(neighbor);
-            if (visited.has(neighborTile) || !isLand(neighborTile)) {
-               continue;
-            }
-            visited.add(neighborTile);
-            next.push(neighborTile);
-            if (!RomeMap.has(neighborTile)) {
-               NewSettlementTiles.add(neighborTile);
+export function getNewSettlementTiles(scenario: Scenario): Set<Tile> {
+   if (settlementTiles) {
+      return settlementTiles;
+   }
+   const result = new Set<Tile>();
+   const initialTiles = getInitialTiles(scenario);
+   for (const province of keysOf(Frontier)) {
+      const range = Frontier[province] ?? 0;
+      let frontier = [...Province[province].tiles];
+      const visited = new Set(frontier);
+      for (let distance = 0; distance < range; distance++) {
+         const next: Tile[] = [];
+         for (const tile of frontier) {
+            for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
+               const neighborTile = pointToTile(neighbor);
+               if (visited.has(neighborTile) || !isLand(neighborTile)) {
+                  continue;
+               }
+               visited.add(neighborTile);
+               next.push(neighborTile);
+               if (!initialTiles.has(neighborTile)) {
+                  result.add(neighborTile);
+               }
             }
          }
+         frontier = next;
       }
-      frontier = next;
    }
+   settlementTiles = result;
+   return result;
 }
 
 export const OceanLabels: Record<Tile, () => string> = {

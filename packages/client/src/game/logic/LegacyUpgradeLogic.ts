@@ -21,7 +21,8 @@ import { Modifiers, modifierValueToString } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
 import { ProvinceResourceNames, type ProvinceResources } from "../definitions/ProvinceResources";
 import type { ProvinceStats } from "../definitions/ProvinceStats";
-import { initSaveGame, SaveGame } from "../GameState";
+import { createSaveGame, type SaveGame } from "../GameState";
+import type { Scenario } from "../scenarios/Scenarios";
 import { getTilesAnnexedAndCored } from "./ProvinceLogic";
 import { addProvinceResource, getProvinceResource, provinceResourceOf } from "./ResourceLogic";
 
@@ -85,9 +86,7 @@ export function rebirth(province: Province, save: SaveGame): void {
    if (rebirthHistory) {
       save.options.rebirthHistory.unshift(rebirthHistory);
    }
-   const newSave = new SaveGame();
-   newSave.state.playerProvince = province;
-   initSaveGame(newSave);
+   const newSave = createSaveGame({ scenario: save.state.scenario, province: province });
    addProvinceResource("legacy", newLegacyPoints.value, province, newSave);
    save.state = newSave.state;
 }
@@ -179,6 +178,7 @@ export function hasLegacyUpgrade(upgrade: LegacyUpgrade, province: Province, sav
 }
 
 export type IRebirthHistory = {
+   scenario: Scenario;
    tick: number;
    province: Province;
    resources: ProvinceResources;
@@ -193,6 +193,7 @@ export function makeRebirthHistory(save: SaveGame): IRebirthHistory | undefined 
       return undefined;
    }
    return {
+      scenario: save.state.scenario,
       tick: save.state.tick,
       province: save.state.playerProvince,
       resources: state.resources,

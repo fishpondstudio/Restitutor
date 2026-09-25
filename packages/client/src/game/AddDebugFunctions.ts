@@ -18,7 +18,7 @@ import { type IFamily, PersonFlags } from "./definitions/Family";
 import { GreatWork } from "./definitions/GreatWork";
 import type { Province } from "./definitions/Province";
 import { SpawnedProvinces } from "./definitions/SpawnedProvince";
-import { NewSettlementTiles } from "./definitions/TileConstants";
+import { getNewSettlementTiles } from "./definitions/TileConstants";
 import { TileName } from "./definitions/TileName";
 import type { TimedAction } from "./definitions/TimedAction";
 import { GameStateUpdated, RefreshTiles } from "./Events";
@@ -79,7 +79,10 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.showChronicle = () => {
       showPanel(ChronicleModal, {
-         years: [monthToDate(G.save.state.month).getFullYear() - 1, monthToDate(G.save.state.month).getFullYear() - 1],
+         years: [
+            monthToDate(G.save.state.month, G.save).getFullYear() - 1,
+            monthToDate(G.save.state.month, G.save).getFullYear() - 1,
+         ],
       });
    };
 
@@ -216,7 +219,7 @@ export function addDebugFunctions(): void {
 
    // @ts-expect-error
    globalThis.showNewSettlementTiles = () => {
-      G.scene.getCurrent(WorldScene)?.drawSelectors(NewSettlementTiles);
+      G.scene.getCurrent(WorldScene)?.drawSelectors(getNewSettlementTiles(G.save.state.scenario));
    };
 
    // @ts-expect-error

@@ -1,6 +1,5 @@
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
-import { getOriginalTileCount } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import {
@@ -429,7 +428,7 @@ export const ThraciaEvents = {
          province: new Set(["Thracia"]),
          onMap: { Moesia: true },
          annexAndCore: {
-            Moesia: Math.ceil(getOriginalTileCount("Moesia") * 0.7),
+            Moesia: Math.ceil(Province.Moesia.tiles.length * 0.7),
          },
          conditions: function* (province, save): ConditionChecks {
             yield* maxCoreTileChecks(3, "Moesia", save);

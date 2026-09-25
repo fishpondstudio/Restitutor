@@ -213,7 +213,7 @@ const LoomingDisasters: ITodo = {
             <div>{$t(L.TheFollowingDisastersAreLooming)}</div>
             <ul>
                {disasters.map((disaster) => {
-                  const yearsLeft = disaster.year - getGameDate(save.state.tick).getFullYear();
+                  const yearsLeft = disaster.year - getGameDate(save.state.tick, save).getFullYear();
                   return (
                      <li key={disaster.event}>
                         {GameEvents[disaster.event].name()} ({formatYear(disaster.year)},{" "}

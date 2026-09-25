@@ -1,6 +1,6 @@
-import { entriesOf } from "@project/shared/src/utils/Helper";
 import type { SaveGame } from "../GameState";
 import { getGameDate } from "../logic/GameDateTime";
+import { getAllEvents } from "./GameEventLogic";
 import { type GameEvent, GameEvents } from "./GameEvents";
 
 export interface UpcomingDisaster {
@@ -15,10 +15,11 @@ export function getUpcomingDisasters(save: SaveGame): UpcomingDisaster[] {
    if (!state) {
       return [];
    }
-   const date = getGameDate(save.state.tick);
+   const date = getGameDate(save.state.tick, save);
    const currentYear = date.getFullYear();
-   return entriesOf(GameEvents)
-      .flatMap(([event, config]): UpcomingDisaster[] => {
+   return Array.from(getAllEvents(save.state.scenario))
+      .flatMap((event): UpcomingDisaster[] => {
+         const config = GameEvents[event];
          if (
             state.usedEvents.has(event) ||
             !config.condition?.year ||
@@ -37,6 +38,6 @@ export function getUpcomingDisasters(save: SaveGame): UpcomingDisaster[] {
 
 export function getLoomingDisasters(save: SaveGame): UpcomingDisaster[] {
    return getUpcomingDisasters(save).filter(
-      (disaster) => disaster.year - getGameDate(save.state.tick).getFullYear() <= LoomingDisasterYears,
+      (disaster) => disaster.year - getGameDate(save.state.tick, save).getFullYear() <= LoomingDisasterYears,
    );
 }

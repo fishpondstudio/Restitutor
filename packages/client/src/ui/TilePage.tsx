@@ -17,7 +17,7 @@ import { TileToGreatWork } from "../game/definitions/GreatWork";
 import { modifierToString } from "../game/definitions/Modifier";
 import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
-import { NewSettlementTiles } from "../game/definitions/TileConstants";
+import { getNewSettlementTiles } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
@@ -71,7 +71,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const tileData = G.save.state.tiles.get(tile);
    if (!tileData) {
-      if (NewSettlementTiles.has(tile)) {
+      if (getNewSettlementTiles(G.save.state.scenario).has(tile)) {
          return <SettleTilePage tile={tile} />;
       }
       return null;

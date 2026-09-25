@@ -1,6 +1,5 @@
-import { hasFlag, type Tile, type ValueOf } from "@project/shared/src/utils/Helper";
+import { hasFlag, type ValueOf } from "@project/shared/src/utils/Helper";
 import type { Application, Texture } from "pixi.js";
-import type { ITileConfig } from "../game/definitions/Tile";
 import { GameSpeedChanged } from "../game/Events";
 import type { SaveGame } from "../game/GameState";
 import { Languages } from "../game/Languages";
@@ -25,7 +24,6 @@ export const G: IGlobals = {
    save: null!,
    speed: 1,
    flags: GameFlags.None,
-   tileEditor: new Map(),
 };
 
 export interface IGlobals {
@@ -37,7 +35,6 @@ export interface IGlobals {
    save: SaveGame;
    speed: number;
    flags: GameFlags;
-   tileEditor: Map<Tile, ITileConfig>;
 }
 
 let previousSpeed = G.speed;

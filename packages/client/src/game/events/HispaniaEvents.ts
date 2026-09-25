@@ -1,8 +1,8 @@
 import { fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
+import { Province } from "../definitions/Province";
 import { HispaniaProvinces } from "../definitions/TileConstants";
 import { TimedActions } from "../definitions/TimedAction";
-import { getOriginalTileCount } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import { allCoreTileChecks, anyCoreTileChecks, isCoreTileChecks, minCoreTileChecks } from "../logic/MissionLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
@@ -18,7 +18,7 @@ export const HispaniaEvents = {
       condition: {
          province: new Set(HispaniaProvinces),
          conditions: function* (province, save): ConditionChecks {
-            yield* minCoreTileChecks(getOriginalTileCount(province) + 10, province, save);
+            yield* minCoreTileChecks(Province[province].tiles.length + 10, province, save);
             yield* anyCoreTileChecks([8781900, 8847436, 8847437, 8912973, 8978509], province, save);
             return;
          },
@@ -51,7 +51,7 @@ export const HispaniaEvents = {
       condition: {
          province: new Set(HispaniaProvinces),
          conditions: function* (province, save): ConditionChecks {
-            yield* minCoreTileChecks(getOriginalTileCount(province) + 2, province, save);
+            yield* minCoreTileChecks(Province[province].tiles.length + 2, province, save);
             yield* isCoreTileChecks(8585300, province, save);
             return;
          },

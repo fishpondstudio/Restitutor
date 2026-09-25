@@ -25,7 +25,6 @@ import { type ProvinceStat, ProvinceStatNames } from "./definitions/ProvinceStat
 import { addProvinceUpgrade, type ProvinceUpgrade, ProvinceUpgrades } from "./definitions/ProvinceUpgrades";
 import { ChristianHeresy, isChristianReligion, Religion } from "./definitions/Religion";
 import type { SpawnedProvince } from "./definitions/SpawnedProvince";
-import { SpawnedProvinces } from "./definitions/SpawnedProvince";
 import type { ITileData } from "./definitions/Tile";
 import { getTileName } from "./definitions/TileName";
 import { TimedActions } from "./definitions/TimedAction";
@@ -148,9 +147,11 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
                   $t(
                      L.SpawnProvinceEffectDesc$1$2,
                      Province[province].name(),
-                     SpawnedProvinces[province].tiles
-                        .map((tile, index) =>
-                           index === 0 ? `${getTileName(tile, save)} (${$t(L.Capital)})` : getTileName(tile, save),
+                     Province[province].tiles
+                        .map((tile) =>
+                           Province[province].capital === tile
+                              ? `${getTileName(tile, save)} (${$t(L.Capital)})`
+                              : getTileName(tile, save),
                         )
                         .join(", "),
                   ),

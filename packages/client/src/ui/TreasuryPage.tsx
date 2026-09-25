@@ -97,7 +97,7 @@ export function TreasuryPage(): React.ReactNode {
          </div>
          {state.loans.map((loan, index) => (
             <div className="box row m10 p5" key={index}>
-               <div className="text-dimmed text-sm">{monthToDate(loan.month).toLocaleDateString()}</div>
+               <div className="text-dimmed text-sm">{monthToDate(loan.month, G.save).toLocaleDateString()}</div>
                <BreakdownTooltip breakdown={getLoanBreakdown(loan, province, G.save)}>
                   <div className="f1">
                      {formatNumber(loan.principal + loan.interest)} {$t(L.Gold)}

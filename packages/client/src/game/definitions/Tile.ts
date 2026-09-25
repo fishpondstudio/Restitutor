@@ -3,7 +3,7 @@ import { makeNoise2D } from "open-simplex-noise";
 import type { SaveGame } from "../GameState";
 import { getTileTerrain } from "../logic/TileLogic";
 import { MapGrid } from "../MapGrid";
-import { RomeMap } from "../RomeMap";
+import { getInitialTiles } from "../scenarios/Scenarios";
 import type { Building } from "./Building";
 import type { Culture } from "./Culture";
 import type { Goods } from "./Goods";
@@ -12,12 +12,6 @@ import { Province } from "./Province";
 import type { Religion } from "./Religion";
 import type { Terrain } from "./Terrain";
 import type { TileNameOverride } from "./TileNameOverrides";
-
-export interface ITileConfig {
-   province?: Province;
-   name?: string;
-   isCapital?: boolean;
-}
 
 export interface ITileData {
    nameOverride?: TileNameOverride;
@@ -71,18 +65,15 @@ export const TerrainToGoods: Record<Terrain, Goods[]> = {
    Arid: ["ironOre", "grain", "livestock"],
 };
 
-export function initTiles(): Map<Tile, ITileData> {
+export function initTiles(save: SaveGame): Map<Tile, ITileData> {
    const noise = makeNoise2D(Date.now());
    return new Map(
-      Array.from(RomeMap.entries()).map(([tile, config]) => {
-         if (!config.name || !config.province) {
-            throw new Error(`Invalid tile config: ${tile}: ${JSON.stringify(config)}`);
-         }
+      Array.from(getInitialTiles(save.state.scenario)).map(([tile, province]) => {
          const { x, y } = tileToPoint(tile);
          const random = (noise(x, y) + 1) / 2;
          const terrain = getTileTerrain(tile);
          const goods = TerrainToGoods[terrain];
-         const data: ITileData = initTileData(config.province, goods[Math.floor(random * goods.length)]);
+         const data: ITileData = initTileData(province, goods[Math.floor(random * goods.length)]);
          return [tile, data];
       }),
    );

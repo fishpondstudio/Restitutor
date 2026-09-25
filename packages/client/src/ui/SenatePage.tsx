@@ -36,9 +36,9 @@ export function SenatePage(): React.ReactNode {
       return null;
    }
    const votes = G.save.state.senate.votes.get(G.save.state.playerProvince) ?? new Set();
-   const thisYear = monthToDate(G.save.state.month).getFullYear();
+   const thisYear = monthToDate(G.save.state.month, G.save).getFullYear();
    const monthsToNextElection = monthsToNextConsulElection(G.save);
-   const nextElectionYear = monthToDate(G.save.state.month + monthsToNextElection).getFullYear();
+   const nextElectionYear = monthToDate(G.save.state.month + monthsToNextElection, G.save).getFullYear();
    const revealedVotes = getRevealedConsulVotes(G.save.state.playerProvince, G.save);
    return (
       <SidebarComp title={<SidebarImageHeader image={HeaderImages.Senate} title={$t(L.SenateAndConsuls)} />}>

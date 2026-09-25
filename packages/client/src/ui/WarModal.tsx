@@ -145,7 +145,7 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                   <tbody>
                      {war.log.slice(0, 20).map((log) => (
                         <tr key={log.month}>
-                           <td>{monthToDate(log.month).toLocaleDateString()}</td>
+                           <td>{monthToDate(log.month, G.save).toLocaleDateString()}</td>
                            <td>{formatPercent(log.successChance)}</td>
                            <td>
                               <FloatingTip

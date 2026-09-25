@@ -110,7 +110,7 @@ function SpeedComp(): React.ReactNode {
 
 function TimeComp(): React.ReactNode {
    refreshOnTypedEvent(GameTimeUpdated);
-   const currentDate = getGameDate(G.save.state.tick);
+   const currentDate = getGameDate(G.save.state.tick, G.save);
    return (
       <div className="text-sm text text-center" style={{ width: "12rem" }}>
          {currentDate.toLocaleDateString()} ({G.save.state.month})

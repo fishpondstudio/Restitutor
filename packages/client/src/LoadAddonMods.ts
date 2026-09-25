@@ -38,6 +38,7 @@ import { TimedActions } from "./game/definitions/TimedAction";
 import { GameStateUpdated } from "./game/Events";
 import { GameEvents } from "./game/events/GameEvents";
 import { showError, showInfo, showSuccess, showWarning } from "./game/logic/AlertLogic";
+import { Scenarios } from "./game/scenarios/Scenarios";
 import { isSteam, SteamClient } from "./rpc/SteamClient";
 import { showModalImmediately, showPanel } from "./ui/common/ShowPanel";
 import { SidebarComp, SidebarHeader, SidebarImageHeader } from "./ui/common/SidebarComp";
@@ -60,6 +61,7 @@ const definitions = {
    Culture,
    CultureReligionStatus,
    GameEvents,
+   Scenarios,
    Goods,
    GreatWork,
    LegacyUpgrades,

@@ -16,10 +16,14 @@ import { provinceResourceOf } from "./game/logic/ResourceLogic";
 import { socialClassInfluenceStat, socialClassLoyaltyStat } from "./game/logic/SocialClassLogic";
 
 export function migrateSave(save: SaveGame): void {
+   save.state.scenario ??= "Rome192";
    const defaultGameState = new GameState();
    const defaultGameOption = new GameOption();
    save.state = Object.assign(defaultGameState, save.state);
    save.options = Object.assign(defaultGameOption, save.options);
+   for (const history of save.options.rebirthHistory) {
+      history.scenario ??= "Rome192";
+   }
    forEach(save.state.provinces, (province, data) => {
       data = Object.assign(initProvince(province, data.capital), data);
       save.state.provinces[province] = data;

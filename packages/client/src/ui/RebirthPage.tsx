@@ -1,21 +1,21 @@
 import { Select } from "@mantine/core";
-import { cls, entriesOf, hasFlag, setFlag } from "@project/shared/src/utils/Helper";
+import { cls, hasFlag, setFlag } from "@project/shared/src/utils/Helper";
 import { Fragment, useState } from "react";
 import { unlockAchievement } from "../game/Achievement";
 import { Culture } from "../game/definitions/Culture";
-import { AlwaysFreeProvinces, EnabledProvinces, Province } from "../game/definitions/Province";
+import { AlwaysFreeProvinces, Province } from "../game/definitions/Province";
 import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { Religion } from "../game/definitions/Religion";
+import { getAllEvents } from "../game/events/GameEventLogic";
 import { GameEvents } from "../game/events/GameEvents";
 import { GameOptionFlag } from "../game/GameOption";
-import { getOriginalTileCount } from "../game/GameState";
 import { saveGame } from "../game/LoadSave";
 import { showError } from "../game/logic/AlertLogic";
 import { getLegacyPointsNextRun, rebirth } from "../game/logic/LegacyUpgradeLogic";
 import { getProvinceName, getProvinceOriginalGreatWorks } from "../game/logic/ProvinceLogic";
 import { purchaseMobile, restorePurchaseMobile } from "../game/Mobile";
 import { isMobilePlatform } from "../game/NativeUtils";
-import { RomeMap } from "../game/RomeMap";
+import { Scenarios } from "../game/scenarios/Scenarios";
 import { WorldScene } from "../scenes/WorldScene";
 import { G, GameFlags } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
@@ -28,7 +28,10 @@ import { renderMarkup } from "./ParseMarkup";
 
 export function RebirthPage(): React.ReactNode {
    const [province, setProvince] = useState(G.save.state.playerProvince);
-   const provincialEvents = entriesOf(GameEvents).filter(([k, v]) => v.condition?.province?.has(province));
+   const scenario = Scenarios[G.save.state.scenario];
+   const provincialEvents = Array.from(getAllEvents(G.save.state.scenario)).filter((event) =>
+      GameEvents[event].condition?.province?.has(province),
+   );
    const isDemo = hasFlag(G.flags, GameFlags.Demo);
    const legacyPointsNextRun = getLegacyPointsNextRun(G.save);
    const greatWorks = Array.from(getProvinceOriginalGreatWorks(province, G.save));
@@ -93,10 +96,12 @@ export function RebirthPage(): React.ReactNode {
                   }}
                   checkIconPosition="right"
                   allowDeselect={false}
-                  data={EnabledProvinces.map((p) => ({
-                     value: p,
-                     label: `${getProvinceName(p, G.save)}${isDemo && AlwaysFreeProvinces.has(p) ? "*" : ""}`,
-                  }))}
+                  data={Array.from(scenario.provinces)
+                     .filter((p) => Province[p].upgrades.length > 0)
+                     .map((p) => ({
+                        value: p,
+                        label: `${getProvinceName(p, G.save)}${isDemo && AlwaysFreeProvinces.has(p) ? "*" : ""}`,
+                     }))}
                />
             </div>
          </FloatingTip>
@@ -122,12 +127,15 @@ export function RebirthPage(): React.ReactNode {
             <FloatingTip
                label={() => (
                   <>
-                     {provincialEvents.map(([k, v]) => (
-                        <div key={k}>
-                           {v.name()}
-                           {(v.condition?.province?.size ?? 0) > 1 && "*"}
-                        </div>
-                     ))}
+                     {provincialEvents.map((event) => {
+                        const config = GameEvents[event];
+                        return (
+                           <div key={event}>
+                              {config.name()}
+                              {(config.condition?.province?.size ?? 0) > 1 && "*"}
+                           </div>
+                        );
+                     })}
                      <div className="text-sm text-dimmed text-italic mt5">{$t(L.InheritedRegionalEvents)}</div>
                   </>
                )}
@@ -141,18 +149,16 @@ export function RebirthPage(): React.ReactNode {
          <div className="box m10">
             <div className="h3 row">
                <div className="f1">{$t(L.Tiles)}</div>
-               <div>{getOriginalTileCount(province)}</div>
+               <div>{Province[province].tiles.length}</div>
             </div>
             <div className="m10">
-               {Array.from(RomeMap)
-                  .filter(([tile, tileData]) => tileData.province === province)
-                  .map(([tile, tileData], idx) => (
-                     <span key={tile}>
-                        {idx > 0 && ", "}
-                        {renderMarkup(`<Tile>${tile}</Tile>`)}
-                        {tileData.isCapital && "*"}
-                     </span>
-                  ))}
+               {Province[province].tiles.map((tile, idx) => (
+                  <span key={tile}>
+                     {idx > 0 && ", "}
+                     {renderMarkup(`<Tile>${tile}</Tile>`)}
+                     {tile === Province[province].capital && "*"}
+                  </span>
+               ))}
             </div>
          </div>
          <div className="box m10">

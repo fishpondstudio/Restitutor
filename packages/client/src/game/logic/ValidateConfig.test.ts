@@ -92,9 +92,9 @@ test("SocialClassBonuses have valid supporting and opposing classes", () => {
 });
 
 test("SpawnedProvinces contain unique tiles that are land", () => {
-   forEach(SpawnedProvinces, (province, config) => {
+   forEach(SpawnedProvinces, (province) => {
       const tiles = new Set<Tile>();
-      config.tiles.forEach((tile) => {
+      Province[province].tiles.forEach((tile) => {
          expect.soft(isLand(tile), `Spawned province ${province} has tile ${tile} that is not land`).toBe(true);
          expect.soft(tiles.has(tile), `Spawned province ${province} has duplicate tile ${tile}`).toBe(false);
          tiles.add(tile);

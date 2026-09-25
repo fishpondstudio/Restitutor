@@ -1,6 +1,6 @@
 import { $t, L } from "../../utils/i18n";
+import { Province } from "../definitions/Province";
 import { Tiles } from "../definitions/TileConstants";
-import { getOriginalTileCount } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import {
    allCoreTileChecks,
@@ -498,7 +498,7 @@ export const MoesiaEvents = {
       condition: {
          province: new Set(["Moesia"]),
          conditions: function* (province, save): ConditionChecks {
-            yield* minCoreTileChecks(getOriginalTileCount("Moesia") * 3, province, save);
+            yield* minCoreTileChecks(Province.Moesia.tiles.length * 3, province, save);
          },
       },
       buttons: [

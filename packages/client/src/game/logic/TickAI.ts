@@ -111,7 +111,7 @@ const AIWarMaxUnrest = 20;
 const MaxYear = 600;
 
 export function tickAI(save: SaveGame): void {
-   if (hasFlag(G.flags, GameFlags.Sandbox) && getGameDate(save.state.tick).getFullYear() >= MaxYear) {
+   if (hasFlag(G.flags, GameFlags.Sandbox) && getGameDate(save.state.tick, save).getFullYear() >= MaxYear) {
       G.speed = 0;
       return;
    }

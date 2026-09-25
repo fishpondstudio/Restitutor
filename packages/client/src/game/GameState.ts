@@ -11,8 +11,7 @@ import {
 import { $t, L } from "../utils/i18n";
 import type { IChronicleEntry } from "./definitions/Chronicle";
 import { Goods } from "./definitions/Goods";
-import type { Province } from "./definitions/Province";
-import { Provinces } from "./definitions/Province";
+import { Province } from "./definitions/Province";
 import type { IProvince } from "./definitions/ProvinceState";
 import { type ITileData, initTiles } from "./definitions/Tile";
 import { Tiles } from "./definitions/TileConstants";
@@ -31,7 +30,7 @@ import { provinceResourceOf, resetProvinceResource } from "./logic/ResourceLogic
 import { rollTradeOffers } from "./logic/TradeLogic";
 import type { IWar } from "./logic/WarLogic";
 import { randomMaleName } from "./RomanNames";
-import { RomeMap } from "./RomeMap";
+import { type Scenario, Scenarios } from "./scenarios/Scenarios";
 
 export const GameStateFlags = {
    None: 0,
@@ -46,26 +45,16 @@ export class GameState {
    month = 0;
    seed = randomAlphaNumeric(32);
    flags: GameStateFlags = GameStateFlags.None;
+   scenario: Scenario = "Rome192";
    playerProvince: Province = "Lugdunensis";
-   provinces: Partial<Record<Province, IProvince>> = fromEntries(
-      Provinces.flatMap((province) => {
-         const capital = getOriginalCapital(province);
-         if (!capital) {
-            return [];
-         }
-         return [[province, initProvince(province, capital)]];
-      }),
-   );
+   provinces: Partial<Record<Province, IProvince>> = {};
    senate: ISenate = {
-      electedConsuls: new Map([
-         [randomMaleName().join(" "), []],
-         [randomMaleName().join(" "), []],
-      ]),
-      consulCandidates: range(0, ConsulCandidatesCount).map(() => randomMaleName().join(" ")),
+      electedConsuls: new Map(),
+      consulCandidates: [],
       votes: new Map(),
    };
    completedTutorials: Set<string> = new Set();
-   tiles: Map<Tile, ITileData> = initTiles();
+   tiles: Map<Tile, ITileData> = new Map();
    wars: IWar[] = [];
    chronicle: IChronicleEntry[] = [];
 }
@@ -81,7 +70,28 @@ export class SaveGame {
    options: GameOption = new GameOption();
 }
 
-export function initSaveGame(save: SaveGame): SaveGame {
+export function createSaveGame({ scenario, province }: { scenario: Scenario; province: Province }): SaveGame {
+   if (!Scenarios[scenario].provinces.has(province)) {
+      throw new Error(`Invalid player province: ${scenario}: ${province}`);
+   }
+   const save = new SaveGame();
+   save.state.scenario = scenario;
+   save.state.playerProvince = province;
+   save.state.provinces = fromEntries(
+      Array.from(Scenarios[scenario].provinces).map((province) => [
+         province,
+         initProvince(province, Province[province].capital),
+      ]),
+   );
+   save.state.senate = {
+      electedConsuls: new Map([
+         [randomMaleName().join(" "), []],
+         [randomMaleName().join(" "), []],
+      ]),
+      consulCandidates: range(0, ConsulCandidatesCount).map(() => randomMaleName().join(" ")),
+      votes: new Map(),
+   };
+   save.state.tiles = initTiles(save);
    rollTradeOffers(save);
    initTileUpgrades(save);
    initTileProductions(save);
@@ -218,23 +228,4 @@ function initTileUpgrades(save: SaveGame): void {
       }
    }
    GameStateUpdated.emit();
-}
-
-export function getOriginalTileCount(province: Province): number {
-   let count = 0;
-   for (const [tile, data] of RomeMap) {
-      if (data.province === province) {
-         count++;
-      }
-   }
-   return count;
-}
-
-export function getOriginalCapital(province: Province): Tile | undefined {
-   for (const [tile, data] of RomeMap) {
-      if (data.province === province && data.isCapital) {
-         return tile;
-      }
-   }
-   return undefined;
 }

@@ -66,7 +66,7 @@ export interface IGameEventCondition {
    conditions?: (province: Province, save: SaveGame) => ConditionChecks;
 }
 
-const _GameEvents = {
+export const RomeEvents = {
    ...LugdunensisEvents,
    ...AquitaniaEvents,
    ...BelgicaEvents,
@@ -98,6 +98,8 @@ const _GameEvents = {
    ...HistoricalEvents,
    ...RandomEvents,
 } as const satisfies Record<string, IGameEventConfig>;
+
+const _GameEvents = { ...RomeEvents };
 
 export type GameEvent = keyof typeof _GameEvents;
 export const GameEvents: Record<GameEvent, IGameEventConfig> = _GameEvents;

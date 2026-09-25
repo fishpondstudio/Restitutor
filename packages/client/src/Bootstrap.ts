@@ -6,11 +6,11 @@ import { startGameLoop } from "./GameLoop";
 import { addDebugFunctions } from "./game/AddDebugFunctions";
 import { SentryDSN, SupportedSaveVersion } from "./game/definitions/Constant";
 import { subscribeToModifierUpdate } from "./game/definitions/ModifierUpdate";
-import { GameStateFlags, initNewPlayerSaveGame, initSaveGame, SaveGame } from "./game/GameState";
+import { createSaveGame, GameStateFlags, initNewPlayerSaveGame } from "./game/GameState";
 import { loadGame, resetGame, saveAndBackupGame } from "./game/LoadSave";
+import { initMapColors } from "./game/logic/MapColor";
 import { initMobile } from "./game/Mobile";
 import { isMobilePlatform } from "./game/NativeUtils";
-import { RomeMap } from "./game/RomeMap";
 import { showBootstrapModal } from "./game/ShowBootstrapModal";
 import { getVersion } from "./game/Version";
 import { loadAddonMods } from "./LoadAddonMods";
@@ -114,18 +114,8 @@ export async function bootstrap(): Promise<void> {
       isNewPlayer = true;
    }
 
-   if (isDev()) {
-      G.tileEditor = RomeMap;
-      G.tileEditor.forEach((data, tile) => {
-         if (!data.province) {
-            throw new Error(`Invalid tile config: ${tile}: ${JSON.stringify(data)}`);
-         }
-      });
-   }
-
    if (isNewPlayer) {
-      G.save = new SaveGame();
-      initSaveGame(G.save);
+      G.save = createSaveGame({ scenario: "Rome192", province: "Lugdunensis" });
       initNewPlayerSaveGame(G.save);
       G.save.state.flags = setFlag(G.save.state.flags, GameStateFlags.ShowTutorial);
       if (isMobilePlatform()) {
@@ -133,6 +123,7 @@ export async function bootstrap(): Promise<void> {
       }
    }
 
+   initMapColors(G.save);
    applyUiScale(G.save.options.uiScale);
    setLanguage(G.save.options.language);
    initMobile();

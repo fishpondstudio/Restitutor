@@ -1,7 +1,6 @@
 import { $t, L } from "../../utils/i18n";
 import { OfferAllianceAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
-import { getOriginalTileCount } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import { forcePatronageEffect, isCoreTileChecks, maxCoreTileChecks } from "../logic/MissionLogic";
@@ -374,7 +373,7 @@ export const AquitaniaEvents = {
       condition: {
          province: new Set(["Aquitania"]),
          onMap: { Narbonensis: true },
-         annexAndCore: { Narbonensis: Math.ceil(getOriginalTileCount("Narbonensis") * 0.7) },
+         annexAndCore: { Narbonensis: Math.ceil(Province.Narbonensis.tiles.length * 0.7) },
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Narbonensis", save);
             yield* requirePeaceBetweenChecks(province, "Narbonensis", save);

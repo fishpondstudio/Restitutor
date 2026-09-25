@@ -2,7 +2,6 @@ import { fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
-import { getOriginalTileCount } from "../GameState";
 import { hasGeneralChecks } from "../logic/ArmyLogic";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
@@ -310,7 +309,7 @@ export const LugdunensisEvents = {
       desc: () => $t(L.TheIntegrationOfAquitaniaDesc),
       condition: {
          province: new Set(["Lugdunensis"]),
-         annexAndCore: { Aquitania: Math.floor(getOriginalTileCount("Aquitania") * 0.8) },
+         annexAndCore: { Aquitania: Math.floor(Province.Aquitania.tiles.length * 0.8) },
       },
       buttons: [
          {

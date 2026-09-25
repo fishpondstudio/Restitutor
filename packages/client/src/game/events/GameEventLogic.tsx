@@ -13,6 +13,7 @@ import { type ConditionChecks, defineConditionChecks } from "../logic/Calculatio
 import { getGameDate } from "../logic/GameDateTime";
 import { getAnnexedTiles, getProvinceName } from "../logic/ProvinceLogic";
 import { hasResearched } from "../logic/TechLogic";
+import { type Scenario, Scenarios } from "../scenarios/Scenarios";
 import { type GameEvent, GameEvents, type IGameEventButton, type IGameEventCondition } from "./GameEvents";
 import type { ImageWithCredit } from "./ImageWithCredit";
 
@@ -118,7 +119,7 @@ export const getGameEventCondition = defineConditionChecks(function* (
    }
    if (condition.year) {
       const [startYear, endYear] = condition.year;
-      const currentYear = getGameDate(save.state.tick).getFullYear();
+      const currentYear = getGameDate(save.state.tick, save).getFullYear();
       if (startYear === endYear) {
          (yield currentYear === startYear)?.describe($t(L.In$1AD, startYear));
       } else if (startYear <= Number.NEGATIVE_INFINITY) {
@@ -180,6 +181,10 @@ export const getGameEventCondition = defineConditionChecks(function* (
    }
 });
 
+export function getAllEvents(scenario: Scenario): Set<GameEvent> {
+   return Scenarios[scenario].events;
+}
+
 export function getAvailableEvents(province: Province, showAll: boolean, save: SaveGame): GameEvent[] {
    const result: GameEvent[] = [];
    const state = save.state.provinces[province];
@@ -187,7 +192,8 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
       return result;
    }
    const usedEvents = state.usedEvents;
-   forEach(GameEvents, (key, config) => {
+   getAllEvents(save.state.scenario).forEach((key) => {
+      const config = GameEvents[key];
       if (config.type === "random") {
          return;
       }
@@ -204,7 +210,7 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
                return;
             }
          } else {
-            const currentYear = getGameDate(save.state.tick).getFullYear();
+            const currentYear = getGameDate(save.state.tick, save).getFullYear();
             if (currentYear < startYear || currentYear > endYear) {
                return;
             }

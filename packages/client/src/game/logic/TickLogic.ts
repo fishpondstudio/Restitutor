@@ -34,7 +34,7 @@ import { getWarMonthlyMilitaryPoint, getWarPowerComparison, type IWar, WarLogFla
 export function tickLogic(save: SaveGame, dt: number, unscaled: number): void {
    save.state.tick++;
    GameTimeUpdated.emit();
-   const month = tickToMonth(save.state.tick);
+   const month = tickToMonth(save.state.tick, save);
    let updated = false;
    while (month > save.state.month) {
       tickMonth(save);
@@ -63,7 +63,7 @@ export function tickMonth(save: SaveGame): void {
    save.state.wars.forEach((war) => {
       tickWar(war, save);
    });
-   const currentMonth = getGameDate(save.state.tick).getMonth();
+   const currentMonth = getGameDate(save.state.tick, save).getMonth();
    if (currentMonth === 0) {
       tickYear(save);
    }
@@ -92,7 +92,7 @@ function tickGreatWork(save: SaveGame): void {
    if (hasFlag(G.flags, GameFlags.Sandbox)) {
       return;
    }
-   const year = getGameDate(save.state.tick).getFullYear();
+   const year = getGameDate(save.state.tick, save).getFullYear();
    forEach(GreatWork, (gw, config) => {
       if (config.completionYear === year) {
          showPanel(GreatWorkCompletedModal, { greatWork: gw });
@@ -105,12 +105,12 @@ function tickChroniclePopup(save: SaveGame): void {
       return;
    }
    const frequency = save.options.chroniclePopupFrequency;
-   if (frequency > 0 && tickToYear(save.state.tick) % frequency === 0) {
-      const currentYear = monthToDate(save.state.month).getFullYear();
+   if (frequency > 0 && tickToYear(save.state.tick, save) % frequency === 0) {
+      const currentYear = monthToDate(save.state.month, save).getFullYear();
       const startYear = currentYear - frequency;
       const endYear = currentYear - 1;
       const entries = save.state.chronicle.filter((entry) => {
-         const year = monthToDate(entry.month).getFullYear();
+         const year = monthToDate(entry.month, save).getFullYear();
          return year >= startYear && year <= endYear;
       });
       if (entries.length > 0) {

@@ -1,4 +1,4 @@
-import { keysOf } from "@project/shared/src/utils/Helper";
+import { keysOf, type Tile } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { Culture } from "./Culture";
 import type { ProvinceUpgrade } from "./ProvinceUpgrades";
@@ -10,13 +10,28 @@ interface IProvinceConfig {
    culture: Culture;
    religion: Religion;
    upgrades: ProvinceUpgrade[];
+   capital: Tile;
+   tiles: Tile[];
 }
 
-export const Province = {
-   Achaia: { code: "AC", name: () => $t(L.ProvinceAchaia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+const _Province = {
+   Achaia: {
+      code: "AC",
+      name: () => $t(L.ProvinceAchaia),
+      capital: 10092626,
+      tiles: [10027088, 10027089, 10092626, 10027090, 10027091, 10092629, 10158165],
+      culture: "Greek",
+      religion: "GrecoRoman",
+      upgrades: [],
+   },
    Aegyptus: {
       code: "AE",
       name: () => $t(L.ProvinceAegyptus),
+      capital: 10485850,
+      tiles: [
+         10616922, 10551386, 10551387, 10616924, 10616925, 10616926, 10551389, 10551388, 10485851, 10485850, 10420314,
+         10354778, 10420315, 10485852, 10485853, 10551390, 10551391, 10616927, 10682464, 10616928, 10551392, 10485857,
+      ],
       culture: "Egyptian",
       religion: "Egyptian",
       upgrades: [],
@@ -24,6 +39,12 @@ export const Province = {
    Africa: {
       code: "AF",
       name: () => $t(L.ProvinceAfrica),
+      capital: 9371731,
+      tiles: [
+         9830491, 9764955, 9764954, 9699418, 9633881, 9568344, 9568345, 9502808, 9437272, 9371735, 9371734, 9371733,
+         9371732, 9371731, 9306195, 9306196, 9240660, 9175123, 9175124, 9109589, 9175126, 9306198, 9240662, 9175125,
+         9240661, 9306197,
+      ],
       culture: "Punic",
       religion: "GrecoRoman",
       upgrades: ["LittoralTaxDistricts", "MercantileMobilization", "GranaryOfTheEmpire"],
@@ -31,14 +52,32 @@ export const Province = {
    Aquitania: {
       code: "AQ",
       name: () => $t(L.ProvinceAquitania),
+      capital: 8847434,
+      tiles: [
+         8781895, 8847431, 8912967, 8978502, 9044040, 8978504, 8978505, 8978506, 8912970, 8847435, 8781899, 8847434,
+         8781897, 8847433, 8912969, 8912968, 8847432, 8912966,
+      ],
       culture: "Gallic",
       religion: "Celtic",
       upgrades: ["SereneVineyards", "CultivatedEstates", "HillfortBastion"],
    },
-   Asia: { code: "AS", name: () => $t(L.ProvinceAsia), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+   Asia: {
+      code: "AS",
+      name: () => $t(L.ProvinceAsia),
+      capital: 10289234,
+      tiles: [
+         10289232, 10354768, 10420304, 10485840, 10551376, 10551377, 10485841, 10420305, 10354769, 10289233, 10289234,
+         10354770, 10420306, 10485842, 10354771, 10289235,
+      ],
+      culture: "Greek",
+      religion: "GrecoRoman",
+      upgrades: [],
+   },
    Baetica: {
       code: "BA",
       name: () => $t(L.ProvinceBaetica),
+      capital: 8650834,
+      tiles: [8585300, 8585299, 8650835, 8716371, 8519763, 8519762, 8585298, 8650834, 8585297],
       culture: "Iberian",
       religion: "Iberian",
       upgrades: ["CommandOfThePillars", "OpulentPortCities", "WorkshopOfTheWest"],
@@ -46,6 +85,8 @@ export const Province = {
    Belgica: {
       code: "BE",
       name: () => $t(L.ProvinceBelgica),
+      capital: 9175107,
+      tiles: [8978498, 9044034, 9044035, 8978497, 9044033, 9109570, 9109571, 9175107, 9175108, 9240644],
       culture: "Gallic",
       religion: "Celtic",
       upgrades: ["RangedPredominance", "BravestOfTheGauls", "MartialSociety"],
@@ -53,6 +94,8 @@ export const Province = {
    Bithynia: {
       code: "BI",
       name: () => $t(L.ProvinceBithynia),
+      capital: 10420303,
+      tiles: [10354767, 10420303, 10485839, 10551374, 10616910, 10682446, 10747982, 10551375],
       culture: "Greek",
       religion: "GrecoRoman",
       upgrades: [],
@@ -60,6 +103,12 @@ export const Province = {
    Britannia: {
       code: "BR",
       name: () => $t(L.ProvinceBritannia),
+      capital: 8847424,
+      tiles: [
+         8650818, 8650817, 8716353, 8781889, 8847425, 8847424, 8781888, 8716352, 8650816, 8650815, 8716351, 8781887,
+         8847423, 8912959, 8847422, 8781886, 8716350, 8650814, 8716349, 8781885, 8847420, 8781884, 8716348, 8716347,
+         8650811,
+      ],
       culture: "Brittonic",
       religion: "Celtic",
       upgrades: ["MaritimeAmbition", "NavalTradition", "CoastalMandate"],
@@ -67,14 +116,29 @@ export const Province = {
    Cappadocia: {
       code: "CA",
       name: () => $t(L.ProvinceCappadocia),
+      capital: 10944591,
+      tiles: [
+         10813518, 10747983, 10813519, 10879055, 10944591, 10813520, 10944592, 10879056, 10682449, 10747985, 10813521,
+         10879057, 10879058, 11010127, 11075662,
+      ],
       culture: "Cappadocian",
       religion: "Anatolian",
       upgrades: [],
    },
-   Cilicia: { code: "CI", name: () => $t(L.ProvinceCilicia), culture: "Anatolian", religion: "Eastern", upgrades: [] },
+   Cilicia: {
+      code: "CI",
+      name: () => $t(L.ProvinceCilicia),
+      capital: 10747987,
+      tiles: [10616916, 10616915, 10682451, 10747986, 10813522, 10747987, 10616918],
+      culture: "Anatolian",
+      religion: "Eastern",
+      upgrades: [],
+   },
    Corsica: {
       code: "CO",
       name: () => $t(L.ProvinceCorsica),
+      capital: 9306189,
+      tiles: [9306189],
       culture: "Corsican",
       religion: "GrecoRoman",
       upgrades: [],
@@ -82,6 +146,11 @@ export const Province = {
    Cyrenaica: {
       code: "CY",
       name: () => $t(L.ProvinceCyrenaica),
+      capital: 10027096,
+      tiles: [
+         10223706, 10289242, 10158170, 10027097, 10027096, 9961560, 9896025, 9961561, 9961562, 9896027, 9961563,
+         10027098, 10092634, 10092633, 10223707, 10158171,
+      ],
       culture: "Greek",
       religion: "GrecoRoman",
       upgrades: [],
@@ -89,6 +158,11 @@ export const Province = {
    Dacia: {
       code: "DA",
       name: () => $t(L.ProvinceDacia),
+      capital: 10092615,
+      tiles: [
+         9961544, 10027080, 10092616, 10158152, 10223688, 10158151, 10092615, 10027079, 9961545, 10027081, 10092617,
+         10158153, 10158154, 10092618, 10092619,
+      ],
       culture: "Dacian",
       religion: "GrecoRoman",
       upgrades: ["InfantryPredominance", "CarpathianRiches", "HighlandAdministration"],
@@ -96,14 +170,26 @@ export const Province = {
    Dalmatia: {
       code: "DL",
       name: () => $t(L.ProvinceDalmatia),
+      capital: 9764939,
+      tiles: [9633865, 9699402, 9699403, 9764938, 9830474, 9764939, 9830475, 9830476, 9896012, 9699401, 9896013],
       culture: "Illyrian",
       religion: "GrecoRoman",
       upgrades: ["HighlandRecruitment", "MonumentsOfPower", "CapitalsOfProsperity"],
    },
-   Epirus: { code: "EP", name: () => $t(L.ProvinceEpirus), culture: "Greek", religion: "GrecoRoman", upgrades: [] },
+   Epirus: {
+      code: "EP",
+      name: () => $t(L.ProvinceEpirus),
+      capital: 9961553,
+      tiles: [9896015, 9961552, 9961553],
+      culture: "Greek",
+      religion: "GrecoRoman",
+      upgrades: [],
+   },
    Galatia: {
       code: "GA",
       name: () => $t(L.ProvinceGalatia),
+      capital: 10616912,
+      tiles: [10616911, 10682447, 10747984, 10682448, 10616912, 10616913, 10682450, 10616914, 10551378],
       culture: "Anatolian",
       religion: "Anatolian",
       upgrades: [],
@@ -111,6 +197,11 @@ export const Province = {
    Germania: {
       code: "GE",
       name: () => $t(L.ProvinceGermania),
+      capital: 9175105,
+      tiles: [
+         9109574, 9175110, 9175109, 9240645, 9306181, 9306180, 9306179, 9240643, 9240642, 9175106, 9175105, 9109569,
+         9175104, 9109568, 9306178, 9371716, 9240646, 9175111,
+      ],
       culture: "Germanic",
       religion: "Germanic",
       upgrades: ["FortifiedAdministration", "VeteranGenerals", "UnitedFrontier"],
@@ -118,22 +209,52 @@ export const Province = {
    Italia: {
       code: "IT",
       name: () => $t(L.ProvinceItalia),
+      capital: 9502797,
+      tiles: [
+         9175113, 9240648, 9306184, 9371720, 9437256, 9502792, 9568328, 9437257, 9306185, 9371721, 9240649, 9240650,
+         9306186, 9371722, 9437258, 9502794, 9502795, 9437259, 9437260, 9502796, 9568332, 9502797, 9568333, 9568334,
+         9633870, 9699406, 9633871, 9699407, 9764943, 9699408, 9699409, 9568329,
+      ],
       culture: "Italic",
       religion: "GrecoRoman",
       upgrades: ["SenatorialAuthority", "InclusiveCitizenship", "CaputMundi", "ExperiencedCommand"],
    },
-   Judea: { code: "JU", name: () => $t(L.ProvinceJudea), culture: "Arab", religion: "Judaism", upgrades: [] },
+   Judea: {
+      code: "JU",
+      name: () => $t(L.ProvinceJudea),
+      capital: 10682459,
+      tiles: [10813528, 10747993, 10682457, 10747994, 10682458, 10616923, 10682460, 10682459, 10747996],
+      culture: "Arab",
+      religion: "Judaism",
+      upgrades: [],
+   },
    Lusitania: {
       code: "LS",
       name: () => $t(L.ProvinceLusitania),
+      capital: 8519761,
+      tiles: [8454223, 8519759, 8585296, 8519760, 8454224, 8388689, 8454225, 8519761, 8454226, 8388691, 8454227],
       culture: "Iberian",
       religion: "Iberian",
       upgrades: ["TreatyRevenues", "VictoriousLeadership", "PaxLusitana"],
    },
-   Lycia: { code: "LY", name: () => $t(L.ProvinceLycia), culture: "Anatolian", religion: "Anatolian", upgrades: [] },
+   Lycia: {
+      code: "LY",
+      name: () => $t(L.ProvinceLycia),
+      capital: 10485843,
+      tiles: [10420307, 10485843, 10551379],
+      culture: "Anatolian",
+      religion: "Anatolian",
+      upgrades: [],
+   },
    Lugdunensis: {
       code: "LG",
       name: () => $t(L.ProvinceLugdunensis),
+      capital: 8978500,
+      tiles: [
+         8978503, 9044041, 8650821, 8716357, 8781893, 8781892, 8847428, 8847427, 8912963, 8978500, 8912964, 9044036,
+         9044037, 8978501, 8912965, 8847429, 8847430, 8781894, 9044038, 9044039, 9109575, 9109576, 9109573, 9109572,
+         8978499,
+      ],
       culture: "Gallic",
       religion: "Celtic",
       upgrades: ["CavalryWarPower", "TradeProfitForEachTrade", "ChristianFervor"],
@@ -141,6 +262,8 @@ export const Province = {
    Macedonia: {
       code: "MC",
       name: () => $t(L.ProvinceMacedonia),
+      capital: 10027087,
+      tiles: [9896014, 9961550, 10027086, 9961549, 10027085, 10092622, 10158158, 10223694, 10092623, 10027087, 9961551],
       culture: "Greek",
       religion: "GrecoRoman",
       upgrades: [],
@@ -148,6 +271,12 @@ export const Province = {
    Mauretania: {
       code: "MR",
       name: () => $t(L.ProvinceMauretania),
+      capital: 8978516,
+      tiles: [
+         8519765, 8585302, 8650838, 8519766, 8454231, 8454232, 8519767, 8519768, 8716374, 8781910, 8847446, 8781909,
+         8847445, 8912980, 8978516, 9109588, 9044052, 9044054, 8978518, 8912982, 8912981, 8978517, 9044053, 8388697,
+         9109590,
+      ],
       culture: "Berber",
       religion: "Berber",
       upgrades: ["TheTwoShores", "MoorishMuster", "MaritimeRenown"],
@@ -155,6 +284,11 @@ export const Province = {
    Moesia: {
       code: "MO",
       name: () => $t(L.ProvinceMoesia),
+      capital: 10223691,
+      tiles: [
+         9961548, 10027084, 10092620, 10158156, 10223692, 10289228, 10158155, 10289227, 10223691, 10223690, 10289226,
+         10354762, 10354761, 10289225, 10223689, 9896010, 9961546, 9896011, 9961547, 10027083, 10027082,
+      ],
       culture: "Thracian",
       religion: "GrecoRoman",
       upgrades: ["MilitarySupplyNetwork", "MilitaryTaxation", "SanctionedConquest"],
@@ -162,6 +296,10 @@ export const Province = {
    Narbonensis: {
       code: "NB",
       name: () => $t(L.ProvinceNarbonensis),
+      capital: 8978508,
+      tiles: [
+         8912972, 8912971, 8978508, 8978507, 9044043, 9044042, 9109578, 9175114, 9109579, 9175115, 9109577, 9175112,
+      ],
       culture: "Gallic",
       religion: "GrecoRoman",
       upgrades: ["MunicipalPrivilege", "MaritimeProsperity", "CommercialAlliances"],
@@ -169,6 +307,8 @@ export const Province = {
    Noricum: {
       code: "NO",
       name: () => $t(L.ProvinceNoricum),
+      capital: 9568327,
+      tiles: [9502790, 9568326, 9633862, 9699398, 9568327, 9502791, 9437255, 9633863],
       culture: "Noric",
       religion: "GrecoRoman",
       upgrades: ["MulticulturalArmy", "InlandAmbition", "TriumphalUnity"],
@@ -176,6 +316,8 @@ export const Province = {
    Pannonia: {
       code: "PN",
       name: () => $t(L.ProvincePannonia),
+      capital: 9830471,
+      tiles: [9633864, 9699400, 9699399, 9764934, 9764935, 9830471, 9764936, 9830472, 9764937, 9830473, 9896009],
       culture: "Pannonian",
       religion: "GrecoRoman",
       upgrades: ["CrossroadsTaxDistricts", "BountifulFrontiers", "WartimeAdministration"],
@@ -183,6 +325,8 @@ export const Province = {
    Raetia: {
       code: "RA",
       name: () => $t(L.ProvinceRaetia),
+      capital: 9437254,
+      tiles: [9240647, 9306183, 9371719, 9306182, 9371718, 9437254, 9371717, 9437253, 9502789],
       culture: "Raetian",
       religion: "GrecoRoman",
       upgrades: ["MastersOfThePasses", "ProductiveInvestment", "CommercialRenown"],
@@ -190,6 +334,8 @@ export const Province = {
    Sardinia: {
       code: "SA",
       name: () => $t(L.ProvinceSardinia),
+      capital: 9371728,
+      tiles: [9306191, 9371728],
       culture: "Sardinian",
       religion: "GrecoRoman",
       upgrades: [],
@@ -197,14 +343,31 @@ export const Province = {
    Sicilia: {
       code: "SC",
       name: () => $t(L.ProvinceSicilia),
+      capital: 9633875,
+      tiles: [9699410, 9633874, 9568338, 9568339, 9633875],
       culture: "Greek",
       religion: "GrecoRoman",
       upgrades: ["MediterraneanAmbition", "BountifulCoastlines", "CoastalAdministration"],
    },
-   Syria: { code: "SY", name: () => $t(L.ProvinceSyria), culture: "Syrian", religion: "Eastern", upgrades: [] },
+   Syria: {
+      code: "SY",
+      name: () => $t(L.ProvinceSyria),
+      capital: 10879061,
+      tiles: [10813523, 10813524, 10879060, 10879061, 10813525, 10747989, 10813526, 10879062, 10747991, 10747992],
+      culture: "Syrian",
+      religion: "Eastern",
+      upgrades: [],
+   },
    Tarraconensis: {
       code: "TR",
       name: () => $t(L.ProvinceTarraconensis),
+      capital: 8781901,
+      tiles: [
+         8454222, 8519758, 8585294, 8585295, 8650832, 8388685, 8454220, 8454221, 8519756, 8519757, 8585292, 8585293,
+         8650830, 8650831, 8716368, 8650833, 8716370, 8781906, 8781905, 8716369, 8781904, 8847440, 8978513, 8847439,
+         8781903, 8716367, 8847438, 8912974, 8978510, 8978509, 8912973, 8847437, 8781901, 8781902, 8716366, 8716365,
+         8650829, 8650828, 8716364, 8781900, 8847436,
+      ],
       culture: "Iberian",
       religion: "Iberian",
       upgrades: ["CulturalEfficiency", "ChristianTranquility", "FocusedGovernance"],
@@ -212,14 +375,26 @@ export const Province = {
    Thracia: {
       code: "TH",
       name: () => $t(L.ProvinceThracia),
+      capital: 10158157,
+      tiles: [10092621, 10158157, 10223693, 10289229, 10289230, 10354766, 10223695],
       culture: "Thracian",
       religion: "GrecoRoman",
       upgrades: ["BornCommanders", "PonticHegemony", "CampaignRequisitions"],
    },
-   Suebi: { code: "SU", name: () => $t(L.ProvinceSuebi), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Suebi: {
+      code: "SU",
+      name: () => $t(L.ProvinceSuebi),
+      capital: 8454222,
+      tiles: [8454222, 8388685, 8454220, 8454221, 8519756, 8454223, 8454224],
+      culture: "Germanic",
+      religion: "Germanic",
+      upgrades: [],
+   },
    Visigoths: {
       code: "VI",
       name: () => $t(L.ProvinceVisigoths),
+      capital: 8912972,
+      tiles: [8912972, 8781897, 8847433, 8912970, 8912971, 8912973],
       culture: "Germanic",
       religion: "Germanic",
       upgrades: [],
@@ -227,6 +402,8 @@ export const Province = {
    Vandals: {
       code: "VA",
       name: () => $t(L.ProvinceVandals),
+      capital: 9371731,
+      tiles: [9371731, 9306195, 9306196, 9371732, 9240660, 9568338, 9371733],
       culture: "Germanic",
       religion: "Germanic",
       upgrades: [],
@@ -234,15 +411,35 @@ export const Province = {
    Burgundians: {
       code: "BU",
       name: () => $t(L.ProvinceBurgundians),
+      capital: 9044041,
+      tiles: [9044041, 9109576, 9109577, 9044042, 9109575, 9175112, 9044039],
       culture: "Germanic",
       religion: "Germanic",
       upgrades: [],
    },
-   Franks: { code: "FR", name: () => $t(L.ProvinceFranks), culture: "Germanic", religion: "Germanic", upgrades: [] },
-   Saxons: { code: "SX", name: () => $t(L.ProvinceSaxons), culture: "Germanic", religion: "Germanic", upgrades: [] },
+   Franks: {
+      code: "FR",
+      name: () => $t(L.ProvinceFranks),
+      capital: 8978497,
+      tiles: [8978497, 8978498, 9044033, 9109568, 9109569, 9044034, 9109567],
+      culture: "Germanic",
+      religion: "Germanic",
+      upgrades: [],
+   },
+   Saxons: {
+      code: "SX",
+      name: () => $t(L.ProvinceSaxons),
+      capital: 8847424,
+      tiles: [8847424, 8847420, 8781885, 8847422, 8847423, 8912959, 8781884],
+      culture: "Germanic",
+      religion: "Germanic",
+      upgrades: [],
+   },
    Alemanni: {
       code: "AL",
       name: () => $t(L.ProvinceAlemanni),
+      capital: 9240647,
+      tiles: [9240647, 9175111, 9306183, 9240646, 9306182, 9371718, 9306181],
       culture: "Germanic",
       religion: "Germanic",
       upgrades: [],
@@ -250,46 +447,66 @@ export const Province = {
    Ostrogoths: {
       code: "OS",
       name: () => $t(L.ProvinceOstrogoths),
+      capital: 9568328,
+      tiles: [9568328, 9633865, 9568329, 9633864, 9502792, 9437256, 9437257],
       culture: "Germanic",
       religion: "Germanic",
       upgrades: [],
    },
-   Huns: { code: "HU", name: () => $t(L.ProvinceHuns), culture: "Hunnic", religion: "Hunnic", upgrades: [] },
-   Avars: { code: "AV", name: () => $t(L.ProvinceAvars), culture: "Steppe", religion: "Steppe", upgrades: [] },
+   Huns: {
+      code: "HU",
+      name: () => $t(L.ProvinceHuns),
+      capital: 9764935,
+      tiles: [
+         9764935, 9764934, 9830471, 9830470, 9699397, 9896008, 9896007, 9896006, 9830469, 9961542, 9961543, 9764933,
+      ],
+      culture: "Hunnic",
+      religion: "Hunnic",
+      upgrades: [],
+   },
+   Avars: {
+      code: "AV",
+      name: () => $t(L.ProvinceAvars),
+      capital: 9961543,
+      tiles: [9961543, 9961542, 10027078, 9896007, 9896008],
+      culture: "Steppe",
+      religion: "Steppe",
+      upgrades: [],
+   },
    Lombards: {
       code: "LO",
       name: () => $t(L.ProvinceLombards),
+      capital: 9568328,
+      tiles: [9568328, 9502792, 9437256, 9437257, 9371721],
       culture: "Germanic",
       religion: "Arianism",
       upgrades: [],
    },
-   Caliphate: { code: "CL", name: () => $t(L.ProvinceCaliphate), culture: "Arab", religion: "Islam", upgrades: [] },
-   Bulgars: { code: "BG", name: () => $t(L.ProvinceBulgars), culture: "Steppe", religion: "Steppe", upgrades: [] },
+   Caliphate: {
+      code: "CL",
+      name: () => $t(L.ProvinceCaliphate),
+      capital: 10944609,
+      tiles: [
+         10944609, 10879073, 10944610, 10944611, 11010148, 10879072, 10813535, 10813534, 10747997, 10879069, 10879070,
+         10879071, 10944608, 10944607, 11010144, 11075684, 11010149, 11075685, 11075686, 11075687, 11141223, 11010145,
+         11010146,
+      ],
+      culture: "Arab",
+      religion: "Islam",
+      upgrades: [],
+   },
+   Bulgars: {
+      code: "BG",
+      name: () => $t(L.ProvinceBulgars),
+      capital: 10223691,
+      tiles: [10223691, 10289227, 10223692, 10289226, 10289228],
+      culture: "Steppe",
+      religion: "Steppe",
+      upgrades: [],
+   },
 } as const satisfies Record<string, IProvinceConfig>;
 
-export type Province = keyof typeof Province;
+export type Province = keyof typeof _Province;
+export const Province: Record<Province, IProvinceConfig> = _Province;
 export const Provinces = keysOf(Province);
-export const EnabledProvinces: Province[] = [
-   "Lugdunensis",
-   "Aquitania",
-   "Narbonensis",
-   "Belgica",
-   "Germania",
-   "Tarraconensis",
-   "Lusitania",
-   "Baetica",
-   "Italia",
-   "Sicilia",
-   "Mauretania",
-   "Africa",
-   "Britannia",
-   "Raetia",
-   "Noricum",
-   "Pannonia",
-   "Dalmatia",
-   "Thracia",
-   "Moesia",
-   "Dacia",
-];
-EnabledProvinces.sort();
 export const AlwaysFreeProvinces = new Set<Province>(["Lugdunensis"]);

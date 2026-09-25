@@ -1,7 +1,6 @@
 import {
    clamp,
    clearFlag,
-   entriesOf,
    filterInPlace,
    forEach,
    hasFlag,
@@ -34,7 +33,7 @@ import { isChristianReligion } from "../definitions/Religion";
 import { RestorationBonus } from "../definitions/RestorationBonus";
 import { TimedActions } from "../definitions/TimedAction";
 import { RefreshTiles } from "../Events";
-import { applyGameEventButton, getEventButtons, getGameEventCondition } from "../events/GameEventLogic";
+import { applyGameEventButton, getAllEvents, getEventButtons, getGameEventCondition } from "../events/GameEventLogic";
 import { type GameEvent, GameEvents } from "../events/GameEvents";
 import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
@@ -106,7 +105,8 @@ export function tickProvince(province: Province, save: SaveGame): void {
       });
    });
 
-   for (const [key, config] of entriesOf(GameEvents)) {
+   for (const key of getAllEvents(save.state.scenario)) {
+      const config = GameEvents[key];
       if (config.type === "random") {
          continue;
       }
@@ -134,7 +134,8 @@ export function tickProvince(province: Province, save: SaveGame): void {
 
    if (getTimedActionCooldownLeft("GameEventTimer", province, save) <= 0) {
       const candidates: GameEvent[] = [];
-      forEach(GameEvents, (key, config) => {
+      getAllEvents(save.state.scenario).forEach((key) => {
+         const config = GameEvents[key];
          if (config.type === "random") {
             candidates.push(key);
          }
@@ -159,7 +160,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
       }
    }
 
-   const monthOfYear = getGameDate(save.state.tick).getMonth();
+   const monthOfYear = getGameDate(save.state.tick, save).getMonth();
    if (monthOfYear === TickFamilyMonth) {
       const family = state.governor;
       const result = tickFamily(family, province, save);
@@ -375,6 +376,9 @@ export function tickProvince(province: Province, save: SaveGame): void {
 }
 
 export function addGameEvent(event: GameEvent, province: Province, save: SaveGame): void {
+   if (!getAllEvents(save.state.scenario).has(event)) {
+      return;
+   }
    const state = save.state.provinces[province];
    if (!state) {
       return;

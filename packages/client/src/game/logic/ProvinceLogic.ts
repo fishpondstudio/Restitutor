@@ -37,8 +37,6 @@ import { GameStateUpdated, RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
-import { ProvinceOriginalTiles } from "../ProvinceOriginalTiles";
-import { RomeMap } from "../RomeMap";
 import { getArmyMaintenanceCost, getWarPower, getWarPowerPerTile } from "./ArmyLogic";
 import { cacheProvince } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
@@ -92,16 +90,6 @@ export function addProvinceStat(stat: ProvinceStat, value: number, province: Pro
    }
    const oldValue = getProvinceStat(stat, province, save);
    state.stats[stat] = oldValue + value;
-}
-
-export function getProvinceOriginalTileCount(province: Province): number {
-   let count = 0;
-   for (const [_tile, data] of RomeMap) {
-      if (data.province === province) {
-         count++;
-      }
-   }
-   return count;
 }
 
 export function getProvinceTileCount(province: Province, save: SaveGame): number {
@@ -571,10 +559,7 @@ export function setProvinceNameOverride(province: Province, nameOverride: Provin
 export function getAnnexedTiles(toAnnex: Province, ourProvince: Province, save: SaveGame): [number, number] {
    let annexed = 0;
    let total = 0;
-   const originalTiles = ProvinceOriginalTiles.get(toAnnex);
-   if (!originalTiles) {
-      return [0, 0];
-   }
+   const originalTiles = Province[toAnnex].tiles;
    for (const tile of originalTiles) {
       const tileData = save.state.tiles.get(tile);
       if (tileData?.province === ourProvince && tileData.coreProvinces.has(ourProvince)) {
@@ -605,11 +590,12 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
    if (!config) {
       return [];
    }
-   const state = initProvince(province, config.tiles[0]);
+   const { capital, tiles } = Province[province];
+   const state = initProvince(province, capital);
    state.unlockedTech = new Set(getBaselineTechs(save));
    save.state.provinces[province] = state;
    const provinces = new Set<Province>();
-   config.tiles.forEach((tile) => {
+   tiles.forEach((tile) => {
       const data = save.state.tiles.get(tile);
       if (!data) {
          settleTile(tile, province, save);
@@ -624,7 +610,7 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
          data.modifiers.Unrest.length = 0;
       }
    });
-   const refreshedTiles = annexTiles({ tiles: config.tiles, core: true, province, save });
+   const refreshedTiles = annexTiles({ tiles, core: true, province, save });
    GameStateUpdated.emit();
 
    forEach(config.stats, (key, value) => {
@@ -642,7 +628,7 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
       }
    });
 
-   const nearbyProvinces = getProvincesByDistance(config.tiles[0], save)
+   const nearbyProvinces = getProvincesByDistance(capital, save)
       .filter((p) => p !== province && p !== save.state.playerProvince)
       .slice(0, 5);
 
@@ -652,7 +638,7 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
          const warPowerPerTile = getWarPowerPerTile(neighboringProvince, save);
          targetWarPower += warPowerPerTile;
       }
-      targetWarPower = 2 * (targetWarPower / nearbyProvinces.length) * config.tiles.length;
+      targetWarPower = 2 * (targetWarPower / nearbyProvinces.length) * tiles.length;
 
       const currentWarPower = getWarPower({}, province, save).total.value;
       addModifier({

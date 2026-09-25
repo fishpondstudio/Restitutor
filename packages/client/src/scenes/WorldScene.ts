@@ -30,7 +30,7 @@ import { Goods } from "../game/definitions/Goods";
 import { TileToGreatWork } from "../game/definitions/GreatWork";
 import type { Province } from "../game/definitions/Province";
 import { Religion } from "../game/definitions/Religion";
-import { NewSettlementTiles, OceanLabels } from "../game/definitions/TileConstants";
+import { getNewSettlementTiles, OceanLabels } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
@@ -52,7 +52,6 @@ import { MapGrid, TileHeight, TileWidth } from "../game/MapGrid";
 import { showPanel } from "../ui/common/ShowPanel";
 import { hideSidebar } from "../ui/common/SidebarManager";
 import { DiplomacyPage } from "../ui/DiplomacyPage";
-import { EditTilePage } from "../ui/EditTilePage";
 import { SettleTilePage } from "../ui/SettleTilePage";
 import { playSound } from "../ui/Sound";
 import { TilePage } from "../ui/TilePage";
@@ -94,7 +93,6 @@ export class WorldScene extends Scene {
    private _lastZoom = 0;
    private _tileWar = new Map<Tile, IWar>();
    private _clickTileHandler: ((tile: Tile, e: FederatedPointerEvent) => void) | undefined;
-   private readonly _isEditor: boolean;
 
    backgroundColor(): ColorSource {
       return OceanColor;
@@ -336,8 +334,6 @@ export class WorldScene extends Scene {
 
       this._selectedProvince = G.save.state.playerProvince;
       this.drawProvinceOutline(G.save.state.playerProvince);
-
-      this._isEditor = G.params.has("editor");
    }
 
    private _makeTile(tile: Tile): void {
@@ -366,7 +362,7 @@ export class WorldScene extends Scene {
          } else {
             this._capitalContainer.map.delete(tile);
          }
-      } else if (NewSettlementTiles.has(tile)) {
+      } else if (getNewSettlementTiles(G.save.state.scenario).has(tile)) {
          bg.tint = 0xe0ebe1;
       } else {
          bg.tint = 0xf2fcff;
@@ -504,7 +500,7 @@ export class WorldScene extends Scene {
       const tileData = G.save.state.tiles.get(tile);
 
       if (!tileData) {
-         if (NewSettlementTiles.has(tile)) {
+         if (getNewSettlementTiles(G.save.state.scenario).has(tile)) {
             this._selectedTiles.clear();
             this._selectedTiles.add(tile);
             this.drawSelectors(this._selectedTiles);
@@ -522,40 +518,25 @@ export class WorldScene extends Scene {
          this.drawProvinceOutline(tileData.province);
       }
 
-      if (this._isEditor) {
-         if (e.ctrlKey) {
-            if (this._selectedTiles.has(tile)) {
-               this._selectedTiles.delete(tile);
-            } else {
-               this._selectedTiles.add(tile);
-            }
-         } else {
-            this._selectedTiles.clear();
-            this._selectedTiles.add(tile);
+      this._selectedTiles.clear();
+      if (e.button === 0) {
+         if (isDev()) {
+            console.log(G.save.state.tiles.get(tile));
          }
-         this.drawSelectors(this._selectedTiles);
-         showPanel(EditTilePage, { tiles: this._selectedTiles });
-      } else {
-         this._selectedTiles.clear();
-         if (e.button === 0) {
-            if (isDev()) {
-               console.log(G.save.state.tiles.get(tile));
-            }
-            this._selectedTiles.add(tile);
-            showPanel(TilePage, { tile });
-         }
-         if (e.button === 2) {
-            const tileData = G.save.state.tiles.get(tile);
-            if (tileData) {
-               showPanel(DiplomacyPage, { province: tileData.province });
-            }
-         }
-         this.drawSelectors(this._selectedTiles);
-         // if (e.button === 1) {
-         //    this._highlightedTiles.add(tile);
-         //    this._drawHighlighters(this._highlightedTiles);
-         // }
+         this._selectedTiles.add(tile);
+         showPanel(TilePage, { tile });
       }
+      if (e.button === 2) {
+         const tileData = G.save.state.tiles.get(tile);
+         if (tileData) {
+            showPanel(DiplomacyPage, { province: tileData.province });
+         }
+      }
+      this.drawSelectors(this._selectedTiles);
+      // if (e.button === 1) {
+      //    this._highlightedTiles.add(tile);
+      //    this._drawHighlighters(this._highlightedTiles);
+      // }
    }
 
    public lookAt(tile: Tile, { time }: { time: number }): Promise<WorldScene> {
@@ -999,43 +980,5 @@ export class WorldScene extends Scene {
       selector.scale.set(TileHeight / TextureHeight);
       selector.anchor.set(0.5, 0.5);
       selector.alpha = 0.25;
-   }
-
-   private _enableTileEditor(): void {
-      const sprite = this.viewport.addChild(new Sprite());
-      sprite.scale.set(20.2);
-      sprite.anchor.set(0.5, 0.5);
-      sprite.position.set(17000, 9260);
-      sprite.alpha = 0.4;
-
-      document.addEventListener("keydown", (e) => {
-         switch (e.key) {
-            case "w": {
-               sprite.y -= 10;
-               break;
-            }
-            case "s": {
-               sprite.y += 10;
-               break;
-            }
-            case "a": {
-               sprite.x -= 10;
-               break;
-            }
-            case "d": {
-               sprite.x += 10;
-               break;
-            }
-            case "q": {
-               sprite.scale.set(sprite.scale.x + 0.01);
-               break;
-            }
-            case "e": {
-               sprite.scale.set(sprite.scale.x - 0.01);
-               break;
-            }
-         }
-         console.log(sprite.position.x, sprite.position.y, sprite.scale.x);
-      });
    }
 }

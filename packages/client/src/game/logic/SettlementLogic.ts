@@ -2,7 +2,7 @@ import { numberToRoman, pointToTile, randOne, type Tile, tileToPoint } from "@pr
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
 import { type ITileData, initTileData, TerrainToGoods } from "../definitions/Tile";
-import { NewSettlementTiles } from "../definitions/TileConstants";
+import { getNewSettlementTiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import { RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
@@ -13,7 +13,7 @@ import { getTileTerrain, isCoreTile } from "./TileLogic";
 
 export function* settleTileChecks(tile: Tile, province: Province, save: SaveGame): ConditionChecks {
    (yield !save.state.tiles.has(tile))?.describe($t(L.$1IsCurrentlyUnsettled, getTileName(tile, save)));
-   (yield isLand(tile) && NewSettlementTiles.has(tile))?.describe(
+   (yield isLand(tile) && getNewSettlementTiles(save.state.scenario).has(tile))?.describe(
       $t(L.$1IsEligibleForSettlement, getTileName(tile, save)),
    );
    (yield MapGrid.getNeighbors(tileToPoint(tile)).some((neighbor) =>
