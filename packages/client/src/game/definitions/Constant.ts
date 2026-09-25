@@ -1,4 +1,4 @@
-export const VersionNumber = 26;
+export const VersionNumber = 27;
 export const Version = `0.${VersionNumber}`;
 export const SupportedSaveVersion = 11;
 export const GoldenRatio = (1 + Math.sqrt(5)) / 2;
