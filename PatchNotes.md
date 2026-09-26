@@ -1,3 +1,8 @@
+## Culture & Relgion
+
+- Culture and religion is moved into a separate panel from Internal Affairs
+- Add a list of tiles in the province that has non-dominant culture and religion (can be converted directly in the page)
+
 ## Apostolic Sees
 
 - Added Apostolic Sees in Rome, Alexandria, Antioch, and Jerusalem. Each annexed see grants +1 yearly Christian Influence.
