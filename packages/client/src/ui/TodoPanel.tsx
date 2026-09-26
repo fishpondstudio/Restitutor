@@ -12,6 +12,7 @@ import { SocialClass } from "../game/definitions/SocialClass";
 import { Tech } from "../game/definitions/Tech";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
+import { GameOptionUpdated } from "../game/Events";
 import { getLoomingDisasters } from "../game/events/DisasterLogic";
 import { GameEvents } from "../game/events/GameEvents";
 import type { SaveGame } from "../game/GameState";
@@ -38,6 +39,7 @@ import {
 } from "../game/logic/WarLogic";
 import { TechTreeScene } from "../scenes/TechTreeScene";
 import { G } from "../utils/Global";
+import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ArmySingletonModal } from "./ArmySingletonModal";
 import { BankruptcyEffectComp } from "./BankruptcyEffectComp";
@@ -67,12 +69,14 @@ import { WarModal } from "./WarModal";
 import { WarTooltip } from "./WarTooltip";
 
 export function TodoPanel(): React.ReactNode {
+   refreshOnTypedEvent(GameOptionUpdated);
    if (!G.save) return null;
    if (G.params.get("hide")?.includes("todo")) return null;
    return (
       <div className="todo-panel">
          {[...getCurrentWars(G.save.state.playerProvince, G.save).map(WarTodo), ...entriesOf(Todos)].map(
             ([id, todo]) => {
+               if (G.save.options.disabledTodos.has(id as Todo)) return null;
                const tooltip = todo.tooltip(G.save);
                if (!tooltip) return null;
                return (

@@ -9,3 +9,12 @@
 - Annexing all Apostolic Sees grants an additional +1 yearly Christian Influence per see.
 - Constantinople becomes an Apostolic See after the First Council of Constantinople event.
 - The Internal Affairs page now lists Apostolic Sees and their owners, with clickable links to their map locations.
+
+## Bugfixes
+
+- Fix a bug where hiding todos does not work correctly
+
+## Plan
+
+- Auto Core/Auto Evangelize/Auto Culture Conversion
+- About to Bankrupt Todo
