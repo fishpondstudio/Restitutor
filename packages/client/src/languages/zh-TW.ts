@@ -4284,4 +4284,5 @@ export const ZH_TW = {
    ControllingAllApostolicSee: "控制所有使徒教座",
    $1BecomesAnApostolicSee: "$1成為使徒教座",
    ApostolicSeeEffects$1$2$3$4: "吞併一座使徒教座可使$2 $1。<i>吞併所有使徒教座</i>後，每座使徒教座額外使$4 $3。",
+   CultureAndReligion: "文化與宗教",
 };

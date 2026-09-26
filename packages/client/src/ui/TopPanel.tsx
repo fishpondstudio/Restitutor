@@ -26,6 +26,7 @@ import { ArmySingletonModal } from "./ArmySingletonModal";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { ChroniclePage } from "./ChroniclePage";
+import { CultureReligionPage } from "./CultureReligionPage";
 import { showPanel } from "./common/ShowPanel";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
@@ -326,6 +327,15 @@ export function TopLeftPanel(): React.ReactNode {
                      }}
                   >
                      <img src={IconCatalog.Stability} style={{ width: `${IconWidth}rem` }} />
+                  </div>
+               </FloatingTip>
+               <FloatingTip label={() => $t(L.CultureAndReligion)}>
+                  <div
+                     id="TopPanel_CultureReligion"
+                     className="pointer"
+                     onClick={() => showPanel(CultureReligionPage, {})}
+                  >
+                     <img src={IconCatalog.CultureReligion} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={() => $t(L.SocialClass)}>

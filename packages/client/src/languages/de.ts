@@ -4460,4 +4460,5 @@ export const DE = {
    ControllingAllApostolicSee: "Kontrolle über alle apostolischen Sitze",
    $1BecomesAnApostolicSee: "$1 wird zu einem apostolischen Sitz",
    ApostolicSeeEffects$1$2$3$4: "$1 $2 für die Annexion eines apostolischen Sitzes. <i>Die Annexion aller Sitze</i> gewährt zusätzlich $3 $4 pro apostolischem Sitz.",
+   CultureAndReligion: "Kultur & Religion",
 };

@@ -4457,4 +4457,5 @@ export const ES = {
    ControllingAllApostolicSee: "Control de todas las sedes apostólicas",
    $1BecomesAnApostolicSee: "$1 se convierte en una sede apostólica",
    ApostolicSeeEffects$1$2$3$4: "$1 de $2 por anexionar una sede apostólica. <i>Anexionarlas todas</i> otorga $3 de $4 adicionales por cada sede apostólica.",
+   CultureAndReligion: "Cultura y religión",
 };
