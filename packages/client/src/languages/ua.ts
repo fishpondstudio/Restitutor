@@ -4381,7 +4381,7 @@ export const UA = {
    ExpiringCasusBelli: "Casus belli, що спливає",
    ApostolicSee: "Apostolic See",
    $1ApostolicSee: "$1 (Apostolic See)",
-   AllApostolicSees: "All Apostolic sees",
+   ControllingAllApostolicSee: "Controlling all Apostolic See",
    $1BecomesAnApostolicSee: "$1 becomes an Apostolic See",
    ApostolicSeeEffects$1$2$3$4: "$1 $2 for annexing an Apostolic See. <i>Annexing all</i> grants an additional $3 $4 per Apostolic See.",
 };

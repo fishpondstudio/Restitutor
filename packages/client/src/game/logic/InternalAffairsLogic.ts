@@ -34,7 +34,10 @@ export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1,
       }
    });
    if (apostolicSeeCount === ownedApostolicSees) {
-      result.add.push({ name: $t(L.AllApostolicSees), value: apostolicSeeCount * ApostolicSeeChristianityYearly });
+      result.add.push({
+         name: $t(L.ControllingAllApostolicSee),
+         value: apostolicSeeCount * ApostolicSeeChristianityYearly,
+      });
    }
 
    if (hasProvinceUpgrade("ChristianFervor", province, save) && isChristianReligion(state.religion)) {
