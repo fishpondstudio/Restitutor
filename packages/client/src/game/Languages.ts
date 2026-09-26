@@ -6,6 +6,7 @@ import { ES } from "../languages/es";
 import { FR } from "../languages/fr";
 import { RU } from "../languages/ru";
 import { TR } from "../languages/tr";
+import { UA } from "../languages/ua";
 import { ZH_CN } from "../languages/zh-CN";
 import { ZH_TW } from "../languages/zh-TW";
 
@@ -18,6 +19,7 @@ export const Languages = {
    ru: RU,
    fr: FR,
    tr: TR,
+   ua: UA,
 } as const satisfies Record<Language, Record<string, string>>;
 
 export const LanguagesImage = {
@@ -29,4 +31,5 @@ export const LanguagesImage = {
    ru: "RU",
    fr: "FR",
    tr: "TR",
+   ua: "UA",
 } as const satisfies Record<Language, keyof typeof CountryCode>;
