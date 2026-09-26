@@ -4452,4 +4452,9 @@ export const ES = {
    NumberOfAttacksOffset: "Número de ataques (desplazamiento)",
    SocialClassAgendaAvailableTooltip: "Podemos adoptar una agenda de clase social para obtener distintas bonificaciones. Hagamos clic para ver los detalles.",
    ExpiringCasusBelli: "Casus belli próximos a caducar",
+   ApostolicSee: "Sede apostólica",
+   $1ApostolicSee: "$1 (Sede apostólica)",
+   AllApostolicSees: "Todas las sedes apostólicas",
+   $1BecomesAnApostolicSee: "$1 se convierte en una sede apostólica",
+   ApostolicSeeEffects$1$2$3$4: "$1 de $2 por anexionar una sede apostólica. <i>Anexionarlas todas</i> otorga $3 de $4 adicionales por cada sede apostólica.",
 };

@@ -35,6 +35,7 @@ import { type Scenario, Scenarios } from "./scenarios/Scenarios";
 export const GameStateFlags = {
    None: 0,
    ShowTutorial: 1 << 0,
+   ConstantinopleApostolicSee: 1 << 1,
 } as const;
 
 export type GameStateFlags = (typeof GameStateFlags)[keyof typeof GameStateFlags];

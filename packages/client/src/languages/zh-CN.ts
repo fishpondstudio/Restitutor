@@ -4279,4 +4279,9 @@ export const ZH_CN = {
    NumberOfAttacksOffset: "进攻次数（偏移量）",
    SocialClassAgendaAvailableTooltip: "我们可以采纳一项社会阶层议程以获得不同加成。点击查看详情。",
    ExpiringCasusBelli: "即将失效的宣战理由",
+   ApostolicSee: "使徒教座",
+   $1ApostolicSee: "$1（使徒教座）",
+   AllApostolicSees: "所有使徒教座",
+   $1BecomesAnApostolicSee: "$1成为使徒教座",
+   ApostolicSeeEffects$1$2$3$4: "吞并一座使徒教座可使$2 $1。<i>吞并所有使徒教座</i>后，每座使徒教座额外使$4 $3。",
 };

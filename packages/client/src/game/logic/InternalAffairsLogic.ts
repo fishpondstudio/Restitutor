@@ -1,11 +1,14 @@
-import { forEach } from "@project/shared/src/utils/Helper";
+import { forEach, hasFlag, type Tile } from "@project/shared/src/utils/Helper";
+import { $t, L } from "../../utils/i18n";
 import type { Culture } from "../definitions/Culture";
 import { makeModifierGetter } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { isChristianReligion, Religion } from "../definitions/Religion";
+import { ApostolicSeeTiles, Tiles } from "../definitions/TileConstants";
+import { getTileName } from "../definitions/TileName";
 import { TimedActions } from "../definitions/TimedAction";
-import type { SaveGame } from "../GameState";
+import { GameStateFlags, type SaveGame } from "../GameState";
 import { getAttitudeTowards } from "./DiplomacyLogic";
 import { EcumenicalCouncilChristianityPct, ongoingEcumenicalCouncilCondition } from "./EcumenicalCouncilLogic";
 import { getProvinceName } from "./ProvinceLogic";
@@ -16,6 +19,24 @@ export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1,
    if (!state) {
       return;
    }
+
+   let ownedApostolicSees = 0;
+   let apostolicSeeCount = 0;
+   getApostolicSeeTiles(save).forEach((tile) => {
+      apostolicSeeCount++;
+      const owner = save.state.tiles.get(tile)?.province;
+      if (owner === province) {
+         result.add.push({
+            name: $t(L.$1ApostolicSee, getTileName(tile, save)),
+            value: ApostolicSeeChristianityYearly,
+         });
+         ownedApostolicSees++;
+      }
+   });
+   if (apostolicSeeCount === ownedApostolicSees) {
+      result.add.push({ name: $t(L.AllApostolicSees), value: apostolicSeeCount * ApostolicSeeChristianityYearly });
+   }
+
    if (hasProvinceUpgrade("ChristianFervor", province, save) && isChristianReligion(state.religion)) {
       result.add.push({ name: ProvinceUpgrades.ChristianFervor.name(), value: 1 });
    }
@@ -156,3 +177,12 @@ export function getProvinceCultures(province: Province, save: SaveGame): Set<Cul
    }
    return cultures;
 }
+
+export function getApostolicSeeTiles(save: SaveGame): Tile[] {
+   if (hasFlag(save.state.flags, GameStateFlags.ConstantinopleApostolicSee)) {
+      return [...ApostolicSeeTiles, Tiles.Constantinople];
+   }
+   return ApostolicSeeTiles;
+}
+
+export const ApostolicSeeChristianityYearly = 1;

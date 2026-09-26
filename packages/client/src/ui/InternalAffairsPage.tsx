@@ -25,6 +25,8 @@ import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
 import { getUpcomingDisasters } from "../game/events/DisasterLogic";
 import {
+   ApostolicSeeChristianityYearly,
+   getApostolicSeeTiles,
    getChristianityYearly,
    getCulturalCohesion,
    getReligiousCohesion,
@@ -65,6 +67,7 @@ import { DisasterPage } from "./DisasterPage";
 import { GreatWorkComponent } from "./GreatWorkComponent";
 import { GreatWorksSingletonModal } from "./GreatWorksSingletonModal";
 import { MakeCoreButton } from "./MakeCoreButton";
+import { renderMarkup } from "./ParseMarkup";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { playSound } from "./Sound";
 import { TilePage } from "./TilePage";
@@ -259,11 +262,12 @@ export function InternalAffairsPage(): React.ReactNode {
          <div className="h1">{$t(L.ProvincialSpirits)}</div>
          {Province[G.save.state.playerProvince].upgrades.map((upgrade, idx) => (
             <Fragment key={upgrade}>
-               {idx > 0 && <div className="divider" />}
-               <div className="m10">
-                  <div>{ProvinceUpgrades[upgrade].name()}</div>
-                  <div className="text-dimmed text-sm">{getProvinceUpgradeDesc(upgrade)}</div>
-               </div>
+               <FloatingTip label={() => getProvinceUpgradeDesc(upgrade)}>
+                  <div className="row mx10 my5">
+                     <div className="f1">{ProvinceUpgrades[upgrade].name()}</div>
+                     <div className="mi sm text-dimmed">info</div>
+                  </div>
+               </FloatingTip>
             </Fragment>
          ))}
          <div className="h1">{$t(L.ProvincialGreatWorks)}</div>
@@ -420,6 +424,36 @@ export function InternalAffairsPage(): React.ReactNode {
                {$t(L.ConvertToChristianity)}
             </ActionButton>
             <TimedActionButton timedAction="AppointBishop" />
+         </div>
+         <div className="box m10">
+            <FloatingTip
+               label={() =>
+                  html(
+                     $t(
+                        L.ApostolicSeeEffects$1$2$3$4,
+                        formatDelta(ApostolicSeeChristianityYearly),
+                        Modifiers.ChristianityYearly.name(),
+                        formatDelta(ApostolicSeeChristianityYearly),
+                        Modifiers.ChristianityYearly.name(),
+                     ),
+                  )
+               }
+            >
+               <div className="h3 row">
+                  <div className="f1">{$t(L.ApostolicSee)}</div>
+                  <div className="mi xs text-dimmed">info</div>
+               </div>
+            </FloatingTip>
+            {getApostolicSeeTiles(G.save).map((tile) => {
+               const owner = G.save.state.tiles.get(tile)?.province;
+               return (
+                  <div key={tile} className="row mx10 my5">
+                     <div className="f1">{renderMarkup(`<Tile>${tile}</Tile>`)}</div>
+                     <div>{renderMarkup(`<Province>${owner}</Province>`)}</div>
+                     {owner === G.save.state.playerProvince && <div>{$t(L.Us)}</div>}
+                  </div>
+               );
+            })}
          </div>
          <div className="h1">{$t(L.Culture)}</div>
          <div className="row mx10 my5">

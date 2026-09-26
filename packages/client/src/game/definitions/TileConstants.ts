@@ -2,7 +2,7 @@ import { createTile, keysOf, pointToTile, type Tile, tileToPoint } from "@projec
 import { $t, L } from "../../utils/i18n";
 import { isLand } from "../Land";
 import { MapGrid } from "../MapGrid";
-import { getInitialTiles, Scenario } from "../scenarios/Scenarios";
+import { getInitialTiles, type Scenario } from "../scenarios/Scenarios";
 import { Province } from "./Province";
 import { SpawnedProvinces } from "./SpawnedProvince";
 
@@ -214,3 +214,5 @@ export const OceanLabels: Record<Tile, () => string> = {
    8454216: () => $t(L.OceanOceanusAtlanticus),
    10616907: () => $t(L.OceanPontusEuxinus),
 };
+
+export const ApostolicSeeTiles: Tile[] = [10747993, 10813524, 10485850, 9502797] as const;

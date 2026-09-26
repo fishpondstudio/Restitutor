@@ -4455,4 +4455,9 @@ export const DE = {
    NumberOfAttacksOffset: "Anzahl der Angriffe (Offset)",
    SocialClassAgendaAvailableTooltip: "Wir können eine Agenda der Gesellschaftsklassen annehmen, um verschiedene Boni zu erhalten. Klicken, um Einzelheiten anzuzeigen.",
    ExpiringCasusBelli: "Bald verfallende Casus Belli",
+   ApostolicSee: "Apostolischer Sitz",
+   $1ApostolicSee: "$1 (Apostolischer Sitz)",
+   AllApostolicSees: "Alle apostolischen Sitze",
+   $1BecomesAnApostolicSee: "$1 wird zu einem apostolischen Sitz",
+   ApostolicSeeEffects$1$2$3$4: "$1 $2 für die Annexion eines apostolischen Sitzes. <i>Die Annexion aller Sitze</i> gewährt zusätzlich $3 $4 pro apostolischem Sitz.",
 };
