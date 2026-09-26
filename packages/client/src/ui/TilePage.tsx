@@ -7,15 +7,13 @@ import {
    RelocateCapitalAction,
    RelocateCapitalModifier,
 } from "../game/actions/CapitalActions";
-import { ConvertCultureAction } from "../game/actions/ConvertCultureAction";
-import { finalizeCondition } from "../game/actions/GameAction";
 import { Buildings } from "../game/definitions/Building";
 import { Culture } from "../game/definitions/Culture";
 import { CultureReligionStatus } from "../game/definitions/CultureReligionStatus";
 import { Goods, Price } from "../game/definitions/Goods";
 import { TileToGreatWork } from "../game/definitions/GreatWork";
 import { modifierToString } from "../game/definitions/Modifier";
-import { isChristianReligion, Religion } from "../game/definitions/Religion";
+import { Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
 import { getNewSettlementTiles } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
@@ -23,12 +21,10 @@ import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
 import { MapBackgroundColors } from "../game/logic/MapColor";
-import { tileIsOurCoreCondition } from "../game/logic/MissionLogic";
 import { getProvinceName, getProvinceStat } from "../game/logic/ProvinceLogic";
 import {
    getCultureStatus,
    getReligionStatus,
-   getTileConvertCultureCost,
    getTileDefense,
    getTileGoodsTax,
    getTileGoverningCost,
@@ -40,15 +36,14 @@ import {
    getTileUnrest,
 } from "../game/logic/TileLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
-import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { getWarForTile } from "../game/logic/WarLogic";
 import { G, isDev } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { AppeaseButton } from "./AppeaseButton";
-import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
+import { ConvertCultureButton } from "./ConvertCultureButton";
 import { CrackDownButton } from "./CrackDownButton";
 import { CircleComp } from "./common/CircleComp";
 import { showPanel } from "./common/ShowPanel";
@@ -57,6 +52,7 @@ import { colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { DiplomacyPage } from "./DiplomacyPage";
+import { EvangelizeTileButton } from "./EvangelizeTileButton";
 import { GreatWorkComponent } from "./GreatWorkComponent";
 import { MakeCoreButton } from "./MakeCoreButton";
 import { PillageButton } from "./PillageButton";
@@ -196,24 +192,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             </div>
             <div className="row my5 g5">
                <div className="f1">{$t(L.Culture)}</div>
-               {isMyProvince && (
-                  <ActionButton
-                     className="btn text-sm"
-                     action={() => ConvertCultureAction(tile, G.save.state.playerProvince, G.save)}
-                     tooltip={(element) => (
-                        <>
-                           <TimedActionDescComp action="ConvertCulture" />
-                           {element}
-                           <div className="box m5">
-                              <div className="h2">{$t(L.TheCostIsCalculatedAsFollows)}</div>
-                              <BreakdownComp breakdown={getTileConvertCultureCost(tile, G.save)} />
-                           </div>
-                        </>
-                     )}
-                  >
-                     {TimedActions.ConvertCulture.name()}
-                  </ActionButton>
-               )}
+               {isMyProvince && <ConvertCultureButton tile={tile} className="text-sm" />}
                <div>{Culture[tileData.culture].name()}</div>
                <FloatingTip label={() => cultureStatus.name()}>
                   <CircleComp color={cultureStatus.color} />
@@ -221,38 +200,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             </div>
             <div className="row g5 my5">
                <div className="f1">{$t(L.Religion)}</div>
-               {isMyProvince && (
-                  <ActionButton
-                     action={() => ({
-                        cost: { christianity: totalUpgrades },
-                        condition: finalizeCondition([
-                           ...timedActionConditions({ action: "EvangelizeTile" }, G.save.state.playerProvince, G.save),
-                           tileIsOurCoreCondition(tile, G.save.state.playerProvince, G.save),
-                           {
-                              name: $t(L.OurProvinceReligionIsChristian),
-                              value: isChristianReligion(state.religion),
-                           },
-                           {
-                              name: $t(L.TileReligionIsNotChristian),
-                              value: !isChristianReligion(tileData.religion),
-                           },
-                        ]),
-                        execute: () => {
-                           startTimedAction("EvangelizeTile", G.save.state.playerProvince, G.save);
-                           tileData.religion = state.religion;
-                        },
-                     })}
-                     tooltip={(element) => (
-                        <>
-                           <TimedActionDescComp action="EvangelizeTile" />
-                           {element}
-                        </>
-                     )}
-                     className="btn text-sm"
-                  >
-                     {TimedActions.EvangelizeTile.name()}
-                  </ActionButton>
-               )}
+               {isMyProvince && <EvangelizeTileButton tile={tile} className="text-sm" />}
                <div>{Religion[tileData.religion].name()}</div>
                <FloatingTip label={() => religionStatus.name()}>
                   <CircleComp color={religionStatus.color} />

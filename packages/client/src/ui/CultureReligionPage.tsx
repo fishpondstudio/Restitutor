@@ -10,11 +10,13 @@ import {
 } from "@project/shared/src/utils/Helper";
 import { ConvertToChristianityAction } from "../game/actions/ConvertToChristianityAction";
 import { Culture } from "../game/definitions/Culture";
+import { CultureReligionStatus } from "../game/definitions/CultureReligionStatus";
 import { Modifiers, modifierValueToString } from "../game/definitions/Modifier";
 import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
-import { Religion } from "../game/definitions/Religion";
+import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { GameStateUpdated } from "../game/Events";
+import { getProvinceTilesCached } from "../game/logic/CacheLogic";
 import {
    ApostolicSeeChristianityYearly,
    getApostolicSeeTiles,
@@ -26,15 +28,19 @@ import {
 } from "../game/logic/InternalAffairsLogic";
 import { getProvinceGoverningCost } from "../game/logic/ProvinceLogic";
 import { getProvinceResource } from "../game/logic/ResourceLogic";
+import { getReligionStatus } from "../game/logic/TileLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
+import { ConvertCultureButton } from "./ConvertCultureButton";
+import { CircleComp } from "./common/CircleComp";
 import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
+import { EvangelizeTileButton } from "./EvangelizeTileButton";
 import { renderMarkup } from "./ParseMarkup";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { playSound } from "./Sound";
@@ -56,6 +62,20 @@ export function CultureReligionPage(): React.ReactNode {
    const toleratedReligionSlots = getToleratedReligion(G.save.state.playerProvince, G.save);
    const toleratedCultures = Array.from(state.toleratedCultures);
    const toleratedCultureSlots = getToleratedCulture(G.save.state.playerProvince, G.save);
+   const cultureTiles = getProvinceTilesCached(G.save.state.playerProvince).flatMap((tile) => {
+      const tileData = G.save.state.tiles.get(tile);
+      if (tileData && tileData.culture !== state.culture) {
+         return [[tile, tileData]] as const;
+      }
+      return [];
+   });
+   const religionTiles = getProvinceTilesCached(G.save.state.playerProvince).flatMap((tile) => {
+      const tileData = G.save.state.tiles.get(tile);
+      if (tileData && tileData.religion !== state.religion) {
+         return [[tile, tileData]] as const;
+      }
+      return [];
+   });
    return (
       <SidebarComp title={<SidebarHeader title={$t(L.CultureAndReligion)} />}>
          <div className="h1">{$t(L.Culture)}</div>
@@ -96,54 +116,95 @@ export function CultureReligionPage(): React.ReactNode {
                </div>
             </div>
          </BreakdownTooltip>
-         <div
-            className={cls(toleratedCultureSlots.value > 0 ? "m10" : null)}
-            style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
-         >
-            {range(0, toleratedCultureSlots.value).map((idx) => {
-               const culture = toleratedCultures[idx];
-               if (culture) {
+         {toleratedCultureSlots.value > 0 && (
+            <div
+               className={cls(toleratedCultureSlots.value > 0 ? "m10" : null)}
+               style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
+            >
+               {range(0, toleratedCultureSlots.value).map((idx) => {
+                  const culture = toleratedCultures[idx];
+                  if (culture) {
+                     return (
+                        <div className="box px5 py2" key={idx}>
+                           {Culture[culture].name()}
+                        </div>
+                     );
+                  }
                   return (
-                     <div className="box px5 py2" key={idx}>
-                        {Culture[culture].name()}
-                     </div>
+                     <Menu key={idx} position="bottom-start">
+                        <FloatingTip label={() => html($t(L.SelectAToleratedCultureThisSelectionCannotBeChanged))}>
+                           <Menu.Target>
+                              <div className="box px5 py2 pointer" key={idx}>
+                                 <div className="mi sm">add</div>
+                              </div>
+                           </Menu.Target>
+                        </FloatingTip>
+                        <Menu.Dropdown className="panel">
+                           <ScrollArea.Autosize mah="33vh" scrollbars="y">
+                              {entriesOf(Culture)
+                                 .filter(
+                                    ([culture]) => culture !== state.culture && !toleratedCultures.includes(culture),
+                                 )
+                                 .sort((a, b) => a[1].name().localeCompare(b[1].name()))
+                                 .map(([culture]) => (
+                                    <Menu.Item
+                                       key={culture}
+                                       onClick={() => {
+                                          if (state.toleratedCultures.size < toleratedCultureSlots.value) {
+                                             state.toleratedCultures.add(culture);
+                                             GameStateUpdated.emit();
+                                          } else {
+                                             playSound("error");
+                                          }
+                                       }}
+                                    >
+                                       {Culture[culture].name()}
+                                    </Menu.Item>
+                                 ))}
+                           </ScrollArea.Autosize>
+                        </Menu.Dropdown>
+                     </Menu>
                   );
-               }
-               return (
-                  <Menu key={idx} position="bottom-start">
-                     <FloatingTip label={() => html($t(L.SelectAToleratedCultureThisSelectionCannotBeChanged))}>
-                        <Menu.Target>
-                           <div className="box px5 py2 pointer" key={idx}>
-                              <div className="mi sm">add</div>
-                           </div>
-                        </Menu.Target>
-                     </FloatingTip>
-                     <Menu.Dropdown className="panel">
-                        <ScrollArea.Autosize mah="33vh" scrollbars="y">
-                           {entriesOf(Culture)
-                              .filter(([culture]) => culture !== state.culture && !toleratedCultures.includes(culture))
-                              .sort((a, b) => a[1].name().localeCompare(b[1].name()))
-                              .map(([culture]) => (
-                                 <Menu.Item
-                                    key={culture}
-                                    onClick={() => {
-                                       if (state.toleratedCultures.size < toleratedCultureSlots.value) {
-                                          state.toleratedCultures.add(culture);
-                                          GameStateUpdated.emit();
-                                       } else {
-                                          playSound("error");
-                                       }
-                                    }}
-                                 >
-                                    {Culture[culture].name()}
-                                 </Menu.Item>
-                              ))}
-                        </ScrollArea.Autosize>
-                     </Menu.Dropdown>
-                  </Menu>
-               );
-            })}
-         </div>
+               })}
+            </div>
+         )}
+         {cultureTiles.length > 0 && (
+            <div className="m10">
+               <table className="data-table">
+                  <thead>
+                     <tr>
+                        <th>{$t(L.Tile)}</th>
+                        <th>{$t(L.Culture)}</th>
+                        <th></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {cultureTiles.map(([tile, tileData]) => (
+                        <tr key={tile}>
+                           <td>
+                              {renderMarkup(`<Tile>${tile}</Tile>`)}{" "}
+                              <span className="text-dimmed">
+                                 ({tileData.infrastructure}/{tileData.production}/{tileData.population})
+                              </span>
+                           </td>
+                           <td>
+                              <div className="row g5">
+                                 <CircleComp
+                                    size="1rem"
+                                    color={CultureReligionStatus[getReligionStatus(tile, G.save)].color}
+                                 />
+                                 <div className="f1">{Culture[tileData.culture].name()}</div>
+                              </div>
+                           </td>
+                           <td className="text-right">
+                              <ConvertCultureButton tile={tile} />
+                           </td>
+                        </tr>
+                     ))}
+                  </tbody>
+               </table>
+            </div>
+         )}
          <div className="h1">{$t(L.Religion)}</div>
          <div className="row mx10 my5">
             <div className="f1">{$t(L.ProvincialReligion)}</div>
@@ -317,6 +378,43 @@ export function CultureReligionPage(): React.ReactNode {
                );
             })}
          </div>
+         {religionTiles.length > 0 && isChristianReligion(state.religion) && (
+            <div className="m10">
+               <table className="data-table">
+                  <thead>
+                     <tr>
+                        <th>{$t(L.Tile)}</th>
+                        <th>{$t(L.Religion)}</th>
+                        <th></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {cultureTiles.map(([tile, tileData]) => (
+                        <tr key={tile}>
+                           <td>
+                              {renderMarkup(`<Tile>${tile}</Tile>`)}{" "}
+                              <span className="text-dimmed">
+                                 ({tileData.infrastructure}/{tileData.production}/{tileData.population})
+                              </span>
+                           </td>
+                           <td>
+                              <div className="row g5">
+                                 <CircleComp
+                                    size="1rem"
+                                    color={CultureReligionStatus[getReligionStatus(tile, G.save)].color}
+                                 />
+                                 <div className="f1">{Religion[tileData.religion].name()}</div>
+                              </div>
+                           </td>
+                           <td className="text-right">
+                              <EvangelizeTileButton tile={tile} />
+                           </td>
+                        </tr>
+                     ))}
+                  </tbody>
+               </table>
+            </div>
+         )}
       </SidebarComp>
    );
 }

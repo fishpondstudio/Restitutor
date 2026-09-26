@@ -2,6 +2,8 @@ import { Loader } from "@mantine/core";
 import { entriesOf, type Tile } from "@project/shared/src/utils/Helper";
 import { memo, useLayoutEffect, useState } from "react";
 import { type Building, Buildings } from "../game/definitions/Building";
+import { Culture } from "../game/definitions/Culture";
+import { Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated } from "../game/Events";
@@ -120,8 +122,8 @@ function _TileListRow({ tile }: { tile: Tile }): React.ReactNode {
                <div className="mi sm text-red">cancel</div>
             )}
          </td>
-         <td>{tileData.culture}</td>
-         <td>{tileData.religion}</td>
+         <td>{Culture[tileData.culture].name()}</td>
+         <td>{Religion[tileData.religion].name()}</td>
          <UpgradeButtonsColumns tile={tile} />
          <td>
             <button
