@@ -172,51 +172,6 @@ em {
    z-index: calc(var(--mantine-z-index-popover) + 1);
 }
 
-.subtitle {
-   font-size: var(--mantine-font-size-sm);
-   color: var(--mantine-color-dark-text);
-   text-align: center;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   justify-content: center;
-
-   &.md {
-      font-size: var(--mantine-font-size-md);
-   }
-
-   &.lg {
-      font-size: var(--mantine-font-size-lg);
-   }
-
-   &.xl {
-      font-size: var(--mantine-font-size-xl);
-   }
-
-   &.uppercase {
-      text-transform: uppercase;
-   }
-}
-
-.subtitle::before {
-   content: "";
-   flex: 1;
-   border-top: 0.1rem dashed var(--mantine-color-dark-4);
-   margin-right: 1rem;
-}
-
-.subtitle:after {
-   content: "";
-   flex: 1;
-   border-top: 0.1rem dashed var(--mantine-color-dark-4);
-   margin-left: 1rem;
-}
-
-.subtitle.dotted::before,
-.subtitle.dotted::after {
-   border-top: 0.3rem dotted var(--mantine-color-dark-4);
-}
-
 .floating-tip {
    position: absolute;
    max-width: 30rem;
