@@ -222,7 +222,7 @@ em {
    max-width: 30rem;
    padding: 1rem;
    font-size: var(--mantine-font-size-sm);
-   z-index: calc(var(--mantine-z-index-popover) + 1);
+   z-index: calc(var(--mantine-z-index-popover) + 2);
    &.p0 {
       padding: 0;
    }

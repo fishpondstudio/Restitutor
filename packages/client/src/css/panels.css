@@ -258,7 +258,7 @@
    transform: translateX(-50%);
    height: var(--pause-panel-height);
    width: 12.8rem;
-   z-index: calc(var(--mantine-z-index-overlay) + 1);
+   z-index: calc(var(--mantine-z-index-popover) + 1);
 
    background:
       linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
