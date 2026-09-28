@@ -151,6 +151,20 @@ export function InternalAffairsPage(): React.ReactNode {
          </FloatingTip>
          <div className="divider" />
          <div className="m10">
+            <FloatingTip label={() => $t(L.AutomaticallyCoreNonCoreTilesDesc)}>
+               <div className="row my5">
+                  <div className="f1">{$t(L.AutomaticallyCoreTiles)}</div>
+                  <Switch
+                     size="xs"
+                     aria-label={$t(L.AutomaticallyCoreTiles)}
+                     checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyMakeCore)}
+                     onChange={() => {
+                        state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyMakeCore);
+                        GameStateUpdated.emit();
+                     }}
+                  />
+               </div>
+            </FloatingTip>
             <FloatingTip
                fixedWidth
                className="p0"

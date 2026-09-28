@@ -1,18 +1,21 @@
-import { Menu, Progress, ScrollArea } from "@mantine/core";
+import { Menu, Progress, ScrollArea, Switch } from "@mantine/core";
 import {
    cls,
    entriesOf,
    formatDelta,
    formatNumber,
    formatPercent,
+   hasFlag,
    mapOf,
    range,
+   toggleFlag,
 } from "@project/shared/src/utils/Helper";
 import { ConvertToChristianityAction } from "../game/actions/ConvertToChristianityAction";
 import { Culture } from "../game/definitions/Culture";
 import { CultureReligionStatus } from "../game/definitions/CultureReligionStatus";
 import { Modifiers, modifierValueToString } from "../game/definitions/Modifier";
 import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { ProvinceFlags } from "../game/definitions/ProvinceState";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { GameStateUpdated } from "../game/Events";
@@ -28,7 +31,7 @@ import {
 } from "../game/logic/InternalAffairsLogic";
 import { getProvinceGoverningCost } from "../game/logic/ProvinceLogic";
 import { getProvinceResource } from "../game/logic/ResourceLogic";
-import { getReligionStatus } from "../game/logic/TileLogic";
+import { getCultureStatus, getReligionStatus } from "../game/logic/TileLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -38,6 +41,7 @@ import { BreakdownTooltip } from "./BreakdownRow";
 import { ConvertCultureButton } from "./ConvertCultureButton";
 import { CircleComp } from "./common/CircleComp";
 import { SidebarComp, SidebarHeader } from "./common/SidebarComp";
+import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { EvangelizeTileButton } from "./EvangelizeTileButton";
@@ -168,6 +172,31 @@ export function CultureReligionPage(): React.ReactNode {
                })}
             </div>
          )}
+         <div className="box m10">
+            <div className="h3">{$t(L.AutomaticallyConvertCultures)}</div>
+            <div className="row mx10 my5">
+               <div className="f1">{$t(L.ConvertMinorCultures)}</div>
+               <Switch
+                  size="xs"
+                  checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyConvertMinorCultures)}
+                  onChange={() => {
+                     state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyConvertMinorCultures);
+                     GameStateUpdated.emit();
+                  }}
+               />
+            </div>
+            <div className="row mx10 my5">
+               <div className="f1">{$t(L.ConvertToleratedCultures)}</div>
+               <Switch
+                  size="xs"
+                  checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyConvertToleratedCultures)}
+                  onChange={() => {
+                     state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyConvertToleratedCultures);
+                     GameStateUpdated.emit();
+                  }}
+               />
+            </div>
+         </div>
          {cultureTiles.length > 0 && (
             <div className="m10">
                <table className="data-table">
@@ -191,7 +220,7 @@ export function CultureReligionPage(): React.ReactNode {
                               <div className="row g5">
                                  <CircleComp
                                     size="1rem"
-                                    color={CultureReligionStatus[getReligionStatus(tile, G.save)].color}
+                                    color={CultureReligionStatus[getCultureStatus(tile, G.save)].color}
                                  />
                                  <div className="f1">{Culture[tileData.culture].name()}</div>
                               </div>
@@ -327,8 +356,8 @@ export function CultureReligionPage(): React.ReactNode {
                )}
                <div className="f1" />
                <div>
-                  {formatNumber(christianity)}/{formatNumber(governingCost.value)}
-                  <span className="text-green"> ({formatDelta(christianityYearly.value)})</span>
+                  {formatNumber(christianity)}/{formatNumber(governingCost.value)}{" "}
+                  {colorNumber(christianityYearly.value)}
                </div>
             </div>
          </FloatingTip>
@@ -378,6 +407,31 @@ export function CultureReligionPage(): React.ReactNode {
                );
             })}
          </div>
+         <div className="box m10">
+            <div className="h3">{$t(L.AutomaticallyEvangelize)}</div>
+            <div className="row mx10 my5">
+               <div className="f1">{$t(L.EvangelizeMinorReligions)}</div>
+               <Switch
+                  size="xs"
+                  checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeMinorReligions)}
+                  onChange={() => {
+                     state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeMinorReligions);
+                     GameStateUpdated.emit();
+                  }}
+               />
+            </div>
+            <div className="row mx10 my5">
+               <div className="f1">{$t(L.EvangelizeToleratedReligions)}</div>
+               <Switch
+                  size="xs"
+                  checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeToleratedReligions)}
+                  onChange={() => {
+                     state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeToleratedReligions);
+                     GameStateUpdated.emit();
+                  }}
+               />
+            </div>
+         </div>
          {religionTiles.length > 0 && isChristianReligion(state.religion) && (
             <div className="m10">
                <table className="data-table">
@@ -389,7 +443,7 @@ export function CultureReligionPage(): React.ReactNode {
                      </tr>
                   </thead>
                   <tbody>
-                     {cultureTiles.map(([tile, tileData]) => (
+                     {religionTiles.map(([tile, tileData]) => (
                         <tr key={tile}>
                            <td>
                               {renderMarkup(`<Tile>${tile}</Tile>`)}{" "}

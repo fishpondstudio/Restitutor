@@ -4677,4 +4677,12 @@ export const DE = {
    UnifyTheChancelleriesProcedures: "Die Verfahren der Kanzleien vereinheitlichen",
    EstablishASharedDiplomaticService: "Einen gemeinsamen diplomatischen Dienst einrichten",
    BankruptcyRiskTooltip$1: "Die monatlichen Zinskosten unserer Provinz übersteigen $1 unserer monatlichen Einnahmen. Wir werden bankrottgehen, wenn uns das Gold ausgeht, während unsere monatlichen Zinskosten unsere monatlichen Einnahmen übersteigen. Klicken, um Details anzuzeigen.",
+   AutomaticallyCoreTiles: "Gebiete automatisch zu Kerngebieten machen",
+   AutomaticallyConvertCultures: "Kulturen automatisch umwandeln",
+   ConvertMinorCultures: "Minderheitskulturen umwandeln",
+   ConvertToleratedCultures: "Tolerierte Kulturen umwandeln",
+   AutomaticallyEvangelize: "Automatisch missionieren",
+   EvangelizeMinorReligions: "Minderheitsreligionen missionieren",
+   EvangelizeToleratedReligions: "Tolerierte Religionen missionieren",
+   AutomaticallyCoreNonCoreTilesDesc: "Nicht-Kerngebiete automatisch zu unseren Kerngebieten machen, wenn die Abklingzeit der Aktion abgelaufen ist und wir genügend Ressourcen haben.",
 };

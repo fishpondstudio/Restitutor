@@ -4609,4 +4609,12 @@ export const EN = {
    UnifyTheChancelleriesProcedures: "Unify the chancelleries' procedures",
    EstablishASharedDiplomaticService: "Establish a shared diplomatic service",
    BankruptcyRiskTooltip$1: "Our province's monthly interest cost exceeds $1 of our monthly revenue. We will go bankrupt if we run out of gold while our monthly interest cost exceeds our monthly revenue. Click to view details.",
+   AutomaticallyCoreTiles: "Automatically Core Tiles",
+   AutomaticallyConvertCultures: "Automatically Convert Cultures",
+   ConvertMinorCultures: "Convert Minor Cultures",
+   ConvertToleratedCultures: "Convert Tolerated Cultures",
+   AutomaticallyEvangelize: "Automatically Evangelize",
+   EvangelizeMinorReligions: "Evangelize Minor Religions",
+   EvangelizeToleratedReligions: "Evangelize Tolerated Religions",
+   AutomaticallyCoreNonCoreTilesDesc: "Automatically make non-core tiles our cores when the action is off cooldown and we have enough resources.",
 };

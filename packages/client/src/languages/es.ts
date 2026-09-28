@@ -4674,4 +4674,12 @@ export const ES = {
    UnifyTheChancelleriesProcedures: "Unificar los procedimientos de las cancillerías",
    EstablishASharedDiplomaticService: "Establecer un servicio diplomático común",
    BankruptcyRiskTooltip$1: "El coste mensual de los intereses de nuestra provincia supera el $1 de nuestros ingresos mensuales. Entraremos en bancarrota si nos quedamos sin oro mientras el coste mensual de los intereses supera nuestros ingresos mensuales. Haz clic para ver los detalles.",
+   AutomaticallyCoreTiles: "Convertir territorios en núcleos automáticamente",
+   AutomaticallyConvertCultures: "Convertir culturas automáticamente",
+   ConvertMinorCultures: "Convertir culturas minoritarias",
+   ConvertToleratedCultures: "Convertir culturas toleradas",
+   AutomaticallyEvangelize: "Evangelizar automáticamente",
+   EvangelizeMinorReligions: "Evangelizar religiones minoritarias",
+   EvangelizeToleratedReligions: "Evangelizar religiones toleradas",
+   AutomaticallyCoreNonCoreTilesDesc: "Convertir automáticamente nuestros territorios que no son núcleos en territorios núcleo cuando termine el tiempo de espera de la acción y tengamos suficientes recursos.",
 };

@@ -20,7 +20,7 @@ import { ConvertToChristianityAction } from "../actions/ConvertToChristianityAct
 import { CrackDownAction } from "../actions/CrackDownAction";
 import { DeclareWarAction } from "../actions/DeclareWarAction";
 import { DenounceAction } from "../actions/DenounceAction";
-import { canDoAction, finalizeCondition, type IGameAction, printAction } from "../actions/GameAction";
+import { canDoAction, finalizeCondition, type IGameAction, printAction, tryDoAction } from "../actions/GameAction";
 import { MakeCoreAction } from "../actions/MakeCoreAction";
 import { NegotiateWhitePeaceAction } from "../actions/NegotiateWhitePeaceAction";
 import { ResearchTechAction } from "../actions/ResearchTechAction";
@@ -45,7 +45,6 @@ import { DefaultConscription } from "../definitions/ProvinceStats";
 import type { Religion } from "../definitions/Religion";
 import { SocialClass } from "../definitions/SocialClass";
 import { MaxRaidMonths, SpawnedProvinces } from "../definitions/SpawnedProvince";
-import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import {
    getArmyComposition,
@@ -57,6 +56,7 @@ import {
    setProvinceArmyMaintenance,
    setProvinceTargetConscription,
 } from "./ArmyLogic";
+import { pledgeProvinceConsulVotes } from "./AutomationLogic";
 import { getProvinceTilesCached } from "./CacheLogic";
 import { getBestRegionalCapitalTiles, getRegionalCapitalCount } from "./CapitalLogic";
 import {
@@ -83,7 +83,6 @@ import {
    getProvinceIncome,
    getProvinceStat,
    getProvincesInRange,
-   pledgeProvinceConsulVotes,
    pledgeProvinceConsulVotesConditions,
 } from "./ProvinceLogic";
 import { getProvinceResource, hasEnoughProvinceResources, trySpendProvinceResources } from "./ResourceLogic";
@@ -148,7 +147,7 @@ export function tickAI(save: SaveGame): void {
             if (action.cost && !hasEnoughProvinceResources(action.cost, province, save)) {
                administrativeActions.clear();
             }
-            tryDoHeadless(action, "MakeCore", province, save);
+            tryDoAIHeadlessAction(action, "MakeCore", province, save);
          }
       }
       const administrative = getPreferredActionForResource(
@@ -159,7 +158,12 @@ export function tickAI(save: SaveGame): void {
       switch (administrative) {
          case "Research":
             if (administrativeTech) {
-               tryDoHeadless(ResearchTechAction(administrativeTech, province, save), "Research", province, save);
+               tryDoAIHeadlessAction(
+                  ResearchTechAction(administrativeTech, province, save),
+                  "Research",
+                  province,
+                  save,
+               );
             }
             break;
          case "Upgrade":
@@ -167,7 +171,9 @@ export function tickAI(save: SaveGame): void {
                if (remainingCapacity <= 1) {
                   break;
                }
-               if (tryDoHeadless(UpgradeInfrastructureAction(tile, province, save), "Upgrade", province, save)) {
+               if (
+                  tryDoAIHeadlessAction(UpgradeInfrastructureAction(tile, province, save), "Upgrade", province, save)
+               ) {
                   --remainingCapacity;
                }
             }
@@ -188,7 +194,7 @@ export function tickAI(save: SaveGame): void {
       switch (getPreferredActionForResource("diplomatic", diplomaticActions, state.blackboard.resources)) {
          case "Research":
             if (diplomaticTech) {
-               tryDoHeadless(ResearchTechAction(diplomaticTech, province, save), "Research", province, save);
+               tryDoAIHeadlessAction(ResearchTechAction(diplomaticTech, province, save), "Research", province, save);
             }
             break;
          case "Upgrade":
@@ -196,7 +202,7 @@ export function tickAI(save: SaveGame): void {
                if (remainingCapacity <= 1) {
                   break;
                }
-               if (tryDoHeadless(UpgradeProductionAction(tile, province, save), "Upgrade", province, save)) {
+               if (tryDoAIHeadlessAction(UpgradeProductionAction(tile, province, save), "Upgrade", province, save)) {
                   --remainingCapacity;
                }
             }
@@ -226,20 +232,20 @@ export function tickAI(save: SaveGame): void {
             if (action.cost && !hasEnoughProvinceResources(action.cost, province, save)) {
                militaryActions.clear();
             }
-            tryDoHeadless(action, "CrackDown", province, save);
+            tryDoAIHeadlessAction(action, "CrackDown", province, save);
          } else if (tileData.rebellion >= 5) {
             const action = AppeaseAction(tile, province, save);
             if (action.cost && !hasEnoughProvinceResources(action.cost, province, save)) {
                administrativeActions.clear();
                diplomaticActions.clear();
             }
-            tryDoHeadless(action, "Appease", province, save);
+            tryDoAIHeadlessAction(action, "Appease", province, save);
          }
       }
       switch (getPreferredActionForResource("military", militaryActions, state.blackboard.resources)) {
          case "Research":
             if (militaryTech) {
-               tryDoHeadless(ResearchTechAction(militaryTech, province, save), "Research", province, save);
+               tryDoAIHeadlessAction(ResearchTechAction(militaryTech, province, save), "Research", province, save);
             }
             break;
          case "Upgrade":
@@ -250,7 +256,7 @@ export function tickAI(save: SaveGame): void {
                if (remainingCapacity <= 1) {
                   break;
                }
-               if (tryDoHeadless(UpgradePopulationAction(tile, province, save), "Upgrade", province, save)) {
+               if (tryDoAIHeadlessAction(UpgradePopulationAction(tile, province, save), "Upgrade", province, save)) {
                   --remainingCapacity;
                }
             }
@@ -285,7 +291,7 @@ export function tickAI(save: SaveGame): void {
             setProvinceArmyMaintenance(MaxArmyMaintenance, province, save);
          }
          constructBuildings(province, save);
-         tryDoHeadless(RecruitGeneralAction(province, save), "RecruitGeneral", province, save);
+         tryDoAIHeadlessAction(RecruitGeneralAction(province, save), "RecruitGeneral", province, save);
       }
       const toleratedCultureSlots = getToleratedCulture(province, save).value;
       const toleratedReligionSlots = getToleratedReligion(province, save).value;
@@ -319,13 +325,30 @@ export function tickAI(save: SaveGame): void {
          doWar(province, save);
       }
       doReligion(province, save);
-      tryDoHeadless(makeGameAction("AppointPontiff", province, save), "AppointPontiffEnvoyArmyStaff", province, save);
-      tryDoHeadless(makeGameAction("AppointEnvoy", province, save), "AppointPontiffEnvoyArmyStaff", province, save);
-      tryDoHeadless(makeGameAction("AppointArmyStaff", province, save), "AppointPontiffEnvoyArmyStaff", province, save);
+      tryDoAIHeadlessAction(
+         makeGameAction("AppointPontiff", province, save),
+         "AppointPontiffEnvoyArmyStaff",
+         province,
+         save,
+      );
+      tryDoAIHeadlessAction(
+         makeGameAction("AppointEnvoy", province, save),
+         "AppointPontiffEnvoyArmyStaff",
+         province,
+         save,
+      );
+      tryDoAIHeadlessAction(
+         makeGameAction("AppointArmyStaff", province, save),
+         "AppointPontiffEnvoyArmyStaff",
+         province,
+         save,
+      );
       if (getTimedActionCooldownLeft("ConvertCulture", province, save) <= 0) {
          for (const [tile, tileData] of tiles) {
             if (tileData.coreProvinces.has(province) && tileData.culture !== state.culture) {
-               if (tryDoHeadless(ConvertCultureAction(tile, province, save), "ConvertCulture", province, save)) {
+               if (
+                  tryDoAIHeadlessAction(ConvertCultureAction(tile, province, save), "ConvertCulture", province, save)
+               ) {
                   break;
                }
             }
@@ -342,7 +365,7 @@ function doReligion(province: Province, save: SaveGame) {
    if (state.religion === "Islam") {
       return;
    }
-   tryDoHeadless(ConvertToChristianityAction(province, save), "ConvertToChristianity", province, save);
+   tryDoAIHeadlessAction(ConvertToChristianityAction(province, save), "ConvertToChristianity", province, save);
 }
 
 function doRegionalCapital(province: Province, save: SaveGame): void {
@@ -357,7 +380,12 @@ function doRegionalCapital(province: Province, save: SaveGame): void {
    }
    const tile = getBestRegionalCapitalTiles(province, save);
    if (tile !== undefined) {
-      tryDoHeadless(EstablishRegionalCapitalAction(tile, province, save), "EstablishRegionalCapital", province, save);
+      tryDoAIHeadlessAction(
+         EstablishRegionalCapitalAction(tile, province, save),
+         "EstablishRegionalCapital",
+         province,
+         save,
+      );
    }
 }
 
@@ -435,7 +463,7 @@ function doArmyComposition(province: Province, save: SaveGame): void {
 
 function doGeneralUpgrade(province: Province, save: SaveGame): void {
    for (const skill of ["infantrySkill", "rangedSkill", "cavalrySkill"] as const) {
-      tryDoHeadless(UpgradeGeneralSkillAction(skill, province, save), "UpgradeGeneralSkill", province, save);
+      tryDoAIHeadlessAction(UpgradeGeneralSkillAction(skill, province, save), "UpgradeGeneralSkill", province, save);
    }
 }
 
@@ -455,7 +483,7 @@ function doDenounce(province: Province, save: SaveGame): void {
    if (!targetProvince) {
       return;
    }
-   tryDoHeadless(DenounceAction(province, targetProvince, save), "Denounce", province, save);
+   tryDoAIHeadlessAction(DenounceAction(province, targetProvince, save), "Denounce", province, save);
 }
 
 function doFocus(province: Province, save: SaveGame): void {
@@ -465,7 +493,7 @@ function doFocus(province: Province, save: SaveGame): void {
    }
    const skills = ["administrative", "diplomatic", "military"] as const;
    const focus = skills.reduce((lowest, skill) => (governor[skill] < governor[lowest] ? skill : lowest));
-   tryDoHeadless(SetGovernmentFocusAction(focus, province, save), "SetGovernmentFocus", province, save);
+   tryDoAIHeadlessAction(SetGovernmentFocusAction(focus, province, save), "SetGovernmentFocus", province, save);
 }
 
 function doProduction(province: Province, save: SaveGame): void {
@@ -490,7 +518,7 @@ function doTrade(province: Province, save: SaveGame): void {
          if (offer.theyOffer !== "gold") {
             continue;
          }
-         const success = tryDoHeadless(
+         const success = tryDoAIHeadlessAction(
             TradeWithAction(province, otherProvince, offer, save),
             "TradeGoods",
             province,
@@ -508,12 +536,22 @@ function doRaid(province: Province, save: SaveGame): void {
       if (currentWar.actualWarScore >= currentWar.requiredWarScore) {
          logAI(`${province} ends raid on ${currentWar.defender} after victory`);
          const option = randOne(getAvailablePeaceTreatyOptions(currentWar, save));
-         tryDoHeadless(SignPeaceTreatyAction(currentWar, province, option, save), "SignPeaceTreaty", province, save);
+         tryDoAIHeadlessAction(
+            SignPeaceTreatyAction(currentWar, province, option, save),
+            "SignPeaceTreaty",
+            province,
+            save,
+         );
          continue;
       }
       if (currentWar.log.length > MaxRaidMonths) {
          logAI(`${province} ends raid on ${currentWar.defender} due to timeout`);
-         tryDoHeadless(NegotiateWhitePeaceAction(currentWar, province, save), "NegotiateWhitePeace", province, save);
+         tryDoAIHeadlessAction(
+            NegotiateWhitePeaceAction(currentWar, province, save),
+            "NegotiateWhitePeace",
+            province,
+            save,
+         );
       }
    }
    if (save.state.wars.filter((war) => war.attacker === province).length > 0) {
@@ -561,7 +599,7 @@ function doRaid(province: Province, save: SaveGame): void {
          "BarbarianRaid",
          save,
       );
-      if (tryDoHeadless(action, "DeclareWar", province, save)) {
+      if (tryDoAIHeadlessAction(action, "DeclareWar", province, save)) {
          logAI(`${province} starts a raid on ${tileData.province}\n${printAction(action, province, save)}`);
          return;
       }
@@ -576,12 +614,22 @@ function doWar(province: Province, save: SaveGame): void {
       if (currentWar.actualWarScore >= currentWar.requiredWarScore) {
          logAI(`${province} signs peace treaty with ${currentWar.defender}`);
          const option = randOne(getAvailablePeaceTreatyOptions(currentWar, save));
-         tryDoHeadless(SignPeaceTreatyAction(currentWar, province, option, save), "SignPeaceTreaty", province, save);
+         tryDoAIHeadlessAction(
+            SignPeaceTreatyAction(currentWar, province, option, save),
+            "SignPeaceTreaty",
+            province,
+            save,
+         );
          continue;
       }
       if (getAverageUnrest(province, save) > AIWarMaxUnrest) {
          logAI(`${province} negotiates white peace with ${currentWar.defender} due to unrest`);
-         tryDoHeadless(NegotiateWhitePeaceAction(currentWar, province, save), "NegotiateWhitePeace", province, save);
+         tryDoAIHeadlessAction(
+            NegotiateWhitePeaceAction(currentWar, province, save),
+            "NegotiateWhitePeace",
+            province,
+            save,
+         );
          continue;
       }
       if (
@@ -595,7 +643,7 @@ function doWar(province: Province, save: SaveGame): void {
       ) {
          const action = NegotiateWhitePeaceAction(currentWar, province, save);
          logAI(`${province} negotiates white peace with ${currentWar.defender} due to low success chance`);
-         tryDoHeadless(action, "NegotiateWhitePeace", province, save);
+         tryDoAIHeadlessAction(action, "NegotiateWhitePeace", province, save);
       }
    }
 
@@ -644,7 +692,7 @@ function doWar(province: Province, save: SaveGame): void {
          save,
       );
       logAI(`${province} declares war on ${tileData.province}\n${printAction(action, province, save)}`);
-      tryDoHeadless(action, "DeclareWar", province, save);
+      tryDoAIHeadlessAction(action, "DeclareWar", province, save);
    }
 }
 
@@ -657,7 +705,7 @@ function doSenateVote(province: Province, save: SaveGame): void {
       pledgeProvinceConsulVotes(province, save);
    }
    if (getProvinceResource("consulPoint", province, save) > 0) {
-      tryDoHeadless(makeGameAction("RequestFunding", province, save), "RequestFunding", province, save);
+      tryDoAIHeadlessAction(makeGameAction("RequestFunding", province, save), "RequestFunding", province, save);
    }
 }
 
@@ -682,10 +730,12 @@ function doDiplomacy(province: Province, save: SaveGame): void {
          if (!hasFlag(G.flags, GameFlags.Sandbox) && otherProvince === save.state.playerProvince) {
             return;
          }
-         if (tryDoHeadless(OfferPatronageAction(province, otherProvince, save), "OfferTreaty", province, save)) {
+         if (
+            tryDoAIHeadlessAction(OfferPatronageAction(province, otherProvince, save), "OfferTreaty", province, save)
+         ) {
             return;
          }
-         if (tryDoHeadless(OfferAllianceAction(province, otherProvince, save), "OfferTreaty", province, save)) {
+         if (tryDoAIHeadlessAction(OfferAllianceAction(province, otherProvince, save), "OfferTreaty", province, save)) {
             return;
          }
       } else {
@@ -700,7 +750,7 @@ function doDiplomacy(province: Province, save: SaveGame): void {
       if (!selected || state.rivals[i] === selected) {
          continue;
       }
-      tryDoHeadless(ChangeRivalAction(province, i, selected, save), "ChangeRival", province, save);
+      tryDoAIHeadlessAction(ChangeRivalAction(province, i, selected, save), "ChangeRival", province, save);
    }
 }
 
@@ -750,10 +800,10 @@ function doTreaties(province: Province, candidates: Province[], save: SaveGame):
       if (getTreatyCount(candidate, save) >= getDesiredTreatyCount(candidate, save)) {
          continue;
       }
-      if (tryDoHeadless(OfferAllianceAction(province, candidate, save), "OfferTreaty", province, save)) {
+      if (tryDoAIHeadlessAction(OfferAllianceAction(province, candidate, save), "OfferTreaty", province, save)) {
          continue;
       }
-      if (tryDoHeadless(OfferDefensePactAction(province, candidate, save), "OfferTreaty", province, save)) {
+      if (tryDoAIHeadlessAction(OfferDefensePactAction(province, candidate, save), "OfferTreaty", province, save)) {
       }
    }
 }
@@ -801,7 +851,7 @@ function constructBuildings(province: Province, save: SaveGame): void {
          if (action.cost && !hasEnoughProvinceResources(action.cost, province, save)) {
             return;
          }
-         if (tryDoHeadless(action, "Construct", province, save)) {
+         if (tryDoAIHeadlessAction(action, "Construct", province, save)) {
             budget -= maintenance;
          }
       }
@@ -835,24 +885,13 @@ function selectAdvisor(province: Province, save: SaveGame): void {
    }
 }
 
-function tryDoHeadless(action: IGameAction, aiAction: AIAction, province: Province, save: SaveGame): boolean {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return false;
-   }
-   const isConditionMet = action.condition === undefined || action.condition.value === true;
-   if (isConditionMet && (action.cost === undefined || trySpendProvinceResources(action.cost, province, save))) {
-      action.execute({ headless: true });
-      if (action.effect) {
-         applyGameEffect(
-            action.effect,
-            typeof action.effect.name === "function" ? action.effect.name() : action.effect.name,
-            province,
-            save,
-         );
-      }
+function tryDoAIHeadlessAction(action: IGameAction, aiAction: AIAction, province: Province, save: SaveGame): boolean {
+   if (tryDoAction(action, { headless: true }, province, save)) {
       if (action.cost) {
-         tabulateCost(action.cost, aiAction, state.blackboard.resources);
+         const state = save.state.provinces[province];
+         if (state) {
+            tabulateCost(action.cost, aiAction, state.blackboard.resources);
+         }
       }
       return true;
    }
@@ -896,7 +935,7 @@ function lookForSpouse(family: IFamily, province: Province, save: SaveGame): voi
       (family.male && family.male.age > 15 && !family.female) ||
       (family.female && family.female.age > 15 && !family.male)
    ) {
-      tryDoHeadless(
+      tryDoAIHeadlessAction(
          LookForLocalSpouseAction(randOne(keysOf(SocialClass)), family, province, save),
          "LookForSpouse",
          province,

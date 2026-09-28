@@ -6,8 +6,6 @@ import {
    fromEntries,
    hasFlag,
    pointToTile,
-   range,
-   shuffle,
    type Tile,
    tileToPoint,
 } from "@project/shared/src/utils/Helper";
@@ -554,16 +552,6 @@ export const ConsulElectionMonths = 24;
 export function monthsToNextConsulElection(save: SaveGame): number {
    const elapsedMonths = save.state.month % ConsulElectionMonths;
    return elapsedMonths === 0 ? ConsulElectionMonths : ConsulElectionMonths - elapsedMonths;
-}
-
-export function pledgeProvinceConsulVotes(province: Province, save: SaveGame): void {
-   const votes = save.state.senate.votes.get(province);
-   if (!votes) {
-      save.state.senate.votes.set(
-         province,
-         new Set(shuffle(range(0, save.state.senate.consulCandidates.length)).slice(0, 2)),
-      );
-   }
 }
 
 export function pledgeProvinceConsulVotesConditions(province: Province, save: SaveGame): ICondition[] {

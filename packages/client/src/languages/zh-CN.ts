@@ -4461,4 +4461,12 @@ export const ZH_CN = {
    UnifyTheChancelleriesProcedures: "统一各文书署的办事程序",
    EstablishASharedDiplomaticService: "建立统一的外交机构",
    BankruptcyRiskTooltip$1: "我们行省的每月利息支出已超过每月收入的 $1。如果金币耗尽时每月利息支出超过每月收入，我们就会破产。点击查看详情。",
+   AutomaticallyCoreTiles: "自动核心化地块",
+   AutomaticallyConvertCultures: "自动转变文化",
+   ConvertMinorCultures: "转变少数文化",
+   ConvertToleratedCultures: "转变相容文化",
+   AutomaticallyEvangelize: "自动布道",
+   EvangelizeMinorReligions: "向少数宗教布道",
+   EvangelizeToleratedReligions: "向相容宗教布道",
+   AutomaticallyCoreNonCoreTilesDesc: "行动冷却结束且我们拥有足够资源时，自动将非核心地块核心化为我们的核心地块。",
 };

@@ -4576,4 +4576,12 @@ export const RU = {
    UnifyTheChancelleriesProcedures: "Унифицировать порядок работы канцелярий",
    EstablishASharedDiplomaticService: "Учредить общую дипломатическую службу",
    BankruptcyRiskTooltip$1: "Ежемесячные процентные расходы нашей провинции превышают $1 нашего ежемесячного дохода. Мы обанкротимся, если у нас закончится золото, а ежемесячные процентные расходы будут превышать ежемесячный доход. Нажмите, чтобы посмотреть подробности.",
+   AutomaticallyCoreTiles: "Автоматически делать владения ядровыми",
+   AutomaticallyConvertCultures: "Автоматически менять культуры",
+   ConvertMinorCultures: "Менять малые культуры",
+   ConvertToleratedCultures: "Менять признанные культуры",
+   AutomaticallyEvangelize: "Автоматически евангелизировать",
+   EvangelizeMinorReligions: "Евангелизировать малые религии",
+   EvangelizeToleratedReligions: "Евангелизировать признанные религии",
+   AutomaticallyCoreNonCoreTilesDesc: "Автоматически превращать владения без ядра в наши ядровые владения, когда истечёт время ожидания действия и у нас будет достаточно ресурсов.",
 };

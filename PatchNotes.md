@@ -28,10 +28,11 @@ Macedonia province is now playable, with three unique Provincial Spirits:
 
 Macedonia also comes with 10 historical events spanning 214–796 AD. New and expanded shared missions offer opportunities to bring Epirus under your patronage after annexing and coring Achaia, establish footholds in Italia and Dalmatia, expand through Moesia and Thracia, and secure the crossings into Asia and Bithynia.
 
-## Culture & Relgion
+## Culture & Religion
 
 - Culture and religion is moved into a separate panel from Internal Affairs
 - Add a list of tiles in the province that has non-dominant culture and religion (can be converted directly in the page)
+- Added separate switches to automatically evangelize tiles with minor or tolerated religions and convert tiles with minor or tolerated cultures. These actions use the same costs and cooldowns as manual actions.
 
 ## Apostolic Sees
 
@@ -43,11 +44,8 @@ Macedonia also comes with 10 historical events spanning 214–796 AD. New and ex
 ## QoLs
 
 - The Outstanding Loans todo now turns red and displays a bankruptcy warning when monthly interest cost exceeds 90% of monthly revenue.
+- Added an Automatically Core Tiles switch to Internal Affairs. When enabled, the province automatically makes an eligible non-core tile a core if it can afford the cost and the action is off cooldown.
 
 ## Bugfixes
 
 - Fix a bug where hiding todos does not work correctly
-
-## Plan
-
-- Auto Core/Auto Evangelize/Auto Culture Conversion
