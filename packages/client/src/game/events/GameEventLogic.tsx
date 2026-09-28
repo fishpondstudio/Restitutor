@@ -14,6 +14,7 @@ import { getGameDate } from "../logic/GameDateTime";
 import { getAnnexedTiles, getProvinceName } from "../logic/ProvinceLogic";
 import { hasResearched } from "../logic/TechLogic";
 import { type Scenario, Scenarios } from "../scenarios/Scenarios";
+import { GameEventOrder } from "./GameEventOrder";
 import { type GameEvent, GameEvents, type IGameEventButton, type IGameEventCondition } from "./GameEvents";
 import type { ImageWithCredit } from "./ImageWithCredit";
 
@@ -238,6 +239,9 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
          }
       }
       result.push(key);
+   });
+   result.sort((a, b) => {
+      return (GameEvents[a].order ?? GameEventOrder.Standard) - (GameEvents[b].order ?? GameEventOrder.Standard);
    });
    return result;
 }

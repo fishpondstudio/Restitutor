@@ -266,6 +266,15 @@ export function getWarScore(
             name: getTileName(tile, save),
             value: defense.value,
          });
+         if (
+            hasProvinceUpgrade("CulturalAmbition", attacker, save) &&
+            (data.culture === attackerState.culture || attackerState.toleratedCultures.has(data.culture))
+         ) {
+            result.add.push({
+               name: `${ProvinceUpgrades.CulturalAmbition.name()}: ${getTileName(tile, save)}`,
+               value: -0.2 * defense.value,
+            });
+         }
          if (hasProvinceUpgrade("MaritimeAmbition", attacker, save) && isTileConnectedBySea(tile, attacker, save)) {
             result.add.push({
                name: `${ProvinceUpgrades.MaritimeAmbition.name()}: ${getTileName(tile, save)}`,

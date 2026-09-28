@@ -22,7 +22,7 @@ const _Province = {
       tiles: [10027088, 10027089, 10092626, 10027090, 10027091, 10092629, 10158165],
       culture: "Greek",
       religion: "GrecoRoman",
-      upgrades: [],
+      upgrades: ["HellenicScholarship", "DevelopedAdministration", "PeacefulRenown"],
    },
    Aegyptus: {
       code: "AE",
@@ -183,7 +183,7 @@ const _Province = {
       tiles: [9896015, 9961552, 9961553],
       culture: "Greek",
       religion: "GrecoRoman",
-      upgrades: [],
+      upgrades: ["DefensiveMandate", "DefensiveMobilization", "HellenicSolidarity"],
    },
    Galatia: {
       code: "GA",
@@ -266,7 +266,7 @@ const _Province = {
       tiles: [9896014, 9961550, 10027086, 9961549, 10027085, 10092622, 10158158, 10223694, 10092623, 10027087, 9961551],
       culture: "Greek",
       religion: "GrecoRoman",
-      upgrades: [],
+      upgrades: ["MilitaryInnovation", "CulturalIntegration", "CulturalAmbition"],
    },
    Mauretania: {
       code: "MR",

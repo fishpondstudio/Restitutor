@@ -357,6 +357,44 @@ const _ProvinceUpgrades = {
       name: () => $t(L.SanctionedConquest),
       desc: () => $t(L.$1WarmongerPenalty, "-50%"),
    },
+   HellenicScholarship: {
+      name: () => $t(L.HellenicScholarship),
+      desc: () => $t(L.HellenicScholarshipDesc$1$2, "-1%", "-50%"),
+   },
+   DevelopedAdministration: {
+      name: () => $t(L.DevelopedAdministration),
+      desc: () => $t(L.DevelopedAdministrationDesc$1$2, "-1%", "-50%"),
+   },
+   PeacefulRenown: {
+      name: () => $t(L.PeacefulRenown),
+      desc: () => $t(L.PeacefulRenownDesc$1$2, "+1%", "+25%"),
+   },
+   DefensiveMandate: {
+      name: () => $t(L.DefensiveMandate),
+      desc: () => $t(L.DefensiveMandateDesc$1, "+1"),
+   },
+   DefensiveMobilization: {
+      name: () => $t(L.DefensiveMobilization),
+      desc: () => $t(L.DefensiveMobilizationDesc$1, "+25%"),
+   },
+   HellenicSolidarity: {
+      name: () => $t(L.HellenicSolidarity),
+      desc: () => $t(L.HellenicSolidarityDesc$1$2, "+1%", "+50%"),
+   },
+   MilitaryInnovation: {
+      name: () => $t(L.MilitaryInnovation),
+      desc: () => $t(L.MilitaryInnovationDesc$1$2, "+1%", "+25%"),
+   },
+   CulturalIntegration: {
+      name: () => $t(L.CulturalIntegration),
+      modifiers: {
+         CultureConversionCost: { type: "multiply", value: -0.2 },
+      },
+   },
+   CulturalAmbition: {
+      name: () => $t(L.CulturalAmbition),
+      desc: () => $t(L.CulturalAmbitionDesc$1, "20%"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

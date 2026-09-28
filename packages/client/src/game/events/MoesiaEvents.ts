@@ -405,7 +405,7 @@ export const MoesiaEvents = {
       image: EventImage.RomanAudience,
       desc: () => $t(L.RoadsAcrossTheBalkansDesc),
       condition: {
-         province: new Set(["Moesia"]),
+         province: new Set(["Moesia", "Macedonia"]),
          annexAndCore: {
             Thracia: Number.POSITIVE_INFINITY,
          },

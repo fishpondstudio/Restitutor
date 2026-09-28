@@ -51,6 +51,9 @@ export function NegotiateWhitePeaceAction(war: IWar, province: Province, save: S
          if (hasProvinceUpgrade("VeteranGenerals", war.defender, save)) {
             addProvinceResource("generalSkillPoint", 1, war.defender, save);
          }
+         if (hasProvinceUpgrade("DefensiveMandate", war.defender, save)) {
+            addProvinceResource("consulPoint", 1, war.defender, save);
+         }
          if (hasProvinceUpgrade("VictoriousLeadership", war.defender, save)) {
             addModifier({
                modifier: "Prestige",

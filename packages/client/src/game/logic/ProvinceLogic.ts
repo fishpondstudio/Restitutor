@@ -16,6 +16,7 @@ import type { ICondition, IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import { Buildings } from "../definitions/Building";
+import type { Culture } from "../definitions/Culture";
 import { Goods } from "../definitions/Goods";
 import { type GreatWork, TileToGreatWork } from "../definitions/GreatWork";
 import { Province } from "../definitions/Province";
@@ -24,6 +25,7 @@ import { type GovernorPower, ProvinceResources } from "../definitions/ProvinceRe
 import { type IProvince, ProvinceFlags } from "../definitions/ProvinceState";
 import { type ProvinceStat, ProvinceStats } from "../definitions/ProvinceStats";
 import { hasNotProvinceUpgradeCondition, hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
+import type { Religion } from "../definitions/Religion";
 import type { SpawnedProvince } from "../definitions/SpawnedProvince";
 import {
    BarbarianRaidNegativeEffect,
@@ -38,7 +40,7 @@ import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { getArmyMaintenanceCost, getWarPower, getWarPowerPerTile } from "./ArmyLogic";
-import { cacheProvince } from "./CacheLogic";
+import { cacheProvince, getProvinceTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getRegionalCapitalCount } from "./CapitalLogic";
 import { getRelation } from "./DiplomacyLogic";
@@ -124,10 +126,44 @@ export function getTotalUpgrades(province: Province, save: SaveGame): number {
    return upgrade;
 }
 
+export function countProvinceTiles(
+   { culture, religion, core }: { culture?: Culture; religion?: Religion; core?: boolean },
+   province: Province,
+   save: SaveGame,
+): number {
+   let count = 0;
+   for (const tile of getProvinceTilesCached(province)) {
+      const data = save.state.tiles.get(tile);
+      if (!data) {
+         continue;
+      }
+      if (culture !== undefined && data.culture !== culture) {
+         continue;
+      }
+      if (religion !== undefined && data.religion !== religion) {
+         continue;
+      }
+      if (core !== undefined && data.coreProvinces.has(province) !== core) {
+         continue;
+      }
+      count++;
+   }
+   return count;
+}
+
 export function getProvincePrestige(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.TileUpgrades), value: getTotalUpgrades(province, save) });
    attachModifiers("Prestige", breakdown, province, save);
+   if (hasProvinceUpgrade("PeacefulRenown", province, save) && getCurrentWars(province, save).length === 0) {
+      const stability = getProvinceStability(province, save).value;
+      if (stability > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.PeacefulRenown.name(),
+            value: Math.min(stability * 0.01, 0.25),
+         });
+      }
+   }
    if (hasProvinceUpgrade("MaritimeRenown", province, save)) {
       breakdown.multiply.push({
          name: ProvinceUpgrades.MaritimeRenown.name(),

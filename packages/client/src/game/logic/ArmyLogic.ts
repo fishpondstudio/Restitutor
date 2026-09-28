@@ -285,6 +285,12 @@ export function getWarPower(
          value: actualConscription * 0.01,
       });
    }
+   if (hasProvinceUpgrade("MilitaryInnovation", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.MilitaryInnovation.name(),
+         value: Math.min((save.state.provinces[province]?.unlockedTech.size ?? 0) * 0.01, 0.25),
+      });
+   }
    if (hasProvinceUpgrade("UnitedFrontier", province, save)) {
       result.multiply.push({
          name: ProvinceUpgrades.UnitedFrontier.name(),

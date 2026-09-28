@@ -3,10 +3,12 @@ import { $t, L } from "../../utils/i18n";
 import type { Building } from "../definitions/Building";
 import type { Province } from "../definitions/Province";
 import type { ProvinceResourceCosts } from "../definitions/ProvinceResources";
+import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
 import { defineValueGetter, type EvaluationMode, ValueCalculation } from "./Calculation";
 import { attachModifiersToCalculation } from "./ModifierLogic";
+import { countProvinceTiles } from "./ProvinceLogic";
 import { hasEnoughProvinceResources } from "./ResourceLogic";
 import { stringToPosition } from "./StringToPosition";
 
@@ -36,6 +38,11 @@ export const getResearchCostBreakdown = defineValueGetter(
             $t(L.FromOtherProvinces),
             $t(L.ResearchedProvinceDiscount$1$2, "1%", formatNumber(researchedProvinceCount)),
          );
+      if (hasProvinceUpgrade("HellenicScholarship", province, save)) {
+         calc
+            .multiply(-Math.min(countProvinceTiles({ culture: "Greek", core: true }, province, save) * 0.01, 0.5))
+            ?.describe(ProvinceUpgrades.HellenicScholarship.name());
+      }
       attachModifiersToCalculation("ResearchCost", calc, province, save);
       return calc.finish();
    },

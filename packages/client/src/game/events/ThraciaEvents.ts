@@ -13,6 +13,7 @@ import {
 } from "../logic/MissionLogic";
 import { requireNoTreatyBetweenChecks, requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
+import { GameEventOrder } from "./GameEventOrder";
 import type { IGameEventConfig } from "./GameEvents";
 
 export const ThraciaEvents = {
@@ -359,6 +360,7 @@ export const ThraciaEvents = {
       name: () => $t(L.TheRoadsThroughTheInterior),
       image: EventImage.RomanExpedition,
       desc: () => $t(L.TheRoadsThroughTheInteriorDesc),
+      order: GameEventOrder.Order1,
       condition: {
          province: new Set(["Thracia", "Dacia", "Macedonia"]),
          conditions: function* (province, save): ConditionChecks {
@@ -387,7 +389,7 @@ export const ThraciaEvents = {
       image: EventImage.RomanAudience,
       desc: () => $t(L.RootsAlongTheMoesianRoadsDesc),
       condition: {
-         province: new Set(["Thracia"]),
+         province: new Set(["Thracia", "Macedonia"]),
          annexAndCore: { Moesia: 10 },
       },
       buttons: [
@@ -425,7 +427,7 @@ export const ThraciaEvents = {
       image: EventImage.RomanAudience,
       desc: () => $t(L.ASettlementWithMoesiaDesc),
       condition: {
-         province: new Set(["Thracia"]),
+         province: new Set(["Thracia", "Macedonia"]),
          onMap: { Moesia: true },
          annexAndCore: {
             Moesia: Math.ceil(Province.Moesia.tiles.length * 0.7),
@@ -450,7 +452,7 @@ export const ThraciaEvents = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.MastersOfTheCrossingsDesc),
       condition: {
-         province: new Set(["Thracia"]),
+         province: new Set(["Thracia", "Macedonia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* allCoreTileChecks([10354766, 10354767, 10223695, 10289232], province, save);
          },
@@ -470,13 +472,6 @@ export const ThraciaEvents = {
                Asia: { casusBelli: "ConquestMission", duration: 5 * 12 },
             },
          },
-         {
-            label: () => $t(L.SeekAMandateToAdvanceInto$1, Province.Macedonia.name()),
-            resources: { consulPoint: 2 },
-            casusBelli: {
-               Macedonia: { casusBelli: "ConquestMission", duration: 5 * 12 },
-            },
-         },
       ],
    },
    Thracia16: {
@@ -484,7 +479,7 @@ export const ThraciaEvents = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.BetweenTwoSeasDesc),
       condition: {
-         province: new Set(["Thracia"]),
+         province: new Set(["Thracia", "Macedonia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* mediterraneanCoastChecks(5, province, save);
             yield* blackSeaCoastChecks(5, province, save);

@@ -6,6 +6,7 @@ import type { Tech } from "../definitions/Tech";
 import type { ICustomEffect, IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
+import { AchaiaEvents } from "./AchaiaEvents";
 import { AfricaEvents } from "./AfricaEvents";
 import { AquitaniaEvents } from "./AquitaniaEvents";
 import { BaeticaEvents } from "./BaeticaEvents";
@@ -15,7 +16,9 @@ import { BritanniaEvents } from "./BritanniaEvents";
 import { DaciaEvents } from "./DaciaEvents";
 import { DalmatiaEvents } from "./DalmatiaEvents";
 import { DanubianEvents } from "./DanubianEvents";
+import { EpirusEvents } from "./EpirusEvents";
 import { GallicEmpireEvents } from "./GallicEmpireEvents";
+import type { GameEventOrder } from "./GameEventOrder";
 import { GermaniaEvents } from "./GermaniaEvents";
 import { HispaniaEvents } from "./HispaniaEvents";
 import { HistoricalEvents } from "./HistoricalEvents";
@@ -24,6 +27,7 @@ import { ItaliaEvents } from "./ItaliaEvents";
 import { ItaliaSharedEvents } from "./ItaliaSharedEvents";
 import { LugdunensisEvents } from "./LugdunensisEvents";
 import { LusitaniaEvents } from "./LusitaniaEvents";
+import { MacedoniaEvents } from "./MacedoniaEvents";
 import { MauretaniaEvents } from "./MauretaniaEvents";
 import { MissionEvents } from "./MissionEvents";
 import { MoesiaEvents } from "./MoesiaEvents";
@@ -49,6 +53,7 @@ export interface IGameEventConfig {
    wikipedia?: string;
    achievement?: string;
    image: ImageWithCredit;
+   order?: GameEventOrder;
    condition?: IGameEventCondition;
    buttons: IGameEventButton[];
 }
@@ -80,6 +85,9 @@ export const RomeEvents = {
    ...DaciaEvents,
    ...DalmatiaEvents,
    ...ThraciaEvents,
+   ...MacedoniaEvents,
+   ...EpirusEvents,
+   ...AchaiaEvents,
    ...TarraconensisEvents,
    ...LusitaniaEvents,
    ...BaeticaEvents,
