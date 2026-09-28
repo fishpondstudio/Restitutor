@@ -4673,4 +4673,5 @@ export const ES = {
    DelegateAuthorityToRegionalOffices: "Delegar autoridad en las oficinas regionales",
    UnifyTheChancelleriesProcedures: "Unificar los procedimientos de las cancillerías",
    EstablishASharedDiplomaticService: "Establecer un servicio diplomático común",
+   BankruptcyRiskTooltip$1: "El coste mensual de los intereses de nuestra provincia supera el $1 de nuestros ingresos mensuales. Entraremos en bancarrota si nos quedamos sin oro mientras el coste mensual de los intereses supera nuestros ingresos mensuales. Haz clic para ver los detalles.",
 };

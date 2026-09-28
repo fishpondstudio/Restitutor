@@ -4676,4 +4676,5 @@ export const DE = {
    DelegateAuthorityToRegionalOffices: "Befugnisse an regionale Ämter übertragen",
    UnifyTheChancelleriesProcedures: "Die Verfahren der Kanzleien vereinheitlichen",
    EstablishASharedDiplomaticService: "Einen gemeinsamen diplomatischen Dienst einrichten",
+   BankruptcyRiskTooltip$1: "Die monatlichen Zinskosten unserer Provinz übersteigen $1 unserer monatlichen Einnahmen. Wir werden bankrottgehen, wenn uns das Gold ausgeht, während unsere monatlichen Zinskosten unsere monatlichen Einnahmen übersteigen. Klicken, um Details anzuzeigen.",
 };

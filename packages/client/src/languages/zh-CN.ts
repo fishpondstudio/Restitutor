@@ -4460,4 +4460,5 @@ export const ZH_CN = {
    DelegateAuthorityToRegionalOffices: "将权力下放给地方官署",
    UnifyTheChancelleriesProcedures: "统一各文书署的办事程序",
    EstablishASharedDiplomaticService: "建立统一的外交机构",
+   BankruptcyRiskTooltip$1: "我们行省的每月利息支出已超过每月收入的 $1。如果金币耗尽时每月利息支出超过每月收入，我们就会破产。点击查看详情。",
 };

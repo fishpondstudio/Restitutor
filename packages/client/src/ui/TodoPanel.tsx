@@ -1,4 +1,4 @@
-import { cls, entriesOf, forEach, formatNumber, hasFlag } from "@project/shared/src/utils/Helper";
+import { cls, entriesOf, forEach, formatNumber, formatPercent, hasFlag } from "@project/shared/src/utils/Helper";
 import { UpgradeGeneralSkillAction } from "../game/actions/ArmyGeneralAction";
 import { canDoAction } from "../game/actions/GameAction";
 import { GrantSocialClassBonusAction } from "../game/actions/GrantSocialClassBonusAction";
@@ -22,8 +22,14 @@ import { getOngoingEcumenicalCouncil } from "../game/logic/EcumenicalCouncilLogi
 import { formatYear, getGameDate } from "../game/logic/GameDateTime";
 import { getEligibleForMarriage } from "../game/logic/GovernorLogic";
 import { getLegacyUpgradeCost } from "../game/logic/LegacyUpgradeLogic";
+import { getMonthlyInterestCost } from "../game/logic/LoanLogic";
 import { getProvinceProductionCapacity, getProvinceUsedProductionCapacity } from "../game/logic/ProductionLogic";
-import { getProvinceName, getProvinceOverextension, monthsToNextConsulElection } from "../game/logic/ProvinceLogic";
+import {
+   getProvinceIncome,
+   getProvinceName,
+   getProvinceOverextension,
+   monthsToNextConsulElection,
+} from "../game/logic/ProvinceLogic";
 import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { getAgendas, isSocialClassDisloyal, isSocialClassDominant } from "../game/logic/SocialClassLogic";
 import { getTechsCanBeResearched, hasResearched } from "../game/logic/TechLogic";
@@ -652,10 +658,23 @@ const IdleDiplomats: ITodo = {
    onClick: (save) => {},
 };
 
+const BankruptcyWarningInterestRatio = 0.9;
+
+function isProvinceAtRiskOfBankruptcy(save: SaveGame): boolean {
+   const province = save.state.playerProvince;
+   if (!save.state.provinces[province] || getTimedActionTimeLeft("Bankruptcy", province, save) > 0) {
+      return false;
+   }
+   return (
+      getMonthlyInterestCost(province, save) >
+      getProvinceIncome(province, save).revenue.value * BankruptcyWarningInterestRatio
+   );
+}
+
 const OutstandingLoans: ITodo = {
    name: (save) => $t(L.OutstandingLoans),
    icon: (save) => IconCatalog.Loan,
-   className: (save) => "yellow",
+   className: (save) => (isProvinceAtRiskOfBankruptcy(save) ? "red" : "yellow"),
    tooltip: (save) => {
       const data = save.state.provinces[save.state.playerProvince];
       if (!data) {
@@ -664,7 +683,16 @@ const OutstandingLoans: ITodo = {
       if (data.loans.length === 0) {
          return null;
       }
-      return <div className="m10">{$t(L.OutstandingLoansTooltip$1, data.loans.length)}</div>;
+      return (
+         <div className="m10">
+            <div>{$t(L.OutstandingLoansTooltip$1, data.loans.length)}</div>
+            {isProvinceAtRiskOfBankruptcy(save) && (
+               <div className="mt10 text-red">
+                  {$t(L.BankruptcyRiskTooltip$1, formatPercent(BankruptcyWarningInterestRatio))}
+               </div>
+            )}
+         </div>
+      );
    },
    onClick: (save) => {
       showPanel(TreasuryPage, {});

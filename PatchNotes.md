@@ -40,6 +40,10 @@ Macedonia also comes with 10 historical events spanning 214–796 AD. New and ex
 - Constantinople becomes an Apostolic See after the First Council of Constantinople event.
 - The Internal Affairs page now lists Apostolic Sees and their owners, with clickable links to their map locations.
 
+## QoLs
+
+- The Outstanding Loans todo now turns red and displays a bankruptcy warning when monthly interest cost exceeds 90% of monthly revenue.
+
 ## Bugfixes
 
 - Fix a bug where hiding todos does not work correctly
@@ -47,4 +51,3 @@ Macedonia also comes with 10 historical events spanning 214–796 AD. New and ex
 ## Plan
 
 - Auto Core/Auto Evangelize/Auto Culture Conversion
-- About to Bankrupt Todo

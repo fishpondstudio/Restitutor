@@ -4598,4 +4598,5 @@ export const UA = {
    DelegateAuthorityToRegionalOffices: "Delegate authority to regional offices",
    UnifyTheChancelleriesProcedures: "Unify the chancelleries' procedures",
    EstablishASharedDiplomaticService: "Establish a shared diplomatic service",
+   BankruptcyRiskTooltip$1: "Our province's monthly interest cost exceeds $1 of our monthly revenue. We will go bankrupt if we run out of gold while our monthly interest cost exceeds our monthly revenue. Click to view details.",
 };
