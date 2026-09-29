@@ -71,7 +71,7 @@ const _Province = {
       ],
       culture: "Greek",
       religion: "GrecoRoman",
-      upgrades: [],
+      upgrades: ["ExperiencedLeadership", "MilitaryIndustry", "PluralisticRenown"],
    },
    Baetica: {
       code: "BA",
@@ -98,7 +98,7 @@ const _Province = {
       tiles: [10354767, 10420303, 10485839, 10551374, 10616910, 10682446, 10747982, 10551375],
       culture: "Greek",
       religion: "GrecoRoman",
-      upgrades: [],
+      upgrades: ["WartimeUnity", "DevelopedRecruitment", "CoastalCommerce"],
    },
    Britannia: {
       code: "BR",

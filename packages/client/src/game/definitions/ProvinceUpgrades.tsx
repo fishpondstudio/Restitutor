@@ -395,6 +395,30 @@ const _ProvinceUpgrades = {
       name: () => $t(L.CulturalAmbition),
       desc: () => $t(L.CulturalAmbitionDesc$1, "20%"),
    },
+   WartimeUnity: {
+      name: () => $t(L.WartimeUnity),
+      desc: () => $t(L.$1StabilityWhileAtWar, "+10"),
+   },
+   DevelopedRecruitment: {
+      name: () => $t(L.DevelopedRecruitment),
+      desc: () => $t(L.DevelopedRecruitmentDesc$1$2, "+1%", "+50%"),
+   },
+   CoastalCommerce: {
+      name: () => $t(L.CoastalCommerce),
+      desc: () => $t(L.$1TradeProfitForEachCoreCoastalTileUpTo$2, "+1%", "+50%"),
+   },
+   ExperiencedLeadership: {
+      name: () => $t(L.ExperiencedLeadership),
+      desc: () => $t(L.ExperiencedLeadershipDesc$1, "+1"),
+   },
+   MilitaryIndustry: {
+      name: () => $t(L.MilitaryIndustry),
+      desc: () => $t(L.MilitaryIndustryDesc$1$2, "+1%", "+25%"),
+   },
+   PluralisticRenown: {
+      name: () => $t(L.PluralisticRenown),
+      desc: () => $t(L.PluralisticRenownDesc$1$2, "+5%", "+25%"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

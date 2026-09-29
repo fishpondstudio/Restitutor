@@ -165,6 +165,12 @@ function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.Manpower, breakdown);
    attachModifiers("Manpower", breakdown, data.province, save);
+   if (hasProvinceUpgrade("DevelopedRecruitment", data.province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.DevelopedRecruitment.name(),
+         value: Math.min((data.infrastructure + data.production + data.population) * 0.01, 0.5),
+      });
+   }
    if (
       hasProvinceUpgrade("CapitalsOfProsperity", data.province, save) &&
       data.coreProvinces.has(data.province) &&

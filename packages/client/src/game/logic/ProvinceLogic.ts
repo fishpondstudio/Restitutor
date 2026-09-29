@@ -194,6 +194,14 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
    if (hasProvinceUpgrade("CaputMundi", province, save) && save.state.provinces[province]?.capital === Tiles.Rome) {
       breakdown.multiply.push({ name: ProvinceUpgrades.CaputMundi.name(), value: 0.1 });
    }
+   if (hasProvinceUpgrade("PluralisticRenown", province, save)) {
+      const state = save.state.provinces[province];
+      const toleratedCount = (state?.toleratedCultures.size ?? 0) + (state?.toleratedReligions.size ?? 0);
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.PluralisticRenown.name(),
+         value: Math.min(toleratedCount * 0.05, 0.25),
+      });
+   }
    return finalizeBreakdown(breakdown);
 }
 
@@ -205,6 +213,16 @@ export function getProvinceStability(province: Province, save: SaveGame): IValue
    }
    attachModifiers("Stability", breakdown, province, save);
    const wars = getCurrentWars(province, save);
+   if (hasProvinceUpgrade("WartimeUnity", province, save) && wars.length > 0) {
+      breakdown.add.push({ name: ProvinceUpgrades.WartimeUnity.name(), value: 10 });
+   }
+   if (hasProvinceUpgrade("ExperiencedLeadership", province, save)) {
+      const generalSkill =
+         getProvinceStat("infantrySkill", province, save) +
+         getProvinceStat("rangedSkill", province, save) +
+         getProvinceStat("cavalrySkill", province, save);
+      breakdown.add.push({ name: ProvinceUpgrades.ExperiencedLeadership.name(), value: generalSkill });
+   }
    for (const war of wars) {
       if (war.attacker === province) {
          // Here we should use `war.log.length`, instead of `war.log.length + 1`. Check the implementation of `calculateWarTotalStability`.

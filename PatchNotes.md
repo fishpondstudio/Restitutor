@@ -26,6 +26,31 @@ Macedonia province is now playable, with three unique Provincial Spirits:
 - Cultural Integration: Reduce Culture Conversion Cost by 20%.
 - Cultural Ambition: Enemy tiles with your dominant or a tolerated culture contribute 20% less War Score.
 
+## Asia
+
+Asia province is now playable, with three unique Provincial Spirits:
+
+- Experienced Leadership: Gain +1 Stability for each General Skill Level across Infantry, Ranged, and Cavalry.
+- Military Industry: Gain +1% War Power per unit of production capacity allocated to Armor and Weapons combined, up to +25%.
+- Pluralistic Renown: Gain +5% Prestige for each tolerated culture or religion, up to +25% total.
+
+Asia also comes with 10 historical events spanning 214–770 AD and five new missions. Press claims to Bithynia, Galatia, or Lycia, bring Lycia under your patronage, and gain rewards for annexing and coring Galatia and Bithynia. Expanding to three times your starting number of core tiles offers a permanent +10% bonus to Land Tax, Tile Output, or Trade Profit.
+
+## Bithynia
+
+Bithynia province is now playable, with three unique Provincial Spirits:
+
+- Wartime Unity: Gain +10 Stability while at war.
+- Developed Recruitment: Each tile gains +1% Manpower per level of Infrastructure, Production, and Population on that tile, up to +50%.
+- Coastal Commerce: Gain +1% Trade Profit for each core coastal tile, up to +50%.
+
+Bithynia also comes with 10 historical events spanning 258–727 AD and six new missions. Press claims to Asia, Cappadocia, or Galatia, earn rewards for establishing cores in these provinces and securing Hadrianoi and Sestos, and bring a diminished Asia under your patronage once Bithynia has at least 20 core tiles and Asia has at most five.
+
+## Anatolian League
+
+- Added a unification mission for Asia, Bithynia, Cappadocia, Cilicia, Galatia, and Lycia. Annex and core all six provinces to form the Anatolian League.
+- Masters of the Crossings and Between Two Seas are now available to Asia and Bithynia as well as Thracia and Macedonia.
+
 Macedonia also comes with 10 historical events spanning 214–796 AD. New and expanded shared missions offer opportunities to bring Epirus under your patronage after annexing and coring Achaia, establish footholds in Italia and Dalmatia, expand through Moesia and Thracia, and secure the crossings into Asia and Bithynia.
 
 ## Culture & Religion

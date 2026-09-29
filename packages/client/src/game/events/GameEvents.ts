@@ -8,10 +8,13 @@ import type { SaveGame } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import { AchaiaEvents } from "./AchaiaEvents";
 import { AfricaEvents } from "./AfricaEvents";
+import { AnatoliaEvents } from "./AnatoliaEvents";
 import { AquitaniaEvents } from "./AquitaniaEvents";
+import { AsiaEvents } from "./AsiaEvents";
 import { BaeticaEvents } from "./BaeticaEvents";
 import { BalkanEvents } from "./BalkanEvents";
 import { BelgicaEvents } from "./BelgicaEvents";
+import { BithyniaEvents } from "./BithyniaEvents";
 import { BritanniaEvents } from "./BritanniaEvents";
 import { DaciaEvents } from "./DaciaEvents";
 import { DalmatiaEvents } from "./DalmatiaEvents";
@@ -84,10 +87,12 @@ export const RomeEvents = {
    ...MoesiaEvents,
    ...DaciaEvents,
    ...DalmatiaEvents,
-   ...ThraciaEvents,
    ...MacedoniaEvents,
    ...EpirusEvents,
    ...AchaiaEvents,
+   ...BithyniaEvents,
+   ...AsiaEvents,
+   ...ThraciaEvents,
    ...TarraconensisEvents,
    ...LusitaniaEvents,
    ...BaeticaEvents,
@@ -100,6 +105,7 @@ export const RomeEvents = {
    ...HispaniaEvents,
    ...DanubianEvents,
    ...BalkanEvents,
+   ...AnatoliaEvents,
    ...ReligiousEvents,
    ...MissionEvents,
    // These should not appear in `MissionPage`

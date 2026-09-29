@@ -449,28 +449,26 @@ export const ThraciaEvents = {
    },
    Thracia15: {
       name: () => $t(L.MastersOfTheCrossings),
-      image: EventImage.MediterraneanHarbour,
-      desc: () => $t(L.MastersOfTheCrossingsDesc),
+      image: EventImage.RomanAudience,
+      desc: () => $t(L.MastersOfTheCrossingsCourtDesc),
       condition: {
-         province: new Set(["Thracia", "Macedonia"]),
+         province: new Set(["Thracia", "Macedonia", "Asia", "Bithynia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* allCoreTileChecks([10354766, 10354767, 10223695, 10289232], province, save);
          },
       },
       buttons: [
          {
-            label: () => $t(L.SeekAMandateToAdvanceInto$1, Province.Bithynia.name()),
+            label: () => $t(L.SeekTheSenatesBacking),
             resources: { consulPoint: 2 },
-            casusBelli: {
-               Bithynia: { casusBelli: "ConquestMission", duration: 5 * 12 },
-            },
          },
          {
-            label: () => $t(L.SeekAMandateToAdvanceInto$1, Province.Asia.name()),
-            resources: { consulPoint: 2 },
-            casusBelli: {
-               Asia: { casusBelli: "ConquestMission", duration: 5 * 12 },
-            },
+            label: () => $t(L.PromoteTheOfficersGuardingOurPorts),
+            resources: { generalSkillPoint: 2 },
+         },
+         {
+            label: () => $t(L.PetitionForAnImperialMandate),
+            resources: { mandate: 1 },
          },
       ],
    },
@@ -479,7 +477,7 @@ export const ThraciaEvents = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.BetweenTwoSeasDesc),
       condition: {
-         province: new Set(["Thracia", "Macedonia"]),
+         province: new Set(["Thracia", "Macedonia", "Asia", "Bithynia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* mediterraneanCoastChecks(5, province, save);
             yield* blackSeaCoastChecks(5, province, save);
