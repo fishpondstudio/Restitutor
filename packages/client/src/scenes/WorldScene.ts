@@ -32,7 +32,7 @@ import type { Province } from "../game/definitions/Province";
 import { Religion } from "../game/definitions/Religion";
 import { getNewSettlementTiles, OceanLabels } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
-import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
+import { GameStateUpdated, LookAtTile, RefreshOverlay, RefreshTiles } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
 import { isLand, LandSize } from "../game/Land";
 import { isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
@@ -249,6 +249,15 @@ export class WorldScene extends Scene {
             this._drawWarOutline();
             this._drawWarProgress();
          }
+      });
+
+      LookAtTile.on(({ tile, time, onComplete }) => {
+         if (!G.scene.isCurrent(WorldScene)) {
+            return;
+         }
+         this._lookAt(tile, { time }).then(() => {
+            onComplete?.(this);
+         });
       });
 
       RefreshOverlay.on(() => {
@@ -539,7 +548,7 @@ export class WorldScene extends Scene {
       // }
    }
 
-   public lookAt(tile: Tile, { time }: { time: number }): Promise<WorldScene> {
+   private _lookAt(tile: Tile, { time }: { time: number }): Promise<WorldScene> {
       return new Promise((resolve) => {
          const position = MapGrid.gridToPosition(tileToPoint(tile));
          // position.x += marginX + remToPx(SidebarWidth) / 2 / this.viewport.zoom;

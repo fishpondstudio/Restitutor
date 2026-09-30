@@ -8,10 +8,7 @@ import {
    numberToRoman,
    randOne,
 } from "@project/shared/src/utils/Helper";
-import type { ComponentProps, ElementType } from "react";
-import type { PanelIdentity } from "../../ui/common/PanelTypes";
 import { showPanel } from "../../ui/common/ShowPanel";
-import { GameEventModal } from "../../ui/GameEventModal";
 import { GovernorWithoutHeirModal } from "../../ui/GovernorWithoutHeirModal";
 import { IllegitimateChildModal } from "../../ui/IllegitimateChildModal";
 import { startTrack } from "../../ui/Music";
@@ -22,7 +19,7 @@ import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
 import { playSound } from "../../ui/Sound";
 import { G, GameFlags } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
-import { unlockAchievement } from "../Achievement";
+import { PendingGameEventTimeoutMonths } from "../definitions/Constant";
 import type { IGovernorFamily } from "../definitions/Family";
 import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
@@ -31,7 +28,14 @@ import { isChristianReligion } from "../definitions/Religion";
 import { RestorationBonus } from "../definitions/RestorationBonus";
 import { TimedActions } from "../definitions/TimedAction";
 import { RefreshTiles } from "../Events";
-import { applyGameEventButton, getAllEvents, getEventButtons, getGameEventCondition } from "../events/GameEventLogic";
+import {
+   addGameEvent,
+   applyGameEventButton,
+   getAllEvents,
+   getEventButtons,
+   getGameEventCondition,
+   showGameEventModal,
+} from "../events/GameEventLogic";
 import { type GameEvent, GameEvents } from "../events/GameEvents";
 import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
@@ -69,8 +73,6 @@ import { addProvinceResource, getProvinceResource, spendProvinceResource } from 
 import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
-
-export const PendingGameEventTimeoutMonths = 12;
 
 export function tickProvince(province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
@@ -359,34 +361,6 @@ export function tickProvince(province: Province, save: SaveGame): void {
 
    tickRestoration(province, save);
    tickAutomation(province, save);
-}
-
-export function addGameEvent(event: GameEvent, province: Province, save: SaveGame): void {
-   if (!getAllEvents(save.state.scenario).has(event)) {
-      return;
-   }
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   state.events.set(event, { month: save.state.month });
-   startTimedAction("GameEventTimer", province, save);
-   if (province === save.state.playerProvince) {
-      const achievement = GameEvents[event].achievement;
-      if (achievement) {
-         unlockAchievement(achievement);
-      }
-      showGameEventModal(GameEventModal, { event });
-   }
-}
-
-export function showGameEventModal<Component extends ElementType & PanelIdentity>(
-   Component: Component,
-   props: NoInfer<ComponentProps<Component>>,
-): void {
-   if (!hasFlag(G.flags, GameFlags.Sandbox)) {
-      showPanel(Component, props);
-   }
 }
 
 const _restorationShown = new Set<number>();

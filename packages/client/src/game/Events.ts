@@ -2,6 +2,7 @@ import type { IChat, IUser } from "@project/shared/src/rpc/ServerMessageTypes";
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { TypedEvent } from "@project/shared/src/utils/TypedEvent";
 import type { ReactElement } from "react";
+import type { WorldScene } from "../scenes/WorldScene";
 import type { ShowModalEvent } from "../ui/common/PanelTypes";
 import type { Shortcut } from "./ShortcutDefinition";
 
@@ -28,6 +29,11 @@ export const OnKeydown = new TypedEvent<KeyboardEvent>();
 export const OnKeyup = new TypedEvent<KeyboardEvent>();
 export const CurrentShortcuts = new Map<Shortcut, (event: KeyboardEvent) => void>();
 export const RefreshOverlay = new TypedEvent<void>();
+export const LookAtTile = new TypedEvent<{
+   tile: Tile;
+   time: number;
+   onComplete?: (scene: WorldScene) => void;
+}>();
 
 // Network
 export const UserUpdated = new TypedEvent<IUser>();

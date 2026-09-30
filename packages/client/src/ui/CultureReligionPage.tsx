@@ -2,7 +2,6 @@ import { Menu, Progress, ScrollArea, Switch } from "@mantine/core";
 import {
    cls,
    entriesOf,
-   formatDelta,
    formatNumber,
    formatPercent,
    hasFlag,
@@ -21,7 +20,7 @@ import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { GameStateUpdated } from "../game/Events";
 import { getProvinceTilesCached } from "../game/logic/CacheLogic";
 import {
-   ApostolicSeeChristianityYearly,
+   getApostolicSeeEffect,
    getApostolicSeeTiles,
    getChristianityYearly,
    getCulturalCohesion,
@@ -378,25 +377,13 @@ export function CultureReligionPage(): React.ReactNode {
             <TimedActionButton timedAction="AppointBishop" />
          </div>
          <div className="box m10">
-            <FloatingTip
-               label={() =>
-                  html(
-                     $t(
-                        L.ApostolicSeeEffects$1$2$3$4,
-                        formatDelta(ApostolicSeeChristianityYearly),
-                        Modifiers.ChristianityYearly.name(),
-                        formatDelta(ApostolicSeeChristianityYearly),
-                        Modifiers.ChristianityYearly.name(),
-                     ),
-                  )
-               }
-            >
+            <FloatingTip label={getApostolicSeeEffect}>
                <div className="h3 row">
                   <div className="f1">{$t(L.ApostolicSee)}</div>
                   <div className="mi xs text-dimmed">info</div>
                </div>
             </FloatingTip>
-            {getApostolicSeeTiles(G.save).map((tile) => {
+            {Array.from(getApostolicSeeTiles(G.save)).map((tile) => {
                const owner = G.save.state.tiles.get(tile)?.province;
                return (
                   <div key={tile} className="row mx10 my5">

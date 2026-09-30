@@ -19,7 +19,7 @@ import { CasusBelli } from "../game/definitions/CasusBelli";
 import type { Province } from "../game/definitions/Province";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
-import { GameStateUpdated } from "../game/Events";
+import { GameStateUpdated, LookAtTile } from "../game/Events";
 import { getMercenaryCost, getWarPower } from "../game/logic/ArmyLogic";
 import { monthToDate } from "../game/logic/GameDateTime";
 import { getAvailablePeaceTreatyOptions } from "../game/logic/PeaceTreatyLogic";
@@ -38,7 +38,6 @@ import {
    WarLogFlag,
    WarResult,
 } from "../game/logic/WarLogic";
-import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -236,14 +235,15 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                               key={tile}
                               onClick={() => {
                                  hideModal();
-                                 G.scene
-                                    .getCurrent(WorldScene)
-                                    ?.lookAt(tile, { time: 0.2 })
-                                    .then((scene) => {
+                                 LookAtTile.emit({
+                                    tile,
+                                    time: 0.2,
+                                    onComplete: (scene) => {
                                        scene.drawSelectors(new Set([tile]));
                                        scene.drawProvinceOutline(tileData.province);
                                        showPanel(TilePage, { tile });
-                                    });
+                                    },
+                                 });
                               }}
                            >
                               {$t(L.View)}

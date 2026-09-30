@@ -4750,4 +4750,5 @@ export const RU = {
    PromoteTheOfficersGuardingOurPorts: "Повысить офицеров, охраняющих наши порты",
    PetitionForAnImperialMandate: "Подать прошение об императорском мандате",
    ProvinceAnatolianLeague: "Анатолийская лига",
+   $1IsAnApostolicSee: "$1 — апостольская кафедра",
 };

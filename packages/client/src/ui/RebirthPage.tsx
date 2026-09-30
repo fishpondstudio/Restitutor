@@ -6,6 +6,7 @@ import { Culture } from "../game/definitions/Culture";
 import { AlwaysFreeProvinces, Province } from "../game/definitions/Province";
 import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { Religion } from "../game/definitions/Religion";
+import { LookAtTile } from "../game/Events";
 import { getAllEvents } from "../game/events/GameEventLogic";
 import { GameEvents } from "../game/events/GameEvents";
 import { GameOptionFlag } from "../game/GameOption";
@@ -16,7 +17,6 @@ import { getProvinceName, getProvinceOriginalGreatWorks } from "../game/logic/Pr
 import { purchaseMobile, restorePurchaseMobile } from "../game/Mobile";
 import { isMobilePlatform } from "../game/NativeUtils";
 import { Scenarios } from "../game/scenarios/Scenarios";
-import { WorldScene } from "../scenes/WorldScene";
 import { G, GameFlags } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { BreakdownComp } from "./BreakdownComp";
@@ -87,10 +87,11 @@ export function RebirthPage(): React.ReactNode {
                         setProvince(province);
                         const capital = G.save.state.provinces[province]?.capital;
                         if (capital) {
-                           G.scene
-                              .getCurrent(WorldScene)
-                              ?.lookAt(capital, { time: 0.2 })
-                              .then((scene) => scene.drawProvinceOutline(province));
+                           LookAtTile.emit({
+                              tile: capital,
+                              time: 0.2,
+                              onComplete: (scene) => scene.drawProvinceOutline(province),
+                           });
                         }
                      }
                   }}

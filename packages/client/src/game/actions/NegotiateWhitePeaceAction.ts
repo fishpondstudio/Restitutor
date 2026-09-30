@@ -8,11 +8,11 @@ import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { RefreshTiles } from "../Events";
+import { showGameEventModal } from "../events/GameEventLogic";
 import type { SaveGame } from "../GameState";
 import { getRelation } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { addProvinceResource } from "../logic/ResourceLogic";
-import { showGameEventModal } from "../logic/TickProvince";
 import {
    getTruceDuration,
    type IWar,

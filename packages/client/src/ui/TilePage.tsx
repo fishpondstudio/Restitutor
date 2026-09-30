@@ -20,6 +20,7 @@ import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
+import { getApostolicSeeEffect, getApostolicSeeTiles } from "../game/logic/InternalAffairsLogic";
 import { getMapBackgroundColor } from "../game/logic/MapColor";
 import { getProvinceName, getProvinceStat } from "../game/logic/ProvinceLogic";
 import {
@@ -45,6 +46,7 @@ import { AppeaseButton } from "./AppeaseButton";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
 import { ConvertCultureButton } from "./ConvertCultureButton";
 import { CrackDownButton } from "./CrackDownButton";
+import { CultureReligionPage } from "./CultureReligionPage";
 import { CircleComp } from "./common/CircleComp";
 import { showPanel } from "./common/ShowPanel";
 import { SidebarComp, SidebarImageHeader } from "./common/SidebarComp";
@@ -206,6 +208,14 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   <CircleComp color={religionStatus.color} />
                </FloatingTip>
             </div>
+            {getApostolicSeeTiles(G.save).has(tile) && (
+               <FloatingTip label={getApostolicSeeEffect}>
+                  <div className="row my5 text-primary pointer" onClick={() => showPanel(CultureReligionPage, {})}>
+                     <div className="f1">{$t(L.$1IsAnApostolicSee, getTileName(tile, G.save))}</div>
+                     <div className="mi sm">church</div>
+                  </div>
+               </FloatingTip>
+            )}
             {war && (
                <FloatingTip
                   className="p0"

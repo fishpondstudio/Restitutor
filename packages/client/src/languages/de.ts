@@ -4860,4 +4860,5 @@ export const DE = {
    PromoteTheOfficersGuardingOurPorts: "Die Offiziere befördern, die unsere Häfen bewachen",
    PetitionForAnImperialMandate: "Um ein kaiserliches Mandat ersuchen",
    ProvinceAnatolianLeague: "Anatolische Liga",
+   $1IsAnApostolicSee: "$1 ist ein apostolischer Sitz",
 };

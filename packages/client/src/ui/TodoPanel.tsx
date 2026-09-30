@@ -4,6 +4,7 @@ import { canDoAction } from "../game/actions/GameAction";
 import { GrantSocialClassBonusAction } from "../game/actions/GrantSocialClassBonusAction";
 import { CanTradeCostCondition } from "../game/actions/TradeActions";
 import { CasusBelli } from "../game/definitions/CasusBelli";
+import { PendingGameEventTimeoutMonths } from "../game/definitions/Constant";
 import { TreatyNames } from "../game/definitions/Diplomacy";
 import { Goods } from "../game/definitions/Goods";
 import type { Province } from "../game/definitions/Province";
@@ -33,7 +34,6 @@ import {
 import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { getAgendas, isSocialClassDisloyal, isSocialClassDominant } from "../game/logic/SocialClassLogic";
 import { getTechsCanBeResearched, hasResearched } from "../game/logic/TechLogic";
-import { PendingGameEventTimeoutMonths } from "../game/logic/TickProvince";
 import { getTileUnrest } from "../game/logic/TileLogic";
 import { getTimedActionTimeLeft, makeGameAction } from "../game/logic/TimedActionLogic";
 import {

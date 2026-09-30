@@ -9,6 +9,7 @@ import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { RefreshTiles } from "../Events";
+import { showGameEventModal } from "../events/GameEventLogic";
 import type { SaveGame } from "../GameState";
 import { toConditions } from "../logic/Calculation";
 import {
@@ -20,7 +21,6 @@ import {
 import { hasLegacyUpgrade } from "../logic/LegacyUpgradeLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { addProvinceStat, getProvinceName } from "../logic/ProvinceLogic";
-import { showGameEventModal } from "../logic/TickProvince";
 import { requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import {
    getWarCoalitions,

@@ -1,11 +1,12 @@
-import { forEach, hasFlag, type Tile } from "@project/shared/src/utils/Helper";
+import { forEach, formatDelta, hasFlag, type Tile } from "@project/shared/src/utils/Helper";
+import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
 import type { Culture } from "../definitions/Culture";
-import { makeModifierGetter } from "../definitions/Modifier";
+import { Modifiers, makeModifierGetter } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { isChristianReligion, Religion } from "../definitions/Religion";
-import { ApostolicSeeTiles, Tiles } from "../definitions/TileConstants";
+import { ApostolicSeeTiles, ApostolicSeeTilesWithConstantinople } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import { TimedActions } from "../definitions/TimedAction";
 import { GameStateFlags, type SaveGame } from "../GameState";
@@ -181,11 +182,23 @@ export function getProvinceCultures(province: Province, save: SaveGame): Set<Cul
    return cultures;
 }
 
-export function getApostolicSeeTiles(save: SaveGame): Tile[] {
+export function getApostolicSeeTiles(save: SaveGame): Set<Tile> {
    if (hasFlag(save.state.flags, GameStateFlags.ConstantinopleApostolicSee)) {
-      return [...ApostolicSeeTiles, Tiles.Constantinople];
+      return ApostolicSeeTilesWithConstantinople;
    }
    return ApostolicSeeTiles;
 }
 
 export const ApostolicSeeChristianityYearly = 1;
+
+export function getApostolicSeeEffect(): React.ReactNode {
+   return html(
+      $t(
+         L.ApostolicSeeEffects$1$2$3$4,
+         formatDelta(ApostolicSeeChristianityYearly),
+         Modifiers.ChristianityYearly.name(),
+         formatDelta(ApostolicSeeChristianityYearly),
+         Modifiers.ChristianityYearly.name(),
+      ),
+   );
+}

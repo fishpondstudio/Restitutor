@@ -1,7 +1,21 @@
-import { clamp, entriesOf, filterOf, forEach, isNullOrUndefined, sizeOf } from "@project/shared/src/utils/Helper";
+import {
+   clamp,
+   entriesOf,
+   filterOf,
+   forEach,
+   hasFlag,
+   isNullOrUndefined,
+   sizeOf,
+} from "@project/shared/src/utils/Helper";
 import type React from "react";
+import type { ComponentProps, ElementType } from "react";
+import type { PanelIdentity } from "../../ui/common/PanelTypes";
+import { showPanel } from "../../ui/common/ShowPanel";
 import { html } from "../../ui/components/RenderHTMLComp";
+import { GameEventModal } from "../../ui/GameEventModal";
+import { G, GameFlags } from "../../utils/Global";
 import { $t, L, markupText } from "../../utils/i18n";
+import { unlockAchievement } from "../Achievement";
 import type { Province } from "../definitions/Province";
 import { ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
@@ -13,6 +27,7 @@ import { type ConditionChecks, defineConditionChecks } from "../logic/Calculatio
 import { getGameDate } from "../logic/GameDateTime";
 import { getAnnexedTiles, getProvinceName } from "../logic/ProvinceLogic";
 import { hasResearched } from "../logic/TechLogic";
+import { startTimedAction } from "../logic/TimedActionLogic";
 import { type Scenario, Scenarios } from "../scenarios/Scenarios";
 import { GameEventOrder } from "./GameEventOrder";
 import { type GameEvent, GameEvents, type IGameEventButton, type IGameEventCondition } from "./GameEvents";
@@ -265,4 +280,32 @@ export function cloneGameEventButton(button: IGameEventButton): IGameEventButton
       cloned.custom = button.custom;
    }
    return cloned;
+}
+
+export function addGameEvent(event: GameEvent, province: Province, save: SaveGame): void {
+   if (!getAllEvents(save.state.scenario).has(event)) {
+      return;
+   }
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   state.events.set(event, { month: save.state.month });
+   startTimedAction("GameEventTimer", province, save);
+   if (province === save.state.playerProvince) {
+      const achievement = GameEvents[event].achievement;
+      if (achievement) {
+         unlockAchievement(achievement);
+      }
+      showGameEventModal(GameEventModal, { event });
+   }
+}
+
+export function showGameEventModal<Component extends ElementType & PanelIdentity>(
+   Component: Component,
+   props: NoInfer<ComponentProps<Component>>,
+): void {
+   if (!hasFlag(G.flags, GameFlags.Sandbox)) {
+      showPanel(Component, props);
+   }
 }

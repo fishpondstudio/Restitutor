@@ -4785,4 +4785,5 @@ export const EN = {
    PromoteTheOfficersGuardingOurPorts: "Promote the officers guarding our ports",
    PetitionForAnImperialMandate: "Petition for an imperial mandate",
    ProvinceAnatolianLeague: "Anatolian League",
+   $1IsAnApostolicSee: "$1 is an apostolic see",
 };

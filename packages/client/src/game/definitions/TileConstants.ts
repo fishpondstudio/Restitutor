@@ -215,4 +215,5 @@ export const OceanLabels: Record<Tile, () => string> = {
    10616907: () => $t(L.OceanPontusEuxinus),
 };
 
-export const ApostolicSeeTiles: Tile[] = [10747993, 10813524, 10485850, 9502797] as const;
+export const ApostolicSeeTiles = new Set([10747993, 10813524, 10485850, 9502797]);
+export const ApostolicSeeTilesWithConstantinople = new Set([...ApostolicSeeTiles, Tiles.Constantinople]);

@@ -4613,4 +4613,5 @@ export const ZH_CN = {
    PromoteTheOfficersGuardingOurPorts: "晋升守卫港口的军官",
    PetitionForAnImperialMandate: "请授帝国授权令",
    ProvinceAnatolianLeague: "安纳托利亚联盟",
+   $1IsAnApostolicSee: "$1是使徒教座",
 };

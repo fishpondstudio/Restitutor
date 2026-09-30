@@ -3,6 +3,7 @@ import { clearFlag, hasFlag, setFlag } from "@project/shared/src/utils/Helper";
 import { useLayoutEffect, useRef, useState } from "react";
 import { GameOptionUpdated, GameStateUpdated } from "../game/Events";
 import {
+   addGameEvent,
    getAvailableEvents,
    getEventButtons,
    getGameEventButtonDesc,
@@ -10,7 +11,6 @@ import {
 } from "../game/events/GameEventLogic";
 import { type GameEvent, GameEvents } from "../game/events/GameEvents";
 import { GameOptionFlag } from "../game/GameOption";
-import { addGameEvent } from "../game/logic/TickProvince";
 import { G, isDev } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";

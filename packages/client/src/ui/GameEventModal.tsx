@@ -1,4 +1,5 @@
 import { formatNumber, randOne } from "@project/shared/src/utils/Helper";
+import { PendingGameEventTimeoutMonths } from "../game/definitions/Constant";
 import { GameStateUpdated } from "../game/Events";
 import {
    applyGameEventButton,
@@ -8,7 +9,6 @@ import {
    getGameEventImages,
 } from "../game/events/GameEventLogic";
 import { type GameEvent, GameEvents } from "../game/events/GameEvents";
-import { PendingGameEventTimeoutMonths } from "../game/logic/TickProvince";
 import { openUrl } from "../rpc/SteamClient";
 import { G } from "../utils/Global";
 import { useTypedEvent } from "../utils/Hook";
