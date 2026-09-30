@@ -1,7 +1,6 @@
 import {
    clamp,
    clearFlag,
-   entriesOf,
    filterInPlace,
    forEach,
    hasFlag,
@@ -9,10 +8,7 @@ import {
    numberToRoman,
    randOne,
 } from "@project/shared/src/utils/Helper";
-import type { ComponentProps, ElementType } from "react";
-import type { PanelIdentity } from "../../ui/common/PanelTypes";
 import { showPanel } from "../../ui/common/ShowPanel";
-import { GameEventModal } from "../../ui/GameEventModal";
 import { GovernorWithoutHeirModal } from "../../ui/GovernorWithoutHeirModal";
 import { IllegitimateChildModal } from "../../ui/IllegitimateChildModal";
 import { startTrack } from "../../ui/Music";
@@ -23,24 +19,29 @@ import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
 import { playSound } from "../../ui/Sound";
 import { G, GameFlags } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
-import { unlockAchievement } from "../Achievement";
-import { finalizeCondition } from "../actions/GameAction";
+import { PendingGameEventTimeoutMonths } from "../definitions/Constant";
 import type { IGovernorFamily } from "../definitions/Family";
 import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
-import { ProvinceFlags } from "../definitions/ProvinceState";
 import { addProvinceUpgrade, removeProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { isChristianReligion } from "../definitions/Religion";
 import { RestorationBonus } from "../definitions/RestorationBonus";
 import { TimedActions } from "../definitions/TimedAction";
 import { RefreshTiles } from "../Events";
-import { applyGameEventButton, getEventButtons, getGameEventCondition } from "../events/GameEventLogic";
+import {
+   addGameEvent,
+   applyGameEventButton,
+   getAllEvents,
+   getEventButtons,
+   getGameEventCondition,
+   showGameEventModal,
+} from "../events/GameEventLogic";
 import { type GameEvent, GameEvents } from "../events/GameEvents";
 import { applyGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { showWarning } from "./AlertLogic";
 import { ArmyMoraleMonthlyIncrease } from "./ArmyLogic";
-import { automaticallySettleUnrest } from "./AutonomyLogic";
+import { tickAutomation } from "./AutomationLogic";
 import { calculateTilesConnectedToCapital } from "./CacheLogic";
 import { cleanUpProvince } from "./CleanupProvince";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
@@ -66,16 +67,12 @@ import {
    getProvinceStat,
    getProvinceTileCount,
    getRestoration,
-   pledgeProvinceConsulVotes,
-   pledgeProvinceConsulVotesConditions,
    setProvinceStat,
 } from "./ProvinceLogic";
 import { addProvinceResource, getProvinceResource, spendProvinceResource } from "./ResourceLogic";
 import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
-
-export const PendingGameEventTimeoutMonths = 12;
 
 export function tickProvince(province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
@@ -106,7 +103,8 @@ export function tickProvince(province: Province, save: SaveGame): void {
       });
    });
 
-   for (const [key, config] of entriesOf(GameEvents)) {
+   for (const key of getAllEvents(save.state.scenario)) {
+      const config = GameEvents[key];
       if (config.type === "random") {
          continue;
       }
@@ -134,7 +132,8 @@ export function tickProvince(province: Province, save: SaveGame): void {
 
    if (getTimedActionCooldownLeft("GameEventTimer", province, save) <= 0) {
       const candidates: GameEvent[] = [];
-      forEach(GameEvents, (key, config) => {
+      getAllEvents(save.state.scenario).forEach((key) => {
+         const config = GameEvents[key];
          if (config.type === "random") {
             candidates.push(key);
          }
@@ -159,7 +158,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
       }
    }
 
-   const monthOfYear = getGameDate(save.state.tick).getMonth();
+   const monthOfYear = getGameDate(save.state.tick, save).getMonth();
    if (monthOfYear === TickFamilyMonth) {
       const family = state.governor;
       const result = tickFamily(family, province, save);
@@ -341,10 +340,6 @@ export function tickProvince(province: Province, save: SaveGame): void {
       }
    }
 
-   if (hasFlag(state.flags, ProvinceFlags.AutomaticallySettleUnrest)) {
-      automaticallySettleUnrest(province, save);
-   }
-
    tickProduction(province, save);
 
    const interestRate = getMonthlyInterestRate(province, save).value;
@@ -364,39 +359,8 @@ export function tickProvince(province: Province, save: SaveGame): void {
       }
    }
 
-   if (
-      hasFlag(state.flags, ProvinceFlags.AutomaticallyPledgeSupport) &&
-      finalizeCondition(pledgeProvinceConsulVotesConditions(province, save)).value
-   ) {
-      pledgeProvinceConsulVotes(province, save);
-   }
-
    tickRestoration(province, save);
-}
-
-export function addGameEvent(event: GameEvent, province: Province, save: SaveGame): void {
-   const state = save.state.provinces[province];
-   if (!state) {
-      return;
-   }
-   state.events.set(event, { month: save.state.month });
-   startTimedAction("GameEventTimer", province, save);
-   if (province === save.state.playerProvince) {
-      const achievement = GameEvents[event].achievement;
-      if (achievement) {
-         unlockAchievement(achievement);
-      }
-      showGameEventModal(GameEventModal, { event });
-   }
-}
-
-export function showGameEventModal<Component extends ElementType & PanelIdentity>(
-   Component: Component,
-   props: NoInfer<ComponentProps<Component>>,
-): void {
-   if (!hasFlag(G.flags, GameFlags.Sandbox)) {
-      showPanel(Component, props);
-   }
+   tickAutomation(province, save);
 }
 
 const _restorationShown = new Set<number>();

@@ -1,5 +1,5 @@
 import { $t, L } from "../../utils/i18n";
-import { getOriginalTileCount } from "../GameState";
+import { Province } from "../definitions/Province";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import { allCoreTileChecks, forcePatronageEffect, maxCoreTileChecks } from "../logic/MissionLogic";
@@ -554,7 +554,7 @@ export const DalmatiaEvents = {
          province: new Set(["Dalmatia"]),
          onMap: { Pannonia: true },
          annexAndCore: {
-            Pannonia: Math.ceil(getOriginalTileCount("Pannonia") * 0.7),
+            Pannonia: Math.ceil(Province.Pannonia.tiles.length * 0.7),
          },
          conditions: function* (province, save): ConditionChecks {
             yield* maxCoreTileChecks(3, "Pannonia", save);

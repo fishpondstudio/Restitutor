@@ -1,56 +1,66 @@
 import { hslToRgb } from "@project/shared/src/thirdparty/RandomColor";
 import { forEach, fromEntries, pointToTile, range, tileToPoint } from "@project/shared/src/utils/Helper";
-import { type Province, Provinces } from "../definitions/Province";
+import { Province, Provinces } from "../definitions/Province";
 import { SpawnedProvinces } from "../definitions/SpawnedProvince";
+import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
-import { RomeMap } from "../RomeMap";
+import { getInitialTiles } from "../scenarios/Scenarios";
 
 const Hues = range(0, Provinces.length).map((i) => (i * 360) / Provinces.length);
-const AdjacentProvinces = buildAdjacentProvinces();
+let _mapColorsH: Record<Province, number>;
+let _mapBackgroundColors: Record<Province, number>;
+let _mapForegroundColors: Record<Province, number>;
+let _mapTextColors: Record<Province, number>;
 
-export const MapColorsH: Record<Province, number> = assignProvinceHues(AdjacentProvinces);
+export function getMapColorH(province: Province, save: SaveGame): number {
+   if (!_mapColorsH) {
+      initMapColors(save);
+   }
+   return _mapColorsH[province];
+}
 
-export const MapBackgroundColors: Record<Province, number> = fromEntries(
-   Provinces.map((province) => {
-      const h = MapColorsH[province];
-      const s = 65;
-      const l = 85;
-      return [province, hslToRgb(h, s, l)];
-   }),
-);
+export function getMapBackgroundColor(province: Province, save: SaveGame): number {
+   if (!_mapBackgroundColors) {
+      initMapColors(save);
+   }
+   return _mapBackgroundColors[province];
+}
 
-export const MapForegroundColors: Record<Province, number> = fromEntries(
-   Provinces.map((province) => {
-      const h = MapColorsH[province];
-      const s = 40;
-      const l = 50;
-      return [province, hslToRgb(h, s, l)];
-   }),
-);
+export function getMapForegroundColor(province: Province, save: SaveGame): number {
+   if (!_mapForegroundColors) {
+      initMapColors(save);
+   }
+   return _mapForegroundColors[province];
+}
 
-export const MapTextColors: Record<Province, number> = fromEntries(
-   Provinces.map((province) => {
-      const h = MapColorsH[province];
-      const s = 25;
-      const l = 35;
-      return [province, hslToRgb(h, s, l)];
-   }),
-);
+export function getMapTextColor(province: Province, save: SaveGame): number {
+   if (!_mapTextColors) {
+      initMapColors(save);
+   }
+   return _mapTextColors[province];
+}
+
+function initMapColors(save: SaveGame): void {
+   _mapColorsH = assignProvinceHues(buildAdjacentProvinces(save));
+   _mapBackgroundColors = fromEntries(Provinces.map((province) => [province, hslToRgb(_mapColorsH[province], 65, 85)]));
+   _mapForegroundColors = fromEntries(Provinces.map((province) => [province, hslToRgb(_mapColorsH[province], 40, 50)]));
+   _mapTextColors = fromEntries(Provinces.map((province) => [province, hslToRgb(_mapColorsH[province], 25, 35)]));
+}
 
 function addAdjacency(province1: Province, province2: Province, adjacency: Record<Province, Set<Province>>) {
    adjacency[province1].add(province2);
    adjacency[province2].add(province1);
 }
 
-function buildAdjacentProvinces(): Record<Province, Set<Province>> {
+function buildAdjacentProvinces(save: SaveGame): Record<Province, Set<Province>> {
    const adjacency = fromEntries(Provinces.map((province) => [province, new Set<Province>()]));
-   for (const [tile, data] of RomeMap) {
-      const province = data.province;
+   const initialTiles = getInitialTiles(save.state.scenario);
+   for (const [tile, province] of initialTiles) {
       if (!province) {
          continue;
       }
       for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
-         const neighborProvince = RomeMap.get(pointToTile(neighbor))?.province;
+         const neighborProvince = initialTiles.get(pointToTile(neighbor));
          if (neighborProvince && neighborProvince !== province) {
             adjacency[province].add(neighborProvince);
             adjacency[neighborProvince].add(province);
@@ -58,10 +68,10 @@ function buildAdjacentProvinces(): Record<Province, Set<Province>> {
       }
    }
 
-   forEach(SpawnedProvinces, (province, config) => {
-      config.tiles.forEach((tile) => {
+   forEach(SpawnedProvinces, (province) => {
+      Province[province].tiles.forEach((tile) => {
          for (const neighbor of MapGrid.getNeighbors(tileToPoint(tile))) {
-            const neighborProvince = RomeMap.get(pointToTile(neighbor))?.province;
+            const neighborProvince = initialTiles.get(pointToTile(neighbor));
             if (neighborProvince && neighborProvince !== province) {
                adjacency[province].add(neighborProvince);
                adjacency[neighborProvince].add(province);
@@ -69,13 +79,6 @@ function buildAdjacentProvinces(): Record<Province, Set<Province>> {
          }
       });
    });
-
-   addAdjacency("Corsica", "Sardinia", adjacency);
-   addAdjacency("Corsica", "Italia", adjacency);
-   addAdjacency("Sardinia", "Italia", adjacency);
-   addAdjacency("Britannia", "Lugdunensis", adjacency);
-   addAdjacency("Britannia", "Belgica", adjacency);
-   addAdjacency("Britannia", "Germania", adjacency);
 
    return adjacency;
 }

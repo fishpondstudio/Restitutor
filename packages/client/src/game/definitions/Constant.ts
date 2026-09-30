@@ -1,4 +1,4 @@
-export const VersionNumber = 27;
+export const VersionNumber = 28;
 export const Version = `0.${VersionNumber}`;
 export const SupportedSaveVersion = 11;
 export const GoldenRatio = (1 + Math.sqrt(5)) / 2;
@@ -18,3 +18,4 @@ export const BackupCount = 10;
 
 export const SocialClassBonusDefaultDuration = 12 * 5;
 export const HunsSpawnYear = 445;
+export const PendingGameEventTimeoutMonths = 12;

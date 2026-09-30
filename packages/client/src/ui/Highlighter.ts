@@ -3,7 +3,7 @@ import { rgbToHex } from "@project/shared/src/thirdparty/RandomColor";
 import { safeParseInt } from "@project/shared/src/utils/Helper";
 import type { Province } from "../game/definitions/Province";
 import type { Tech } from "../game/definitions/Tech";
-import { MapForegroundColors } from "../game/logic/MapColor";
+import { getMapForegroundColor } from "../game/logic/MapColor";
 import { ProvinceSelectorPrefix, TechSelectorPrefix } from "../game/ProvinceSelector";
 import { getCurrentTutorial } from "../game/TutorialLogic";
 import { TechTreeScene } from "../scenes/TechTreeScene";
@@ -36,7 +36,7 @@ function tickHighlighter(): void {
          const labelRect = G.scene.getCurrent(WorldScene)?.getProvinceLabelRect(province);
          if (labelRect) {
             rect = new DOMRect(labelRect.min.x - 5, labelRect.min.y - 5, labelRect.width + 10, labelRect.height + 10);
-            highlighter.style.backgroundColor = rgbToHex(MapForegroundColors[province]);
+            highlighter.style.backgroundColor = rgbToHex(getMapForegroundColor(province, G.save));
          }
       } else if (selector.startsWith(TechSelectorPrefix)) {
          const tech = selector.slice(TechSelectorPrefix.length) as Tech;

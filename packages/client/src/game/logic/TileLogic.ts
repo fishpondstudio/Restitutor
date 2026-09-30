@@ -29,6 +29,7 @@ import {
    attachTileModifiersToCalculation,
 } from "./ModifierLogic";
 import {
+   countProvinceTiles,
    getNeighborProvinces,
    getProvinceName,
    getProvinceOverextension,
@@ -79,6 +80,12 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
       value: data.infrastructure + data.production + data.population,
    });
    attachTileModifiers(data.modifiers.GoverningCapacity, breakdown);
+   if (hasProvinceUpgrade("DevelopedAdministration", data.province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.DevelopedAdministration.name(),
+         value: -Math.min((data.infrastructure + data.production + data.population) * 0.01, 0.5),
+      });
+   }
    if (data.autonomy > 0) {
       breakdown.multiply.push({ name: $t(L.Autonomy), value: -data.autonomy * 0.005 });
    }
@@ -158,6 +165,12 @@ function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.Manpower, breakdown);
    attachModifiers("Manpower", breakdown, data.province, save);
+   if (hasProvinceUpgrade("DevelopedRecruitment", data.province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.DevelopedRecruitment.name(),
+         value: Math.min((data.infrastructure + data.production + data.population) * 0.01, 0.5),
+      });
+   }
    if (
       hasProvinceUpgrade("CapitalsOfProsperity", data.province, save) &&
       data.coreProvinces.has(data.province) &&
@@ -297,6 +310,12 @@ function _getTileDefense(tile: Tile, save: SaveGame): IValueBreakdown {
    }
    if (data.coreProvinces.has(data.province)) {
       breakdown.multiply.push({ name: $t(L.IsCore), value: +0.1 });
+      if (hasProvinceUpgrade("HellenicSolidarity", data.province, save)) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.HellenicSolidarity.name(),
+            value: Math.min(countProvinceTiles({ culture: "Greek", core: true }, data.province, save) * 0.01, 0.5),
+         });
+      }
    } else {
       breakdown.multiply.push({ name: $t(L.NotCore), value: -0.1 });
    }
@@ -421,6 +440,12 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.LandTax, breakdown);
    attachModifiers("LandTax", breakdown, data.province, save);
+   if (
+      hasProvinceUpgrade("DefensiveMobilization", data.province, save) &&
+      save.state.wars.some((war) => war.defender === data.province && war.actualWarScore < war.requiredWarScore)
+   ) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.DefensiveMobilization.name(), value: 0.25 });
+   }
    if (hasProvinceUpgrade("MilitaryTaxation", data.province, save)) {
       breakdown.multiply.push({
          name: ProvinceUpgrades.MilitaryTaxation.name(),
@@ -558,6 +583,12 @@ function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.TileOutput, breakdown);
    attachModifiers("TileOutput", breakdown, data.province, save);
+   if (
+      hasProvinceUpgrade("DefensiveMobilization", data.province, save) &&
+      save.state.wars.some((war) => war.defender === data.province && war.actualWarScore < war.requiredWarScore)
+   ) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.DefensiveMobilization.name(), value: 0.25 });
+   }
    if (hasProvinceUpgrade("CarpathianRiches", data.province, save) && data.coreProvinces.has(data.province)) {
       const terrain = getTileTerrain(tile);
       if (terrain === "Hill" || terrain === "Mountain") {

@@ -357,6 +357,68 @@ const _ProvinceUpgrades = {
       name: () => $t(L.SanctionedConquest),
       desc: () => $t(L.$1WarmongerPenalty, "-50%"),
    },
+   HellenicScholarship: {
+      name: () => $t(L.HellenicScholarship),
+      desc: () => $t(L.HellenicScholarshipDesc$1$2, "-1%", "-50%"),
+   },
+   DevelopedAdministration: {
+      name: () => $t(L.DevelopedAdministration),
+      desc: () => $t(L.DevelopedAdministrationDesc$1$2, "-1%", "-50%"),
+   },
+   PeacefulRenown: {
+      name: () => $t(L.PeacefulRenown),
+      desc: () => $t(L.PeacefulRenownDesc$1$2, "+1%", "+25%"),
+   },
+   DefensiveMandate: {
+      name: () => $t(L.DefensiveMandate),
+      desc: () => $t(L.DefensiveMandateDesc$1, "+1"),
+   },
+   DefensiveMobilization: {
+      name: () => $t(L.DefensiveMobilization),
+      desc: () => $t(L.DefensiveMobilizationDesc$1, "+25%"),
+   },
+   HellenicSolidarity: {
+      name: () => $t(L.HellenicSolidarity),
+      desc: () => $t(L.HellenicSolidarityDesc$1$2, "+1%", "+50%"),
+   },
+   MilitaryInnovation: {
+      name: () => $t(L.MilitaryInnovation),
+      desc: () => $t(L.MilitaryInnovationDesc$1$2, "+1%", "+25%"),
+   },
+   CulturalIntegration: {
+      name: () => $t(L.CulturalIntegration),
+      modifiers: {
+         CultureConversionCost: { type: "multiply", value: -0.2 },
+      },
+   },
+   CulturalAmbition: {
+      name: () => $t(L.CulturalAmbition),
+      desc: () => $t(L.CulturalAmbitionDesc$1, "20%"),
+   },
+   WartimeUnity: {
+      name: () => $t(L.WartimeUnity),
+      desc: () => $t(L.$1StabilityWhileAtWar, "+10"),
+   },
+   DevelopedRecruitment: {
+      name: () => $t(L.DevelopedRecruitment),
+      desc: () => $t(L.DevelopedRecruitmentDesc$1$2, "+1%", "+50%"),
+   },
+   CoastalCommerce: {
+      name: () => $t(L.CoastalCommerce),
+      desc: () => $t(L.$1TradeProfitForEachCoreCoastalTileUpTo$2, "+1%", "+50%"),
+   },
+   ExperiencedLeadership: {
+      name: () => $t(L.ExperiencedLeadership),
+      desc: () => $t(L.ExperiencedLeadershipDesc$1, "+1"),
+   },
+   MilitaryIndustry: {
+      name: () => $t(L.MilitaryIndustry),
+      desc: () => $t(L.MilitaryIndustryDesc$1$2, "+1%", "+25%"),
+   },
+   PluralisticRenown: {
+      name: () => $t(L.PluralisticRenown),
+      desc: () => $t(L.PluralisticRenownDesc$1$2, "+5%", "+25%"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

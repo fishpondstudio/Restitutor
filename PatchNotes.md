@@ -1,60 +1,76 @@
-## Dacia
+## Achaia
 
-Dacia province is now playable, with three unique Provincial Spirits:
+Achaia province is now playable, with three unique Provincial Spirits:
 
-- Infantry Predominance: Gain +1% War Power for each 1% infantry in the army composition, up to +25%.
-- Carpathian Riches: Gain +25% Tile Output on core Hill and Mountain tiles.
-- Highland Administration: Reduce Governing Cost on core Hill and Mountain tiles by 25%.
+- Hellenic Scholarship: Reduce Research Cost by 1% for each core tile with Greek culture, up to 50%.
+- Developed Administration: Reduce each tile's Governing Cost by 1% per level of Infrastructure, Production, and Population on that tile, up to 50%.
+- Peaceful Renown: Gain +1% Prestige for each point of positive Stability while at peace, up to +25%.
 
-Dacia also comes with 10 historical events spanning 213 - 454 AD and six new missions, including a shared Constantinople mission. These offer opportunities to expand into Moesia or Pannonia, secure ports on the Black Sea and Mediterranean, adopt Thracian culture while preserving Dacian customs, and form the Hunnic Empire.
+Achaia also comes with 10 historical events spanning 214–799 AD and seven new missions. These offer opportunities to bring Epirus under your patronage through marriage and an alliance or defense pact, expand into Macedonia, Italia, and Asia, and gain rewards for establishing footholds in Thracia and Dalmatia.
 
-## Moesia
+## Epirus
 
-Moesia province is now playable, with three unique Provincial Spirits:
+Epirus province is now playable, with three unique Provincial Spirits:
 
-- Military Supply Network: Reduce Army Maintenance by 1% for each Castra or Citadel on a core tile, up to a 25% reduction.
-- Military Taxation: Gain +0.5% Land Tax for each 1% Actual Conscription.
-- Sanctioned Conquest: Reduce the Warmonger Penalty by 50%.
+- Defensive Mandate: Gain +1 Consul Point after winning a war as lead defender.
+- Defensive Mobilization: Gain +25% Land Tax and Tile Output while fighting as lead defender. Multiple wars do not stack this bonus.
+- Hellenic Solidarity: Gain +1% Tile Defense on all core tiles for each core tile with Greek culture, up to +50%.
 
-Moesia also comes with 10 historical events spanning 196 - 599 AD and six new missions. These offer opportunities to conquer Dacia and Dalmatia, establish a Mediterranean foothold, secure Constantinople, and strengthen an expanding realm.
+Epirus also comes with 10 historical events spanning 231–732 AD and seven new missions, six shared with Achaia. Forge a marriage bond and an alliance or defense pact to bring Achaia under your patronage, then pursue expansion across Macedonia, Italia, and the wider Balkans.
 
-## Hunnic Empire
+## Macedonia
 
-- From 450 AD, Dacia and Pannonia can form the Hunnic Empire once the Huns are no longer on the map and all Hunnic starting tiles have been annexed and cored.
-- Forming the Hunnic Empire grants +100 Governing Capacity and unlocks Proclaim Conquest.
-- Proclaim Conquest grants a 5-year Conquest Mission casus belli against a province sharing a land border whose attitude towards us is negative.
-- Proclaim Conquest has a 5-year cooldown and no resource cost.
+Macedonia province is now playable, with three unique Provincial Spirits:
 
-## Culture Conversion
+- Military Innovation: Gain +1% War Power for each researched technology, up to +25%.
+- Cultural Integration: Reduce Culture Conversion Cost by 20%.
+- Cultural Ambition: Enemy tiles with your dominant or a tolerated culture contribute 20% less War Score.
 
-- Added an action to convert a core tile to its province's dominant culture using diplomatic points, with a 12-month cooldown.
-- Conversion cost scales with tile upgrades and previous conversions, and is affected by culture, religion, and legacy upgrades.
-- Culture conversion unlocks with Civic Assembly.
+Macedonia also comes with 10 historical events spanning 214–796 AD. New and expanded shared missions offer opportunities to bring Epirus under your patronage after annexing and coring Achaia, establish footholds in Italia and Dalmatia, expand through Moesia and Thracia, and secure the crossings into Asia and Bithynia.
 
-## Technology Unlocks
+## Asia
 
-- Relocating the capital and establishing regional capitals now unlock with Curial Reform.
+Asia province is now playable, with three unique Provincial Spirits:
 
-## Legacy Upgrade Tree Expansion & Balancing
+- Experienced Leadership: Gain +1 Stability for each General Skill Level across Infantry, Ranged, and Cavalry.
+- Military Industry: Gain +1% War Power per unit of production capacity allocated to Armor and Weapons combined, up to +25%.
+- Pluralistic Renown: Gain +5% Prestige for each tolerated culture or religion, up to +25% total.
 
-- Added 3 new upgrades granting +2 starting general skill points each.
-- Added a +50% infantry, ranged, and cavalry unit power upgrade to the military branch.
-- Added a +10% war power upgrade.
-- Changed +10 Prestige to +10% Prestige. Added a +10% Prestige.
-- Added a +10% tile output upgrade.
-- Added 2 upgrades that each reduce culture conversion cost by 10%.
-- Moved some upgrades to balance the legacy upgrade tree.
+Asia also comes with 10 historical events spanning 214–770 AD and five new missions. Press claims to Bithynia, Galatia, or Lycia, bring Lycia under your patronage, and gain rewards for annexing and coring Galatia and Bithynia. Expanding to three times your starting number of core tiles offers a permanent +10% bonus to Land Tax, Tile Output, or Trade Profit.
 
-## Social Class Agendas
+## Bithynia
 
-- Added five new agendas: +1 yearly Christian Influence for 5 years, +3 Christian Influence, +1 General Skill Point, +1 Consul Point, and +10% War Power for 5 years.
-- Agenda selection now uses the game seed, so available agendas vary between playthroughs.
+Bithynia province is now playable, with three unique Provincial Spirits:
 
-## Other Changes
+- Wartime Unity: Gain +10 Stability while at war.
+- Developed Recruitment: Each tile gains +1% Manpower per level of Infrastructure, Production, and Population on that tile, up to +50%.
+- Coastal Commerce: Gain +1% Trade Profit for each core coastal tile, up to +50%.
 
-- Added a todo when a social class agenda is available to adopt.
-- Added a todo for casus belli with less than 12 months remaining.
-- Fabricated Diplomatic Dispute casus belli now last 5 years instead of 2. Fabricate Casus Belli's cooldown increased from 4 to 5 years.
-- Allow trading a fraction of the Trade Capacity.
-- Proclaim Crusade now costs 1 Christianity instead of 25 diplomatic points.
-- Renamed the Rhosos map tile to Antioch.
+Bithynia also comes with 10 historical events spanning 258–727 AD and six new missions. Press claims to Asia, Cappadocia, or Galatia, earn rewards for establishing cores in these provinces and securing Hadrianoi and Sestos, and bring a diminished Asia under your patronage once Bithynia has at least 20 core tiles and Asia has at most five.
+
+## Anatolian League
+
+- Added a unification mission for Asia, Bithynia, Cappadocia, Cilicia, Galatia, and Lycia. Annex and core all six provinces to form the Anatolian League.
+- Masters of the Crossings and Between Two Seas are now available to Asia and Bithynia as well as Thracia and Macedonia.
+
+## Culture & Religion
+
+- Culture and religion is moved into a separate panel from Internal Affairs
+- Add a list of tiles in the province that has non-dominant culture and religion (can be converted directly in the page)
+- Added separate switches to automatically evangelize tiles with minor or tolerated religions and convert tiles with minor or tolerated cultures. These actions use the same costs and cooldowns as manual actions.
+
+## Apostolic Sees
+
+- Added Apostolic Sees in Rome, Alexandria, Antioch, and Jerusalem. Each annexed see grants +1 yearly Christian Influence.
+- Annexing all Apostolic Sees grants an additional +1 yearly Christian Influence per see.
+- Constantinople becomes an Apostolic See after the First Council of Constantinople event.
+- The Internal Affairs page now lists Apostolic Sees and their owners, with clickable links to their map locations.
+
+## QoLs
+
+- The Outstanding Loans todo now turns red and displays a bankruptcy warning when monthly interest cost exceeds 90% of monthly revenue.
+- Added an Automatically Core Tiles switch to Internal Affairs. When enabled, the province automatically makes an eligible non-core tile a core if it can afford the cost and the action is off cooldown.
+
+## Bugfixes
+
+- Fix a bug where hiding todos does not work correctly

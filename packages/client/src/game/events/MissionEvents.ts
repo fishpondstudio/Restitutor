@@ -1,16 +1,18 @@
 import { fromEntries, sizeOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
+import { Province } from "../definitions/Province";
 import { Tech } from "../definitions/Tech";
 import {
    EasternMediterraneanProvinces,
+   Tiles,
    WesternMediterraneanProvinces,
    WesternRomanEmpireProvinces,
 } from "../definitions/TileConstants";
-import { getOriginalTileCount } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import {
    allyCountChecks,
    eliminatedBarbariansChecks,
+   isCoreTileChecks,
    minCoreTileChecks,
    setProvinceNameOverrideEffect,
    techCountChecks,
@@ -52,7 +54,7 @@ export const MissionEvents = {
       condition: {
          conditions: function* (province, save): ConditionChecks {
             yield* isGreatPowerChecks(province, save);
-            yield* minCoreTileChecks(getOriginalTileCount(province) + 5, province, save);
+            yield* minCoreTileChecks(Province[province].tiles.length + 5, province, save);
          },
       },
       achievement: "BecomeGreatPower",
@@ -79,7 +81,7 @@ export const MissionEvents = {
       desc: () => $t(L.AProvinceTransformedDesc),
       condition: {
          conditions: function* (province, save): ConditionChecks {
-            yield* minCoreTileChecks(getOriginalTileCount(province) * 2, province, save);
+            yield* minCoreTileChecks(Province[province].tiles.length * 2, province, save);
          },
       },
       buttons: [
@@ -134,6 +136,37 @@ export const MissionEvents = {
                administrative: 60,
                diplomatic: 60,
                military: 60,
+            },
+         },
+      ],
+   },
+   Mission9: {
+      name: () => $t(L.TheSealsOfTwoCapitals),
+      image: EventImage.ImperialRescript,
+      desc: () => $t(L.TheSealsOfTwoCapitalsDesc),
+      condition: {
+         conditions: function* (province, save): ConditionChecks {
+            yield* isCoreTileChecks(Tiles.Rome, province, save);
+            yield* isCoreTileChecks(Tiles.Constantinople, province, save);
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.DelegateAuthorityToRegionalOffices),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 200 },
+            },
+         },
+         {
+            label: () => $t(L.UnifyTheChancelleriesProcedures),
+            modifiers: {
+               AdministrativePoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.EstablishASharedDiplomaticService),
+            modifiers: {
+               DiplomaticPoint: { type: "add", value: 1 },
             },
          },
       ],

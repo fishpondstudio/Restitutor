@@ -1,6 +1,7 @@
 import { cls, formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
+import { Province } from "../game/definitions/Province";
 import { ChristianHeresy, Religion } from "../game/definitions/Religion";
-import { type SpawnedProvince, SpawnedProvinces } from "../game/definitions/SpawnedProvince";
+import type { SpawnedProvince } from "../game/definitions/SpawnedProvince";
 import { LoomingDisasterYears, type UpcomingDisaster } from "../game/events/DisasterLogic";
 import { GameEvents } from "../game/events/GameEvents";
 import { formatYear, getGameDate } from "../game/logic/GameDateTime";
@@ -11,7 +12,7 @@ import { html } from "./components/RenderHTMLComp";
 import { renderMarkup } from "./ParseMarkup";
 
 export function DisasterCard({ disaster }: { disaster: UpcomingDisaster }): React.ReactNode {
-   const yearsLeft = disaster.year - getGameDate(G.save.state.tick).getFullYear();
+   const yearsLeft = disaster.year - getGameDate(G.save.state.tick, G.save).getFullYear();
    const looming = yearsLeft <= LoomingDisasterYears;
    const config = GameEvents[disaster.event];
    const provinces = Array.from(new Set(config.buttons.flatMap((button) => button.spawnProvinces ?? [])));
@@ -59,7 +60,7 @@ function SpawnProvinceAreasComp({ province }: { province: SpawnedProvince }): Re
             $t(
                L.ANewBarbarianPolity$1FormsAndTakesOverTheFollowingTiles$2,
                province,
-               SpawnedProvinces[province].tiles.map((tile) => `<Tile>${tile}</Tile>`).join(", "),
+               Province[province].tiles.map((tile) => `<Tile>${tile}</Tile>`).join(", "),
             ),
          )}
       </div>

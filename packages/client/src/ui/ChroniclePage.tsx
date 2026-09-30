@@ -16,7 +16,7 @@ export function ChroniclePage(): React.ReactNode {
    const [selectedYears, setSelectedYears] = useState<number[]>([]);
    const [scrollViewport, setScrollViewport] = useState<HTMLDivElement | null>(null);
    const filteredChronicle = G.save.state.chronicle.filter((entry) => {
-      if (selectedYears.length > 0 && !selectedYears.includes(monthToDate(entry.month).getFullYear())) {
+      if (selectedYears.length > 0 && !selectedYears.includes(monthToDate(entry.month, G.save).getFullYear())) {
          return false;
       }
       return true;
@@ -30,7 +30,10 @@ export function ChroniclePage(): React.ReactNode {
                   <MultiSelect
                      placeholder={$t(L.Years)}
                      checkIconPosition="right"
-                     data={range(monthToDate(0).getFullYear(), monthToDate(G.save.state.month).getFullYear() + 1)}
+                     data={range(
+                        monthToDate(0, G.save).getFullYear(),
+                        monthToDate(G.save.state.month, G.save).getFullYear() + 1,
+                     )}
                      value={selectedYears}
                      onChange={setSelectedYears}
                      searchable

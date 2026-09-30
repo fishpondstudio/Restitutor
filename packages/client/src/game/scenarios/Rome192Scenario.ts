@@ -1,0 +1,46 @@
+import { keysOf } from "@project/shared/src/utils/Helper";
+import { RomeEvents } from "../events/GameEvents";
+import type { IScenario } from "./Scenarios";
+
+export const Rome192Scenario: IScenario = {
+   startDate: new Date(192, 11, 31),
+   provinces: new Set([
+      "Achaia",
+      "Aegyptus",
+      "Africa",
+      "Aquitania",
+      "Asia",
+      "Baetica",
+      "Belgica",
+      "Bithynia",
+      "Britannia",
+      "Cappadocia",
+      "Cilicia",
+      "Corsica",
+      "Cyrenaica",
+      "Dacia",
+      "Dalmatia",
+      "Epirus",
+      "Galatia",
+      "Germania",
+      "Italia",
+      "Judea",
+      "Lusitania",
+      "Lycia",
+      "Lugdunensis",
+      "Macedonia",
+      "Mauretania",
+      "Moesia",
+      "Narbonensis",
+      "Noricum",
+      "Pannonia",
+      "Raetia",
+      "Sardinia",
+      "Sicilia",
+      "Syria",
+      "Tarraconensis",
+      "Thracia",
+   ]),
+   // Event definitions import scenario-aware logic, so defer reading the catalog until initialization finishes.
+   events: new Set(keysOf(RomeEvents)),
+};

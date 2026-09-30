@@ -30,13 +30,13 @@ import { Goods } from "../game/definitions/Goods";
 import { TileToGreatWork } from "../game/definitions/GreatWork";
 import type { Province } from "../game/definitions/Province";
 import { Religion } from "../game/definitions/Religion";
-import { NewSettlementTiles, OceanLabels } from "../game/definitions/TileConstants";
+import { getNewSettlementTiles, OceanLabels } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
-import { GameStateUpdated, RefreshOverlay, RefreshTiles } from "../game/Events";
+import { GameStateUpdated, LookAtTile, RefreshOverlay, RefreshTiles } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
 import { isLand, LandSize } from "../game/Land";
 import { isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
-import { MapBackgroundColors, MapColorsH, MapForegroundColors, MapTextColors } from "../game/logic/MapColor";
+import { getMapBackgroundColor, getMapColorH, getMapForegroundColor, getMapTextColor } from "../game/logic/MapColor";
 import { findProvinceLabelPosition } from "../game/logic/MapLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import {
@@ -52,7 +52,6 @@ import { MapGrid, TileHeight, TileWidth } from "../game/MapGrid";
 import { showPanel } from "../ui/common/ShowPanel";
 import { hideSidebar } from "../ui/common/SidebarManager";
 import { DiplomacyPage } from "../ui/DiplomacyPage";
-import { EditTilePage } from "../ui/EditTilePage";
 import { SettleTilePage } from "../ui/SettleTilePage";
 import { playSound } from "../ui/Sound";
 import { TilePage } from "../ui/TilePage";
@@ -94,7 +93,6 @@ export class WorldScene extends Scene {
    private _lastZoom = 0;
    private _tileWar = new Map<Tile, IWar>();
    private _clickTileHandler: ((tile: Tile, e: FederatedPointerEvent) => void) | undefined;
-   private readonly _isEditor: boolean;
 
    backgroundColor(): ColorSource {
       return OceanColor;
@@ -253,6 +251,15 @@ export class WorldScene extends Scene {
          }
       });
 
+      LookAtTile.on(({ tile, time, onComplete }) => {
+         if (!G.scene.isCurrent(WorldScene)) {
+            return;
+         }
+         this._lookAt(tile, { time }).then(() => {
+            onComplete?.(this);
+         });
+      });
+
       RefreshOverlay.on(() => {
          for (const [tile, tileData] of G.save.state.tiles) {
             this._renderOverlay(tile);
@@ -336,8 +343,6 @@ export class WorldScene extends Scene {
 
       this._selectedProvince = G.save.state.playerProvince;
       this.drawProvinceOutline(G.save.state.playerProvince);
-
-      this._isEditor = G.params.has("editor");
    }
 
    private _makeTile(tile: Tile): void {
@@ -349,7 +354,7 @@ export class WorldScene extends Scene {
       bg.anchor.set(0.5, 0.5);
       bg.position.set(x, y);
       if (tileData) {
-         bg.tint = MapBackgroundColors[tileData.province];
+         bg.tint = getMapBackgroundColor(tileData.province, G.save);
          // Capital
          let texture: Texture | undefined;
          if (isCapital(tile, G.save)) {
@@ -362,11 +367,11 @@ export class WorldScene extends Scene {
             star.anchor.set(0.5, 0.5);
             star.scale.set(0.4);
             star.position.set(x, y + 0.3 * TileHeight);
-            star.tint = MapForegroundColors[tileData.province];
+            star.tint = getMapForegroundColor(tileData.province, G.save);
          } else {
             this._capitalContainer.map.delete(tile);
          }
-      } else if (NewSettlementTiles.has(tile)) {
+      } else if (getNewSettlementTiles(G.save.state.scenario).has(tile)) {
          bg.tint = 0xe0ebe1;
       } else {
          bg.tint = 0xf2fcff;
@@ -391,12 +396,12 @@ export class WorldScene extends Scene {
             this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
-            visual.tint = MapForegroundColors[tileData.province];
+            visual.tint = getMapForegroundColor(tileData.province, G.save);
             break;
          }
          case "Terrain": {
             const visual = this._renderTerrain(tile);
-            visual.tint = hslToRgb(MapColorsH[tileData.province], 100, 25);
+            visual.tint = hslToRgb(getMapColorH(tileData.province, G.save), 100, 25);
             break;
          }
          case "Output": {
@@ -405,7 +410,7 @@ export class WorldScene extends Scene {
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
             visual.scale.set((0.75 * TileHeight) / TextureHeight);
-            visual.tint = MapForegroundColors[tileData.province];
+            visual.tint = getMapForegroundColor(tileData.province, G.save);
             break;
          }
          case "Upgrade": {
@@ -416,7 +421,7 @@ export class WorldScene extends Scene {
             this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
-            visual.tint = MapForegroundColors[tileData.province];
+            visual.tint = getMapForegroundColor(tileData.province, G.save);
             break;
          }
          case "Defense": {
@@ -427,7 +432,7 @@ export class WorldScene extends Scene {
             this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
-            visual.tint = MapForegroundColors[tileData.province];
+            visual.tint = getMapForegroundColor(tileData.province, G.save);
             break;
          }
          case "Maintenance": {
@@ -438,7 +443,7 @@ export class WorldScene extends Scene {
             this._overlayContainer.map.set(tile, visual);
             visual.anchor.set(0.5, 0.5);
             visual.position.set(x, y);
-            visual.tint = MapForegroundColors[tileData.province];
+            visual.tint = getMapForegroundColor(tileData.province, G.save);
             break;
          }
          case "GreatWorks": {
@@ -449,7 +454,7 @@ export class WorldScene extends Scene {
                visual.anchor.set(0.5, 0.5);
                visual.position.set(x, y - 5);
                visual.scale.set(0.5);
-               visual.tint = MapForegroundColors[tileData.province];
+               visual.tint = getMapForegroundColor(tileData.province, G.save);
                visual.visible = isGreatWorkCompleted(gw, G.save);
             } else {
                this._overlayContainer.map.delete(tile);
@@ -504,7 +509,7 @@ export class WorldScene extends Scene {
       const tileData = G.save.state.tiles.get(tile);
 
       if (!tileData) {
-         if (NewSettlementTiles.has(tile)) {
+         if (getNewSettlementTiles(G.save.state.scenario).has(tile)) {
             this._selectedTiles.clear();
             this._selectedTiles.add(tile);
             this.drawSelectors(this._selectedTiles);
@@ -522,43 +527,28 @@ export class WorldScene extends Scene {
          this.drawProvinceOutline(tileData.province);
       }
 
-      if (this._isEditor) {
-         if (e.ctrlKey) {
-            if (this._selectedTiles.has(tile)) {
-               this._selectedTiles.delete(tile);
-            } else {
-               this._selectedTiles.add(tile);
-            }
-         } else {
-            this._selectedTiles.clear();
-            this._selectedTiles.add(tile);
+      this._selectedTiles.clear();
+      if (e.button === 0) {
+         if (isDev()) {
+            console.log(G.save.state.tiles.get(tile));
          }
-         this.drawSelectors(this._selectedTiles);
-         showPanel(EditTilePage, { tiles: this._selectedTiles });
-      } else {
-         this._selectedTiles.clear();
-         if (e.button === 0) {
-            if (isDev()) {
-               console.log(G.save.state.tiles.get(tile));
-            }
-            this._selectedTiles.add(tile);
-            showPanel(TilePage, { tile });
-         }
-         if (e.button === 2) {
-            const tileData = G.save.state.tiles.get(tile);
-            if (tileData) {
-               showPanel(DiplomacyPage, { province: tileData.province });
-            }
-         }
-         this.drawSelectors(this._selectedTiles);
-         // if (e.button === 1) {
-         //    this._highlightedTiles.add(tile);
-         //    this._drawHighlighters(this._highlightedTiles);
-         // }
+         this._selectedTiles.add(tile);
+         showPanel(TilePage, { tile });
       }
+      if (e.button === 2) {
+         const tileData = G.save.state.tiles.get(tile);
+         if (tileData) {
+            showPanel(DiplomacyPage, { province: tileData.province });
+         }
+      }
+      this.drawSelectors(this._selectedTiles);
+      // if (e.button === 1) {
+      //    this._highlightedTiles.add(tile);
+      //    this._drawHighlighters(this._highlightedTiles);
+      // }
    }
 
-   public lookAt(tile: Tile, { time }: { time: number }): Promise<WorldScene> {
+   private _lookAt(tile: Tile, { time }: { time: number }): Promise<WorldScene> {
       return new Promise((resolve) => {
          const position = MapGrid.gridToPosition(tileToPoint(tile));
          // position.x += marginX + remToPx(SidebarWidth) / 2 / this.viewport.zoom;
@@ -793,9 +783,9 @@ export class WorldScene extends Scene {
       const indicator = this._indicatorContainer.map.set(tile, new Sprite(texture));
       indicator.anchor.set(0.5, 0.5);
       if (war) {
-         indicator.tint = MapForegroundColors[war.attacker];
+         indicator.tint = getMapForegroundColor(war.attacker, G.save);
       } else {
-         indicator.tint = MapForegroundColors[tileData.province];
+         indicator.tint = getMapForegroundColor(tileData.province, G.save);
       }
       indicator.alpha = 0.5;
       indicator.scale.set(TileHeight / TextureHeight);
@@ -959,7 +949,7 @@ export class WorldScene extends Scene {
             new UnicodeText(getProvinceName(province, G.save), {
                fontName: Fonts.RomanFont,
                fontSize: MapLabelFontSize,
-               tint: MapTextColors[province],
+               tint: getMapTextColor(province, G.save),
             }),
          );
          text.anchor.set(0.5, 0.5);
@@ -999,43 +989,5 @@ export class WorldScene extends Scene {
       selector.scale.set(TileHeight / TextureHeight);
       selector.anchor.set(0.5, 0.5);
       selector.alpha = 0.25;
-   }
-
-   private _enableTileEditor(): void {
-      const sprite = this.viewport.addChild(new Sprite());
-      sprite.scale.set(20.2);
-      sprite.anchor.set(0.5, 0.5);
-      sprite.position.set(17000, 9260);
-      sprite.alpha = 0.4;
-
-      document.addEventListener("keydown", (e) => {
-         switch (e.key) {
-            case "w": {
-               sprite.y -= 10;
-               break;
-            }
-            case "s": {
-               sprite.y += 10;
-               break;
-            }
-            case "a": {
-               sprite.x -= 10;
-               break;
-            }
-            case "d": {
-               sprite.x += 10;
-               break;
-            }
-            case "q": {
-               sprite.scale.set(sprite.scale.x + 0.01);
-               break;
-            }
-            case "e": {
-               sprite.scale.set(sprite.scale.x - 0.01);
-               break;
-            }
-         }
-         console.log(sprite.position.x, sprite.position.y, sprite.scale.x);
-      });
    }
 }

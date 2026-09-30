@@ -2,6 +2,7 @@ import type React from "react";
 import { Fragment, memo } from "react";
 import type { IChronicleEntry } from "../game/definitions/Chronicle";
 import { monthToDate } from "../game/logic/GameDateTime";
+import { G } from "../utils/Global";
 import { FloatingTip } from "./components/FloatingTip";
 import { renderMarkup } from "./ParseMarkup";
 
@@ -10,7 +11,7 @@ export const ChronicleEntryComp = memo(_ChronicleEntryComp, (prev, next) => {
 });
 
 function _ChronicleEntryComp({ entry }: { entry: IChronicleEntry }): React.ReactNode {
-   const date = monthToDate(entry.month);
+   const date = monthToDate(entry.month, G.save);
    return (
       <Fragment>
          <div className="m10 row">

@@ -1,22 +1,27 @@
 import { formatNumber, monthsBetween } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
+import type { SaveGame } from "../GameState";
+import { Scenarios } from "../scenarios/Scenarios";
 
-const StartDate = getGameDate(0);
-
-export function getGameDate(tick: number): Date {
-   return new Date(193, 0, tick, 0, 0, 0, 0);
+export function getGameDate(tick: number, save: SaveGame): Date {
+   const date = new Date(Scenarios[save.state.scenario].startDate.getTime());
+   date.setDate(date.getDate() + tick);
+   return date;
 }
 
-export function tickToMonth(tick: number): number {
-   return monthsBetween(StartDate, getGameDate(tick));
+export function tickToMonth(tick: number, save: SaveGame): number {
+   return monthsBetween(Scenarios[save.state.scenario].startDate, getGameDate(tick, save));
 }
 
-export function tickToYear(tick: number): number {
-   return getGameDate(tick).getFullYear() - StartDate.getFullYear();
+export function tickToYear(tick: number, save: SaveGame): number {
+   return getGameDate(tick, save).getFullYear() - Scenarios[save.state.scenario].startDate.getFullYear();
 }
 
-export function monthToDate(month: number): Date {
-   return new Date(193, month - 1, 1, 0, 0, 0, 0);
+export function monthToDate(month: number, save: SaveGame): Date {
+   const date = new Date(Scenarios[save.state.scenario].startDate.getTime());
+   date.setDate(1);
+   date.setMonth(date.getMonth() + month);
+   return date;
 }
 
 export function formatYear(year: number): string {

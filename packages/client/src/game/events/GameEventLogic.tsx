@@ -1,7 +1,21 @@
-import { clamp, entriesOf, filterOf, forEach, isNullOrUndefined, sizeOf } from "@project/shared/src/utils/Helper";
+import {
+   clamp,
+   entriesOf,
+   filterOf,
+   forEach,
+   hasFlag,
+   isNullOrUndefined,
+   sizeOf,
+} from "@project/shared/src/utils/Helper";
 import type React from "react";
+import type { ComponentProps, ElementType } from "react";
+import type { PanelIdentity } from "../../ui/common/PanelTypes";
+import { showPanel } from "../../ui/common/ShowPanel";
 import { html } from "../../ui/components/RenderHTMLComp";
+import { GameEventModal } from "../../ui/GameEventModal";
+import { G, GameFlags } from "../../utils/Global";
 import { $t, L, markupText } from "../../utils/i18n";
+import { unlockAchievement } from "../Achievement";
 import type { Province } from "../definitions/Province";
 import { ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
@@ -13,6 +27,9 @@ import { type ConditionChecks, defineConditionChecks } from "../logic/Calculatio
 import { getGameDate } from "../logic/GameDateTime";
 import { getAnnexedTiles, getProvinceName } from "../logic/ProvinceLogic";
 import { hasResearched } from "../logic/TechLogic";
+import { startTimedAction } from "../logic/TimedActionLogic";
+import { type Scenario, Scenarios } from "../scenarios/Scenarios";
+import { GameEventOrder } from "./GameEventOrder";
 import { type GameEvent, GameEvents, type IGameEventButton, type IGameEventCondition } from "./GameEvents";
 import type { ImageWithCredit } from "./ImageWithCredit";
 
@@ -118,7 +135,7 @@ export const getGameEventCondition = defineConditionChecks(function* (
    }
    if (condition.year) {
       const [startYear, endYear] = condition.year;
-      const currentYear = getGameDate(save.state.tick).getFullYear();
+      const currentYear = getGameDate(save.state.tick, save).getFullYear();
       if (startYear === endYear) {
          (yield currentYear === startYear)?.describe($t(L.In$1AD, startYear));
       } else if (startYear <= Number.NEGATIVE_INFINITY) {
@@ -180,6 +197,10 @@ export const getGameEventCondition = defineConditionChecks(function* (
    }
 });
 
+export function getAllEvents(scenario: Scenario): Set<GameEvent> {
+   return Scenarios[scenario].events;
+}
+
 export function getAvailableEvents(province: Province, showAll: boolean, save: SaveGame): GameEvent[] {
    const result: GameEvent[] = [];
    const state = save.state.provinces[province];
@@ -187,7 +208,8 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
       return result;
    }
    const usedEvents = state.usedEvents;
-   forEach(GameEvents, (key, config) => {
+   getAllEvents(save.state.scenario).forEach((key) => {
+      const config = GameEvents[key];
       if (config.type === "random") {
          return;
       }
@@ -204,7 +226,7 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
                return;
             }
          } else {
-            const currentYear = getGameDate(save.state.tick).getFullYear();
+            const currentYear = getGameDate(save.state.tick, save).getFullYear();
             if (currentYear < startYear || currentYear > endYear) {
                return;
             }
@@ -233,6 +255,9 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
       }
       result.push(key);
    });
+   result.sort((a, b) => {
+      return (GameEvents[a].order ?? GameEventOrder.Standard) - (GameEvents[b].order ?? GameEventOrder.Standard);
+   });
    return result;
 }
 
@@ -255,4 +280,32 @@ export function cloneGameEventButton(button: IGameEventButton): IGameEventButton
       cloned.custom = button.custom;
    }
    return cloned;
+}
+
+export function addGameEvent(event: GameEvent, province: Province, save: SaveGame): void {
+   if (!getAllEvents(save.state.scenario).has(event)) {
+      return;
+   }
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   state.events.set(event, { month: save.state.month });
+   startTimedAction("GameEventTimer", province, save);
+   if (province === save.state.playerProvince) {
+      const achievement = GameEvents[event].achievement;
+      if (achievement) {
+         unlockAchievement(achievement);
+      }
+      showGameEventModal(GameEventModal, { event });
+   }
+}
+
+export function showGameEventModal<Component extends ElementType & PanelIdentity>(
+   Component: Component,
+   props: NoInfer<ComponentProps<Component>>,
+): void {
+   if (!hasFlag(G.flags, GameFlags.Sandbox)) {
+      showPanel(Component, props);
+   }
 }

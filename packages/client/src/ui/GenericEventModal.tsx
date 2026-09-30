@@ -27,11 +27,13 @@ export function GenericEventModal({
       if (!hasFlag(G.save.options.flag, GameOptionFlag.PauseGameOnEvent)) {
          return;
       }
+      let paused = false;
       if (G.speed > 0) {
+         paused = true;
          setSpeed(0);
       }
       return () => {
-         if (G.speed <= 0) revertSpeed();
+         if (G.speed <= 0 && paused) revertSpeed();
       };
    }, []);
    return (

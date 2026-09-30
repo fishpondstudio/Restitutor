@@ -4,9 +4,9 @@ import type { HTMLReactParserOptions } from "html-react-parser";
 import parse from "html-react-parser";
 import { type Province, Provinces } from "../game/definitions/Province";
 import { getTileName } from "../game/definitions/TileName";
-import { MapBackgroundColors } from "../game/logic/MapColor";
+import { LookAtTile } from "../game/Events";
+import { getMapBackgroundColor } from "../game/logic/MapColor";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
-import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { FloatingTip } from "./components/FloatingTip";
@@ -27,16 +27,17 @@ const parserOptions: HTMLReactParserOptions = {
                <span>
                   <span
                      className="text-link"
-                     style={{ color: rgbToHex(MapBackgroundColors[province]) }}
+                     style={{ color: rgbToHex(getMapBackgroundColor(province, G.save)) }}
                      onClick={() => {
                         const state = G.save.state.provinces[province];
                         if (!state) {
                            return;
                         }
-                        G.scene
-                           .getCurrent(WorldScene)
-                           ?.lookAt(state.capital, { time: 0.2 })
-                           .then((scene) => scene.drawProvinceOutline(province));
+                        LookAtTile.emit({
+                           tile: state.capital,
+                           time: 0.2,
+                           onComplete: (scene) => scene.drawProvinceOutline(province),
+                        });
                      }}
                   >
                      {getProvinceName(province, G.save)}
@@ -67,15 +68,16 @@ const parserOptions: HTMLReactParserOptions = {
                <span
                   className="text-link"
                   onClick={() => {
-                     G.scene
-                        .getCurrent(WorldScene)
-                        ?.lookAt(tile, { time: 0.2 })
-                        .then((scene) => {
+                     LookAtTile.emit({
+                        tile,
+                        time: 0.2,
+                        onComplete: (scene) => {
                            scene.drawSelectors(new Set([tile]));
                            if (tileData) {
                               scene.drawProvinceOutline(tileData.province);
                            }
-                        });
+                        },
+                     });
                   }}
                >
                   {getTileName(tile, G.save)}

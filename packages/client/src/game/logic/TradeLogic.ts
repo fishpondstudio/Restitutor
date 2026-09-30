@@ -11,7 +11,7 @@ import type { SaveGame } from "../GameState";
 import { getAttitudeTowards, getRelations } from "./DiplomacyLogic";
 import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
 import { attachModifiers } from "./ModifierLogic";
-import { hasStraitOfGibraltar } from "./ProvinceLogic";
+import { getProvinceCoreCoastalTileCount, hasStraitOfGibraltar } from "./ProvinceLogic";
 import { getTreatyCount } from "./TreatyLogic";
 
 export function getProvinceTrades(province: Province, save: SaveGame): Map<Province, ActiveTrade> {
@@ -108,6 +108,12 @@ export function getProvinceTradeProfit(province: Province, save: SaveGame): IVal
    }
    if (hasProvinceUpgrade("CommandOfThePillars", province, save) && hasStraitOfGibraltar(province, save)) {
       result.multiply.push({ name: ProvinceUpgrades.CommandOfThePillars.name(), value: 0.3 });
+   }
+   if (hasProvinceUpgrade("CoastalCommerce", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.CoastalCommerce.name(),
+         value: Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.01, 0.5),
+      });
    }
    attachModifiers("TradeProfit", result, province, save);
    return finalizeBreakdown(result);

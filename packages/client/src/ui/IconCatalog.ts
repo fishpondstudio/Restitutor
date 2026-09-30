@@ -7,6 +7,7 @@ import ChiRho from "../assets/images/ChiRho.svg";
 import Chronicle from "../assets/images/Chronicle.svg";
 import Core from "../assets/images/Core.svg";
 import Crisis from "../assets/images/Crisis.svg";
+import CultureReligion from "../assets/images/CultureReligion.svg";
 import Decree from "../assets/images/Decree.svg";
 import Diplomat from "../assets/images/Diplomat.svg";
 import Diplomatic from "../assets/images/Diplomatic.svg";
@@ -104,4 +105,5 @@ export const IconCatalog = {
    ChiRho,
    Reconquest,
    CasusBelli,
+   CultureReligion,
 } as const satisfies Record<string, string>;

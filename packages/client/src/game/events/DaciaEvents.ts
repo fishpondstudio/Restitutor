@@ -1,7 +1,7 @@
 import { $t, L } from "../../utils/i18n";
 import { HunsSpawnYear } from "../definitions/Constant";
 import { Culture } from "../definitions/Culture";
-import { SpawnedProvinces } from "../definitions/SpawnedProvince";
+import { Province } from "../definitions/Province";
 import { TimedActions } from "../definitions/TimedAction";
 import type { ConditionChecks } from "../logic/Calculation";
 import { changeProvinceCulture } from "../logic/InternalAffairsLogic";
@@ -339,7 +339,7 @@ export const DaciaEvents = {
          year: [HunsSpawnYear + 5, Number.POSITIVE_INFINITY],
          onMap: { Huns: false },
          conditions: function* (province, save): ConditionChecks {
-            yield* allCoreTileChecks(SpawnedProvinces.Huns.tiles, province, save);
+            yield* allCoreTileChecks(Province.Huns.tiles, province, save);
          },
       },
       buttons: [

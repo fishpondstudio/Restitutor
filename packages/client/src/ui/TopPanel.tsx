@@ -2,10 +2,10 @@ import { formatNumber, range } from "@project/shared/src/utils/Helper";
 import { useCallback } from "react";
 import { Modifiers } from "../game/definitions/Modifier";
 import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
-import { GameStateUpdated } from "../game/Events";
+import { GameStateUpdated, LookAtTile } from "../game/Events";
 import { getWarPower } from "../game/logic/ArmyLogic";
 import { getCurrentRelations, getDiplomats } from "../game/logic/DiplomacyLogic";
-import { MapBackgroundColors } from "../game/logic/MapColor";
+import { getMapBackgroundColor } from "../game/logic/MapColor";
 import {
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,
@@ -18,7 +18,6 @@ import {
 } from "../game/logic/ProvinceLogic";
 import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { useShortcut } from "../game/Shortcut";
-import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -26,6 +25,7 @@ import { ArmySingletonModal } from "./ArmySingletonModal";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { ChroniclePage } from "./ChroniclePage";
+import { CultureReligionPage } from "./CultureReligionPage";
 import { showPanel } from "./common/ShowPanel";
 import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
@@ -124,14 +124,13 @@ export function TopLeftPanel(): React.ReactNode {
                >
                   <div
                      className="f1 pointer text-md text-display text-right text-ellipsis"
-                     style={{ color: `#${MapBackgroundColors[G.save.state.playerProvince].toString(16)}` }}
+                     style={{ color: `#${getMapBackgroundColor(G.save.state.playerProvince, G.save).toString(16)}` }}
                      onClick={() => {
-                        const scene = G.scene.getCurrent(WorldScene);
-                        if (scene) {
-                           scene
-                              .lookAt(state.capital, { time: 0.2 })
-                              .then((scene) => scene.drawProvinceOutline(G.save.state.playerProvince));
-                        }
+                        LookAtTile.emit({
+                           tile: state.capital,
+                           time: 0.2,
+                           onComplete: (scene) => scene.drawProvinceOutline(G.save.state.playerProvince),
+                        });
                      }}
                   >
                      {getProvinceName(G.save.state.playerProvince, G.save)}
@@ -326,6 +325,15 @@ export function TopLeftPanel(): React.ReactNode {
                      }}
                   >
                      <img src={IconCatalog.Stability} style={{ width: `${IconWidth}rem` }} />
+                  </div>
+               </FloatingTip>
+               <FloatingTip label={() => $t(L.CultureAndReligion)}>
+                  <div
+                     id="TopPanel_CultureReligion"
+                     className="pointer"
+                     onClick={() => showPanel(CultureReligionPage, {})}
+                  >
+                     <img src={IconCatalog.CultureReligion} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
                <FloatingTip label={() => $t(L.SocialClass)}>

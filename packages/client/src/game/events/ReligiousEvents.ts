@@ -1,5 +1,7 @@
+import { setFlag } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { ChristianReligions } from "../definitions/Religion";
+import { GameStateFlags } from "../GameState";
 import { startTimedActionEffect } from "../logic/MissionLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -161,7 +163,15 @@ export const ReligiousEvents = {
       buttons: [
          {
             label: () => $t(L.AffirmTheDivinityOfTheHolySpirit),
-            custom: [startTimedActionEffect("EcumenicalCouncil2")],
+            custom: [
+               startTimedActionEffect("EcumenicalCouncil2"),
+               {
+                  desc: () => $t(L.$1BecomesAnApostolicSee, $t(L.TileConstantinople)),
+                  execute: (province, save) => {
+                     save.state.flags = setFlag(save.state.flags, GameStateFlags.ConstantinopleApostolicSee);
+                  },
+               },
+            ],
          },
       ],
    },

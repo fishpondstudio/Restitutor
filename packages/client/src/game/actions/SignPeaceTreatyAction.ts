@@ -7,6 +7,7 @@ import { unlockAchievement } from "../Achievement";
 import { addChronicleEntry } from "../definitions/Chronicle";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
+import { showGameEventModal } from "../events/GameEventLogic";
 import type { SaveGame } from "../GameState";
 import { getCurrentGeneral } from "../logic/ArmyLogic";
 import { getRelation } from "../logic/DiplomacyLogic";
@@ -19,7 +20,6 @@ import {
 } from "../logic/PeaceTreatyLogic";
 import { addProvinceStat } from "../logic/ProvinceLogic";
 import { addProvinceResource } from "../logic/ResourceLogic";
-import { showGameEventModal } from "../logic/TickProvince";
 import { getPlunderedUpgrade, getTruceDuration, type IWar, onWarEnded, WarFlag } from "../logic/WarLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 

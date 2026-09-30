@@ -14,7 +14,8 @@ export function ChronicleModal({ years }: { years: [number, number] }): React.Re
    refreshOnTypedEvent(GameStateUpdated);
    const [startYear, endYear] = years;
    const filteredChronicle = G.save.state.chronicle.filter((entry) => {
-      return monthToDate(entry.month).getFullYear() >= startYear && monthToDate(entry.month).getFullYear() <= endYear;
+      const year = monthToDate(entry.month, G.save).getFullYear();
+      return year >= startYear && year <= endYear;
    });
    return (
       <ModalComp

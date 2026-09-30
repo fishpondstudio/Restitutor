@@ -1,7 +1,7 @@
 import { fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
+import { Province } from "../definitions/Province";
 import { GallicEmpireProvinces } from "../definitions/TileConstants";
-import { getOriginalTileCount } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import { forcePatronageEffect, maxCoreTileChecks, setProvinceNameOverrideEffect } from "../logic/MissionLogic";
@@ -37,7 +37,7 @@ export const GallicEmpireEvents = {
       condition: {
          nameOverride: "GallicEmpire",
          onMap: { Britannia: true },
-         annexAndCore: { Britannia: Math.ceil(getOriginalTileCount("Britannia") * 0.7) },
+         annexAndCore: { Britannia: Math.ceil(Province.Britannia.tiles.length * 0.7) },
          conditions: function* (province, save): ConditionChecks {
             yield* requireNoTreatyBetweenChecks(["Patron"], province, "Britannia", save);
             yield* requirePeaceBetweenChecks(province, "Britannia", save);

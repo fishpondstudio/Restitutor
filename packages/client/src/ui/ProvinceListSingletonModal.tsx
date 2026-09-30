@@ -43,7 +43,7 @@ export function ProvinceListSingletonModal(): React.ReactNode {
          <FloatingTip label={() => $t(L.PrestigeRankingOfAllProvinces)}>
             <div className="box row m10 text-display text-lg px10 py5">
                <div className="f1">{$t(L.MostPrestigiousProvinces)}</div>
-               <div>{monthToDate(G.save.state.month).getFullYear()} A.D.</div>
+               <div>{monthToDate(G.save.state.month, G.save).getFullYear()} A.D.</div>
             </div>
          </FloatingTip>
          <div className="m10">

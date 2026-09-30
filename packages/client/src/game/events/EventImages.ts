@@ -94,6 +94,7 @@ import Monothelitism from "../../assets/images/events/Monothelitism.webp";
 import MoorlandCanal from "../../assets/images/events/MoorlandCanal.webp";
 import MountedParley from "../../assets/images/events/MountedParley.webp";
 import NavalBattle from "../../assets/images/events/NavalBattle.webp";
+import NavalDisaster from "../../assets/images/events/NavalDisaster.webp";
 import Nestorianism from "../../assets/images/events/Nestorianism.webp";
 import NicaeaCouncil from "../../assets/images/events/NicaeaCouncil.webp";
 import NumantiaFalls from "../../assets/images/events/NumantiaFalls.webp";
@@ -125,6 +126,7 @@ import RomanForum2 from "../../assets/images/events/RomanForum2.webp";
 import RomanForum3 from "../../assets/images/events/RomanForum3.webp";
 import RomanGalley from "../../assets/images/events/RomanGalley.webp";
 import RomanInvasion from "../../assets/images/events/RomanInvasion.webp";
+import RomanMassacre from "../../assets/images/events/RomanMassacre.webp";
 import RomanRuins1 from "../../assets/images/events/RomanRuins1.webp";
 import RomanRuins2 from "../../assets/images/events/RomanRuins2.webp";
 import RomanTriumph1 from "../../assets/images/events/RomanTriumph1.webp";
@@ -671,6 +673,11 @@ export const EventImage = {
       credit: "The Battle of Salamis, Anton Hoffmann (1920)",
       keywords: ["Salamis", "Warships", "Sea", "War"],
    },
+   NavalDisaster: {
+      url: NavalDisaster,
+      credit: "The Battle of Actium, 2 September 31 BC, Laureys a Castro (1672)",
+      keywords: ["Actium", "Galleys", "Fleet", "Battle", "Sinking", "Sailors", "Sea"],
+   },
    Nestorianism: {
       url: Nestorianism,
       credit: "Portret van Nestorius, Romeyn de Hooghe (1688)",
@@ -826,6 +833,11 @@ export const EventImage = {
       url: RomanInvasion,
       credit: "The Romans under Julius Caesar Invading Britain, Edward Armitage (1843)",
       keywords: ["Britain", "Caesar", "Army", "Landing"],
+   },
+   RomanMassacre: {
+      url: RomanMassacre,
+      credit: "The Massacres of the Triumvirate, Antoine Caron (1566)",
+      keywords: ["Rome", "Triumvirate", "Soldiers", "Civilians", "Executions", "City"],
    },
    RomanRuins1: {
       url: RomanRuins1,

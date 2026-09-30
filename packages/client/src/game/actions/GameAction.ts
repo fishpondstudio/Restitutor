@@ -2,9 +2,9 @@ import { clamp, forEach } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
 import { type ProvinceResourceCosts, ProvinceResourceNames } from "../definitions/ProvinceResources";
-import type { IGameEffect } from "../GameEffect";
+import { applyGameEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
-import { hasEnoughProvinceResources } from "../logic/ResourceLogic";
+import { hasEnoughProvinceResources, trySpendProvinceResources } from "../logic/ResourceLogic";
 
 export interface IGameCostCondition {
    cost?: ProvinceResourceCosts;
@@ -165,4 +165,30 @@ export function printAction(action: IGameAction, province: Province, save: SaveG
       });
    }
    return result.join("\n");
+}
+
+export function tryDoAction(
+   action: IGameAction,
+   { headless = true }: { headless: boolean },
+   province: Province,
+   save: SaveGame,
+): boolean {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return false;
+   }
+   const isConditionMet = action.condition === undefined || action.condition.value === true;
+   if (isConditionMet && (action.cost === undefined || trySpendProvinceResources(action.cost, province, save))) {
+      action.execute({ headless });
+      if (action.effect) {
+         applyGameEffect(
+            action.effect,
+            typeof action.effect.name === "function" ? action.effect.name() : action.effect.name,
+            province,
+            save,
+         );
+      }
+      return true;
+   }
+   return false;
 }

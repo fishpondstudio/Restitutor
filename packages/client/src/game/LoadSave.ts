@@ -81,7 +81,7 @@ export async function loadFromFile(): Promise<SaveGame> {
 }
 
 export async function saveToFile(save: SaveGame): Promise<string | null> {
-   const name = `${save.state.playerProvince}_${dateToYYYYMMDD(getGameDate(save.state.tick))}_V${save.options.version}.save`;
+   const name = `${save.state.playerProvince}_${dateToYYYYMMDD(getGameDate(save.state.tick, save))}_${save.state.scenario}_V${save.options.version}.save`;
    if (Capacitor.isNativePlatform()) {
       const data = compressToUint8Array(jsonEncode(save)) as Uint8Array<ArrayBuffer>;
       const base64 = await new Promise<string>((resolve, reject) => {

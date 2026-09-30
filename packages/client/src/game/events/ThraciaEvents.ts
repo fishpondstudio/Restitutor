@@ -1,6 +1,5 @@
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
-import { getOriginalTileCount } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import {
@@ -14,6 +13,7 @@ import {
 } from "../logic/MissionLogic";
 import { requireNoTreatyBetweenChecks, requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
+import { GameEventOrder } from "./GameEventOrder";
 import type { IGameEventConfig } from "./GameEvents";
 
 export const ThraciaEvents = {
@@ -360,6 +360,7 @@ export const ThraciaEvents = {
       name: () => $t(L.TheRoadsThroughTheInterior),
       image: EventImage.RomanExpedition,
       desc: () => $t(L.TheRoadsThroughTheInteriorDesc),
+      order: GameEventOrder.Order1,
       condition: {
          province: new Set(["Thracia", "Dacia", "Macedonia"]),
          conditions: function* (province, save): ConditionChecks {
@@ -388,7 +389,7 @@ export const ThraciaEvents = {
       image: EventImage.RomanAudience,
       desc: () => $t(L.RootsAlongTheMoesianRoadsDesc),
       condition: {
-         province: new Set(["Thracia"]),
+         province: new Set(["Thracia", "Macedonia"]),
          annexAndCore: { Moesia: 10 },
       },
       buttons: [
@@ -426,10 +427,10 @@ export const ThraciaEvents = {
       image: EventImage.RomanAudience,
       desc: () => $t(L.ASettlementWithMoesiaDesc),
       condition: {
-         province: new Set(["Thracia"]),
+         province: new Set(["Thracia", "Macedonia"]),
          onMap: { Moesia: true },
          annexAndCore: {
-            Moesia: Math.ceil(getOriginalTileCount("Moesia") * 0.7),
+            Moesia: Math.ceil(Province.Moesia.tiles.length * 0.7),
          },
          conditions: function* (province, save): ConditionChecks {
             yield* maxCoreTileChecks(3, "Moesia", save);
@@ -448,35 +449,26 @@ export const ThraciaEvents = {
    },
    Thracia15: {
       name: () => $t(L.MastersOfTheCrossings),
-      image: EventImage.MediterraneanHarbour,
-      desc: () => $t(L.MastersOfTheCrossingsDesc),
+      image: EventImage.RomanAudience,
+      desc: () => $t(L.MastersOfTheCrossingsCourtDesc),
       condition: {
-         province: new Set(["Thracia"]),
+         province: new Set(["Thracia", "Macedonia", "Asia", "Bithynia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* allCoreTileChecks([10354766, 10354767, 10223695, 10289232], province, save);
          },
       },
       buttons: [
          {
-            label: () => $t(L.SeekAMandateToAdvanceInto$1, Province.Bithynia.name()),
+            label: () => $t(L.SeekTheSenatesBacking),
             resources: { consulPoint: 2 },
-            casusBelli: {
-               Bithynia: { casusBelli: "ConquestMission", duration: 5 * 12 },
-            },
          },
          {
-            label: () => $t(L.SeekAMandateToAdvanceInto$1, Province.Asia.name()),
-            resources: { consulPoint: 2 },
-            casusBelli: {
-               Asia: { casusBelli: "ConquestMission", duration: 5 * 12 },
-            },
+            label: () => $t(L.PromoteTheOfficersGuardingOurPorts),
+            resources: { generalSkillPoint: 2 },
          },
          {
-            label: () => $t(L.SeekAMandateToAdvanceInto$1, Province.Macedonia.name()),
-            resources: { consulPoint: 2 },
-            casusBelli: {
-               Macedonia: { casusBelli: "ConquestMission", duration: 5 * 12 },
-            },
+            label: () => $t(L.PetitionForAnImperialMandate),
+            resources: { mandate: 1 },
          },
       ],
    },
@@ -485,7 +477,7 @@ export const ThraciaEvents = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.BetweenTwoSeasDesc),
       condition: {
-         province: new Set(["Thracia"]),
+         province: new Set(["Thracia", "Macedonia", "Asia", "Bithynia"]),
          conditions: function* (province, save): ConditionChecks {
             yield* mediterraneanCoastChecks(5, province, save);
             yield* blackSeaCoastChecks(5, province, save);
