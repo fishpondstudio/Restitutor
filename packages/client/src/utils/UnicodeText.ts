@@ -17,6 +17,9 @@ export class UnicodeText extends Container {
       super();
       if (containsNonASCII(text)) {
          const textStyle: Partial<ITextStyle> = { ...fallbackStyle, ...style };
+         if (style.fontName) {
+            textStyle.fontFamily = style.fontName;
+         }
          if (style.tint) {
             if (typeof style.tint === "number") {
                textStyle.fill = style.tint;

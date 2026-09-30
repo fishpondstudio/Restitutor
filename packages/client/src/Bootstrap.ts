@@ -1,7 +1,7 @@
 import { forEach, setFlag } from "@project/shared/src/utils/Helper";
 import * as Sentry from "@sentry/browser";
 import { Assets, BitmapFont, type Spritesheet, type TextStyleFontWeight, type Texture } from "pixi.js";
-import { FontFaces, Fonts } from "./Fonts";
+import { ChineseFontOverride, FontFaces, Fonts } from "./Fonts";
 import { startGameLoop } from "./GameLoop";
 import { addDebugFunctions } from "./game/AddDebugFunctions";
 import { SentryDSN, SupportedSaveVersion } from "./game/definitions/Constant";
@@ -124,6 +124,14 @@ export async function bootstrap(): Promise<void> {
 
    applyUiScale(G.save.options.uiScale);
    setLanguage(G.save.options.language);
+   if (G.save.options.language === "zh-CN") {
+      await Promise.all(
+         ChineseFontOverride.map((font) => {
+            document.fonts.add(font);
+            return font.load();
+         }),
+      );
+   }
    initMobile();
    loadSounds();
    initMusic();

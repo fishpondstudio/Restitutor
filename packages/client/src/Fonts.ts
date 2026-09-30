@@ -1,4 +1,5 @@
 import MonospaceFont from "./assets/fonts/GoogleSansCode-SemiBold.ttf";
+import LiSHu from "./assets/fonts/LiSHu.ttf";
 import RomanFont from "./assets/fonts/Metamorphous-Regular.ttf";
 import MainFontBold from "./assets/fonts/Sentient-Bold.ttf";
 import MainFontItalic from "./assets/fonts/Sentient-Italic.ttf";
@@ -20,3 +21,10 @@ export const FontFaces = [
    new FontFace(Fonts.MainFont, `url("${MainFontBold}")`, { weight: "bold", style: "normal" }),
    new FontFace(Fonts.RomanFont, `url("${RomanFont}")`, { weight: "normal", style: "normal" }),
 ];
+
+export const ChineseFontOverride = [
+   new FontFace("RomanFont", `url("${LiSHu}")`, { weight: "normal", style: "normal" }),
+   new FontFace("RomanFont", `url("${LiSHu}")`, { weight: "bold", style: "normal" }),
+   new FontFace("TitleFont", `url("${LiSHu}")`, { weight: "normal", style: "normal" }),
+   new FontFace("TitleFont", `url("${LiSHu}")`, { weight: "bold", style: "normal" }),
+] as const;
