@@ -8,7 +8,6 @@ import { SentryDSN, SupportedSaveVersion } from "./game/definitions/Constant";
 import { subscribeToModifierUpdate } from "./game/definitions/ModifierUpdate";
 import { createSaveGame, GameStateFlags, initNewPlayerSaveGame } from "./game/GameState";
 import { loadGame, resetGame, saveAndBackupGame } from "./game/LoadSave";
-import { initMapColors } from "./game/logic/MapColor";
 import { initMobile } from "./game/Mobile";
 import { isMobilePlatform } from "./game/NativeUtils";
 import { showBootstrapModal } from "./game/ShowBootstrapModal";
@@ -123,7 +122,6 @@ export async function bootstrap(): Promise<void> {
       }
    }
 
-   initMapColors(G.save);
    applyUiScale(G.save.options.uiScale);
    setLanguage(G.save.options.language);
    initMobile();

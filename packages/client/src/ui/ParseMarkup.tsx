@@ -4,7 +4,7 @@ import type { HTMLReactParserOptions } from "html-react-parser";
 import parse from "html-react-parser";
 import { type Province, Provinces } from "../game/definitions/Province";
 import { getTileName } from "../game/definitions/TileName";
-import { MapBackgroundColors } from "../game/logic/MapColor";
+import { getMapBackgroundColor } from "../game/logic/MapColor";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
@@ -27,7 +27,7 @@ const parserOptions: HTMLReactParserOptions = {
                <span>
                   <span
                      className="text-link"
-                     style={{ color: rgbToHex(MapBackgroundColors[province]) }}
+                     style={{ color: rgbToHex(getMapBackgroundColor(province, G.save)) }}
                      onClick={() => {
                         const state = G.save.state.provinces[province];
                         if (!state) {

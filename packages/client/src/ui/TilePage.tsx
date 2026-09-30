@@ -20,7 +20,7 @@ import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
-import { MapBackgroundColors } from "../game/logic/MapColor";
+import { getMapBackgroundColor } from "../game/logic/MapColor";
 import { getProvinceName, getProvinceStat } from "../game/logic/ProvinceLogic";
 import {
    getCultureStatus,
@@ -101,7 +101,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                >
                   {$t(L.Diplomacy)}
                </button>
-               <div style={{ color: `#${MapBackgroundColors[tileData.province].toString(16)}` }}>
+               <div style={{ color: `#${getMapBackgroundColor(tileData.province, G.save).toString(16)}` }}>
                   {getProvinceName(tileData.province, G.save)}
                </div>
             </div>

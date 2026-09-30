@@ -7,16 +7,44 @@ import { MapGrid } from "../MapGrid";
 import { getInitialTiles } from "../scenarios/Scenarios";
 
 const Hues = range(0, Provinces.length).map((i) => (i * 360) / Provinces.length);
-export let MapColorsH: Record<Province, number>;
-export let MapBackgroundColors: Record<Province, number>;
-export let MapForegroundColors: Record<Province, number>;
-export let MapTextColors: Record<Province, number>;
+let _mapColorsH: Record<Province, number>;
+let _mapBackgroundColors: Record<Province, number>;
+let _mapForegroundColors: Record<Province, number>;
+let _mapTextColors: Record<Province, number>;
 
-export function initMapColors(save: SaveGame): void {
-   MapColorsH = assignProvinceHues(buildAdjacentProvinces(save));
-   MapBackgroundColors = fromEntries(Provinces.map((province) => [province, hslToRgb(MapColorsH[province], 65, 85)]));
-   MapForegroundColors = fromEntries(Provinces.map((province) => [province, hslToRgb(MapColorsH[province], 40, 50)]));
-   MapTextColors = fromEntries(Provinces.map((province) => [province, hslToRgb(MapColorsH[province], 25, 35)]));
+export function getMapColorH(province: Province, save: SaveGame): number {
+   if (!_mapColorsH) {
+      initMapColors(save);
+   }
+   return _mapColorsH[province];
+}
+
+export function getMapBackgroundColor(province: Province, save: SaveGame): number {
+   if (!_mapBackgroundColors) {
+      initMapColors(save);
+   }
+   return _mapBackgroundColors[province];
+}
+
+export function getMapForegroundColor(province: Province, save: SaveGame): number {
+   if (!_mapForegroundColors) {
+      initMapColors(save);
+   }
+   return _mapForegroundColors[province];
+}
+
+export function getMapTextColor(province: Province, save: SaveGame): number {
+   if (!_mapTextColors) {
+      initMapColors(save);
+   }
+   return _mapTextColors[province];
+}
+
+function initMapColors(save: SaveGame): void {
+   _mapColorsH = assignProvinceHues(buildAdjacentProvinces(save));
+   _mapBackgroundColors = fromEntries(Provinces.map((province) => [province, hslToRgb(_mapColorsH[province], 65, 85)]));
+   _mapForegroundColors = fromEntries(Provinces.map((province) => [province, hslToRgb(_mapColorsH[province], 40, 50)]));
+   _mapTextColors = fromEntries(Provinces.map((province) => [province, hslToRgb(_mapColorsH[province], 25, 35)]));
 }
 
 function addAdjacency(province1: Province, province2: Province, adjacency: Record<Province, Set<Province>>) {

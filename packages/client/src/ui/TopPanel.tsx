@@ -5,7 +5,7 @@ import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
 import { GameStateUpdated } from "../game/Events";
 import { getWarPower } from "../game/logic/ArmyLogic";
 import { getCurrentRelations, getDiplomats } from "../game/logic/DiplomacyLogic";
-import { MapBackgroundColors } from "../game/logic/MapColor";
+import { getMapBackgroundColor } from "../game/logic/MapColor";
 import {
    getProvinceGoverningCapacity,
    getProvinceGoverningCost,
@@ -125,7 +125,7 @@ export function TopLeftPanel(): React.ReactNode {
                >
                   <div
                      className="f1 pointer text-md text-display text-right text-ellipsis"
-                     style={{ color: `#${MapBackgroundColors[G.save.state.playerProvince].toString(16)}` }}
+                     style={{ color: `#${getMapBackgroundColor(G.save.state.playerProvince, G.save).toString(16)}` }}
                      onClick={() => {
                         const scene = G.scene.getCurrent(WorldScene);
                         if (scene) {

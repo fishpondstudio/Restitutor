@@ -1,7 +1,7 @@
 import { createTile, range } from "@project/shared/src/utils/Helper";
 import { getTileCode, getViewport } from "../game/ASCIIMapRenderer";
 import { GameStateUpdated } from "../game/Events";
-import { MapBackgroundColors } from "../game/logic/MapColor";
+import { getMapBackgroundColor } from "../game/logic/MapColor";
 import { getWarTiles } from "../game/logic/WarLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -25,7 +25,7 @@ export function ASCIIMapPanel(): React.ReactNode {
                      const tile = createTile(x, y);
                      const province = G.save.state.tiles.get(tile)?.province;
                      const color = province
-                        ? `#${MapBackgroundColors[province].toString(16).padStart(6, "0")}`
+                        ? `#${getMapBackgroundColor(province, G.save).toString(16).padStart(6, "0")}`
                         : undefined;
                      return (
                         <span

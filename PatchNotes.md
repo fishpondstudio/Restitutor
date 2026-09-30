@@ -26,6 +26,8 @@ Macedonia province is now playable, with three unique Provincial Spirits:
 - Cultural Integration: Reduce Culture Conversion Cost by 20%.
 - Cultural Ambition: Enemy tiles with your dominant or a tolerated culture contribute 20% less War Score.
 
+Macedonia also comes with 10 historical events spanning 214–796 AD. New and expanded shared missions offer opportunities to bring Epirus under your patronage after annexing and coring Achaia, establish footholds in Italia and Dalmatia, expand through Moesia and Thracia, and secure the crossings into Asia and Bithynia.
+
 ## Asia
 
 Asia province is now playable, with three unique Provincial Spirits:
@@ -50,8 +52,6 @@ Bithynia also comes with 10 historical events spanning 258–727 AD and six new 
 
 - Added a unification mission for Asia, Bithynia, Cappadocia, Cilicia, Galatia, and Lycia. Annex and core all six provinces to form the Anatolian League.
 - Masters of the Crossings and Between Two Seas are now available to Asia and Bithynia as well as Thracia and Macedonia.
-
-Macedonia also comes with 10 historical events spanning 214–796 AD. New and expanded shared missions offer opportunities to bring Epirus under your patronage after annexing and coring Achaia, establish footholds in Italia and Dalmatia, expand through Moesia and Thracia, and secure the crossings into Asia and Bithynia.
 
 ## Culture & Religion
 

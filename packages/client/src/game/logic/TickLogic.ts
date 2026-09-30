@@ -15,7 +15,7 @@ import { randomMaleName } from "../RomanNames";
 import { fixRelations } from "./DiplomacyLogic";
 import { getGameDate, monthToDate, tickToMonth, tickToYear } from "./GameDateTime";
 import { getChristianityYearly } from "./InternalAffairsLogic";
-import { MapForegroundColors } from "./MapColor";
+import { getMapForegroundColor } from "./MapColor";
 import {
    ConsulCandidatesCount,
    ConsulElectionMonths,
@@ -236,10 +236,10 @@ export function tickWar(war: IWar, save: SaveGame): void {
       for (const tile of war.tiles) {
          scene.showFloaterText({ tile, text, color: result.color, font: Fonts.TitleFont });
          if (log.result === "Success") {
-            scene.showWarEffect({ tile, color: MapForegroundColors[war.attacker], animation: "ScaleDown" });
+            scene.showWarEffect({ tile, color: getMapForegroundColor(war.attacker, save), animation: "ScaleDown" });
          }
          if (log.result === "Repelled") {
-            scene.showWarEffect({ tile, color: MapForegroundColors[war.defender], animation: "ScaleUp" });
+            scene.showWarEffect({ tile, color: getMapForegroundColor(war.defender, save), animation: "ScaleUp" });
          }
       }
    }
