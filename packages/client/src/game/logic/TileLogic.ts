@@ -79,7 +79,6 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
       name: $t(L.TotalUpgrades),
       value: data.infrastructure + data.production + data.population,
    });
-   attachTileModifiers(data.modifiers.GoverningCapacity, breakdown);
    if (hasProvinceUpgrade("DevelopedAdministration", data.province, save)) {
       breakdown.multiply.push({
          name: ProvinceUpgrades.DevelopedAdministration.name(),
@@ -147,6 +146,7 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
    if (!data.coreProvinces.has(data.province)) {
       breakdown.multiply.push({ name: $t(L.NotCore), value: 1 });
    }
+   attachTileModifiers(data.modifiers.GoverningCapacity, breakdown);
    return finalizeBreakdown(breakdown);
 }
 
