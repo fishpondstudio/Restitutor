@@ -38,7 +38,7 @@ import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { getArmyMaintenanceCost, getWarPower, getWarPowerPerTile } from "./ArmyLogic";
-import { cacheProvince, getProvinceTilesCached } from "./CacheLogic";
+import { cacheProvince, getProvinceCoreTilesCached, getProvinceTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getRegionalCapitalCount } from "./CapitalLogic";
 import { getRelation } from "./DiplomacyLogic";
@@ -284,6 +284,16 @@ function _getProvinceOverextension(province: Province, save: SaveGame): IValueBr
 export function getProvinceGoverningCapacity(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.BaseValue), value: 200 });
+   if (hasProvinceUpgrade("HarbourAdministration", province, save)) {
+      let harbourCount = 0;
+      for (const tile of getProvinceCoreTilesCached(province)) {
+         const data = save.state.tiles.get(tile);
+         if (data?.buildings.has("Harbour")) {
+            ++harbourCount;
+         }
+      }
+      breakdown.add.push({ name: ProvinceUpgrades.HarbourAdministration.name(), value: harbourCount * 10 });
+   }
    attachModifiers("GoverningCapacity", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }

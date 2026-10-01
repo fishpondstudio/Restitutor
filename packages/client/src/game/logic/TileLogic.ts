@@ -39,6 +39,7 @@ import {
 } from "./ProvinceLogic";
 import { getBuildingTech, hasResearched } from "./TechLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
+import { getProvinceTrades } from "./TradeLogic";
 import { getTreatyCount } from "./TreatyLogic";
 import { getCurrentWars, type IWar } from "./WarLogic";
 
@@ -165,6 +166,12 @@ function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.Manpower, breakdown);
    attachModifiers("Manpower", breakdown, data.province, save);
+   if (hasProvinceUpgrade("AnatolianRecruitment", data.province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.AnatolianRecruitment.name(),
+         value: Math.min(countProvinceTiles({ culture: "Anatolian", core: true }, data.province, save) * 0.01, 0.5),
+      });
+   }
    if (hasProvinceUpgrade("DevelopedRecruitment", data.province, save)) {
       breakdown.multiply.push({
          name: ProvinceUpgrades.DevelopedRecruitment.name(),
@@ -440,6 +447,18 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.LandTax, breakdown);
    attachModifiers("LandTax", breakdown, data.province, save);
+   if (hasProvinceUpgrade("MercantileTaxation", data.province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.MercantileTaxation.name(),
+         value: getProvinceTrades(data.province, save).size * 0.1,
+      });
+   }
+   if (hasProvinceUpgrade("CohesiveTaxation", data.province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.CohesiveTaxation.name(),
+         value: getCulturalCohesion(data.province, save) * 0.2,
+      });
+   }
    if (
       hasProvinceUpgrade("DefensiveMobilization", data.province, save) &&
       save.state.wars.some((war) => war.defender === data.province && war.actualWarScore < war.requiredWarScore)
@@ -583,6 +602,20 @@ function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifiers(data.modifiers.TileOutput, breakdown);
    attachModifiers("TileOutput", breakdown, data.province, save);
+   if (hasProvinceUpgrade("TreatyProsperity", data.province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.TreatyProsperity.name(),
+         value: getTreatyCount(data.province, save) * 0.05,
+      });
+   }
+   if (hasProvinceUpgrade("AbundantProvisions", data.province, save)) {
+      const production = save.state.provinces[data.province]?.production;
+      const capacity = (production?.bread.capacity ?? 0) + (production?.cheese.capacity ?? 0);
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.AbundantProvisions.name(),
+         value: Math.min(capacity * 0.01, 0.25),
+      });
+   }
    if (
       hasProvinceUpgrade("DefensiveMobilization", data.province, save) &&
       save.state.wars.some((war) => war.defender === data.province && war.actualWarScore < war.requiredWarScore)
@@ -799,6 +832,13 @@ export const getTileMaintenanceCost = cacheTileEvaluation<IValueBreakdown>((tile
       }
    }
    if (
+      hasProvinceUpgrade("InlandAdministration", data.province, save) &&
+      data.coreProvinces.has(data.province) &&
+      !isCoastal(tile)
+   ) {
+      calc.multiply(-0.2)?.describe(ProvinceUpgrades.InlandAdministration.name());
+   }
+   if (
       hasProvinceUpgrade("WartimeAdministration", data.province, save) &&
       getCurrentWars(data.province, save).filter((war) => war.actualWarScore < war.requiredWarScore).length > 0
    ) {
@@ -956,6 +996,13 @@ const getTileUpgradeCostAtCount = defineValueGetter(
       }
       if (resource === "military") {
          attachModifiersToCalculation("PopulationUpgradeCost", calc, data.province, save);
+      }
+      if (
+         hasProvinceUpgrade("HighlandDevelopment", data.province, save) &&
+         data.coreProvinces.has(data.province) &&
+         getTileTerrain(tile) === "Hill"
+      ) {
+         calc.multiply(-0.2)?.describe(ProvinceUpgrades.HighlandDevelopment.name());
       }
 
       return calc.finish();

@@ -291,6 +291,12 @@ export function getWarPower(
          value: Math.min((save.state.provinces[province]?.unlockedTech.size ?? 0) * 0.01, 0.25),
       });
    }
+   if (hasProvinceUpgrade("VictoriousMight", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.VictoriousMight.name(),
+         value: Math.min(getProvinceStat("victoryCount", province, save) * 0.01, 0.25),
+      });
+   }
    if (hasProvinceUpgrade("MilitaryIndustry", province, save)) {
       const production = save.state.provinces[province]?.production;
       const capacity = (production?.armor.capacity ?? 0) + (production?.weapon.capacity ?? 0);

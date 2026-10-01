@@ -115,6 +115,18 @@ export function getProvinceTradeProfit(province: Province, save: SaveGame): IVal
          value: Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.01, 0.5),
       });
    }
+   if (hasProvinceUpgrade("FriendlyCommerce", province, save)) {
+      let friendlyProvinceCount = 0;
+      forEach(save.state.provinces, (otherProvince) => {
+         if (otherProvince !== province && getAttitudeTowards(otherProvince, province, save).value > 0) {
+            ++friendlyProvinceCount;
+         }
+      });
+      result.multiply.push({
+         name: ProvinceUpgrades.FriendlyCommerce.name(),
+         value: Math.min(friendlyProvinceCount * 0.05, 0.5),
+      });
+   }
    attachModifiers("TradeProfit", result, province, save);
    return finalizeBreakdown(result);
 }

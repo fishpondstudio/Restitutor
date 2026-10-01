@@ -20,6 +20,7 @@ import { DaciaEvents } from "./DaciaEvents";
 import { DalmatiaEvents } from "./DalmatiaEvents";
 import { DanubianEvents } from "./DanubianEvents";
 import { EpirusEvents } from "./EpirusEvents";
+import { GalatiaLyciaCiliciaCappadociaEvents } from "./GalatiaLyciaCiliciaCappadociaEvents";
 import { GallicEmpireEvents } from "./GallicEmpireEvents";
 import type { GameEventOrder } from "./GameEventOrder";
 import { GermaniaEvents } from "./GermaniaEvents";
@@ -92,6 +93,7 @@ export const RomeEvents = {
    ...AchaiaEvents,
    ...BithyniaEvents,
    ...AsiaEvents,
+   ...GalatiaLyciaCiliciaCappadociaEvents,
    ...ThraciaEvents,
    ...TarraconensisEvents,
    ...LusitaniaEvents,

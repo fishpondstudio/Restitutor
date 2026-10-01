@@ -374,6 +374,13 @@ export function getWarScore(
    if (hasProvinceUpgrade("InlandAmbition", attacker, save) && isLandlocked(defender, save)) {
       result.multiply.push({ name: ProvinceUpgrades.InlandAmbition.name(), value: -0.2 });
    }
+   if (
+      hasProvinceUpgrade("ForeignAmbition", attacker, save) &&
+      defenderState.culture !== attackerState.culture &&
+      !attackerState.toleratedCultures.has(defenderState.culture)
+   ) {
+      result.multiply.push({ name: ProvinceUpgrades.ForeignAmbition.name(), value: -0.2 });
+   }
 
    attachModifiers("WarScore", result, attacker, save);
 
