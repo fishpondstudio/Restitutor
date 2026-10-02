@@ -1,6 +1,8 @@
+import { fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
+import { LevantProvinces } from "../definitions/TileConstants";
 import { getTileName, TileName } from "../definitions/TileName";
 import type { ConditionChecks } from "../logic/Calculation";
 import {
@@ -482,9 +484,10 @@ export const SyriaJudeaEvents = {
       image: EventImage.CiceroInSenate,
       desc: () => $t(L.ACommonSealForTheLevantDesc),
       condition: {
-         province: new Set(["Syria", "Judea"]),
-         annexAndCore: { Judea: Number.POSITIVE_INFINITY, Syria: Number.POSITIVE_INFINITY },
+         province: new Set(LevantProvinces),
+         annexAndCore: fromEntries(LevantProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
+      achievement: "RestoreLevant",
       buttons: [
          {
             label: () => $t(L.EstablishThe$1, ProvinceNameOverrides.LevantineLeague()),

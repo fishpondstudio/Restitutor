@@ -112,6 +112,7 @@ export const MissionEvents = {
       name: () => $t(L.TheReachOfOurSeal),
       image: EventImage.RomanAudience,
       desc: () => $t(L.TheReachOfOurSealDesc),
+      achievement: "Reach100CoreTiles",
       condition: {
          conditions: function* (province, save): ConditionChecks {
             yield* minCoreTileChecks(100, province, save);
@@ -179,6 +180,7 @@ export const MissionEvents = {
       name: () => $t(L.TheSealsOfTwoCapitals),
       image: EventImage.ImperialRescript,
       desc: () => $t(L.TheSealsOfTwoCapitalsDesc),
+      achievement: "RomeAndConstantinople",
       condition: {
          conditions: function* (province, save): ConditionChecks {
             yield* isCoreTileChecks(Tiles.Rome, province, save);
@@ -213,6 +215,7 @@ export const MissionEvents = {
       name: () => $t(L.TheSpoilsOfVictory),
       image: EventImage.GallicSack,
       desc: () => $t(L.TheSpoilsOfVictoryDesc),
+      achievement: "EliminateBarbarian",
       condition: {
          conditions: function* (province, save): ConditionChecks {
             yield* eliminatedBarbariansChecks(1, province, save);
@@ -329,6 +332,7 @@ export const MissionEvents = {
          province: new Set(EasternRomanEmpireProvinces),
          annexAndCore: fromEntries(EasternRomanEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
+      achievement: "RestoreEasternRomanEmpire",
       wikipedia: "Eastern_Roman_Empire",
       buttons: [
          {
