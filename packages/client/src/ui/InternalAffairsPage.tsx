@@ -251,12 +251,14 @@ export function InternalAffairsPage(): React.ReactNode {
             </Fragment>
          ))}
          <div className="h1">{$t(L.ProvincialGreatWorks)}</div>
-         <div className="m10">
-            {greatWorks.map((gw) => (
-               <GreatWorkComponent key={gw} greatWork={gw} />
-            ))}
-         </div>
-         {greatWorks.length > 0 && <div className="divider" />}
+         {greatWorks.map((gw) => (
+            <Fragment key={gw}>
+               <div className="m10">
+                  <GreatWorkComponent greatWork={gw} />
+               </div>
+               <div className="divider" />
+            </Fragment>
+         ))}
          <div className="m10">
             <button className="btn w100" onClick={() => showPanel(GreatWorksSingletonModal, {})}>
                {$t(L.ShowAllGreatWorks)}
