@@ -94,6 +94,9 @@ export class TechDefinitions {
       requires: ["C1", "C2"],
       name: () => $t(L.TechBreadAndCircuses),
       timedActions: ["HoldGames", "SummonGovernor"],
+      modifiers: {
+         GoverningCapacity: { type: "add", value: 100 },
+      },
       buildings: ["Amphitheatre"],
       goods: ["bread"],
    } as const;
@@ -123,6 +126,7 @@ export class TechDefinitions {
       timedActions: ["AppointPontiff", "ReformCuria", "RelocateCapital", "EstablishRegionalCapital"],
       modifiers: {
          ToleratedCulture: { type: "add", value: 1 },
+         GoverningCapacity: { type: "add", value: 100 },
       },
    } as const;
 
@@ -179,6 +183,7 @@ export class TechDefinitions {
       name: () => $t(L.TechUrbanPlanning),
       modifiers: {
          BuildingSlot: { type: "add", value: 1 },
+         GoverningCapacity: { type: "add", value: 100 },
          InfrastructureUpgradeCost: { type: "multiply", value: -0.2 },
       },
       buildings: ["CircusMaximus"],
@@ -211,7 +216,6 @@ export class TechDefinitions {
       requires: ["G1", "G2"],
       name: () => $t(L.TechLandSurveying),
       modifiers: {
-         GoverningCapacity: { type: "add", value: 100 },
          BuildingSlot: { type: "add", value: 1 },
       },
       timedActions: ["GrantTaxRelief"],
@@ -246,7 +250,7 @@ export class TechDefinitions {
       modifiers: {
          ProductionCapacity: { type: "add", value: 5 },
          MakeCoreCost: { type: "multiply", value: -0.2 },
-         GoverningCapacity: { type: "add", value: 100 },
+         GoverningCapacity: { type: "add", value: 200 },
       },
    } as const;
 

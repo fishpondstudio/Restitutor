@@ -154,35 +154,35 @@ export class LegacyUpgradeDefinitions {
       requires: ["Administrative2"],
       position: [1, 2],
       modifiers: {
-         GoverningCapacity: { type: "add", value: 100 },
+         GoverningCapacity: { type: "add", value: 200 },
       },
    } as const;
    GoverningCapacity2: ILegacyUpgradeModifier = {
       requires: ["GoverningCapacity1"],
       position: [1, 3],
       modifiers: {
-         GoverningCapacity: { type: "add", value: 100 },
+         GoverningCapacity: { type: "add", value: 200 },
       },
    } as const;
    GoverningCapacity3: ILegacyUpgradeModifier = {
       requires: ["GoverningCapacity2"],
       position: [1, 4],
       modifiers: {
-         GoverningCapacity: { type: "add", value: 100 },
+         GoverningCapacity: { type: "add", value: 200 },
       },
    } as const;
    GoverningCapacity4: ILegacyUpgradeModifier = {
       requires: ["GoverningCapacity3"],
       position: [1, 5],
       modifiers: {
-         GoverningCapacity: { type: "add", value: 100 },
+         GoverningCapacity: { type: "add", value: 200 },
       },
    } as const;
    GoverningCapacity5: ILegacyUpgradeModifier = {
       requires: ["GoverningCapacity4"],
       position: [1, 6],
       modifiers: {
-         GoverningCapacity: { type: "add", value: 100 },
+         GoverningCapacity: { type: "add", value: 200 },
       },
    } as const;
    MakeCore1: ILegacyUpgradeModifier = {

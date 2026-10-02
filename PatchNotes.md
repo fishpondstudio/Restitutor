@@ -1,5 +1,9 @@
 ## Balancing
 
+- All five Governing Capacity legacy upgrades now each grant +200 Governing Capacity, up from +100.
+- Bread & Circuses and Curial Reform now each grant +100 Governing Capacity.
+- Land Surveying's +100 Governing Capacity bonus has moved to Urban Planning.
+- Civic Education now grants +200 Governing Capacity, up from +100.
 - Cultural Policy and Local Governance now each grant +200 Governing Capacity, up from +150.
 - Each tile upgrade now increases subsequent upgrade costs by 50% compounded, up from 20%.
 
