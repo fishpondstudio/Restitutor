@@ -2,7 +2,7 @@ import { keysOf } from "@project/shared/src/utils/Helper";
 import { RomeEvents } from "../events/GameEvents";
 import type { IScenario } from "./Scenarios";
 
-export const Rome192Scenario: IScenario = {
+export const Rome192: IScenario = {
    startDate: new Date(192, 11, 31),
    provinces: new Set([
       "Achaia",
