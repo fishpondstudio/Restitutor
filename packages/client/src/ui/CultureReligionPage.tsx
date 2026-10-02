@@ -386,10 +386,10 @@ export function CultureReligionPage(): React.ReactNode {
             {Array.from(getApostolicSeeTiles(G.save)).map((tile) => {
                const owner = G.save.state.tiles.get(tile)?.province;
                return (
-                  <div key={tile} className="row mx10 my5">
+                  <div key={tile} className="row g5 mx10 my5">
                      <div className="f1">{renderMarkup(`<Tile>${tile}</Tile>`)}</div>
                      <div>{renderMarkup(`<Province>${owner}</Province>`)}</div>
-                     {owner === G.save.state.playerProvince && <div>{$t(L.Us)}</div>}
+                     {owner === G.save.state.playerProvince && <div className="text-dimmed">{$t(L.Us)}</div>}
                   </div>
                );
             })}
