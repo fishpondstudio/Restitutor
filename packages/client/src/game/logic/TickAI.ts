@@ -107,7 +107,7 @@ import {
 } from "./WarLogic";
 
 const AIWarMaxUnrest = 20;
-const MaxYear = 600;
+const MaxYear = 800;
 
 export function tickAI(save: SaveGame): void {
    if (hasFlag(G.flags, GameFlags.Sandbox) && getGameDate(save.state.tick, save).getFullYear() >= MaxYear) {
@@ -119,7 +119,7 @@ export function tickAI(save: SaveGame): void {
          return;
       }
       doRegionalCapital(province, save);
-      const tiles = getProvinceTilesCached(province).flatMap((tile) => {
+      const tiles = getProvinceTilesCached(province, save).flatMap((tile) => {
          const tileData = save.state.tiles.get(tile);
          return tileData ? [[tile, tileData] as const] : [];
       });
@@ -823,7 +823,7 @@ function getBuildingOrder(): Building[] {
 
 function constructBuildings(province: Province, save: SaveGame): void {
    const buildingOrders = getBuildingOrder();
-   const tiles = getProvinceTilesCached(province).sort((tileA, tileB) => {
+   const tiles = getProvinceTilesCached(province, save).sort((tileA, tileB) => {
       return (save.state.tiles.get(tileA)?.buildings.size ?? 0) - (save.state.tiles.get(tileB)?.buildings.size ?? 0);
    });
    let budget = getProvinceIncome(province, save).income;

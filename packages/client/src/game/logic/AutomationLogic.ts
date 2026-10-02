@@ -66,7 +66,7 @@ function automaticallyMakeCore(province: Province, save: SaveGame): void {
    ) {
       return;
    }
-   for (const tile of getProvinceTilesCached(province)) {
+   for (const tile of getProvinceTilesCached(province, save)) {
       if (tryDoAction(MakeCoreAction(tile, province, save), { headless: true }, province, save)) {
          break;
       }
@@ -83,7 +83,7 @@ function automaticallyEvangelize(province: Province, save: SaveGame): void {
    if (!evangelizeMinor && !evangelizeTolerated) {
       return;
    }
-   for (const tile of getProvinceTilesCached(province)) {
+   for (const tile of getProvinceTilesCached(province, save)) {
       const status = getReligionStatus(tile, save);
       if (!((status === "Minor" && evangelizeMinor) || (status === "Tolerated" && evangelizeTolerated))) {
          continue;
@@ -104,7 +104,7 @@ function automaticallyConvertCulture(province: Province, save: SaveGame): void {
    if (!convertMinor && !convertTolerated) {
       return;
    }
-   for (const tile of getProvinceTilesCached(province)) {
+   for (const tile of getProvinceTilesCached(province, save)) {
       const status = getCultureStatus(tile, save);
       if (!((status === "Minor" && convertMinor) || (status === "Tolerated" && convertTolerated))) {
          continue;

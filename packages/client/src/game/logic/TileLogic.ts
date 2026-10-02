@@ -1,4 +1,12 @@
-import { clamp, entriesOf, formatNumber, pointToTile, type Tile, tileToPoint } from "@project/shared/src/utils/Helper";
+import {
+   clamp,
+   entriesOf,
+   formatNumber,
+   formatPercent,
+   pointToTile,
+   type Tile,
+   tileToPoint,
+} from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition, IConditionBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
@@ -952,7 +960,7 @@ export function getTileConvertCultureCost(tile: Tile, save: SaveGame): IValueBre
 }
 
 export const UpgradeBaseCost = 50;
-export const UpgradeCostGrowthFactor = 1.2;
+export const UpgradeCostGrowthFactor = 1.5;
 
 export const getTileUpgradeCost = defineValueGetter(
    (tile: Tile, resource: GovernorPower, save: SaveGame, mode: EvaluationMode = "breakdown") => {
@@ -982,7 +990,10 @@ const getTileUpgradeCostAtCount = defineValueGetter(
       calc.add(UpgradeBaseCost)?.describe($t(L.BaseValue));
       calc
          .multiply(UpgradeCostGrowthFactor ** upgradeCount - 1)
-         ?.describe($t(L.TileUpgrades), $t(L.TileUpgradesCostDesc$1, formatNumber(upgradeCount)));
+         ?.describe(
+            $t(L.TileUpgrades),
+            $t(L.TileUpgradesCostDesc$1$2, formatPercent(UpgradeCostGrowthFactor - 1), formatNumber(upgradeCount)),
+         );
       if (data.culture === state.culture) {
          calc.multiply(-0.1)?.describe($t(L.DominantCulture));
       } else if (state.toleratedCultures.has(data.culture)) {

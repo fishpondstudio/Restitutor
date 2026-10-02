@@ -65,14 +65,14 @@ export function CultureReligionPage(): React.ReactNode {
    const toleratedReligionSlots = getToleratedReligion(G.save.state.playerProvince, G.save);
    const toleratedCultures = Array.from(state.toleratedCultures);
    const toleratedCultureSlots = getToleratedCulture(G.save.state.playerProvince, G.save);
-   const cultureTiles = getProvinceTilesCached(G.save.state.playerProvince).flatMap((tile) => {
+   const cultureTiles = getProvinceTilesCached(G.save.state.playerProvince, G.save).flatMap((tile) => {
       const tileData = G.save.state.tiles.get(tile);
       if (tileData && tileData.culture !== state.culture) {
          return [[tile, tileData]] as const;
       }
       return [];
    });
-   const religionTiles = getProvinceTilesCached(G.save.state.playerProvince).flatMap((tile) => {
+   const religionTiles = getProvinceTilesCached(G.save.state.playerProvince, G.save).flatMap((tile) => {
       const tileData = G.save.state.tiles.get(tile);
       if (tileData && tileData.religion !== state.religion) {
          return [[tile, tileData]] as const;

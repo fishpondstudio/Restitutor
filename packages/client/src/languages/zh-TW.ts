@@ -1432,7 +1432,6 @@ export const ZH_TW = {
    TileColoniaUlpiaTraiana: "科洛尼亞·烏爾皮亞·圖拉亞納",
    TileUmbennum: "翁本農",
    TileUpgrades: "地塊升級",
-   TileUpgradesCostDesc$1: "每次升級使花費複合增長20%。該地塊已升級$1次",
    TileValentia: "瓦倫提亞",
    TileValeria: "瓦萊里亞",
    TileVentaBelgarum: "文塔·貝爾加魯姆",
@@ -4829,4 +4828,5 @@ export const ZH_TW = {
    RecruitChurchClerksAndMediators: "招募教會文書與調解人",
    ReconcileEstateRollsAndTaxDues: "核對田莊簿冊與應繳稅款",
    $1IsNotAnnexedBy$2: "<Tile>$1</Tile> is not annexed by $2",
+   TileUpgradesCostDesc$1$2: "Each upgrade raises the cost by $1 compounded. This tile has been upgraded $2 times",
 };

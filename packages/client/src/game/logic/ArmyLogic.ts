@@ -151,7 +151,7 @@ export function getArmyMaintenanceCost(
    }
    if (hasProvinceUpgrade("MilitarySupplyNetwork", province, save)) {
       let buildingCount = 0;
-      for (const tile of getProvinceCoreTilesCached(province)) {
+      for (const tile of getProvinceCoreTilesCached(province, save)) {
          const data = save.state.tiles.get(tile);
          if (!data) {
             continue;
@@ -321,7 +321,7 @@ export function getWarPower(
       });
    }
    if (hasProvinceUpgrade("MoorishMuster", province, save)) {
-      const coreTileGroups = Math.floor(getProvinceCoreTilesCached(province).length / 10);
+      const coreTileGroups = Math.floor(getProvinceCoreTilesCached(province, save).length / 10);
       if (coreTileGroups > 0) {
          result.multiply.push({
             name: ProvinceUpgrades.MoorishMuster.name(),

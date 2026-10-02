@@ -184,7 +184,7 @@ function ProvinceBox({ province }: { province: Province }): React.ReactNode {
                   </ActionButton>
                </div>
                <div className="divider" />
-               {getProvinceTilesCached(province).map((tile) => {
+               {getProvinceTilesCached(province, G.save).map((tile) => {
                   const tileData = G.save.state.tiles.get(tile);
                   if (!tileData) {
                      return null;

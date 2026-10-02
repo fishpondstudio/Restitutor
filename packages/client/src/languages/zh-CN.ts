@@ -1432,7 +1432,6 @@ export const ZH_CN = {
    TileColoniaUlpiaTraiana: "科洛尼亚·乌尔皮亚·图拉亚纳",
    TileUmbennum: "翁本农",
    TileUpgrades: "地块升级",
-   TileUpgradesCostDesc$1: "每次升级使花费复合增长20%。该地块已升级$1次",
    TileValentia: "瓦伦提亚",
    TileValeria: "瓦莱里亚",
    TileVentaBelgarum: "文塔·贝尔加鲁姆",
@@ -4829,4 +4828,5 @@ export const ZH_CN = {
    RecruitChurchClerksAndMediators: "招募教会文书与调解人",
    ReconcileEstateRollsAndTaxDues: "核对田庄簿册与应缴税款",
    $1IsNotAnnexedBy$2: "<Tile>$1</Tile>未被$2吞并",
+   TileUpgradesCostDesc$1$2: "每次升级使花费复合增长$1。该地块已升级$2次",
 };

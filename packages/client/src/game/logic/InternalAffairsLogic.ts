@@ -47,7 +47,7 @@ export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1,
    }
    if (hasProvinceUpgrade("ChristianCommunities", province, save)) {
       let christianCoreTileCount = 0;
-      for (const tile of getProvinceCoreTilesCached(province)) {
+      for (const tile of getProvinceCoreTilesCached(province, save)) {
          const data = save.state.tiles.get(tile);
          if (data && isChristianReligion(data.religion)) {
             ++christianCoreTileCount;

@@ -130,7 +130,7 @@ export function countProvinceTiles(
    save: SaveGame,
 ): number {
    let count = 0;
-   for (const tile of getProvinceTilesCached(province)) {
+   for (const tile of getProvinceTilesCached(province, save)) {
       const data = save.state.tiles.get(tile);
       if (!data) {
          continue;
@@ -286,7 +286,7 @@ export function getProvinceGoverningCapacity(province: Province, save: SaveGame)
    breakdown.add.push({ name: $t(L.BaseValue), value: 200 });
    if (hasProvinceUpgrade("HarbourAdministration", province, save)) {
       let harbourCount = 0;
-      for (const tile of getProvinceCoreTilesCached(province)) {
+      for (const tile of getProvinceCoreTilesCached(province, save)) {
          const data = save.state.tiles.get(tile);
          if (data?.buildings.has("Harbour")) {
             ++harbourCount;

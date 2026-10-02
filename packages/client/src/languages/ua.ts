@@ -1438,7 +1438,6 @@ export const UA = {
    TileColoniaUlpiaTraiana: "Колонія Ульпія Траяна",
    TileUmbennum: "Умбеннум",
    TileUpgrades: "Покращення володіння",
-   TileUpgradesCostDesc$1: "Кожне покращення підвищує вартість на 20% зі складанням. Це володіння покращували стільки разів: $1",
    TileValentia: "Валенція",
    TileValeria: "Валерія",
    TileVentaBelgarum: "Вента Белгарум",
@@ -5023,4 +5022,5 @@ export const UA = {
    RecruitChurchClerksAndMediators: "Recruit church clerks and mediators",
    ReconcileEstateRollsAndTaxDues: "Reconcile estate rolls and tax dues",
    $1IsNotAnnexedBy$2: "<Tile>$1</Tile> is not annexed by $2",
+   TileUpgradesCostDesc$1$2: "Each upgrade raises the cost by $1 compounded. This tile has been upgraded $2 times",
 };

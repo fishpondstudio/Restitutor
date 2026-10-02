@@ -165,16 +165,16 @@ export function isConnectedToCapital(tile: Tile, save: SaveGame): boolean {
    return cache.has(tile);
 }
 
-export function getProvinceTilesCached(province: Province): Tile[] {
+export function getProvinceTilesCached(province: Province, save: SaveGame): Tile[] {
    if (_cachedProvinceTiles === undefined) {
-      populateProvinceTileCache(G.save);
+      populateProvinceTileCache(save);
    }
    return _cachedProvinceTiles?.get(province) ?? [];
 }
 
-export function getProvinceCoreTilesCached(province: Province): Tile[] {
+export function getProvinceCoreTilesCached(province: Province, save: SaveGame): Tile[] {
    if (_cachedProvinceCoreTiles === undefined) {
-      populateProvinceTileCache(G.save);
+      populateProvinceTileCache(save);
    }
    return _cachedProvinceCoreTiles?.get(province) ?? [];
 }

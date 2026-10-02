@@ -71,7 +71,7 @@ export function annexTiles({
    }
    clearAllCaches();
    for (const affectedProvince of affectedProvinces) {
-      if (affectedProvince !== province && getProvinceTilesCached(affectedProvince).length === 0) {
+      if (affectedProvince !== province && getProvinceTilesCached(affectedProvince, save).length === 0) {
          onProvinceFullyAnnexed(affectedProvince, province, save);
       }
    }
@@ -203,7 +203,7 @@ export function* coreTileReligionCountChecks(
    province: Province,
    save: SaveGame,
 ): ConditionChecks {
-   const coreTiles = getProvinceCoreTilesCached(province);
+   const coreTiles = getProvinceCoreTilesCached(province, save);
    const coreTileReligionCount = coreTiles.filter((tile) => save.state.tiles.get(tile)?.religion === religion).length;
    (yield coreTileReligionCount >= minimum)?.describe(
       $t(
@@ -291,7 +291,7 @@ export function* minCoreCoastalTileChecks(minimum: number, province: Province, s
 }
 
 export function* minCoreTileChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
-   const tileCount = getProvinceCoreTilesCached(province).length;
+   const tileCount = getProvinceCoreTilesCached(province, save).length;
    (yield tileCount >= minimum)?.describe(
       $t(L.$1HasAtLeast$2CoreTiles, getProvinceName(province, save), formatNumber(minimum)),
       { progress: [tileCount, minimum] },
@@ -299,7 +299,7 @@ export function* minCoreTileChecks(minimum: number, province: Province, save: Sa
 }
 
 export function* maxCoreTileChecks(max: number, province: Province, save: SaveGame): ConditionChecks {
-   const tileCount = getProvinceCoreTilesCached(province).length;
+   const tileCount = getProvinceCoreTilesCached(province, save).length;
    (yield tileCount <= max)?.describe($t(L.$1HasAtMost$2CoreTiles, getProvinceName(province, save), formatNumber(max)));
 }
 

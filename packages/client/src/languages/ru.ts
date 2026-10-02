@@ -1437,7 +1437,6 @@ export const RU = {
    TileColoniaUlpiaTraiana: "Колония Ульпия Траяна",
    TileUmbennum: "Умбенн",
    TileUpgrades: "Улучшения владений",
-   TileUpgradesCostDesc$1: "Каждое улучшение повышает стоимость на 20% сложных процентов. Это владение улучшено $1 раз",
    TileValentia: "Валенция",
    TileValeria: "Валерия",
    TileVentaBelgarum: "Вента Белгов",
@@ -5006,4 +5005,5 @@ export const RU = {
    RecruitChurchClerksAndMediators: "Набрать церковных писцов и посредников",
    ReconcileEstateRollsAndTaxDues: "Сверить реестры имений и налоговые обязательства",
    $1IsNotAnnexedBy$2: "Владение <Tile>$1</Tile> не аннексировано провинцией $2",
+   TileUpgradesCostDesc$1$2: "Каждое улучшение повышает стоимость на $1 с накоплением. Это владение улучшено $2 раз",
 };

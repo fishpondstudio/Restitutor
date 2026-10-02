@@ -275,7 +275,7 @@ export class TechDefinitions {
       name: () => $t(L.TechCulturalPolicy),
       modifiers: {
          ToleratedCulture: { type: "add", value: 1 },
-         GoverningCapacity: { type: "add", value: 150 },
+         GoverningCapacity: { type: "add", value: 200 },
       },
    } as const;
 
@@ -301,7 +301,7 @@ export class TechDefinitions {
       requires: ["J1"],
       name: () => $t(L.TechLocalGovernance),
       modifiers: {
-         GoverningCapacity: { type: "add", value: 150 },
+         GoverningCapacity: { type: "add", value: 200 },
          RegionalCapitalCount: { type: "add", value: 1 },
       },
    } as const;

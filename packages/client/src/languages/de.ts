@@ -1439,7 +1439,6 @@ export const DE = {
    TileColoniaUlpiaTraiana: "Colonia Ulpia Traiana",
    TileUmbennum: "Umbennum",
    TileUpgrades: "Gebietsaufwertungen",
-   TileUpgradesCostDesc$1: "Jede Aufwertung erhöht die Kosten kumulativ um 20 %. Dieses Gebiet wurde $1-mal aufgewertet",
    TileValentia: "Valentia",
    TileValeria: "Valeria",
    TileVentaBelgarum: "Venta Belgarum",
@@ -5122,4 +5121,5 @@ export const DE = {
    RecruitChurchClerksAndMediators: "Kirchenschreiber und Vermittler anwerben",
    ReconcileEstateRollsAndTaxDues: "Gutsregister und Steuerforderungen abgleichen",
    $1IsNotAnnexedBy$2: "<Tile>$1</Tile> ist nicht von $2 annektiert",
+   TileUpgradesCostDesc$1$2: "Jede Aufwertung erhöht die Kosten kumulativ um $1. Dieses Gebiet wurde $2-mal aufgewertet",
 };

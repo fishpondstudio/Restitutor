@@ -1,3 +1,8 @@
+## Balancing
+
+- Cultural Policy and Local Governance now each grant +200 Governing Capacity, up from +150.
+- Each tile upgrade now increases subsequent upgrade costs by 50% compounded, up from 20%.
+
 ## Galatia
 
 Galatia province is now playable, with three unique Provincial Spirits:

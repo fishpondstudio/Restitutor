@@ -1437,7 +1437,6 @@ export const TR = {
    TileColoniaUlpiaTraiana: "Colonia Ulpia Traiana",
    TileUmbennum: "Umbennum",
    TileUpgrades: "Tile Upgrades",
-   TileUpgradesCostDesc$1: "Each upgrade raises the cost by 20% compounded. This tile has been upgraded $1 times",
    TileValentia: "Valentia",
    TileValeria: "Valeria",
    TileVentaBelgarum: "Venta Belgarum",
@@ -5041,4 +5040,5 @@ export const TR = {
    RecruitChurchClerksAndMediators: "Recruit church clerks and mediators",
    ReconcileEstateRollsAndTaxDues: "Reconcile estate rolls and tax dues",
    $1IsNotAnnexedBy$2: "<Tile>$1</Tile> is not annexed by $2",
+   TileUpgradesCostDesc$1$2: "Each upgrade raises the cost by $1 compounded. This tile has been upgraded $2 times",
 };
