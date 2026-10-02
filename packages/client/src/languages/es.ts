@@ -3029,9 +3029,6 @@ export const ES = {
    SurveyAndSettleTheCountryside: "Inspeccionar y asentar el campo",
    EveryArtMastered: "Dominadas todas las artes",
    EveryArtMasteredDesc: "Desde la agricultura y la ley hasta la ingeniería y la guerra, nuestros eruditos y funcionarios han dominado todas las disciplinas disponibles para el mundo romano. Sus conocimientos reunidos pueden transformar la provincia durante generaciones.",
-   FoundACapitalOfLearning: "Fundar una capital del saber",
-   GiveScholarsAVoiceInTheSenate: "Dar voz a los eruditos en el Senado",
-   DispatchExpertsAcrossTheProvince: "Enviar expertos por toda la provincia",
    TerrainNamePlain: "Llanura",
    TerrainNameHill: "Colina",
    TerrainNameForest: "Bosque",
@@ -4667,7 +4664,6 @@ export const ES = {
    TheSealsOfTwoCapitalsDesc:
       "Mensajeros de Roma y Constantinopla depositan sus despachos sobre la misma mesa. Ambas ciudades guardan ahora nuestro sello en sus archivos, aunque cada una trae sus propios escribanos, peticionarios y antiguas expectativas. Entre el Tíber y el Bósforo, nuestros funcionarios pueden recurrir a dos grandes tradiciones de gobierno; la tarea consiste en hacerlas trabajar juntas.",
    DelegateAuthorityToRegionalOffices: "Delegar autoridad en las oficinas regionales",
-   UnifyTheChancelleriesProcedures: "Unificar los procedimientos de las cancillerías",
    EstablishASharedDiplomaticService: "Establecer un servicio diplomático común",
    BankruptcyRiskTooltip$1: "El coste mensual de los intereses de nuestra provincia supera el $1 de nuestros ingresos mensuales. Entraremos en bancarrota si nos quedamos sin oro mientras el coste mensual de los intereses supera nuestros ingresos mensuales. Haz clic para ver los detalles.",
    AutomaticallyCoreTiles: "Convertir territorios en núcleos automáticamente",
@@ -5119,4 +5115,19 @@ export const ES = {
    ReconcileEstateRollsAndTaxDues: "Cotejar los registros de propiedades y las obligaciones fiscales",
    $1IsNotAnnexedBy$2: "<Tile>$1</Tile> is not annexed by $2",
    TileUpgradesCostDesc$1$2: "Each upgrade raises the cost by $1 compounded. This tile has been upgraded $2 times",
+   ProvinceEasternRomanEmpire: "Eastern Roman Empire",
+   TheReachOfOurSeal: "The Reach of Our Seal",
+   TheReachOfOurSealDesc:
+      "Petitioners crowd the steps of our audience hall, their sandals worn by journeys from distant towns. Inside, clerks stack land registers beside letters from civic councils and requisitions from the garrisons. Our seal travels farther than ever, but too much still waits upon a single desk. Among those gathered are experienced magistrates, envoys, and officers ready to carry a share of the burden.",
+   EstablishRegionalCivilOffices: "Establish regional civil offices",
+   BuildANetworkOfCivicEnvoys: "Build a network of civic envoys",
+   OrganizeRegionalMilitaryStaffs: "Organize regional military staffs",
+   PutSurveyorsToWorkOnTheTaxRolls: "Put surveyors to work on the tax rolls",
+   BringNewMethodsToOurWorkshops: "Bring new methods to our workshops",
+   TrainOfficialsToOrganizeRecruitment: "Train officials to organize recruitment",
+   UnifyTheMilitaryStaffs: "Unify the military staffs",
+   TheEasternRomanEmpireRestored: "The Eastern Roman Empire Restored",
+   EasternRomanEmpireRestoredDesc:
+      "Beneath the colonnades of Constantinople, envoys from the Danube, the Nile, and the cities of Syria gather with their civic banners. Our seal now carries authority from the Balkan forts to the eastern caravan roads. As the acclamations rise, clerks prepare a proclamation: the lands we have brought together shall bear an imperial name.",
+   ProclaimTheEasternRomanEmpire: "Proclaim the Eastern Roman Empire",
 };

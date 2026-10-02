@@ -3037,9 +3037,6 @@ export const DE = {
    SurveyAndSettleTheCountryside: "Das Land erfassen und besiedeln",
    EveryArtMastered: "Jede Kunst gemeistert",
    EveryArtMasteredDesc: "Von Landwirtschaft und Recht bis zu Ingenieurskunst und Krieg haben unsere Gelehrten und Amtsträger jede der römischen Welt bekannte Disziplin gemeistert. Ihr gesammeltes Wissen kann die Provinz nun über Generationen umgestalten.",
-   FoundACapitalOfLearning: "Eine Hauptstadt der Gelehrsamkeit gründen",
-   GiveScholarsAVoiceInTheSenate: "Gelehrten im Senat Gehör verschaffen",
-   DispatchExpertsAcrossTheProvince: "Fachleute in die ganze Provinz entsenden",
    TerrainNamePlain: "Ebene",
    TerrainNameHill: "Hügelland",
    TerrainNameForest: "Wald",
@@ -4670,7 +4667,6 @@ export const DE = {
    TheSealsOfTwoCapitalsDesc:
       "Kuriere aus Rom und Konstantinopel legen ihre Schreiben auf denselben Tisch. Beide Städte bewahren nun unser Siegel in ihren Archiven auf, doch jede bringt eigene Schreiber, Bittsteller und alte Erwartungen mit. Zwischen Tiber und Bosporus können unsere Beamten auf zwei große Verwaltungstraditionen zurückgreifen; nun müssen sie diese miteinander verbinden.",
    DelegateAuthorityToRegionalOffices: "Befugnisse an regionale Ämter übertragen",
-   UnifyTheChancelleriesProcedures: "Die Verfahren der Kanzleien vereinheitlichen",
    EstablishASharedDiplomaticService: "Einen gemeinsamen diplomatischen Dienst einrichten",
    BankruptcyRiskTooltip$1: "Die monatlichen Zinskosten unserer Provinz übersteigen $1 unserer monatlichen Einnahmen. Wir werden bankrottgehen, wenn uns das Gold ausgeht, während unsere monatlichen Zinskosten unsere monatlichen Einnahmen übersteigen. Klicken, um Details anzuzeigen.",
    AutomaticallyCoreTiles: "Gebiete automatisch zu Kerngebieten machen",
@@ -5122,4 +5118,19 @@ export const DE = {
    ReconcileEstateRollsAndTaxDues: "Gutsregister und Steuerforderungen abgleichen",
    $1IsNotAnnexedBy$2: "<Tile>$1</Tile> ist nicht von $2 annektiert",
    TileUpgradesCostDesc$1$2: "Jede Aufwertung erhöht die Kosten kumulativ um $1. Dieses Gebiet wurde $2-mal aufgewertet",
+   ProvinceEasternRomanEmpire: "Oströmisches Reich",
+   TheReachOfOurSeal: "Die Reichweite unseres Siegels",
+   TheReachOfOurSealDesc:
+      "Bittsteller drängen sich auf den Stufen unserer Audienzhalle, ihre Sandalen abgenutzt von Reisen aus fernen Städten. Drinnen stapeln Schreiber Grundbücher neben Briefen der Stadträte und Anforderungen der Garnisonen. Unser Siegel gelangt weiter als je zuvor, doch noch immer wartet zu viel auf die Bearbeitung an einem einzigen Schreibtisch. Unter den Versammelten sind erfahrene Magistrate, Gesandte und Offiziere, die bereit sind, einen Teil der Last zu tragen.",
+   EstablishRegionalCivilOffices: "Regionale zivile Verwaltungsämter einrichten",
+   BuildANetworkOfCivicEnvoys: "Ein Netz von städtischen Gesandten aufbauen",
+   OrganizeRegionalMilitaryStaffs: "Regionale militärische Stäbe organisieren",
+   PutSurveyorsToWorkOnTheTaxRolls: "Landvermesser mit der Bearbeitung der Steuerregister beauftragen",
+   BringNewMethodsToOurWorkshops: "Neue Methoden in unseren Werkstätten einführen",
+   TrainOfficialsToOrganizeRecruitment: "Beamte für die Organisation der Rekrutierung ausbilden",
+   UnifyTheMilitaryStaffs: "Die militärischen Stäbe vereinen",
+   TheEasternRomanEmpireRestored: "Das Oströmische Reich wiederhergestellt",
+   EasternRomanEmpireRestoredDesc:
+      "Unter den Kolonnaden von Konstantinopel versammeln sich Gesandte von der Donau, vom Nil und aus den Städten Syrias mit den Bannern ihrer Städte. Unser Siegel verleiht nun Autorität von den Festungen des Balkans bis zu den Karawanenstraßen des Ostens. Während die Jubelrufe anschwellen, bereiten Schreiber eine Proklamation vor: Die Länder, die wir zusammengeführt haben, sollen einen kaiserlichen Namen tragen.",
+   ProclaimTheEasternRomanEmpire: "Das Oströmische Reich ausrufen",
 };

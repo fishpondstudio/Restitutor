@@ -3,6 +3,7 @@ import { $t, L } from "../../utils/i18n";
 export const ProvinceNameOverrides = {
    GallicEmpire: () => $t(L.GallicEmpire),
    WesternRomanEmpire: () => $t(L.ProvinceWesternRomanEmpire),
+   EasternRomanEmpire: () => $t(L.ProvinceEasternRomanEmpire),
    AlpineConfederation: () => $t(L.ProvinceAlpineConfederation),
    Illyria: () => $t(L.ProvinceIllyria),
    DanubianAlliance: () => $t(L.ProvinceDanubianAlliance),

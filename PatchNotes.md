@@ -3,6 +3,17 @@
 - Cultural Policy and Local Governance now each grant +200 Governing Capacity, up from +150.
 - Each tile upgrade now increases subsequent upgrade costs by 50% compounded, up from 20%.
 
+## Missions
+
+- New mission, The Reach of Our Seal: Reach 100 core tiles to gain +200 Governing Capacity and your choice of 100 administrative, diplomatic, or military points.
+- New mission, The Eastern Roman Empire Restored: Fully annex and core the Eastern Roman Empire's provinces as an eastern province to adopt its name, gaining +500 Governing Capacity and +1 monthly administrative, diplomatic, and military points.
+- The Western Roman Empire Restored now grants +500 Governing Capacity, up from +200.
+- Every Art Mastered now grants +200 Governing Capacity and a permanent +20% bonus to your choice of Land Tax, Tile Output, or Manpower, replacing its previous rewards.
+- The Seals of Two Capitals now grants +200 Governing Capacity with every choice, plus +1 monthly administrative, diplomatic, or military point.
+- Dominion of the Western Sea and Dominion of the Eastern Sea now grant +200 Governing Capacity, up from +100, alongside their existing monthly point rewards.
+- The Spoils of Victory now grants +200 Governing Capacity in addition to Right of Plunder.
+- A Province Transformed's Senate option now grants 2 Consul Points, down from 5.
+
 ## Galatia
 
 Galatia province is now playable, with three unique Provincial Spirits:

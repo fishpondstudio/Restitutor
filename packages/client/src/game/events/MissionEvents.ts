@@ -4,6 +4,7 @@ import { Province } from "../definitions/Province";
 import { Tech } from "../definitions/Tech";
 import {
    EasternMediterraneanProvinces,
+   EasternRomanEmpireProvinces,
    Tiles,
    WesternMediterraneanProvinces,
    WesternRomanEmpireProvinces,
@@ -94,7 +95,7 @@ export const MissionEvents = {
          {
             label: () => $t(L.SecureAlliesInTheSenate),
             resources: {
-               consulPoint: 5,
+               consulPoint: 2,
             },
          },
          {
@@ -104,6 +105,39 @@ export const MissionEvents = {
                diplomatic: 60,
                military: 60,
             },
+         },
+      ],
+   },
+   Mission11: {
+      name: () => $t(L.TheReachOfOurSeal),
+      image: EventImage.RomanAudience,
+      desc: () => $t(L.TheReachOfOurSealDesc),
+      condition: {
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(100, province, save);
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.EstablishRegionalCivilOffices),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 200 },
+            },
+            resources: { administrative: 100 },
+         },
+         {
+            label: () => $t(L.BuildANetworkOfCivicEnvoys),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 200 },
+            },
+            resources: { diplomatic: 100 },
+         },
+         {
+            label: () => $t(L.OrganizeRegionalMilitaryStaffs),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 200 },
+            },
+            resources: { military: 100 },
          },
       ],
    },
@@ -119,23 +153,24 @@ export const MissionEvents = {
       achievement: "ResearchAllTechs",
       buttons: [
          {
-            label: () => $t(L.FoundACapitalOfLearning),
-            resources: {
-               mandate: 1,
+            label: () => $t(L.PutSurveyorsToWorkOnTheTaxRolls),
+            modifiers: {
+               LandTax: { type: "multiply", value: 0.2 },
+               GoverningCapacity: { type: "add", value: 200 },
             },
          },
          {
-            label: () => $t(L.GiveScholarsAVoiceInTheSenate),
-            resources: {
-               consulPoint: 5,
+            label: () => $t(L.BringNewMethodsToOurWorkshops),
+            modifiers: {
+               TileOutput: { type: "multiply", value: 0.2 },
+               GoverningCapacity: { type: "add", value: 200 },
             },
          },
          {
-            label: () => $t(L.DispatchExpertsAcrossTheProvince),
-            resources: {
-               administrative: 60,
-               diplomatic: 60,
-               military: 60,
+            label: () => $t(L.TrainOfficialsToOrganizeRecruitment),
+            modifiers: {
+               Manpower: { type: "multiply", value: 0.2 },
+               GoverningCapacity: { type: "add", value: 200 },
             },
          },
       ],
@@ -155,42 +190,41 @@ export const MissionEvents = {
             label: () => $t(L.DelegateAuthorityToRegionalOffices),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
-            },
-         },
-         {
-            label: () => $t(L.UnifyTheChancelleriesProcedures),
-            modifiers: {
                AdministrativePoint: { type: "add", value: 1 },
             },
          },
          {
             label: () => $t(L.EstablishASharedDiplomaticService),
             modifiers: {
+               GoverningCapacity: { type: "add", value: 200 },
                DiplomaticPoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.UnifyTheMilitaryStaffs),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 200 },
+               MilitaryPoint: { type: "add", value: 1 },
             },
          },
       ],
    },
-   Mission3: {
-      name: () => $t(L.TheWesternRomanEmpireRestored),
-      image: EventImage.CaesarsTriumph,
-      desc: () => $t(L.WesternRomanEmpireRestoredDesc),
+   Mission8: {
+      name: () => $t(L.TheSpoilsOfVictory),
+      image: EventImage.GallicSack,
+      desc: () => $t(L.TheSpoilsOfVictoryDesc),
       condition: {
-         province: new Set(WesternRomanEmpireProvinces),
-         annexAndCore: fromEntries(WesternRomanEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
+         conditions: function* (province, save): ConditionChecks {
+            yield* eliminatedBarbariansChecks(1, province, save);
+         },
       },
-      achievement: "RestoreWesternRomanEmpire",
-      wikipedia: "Western_Roman_Empire",
       buttons: [
          {
-            label: () => $t(L.TheWestIsRomanOnceMore),
+            label: () => $t(L.SanctionPlunderForOurProvince),
+            provinceUpgrades: ["RightOfPlunder"],
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
-               AdministrativePoint: { type: "add", value: 1 },
-               DiplomaticPoint: { type: "add", value: 1 },
-               MilitaryPoint: { type: "add", value: 1 },
             },
-            custom: [setProvinceNameOverrideEffect("WesternRomanEmpire")],
          },
       ],
    },
@@ -209,21 +243,21 @@ export const MissionEvents = {
          {
             label: () => $t(L.GovernTheShoresThroughLaw),
             modifiers: {
-               GoverningCapacity: { type: "add", value: 100 },
+               GoverningCapacity: { type: "add", value: 200 },
                AdministrativePoint: { type: "add", value: 1 },
             },
          },
          {
             label: () => $t(L.BindThePortsThroughDiplomacy),
             modifiers: {
-               GoverningCapacity: { type: "add", value: 100 },
+               GoverningCapacity: { type: "add", value: 200 },
                DiplomaticPoint: { type: "add", value: 1 },
             },
          },
          {
             label: () => $t(L.EntrustTheSeaToOurFleets),
             modifiers: {
-               GoverningCapacity: { type: "add", value: 100 },
+               GoverningCapacity: { type: "add", value: 200 },
                MilitaryPoint: { type: "add", value: 1 },
             },
          },
@@ -244,39 +278,68 @@ export const MissionEvents = {
          {
             label: () => $t(L.GovernTheEasternShoresByLaw),
             modifiers: {
-               GoverningCapacity: { type: "add", value: 100 },
+               GoverningCapacity: { type: "add", value: 200 },
                AdministrativePoint: { type: "add", value: 1 },
             },
          },
          {
             label: () => $t(L.BindTheEasternPortsByTreaty),
             modifiers: {
-               GoverningCapacity: { type: "add", value: 100 },
+               GoverningCapacity: { type: "add", value: 200 },
                DiplomaticPoint: { type: "add", value: 1 },
             },
          },
          {
             label: () => $t(L.EntrustTheEastToOurFleets),
             modifiers: {
-               GoverningCapacity: { type: "add", value: 100 },
+               GoverningCapacity: { type: "add", value: 200 },
                MilitaryPoint: { type: "add", value: 1 },
             },
          },
       ],
    },
-   Mission8: {
-      name: () => $t(L.TheSpoilsOfVictory),
-      image: EventImage.GallicSack,
-      desc: () => $t(L.TheSpoilsOfVictoryDesc),
+   Mission3: {
+      name: () => $t(L.TheWesternRomanEmpireRestored),
+      image: EventImage.CaesarsTriumph,
+      desc: () => $t(L.WesternRomanEmpireRestoredDesc),
       condition: {
-         conditions: function* (province, save): ConditionChecks {
-            yield* eliminatedBarbariansChecks(1, province, save);
-         },
+         province: new Set(WesternRomanEmpireProvinces),
+         annexAndCore: fromEntries(WesternRomanEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
+      achievement: "RestoreWesternRomanEmpire",
+      wikipedia: "Western_Roman_Empire",
       buttons: [
          {
-            label: () => $t(L.SanctionPlunderForOurProvince),
-            provinceUpgrades: ["RightOfPlunder"],
+            label: () => $t(L.TheWestIsRomanOnceMore),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 500 },
+               AdministrativePoint: { type: "add", value: 1 },
+               DiplomaticPoint: { type: "add", value: 1 },
+               MilitaryPoint: { type: "add", value: 1 },
+            },
+            custom: [setProvinceNameOverrideEffect("WesternRomanEmpire")],
+         },
+      ],
+   },
+   Mission10: {
+      name: () => $t(L.TheEasternRomanEmpireRestored),
+      image: EventImage.ImperialCity,
+      desc: () => $t(L.EasternRomanEmpireRestoredDesc),
+      condition: {
+         province: new Set(EasternRomanEmpireProvinces),
+         annexAndCore: fromEntries(EasternRomanEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
+      },
+      wikipedia: "Eastern_Roman_Empire",
+      buttons: [
+         {
+            label: () => $t(L.ProclaimTheEasternRomanEmpire),
+            modifiers: {
+               GoverningCapacity: { type: "add", value: 500 },
+               AdministrativePoint: { type: "add", value: 1 },
+               DiplomaticPoint: { type: "add", value: 1 },
+               MilitaryPoint: { type: "add", value: 1 },
+            },
+            custom: [setProvinceNameOverrideEffect("EasternRomanEmpire")],
          },
       ],
    },
