@@ -377,6 +377,12 @@ export function* isCoreTileChecks(tile: Tile, province: Province, save: SaveGame
    );
 }
 
+export function* notAnnexedChecks(tile: Tile, province: Province, save: SaveGame): ConditionChecks {
+   (yield save.state.tiles.get(tile)?.province !== province)?.describe(
+      $t(L.$1IsNotAnnexedBy$2, tile, getProvinceName(province, save)),
+   );
+}
+
 export function* minCulturePercentageChecks(
    minimum: number,
    culture: Culture,

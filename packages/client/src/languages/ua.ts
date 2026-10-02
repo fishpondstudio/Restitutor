@@ -5031,4 +5031,5 @@ export const UA = {
    SupportAJointPreachingMission: "Support a joint preaching mission",
    RecruitChurchClerksAndMediators: "Recruit church clerks and mediators",
    ReconcileEstateRollsAndTaxDues: "Reconcile estate rolls and tax dues",
+   $1IsNotAnnexedBy$2: "<Tile>$1</Tile> is not annexed by $2",
 };

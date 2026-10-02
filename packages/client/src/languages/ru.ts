@@ -5005,4 +5005,5 @@ export const RU = {
    SupportAJointPreachingMission: "Поддержать совместную проповедническую миссию",
    RecruitChurchClerksAndMediators: "Набрать церковных писцов и посредников",
    ReconcileEstateRollsAndTaxDues: "Сверить реестры имений и налоговые обязательства",
+   $1IsNotAnnexedBy$2: "Владение <Tile>$1</Tile> не аннексировано провинцией $2",
 };

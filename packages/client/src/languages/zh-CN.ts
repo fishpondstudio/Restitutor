@@ -4828,4 +4828,5 @@ export const ZH_CN = {
    SupportAJointPreachingMission: "支持联合布道行动",
    RecruitChurchClerksAndMediators: "招募教会文书与调解人",
    ReconcileEstateRollsAndTaxDues: "核对田庄簿册与应缴税款",
+   $1IsNotAnnexedBy$2: "<Tile>$1</Tile>未被$2吞并",
 };

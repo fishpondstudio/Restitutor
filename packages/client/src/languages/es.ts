@@ -5118,4 +5118,5 @@ export const ES = {
    SupportAJointPreachingMission: "Apoyar una misión conjunta de predicación",
    RecruitChurchClerksAndMediators: "Reclutar escribas eclesiásticos y mediadores",
    ReconcileEstateRollsAndTaxDues: "Cotejar los registros de propiedades y las obligaciones fiscales",
+   $1IsNotAnnexedBy$2: "<Tile>$1</Tile> is not annexed by $2",
 };

@@ -5121,4 +5121,5 @@ export const DE = {
    SupportAJointPreachingMission: "Eine gemeinsame Predigtmission unterstützen",
    RecruitChurchClerksAndMediators: "Kirchenschreiber und Vermittler anwerben",
    ReconcileEstateRollsAndTaxDues: "Gutsregister und Steuerforderungen abgleichen",
+   $1IsNotAnnexedBy$2: "<Tile>$1</Tile> ist nicht von $2 annektiert",
 };

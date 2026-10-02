@@ -11,6 +11,7 @@ import {
    manpowerChecks,
    maxCoreTileChecks,
    minCoreCoastalTileChecks,
+   notAnnexedChecks,
    provinceResourceChecks,
    religionChecks,
    setProvinceNameOverrideEffect,
@@ -296,6 +297,7 @@ export const SyriaJudeaEvents = {
          onMap: { Cilicia: true },
          annexAndCore: { Cilicia: 5 },
          conditions: function* (province, save): ConditionChecks {
+            yield* notAnnexedChecks(10616918, province, save);
             yield* maxCoreTileChecks(5, "Cilicia", save);
             yield* provinceResourceChecks("gold", 1000, province, save);
          },
