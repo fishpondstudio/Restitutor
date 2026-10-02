@@ -42,6 +42,7 @@ import { RaetiaEvents } from "./RaetiaEvents";
 import { RandomEvents } from "./RandomEvents";
 import { ReligiousEvents } from "./ReligiousEvents";
 import { SiciliaEvents } from "./SiciliaEvents";
+import { SyriaJudeaEvents } from "./SyriaJudeaEvents";
 import { TarraconensisEvents } from "./TarraconensisEvents";
 import { ThraciaEvents } from "./ThraciaEvents";
 
@@ -94,6 +95,8 @@ export const RomeEvents = {
    ...BithyniaEvents,
    ...AsiaEvents,
    ...GalatiaLyciaCiliciaCappadociaEvents,
+   // ...AegyptusCyrenaicaEvents,
+   ...SyriaJudeaEvents,
    ...ThraciaEvents,
    ...TarraconensisEvents,
    ...LusitaniaEvents,

@@ -170,6 +170,15 @@ export function getArmyMaintenanceCost(
          });
       }
    }
+   if (hasProvinceUpgrade("MercantileLogistics", province, save)) {
+      const tradeCount = getProvinceTrades(province, save).size;
+      if (tradeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.MercantileLogistics.name(),
+            value: -0.1 * tradeCount,
+         });
+      }
+   }
    attachModifiers("ArmyMaintenance", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }

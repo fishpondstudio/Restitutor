@@ -20,7 +20,7 @@ import { MapGrid } from "../MapGrid";
 import { cacheTile, cacheTileEvaluation, isConnectedToCapital } from "./CacheLogic";
 import { defineValueGetter, type EvaluationMode, ValueCalculation } from "./Calculation";
 import { EcumenicalCouncilPct } from "./EcumenicalCouncilLogic";
-import { getCulturalCohesion } from "./InternalAffairsLogic";
+import { getApostolicSeeTiles, getCulturalCohesion } from "./InternalAffairsLogic";
 import { tileIsOurCoreCondition } from "./MissionLogic";
 import {
    attachModifiers,
@@ -458,6 +458,15 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
          name: ProvinceUpgrades.CohesiveTaxation.name(),
          value: getCulturalCohesion(data.province, save) * 0.2,
       });
+   }
+   if (hasProvinceUpgrade("ApostolicTaxation", data.province, save)) {
+      let ownedApostolicSees = 0;
+      for (const apostolicSee of getApostolicSeeTiles(save)) {
+         if (save.state.tiles.get(apostolicSee)?.province === data.province) {
+            ++ownedApostolicSees;
+         }
+      }
+      breakdown.multiply.push({ name: ProvinceUpgrades.ApostolicTaxation.name(), value: ownedApostolicSees * 0.1 });
    }
    if (
       hasProvinceUpgrade("DefensiveMobilization", data.province, save) &&

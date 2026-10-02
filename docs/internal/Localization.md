@@ -19,17 +19,19 @@ This document describes how to extract hardcoded user-facing strings in the Rest
 
 This registry is the single source of truth for language files and their ownership. Follow its ownership column whenever adding, translating, reviewing, correcting, or synchronizing localization content.
 
-| Language | File | Ownership | Handling |
-|----------|------|-----------|----------|
-| English | `packages/client/src/languages/en.ts` | **Base** | Source of truth for keys, English content, and validation. |
-| German | `packages/client/src/languages/de.ts` | **Machine** | String values are translated and maintained through machine translation. |
-| Russian | `packages/client/src/languages/ru.ts` | **Machine** | String values are translated and maintained through machine translation. |
-| Simplified Chinese | `packages/client/src/languages/zh-CN.ts` | **Machine** | String values are translated and maintained through machine translation. |
-| Traditional Chinese | `packages/client/src/languages/zh-TW.ts` | **Machine** | String values are translated and maintained through machine translation. |
-| French | `packages/client/src/languages/fr.ts` | **External** | String values are reserved for the external translator. Keys may be synchronized mechanically, but string values must not be translated, reviewed, corrected, or otherwise revised. |
-| Spanish | `packages/client/src/languages/es.ts` | **Machine** | String values are translated and maintained through machine translation. |
-| Turkish | `packages/client/src/languages/tr.ts` | **External** | String values are reserved for the external translator. Keys may be synchronized mechanically, but string values must not be translated, reviewed, corrected, or otherwise revised. |
-| Ukrainian | `packages/client/src/languages/ua.ts` | **External** | String values are reserved for the external contributor. Keys may be synchronized mechanically, but string values must not be translated, reviewed, corrected, or otherwise revised. |
+| Language | File | Ownership |
+|----------|------|-----------|
+| English | `packages/client/src/languages/en.ts` | **Base** |
+| German | `packages/client/src/languages/de.ts` | **Machine** |
+| Russian | `packages/client/src/languages/ru.ts` | **Machine** |
+| Simplified Chinese | `packages/client/src/languages/zh-CN.ts` | **Machine** |
+| Traditional Chinese | `packages/client/src/languages/zh-TW.ts` | **External** |
+| French | `packages/client/src/languages/fr.ts` | **External** |
+| Spanish | `packages/client/src/languages/es.ts` | **External** |
+| Turkish | `packages/client/src/languages/tr.ts` | **External** |
+| Ukrainian | `packages/client/src/languages/ua.ts` | **External** |
+
+**Base** is the source of truth for keys, English content, and validation. **Machine** string values are translated and maintained through machine translation. **External** string values are reserved for external translators or contributors: keys may be synchronized mechanically, but string values must not be translated, reviewed, corrected, or otherwise revised.
 
 ## Workflow
 

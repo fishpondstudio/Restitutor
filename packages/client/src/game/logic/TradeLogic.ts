@@ -11,7 +11,7 @@ import type { SaveGame } from "../GameState";
 import { getAttitudeTowards, getRelations } from "./DiplomacyLogic";
 import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
 import { attachModifiers } from "./ModifierLogic";
-import { getProvinceCoreCoastalTileCount, hasStraitOfGibraltar } from "./ProvinceLogic";
+import { getNeighborProvinces, getProvinceCoreCoastalTileCount, hasStraitOfGibraltar } from "./ProvinceLogic";
 import { getTreatyCount } from "./TreatyLogic";
 
 export function getProvinceTrades(province: Province, save: SaveGame): Map<Province, ActiveTrade> {
@@ -113,6 +113,12 @@ export function getProvinceTradeProfit(province: Province, save: SaveGame): IVal
       result.multiply.push({
          name: ProvinceUpgrades.CoastalCommerce.name(),
          value: Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.01, 0.5),
+      });
+   }
+   if (hasProvinceUpgrade("CrossroadsCommerce", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.CrossroadsCommerce.name(),
+         value: Math.min(getNeighborProvinces(province, save).size * 0.1, 0.5),
       });
    }
    if (hasProvinceUpgrade("FriendlyCommerce", province, save)) {

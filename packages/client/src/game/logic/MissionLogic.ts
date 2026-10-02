@@ -7,6 +7,7 @@ import { durationToString } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
 import { type ProvinceNameOverride, ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
 import { type ProvinceResource, ProvinceResourceNames } from "../definitions/ProvinceResources";
+import { Religion } from "../definitions/Religion";
 import { SpawnedProvinces } from "../definitions/SpawnedProvince";
 import { getTileName } from "../definitions/TileName";
 import type { TileNameOverride } from "../definitions/TileNameOverrides";
@@ -25,7 +26,7 @@ import {
 import type { ConditionChecks } from "./Calculation";
 import { cleanUpProvince } from "./CleanupProvince";
 import { getMarriageAlliance, getRelation } from "./DiplomacyLogic";
-import { getCulturePercentage } from "./InternalAffairsLogic";
+import { getApostolicSeeTiles, getCulturePercentage } from "./InternalAffairsLogic";
 import {
    addProvinceStat,
    ensureProvinceCapitals,
@@ -188,6 +189,41 @@ export function nullifyNegativeAttitudesEffect(fromProvince: Province): ICustomE
          );
       },
    };
+}
+
+export function* religionChecks(religion: Religion, province: Province, save: SaveGame): ConditionChecks {
+   (yield save.state.provinces[province]?.religion === religion)?.describe(
+      $t(L.$1sReligionIs$2, getProvinceName(province, save), Religion[religion].name()),
+   );
+}
+
+export function* coreTileReligionCountChecks(
+   religion: Religion,
+   minimum: number,
+   province: Province,
+   save: SaveGame,
+): ConditionChecks {
+   const coreTiles = getProvinceCoreTilesCached(province);
+   const coreTileReligionCount = coreTiles.filter((tile) => save.state.tiles.get(tile)?.religion === religion).length;
+   (yield coreTileReligionCount >= minimum)?.describe(
+      $t(
+         L.$1HasAtLeast$2CoreTilesWithThe$3Religion,
+         getProvinceName(province, save),
+         formatNumber(minimum),
+         Religion[religion].name(),
+      ),
+      { progress: [coreTileReligionCount, minimum] },
+   );
+}
+
+export function* apostolicSeeCountChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
+   const apostolicSee = getApostolicSeeTiles(save);
+   const provinceApostolicSee = Array.from(apostolicSee).filter(
+      (tile) => save.state.tiles.get(tile)?.province === province,
+   );
+   (yield provinceApostolicSee.length >= minimum)?.describe($t(L.Annex$1ApostolicSees, formatNumber(minimum)), {
+      progress: [provinceApostolicSee.length, minimum],
+   });
 }
 
 export function* provinceRevenueChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {

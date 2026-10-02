@@ -472,6 +472,32 @@ const _ProvinceUpgrades = {
       name: () => $t(L.AbundantProvisions),
       desc: () => $t(L.AbundantProvisionsDesc$1$2$3$4, "+1%", Goods.bread.name(), Goods.cheese.name(), "+25%"),
    },
+   CrossroadsCommerce: {
+      name: () => $t(L.CrossroadsCommerce),
+      desc: () => $t(L.$1TradeProfitForEachNeighboringProvinceUpTo$2, "+10%", "+50%"),
+   },
+   ReligiousAccommodation: {
+      name: () => $t(L.ReligiousAccommodation),
+      modifiers: {
+         ToleratedReligion: { type: "add", value: 1 },
+      },
+   },
+   MercantileLogistics: {
+      name: () => $t(L.MercantileLogistics),
+      desc: () => $t(L.$1ArmyMaintenanceForEachActiveTrade, "−10%"),
+   },
+   ChristianCommunities: {
+      name: () => $t(L.ChristianCommunities),
+      desc: () => $t(L.ChristianCommunitiesDesc$1$2, "+0.1", "+10"),
+   },
+   EfficientEvangelization: {
+      name: () => $t(L.EfficientEvangelization),
+      desc: () => $t(L.$1ChristianInfluenceCostToEvangelizeATile, "−50%"),
+   },
+   ApostolicTaxation: {
+      name: () => $t(L.ApostolicTaxation),
+      desc: () => $t(L.$1LandTaxForEachApostolicSeeWeCurrentlyOwn, "+10%"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

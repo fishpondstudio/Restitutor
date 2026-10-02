@@ -226,7 +226,7 @@ const _Province = {
       tiles: [10813528, 10747993, 10682457, 10747994, 10682458, 10616923, 10682460, 10682459, 10747996],
       culture: "Arab",
       religion: "Judaism",
-      upgrades: [],
+      upgrades: ["ChristianCommunities", "EfficientEvangelization", "ApostolicTaxation"],
    },
    Lusitania: {
       code: "LS",
@@ -356,7 +356,7 @@ const _Province = {
       tiles: [10813523, 10813524, 10879060, 10879061, 10813525, 10747989, 10813526, 10879062, 10747991, 10747992],
       culture: "Syrian",
       religion: "Eastern",
-      upgrades: [],
+      upgrades: ["CrossroadsCommerce", "ReligiousAccommodation", "MercantileLogistics"],
    },
    Tarraconensis: {
       code: "TR",

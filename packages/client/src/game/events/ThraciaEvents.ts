@@ -478,7 +478,7 @@ export const ThraciaEvents = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.BetweenTwoSeasDesc),
       condition: {
-         province: new Set(["Dalmatia", "Moesia", "Thracia", "Macedonia", ...AnatoliaProvinces]),
+         province: new Set(["Dalmatia", "Moesia", "Thracia", "Macedonia", ...AnatoliaProvinces, "Syria"]),
          conditions: function* (province, save): ConditionChecks {
             yield* mediterraneanCoastChecks(5, province, save);
             yield* blackSeaCoastChecks(5, province, save);
