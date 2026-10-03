@@ -2,7 +2,8 @@ import { Progress } from "@mantine/core";
 import { formatNumber, hasFlag, toggleFlag } from "@project/shared/src/utils/Helper";
 import { GameOptionUpdated, GameSpeedChanged, GameStateUpdated } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
-import { getCurrentTutorial } from "../game/TutorialLogic";
+import { Tutorial } from "../game/Tutorial";
+import { completeTutorial, getCurrentTutorialId } from "../game/TutorialLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -15,10 +16,14 @@ export function TutorialPanel(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    refreshOnTypedEvent(GameOptionUpdated);
    refreshOnTypedEvent(GameSpeedChanged);
-   const tutorial = getCurrentTutorial(G.save);
-   if (!tutorial || G.params.get("hide")?.includes("tutorial")) {
+   if (!G.save) {
       return null;
    }
+   const tutorialId = getCurrentTutorialId(G.save);
+   if (!tutorialId || G.params.get("hide")?.includes("tutorial")) {
+      return null;
+   }
+   const tutorial = Tutorial[tutorialId];
    const [progress, total] = tutorial.progress(G.save);
    const minimizeTutorial = hasFlag(G.save.options.flag, GameOptionFlag.CollapseTutorial);
    return (
@@ -45,7 +50,7 @@ export function TutorialPanel(): React.ReactNode {
          {!minimizeTutorial && (
             <>
                <div className="divider" />
-               {tutorial.id === "Welcome" && (
+               {tutorialId === "Welcome" && (
                   <>
                      <div className="m10">
                         <ChangeLanguageComp />
@@ -61,7 +66,7 @@ export function TutorialPanel(): React.ReactNode {
                <button
                   className="btn py2 f1"
                   onClick={() => {
-                     G.save.state.completedTutorials.add(tutorial.id);
+                     completeTutorial(tutorialId, G.save);
                      GameStateUpdated.emit();
                   }}
                >
