@@ -4840,4 +4840,6 @@ export const ZH_CN = {
    ProclaimTheEasternRomanEmpire: "宣告东罗马帝国成立",
    MonthlyGold: "每月金币",
    Indefinite: "无限期",
+   AutomaticallyRepayLoans: "自动偿还贷款",
+   AutomaticallyRepayOutstandingLoansIfWeHaveEnoughGold: "当我们有足够金币时，自动偿还未偿贷款。",
 };

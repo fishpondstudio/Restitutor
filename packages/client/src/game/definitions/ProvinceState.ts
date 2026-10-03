@@ -27,6 +27,7 @@ export const ProvinceFlags = {
    AutomaticallyEvangelizeToleratedReligions: 1 << 4,
    AutomaticallyConvertMinorCultures: 1 << 5,
    AutomaticallyConvertToleratedCultures: 1 << 6,
+   AutomaticallyRepayLoans: 1 << 7,
 } as const;
 
 export type ProvinceFlags = ValueOf<typeof ProvinceFlags>;

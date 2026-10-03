@@ -1,7 +1,9 @@
-import { Select } from "@mantine/core";
-import { filterInPlace, formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
+import { Select, Switch } from "@mantine/core";
+import { formatNumber, formatPercent, hasFlag, toggleFlag } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
+import { RepayLoanAction } from "../game/actions/RepayLoanAction";
 import type { Province } from "../game/definitions/Province";
+import { ProvinceFlags } from "../game/definitions/ProvinceState";
 import { GameStateUpdated } from "../game/Events";
 import { monthToDate } from "../game/logic/GameDateTime";
 import {
@@ -67,20 +69,36 @@ export function TreasuryPage(): React.ReactNode {
             <div>{colorNumber(income)}</div>
          </div>
          <div className="h1">{$t(L.Loans)}</div>
-         {isBankrupt && (
-            <FloatingTip fixedWidth className="p0" label={() => <BankruptcyEffectComp province={province} />}>
-               <div className="row g5 mx10 my5 text-red">
-                  <div className="f1">{$t(L.CurrentlyBankrupt)}</div>
-                  <div className="mi sm">warning</div>
+         <div className="m10">
+            {isBankrupt && (
+               <FloatingTip fixedWidth className="p0" label={() => <BankruptcyEffectComp province={province} />}>
+                  <div className="row g5 my5 text-red">
+                     <div className="f1">{$t(L.CurrentlyBankrupt)}</div>
+                     <div className="mi sm">warning</div>
+                  </div>
+               </FloatingTip>
+            )}
+            <BreakdownRow
+               className="my5"
+               name={$t(L.MonthlyInterestRate)}
+               breakdown={getMonthlyInterestRate(province, G.save)}
+               formatFunc={formatPercent}
+            />
+            <FloatingTip label={() => $t(L.AutomaticallyRepayOutstandingLoansIfWeHaveEnoughGold)}>
+               <div className="row my5">
+                  <div className="f1">{$t(L.AutomaticallyRepayLoans)}</div>
+                  <Switch
+                     size="xs"
+                     aria-label={$t(L.AutomaticallyRepayLoans)}
+                     checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyRepayLoans)}
+                     onChange={() => {
+                        state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyRepayLoans);
+                        GameStateUpdated.emit();
+                     }}
+                  />
                </div>
             </FloatingTip>
-         )}
-         <BreakdownRow
-            className="mx10 my5"
-            name={$t(L.MonthlyInterestRate)}
-            breakdown={getMonthlyInterestRate(province, G.save)}
-            formatFunc={formatPercent}
-         />
+         </div>
          <div className="divider" />
          <div className="mx10 my10">
             <ActionButton
@@ -103,15 +121,7 @@ export function TreasuryPage(): React.ReactNode {
                      {formatNumber(loan.principal + loan.interest)} {$t(L.Gold)}
                   </div>
                </BreakdownTooltip>
-               <ActionButton
-                  className="TreasuryPage_Repay_Loan"
-                  action={() => ({
-                     cost: { gold: loan.principal + loan.interest },
-                     execute: () => {
-                        filterInPlace(state.loans, (l) => l !== loan);
-                     },
-                  })}
-               >
+               <ActionButton className="TreasuryPage_Repay_Loan" action={() => RepayLoanAction(loan, province, G.save)}>
                   {$t(L.Repay)}
                </ActionButton>
             </div>

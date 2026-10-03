@@ -5055,4 +5055,6 @@ export const EN = {
    ProclaimTheEasternRomanEmpire: "Proclaim the Eastern Roman Empire",
    MonthlyGold: "Monthly Gold",
    Indefinite: "Indefinite",
+   AutomaticallyRepayLoans: "Automatically Repay Loans",
+   AutomaticallyRepayOutstandingLoansIfWeHaveEnoughGold: "Automatically repay outstanding loans if we have enough gold.",
 };

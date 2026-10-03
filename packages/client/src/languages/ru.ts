@@ -5019,4 +5019,6 @@ export const RU = {
    ProclaimTheEasternRomanEmpire: "Провозгласить Восточную Римскую империю",
    MonthlyGold: "Ежемесячное золото",
    Indefinite: "Бессрочно",
+   AutomaticallyRepayLoans: "Автоматически погашать займы",
+   AutomaticallyRepayOutstandingLoansIfWeHaveEnoughGold: "Автоматически погашать непогашенные займы, если у нас достаточно золота.",
 };

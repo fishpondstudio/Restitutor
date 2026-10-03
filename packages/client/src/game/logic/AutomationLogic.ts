@@ -3,6 +3,7 @@ import { ConvertCultureAction } from "../actions/ConvertCultureAction";
 import { EvangelizeTileAction } from "../actions/EvangelizeTileAction";
 import { finalizeCondition, tryDoAction } from "../actions/GameAction";
 import { MakeCoreAction } from "../actions/MakeCoreAction";
+import { RepayLoanAction } from "../actions/RepayLoanAction";
 import type { Province } from "../definitions/Province";
 import { ProvinceFlags } from "../definitions/ProvinceState";
 import type { SaveGame } from "../GameState";
@@ -18,6 +19,17 @@ export function tickAutomation(province: Province, save: SaveGame): void {
    automaticallyMakeCore(province, save);
    automaticallyEvangelize(province, save);
    automaticallyConvertCulture(province, save);
+   automaticallyRepayLoans(province, save);
+}
+
+function automaticallyRepayLoans(province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state || !hasFlag(state.flags, ProvinceFlags.AutomaticallyRepayLoans)) {
+      return;
+   }
+   for (const loan of [...state.loans]) {
+      tryDoAction(RepayLoanAction(loan, province, save), { headless: true }, province, save);
+   }
 }
 
 function automaticallySettleUnrest(province: Province, save: SaveGame): void {

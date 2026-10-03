@@ -5135,4 +5135,6 @@ export const DE = {
    ProclaimTheEasternRomanEmpire: "Das Oströmische Reich ausrufen",
    MonthlyGold: "Monatliches Gold",
    Indefinite: "Unbefristet",
+   AutomaticallyRepayLoans: "Darlehen automatisch zurückzahlen",
+   AutomaticallyRepayOutstandingLoansIfWeHaveEnoughGold: "Ausstehende Darlehen automatisch zurückzahlen, wenn wir genügend Gold haben.",
 };
