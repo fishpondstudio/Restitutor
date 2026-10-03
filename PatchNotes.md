@@ -82,3 +82,7 @@ Judea's missions focus on expansion into Aegyptus and Syria, growing its manpowe
 
 - Fully annex and core Syria and Judea as either province to form the Levantine League, gaining +100 Governing Capacity and +2 yearly Christian Influence.
 - Syria, Judea, and Aegyptus gain a shared mission for owning three Apostolic Sees. Choose 30 Christian Influence, 100 administrative and 100 diplomatic points, or a permanent +10% Land Tax bonus.
+
+## Bugfixes
+
+- Fix a bug where "The Die Is Cast" (Complete the tutorial) achievement is not unlocked correctly.

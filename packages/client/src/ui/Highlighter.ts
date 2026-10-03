@@ -5,7 +5,8 @@ import type { Province } from "../game/definitions/Province";
 import type { Tech } from "../game/definitions/Tech";
 import { getMapForegroundColor } from "../game/logic/MapColor";
 import { ProvinceSelectorPrefix, TechSelectorPrefix } from "../game/ProvinceSelector";
-import { getCurrentTutorial } from "../game/TutorialLogic";
+import { Tutorial } from "../game/Tutorial";
+import { getCurrentTutorialId } from "../game/TutorialLogic";
 import { TechTreeScene } from "../scenes/TechTreeScene";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
@@ -20,11 +21,12 @@ export function initHighlighter(): void {
 const _zIndexCache = new Map<string, string>();
 
 function tickHighlighter(): void {
-   const tutorial = getCurrentTutorial(G.save);
-   if (!tutorial) {
+   const tutorialId = getCurrentTutorialId(G.save);
+   if (!tutorialId) {
       highlighter.style.display = "none";
       return;
    }
+   const tutorial = Tutorial[tutorialId];
    const selectors = tutorial.selectors;
    for (let i = selectors.length - 1; i >= 0; i--) {
       const selector = selectors[i];

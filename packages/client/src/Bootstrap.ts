@@ -109,6 +109,7 @@ export async function bootstrap(): Promise<void> {
          return;
       }
    } catch (error) {
+      console.error(error);
       isNewPlayer = true;
    }
 

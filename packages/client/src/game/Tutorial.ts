@@ -26,7 +26,6 @@ const TutorialEnemyProvince: Province = "Belgica" as const;
 const TutorialWarGoal: Tile = Tiles.Durocortorum;
 
 export interface ITutorial {
-   id: string;
    name: (save: SaveGame) => string;
    desc: (save: SaveGame) => string;
    progress: (save: SaveGame) => [number, number];
@@ -35,9 +34,8 @@ export interface ITutorial {
    setup?: (save: SaveGame) => void;
 }
 
-export const Tutorial: ITutorial[] = [
-   {
-      id: "Welcome",
+const _Tutorial = {
+   Welcome: {
       name: () => $t(L.WelcomeToRestitutor),
       desc: () => $t(L.TutorialWelcomeDesc$1, "Lugdunensis"),
       progress: (save) => {
@@ -46,8 +44,7 @@ export const Tutorial: ITutorial[] = [
       selectors: [],
       button: () => $t(L.ImReadyToRestoreTheEmpire),
    },
-   {
-      id: "HireAdvisors",
+   HireAdvisors: {
       name: () => $t(L.HireGovernmentAdvisors),
       desc: () => $t(L.HireGovernmentAdvisorsDesc),
       progress: (save) => {
@@ -60,8 +57,7 @@ export const Tutorial: ITutorial[] = [
          ".GovernmentModal_SelectAdvisor_0",
       ],
    },
-   {
-      id: "SelectRivals",
+   SelectRivals: {
       name: () => $t(L.TutorialSelectRivals$1, formatNumber(2)),
       desc: () => $t(L.TutorialSelectRivalsDesc$1$2, formatNumber(2), TutorialEnemyProvince),
       progress: (save) => {
@@ -70,8 +66,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_Diplomats", ".DiplomacyPage_SelectRival"],
    },
-   {
-      id: "IncreaseTargetConscription",
+   IncreaseTargetConscription: {
       name: () => $t(L.IncreaseTargetConscription),
       desc: () =>
          $t(
@@ -87,8 +82,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_WarPower", "#ArmyModal_TargetConscription"],
    },
-   {
-      id: "RecruitGeneral",
+   RecruitGeneral: {
       name: () => $t(L.RecruitAGeneralTutorial),
       desc: () => $t(L.RecruitAGeneralDescV2),
       progress: (save) => {
@@ -99,8 +93,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_WarPower", "#ArmyModal_RecruitGeneral"],
    },
-   {
-      id: "InfiltrateBelgica",
+   InfiltrateBelgica: {
       name: () => $t(L.TutorialInfiltrate$1, Province[TutorialEnemyProvince].name()),
       desc: () => $t(L.TutorialInfiltrateDesc$1$2, formatNumber(BaseDiplomats), TutorialEnemyProvince),
       progress: (save) => {
@@ -111,8 +104,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: [provinceSel("Belgica"), "#TilePage_Diplomacy_Belgica", "#DiplomacyPage_Infiltrate_Belgica"],
    },
-   {
-      id: "Unpause",
+   Unpause: {
       name: () => $t(L.UnpauseTheGame),
       desc: () => $t(L.UnpauseTheGameDesc),
       progress: (save) => {
@@ -123,8 +115,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#PausePanel_Button"],
    },
-   {
-      id: "ReachDiplomaticPoint",
+   ReachDiplomaticPoint: {
       name: () => $t(L.Reach$1DiplomaticPoints, formatNumber(WarOneTimeDiplomaticPoint)),
       desc: () => $t(L.TutorialReachDiplomaticPointsDesc$1, formatNumber(WarOneTimeDiplomaticPoint)),
       progress: (save) => {
@@ -132,8 +123,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: [],
    },
-   {
-      id: "ChangeGovernmentFocus",
+   ChangeGovernmentFocus: {
       name: () => $t(L.ChangeGovernmentFocus),
       desc: () => $t(L.TutorialChangeGovernmentFocusDesc),
       progress: (save) => {
@@ -145,8 +135,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_MilitaryPoint", "#GovernmentModal_Focus_military"],
    },
-   {
-      id: "DeclareWar",
+   DeclareWar: {
       name: () => $t(L.TutorialDeclareWarOn$1, Province[TutorialEnemyProvince].name()),
       desc: () => $t(L.TutorialDeclareWarDesc$1$2, TutorialEnemyProvince, TutorialWarGoal),
       progress: (save) => {
@@ -177,8 +166,7 @@ export const Tutorial: ITutorial[] = [
          });
       },
    },
-   {
-      id: "IncreaseGameSpeed",
+   IncreaseGameSpeed: {
       name: () => $t(L.IncreaseGameSpeed),
       desc: () => $t(L.TutorialIncreaseGameSpeedDesc$1$2$3, "3", "1", "7x"),
       progress: (save) => {
@@ -189,8 +177,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopRightPanel_Speed", "#TopRightPanel_Speed_7"],
    },
-   {
-      id: "SignPeaceTreaty",
+   SignPeaceTreaty: {
       name: () => $t(L.SignPeaceTreaty),
       desc: () => $t(L.TutorialSignPeaceTreatyAfterVictoryDesc$1, TutorialWarGoal),
       progress: (save) => {
@@ -205,8 +192,7 @@ export const Tutorial: ITutorial[] = [
          "#PeaceTreatyPage_SignPeaceTreaty",
       ],
    },
-   {
-      id: "MakeCore",
+   MakeCore: {
       name: (save) => $t(L.TutorialMakeTileOurCore$1, getTileName(TutorialWarGoal, save)),
       desc: () => $t(L.MakeDurocortorumOurCoreDesc),
       progress: (save) => {
@@ -218,8 +204,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_InternalAffairs", `#InternalAffairsPage_MakeCore_${TutorialWarGoal}`],
    },
-   {
-      id: "UpgradeProduction",
+   UpgradeProduction: {
       name: (save) => $t(L.TutorialUpgradeTileProduction$1, getTileName(Tiles.Lutetia, save)),
       desc: () => $t(L.TutorialUpgradeTileProductionDesc$1, Tiles.Lutetia),
       progress: (save) => {
@@ -231,8 +216,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_TileCount", `#TileListModal_UpgradeProduction_${Tiles.Lutetia}`],
    },
-   {
-      id: "LowerArmyMaintenance",
+   LowerArmyMaintenance: {
       name: () => $t(L.LowerArmyMaintenance),
       desc: () => $t(L.TutorialLowerArmyMaintenanceDesc$1, formatPercent(70 / 100)),
       progress: (save) => {
@@ -244,8 +228,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_WarPower", "#ArmyModal_ArmyMaintenance", "#ArmyModal_LowerArmyMaintenanceConfirm"],
    },
-   {
-      id: "UpgradeGeneralSkill",
+   UpgradeGeneralSkill: {
       name: () => $t(L.UpgradeGeneralSkill),
       desc: () => $t(L.UpgradeGeneralSkillDesc),
       progress: (save) => {
@@ -257,8 +240,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_WarPower", "#ArmyModal_UpgradeInfantrySkill"],
    },
-   {
-      id: "FindSpouse",
+   FindSpouse: {
       name: () => $t(L.FindOurGovernorASpouse),
       desc: () => $t(L.TutorialFindGovernorSpouseDesc$1, SocialClass.UpperClass.name()),
       progress: (save) => {
@@ -270,8 +252,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_FamilyTree", "#FamilyNode_LookForSpouse_Governor", "#LookForSpouse_UpperClass"],
    },
-   {
-      id: "SocialClass",
+   SocialClass: {
       name: () => $t(L.AdoptASocialClassAgenda),
       desc: () => $t(L.TutorialSocialClassAgendaDesc),
       progress: (save) => {
@@ -282,8 +263,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_SocialClass", ".SocialClassModal_Adopt:enabled"],
    },
-   {
-      id: "Trade",
+   Trade: {
       name: () => $t(L.TutorialSetUpTradeWith$1, Province.Aquitania.name()),
       desc: () => $t(L.TutorialSetUpTradeDesc$1$2$3, Goods.wood.name(), "Aquitania", ProvinceResourceNames.gold()),
       progress: (save) => {
@@ -313,8 +293,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_Trade", "#TradeModal_Trade_Aquitania_2"],
    },
-   {
-      id: "Senate",
+   Senate: {
       name: () => $t(L.VoteForConsulElection),
       desc: () =>
          $t(
@@ -335,8 +314,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_Senate", "#SenateModal_Candidate_1_Pledge", "#SenateModal_Candidate_0_Pledge"],
    },
-   {
-      id: "PayOffLoans",
+   PayOffLoans: {
       name: () => $t(L.PayOffOurLoans),
       desc: () => $t(L.PayOffOurLoansDesc),
       progress: (save) => {
@@ -348,8 +326,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_Gold", ".TreasuryPage_Repay_Loan"],
    },
-   {
-      id: "ReachMilitaryPoints",
+   ReachMilitaryPoints: {
       name: () => $t(L.Reach$1MilitaryPoints, formatNumber(300)),
       desc: () => $t(L.TutorialReachMilitaryPointsDesc$1, formatNumber(300)),
       progress: (save) => {
@@ -357,8 +334,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: [],
    },
-   {
-      id: "Research",
+   Research: {
       name: () => $t(L.TutorialResearch$1, Tech.B3.name()),
       desc: () => $t(L.TutorialResearchDesc$1, Tech.B3.name()),
       progress: (save) => {
@@ -370,8 +346,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#BottomPanel_TechTree_Inactive", techSel("B3"), "#TechPage_Research_B3"],
    },
-   {
-      id: "Production",
+   Production: {
       name: () => $t(L.TutorialSetUpProduction$1, Goods.lumber.name()),
       desc: () => $t(L.TutorialSetUpProductionDesc$1$2, formatNumber(2), Goods.lumber.name()),
       progress: (save) => {
@@ -381,8 +356,7 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_Production", "#ProductionNode_Capacity_lumber_0", "#ProductionNode_Capacity_lumber_1"],
    },
-   {
-      id: "Mission",
+   Mission: {
       name: () => $t(L.LetMissionsGuideOurRestoration),
       desc: () => $t(L.TutorialMissionsDesc$1$1, LugdunensisEvents.Lugdunensis1.name()),
       progress: (save) => {
@@ -395,8 +369,7 @@ export const Tutorial: ITutorial[] = [
       selectors: ["#TopPanel_Mission", "#MissionPage_Lugdunensis1"],
       button: () => $t(L.IllCompleteTheMissionLater),
    },
-   {
-      id: "CarryOn",
+   CarryOn: {
       name: () => $t(L.CarryOnUntilProgressSlowsDown),
       desc: () => $t(L.CarryOnUntilProgressSlowsDownDesc),
       progress: (save) => {
@@ -405,8 +378,7 @@ export const Tutorial: ITutorial[] = [
       selectors: [],
       button: () => $t(L.TellMeMoreAboutRebirth),
    },
-   {
-      id: "Rebirth",
+   Rebirth: {
       name: () => $t(L.RebirthAndStartANewRun),
       desc: () => $t(L.RebirthAndStartANewRunDesc),
       progress: (save) => {
@@ -417,9 +389,12 @@ export const Tutorial: ITutorial[] = [
       },
       selectors: ["#TopPanel_LegacyUpgrade", "#LegacyUpgradeModal_Rebirth", "#RebirthPage_RebirthButton"],
    },
-] as const;
+} as const satisfies Record<string, ITutorial>;
+
+export type Tutorial = keyof typeof _Tutorial;
+export const Tutorial = _Tutorial as Record<Tutorial, ITutorial>;
 
 console.assert(
-   Tutorial[0].setup === undefined,
-   "Tutorial[0].setup will not be called, do this in `initNewPlayerSaveGame` instead!",
+   Tutorial.Welcome.setup === undefined,
+   "Tutorial.Welcome.setup will not be called, do this in `initNewPlayerSaveGame` instead!",
 );

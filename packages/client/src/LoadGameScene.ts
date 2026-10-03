@@ -1,4 +1,5 @@
 import { clearFlag, setFlag } from "@project/shared/src/utils/Helper";
+import { unlockAchievement } from "./game/Achievement.ts";
 import { RetailSteamId } from "./game/definitions/Constant.ts";
 import { type Province, Provinces } from "./game/definitions/Province";
 import { GameOptionFlag } from "./game/GameOption";
@@ -50,6 +51,10 @@ export function loadGameScene() {
 
    if (G.params.has("legacy")) {
       showPanel(LegacyUpgradeSingletonModal, {});
+   }
+
+   if (G.save.options.rebirthHistory.length > 0) {
+      unlockAchievement("CompleteTutorial");
    }
 
    const scene = G.params.get("scene")?.toLowerCase();

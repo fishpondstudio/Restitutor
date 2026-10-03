@@ -1,31 +1,36 @@
-import { hasFlag } from "@project/shared/src/utils/Helper";
-import { G } from "../utils/Global";
+import { hasFlag, keysOf } from "@project/shared/src/utils/Helper";
 import { GameOptionFlag } from "./GameOption";
 import type { SaveGame } from "./GameState";
-import { type ITutorial, Tutorial } from "./Tutorial";
+import { Tutorial } from "./Tutorial";
 
-export function getCurrentTutorial(save: SaveGame): ITutorial | null {
-   if (!save) {
-      return null;
+const TutorialOrder = keysOf(Tutorial);
+
+export function completeTutorial(id: Tutorial, save: SaveGame): void {
+   if (save.state.completedTutorials.has(id)) {
+      return;
    }
+   save.state.completedTutorials.add(id);
+   const nextId = TutorialOrder[TutorialOrder.indexOf(id) + 1];
+   if (nextId && !save.state.completedTutorials.has(nextId)) {
+      Tutorial[nextId].setup?.(save);
+   }
+}
+
+export function getCurrentTutorialId(save: SaveGame): Tutorial | null {
    if (hasFlag(save.options.flag, GameOptionFlag.HideTutorial)) {
       return null;
    }
-   for (let i = 0; i < Tutorial.length; i++) {
-      const t = Tutorial[i];
-      if (save.state.completedTutorials.has(t.id)) {
+   for (const id of TutorialOrder) {
+      const t = Tutorial[id];
+      if (save.state.completedTutorials.has(id)) {
          continue;
       }
-      const [progress, total] = t.progress(G.save);
+      const [progress, total] = t.progress(save);
       if (progress >= total) {
-         save.state.completedTutorials.add(t.id);
-         const nextTutorial = Tutorial[i + 1];
-         if (nextTutorial) {
-            nextTutorial.setup?.(save);
-         }
+         completeTutorial(id, save);
          continue;
       }
-      return t;
+      return id;
    }
    return null;
 }

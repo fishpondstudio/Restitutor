@@ -31,6 +31,7 @@ import { rollTradeOffers } from "./logic/TradeLogic";
 import type { IWar } from "./logic/WarLogic";
 import { randomMaleName } from "./RomanNames";
 import { type Scenario, Scenarios } from "./scenarios/Scenarios";
+import type { Tutorial } from "./Tutorial";
 
 export const GameStateFlags = {
    None: 0,
@@ -54,7 +55,7 @@ export class GameState {
       consulCandidates: [],
       votes: new Map(),
    };
-   completedTutorials: Set<string> = new Set();
+   completedTutorials: Set<Tutorial> = new Set();
    tiles: Map<Tile, ITileData> = new Map();
    wars: IWar[] = [];
    chronicle: IChronicleEntry[] = [];
