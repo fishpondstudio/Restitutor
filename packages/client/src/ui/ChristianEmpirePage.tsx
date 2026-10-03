@@ -72,7 +72,7 @@ export function ChristianEmpirePage(): React.ReactNode {
             </ActionButton>
             <ActionButton
                action={() => {
-                  const tileCount = getProvinceCoreTilesCached(G.save.state.playerProvince).length;
+                  const tileCount = getProvinceCoreTilesCached(G.save.state.playerProvince, G.save).length;
                   return {
                      cost: {
                         administrative: tileCount * 10,
@@ -103,7 +103,7 @@ export function ChristianEmpirePage(): React.ReactNode {
             </ActionButton>
             <ActionButton
                action={() => {
-                  const tileCount = getProvinceCoreTilesCached(G.save.state.playerProvince).length;
+                  const tileCount = getProvinceCoreTilesCached(G.save.state.playerProvince, G.save).length;
                   return {
                      cost: {
                         diplomatic: tileCount * 10,
@@ -134,7 +134,7 @@ export function ChristianEmpirePage(): React.ReactNode {
             </ActionButton>
             <ActionButton
                action={() => {
-                  const tileCount = getProvinceCoreTilesCached(G.save.state.playerProvince).length;
+                  const tileCount = getProvinceCoreTilesCached(G.save.state.playerProvince, G.save).length;
                   return {
                      cost: {
                         military: tileCount * 10,

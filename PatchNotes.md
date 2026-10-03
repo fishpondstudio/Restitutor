@@ -1,76 +1,98 @@
-## Achaia
+## Balancing
 
-Achaia province is now playable, with three unique Provincial Spirits:
+- All 5 Governing Capacity legacy upgrades now each grant +200 Governing Capacity, up from +100.
+- Infrastructure, Production, and Population Upgrade Cost legacy upgrades now each reduce costs by 20%, up from 10%.
+- Add a third Make Core Cost legacy upgrade, reducing costs by another 10%. The three upgrades now form a direct chain, with the Infrastructure Upgrade Cost upgrade branching off the first Defense upgrade instead.
+- Add a second Diplomat legacy upgrade, granting +1 Diplomat.
+- Add two more Regional Capital legacy upgrades, each granting +1 regional capital slot, for a total of +3 slots from legacy upgrades.
+- Bread & Circuses and Curial Reform now each grant +100 Governing Capacity.
+- Land Surveying's +100 Governing Capacity bonus has moved to Urban Planning.
+- Civic Education now grants +200 Governing Capacity, up from +100.
+- Cultural Policy and Local Governance now each grant +200 Governing Capacity, up from +150.
+- Each tile upgrade now increases subsequent upgrade costs by 50% compounded, up from 20%.
+- Taking a lover now costs 100 gold upfront, down from 1,000, and adds a monthly expense of 10 gold for 10 years.
+- Patronage treaties now last 100 years, up from 10. Alliances and defense pacts still last 10 years.
 
-- Hellenic Scholarship: Reduce Research Cost by 1% for each core tile with Greek culture, up to 50%.
-- Developed Administration: Reduce each tile's Governing Cost by 1% per level of Infrastructure, Production, and Population on that tile, up to 50%.
-- Peaceful Renown: Gain +1% Prestige for each point of positive Stability while at peace, up to +25%.
+## Missions
 
-Achaia also comes with 10 historical events spanning 214–799 AD and seven new missions. These offer opportunities to bring Epirus under your patronage through marriage and an alliance or defense pact, expand into Macedonia, Italia, and Asia, and gain rewards for establishing footholds in Thracia and Dalmatia.
+- New mission, The Reach of Our Seal: Reach 100 core tiles to gain +200 Governing Capacity and your choice of 100 administrative, diplomatic, or military points.
+- New mission, The Eastern Roman Empire Restored: Fully annex and core the Eastern Roman Empire's provinces to adopt its name, gaining +500 Governing Capacity, +1 regional capital slot, and +1 monthly administrative, diplomatic, and military points.
+- New mission, The Roman Empire Restored: Fully annex and core all 35 Roman provinces to adopt the Roman Empire name, gain 10 Mandate, and unlock the "Restorer of the World" achievement.
+- Both Dominion of the Sea missions and the Western and Eastern Roman Empire restoration missions are now available to all provinces, regardless of their starting region.
+- The Western Roman Empire Restored now grants +500 Governing Capacity, up from +200, and +1 regional capital slot.
+- Every Art Mastered now grants +200 Governing Capacity and a permanent +20% bonus to your choice of Land Tax, Tile Output, or Manpower, replacing its previous rewards.
+- The Seals of Two Capitals now grants +200 Governing Capacity with every choice, plus +1 monthly administrative, diplomatic, or military point.
+- Dominion of the Western Sea and Dominion of the Eastern Sea now grant +200 Governing Capacity, up from +100, alongside their existing monthly point rewards.
+- The Reach of Our Seal, The Seals of Two Capitals, and both Dominion of the Sea missions also grant +1 regional capital slot with their administrative option, +1 tolerated culture slot with their diplomatic option, or +1 tolerated religion slot with their military option.
+- The Spoils of Victory now grants +200 Governing Capacity and +1 regional capital slot in addition to Right of Plunder.
+- A Province Transformed's Senate option now grants 2 Consul Points, down from 5.
 
-## Epirus
+## Galatia
 
-Epirus province is now playable, with three unique Provincial Spirits:
+Galatia province is now playable, with three unique Provincial Spirits:
 
-- Defensive Mandate: Gain +1 Consul Point after winning a war as lead defender.
-- Defensive Mobilization: Gain +25% Land Tax and Tile Output while fighting as lead defender. Multiple wars do not stack this bonus.
-- Hellenic Solidarity: Gain +1% Tile Defense on all core tiles for each core tile with Greek culture, up to +50%.
+- Anatolian Recruitment: Gain +1% Manpower for each core tile with Anatolian culture, up to +50%.
+- Highland Development: Reduce Infrastructure, Production, and Population Upgrade Cost by 20% on core Hill tiles.
+- Inland Administration: Reduce Tile Maintenance by 20% on core non-coastal tiles.
 
-Epirus also comes with 10 historical events spanning 231–732 AD and seven new missions, six shared with Achaia. Forge a marriage bond and an alliance or defense pact to bring Achaia under your patronage, then pursue expansion across Macedonia, Italia, and the wider Balkans.
+Galatia's missions focus on expansion into Bithynia, Cilicia, Cappadocia, and Asia, bringing Lycia under its patronage, and securing Tios and Pompeiopolis. Shared missions involve military victories, reaching the Mediterranean and Black Sea coasts, and uniting Galatia, Lycia, and Cilicia.
 
-## Macedonia
+## Lycia
 
-Macedonia province is now playable, with three unique Provincial Spirits:
+Lycia province is now playable, with three unique Provincial Spirits:
 
-- Military Innovation: Gain +1% War Power for each researched technology, up to +25%.
-- Cultural Integration: Reduce Culture Conversion Cost by 20%.
-- Cultural Ambition: Enemy tiles with your dominant or a tolerated culture contribute 20% less War Score.
+- Expanded Diplomacy: Gain +1 Diplomat.
+- Friendly Commerce: Gain +5% Trade Profit for each province with a positive attitude towards Lycia, up to +50%.
+- Treaty Prosperity: Gain +5% Tile Output for each diplomatic treaty.
 
-Macedonia also comes with 10 historical events spanning 214–796 AD. New and expanded shared missions offer opportunities to bring Epirus under your patronage after annexing and coring Achaia, establish footholds in Italia and Dalmatia, expand through Moesia and Thracia, and secure the crossings into Asia and Bithynia.
+Lycia's missions focus on expansion into Galatia, Asia, and Cilicia, and bringing Cilicia under its patronage through diplomacy. Shared missions involve military victories, reaching the Mediterranean and Black Sea coasts, and uniting Galatia, Lycia, and Cilicia.
 
-## Asia
+## Cilicia
 
-Asia province is now playable, with three unique Provincial Spirits:
+Cilicia province is now playable, with three unique Provincial Spirits:
 
-- Experienced Leadership: Gain +1 Stability for each General Skill Level across Infantry, Ranged, and Cavalry.
-- Military Industry: Gain +1% War Power per unit of production capacity allocated to Armor and Weapons combined, up to +25%.
-- Pluralistic Renown: Gain +5% Prestige for each tolerated culture or religion, up to +25% total.
+- Harbour Administration: Gain +10 Governing Capacity for each Harbour on a core tile.
+- Mercantile Taxation: Gain +10% Land Tax for each active trade.
+- Victorious Might: Gain +1% War Power for each war won as lead attacker, up to +25%.
 
-Asia also comes with 10 historical events spanning 214–770 AD and five new missions. Press claims to Bithynia, Galatia, or Lycia, bring Lycia under your patronage, and gain rewards for annexing and coring Galatia and Bithynia. Expanding to three times your starting number of core tiles offers a permanent +10% bonus to Land Tax, Tile Output, or Trade Profit.
+Cilicia's missions focus on expansion into Galatia, Cappadocia, and Syria, and bringing Lycia under its patronage. Shared missions involve military victories, reaching the Mediterranean and Black Sea coasts, and uniting Galatia, Lycia, and Cilicia.
 
-## Bithynia
+## Cappadocia
 
-Bithynia province is now playable, with three unique Provincial Spirits:
+Cappadocia province is now playable, with three unique Provincial Spirits:
 
-- Wartime Unity: Gain +10 Stability while at war.
-- Developed Recruitment: Each tile gains +1% Manpower per level of Infrastructure, Production, and Population on that tile, up to +50%.
-- Coastal Commerce: Gain +1% Trade Profit for each core coastal tile, up to +50%.
+- Cohesive Taxation: Gain +0.2% Land Tax for each 1% Cultural Cohesion.
+- Foreign Ambition: Reduce required War Score by 20% when attacking a province whose culture is neither Cappadocia's dominant culture nor a tolerated culture.
+- Abundant Provisions: Gain +1% Tile Output per unit of production capacity allocated to Bread and Cheese combined, up to +25%.
 
-Bithynia also comes with 10 historical events spanning 258–727 AD and six new missions. Press claims to Asia, Cappadocia, or Galatia, earn rewards for establishing cores in these provinces and securing Hadrianoi and Sestos, and bring a diminished Asia under your patronage once Bithynia has at least 20 core tiles and Asia has at most five.
+Cappadocia's missions focus on expansion into Bithynia, Galatia, Cilicia, and Syria, winning wars, and establishing core territory. Between Two Seas encourages expansion along the Mediterranean and Black Sea coasts and is also newly available to Dalmatia and Moesia.
 
-## Anatolian League
+## Syria
 
-- Added a unification mission for Asia, Bithynia, Cappadocia, Cilicia, Galatia, and Lycia. Annex and core all six provinces to form the Anatolian League.
-- Masters of the Crossings and Between Two Seas are now available to Asia and Bithynia as well as Thracia and Macedonia.
+Syria province is now playable, with three unique Provincial Spirits:
 
-## Culture & Religion
+- Crossroads Commerce: Gain +10% Trade Profit for each neighboring province, up to +50%.
+- Religious Accommodation: Gain +1 tolerated religion.
+- Mercantile Logistics: Reduce Army Maintenance by 10% for each active trade.
 
-- Culture and religion is moved into a separate panel from Internal Affairs
-- Add a list of tiles in the province that has non-dominant culture and religion (can be converted directly in the page)
-- Added separate switches to automatically evangelize tiles with minor or tolerated religions and convert tiles with minor or tolerated cultures. These actions use the same costs and cooldowns as manual actions.
+Syria's missions focus on expansion into Cilicia, Cappadocia, and Judea, with objectives in Cilicia and Jerusalem. Between Two Seas is now also available to Syria, encouraging expansion along the Mediterranean and Black Sea coasts.
 
-## Apostolic Sees
+## Judea
 
-- Added Apostolic Sees in Rome, Alexandria, Antioch, and Jerusalem. Each annexed see grants +1 yearly Christian Influence.
-- Annexing all Apostolic Sees grants an additional +1 yearly Christian Influence per see.
-- Constantinople becomes an Apostolic See after the First Council of Constantinople event.
-- The Internal Affairs page now lists Apostolic Sees and their owners, with clickable links to their map locations.
+Judea province is now playable, with three unique Provincial Spirits:
 
-## QoLs
+- Christian Communities: Gain +0.1 yearly Christian Influence for each core tile following a Christian religion, up to +10 per year.
+- Efficient Evangelization: Reduce the Christian Influence cost to evangelize a tile by 50%.
+- Apostolic Taxation: Gain +10% Land Tax for each Apostolic See currently owned.
 
-- The Outstanding Loans todo now turns red and displays a bankruptcy warning when monthly interest cost exceeds 90% of monthly revenue.
-- Added an Automatically Core Tiles switch to Internal Affairs. When enabled, the province automatically makes an eligible non-core tile a core if it can afford the cost and the action is off cooldown.
+Judea's missions focus on expansion into Aegyptus and Syria, growing its manpower, adopting and spreading Christianity, securing Jerusalem, and developing a coastal domain.
 
-## Bugfixes
+## Levantine League
 
-- Fix a bug where hiding todos does not work correctly
+- Fully annex and core Syria and Judea as either province to form the Levantine League, gaining +100 Governing Capacity and +2 yearly Christian Influence.
+- Syria, Judea, and Aegyptus gain a shared mission for owning three Apostolic Sees. Choose 30 Christian Influence, 100 administrative and 100 diplomatic points, or a permanent +10% Land Tax bonus.
+
+## QoL & Bugfixes
+
+- Add an "Automatically Repay Loans" toggle in the Treasury to repay outstanding loans each month when you have enough gold.
+- Fix a bug where "The Die Is Cast" (Complete the tutorial) achievement is not unlocked correctly.

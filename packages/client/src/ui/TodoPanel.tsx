@@ -36,6 +36,7 @@ import { getAgendas, isSocialClassDisloyal, isSocialClassDominant } from "../gam
 import { getTechsCanBeResearched, hasResearched } from "../game/logic/TechLogic";
 import { getTileUnrest } from "../game/logic/TileLogic";
 import { getTimedActionTimeLeft, makeGameAction } from "../game/logic/TimedActionLogic";
+import { getTreatyMonthLeft } from "../game/logic/TreatyLogic";
 import {
    getCurrentWars,
    getTruceMonthsLeft,
@@ -900,7 +901,7 @@ const TreatiesAboutToExpire: ITodo = {
          return null;
       }
       const treaties = Array.from(relations).flatMap(([otherProvince, data]) => {
-         if (data.treaty && data.treaty.month + TimedActions.DiplomaticTreaty.duration - save.state.month < 6) {
+         if (data.treaty && getTreatyMonthLeft(save.state.playerProvince, otherProvince, save) < 6) {
             return [`${getProvinceName(otherProvince, save)} (${TreatyNames[data.treaty.type]()})`];
          }
          return [];
@@ -918,7 +919,7 @@ const TreatiesAboutToExpire: ITodo = {
          return;
       }
       for (const [otherProvince, data] of relations) {
-         if (data.treaty && data.treaty.month + TimedActions.DiplomaticTreaty.duration - save.state.month < 6) {
+         if (data.treaty && getTreatyMonthLeft(save.state.playerProvince, otherProvince, save) < 6) {
             showPanel(DiplomacyPage, { province: otherProvince });
             return;
          }

@@ -1,5 +1,6 @@
 import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
+import { AnatoliaProvinces } from "../definitions/TileConstants";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import {
@@ -477,7 +478,7 @@ export const ThraciaEvents = {
       image: EventImage.MediterraneanHarbour,
       desc: () => $t(L.BetweenTwoSeasDesc),
       condition: {
-         province: new Set(["Thracia", "Macedonia", "Asia", "Bithynia"]),
+         province: new Set(["Dalmatia", "Moesia", "Thracia", "Macedonia", ...AnatoliaProvinces, "Syria"]),
          conditions: function* (province, save): ConditionChecks {
             yield* mediterraneanCoastChecks(5, province, save);
             yield* blackSeaCoastChecks(5, province, save);

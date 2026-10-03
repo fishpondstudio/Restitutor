@@ -1,7 +1,7 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { Province } from "../definitions/Province";
 import type { GameEvent } from "../events/GameEvents";
-import { Rome192Scenario } from "./Rome192Scenario";
+import { Rome192 } from "./Rome192";
 
 export interface IScenario {
    startDate: Date;
@@ -10,7 +10,7 @@ export interface IScenario {
 }
 
 export const Scenarios = {
-   Rome192: Rome192Scenario,
+   Rome192: Rome192,
 } satisfies Record<string, IScenario>;
 
 export type Scenario = keyof typeof Scenarios;

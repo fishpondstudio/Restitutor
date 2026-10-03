@@ -123,7 +123,7 @@ const _Province = {
       ],
       culture: "Cappadocian",
       religion: "Anatolian",
-      upgrades: [],
+      upgrades: ["CohesiveTaxation", "ForeignAmbition", "AbundantProvisions"],
    },
    Cilicia: {
       code: "CI",
@@ -132,7 +132,7 @@ const _Province = {
       tiles: [10616916, 10616915, 10682451, 10747986, 10813522, 10747987, 10616918],
       culture: "Anatolian",
       religion: "Eastern",
-      upgrades: [],
+      upgrades: ["HarbourAdministration", "MercantileTaxation", "VictoriousMight"],
    },
    Corsica: {
       code: "CO",
@@ -192,7 +192,7 @@ const _Province = {
       tiles: [10616911, 10682447, 10747984, 10682448, 10616912, 10616913, 10682450, 10616914, 10551378],
       culture: "Anatolian",
       religion: "Anatolian",
-      upgrades: [],
+      upgrades: ["AnatolianRecruitment", "HighlandDevelopment", "InlandAdministration"],
    },
    Germania: {
       code: "GE",
@@ -226,7 +226,7 @@ const _Province = {
       tiles: [10813528, 10747993, 10682457, 10747994, 10682458, 10616923, 10682460, 10682459, 10747996],
       culture: "Arab",
       religion: "Judaism",
-      upgrades: [],
+      upgrades: ["ChristianCommunities", "EfficientEvangelization", "ApostolicTaxation"],
    },
    Lusitania: {
       code: "LS",
@@ -244,7 +244,7 @@ const _Province = {
       tiles: [10420307, 10485843, 10551379],
       culture: "Anatolian",
       religion: "Anatolian",
-      upgrades: [],
+      upgrades: ["ExpandedDiplomacy", "FriendlyCommerce", "TreatyProsperity"],
    },
    Lugdunensis: {
       code: "LG",
@@ -356,7 +356,7 @@ const _Province = {
       tiles: [10813523, 10813524, 10879060, 10879061, 10813525, 10747989, 10813526, 10879062, 10747991, 10747992],
       culture: "Syrian",
       religion: "Eastern",
-      upgrades: [],
+      upgrades: ["CrossroadsCommerce", "ReligiousAccommodation", "MercantileLogistics"],
    },
    Tarraconensis: {
       code: "TR",

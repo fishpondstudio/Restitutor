@@ -1,6 +1,7 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
+import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { isChristianReligion } from "../definitions/Religion";
 import type { SaveGame } from "../GameState";
 import { tileIsOurCoreCondition } from "../logic/MissionLogic";
@@ -14,8 +15,15 @@ export function EvangelizeTileAction(tile: Tile, province: Province, save: SaveG
    if (!tileData || !state) {
       return EmptyGameAction;
    }
+   const baseCost = tileData.infrastructure + tileData.production + tileData.population;
+   let multiplier = 1;
+   if (hasProvinceUpgrade("EfficientEvangelization", province, save)) {
+      multiplier = 0.5;
+   }
    return {
-      cost: { christianity: tileData.infrastructure + tileData.production + tileData.population },
+      cost: {
+         christianity: baseCost * multiplier,
+      },
       condition: finalizeCondition([
          ...timedActionConditions({ action: "EvangelizeTile" }, province, save),
          tileIsOurCoreCondition(tile, province, save),

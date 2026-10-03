@@ -17,7 +17,7 @@ import type { SaveGame } from "../GameState";
 import { MapGrid } from "../MapGrid";
 import type { ConditionChecks } from "./Calculation";
 import { getFamilyMemberFrom } from "./GovernorLogic";
-import { attachModifiers } from "./ModifierLogic";
+import { attachModifier } from "./ModifierLogic";
 import { getProvinceName } from "./ProvinceLogic";
 import { UpgradeBaseCost } from "./TileLogic";
 
@@ -179,7 +179,7 @@ export const BaseDiplomats = 2;
 export function getDiplomats(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.BaseValue), value: BaseDiplomats });
-   attachModifiers("Diplomat", breakdown, province, save);
+   attachModifier("Diplomat", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
 
@@ -328,7 +328,7 @@ export function getAnnexCostDiscount(province: Province, clientProvince: Provinc
          value: clamp(patronMonths * 0.01, 0, 0.9),
       });
    }
-   attachModifiers("AnnexCostDiscount", breakdown, province, save);
+   attachModifier("AnnexCostDiscount", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
 
@@ -353,7 +353,7 @@ export function getDiplomaticDistance(ourProvince: Province, theirProvince: Prov
 export function getDiplomaticRange(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.BaseValue), value: 10 });
-   attachModifiers("DiplomaticRange", breakdown, province, save);
+   attachModifier("DiplomaticRange", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
 

@@ -26,7 +26,7 @@ import {
    getRelation,
    getRelations,
 } from "./DiplomacyLogic";
-import { addModifier, attachModifiers } from "./ModifierLogic";
+import { addModifier, attachModifier } from "./ModifierLogic";
 import {
    getProvinceName,
    getProvincePrestige,
@@ -374,8 +374,15 @@ export function getWarScore(
    if (hasProvinceUpgrade("InlandAmbition", attacker, save) && isLandlocked(defender, save)) {
       result.multiply.push({ name: ProvinceUpgrades.InlandAmbition.name(), value: -0.2 });
    }
+   if (
+      hasProvinceUpgrade("ForeignAmbition", attacker, save) &&
+      defenderState.culture !== attackerState.culture &&
+      !attackerState.toleratedCultures.has(defenderState.culture)
+   ) {
+      result.multiply.push({ name: ProvinceUpgrades.ForeignAmbition.name(), value: -0.2 });
+   }
 
-   attachModifiers("WarScore", result, attacker, save);
+   attachModifier("WarScore", result, attacker, save);
 
    return finalizeBreakdown(result);
 }
@@ -428,7 +435,7 @@ export function getTruceDuration(war: IWar, save: SaveGame): IValueBreakdown {
          value: extraTruceMonths,
       });
    }
-   attachModifiers("TruceDuration", result, war.attacker, save);
+   attachModifier("TruceDuration", result, war.attacker, save);
    return finalizeBreakdown(result, Math.ceil);
 }
 

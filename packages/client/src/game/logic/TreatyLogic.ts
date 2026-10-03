@@ -292,12 +292,16 @@ export function getTreatyCount(province: Province, save: SaveGame): number {
    return result;
 }
 
+export function getTreatyDuration(type: Treaty): number {
+   return type === "Patron" || type === "Client" ? 100 * 12 : TimedActions.DiplomaticTreaty.duration;
+}
+
 export function getTreatyMonthLeft(fromProvince: Province, toProvince: Province, save: SaveGame): number {
    const treaty = getRelation(fromProvince, toProvince, save)?.treaty;
    if (treaty === undefined) {
       return 0;
    }
-   const monthLeft = treaty.month + TimedActions.DiplomaticTreaty.duration - save.state.month;
+   const monthLeft = treaty.month + getTreatyDuration(treaty.type) - save.state.month;
    return clamp(monthLeft, 0, Number.POSITIVE_INFINITY);
 }
 

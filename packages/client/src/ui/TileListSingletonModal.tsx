@@ -59,7 +59,7 @@ const TileListTable = memo(function TileListTable() {
             <TileListHeader />
          </thead>
          <tbody>
-            {getProvinceTilesCached(G.save.state.playerProvince).map((tile) => (
+            {getProvinceTilesCached(G.save.state.playerProvince, G.save).map((tile) => (
                <TileListRow key={tile} tile={tile} />
             ))}
          </tbody>

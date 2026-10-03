@@ -14,6 +14,7 @@ export const BalkanEvents = {
          province: new Set(GraeciaProvinces),
          annexAndCore: fromEntries(GraeciaProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
+      achievement: "RestoreGraecia",
       buttons: [
          {
             label: () => $t(L.UnifyOurOfficesAsTheGraeciaEmpire),
@@ -44,6 +45,7 @@ export const BalkanEvents = {
          province: new Set(BalkanProvinces),
          annexAndCore: fromEntries(BalkanProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
+      achievement: "RestoreBalkan",
       buttons: [
          {
             label: () => $t(L.UnifyOurRegionalAdministrations),

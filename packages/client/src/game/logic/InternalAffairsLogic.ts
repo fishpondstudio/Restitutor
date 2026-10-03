@@ -10,6 +10,7 @@ import { ApostolicSeeTiles, ApostolicSeeTilesWithConstantinople } from "../defin
 import { getTileName } from "../definitions/TileName";
 import { TimedActions } from "../definitions/TimedAction";
 import { GameStateFlags, type SaveGame } from "../GameState";
+import { getProvinceCoreTilesCached } from "./CacheLogic";
 import { getAttitudeTowards } from "./DiplomacyLogic";
 import { EcumenicalCouncilChristianityPct, ongoingEcumenicalCouncilCondition } from "./EcumenicalCouncilLogic";
 import { getProvinceName } from "./ProvinceLogic";
@@ -43,6 +44,19 @@ export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1,
 
    if (hasProvinceUpgrade("ChristianFervor", province, save) && isChristianReligion(state.religion)) {
       result.add.push({ name: ProvinceUpgrades.ChristianFervor.name(), value: 1 });
+   }
+   if (hasProvinceUpgrade("ChristianCommunities", province, save)) {
+      let christianCoreTileCount = 0;
+      for (const tile of getProvinceCoreTilesCached(province, save)) {
+         const data = save.state.tiles.get(tile);
+         if (data && isChristianReligion(data.religion)) {
+            ++christianCoreTileCount;
+         }
+      }
+      result.add.push({
+         name: ProvinceUpgrades.ChristianCommunities.name(),
+         value: Math.min(christianCoreTileCount * 0.1, 10),
+      });
    }
    if (getTimedActionTimeLeft("ChristianEmpire", province, save) > 0) {
       forEach(save.state.provinces, (otherProvince, state) => {

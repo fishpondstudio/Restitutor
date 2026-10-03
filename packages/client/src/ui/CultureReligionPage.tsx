@@ -65,14 +65,14 @@ export function CultureReligionPage(): React.ReactNode {
    const toleratedReligionSlots = getToleratedReligion(G.save.state.playerProvince, G.save);
    const toleratedCultures = Array.from(state.toleratedCultures);
    const toleratedCultureSlots = getToleratedCulture(G.save.state.playerProvince, G.save);
-   const cultureTiles = getProvinceTilesCached(G.save.state.playerProvince).flatMap((tile) => {
+   const cultureTiles = getProvinceTilesCached(G.save.state.playerProvince, G.save).flatMap((tile) => {
       const tileData = G.save.state.tiles.get(tile);
       if (tileData && tileData.culture !== state.culture) {
          return [[tile, tileData]] as const;
       }
       return [];
    });
-   const religionTiles = getProvinceTilesCached(G.save.state.playerProvince).flatMap((tile) => {
+   const religionTiles = getProvinceTilesCached(G.save.state.playerProvince, G.save).flatMap((tile) => {
       const tileData = G.save.state.tiles.get(tile);
       if (tileData && tileData.religion !== state.religion) {
          return [[tile, tileData]] as const;
@@ -386,10 +386,10 @@ export function CultureReligionPage(): React.ReactNode {
             {Array.from(getApostolicSeeTiles(G.save)).map((tile) => {
                const owner = G.save.state.tiles.get(tile)?.province;
                return (
-                  <div key={tile} className="row mx10 my5">
+                  <div key={tile} className="row g5 mx10 my5">
                      <div className="f1">{renderMarkup(`<Tile>${tile}</Tile>`)}</div>
                      <div>{renderMarkup(`<Province>${owner}</Province>`)}</div>
-                     {owner === G.save.state.playerProvince && <div>{$t(L.Us)}</div>}
+                     {owner === G.save.state.playerProvince && <div className="text-dimmed">{$t(L.Us)}</div>}
                   </div>
                );
             })}

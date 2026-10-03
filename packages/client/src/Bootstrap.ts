@@ -7,7 +7,7 @@ import { addDebugFunctions } from "./game/AddDebugFunctions";
 import { SentryDSN, SupportedSaveVersion } from "./game/definitions/Constant";
 import { subscribeToModifierUpdate } from "./game/definitions/ModifierUpdate";
 import { createSaveGame, GameStateFlags, initNewPlayerSaveGame } from "./game/GameState";
-import { loadGame, resetGame, saveAndBackupGame } from "./game/LoadSave";
+import { loadGame, resetGameEarly, saveAndBackupGame } from "./game/LoadSave";
 import { initMobile } from "./game/Mobile";
 import { isMobilePlatform } from "./game/NativeUtils";
 import { showBootstrapModal } from "./game/ShowBootstrapModal";
@@ -91,11 +91,10 @@ export async function bootstrap(): Promise<void> {
    let isNewPlayer = false;
 
    if (import.meta.env.DEV && G.params.has("reset")) {
-      await resetGame();
+      await resetGameEarly();
       const params = new URLSearchParams(location.search);
       params.delete("reset");
-      window.location.search = params.toString();
-      return;
+      window.history.replaceState(window.history.state, "", `${window.location.pathname}?${params.toString()}`);
    }
 
    try {
@@ -110,6 +109,7 @@ export async function bootstrap(): Promise<void> {
          return;
       }
    } catch (error) {
+      console.error(error);
       isNewPlayer = true;
    }
 

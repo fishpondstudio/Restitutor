@@ -168,7 +168,7 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
          },
       ]),
       cost: {
-         gold: 1000,
+         gold: 100,
          christianity: isChristianReligion(state.religion) ? 5 : 0,
       },
       effect: {
@@ -176,6 +176,7 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
          modifiers: {
             Stability: { type: "add", value: -5, duration: TimedActions.TakeLover.duration },
             Prestige: { type: "multiply", value: -0.05, duration: TimedActions.TakeLover.duration },
+            MonthlyGold: { type: "add", value: -10, duration: TimedActions.TakeLover.duration },
          },
       },
       execute: () => {

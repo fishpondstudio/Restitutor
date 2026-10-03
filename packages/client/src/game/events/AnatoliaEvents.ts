@@ -14,6 +14,7 @@ export const AnatoliaEvents = {
          province: new Set(AnatoliaProvinces),
          annexAndCore: fromEntries(AnatoliaProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
+      achievement: "RestoreAnatolia",
       buttons: [
          {
             label: () => $t(L.UnifyTheLeaguesAdministration),

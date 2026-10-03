@@ -3,6 +3,9 @@ import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
+import { Buildings } from "./Building";
+import { Culture } from "./Culture";
+import { Goods } from "./Goods";
 import { type IBaseModifier, type Modifier, modifierToString } from "./Modifier";
 import type { Province } from "./Province";
 import { TimedActions } from "./TimedAction";
@@ -418,6 +421,82 @@ const _ProvinceUpgrades = {
    PluralisticRenown: {
       name: () => $t(L.PluralisticRenown),
       desc: () => $t(L.PluralisticRenownDesc$1$2, "+5%", "+25%"),
+   },
+   AnatolianRecruitment: {
+      name: () => $t(L.AnatolianRecruitment),
+      desc: () => $t(L.AnatolianRecruitmentDesc$1$2$3, "+1%", Culture.Anatolian.name(), "+50%"),
+   },
+   HighlandDevelopment: {
+      name: () => $t(L.HighlandDevelopment),
+      desc: () => $t(L.HighlandDevelopmentDesc$1, "−20%"),
+   },
+   InlandAdministration: {
+      name: () => $t(L.InlandAdministration),
+      desc: () => $t(L.$1TileMaintenanceOnCoreNonCoastalTiles, "−20%"),
+   },
+   ExpandedDiplomacy: {
+      name: () => $t(L.ExpandedDiplomacy),
+      modifiers: {
+         Diplomat: { type: "add", value: 1 },
+      },
+   },
+   FriendlyCommerce: {
+      name: () => $t(L.FriendlyCommerce),
+      desc: () => $t(L.FriendlyCommerceDesc$1$2, "+5%", "+50%"),
+   },
+   TreatyProsperity: {
+      name: () => $t(L.TreatyProsperity),
+      desc: () => $t(L.$1TileOutputForEachDiplomaticTreaty, "+5%"),
+   },
+   HarbourAdministration: {
+      name: () => $t(L.HarbourAdministration),
+      desc: () => $t(L.$1GoverningCapacityForEach$2OnACoreTile, "+10", Buildings.Harbour.name()),
+   },
+   MercantileTaxation: {
+      name: () => $t(L.MercantileTaxation),
+      desc: () => $t(L.$1LandTaxForEachActiveTrade, "+10%"),
+   },
+   VictoriousMight: {
+      name: () => $t(L.VictoriousMight),
+      desc: () => $t(L.$1WarPowerForEachWarWonAsLeadAttackerUpTo$2, "+1%", "+25%"),
+   },
+   CohesiveTaxation: {
+      name: () => $t(L.CohesiveTaxation),
+      desc: () => $t(L.$1LandTaxForEach$2CulturalCohesion, "+0.2%", "1%"),
+   },
+   ForeignAmbition: {
+      name: () => $t(L.ForeignAmbition),
+      desc: () => $t(L.ForeignAmbitionDesc$1, "−20%"),
+   },
+   AbundantProvisions: {
+      name: () => $t(L.AbundantProvisions),
+      desc: () => $t(L.AbundantProvisionsDesc$1$2$3$4, "+1%", Goods.bread.name(), Goods.cheese.name(), "+25%"),
+   },
+   CrossroadsCommerce: {
+      name: () => $t(L.CrossroadsCommerce),
+      desc: () => $t(L.$1TradeProfitForEachNeighboringProvinceUpTo$2, "+10%", "+50%"),
+   },
+   ReligiousAccommodation: {
+      name: () => $t(L.ReligiousAccommodation),
+      modifiers: {
+         ToleratedReligion: { type: "add", value: 1 },
+      },
+   },
+   MercantileLogistics: {
+      name: () => $t(L.MercantileLogistics),
+      desc: () => $t(L.$1ArmyMaintenanceForEachActiveTrade, "−10%"),
+   },
+   ChristianCommunities: {
+      name: () => $t(L.ChristianCommunities),
+      desc: () => $t(L.ChristianCommunitiesDesc$1$2, "+0.1", "+10"),
+   },
+   EfficientEvangelization: {
+      name: () => $t(L.EfficientEvangelization),
+      desc: () => $t(L.$1ChristianInfluenceCostToEvangelizeATile, "−50%"),
+   },
+   ApostolicTaxation: {
+      name: () => $t(L.ApostolicTaxation),
+      desc: () => $t(L.$1LandTaxForEachApostolicSeeWeCurrentlyOwn, "+10%"),
    },
 } as const satisfies Record<string, IProvinceUpgrade>;
 

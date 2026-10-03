@@ -15,7 +15,7 @@ import { Goods, Price, Tier } from "../definitions/Goods";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { getRelations } from "./DiplomacyLogic";
-import { attachModifiers } from "./ModifierLogic";
+import { attachModifier } from "./ModifierLogic";
 import { getProvinceStat } from "./ProvinceLogic";
 import {
    addProvinceResource,
@@ -284,7 +284,7 @@ export function isProductionSelfSufficient(province: Province, save: SaveGame): 
 export function getProvinceProductionCapacity(province: Province, save: SaveGame): IValueBreakdown {
    const result = makeValueBreakdown();
    result.add.push({ name: $t(L.BaseValue), value: 5 });
-   attachModifiers("ProductionCapacity", result, province, save);
+   attachModifier("ProductionCapacity", result, province, save);
    let workshop = 0;
    for (const [tile, data] of save.state.tiles) {
       if (data.province === province && data.buildings.has("Workshop")) {

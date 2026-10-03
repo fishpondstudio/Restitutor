@@ -27,6 +27,7 @@ export const ProvinceFlags = {
    AutomaticallyEvangelizeToleratedReligions: 1 << 4,
    AutomaticallyConvertMinorCultures: 1 << 5,
    AutomaticallyConvertToleratedCultures: 1 << 6,
+   AutomaticallyRepayLoans: 1 << 7,
 } as const;
 
 export type ProvinceFlags = ValueOf<typeof ProvinceFlags>;
@@ -50,7 +51,7 @@ export interface IProvince {
    loans: ILoan[];
    timedActions: Map<TimedAction, number>;
    modifiers: Partial<Record<Modifier, IModifier[]>>;
-   dynamicModifiers: Partial<Record<Modifier, (IModifier & { timeLeft?: number })[]>>;
+   dynamicModifiers: Partial<Record<Modifier, IModifier[]>>;
    production: Record<Goods, { capacity: number }>;
    events: Map<GameEvent, { month: number }>;
    usedEvents: Set<GameEvent>;

@@ -10,7 +10,7 @@ import type { SaveGame } from "../GameState";
 import { cacheProvince, getProvinceCoreTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getProvinceCultures } from "./InternalAffairsLogic";
-import { attachModifiers } from "./ModifierLogic";
+import { attachModifier } from "./ModifierLogic";
 import {
    getBlackSeaCoastalTiles,
    getNeighborProvinces,
@@ -79,7 +79,7 @@ export function getUnitWarPower(unit: ArmyUnit, province: Province, save: SaveGa
          value: skill * UnitPowerUpgradeBonus,
       });
    }
-   attachModifiers(config.modifier, result, province, save);
+   attachModifier(config.modifier, result, province, save);
    return finalizeBreakdown(result);
 }
 
@@ -151,7 +151,7 @@ export function getArmyMaintenanceCost(
    }
    if (hasProvinceUpgrade("MilitarySupplyNetwork", province, save)) {
       let buildingCount = 0;
-      for (const tile of getProvinceCoreTilesCached(province)) {
+      for (const tile of getProvinceCoreTilesCached(province, save)) {
          const data = save.state.tiles.get(tile);
          if (!data) {
             continue;
@@ -170,7 +170,16 @@ export function getArmyMaintenanceCost(
          });
       }
    }
-   attachModifiers("ArmyMaintenance", breakdown, province, save);
+   if (hasProvinceUpgrade("MercantileLogistics", province, save)) {
+      const tradeCount = getProvinceTrades(province, save).size;
+      if (tradeCount > 0) {
+         breakdown.multiply.push({
+            name: ProvinceUpgrades.MercantileLogistics.name(),
+            value: -0.1 * tradeCount,
+         });
+      }
+   }
+   attachModifier("ArmyMaintenance", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
 
@@ -291,6 +300,12 @@ export function getWarPower(
          value: Math.min((save.state.provinces[province]?.unlockedTech.size ?? 0) * 0.01, 0.25),
       });
    }
+   if (hasProvinceUpgrade("VictoriousMight", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.VictoriousMight.name(),
+         value: Math.min(getProvinceStat("victoryCount", province, save) * 0.01, 0.25),
+      });
+   }
    if (hasProvinceUpgrade("MilitaryIndustry", province, save)) {
       const production = save.state.provinces[province]?.production;
       const capacity = (production?.armor.capacity ?? 0) + (production?.weapon.capacity ?? 0);
@@ -306,7 +321,7 @@ export function getWarPower(
       });
    }
    if (hasProvinceUpgrade("MoorishMuster", province, save)) {
-      const coreTileGroups = Math.floor(getProvinceCoreTilesCached(province).length / 10);
+      const coreTileGroups = Math.floor(getProvinceCoreTilesCached(province, save).length / 10);
       if (coreTileGroups > 0) {
          result.multiply.push({
             name: ProvinceUpgrades.MoorishMuster.name(),
@@ -354,7 +369,7 @@ export function getWarPower(
          value: Math.min(cultures.size * 0.05, 0.5),
       });
    }
-   attachModifiers("WarPower", result, province, save);
+   attachModifier("WarPower", result, province, save);
    const wars = getCurrentWars(province, save);
    if (wars.length > 1) {
       wars.forEach((war) => {

@@ -3,6 +3,7 @@ import { ConvertCultureAction } from "../actions/ConvertCultureAction";
 import { EvangelizeTileAction } from "../actions/EvangelizeTileAction";
 import { finalizeCondition, tryDoAction } from "../actions/GameAction";
 import { MakeCoreAction } from "../actions/MakeCoreAction";
+import { RepayLoanAction } from "../actions/RepayLoanAction";
 import type { Province } from "../definitions/Province";
 import { ProvinceFlags } from "../definitions/ProvinceState";
 import type { SaveGame } from "../GameState";
@@ -18,6 +19,17 @@ export function tickAutomation(province: Province, save: SaveGame): void {
    automaticallyMakeCore(province, save);
    automaticallyEvangelize(province, save);
    automaticallyConvertCulture(province, save);
+   automaticallyRepayLoans(province, save);
+}
+
+function automaticallyRepayLoans(province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state || !hasFlag(state.flags, ProvinceFlags.AutomaticallyRepayLoans)) {
+      return;
+   }
+   for (const loan of [...state.loans]) {
+      tryDoAction(RepayLoanAction(loan, province, save), { headless: true }, province, save);
+   }
 }
 
 function automaticallySettleUnrest(province: Province, save: SaveGame): void {
@@ -66,7 +78,7 @@ function automaticallyMakeCore(province: Province, save: SaveGame): void {
    ) {
       return;
    }
-   for (const tile of getProvinceTilesCached(province)) {
+   for (const tile of getProvinceTilesCached(province, save)) {
       if (tryDoAction(MakeCoreAction(tile, province, save), { headless: true }, province, save)) {
          break;
       }
@@ -83,7 +95,7 @@ function automaticallyEvangelize(province: Province, save: SaveGame): void {
    if (!evangelizeMinor && !evangelizeTolerated) {
       return;
    }
-   for (const tile of getProvinceTilesCached(province)) {
+   for (const tile of getProvinceTilesCached(province, save)) {
       const status = getReligionStatus(tile, save);
       if (!((status === "Minor" && evangelizeMinor) || (status === "Tolerated" && evangelizeTolerated))) {
          continue;
@@ -104,7 +116,7 @@ function automaticallyConvertCulture(province: Province, save: SaveGame): void {
    if (!convertMinor && !convertTolerated) {
       return;
    }
-   for (const tile of getProvinceTilesCached(province)) {
+   for (const tile of getProvinceTilesCached(province, save)) {
       const status = getCultureStatus(tile, save);
       if (!((status === "Minor" && convertMinor) || (status === "Tolerated" && convertTolerated))) {
          continue;

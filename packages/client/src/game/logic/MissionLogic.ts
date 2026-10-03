@@ -7,6 +7,7 @@ import { durationToString } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
 import { type ProvinceNameOverride, ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
 import { type ProvinceResource, ProvinceResourceNames } from "../definitions/ProvinceResources";
+import { Religion } from "../definitions/Religion";
 import { SpawnedProvinces } from "../definitions/SpawnedProvince";
 import { getTileName } from "../definitions/TileName";
 import type { TileNameOverride } from "../definitions/TileNameOverrides";
@@ -25,7 +26,7 @@ import {
 import type { ConditionChecks } from "./Calculation";
 import { cleanUpProvince } from "./CleanupProvince";
 import { getMarriageAlliance, getRelation } from "./DiplomacyLogic";
-import { getCulturePercentage } from "./InternalAffairsLogic";
+import { getApostolicSeeTiles, getCulturePercentage } from "./InternalAffairsLogic";
 import {
    addProvinceStat,
    ensureProvinceCapitals,
@@ -70,7 +71,7 @@ export function annexTiles({
    }
    clearAllCaches();
    for (const affectedProvince of affectedProvinces) {
-      if (affectedProvince !== province && getProvinceTilesCached(affectedProvince).length === 0) {
+      if (affectedProvince !== province && getProvinceTilesCached(affectedProvince, save).length === 0) {
          onProvinceFullyAnnexed(affectedProvince, province, save);
       }
    }
@@ -190,6 +191,41 @@ export function nullifyNegativeAttitudesEffect(fromProvince: Province): ICustomE
    };
 }
 
+export function* religionChecks(religion: Religion, province: Province, save: SaveGame): ConditionChecks {
+   (yield save.state.provinces[province]?.religion === religion)?.describe(
+      $t(L.$1sReligionIs$2, getProvinceName(province, save), Religion[religion].name()),
+   );
+}
+
+export function* coreTileReligionCountChecks(
+   religion: Religion,
+   minimum: number,
+   province: Province,
+   save: SaveGame,
+): ConditionChecks {
+   const coreTiles = getProvinceCoreTilesCached(province, save);
+   const coreTileReligionCount = coreTiles.filter((tile) => save.state.tiles.get(tile)?.religion === religion).length;
+   (yield coreTileReligionCount >= minimum)?.describe(
+      $t(
+         L.$1HasAtLeast$2CoreTilesWithThe$3Religion,
+         getProvinceName(province, save),
+         formatNumber(minimum),
+         Religion[religion].name(),
+      ),
+      { progress: [coreTileReligionCount, minimum] },
+   );
+}
+
+export function* apostolicSeeCountChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
+   const apostolicSee = getApostolicSeeTiles(save);
+   const provinceApostolicSee = Array.from(apostolicSee).filter(
+      (tile) => save.state.tiles.get(tile)?.province === province,
+   );
+   (yield provinceApostolicSee.length >= minimum)?.describe($t(L.Annex$1ApostolicSees, formatNumber(minimum)), {
+      progress: [provinceApostolicSee.length, minimum],
+   });
+}
+
 export function* provinceRevenueChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
    const monthlyRevenue = getProvinceIncome(province, save).revenue.value;
    (yield monthlyRevenue >= minimum)?.describe($t(L.Reach$1MonthlyRevenue, formatNumber(minimum)), {
@@ -255,7 +291,7 @@ export function* minCoreCoastalTileChecks(minimum: number, province: Province, s
 }
 
 export function* minCoreTileChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
-   const tileCount = getProvinceCoreTilesCached(province).length;
+   const tileCount = getProvinceCoreTilesCached(province, save).length;
    (yield tileCount >= minimum)?.describe(
       $t(L.$1HasAtLeast$2CoreTiles, getProvinceName(province, save), formatNumber(minimum)),
       { progress: [tileCount, minimum] },
@@ -263,7 +299,7 @@ export function* minCoreTileChecks(minimum: number, province: Province, save: Sa
 }
 
 export function* maxCoreTileChecks(max: number, province: Province, save: SaveGame): ConditionChecks {
-   const tileCount = getProvinceCoreTilesCached(province).length;
+   const tileCount = getProvinceCoreTilesCached(province, save).length;
    (yield tileCount <= max)?.describe($t(L.$1HasAtMost$2CoreTiles, getProvinceName(province, save), formatNumber(max)));
 }
 
@@ -338,6 +374,12 @@ export function* anyCoreTileChecks(tiles: Iterable<Tile>, province: Province, sa
 export function* isCoreTileChecks(tile: Tile, province: Province, save: SaveGame): ConditionChecks {
    (yield isCoreTile(tile, province, save))?.describe(
       $t(L.$1AnnexesAndCores$2, getProvinceName(province, save), `<Tile>${tile}</Tile>`),
+   );
+}
+
+export function* notAnnexedChecks(tile: Tile, province: Province, save: SaveGame): ConditionChecks {
+   (yield save.state.tiles.get(tile)?.province !== province)?.describe(
+      $t(L.$1IsNotAnnexedBy$2, tile, getProvinceName(province, save)),
    );
 }
 

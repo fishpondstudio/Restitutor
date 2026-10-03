@@ -38,7 +38,7 @@ import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { getArmyMaintenanceCost, getWarPower, getWarPowerPerTile } from "./ArmyLogic";
-import { cacheProvince, getProvinceTilesCached } from "./CacheLogic";
+import { cacheProvince, getProvinceCoreTilesCached, getProvinceTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getRegionalCapitalCount } from "./CapitalLogic";
 import { getRelation } from "./DiplomacyLogic";
@@ -46,7 +46,7 @@ import { generateRandomGovernor } from "./GovernorLogic";
 import { isGreatWorkCompleted } from "./GreatWorkLogic";
 import { getCulturalCohesion, getReligiousCohesion } from "./InternalAffairsLogic";
 import { annexTiles } from "./MissionLogic";
-import { addModifier, attachModifiers } from "./ModifierLogic";
+import { addModifier, attachModifier, forEachModifier } from "./ModifierLogic";
 import { addProvinceResource } from "./ResourceLogic";
 import { settleTile } from "./SettlementLogic";
 import { getBaselineTechs } from "./TechLogic";
@@ -130,7 +130,7 @@ export function countProvinceTiles(
    save: SaveGame,
 ): number {
    let count = 0;
-   for (const tile of getProvinceTilesCached(province)) {
+   for (const tile of getProvinceTilesCached(province, save)) {
       const data = save.state.tiles.get(tile);
       if (!data) {
          continue;
@@ -152,7 +152,7 @@ export function countProvinceTiles(
 export function getProvincePrestige(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.TileUpgrades), value: getTotalUpgrades(province, save) });
-   attachModifiers("Prestige", breakdown, province, save);
+   attachModifier("Prestige", breakdown, province, save);
    if (hasProvinceUpgrade("PeacefulRenown", province, save) && getCurrentWars(province, save).length === 0) {
       const stability = getProvinceStability(province, save).value;
       if (stability > 0) {
@@ -211,7 +211,7 @@ export function getProvinceStability(province: Province, save: SaveGame): IValue
    if (overextension > 0) {
       breakdown.add.push({ name: $t(L.FromOverextension), value: -overextension });
    }
-   attachModifiers("Stability", breakdown, province, save);
+   attachModifier("Stability", breakdown, province, save);
    const wars = getCurrentWars(province, save);
    if (hasProvinceUpgrade("WartimeUnity", province, save) && wars.length > 0) {
       breakdown.add.push({ name: ProvinceUpgrades.WartimeUnity.name(), value: 10 });
@@ -284,7 +284,17 @@ function _getProvinceOverextension(province: Province, save: SaveGame): IValueBr
 export function getProvinceGoverningCapacity(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.BaseValue), value: 200 });
-   attachModifiers("GoverningCapacity", breakdown, province, save);
+   if (hasProvinceUpgrade("HarbourAdministration", province, save)) {
+      let harbourCount = 0;
+      for (const tile of getProvinceCoreTilesCached(province, save)) {
+         const data = save.state.tiles.get(tile);
+         if (data?.buildings.has("Harbour")) {
+            ++harbourCount;
+         }
+      }
+      breakdown.add.push({ name: ProvinceUpgrades.HarbourAdministration.name(), value: harbourCount * 10 });
+   }
+   attachModifier("GoverningCapacity", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
 
@@ -371,13 +381,13 @@ export function getProvinceGovernmentPoint(type: GovernorPower, province: Provin
       breakdown.add.push({ name: ProvinceUpgrades.FocusedGovernance.name(), value: 1 });
    }
    if (type === "administrative") {
-      attachModifiers("AdministrativePoint", breakdown, province, save);
+      attachModifier("AdministrativePoint", breakdown, province, save);
    }
    if (type === "diplomatic") {
-      attachModifiers("DiplomaticPoint", breakdown, province, save);
+      attachModifier("DiplomaticPoint", breakdown, province, save);
    }
    if (type === "military") {
-      attachModifiers("MilitaryPoint", breakdown, province, save);
+      attachModifier("MilitaryPoint", breakdown, province, save);
    }
    return finalizeBreakdown(breakdown);
 }
@@ -452,6 +462,23 @@ function _getProvinceIncome(
       });
    });
 
+   forEachModifier(
+      "MonthlyGold",
+      (modifier) => {
+         if (modifier.type === "add" && modifier.value > 0) {
+            revenue.add.push({
+               name: modifier.name,
+               value: modifier.value,
+               desc: Number.isFinite(modifier.duration)
+                  ? $t(L.$1MonthsLeft, formatNumber(modifier.duration))
+                  : undefined,
+            });
+         }
+      },
+      province,
+      save,
+   );
+
    expense.add.push({ name: $t(L.TileMaintenance), value: -tileMaintenanceCost });
    expense.add.push({ name: $t(L.BuildingMaintenance), value: -buildingMaintenanceCost });
    expense.add.push({ name: $t(L.ArmyMaintenance), value: -armyMaintenanceCost });
@@ -473,6 +500,23 @@ function _getProvinceIncome(
          value: -revenue.value * 0.1,
       });
    });
+
+   forEachModifier(
+      "MonthlyGold",
+      (modifier) => {
+         if (modifier.type === "add" && modifier.value < 0) {
+            expense.add.push({
+               name: modifier.name,
+               value: modifier.value,
+               desc: Number.isFinite(modifier.duration)
+                  ? $t(L.$1MonthsLeft, formatNumber(modifier.duration))
+                  : undefined,
+            });
+         }
+      },
+      province,
+      save,
+   );
 
    return {
       revenue: revenue,

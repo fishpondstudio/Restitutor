@@ -20,6 +20,7 @@ import { DaciaEvents } from "./DaciaEvents";
 import { DalmatiaEvents } from "./DalmatiaEvents";
 import { DanubianEvents } from "./DanubianEvents";
 import { EpirusEvents } from "./EpirusEvents";
+import { GalatiaLyciaCiliciaCappadociaEvents } from "./GalatiaLyciaCiliciaCappadociaEvents";
 import { GallicEmpireEvents } from "./GallicEmpireEvents";
 import type { GameEventOrder } from "./GameEventOrder";
 import { GermaniaEvents } from "./GermaniaEvents";
@@ -41,6 +42,7 @@ import { RaetiaEvents } from "./RaetiaEvents";
 import { RandomEvents } from "./RandomEvents";
 import { ReligiousEvents } from "./ReligiousEvents";
 import { SiciliaEvents } from "./SiciliaEvents";
+import { SyriaJudeaEvents } from "./SyriaJudeaEvents";
 import { TarraconensisEvents } from "./TarraconensisEvents";
 import { ThraciaEvents } from "./ThraciaEvents";
 
@@ -92,6 +94,9 @@ export const RomeEvents = {
    ...AchaiaEvents,
    ...BithyniaEvents,
    ...AsiaEvents,
+   ...GalatiaLyciaCiliciaCappadociaEvents,
+   // ...AegyptusCyrenaicaEvents,
+   ...SyriaJudeaEvents,
    ...ThraciaEvents,
    ...TarraconensisEvents,
    ...LusitaniaEvents,
