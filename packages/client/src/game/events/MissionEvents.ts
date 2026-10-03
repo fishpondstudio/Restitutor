@@ -5,6 +5,7 @@ import { Tech } from "../definitions/Tech";
 import {
    EasternMediterraneanProvinces,
    EasternRomanEmpireProvinces,
+   RomanEmpireProvinces,
    Tiles,
    WesternMediterraneanProvinces,
    WesternRomanEmpireProvinces,
@@ -243,7 +244,6 @@ export const MissionEvents = {
       image: EventImage.NavalBattle,
       desc: () => $t(L.DominionOfTheWesternSeaDesc),
       condition: {
-         province: new Set(WesternMediterraneanProvinces),
          annexAndCore: fromEntries(
             WesternMediterraneanProvinces.map((province) => [province, Number.POSITIVE_INFINITY]),
          ),
@@ -281,7 +281,6 @@ export const MissionEvents = {
       image: EventImage.ConstantinopleBuilt,
       desc: () => $t(L.DominionOfTheEasternSeaDesc),
       condition: {
-         province: new Set(EasternMediterraneanProvinces),
          annexAndCore: fromEntries(
             EasternMediterraneanProvinces.map((province) => [province, Number.POSITIVE_INFINITY]),
          ),
@@ -319,7 +318,6 @@ export const MissionEvents = {
       image: EventImage.CaesarsTriumph,
       desc: () => $t(L.WesternRomanEmpireRestoredDesc),
       condition: {
-         province: new Set(WesternRomanEmpireProvinces),
          annexAndCore: fromEntries(WesternRomanEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
       achievement: "RestoreWesternRomanEmpire",
@@ -343,7 +341,6 @@ export const MissionEvents = {
       image: EventImage.ImperialCity,
       desc: () => $t(L.EasternRomanEmpireRestoredDesc),
       condition: {
-         province: new Set(EasternRomanEmpireProvinces),
          annexAndCore: fromEntries(EasternRomanEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
       achievement: "RestoreEasternRomanEmpire",
@@ -359,6 +356,23 @@ export const MissionEvents = {
                MilitaryPoint: { type: "add", value: 1 },
             },
             custom: [setProvinceNameOverrideEffect("EasternRomanEmpire")],
+         },
+      ],
+   },
+   Mission12: {
+      name: () => $t(L.TheRomanEmpireRestored),
+      image: EventImage.RomanTriumph2,
+      desc: () => $t(L.RomanEmpireRestoredDesc),
+      condition: {
+         annexAndCore: fromEntries(RomanEmpireProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
+      },
+      achievement: "RestoreRomanEmpire",
+      wikipedia: "Roman_Empire",
+      buttons: [
+         {
+            label: () => $t(L.ProclaimOurUndividedRomanEmpire),
+            resources: { mandate: 10 },
+            custom: [setProvinceNameOverrideEffect("RomanEmpire")],
          },
       ],
    },

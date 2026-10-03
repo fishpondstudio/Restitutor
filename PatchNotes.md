@@ -12,7 +12,9 @@
 ## Missions
 
 - New mission, The Reach of Our Seal: Reach 100 core tiles to gain +200 Governing Capacity and your choice of 100 administrative, diplomatic, or military points.
-- New mission, The Eastern Roman Empire Restored: Fully annex and core the Eastern Roman Empire's provinces as an eastern province to adopt its name, gaining +500 Governing Capacity, +1 regional capital slot, and +1 monthly administrative, diplomatic, and military points.
+- New mission, The Eastern Roman Empire Restored: Fully annex and core the Eastern Roman Empire's provinces to adopt its name, gaining +500 Governing Capacity, +1 regional capital slot, and +1 monthly administrative, diplomatic, and military points.
+- New mission, The Roman Empire Restored: Fully annex and core all 35 Roman provinces to adopt the Roman Empire name, gain 10 Mandate, and unlock the "Restorer of the World" achievement.
+- Both Dominion of the Sea missions and the Western and Eastern Roman Empire restoration missions are now available to all provinces, regardless of their starting region.
 - The Western Roman Empire Restored now grants +500 Governing Capacity, up from +200, and +1 regional capital slot.
 - Every Art Mastered now grants +200 Governing Capacity and a permanent +20% bonus to your choice of Land Tax, Tile Output, or Manpower, replacing its previous rewards.
 - The Seals of Two Capitals now grants +200 Governing Capacity with every choice, plus +1 monthly administrative, diplomatic, or military point.

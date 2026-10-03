@@ -4842,4 +4842,8 @@ export const ZH_CN = {
    Indefinite: "无限期",
    AutomaticallyRepayLoans: "自动偿还贷款",
    AutomaticallyRepayOutstandingLoansIfWeHaveEnoughGold: "当我们有足够金币时，自动偿还未偿贷款。",
+   ProvinceRomanEmpire: "罗马帝国",
+   TheRomanEmpireRestored: "罗马帝国光复",
+   RomanEmpireRestoredDesc: "月桂枝垂挂在凯旋门上，来自不列颠尼亚、阿非利加和叙利亚的使节加入了穿行罗马的游行队伍。他们各自城镇的旗帜汇聚在我们的军旗下；昔日帝国的诸行省如今都听命于我们的印玺。欢呼声中，我们的文书展开一份宣告，其上的帝国之名不再分为东西。",
+   ProclaimOurUndividedRomanEmpire: "宣告我们统一的罗马帝国成立",
 };

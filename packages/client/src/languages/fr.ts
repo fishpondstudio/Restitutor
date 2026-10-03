@@ -5091,4 +5091,9 @@ export const FR = {
    Indefinite: "Indefinite",
    AutomaticallyRepayLoans: "Automatically Repay Loans",
    AutomaticallyRepayOutstandingLoansIfWeHaveEnoughGold: "Automatically repay outstanding loans if we have enough gold.",
+   ProvinceRomanEmpire: "Roman Empire",
+   TheRomanEmpireRestored: "The Roman Empire Restored",
+   RomanEmpireRestoredDesc:
+      "Laurel hangs from the triumphal arches as envoys from Britannia, Africa, and Syria join the procession through Rome. Their civic banners gather beneath our standards; the provinces of the old empire now answer to our seal. Amid the acclamations, our clerks unroll a proclamation bearing a name no longer divided between East and West.",
+   ProclaimOurUndividedRomanEmpire: "Proclaim our undivided Roman Empire",
 };
