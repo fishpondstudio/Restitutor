@@ -1,6 +1,10 @@
 ## Balancing
 
-- All five Governing Capacity legacy upgrades now each grant +200 Governing Capacity, up from +100.
+- All 5 Governing Capacity legacy upgrades now each grant +200 Governing Capacity, up from +100.
+- Infrastructure, Production, and Population Upgrade Cost legacy upgrades now each reduce costs by 20%, up from 10%.
+- Add a third Make Core Cost legacy upgrade, reducing costs by another 10%. The three upgrades now form a direct chain, with the Infrastructure Upgrade Cost upgrade branching off the first Defense upgrade instead.
+- Add a second Diplomat legacy upgrade, granting +1 Diplomat.
+- Add two more Regional Capital legacy upgrades, each granting +1 regional capital slot, for a total of +3 slots from legacy upgrades.
 - Bread & Circuses and Curial Reform now each grant +100 Governing Capacity.
 - Land Surveying's +100 Governing Capacity bonus has moved to Urban Planning.
 - Civic Education now grants +200 Governing Capacity, up from +100.
