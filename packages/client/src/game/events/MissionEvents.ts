@@ -123,6 +123,7 @@ export const MissionEvents = {
             label: () => $t(L.EstablishRegionalCivilOffices),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               RegionalCapitalCount: { type: "add", value: 1 },
             },
             resources: { administrative: 100 },
          },
@@ -130,6 +131,7 @@ export const MissionEvents = {
             label: () => $t(L.BuildANetworkOfCivicEnvoys),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               ToleratedCulture: { type: "add", value: 1 },
             },
             resources: { diplomatic: 100 },
          },
@@ -137,6 +139,7 @@ export const MissionEvents = {
             label: () => $t(L.OrganizeRegionalMilitaryStaffs),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               ToleratedReligion: { type: "add", value: 1 },
             },
             resources: { military: 100 },
          },
@@ -192,6 +195,7 @@ export const MissionEvents = {
             label: () => $t(L.DelegateAuthorityToRegionalOffices),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               RegionalCapitalCount: { type: "add", value: 1 },
                AdministrativePoint: { type: "add", value: 1 },
             },
          },
@@ -199,6 +203,7 @@ export const MissionEvents = {
             label: () => $t(L.EstablishASharedDiplomaticService),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               ToleratedCulture: { type: "add", value: 1 },
                DiplomaticPoint: { type: "add", value: 1 },
             },
          },
@@ -206,6 +211,7 @@ export const MissionEvents = {
             label: () => $t(L.UnifyTheMilitaryStaffs),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               ToleratedReligion: { type: "add", value: 1 },
                MilitaryPoint: { type: "add", value: 1 },
             },
          },
@@ -226,6 +232,7 @@ export const MissionEvents = {
             label: () => $t(L.SanctionPlunderForOurProvince),
             provinceUpgrades: ["RightOfPlunder"],
             modifiers: {
+               RegionalCapitalCount: { type: "add", value: 1 },
                GoverningCapacity: { type: "add", value: 200 },
             },
          },
@@ -247,6 +254,7 @@ export const MissionEvents = {
             label: () => $t(L.GovernTheShoresThroughLaw),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               RegionalCapitalCount: { type: "add", value: 1 },
                AdministrativePoint: { type: "add", value: 1 },
             },
          },
@@ -254,6 +262,7 @@ export const MissionEvents = {
             label: () => $t(L.BindThePortsThroughDiplomacy),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               ToleratedCulture: { type: "add", value: 1 },
                DiplomaticPoint: { type: "add", value: 1 },
             },
          },
@@ -261,6 +270,7 @@ export const MissionEvents = {
             label: () => $t(L.EntrustTheSeaToOurFleets),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               ToleratedReligion: { type: "add", value: 1 },
                MilitaryPoint: { type: "add", value: 1 },
             },
          },
@@ -282,6 +292,7 @@ export const MissionEvents = {
             label: () => $t(L.GovernTheEasternShoresByLaw),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               RegionalCapitalCount: { type: "add", value: 1 },
                AdministrativePoint: { type: "add", value: 1 },
             },
          },
@@ -289,6 +300,7 @@ export const MissionEvents = {
             label: () => $t(L.BindTheEasternPortsByTreaty),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               ToleratedCulture: { type: "add", value: 1 },
                DiplomaticPoint: { type: "add", value: 1 },
             },
          },
@@ -296,6 +308,7 @@ export const MissionEvents = {
             label: () => $t(L.EntrustTheEastToOurFleets),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
+               ToleratedReligion: { type: "add", value: 1 },
                MilitaryPoint: { type: "add", value: 1 },
             },
          },
@@ -316,6 +329,7 @@ export const MissionEvents = {
             label: () => $t(L.TheWestIsRomanOnceMore),
             modifiers: {
                GoverningCapacity: { type: "add", value: 500 },
+               RegionalCapitalCount: { type: "add", value: 1 },
                AdministrativePoint: { type: "add", value: 1 },
                DiplomaticPoint: { type: "add", value: 1 },
                MilitaryPoint: { type: "add", value: 1 },
@@ -339,6 +353,7 @@ export const MissionEvents = {
             label: () => $t(L.ProclaimTheEasternRomanEmpire),
             modifiers: {
                GoverningCapacity: { type: "add", value: 500 },
+               RegionalCapitalCount: { type: "add", value: 1 },
                AdministrativePoint: { type: "add", value: 1 },
                DiplomaticPoint: { type: "add", value: 1 },
                MilitaryPoint: { type: "add", value: 1 },
