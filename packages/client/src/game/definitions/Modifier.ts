@@ -2,7 +2,7 @@ import { formatDelta, formatNumber, formatPercentDelta } from "@project/shared/s
 import { $t, L } from "../../utils/i18n";
 import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
-import { attachModifiers } from "../logic/ModifierLogic";
+import { attachModifier } from "../logic/ModifierLogic";
 import type { Province } from "./Province";
 
 export interface IBaseModifier {
@@ -31,6 +31,10 @@ export const Modifiers = {
    },
    MilitaryPoint: {
       name: () => $t(L.MonthlyMilitaryPoint),
+      desc: () => "",
+   },
+   MonthlyGold: {
+      name: () => $t(L.MonthlyGold),
       desc: () => "",
    },
    WarPower: {
@@ -233,7 +237,7 @@ export function makeModifierGetter(
       const result = makeValueBreakdown();
       result.add.push({ name: $t(L.BaseValue), value: baseValue });
       func(result, province, save);
-      attachModifiers(modifier, result, province, save);
+      attachModifier(modifier, result, province, save);
       return finalizeBreakdown(result);
    };
 }

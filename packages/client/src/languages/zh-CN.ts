@@ -4838,4 +4838,5 @@ export const ZH_CN = {
    TheEasternRomanEmpireRestored: "东罗马帝国光复",
    EasternRomanEmpireRestoredDesc: "在君士坦丁堡的柱廊下，来自多瑙河、尼罗河和叙利亚各城的使节携着各自城镇的旗帜聚集一堂。从巴尔干的堡垒到东方的商队道路，我们的印玺如今都代表着权威。欢呼声中，文书准备着一份宣告：我们统一的土地将以帝国之名存续。",
    ProclaimTheEasternRomanEmpire: "宣告东罗马帝国成立",
+   MonthlyGold: "每月金币",
 };

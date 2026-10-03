@@ -4840,4 +4840,5 @@ export const ZH_TW = {
    EasternRomanEmpireRestoredDesc:
       "Beneath the colonnades of Constantinople, envoys from the Danube, the Nile, and the cities of Syria gather with their civic banners. Our seal now carries authority from the Balkan forts to the eastern caravan roads. As the acclamations rise, clerks prepare a proclamation: the lands we have brought together shall bear an imperial name.",
    ProclaimTheEasternRomanEmpire: "Proclaim the Eastern Roman Empire",
+   MonthlyGold: "Monthly Gold",
 };

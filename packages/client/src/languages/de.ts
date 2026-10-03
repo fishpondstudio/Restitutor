@@ -5133,4 +5133,5 @@ export const DE = {
    EasternRomanEmpireRestoredDesc:
       "Unter den Kolonnaden von Konstantinopel versammeln sich Gesandte von der Donau, vom Nil und aus den Städten Syrias mit den Bannern ihrer Städte. Unser Siegel verleiht nun Autorität von den Festungen des Balkans bis zu den Karawanenstraßen des Ostens. Während die Jubelrufe anschwellen, bereiten Schreiber eine Proklamation vor: Die Länder, die wir zusammengeführt haben, sollen einen kaiserlichen Namen tragen.",
    ProclaimTheEasternRomanEmpire: "Das Oströmische Reich ausrufen",
+   MonthlyGold: "Monatliches Gold",
 };

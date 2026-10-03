@@ -50,7 +50,7 @@ export interface IProvince {
    loans: ILoan[];
    timedActions: Map<TimedAction, number>;
    modifiers: Partial<Record<Modifier, IModifier[]>>;
-   dynamicModifiers: Partial<Record<Modifier, (IModifier & { timeLeft?: number })[]>>;
+   dynamicModifiers: Partial<Record<Modifier, IModifier[]>>;
    production: Record<Goods, { capacity: number }>;
    events: Map<GameEvent, { month: number }>;
    usedEvents: Set<GameEvent>;

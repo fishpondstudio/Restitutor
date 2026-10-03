@@ -26,7 +26,7 @@ import {
    getRelation,
    getRelations,
 } from "./DiplomacyLogic";
-import { addModifier, attachModifiers } from "./ModifierLogic";
+import { addModifier, attachModifier } from "./ModifierLogic";
 import {
    getProvinceName,
    getProvincePrestige,
@@ -382,7 +382,7 @@ export function getWarScore(
       result.multiply.push({ name: ProvinceUpgrades.ForeignAmbition.name(), value: -0.2 });
    }
 
-   attachModifiers("WarScore", result, attacker, save);
+   attachModifier("WarScore", result, attacker, save);
 
    return finalizeBreakdown(result);
 }
@@ -435,7 +435,7 @@ export function getTruceDuration(war: IWar, save: SaveGame): IValueBreakdown {
          value: extraTruceMonths,
       });
    }
-   attachModifiers("TruceDuration", result, war.attacker, save);
+   attachModifier("TruceDuration", result, war.attacker, save);
    return finalizeBreakdown(result, Math.ceil);
 }
 
