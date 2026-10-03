@@ -55,8 +55,8 @@ export function TreasuryPage(): React.ReactNode {
                data={Object.keys(G.save.state.provinces)}
             />
          </DevOnly>
-         <div className="m10 row">
-            <img src={IconCatalog.Gold} height={20} />
+         <div className="m10 row g5">
+            <img src={IconCatalog.Gold} className="icon-block" />
             <div className="f1">{$t(L.GoldInTreasury)}</div>
             <div>{formatNumber(getProvinceResource("gold", province, G.save))}</div>
          </div>

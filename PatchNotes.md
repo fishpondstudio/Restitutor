@@ -29,7 +29,7 @@
 
 ## Galatia
 
-Galatia province is now playable, with three unique Provincial Spirits:
+Galatia province is now playable, with 3 unique Provincial Spirits:
 
 - Anatolian Recruitment: Gain +1% Manpower for each core tile with Anatolian culture, up to +50%.
 - Highland Development: Reduce Infrastructure, Production, and Population Upgrade Cost by 20% on core Hill tiles.
@@ -39,7 +39,7 @@ Galatia's missions focus on expansion into Bithynia, Cilicia, Cappadocia, and As
 
 ## Lycia
 
-Lycia province is now playable, with three unique Provincial Spirits:
+Lycia province is now playable, with 3 unique Provincial Spirits:
 
 - Expanded Diplomacy: Gain +1 Diplomat.
 - Friendly Commerce: Gain +5% Trade Profit for each province with a positive attitude towards Lycia, up to +50%.
@@ -49,7 +49,7 @@ Lycia's missions focus on expansion into Galatia, Asia, and Cilicia, and bringin
 
 ## Cilicia
 
-Cilicia province is now playable, with three unique Provincial Spirits:
+Cilicia province is now playable, with 3 unique Provincial Spirits:
 
 - Harbour Administration: Gain +10 Governing Capacity for each Harbour on a core tile.
 - Mercantile Taxation: Gain +10% Land Tax for each active trade.
@@ -59,7 +59,7 @@ Cilicia's missions focus on expansion into Galatia, Cappadocia, and Syria, and b
 
 ## Cappadocia
 
-Cappadocia province is now playable, with three unique Provincial Spirits:
+Cappadocia province is now playable, with 3 unique Provincial Spirits:
 
 - Cohesive Taxation: Gain +0.2% Land Tax for each 1% Cultural Cohesion.
 - Foreign Ambition: Reduce required War Score by 20% when attacking a province whose culture is neither Cappadocia's dominant culture nor a tolerated culture.
@@ -69,7 +69,7 @@ Cappadocia's missions focus on expansion into Bithynia, Galatia, Cilicia, and Sy
 
 ## Syria
 
-Syria province is now playable, with three unique Provincial Spirits:
+Syria province is now playable, with three 3 Provincial Spirits:
 
 - Crossroads Commerce: Gain +10% Trade Profit for each neighboring province, up to +50%.
 - Religious Accommodation: Gain +1 tolerated religion.
@@ -79,7 +79,7 @@ Syria's missions focus on expansion into Cilicia, Cappadocia, and Judea, with ob
 
 ## Judea
 
-Judea province is now playable, with three unique Provincial Spirits:
+Judea province is now playable, with three 3 Provincial Spirits:
 
 - Christian Communities: Gain +0.1 yearly Christian Influence for each core tile following a Christian religion, up to +10 per year.
 - Efficient Evangelization: Reduce the Christian Influence cost to evangelize a tile by 50%.
