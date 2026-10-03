@@ -44,6 +44,10 @@ export async function resetGame(): Promise<void> {
    await deleteFile(SaveKey);
 }
 
+export async function resetGameEarly(): Promise<void> {
+   await deleteFile(SaveKey);
+}
+
 export async function loadFromFile(): Promise<SaveGame> {
    let file: File;
    if (typeof window.showOpenFilePicker === "function") {
