@@ -2,6 +2,7 @@ import { clearFlag, setFlag } from "@project/shared/src/utils/Helper";
 import { unlockAchievement } from "./game/Achievement.ts";
 import { RetailSteamId } from "./game/definitions/Constant.ts";
 import { type Province, Provinces } from "./game/definitions/Province";
+import { OpenDiplomacyPage, OpenSettleTilePage, OpenTilePage } from "./game/Events";
 import { GameOptionFlag } from "./game/GameOption";
 import { isMobilePurchased } from "./game/Mobile.ts";
 import { isMobilePlatform } from "./game/NativeUtils.ts";
@@ -9,7 +10,10 @@ import { isSteam, SteamClient } from "./rpc/SteamClient";
 import { TechTreeScene } from "./scenes/TechTreeScene";
 import { WorldScene } from "./scenes/WorldScene";
 import { showPanel } from "./ui/common/ShowPanel";
+import { DiplomacyPage } from "./ui/DiplomacyPage";
 import { LegacyUpgradeSingletonModal } from "./ui/LegacyUpgradeSingletonModal";
+import { SettleTilePage } from "./ui/SettleTilePage";
+import { TilePage } from "./ui/TilePage";
 import { G, GameFlags, setSpeed } from "./utils/Global";
 
 export function loadGameScene() {
@@ -57,6 +61,8 @@ export function loadGameScene() {
       unlockAchievement("CompleteTutorial");
    }
 
+   subscribeToNavigationEvents();
+
    const scene = G.params.get("scene")?.toLowerCase();
    switch (scene) {
       case "tech": {
@@ -68,4 +74,10 @@ export function loadGameScene() {
          break;
       }
    }
+}
+
+function subscribeToNavigationEvents(): void {
+   OpenDiplomacyPage.on((props) => showPanel(DiplomacyPage, props));
+   OpenSettleTilePage.on((props) => showPanel(SettleTilePage, props));
+   OpenTilePage.on((props) => showPanel(TilePage, props));
 }

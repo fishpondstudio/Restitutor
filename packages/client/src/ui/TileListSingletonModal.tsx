@@ -6,7 +6,7 @@ import { Culture } from "../game/definitions/Culture";
 import { Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
 import { getTileName } from "../game/definitions/TileName";
-import { GameStateUpdated } from "../game/Events";
+import { GameStateUpdated, OpenTilePage } from "../game/Events";
 import { getProvinceTilesCached } from "../game/logic/CacheLogic";
 import { getTileTerrain, isCapital } from "../game/logic/TileLogic";
 import { WorldScene } from "../scenes/WorldScene";
@@ -15,10 +15,8 @@ import { refreshOnTypedEvent, refreshOnTypedEventWhen } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar, useModalTransitionPhase } from "../utils/ModalManager";
 import { BuildingConstructionButton, DemolishBuildingButton } from "./BuildingConstructionButton";
-import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
-import { TilePage } from "./TilePage";
 import { UpgradeInfrastructureButton, UpgradePopulationButton, UpgradeProductionButton } from "./UpgradeButtons";
 
 const BuildingConstructionButtonStyle = { width: 30, height: 30, padding: 0 };
@@ -129,7 +127,7 @@ function _TileListRow({ tile }: { tile: Tile }): React.ReactNode {
             <button
                className="btn"
                onClick={() => {
-                  showPanel(TilePage, { tile });
+                  OpenTilePage.emit({ tile });
                   G.scene.getCurrent(WorldScene)?.drawSelectors(new Set([tile]));
                   hideModal();
                }}

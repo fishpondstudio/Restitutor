@@ -8,7 +8,7 @@ import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
 import { ProvinceFlags } from "../game/definitions/ProvinceState";
 import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { getTileName } from "../game/definitions/TileName";
-import { GameStateUpdated, LookAtTile } from "../game/Events";
+import { GameStateUpdated, OpenTilePage } from "../game/Events";
 import { getUpcomingDisasters } from "../game/events/DisasterLogic";
 import {
    getProgressToNextRestoration,
@@ -24,6 +24,7 @@ import {
 import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { getTileUnrest, isCapital } from "../game/logic/TileLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
+import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -44,7 +45,6 @@ import { GreatWorkComponent } from "./GreatWorkComponent";
 import { GreatWorksSingletonModal } from "./GreatWorksSingletonModal";
 import { MakeCoreButton } from "./MakeCoreButton";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
-import { TilePage } from "./TilePage";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid2 } from "./UIConstant";
 
@@ -277,15 +277,14 @@ export function InternalAffairsPage(): React.ReactNode {
                         className="mi sm pointer"
                         onClick={() => {
                            hideModal();
-                           LookAtTile.emit({
-                              tile,
-                              time: 0.2,
-                              onComplete: (scene) => {
+                           G.scene
+                              .getCurrent(WorldScene)
+                              ?.lookAt(tile, { time: 0.2 })
+                              .then((scene) => {
                                  scene.drawSelectors(new Set([tile]));
                                  scene.drawProvinceOutline(tileData.province);
-                              },
-                           });
-                           showPanel(TilePage, { tile });
+                              });
+                           OpenTilePage.emit({ tile });
                         }}
                      >
                         open_in_new

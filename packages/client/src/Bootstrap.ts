@@ -10,7 +10,6 @@ import { createSaveGame, GameStateFlags, initNewPlayerSaveGame } from "./game/Ga
 import { loadGame, resetGameEarly, saveAndBackupGame } from "./game/LoadSave";
 import { initMobile } from "./game/Mobile";
 import { isMobilePlatform } from "./game/NativeUtils";
-import { showBootstrapModal } from "./game/ShowBootstrapModal";
 import { getVersion } from "./game/Version";
 import { loadAddonMods } from "./LoadAddonMods";
 import { loadGameScene } from "./LoadGameScene";
@@ -139,7 +138,6 @@ export async function bootstrap(): Promise<void> {
    subscribeToModifierUpdate();
    loadGameScene();
    startGameLoop();
-   showBootstrapModal(G.save, isNewPlayer);
    hideLoading();
    initHighlighter();
    loadAddonMods();

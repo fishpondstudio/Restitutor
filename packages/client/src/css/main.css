@@ -276,14 +276,21 @@ u {
 }
 
 .icon-block {
-   height: 1em;
+   height: 1.6rem;
    display: block;
+   &.sm {
+      height: 1.4rem;
+   }
+   &.dimmed {
+      opacity: 0.5;
+   }
 }
+
 .icon-inline {
-   height: 1em;
+   height: 1.6rem;
    vertical-align: middle;
    display: inline-block;
-   margin: 0 0.2em;
+   margin: 0 0.3rem;
 }
 
 .mantine-Notifications-root:where([data-position="top-center"]) {

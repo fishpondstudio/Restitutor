@@ -1,9 +1,9 @@
 import { cls, mapOf } from "@project/shared/src/utils/Helper";
 import { GreatWork } from "../game/definitions/GreatWork";
 import { modifierToString } from "../game/definitions/Modifier";
-import { LookAtTile } from "../game/Events";
 import { formatYear } from "../game/logic/GameDateTime";
 import { isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
+import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { FloatingTip } from "./components/FloatingTip";
@@ -54,17 +54,16 @@ export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): Rea
          <div
             className="row pointer"
             onClick={() => {
-               LookAtTile.emit({
-                  tile: config.tile,
-                  time: 0.2,
-                  onComplete: (scene) => {
+               G.scene
+                  .getCurrent(WorldScene)
+                  ?.lookAt(config.tile, { time: 0.2 })
+                  .then((scene) => {
                      scene.drawSelectors(new Set([config.tile]));
                      const tileData = G.save.state.tiles.get(config.tile);
                      if (tileData) {
                         scene.drawProvinceOutline(tileData.province);
                      }
-                  },
-               });
+                  });
             }}
          >
             <div>

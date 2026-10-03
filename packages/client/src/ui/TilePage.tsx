@@ -58,6 +58,7 @@ import { EvangelizeTileButton } from "./EvangelizeTileButton";
 import { GreatWorkComponent } from "./GreatWorkComponent";
 import { MakeCoreButton } from "./MakeCoreButton";
 import { PillageButton } from "./PillageButton";
+import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { SettleTilePage } from "./SettleTilePage";
 import { TileAutonomyComp } from "./TileAutonomyComp";
 import { TileBuildingsModal } from "./TileBuildingsModal";
@@ -86,9 +87,11 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
    const tileProduction = getTileOutput(tile, G.save);
    const goodsTaxRate = getProvinceStat("goodsTaxRate", tileData.province, G.save) / 100;
    const goodsTax = goodsTaxRate * tileProduction.value * Price[tileData.goods];
+   const maintenanceCost = getTileMaintenanceCost(tile, G.save);
    if (isDev()) {
       console.assert(goodsTax === getTileGoodsTax(tile, G.save), "Goods tax calculation is correct");
    }
+   const tileLandTax = getTileLandTax(tile, G.save);
    return (
       <SidebarComp
          title={<SidebarImageHeader image={Terrains[getTileTerrain(tile)].image} title={getTileName(tile, G.save)} />}
@@ -276,9 +279,14 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             <BreakdownRow className="my5" name={$t(L.Manpower)} breakdown={getTileManpower(tile, G.save)} />
          </div>
          <div className="h1 my10">{$t(L.Revenue)}</div>
-         <div className="mx10">
-            <BreakdownRow className="my5" name={$t(L.LandTax)} breakdown={getTileLandTax(tile, G.save)} />
-         </div>
+         <BreakdownTooltip breakdown={tileLandTax}>
+            <div className="row g5 my5 mx10">
+               <div>{$t(L.LandTax)}</div>
+               <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
+               <div className="f1" />
+               <div className="text-green">{formatNumber(tileLandTax.value)}</div>
+            </div>
+         </BreakdownTooltip>
          <div className="divider my10" />
          <div className="mx10 row">
             <div>
@@ -331,16 +339,25 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                      </div>
                   )}
                >
-                  <div className="row my5">
-                     <div className="f1">{$t(L.GoodsTax)}</div>
-                     <div>{formatNumber(getTileGoodsTax(tile, G.save))}</div>
+                  <div className="row g5 my5">
+                     <div>{$t(L.GoodsTax)} </div>
+                     <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
+                     <div className="f1" />
+                     <div className="text-green">{formatNumber(getTileGoodsTax(tile, G.save))}</div>
                   </div>
                </FloatingTip>
             </div>
          </div>
          <div className="h1 my10">{$t(L.Expense)}</div>
          <div className="mx10">
-            <BreakdownRow className="my5" name={$t(L.Maintenance)} breakdown={getTileMaintenanceCost(tile, G.save)} />
+            <BreakdownTooltip breakdown={maintenanceCost}>
+               <div className="row g5">
+                  <div>{$t(L.Maintenance)} </div>
+                  <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
+                  <div className="f1" />
+                  <div className="text-red">{formatNumber(maintenanceCost.value)}</div>
+               </div>
+            </BreakdownTooltip>
          </div>
          <div className="h1 my10">{$t(L.Buildings)}</div>
          <TileGreatWorkComponent tile={tile} />

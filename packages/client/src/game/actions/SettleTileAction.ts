@@ -1,7 +1,6 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
-import { showPanel } from "../../ui/common/ShowPanel";
-import { TilePage } from "../../ui/TilePage";
 import type { Province } from "../definitions/Province";
+import { OpenTilePage } from "../Events";
 import type { SaveGame } from "../GameState";
 import { toConditions } from "../logic/Calculation";
 import { settleTileChecks, startSettlement } from "../logic/SettlementLogic";
@@ -19,7 +18,7 @@ export function SettleTileAction(tile: Tile, province: Province, save: SaveGame)
          startTimedAction("SettleTile", province, save);
          startSettlement(tile, province, save);
          if (!headless) {
-            showPanel(TilePage, { tile });
+            OpenTilePage.emit({ tile });
          }
       },
    };

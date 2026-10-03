@@ -19,7 +19,7 @@ import { CasusBelli } from "../game/definitions/CasusBelli";
 import type { Province } from "../game/definitions/Province";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
-import { GameStateUpdated, LookAtTile } from "../game/Events";
+import { GameStateUpdated, OpenTilePage } from "../game/Events";
 import { getMercenaryCost, getWarPower } from "../game/logic/ArmyLogic";
 import { monthToDate } from "../game/logic/GameDateTime";
 import { getAvailablePeaceTreatyOptions } from "../game/logic/PeaceTreatyLogic";
@@ -38,6 +38,7 @@ import {
    WarLogFlag,
    WarResult,
 } from "../game/logic/WarLogic";
+import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -50,7 +51,6 @@ import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { PeaceTreatyPage } from "./PeaceTreatyPage";
 import { PeaceTreatyTooltip } from "./PeaceTreatyTooltip";
-import { TilePage } from "./TilePage";
 import { Grid2, Grid3 } from "./UIConstant";
 import { WarChanceTooltip } from "./WarChanceTooltip";
 import { WarMonthlyConsequences } from "./WarMonthlyConsequences";
@@ -235,15 +235,14 @@ export function WarModal({ war }: { war: IWar }): React.ReactNode {
                               key={tile}
                               onClick={() => {
                                  hideModal();
-                                 LookAtTile.emit({
-                                    tile,
-                                    time: 0.2,
-                                    onComplete: (scene) => {
+                                 G.scene
+                                    .getCurrent(WorldScene)
+                                    ?.lookAt(tile, { time: 0.2 })
+                                    .then((scene) => {
                                        scene.drawSelectors(new Set([tile]));
                                        scene.drawProvinceOutline(tileData.province);
-                                       showPanel(TilePage, { tile });
-                                    },
-                                 });
+                                       OpenTilePage.emit({ tile });
+                                    });
                               }}
                            >
                               {$t(L.View)}

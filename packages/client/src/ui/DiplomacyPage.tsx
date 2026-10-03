@@ -44,7 +44,7 @@ import { Modifiers } from "../game/definitions/Modifier";
 import type { Province } from "../game/definitions/Province";
 import { Religion } from "../game/definitions/Religion";
 import { TimedActions } from "../game/definitions/TimedAction";
-import { GameStateUpdated, LookAtTile } from "../game/Events";
+import { GameStateUpdated } from "../game/Events";
 import type { SaveGame } from "../game/GameState";
 import { showError } from "../game/logic/AlertLogic";
 import { getWarPower } from "../game/logic/ArmyLogic";
@@ -70,6 +70,7 @@ import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { getTimedActionCooldownLeft, getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
 import { getAllies, getClients, getDefensePacts, getPatrons } from "../game/logic/TreatyLogic";
 import { getCurrentWars, getTruceMonthsLeft, getWarsBetween } from "../game/logic/WarLogic";
+import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -1156,11 +1157,10 @@ function _ViewProvinceButton({ province }: { province: Province }): React.ReactN
          className="btn text-sm"
          onClick={() => {
             showPanel(DiplomacyPage, { province });
-            LookAtTile.emit({
-               tile: state.capital,
-               time: 0.2,
-               onComplete: (scene) => scene.drawProvinceOutline(province),
-            });
+            G.scene
+               .getCurrent(WorldScene)
+               ?.lookAt(state.capital, { time: 0.2 })
+               .then((scene) => scene.drawProvinceOutline(province));
          }}
       >
          {$t(L.View)}
