@@ -7,6 +7,7 @@ import type { ICustomEffect, IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import { AchaiaEvents } from "./AchaiaEvents";
+import { AegyptusCyrenaicaEvents } from "./AegyptusCyrenaicaEvents";
 import { AfricaEvents } from "./AfricaEvents";
 import { AnatoliaEvents } from "./AnatoliaEvents";
 import { AquitaniaEvents } from "./AquitaniaEvents";
@@ -95,7 +96,7 @@ export const RomeEvents = {
    ...BithyniaEvents,
    ...AsiaEvents,
    ...GalatiaLyciaCiliciaCappadociaEvents,
-   // ...AegyptusCyrenaicaEvents,
+   ...AegyptusCyrenaicaEvents,
    ...SyriaJudeaEvents,
    ...ThraciaEvents,
    ...TarraconensisEvents,

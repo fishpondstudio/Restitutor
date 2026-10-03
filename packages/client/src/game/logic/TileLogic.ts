@@ -47,7 +47,7 @@ import {
 } from "./ProvinceLogic";
 import { getBuildingTech, hasResearched } from "./TechLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
-import { getProvinceTrades } from "./TradeLogic";
+import { GrainProductionLine, getGoodsTradeCount, getProvinceTrades } from "./TradeLogic";
 import { getTreatyCount } from "./TreatyLogic";
 import { getCurrentWars, type IWar } from "./WarLogic";
 
@@ -455,6 +455,13 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifier(data.modifiers.LandTax, breakdown);
    attachModifier("LandTax", breakdown, data.province, save);
+   if (
+      hasProvinceUpgrade("NiloticAbundance", data.province, save) &&
+      data.coreProvinces.has(data.province) &&
+      data.goods === "grain"
+   ) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.NiloticAbundance.name(), value: 0.25 });
+   }
    if (hasProvinceUpgrade("MercantileTaxation", data.province, save)) {
       breakdown.multiply.push({
          name: ProvinceUpgrades.MercantileTaxation.name(),
@@ -619,6 +626,19 @@ function _getTileOutput(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifier(data.modifiers.TileOutput, breakdown);
    attachModifier("TileOutput", breakdown, data.province, save);
+   if (
+      hasProvinceUpgrade("NiloticAbundance", data.province, save) &&
+      data.coreProvinces.has(data.province) &&
+      data.goods === "grain"
+   ) {
+      breakdown.multiply.push({ name: ProvinceUpgrades.NiloticAbundance.name(), value: 0.25 });
+   }
+   if (hasProvinceUpgrade("GrainCommerce", data.province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.GrainCommerce.name(),
+         value: getGoodsTradeCount(GrainProductionLine, data.province, save) * 0.1,
+      });
+   }
    if (hasProvinceUpgrade("TreatyProsperity", data.province, save)) {
       breakdown.multiply.push({
          name: ProvinceUpgrades.TreatyProsperity.name(),
@@ -854,6 +874,13 @@ export const getTileMaintenanceCost = cacheTileEvaluation<IValueBreakdown>((tile
       !isCoastal(tile)
    ) {
       calc.multiply(-0.2)?.describe(ProvinceUpgrades.InlandAdministration.name());
+   }
+   if (
+      hasProvinceUpgrade("CoastalLogistics", data.province, save) &&
+      data.coreProvinces.has(data.province) &&
+      isCoastal(tile)
+   ) {
+      calc.multiply(-0.2)?.describe(ProvinceUpgrades.CoastalLogistics.name());
    }
    if (
       hasProvinceUpgrade("WartimeAdministration", data.province, save) &&

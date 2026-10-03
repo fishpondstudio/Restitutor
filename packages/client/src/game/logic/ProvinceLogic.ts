@@ -32,7 +32,13 @@ import {
    SpawnedProvinces,
 } from "../definitions/SpawnedProvince";
 import { getBorderingProvinces } from "../definitions/Tile";
-import { BlackSeaTiles, MediterraneanTiles, StraitOfGibraltarTiles, Tiles } from "../definitions/TileConstants";
+import {
+   BlackSeaTiles,
+   MediterraneanTiles,
+   RedSealTiles,
+   StraitOfGibraltarTiles,
+   Tiles,
+} from "../definitions/TileConstants";
 import { GameStateUpdated, RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
@@ -47,7 +53,7 @@ import { isGreatWorkCompleted } from "./GreatWorkLogic";
 import { getCulturalCohesion, getReligiousCohesion } from "./InternalAffairsLogic";
 import { annexTiles } from "./MissionLogic";
 import { addModifier, attachModifier, forEachModifier } from "./ModifierLogic";
-import { addProvinceResource } from "./ResourceLogic";
+import { addProvinceResource, getProvinceResource } from "./ResourceLogic";
 import { settleTile } from "./SettlementLogic";
 import { getBaselineTechs } from "./TechLogic";
 import {
@@ -153,6 +159,18 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.TileUpgrades), value: getTotalUpgrades(province, save) });
    attachModifier("Prestige", breakdown, province, save);
+   if (hasProvinceUpgrade("TriumphalRenown", province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.TriumphalRenown.name(),
+         value: Math.min(getProvinceStat("victoryCount", province, save) * 0.02, 0.3),
+      });
+   }
+   if (hasProvinceUpgrade("MandateOfAuthority", province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.MandateOfAuthority.name(),
+         value: clamp(getProvinceResource("mandate", province, save) * 0.05, 0, 0.25),
+      });
+   }
    if (hasProvinceUpgrade("PeacefulRenown", province, save) && getCurrentWars(province, save).length === 0) {
       const stability = getProvinceStability(province, save).value;
       if (stability > 0) {
@@ -835,6 +853,10 @@ export function getMediterraneanCoastalTiles(requireCore: boolean, province: Pro
 
 export function getBlackSeaCoastalTiles(requireCore: boolean, province: Province, save: SaveGame): Tile[] {
    return getCoastalTiles(BlackSeaTiles, requireCore, province, save);
+}
+
+export function getRedSeaCoastalTiles(requireCore: boolean, province: Province, save: SaveGame): Tile[] {
+   return getCoastalTiles(RedSealTiles, requireCore, province, save);
 }
 
 function getCoastalTiles(sea: Set<Tile>, requireCore: boolean, province: Province, save: SaveGame): Tile[] {

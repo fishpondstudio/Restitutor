@@ -27,6 +27,18 @@ export function getProvinceTrades(province: Province, save: SaveGame): Map<Provi
    return result;
 }
 
+export const GrainProductionLine = new Set<Goods | "gold">(["grain", "flour", "bread"]);
+
+export function getGoodsTradeCount(goods: Set<Goods | "gold">, province: Province, save: SaveGame): number {
+   let count = 0;
+   for (const trade of getProvinceTrades(province, save).values()) {
+      if (goods.has(trade.weOffer) || goods.has(trade.theyOffer)) {
+         ++count;
+      }
+   }
+   return count;
+}
+
 export function rollTradeOffers(save: SaveGame): void {
    forEach(save.state.provinces, (province, state) => {
       const goods = shuffle(keysOf(Goods));
@@ -86,6 +98,12 @@ export function getProvinceTradeCapacity(province: Province, save: SaveGame): IV
 export function getProvinceTradeProfit(province: Province, save: SaveGame): IValueBreakdown {
    const result = makeValueBreakdown({ multiplyBase: { name: $t(L.BaseValue), value: 0.1 } });
    result.add.push({ name: $t(L.ReferenceValue), value: 1 });
+   if (hasProvinceUpgrade("GrainCommerce", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.GrainCommerce.name(),
+         value: getGoodsTradeCount(GrainProductionLine, province, save) * 0.1,
+      });
+   }
    if (hasProvinceUpgrade("TradeProfitForEachTrade", province, save)) {
       const tradeCount = getProvinceTrades(province, save).size;
       if (tradeCount > 0) {

@@ -35,6 +35,7 @@ export const ProvinceStats = {
    religiousClassLoyalty: 100,
    militaryClassLoyalty: 100,
    eliminatedBarbarians: 0,
+   settleCount: 0,
 } as const;
 
 export const ProvinceStatNames: Record<ProvinceStat, () => string> = {
@@ -68,6 +69,7 @@ export const ProvinceStatNames: Record<ProvinceStat, () => string> = {
    religiousClassLoyalty: () => $t(L.ReligiousClassLoyaltyStat),
    militaryClassLoyalty: () => $t(L.MilitaryClassLoyaltyStat),
    eliminatedBarbarians: () => $t(L.EliminatedBarbarianPolities),
+   settleCount: () => $t(L.SettlementCount),
 } as const;
 
 export type ProvinceStat = keyof typeof ProvinceStats;

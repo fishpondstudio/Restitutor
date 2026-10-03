@@ -34,7 +34,7 @@ const _Province = {
       ],
       culture: "Egyptian",
       religion: "Egyptian",
-      upgrades: [],
+      upgrades: ["NiloticAbundance", "GrainCommerce", "AlexandrianScholarship"],
    },
    Africa: {
       code: "AF",
@@ -153,7 +153,7 @@ const _Province = {
       ],
       culture: "Greek",
       religion: "GrecoRoman",
-      upgrades: [],
+      upgrades: ["CoastalLogistics", "TriumphalRenown", "MandateOfAuthority"],
    },
    Dacia: {
       code: "DA",

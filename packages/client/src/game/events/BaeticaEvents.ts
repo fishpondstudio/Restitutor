@@ -1,10 +1,9 @@
 import { $t, L } from "../../utils/i18n";
 import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
-import { getTileName } from "../definitions/TileName";
 import type { ConditionChecks } from "../logic/Calculation";
 import {
    allCoreTileChecks,
-   annexTiles,
+   annexTileEffect,
    forcePatronageEffect,
    marriageChecks,
    maxCoreTileChecks,
@@ -12,7 +11,6 @@ import {
    provinceResourceChecks,
    warPowerChecks,
 } from "../logic/MissionLogic";
-import { getProvinceName } from "../logic/ProvinceLogic";
 import {
    requireAnyTreatyBetweenChecks,
    requireNoTreatyBetweenChecks,
@@ -411,17 +409,7 @@ export const BaeticaEvents = {
          {
             label: () => $t(L.BringPalmaUnderOurProtection),
             resources: { diplomatic: -200 },
-            custom: [
-               {
-                  desc: (province, save) => {
-                     const tileNames = [8978513].map((tile) => getTileName(tile, save)).join(", ");
-                     return $t(L.$1Annexes$2, getProvinceName(province, save), tileNames);
-                  },
-                  execute: (province, save) => {
-                     annexTiles({ tiles: [8978513], province, save });
-                  },
-               },
-            ],
+            custom: [annexTileEffect(8978513, false)],
          },
          {
             label: () => $t(L.CondemnTarraconensissNeglect),
