@@ -2,7 +2,7 @@ import { formatNumber, range } from "@project/shared/src/utils/Helper";
 import { useCallback } from "react";
 import { Modifiers } from "../game/definitions/Modifier";
 import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
-import { GameStateUpdated, LookAtTile } from "../game/Events";
+import { GameStateUpdated } from "../game/Events";
 import { getWarPower } from "../game/logic/ArmyLogic";
 import { getCurrentRelations, getDiplomats } from "../game/logic/DiplomacyLogic";
 import { getMapBackgroundColor } from "../game/logic/MapColor";
@@ -18,6 +18,7 @@ import {
 } from "../game/logic/ProvinceLogic";
 import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { useShortcut } from "../game/Shortcut";
+import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -126,11 +127,10 @@ export function TopLeftPanel(): React.ReactNode {
                      className="f1 pointer text-md text-display text-right text-ellipsis"
                      style={{ color: `#${getMapBackgroundColor(G.save.state.playerProvince, G.save).toString(16)}` }}
                      onClick={() => {
-                        LookAtTile.emit({
-                           tile: state.capital,
-                           time: 0.2,
-                           onComplete: (scene) => scene.drawProvinceOutline(G.save.state.playerProvince),
-                        });
+                        G.scene
+                           .getCurrent(WorldScene)
+                           ?.lookAt(state.capital, { time: 0.2 })
+                           .then((scene) => scene.drawProvinceOutline(G.save.state.playerProvince));
                      }}
                   >
                      {getProvinceName(G.save.state.playerProvince, G.save)}

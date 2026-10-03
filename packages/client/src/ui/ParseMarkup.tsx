@@ -4,9 +4,9 @@ import type { HTMLReactParserOptions } from "html-react-parser";
 import parse from "html-react-parser";
 import { type Province, Provinces } from "../game/definitions/Province";
 import { getTileName } from "../game/definitions/TileName";
-import { LookAtTile } from "../game/Events";
 import { getMapBackgroundColor } from "../game/logic/MapColor";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
+import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { FloatingTip } from "./components/FloatingTip";
@@ -33,11 +33,10 @@ const parserOptions: HTMLReactParserOptions = {
                         if (!state) {
                            return;
                         }
-                        LookAtTile.emit({
-                           tile: state.capital,
-                           time: 0.2,
-                           onComplete: (scene) => scene.drawProvinceOutline(province),
-                        });
+                        G.scene
+                           .getCurrent(WorldScene)
+                           ?.lookAt(state.capital, { time: 0.2 })
+                           .then((scene) => scene.drawProvinceOutline(province));
                      }}
                   >
                      {getProvinceName(province, G.save)}
@@ -68,16 +67,15 @@ const parserOptions: HTMLReactParserOptions = {
                <span
                   className="text-link"
                   onClick={() => {
-                     LookAtTile.emit({
-                        tile,
-                        time: 0.2,
-                        onComplete: (scene) => {
+                     G.scene
+                        .getCurrent(WorldScene)
+                        ?.lookAt(tile, { time: 0.2 })
+                        .then((scene) => {
                            scene.drawSelectors(new Set([tile]));
                            if (tileData) {
                               scene.drawProvinceOutline(tileData.province);
                            }
-                        },
-                     });
+                        });
                   }}
                >
                   {getTileName(tile, G.save)}

@@ -340,7 +340,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                   )}
                >
                   <div className="row g5 my5">
-                     <div>{$t(L.GoodsTax)}</div>
+                     <div>{$t(L.GoodsTax)} </div>
                      <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
                      <div className="f1" />
                      <div className="text-green">{formatNumber(getTileGoodsTax(tile, G.save))}</div>
@@ -352,7 +352,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
          <div className="mx10">
             <BreakdownTooltip breakdown={maintenanceCost}>
                <div className="row g5">
-                  <div>{$t(L.Maintenance)}</div>
+                  <div>{$t(L.Maintenance)} </div>
                   <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
                   <div className="f1" />
                   <div className="text-red">{formatNumber(maintenanceCost.value)}</div>

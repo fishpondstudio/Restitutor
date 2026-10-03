@@ -9,7 +9,7 @@ import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
 import { type ChristianHeresy, Religion } from "../game/definitions/Religion";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
-import { GameStateUpdated, LookAtTile } from "../game/Events";
+import { GameStateUpdated } from "../game/Events";
 import {
    EcumenicalCouncilChristianityPct,
    EcumenicalCouncilPct,
@@ -23,6 +23,7 @@ import { addModifier, type IAddModifier } from "../game/logic/ModifierLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { addProvinceResource } from "../game/logic/ResourceLogic";
 import { getTimedActionTimeLeft, startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
+import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -217,14 +218,13 @@ function ReconcilePanel(): React.ReactNode {
                            <div
                               className="row pointer"
                               onClick={() => {
-                                 LookAtTile.emit({
-                                    tile,
-                                    time: 0.2,
-                                    onComplete: (scene) => {
+                                 G.scene
+                                    .getCurrent(WorldScene)
+                                    ?.lookAt(tile, { time: 0.2 })
+                                    .then((scene) => {
                                        scene.drawSelectors(new Set([tile]));
                                        scene.drawProvinceOutline(tileData.province);
-                                    },
-                                 });
+                                    });
                               }}
                            >
                               <div className="mi sm">open_in_new</div>
@@ -323,11 +323,10 @@ function HeresyPanel({ heresy }: { heresy: ChristianHeresy }): React.ReactNode {
                      setSelectedProvince(value);
                      const capital = G.save.state.provinces[value]?.capital;
                      if (capital) {
-                        LookAtTile.emit({
-                           tile: capital,
-                           time: 0.2,
-                           onComplete: (scene) => scene.drawProvinceOutline(value),
-                        });
+                        G.scene
+                           .getCurrent(WorldScene)
+                           ?.lookAt(capital, { time: 0.2 })
+                           .then((scene) => scene.drawProvinceOutline(value));
                      }
                   }
                }}

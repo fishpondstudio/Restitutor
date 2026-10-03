@@ -32,7 +32,14 @@ import type { Province } from "../game/definitions/Province";
 import { Religion } from "../game/definitions/Religion";
 import { getNewSettlementTiles, OceanLabels } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
-import { GameStateUpdated, LookAtTile, RefreshOverlay, RefreshTiles } from "../game/Events";
+import {
+   GameStateUpdated,
+   OpenDiplomacyPage,
+   OpenSettleTilePage,
+   OpenTilePage,
+   RefreshOverlay,
+   RefreshTiles,
+} from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
 import { isLand, LandSize } from "../game/Land";
 import { isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
@@ -49,12 +56,8 @@ import {
 } from "../game/logic/TileLogic";
 import type { IWar } from "../game/logic/WarLogic";
 import { MapGrid, TileHeight, TileWidth } from "../game/MapGrid";
-import { showPanel } from "../ui/common/ShowPanel";
 import { hideSidebar } from "../ui/common/SidebarManager";
-import { DiplomacyPage } from "../ui/DiplomacyPage";
-import { SettleTilePage } from "../ui/SettleTilePage";
 import { playSound } from "../ui/Sound";
-import { TilePage } from "../ui/TilePage";
 import { runFunc, sequence, to } from "../utils/actions/ActionHelper";
 import { CustomAction } from "../utils/actions/CustomAction";
 import { Easing } from "../utils/actions/Easing";
@@ -249,15 +252,6 @@ export class WorldScene extends Scene {
             this._drawWarOutline();
             this._drawWarProgress();
          }
-      });
-
-      LookAtTile.on(({ tile, time, onComplete }) => {
-         if (!G.scene.isCurrent(WorldScene)) {
-            return;
-         }
-         this._lookAt(tile, { time }).then(() => {
-            onComplete?.(this);
-         });
       });
 
       RefreshOverlay.on(() => {
@@ -513,7 +507,7 @@ export class WorldScene extends Scene {
             this._selectedTiles.clear();
             this._selectedTiles.add(tile);
             this.drawSelectors(this._selectedTiles);
-            showPanel(SettleTilePage, { tile });
+            OpenSettleTilePage.emit({ tile });
          } else {
             hideSidebar();
          }
@@ -533,12 +527,12 @@ export class WorldScene extends Scene {
             console.log(G.save.state.tiles.get(tile));
          }
          this._selectedTiles.add(tile);
-         showPanel(TilePage, { tile });
+         OpenTilePage.emit({ tile });
       }
       if (e.button === 2) {
          const tileData = G.save.state.tiles.get(tile);
          if (tileData) {
-            showPanel(DiplomacyPage, { province: tileData.province });
+            OpenDiplomacyPage.emit({ province: tileData.province });
          }
       }
       this.drawSelectors(this._selectedTiles);
@@ -548,7 +542,7 @@ export class WorldScene extends Scene {
       // }
    }
 
-   private _lookAt(tile: Tile, { time }: { time: number }): Promise<WorldScene> {
+   public lookAt(tile: Tile, { time }: { time: number }): Promise<WorldScene> {
       return new Promise((resolve) => {
          const position = MapGrid.gridToPosition(tileToPoint(tile));
          // position.x += marginX + remToPx(SidebarWidth) / 2 / this.viewport.zoom;
