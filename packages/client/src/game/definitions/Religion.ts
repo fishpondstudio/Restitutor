@@ -17,6 +17,7 @@ interface IReligionConfig {
 }
 
 const _Religion = {
+   Confucianism: { name: () => "Confucianism", code: "CF", flags: ReligionFlags.None },
    GrecoRoman: { name: () => $t(L.ReligionGrecoRoman), code: "GR", flags: ReligionFlags.None },
    Celtic: { name: () => $t(L.ReligionCeltic), code: "CE", flags: ReligionFlags.None },
    Germanic: { name: () => $t(L.ReligionGermanic), code: "GE", flags: ReligionFlags.None },

@@ -178,6 +178,9 @@ export const Frontier: Partial<Record<Province, number>> = {
 let settlementTiles: Set<Tile> | undefined;
 
 export function getNewSettlementTiles(scenario: Scenario): Set<Tile> {
+   if (scenario !== "Rome192") {
+      return new Set();
+   }
    if (settlementTiles) {
       return settlementTiles;
    }

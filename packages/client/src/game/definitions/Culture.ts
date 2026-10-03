@@ -7,6 +7,7 @@ interface ICultureConfig {
 }
 
 const _Culture = {
+   Han: { name: () => "Han", code: "HA" },
    Greek: { name: () => $t(L.CultureGreek), code: "GR" },
    Gallic: { name: () => $t(L.CultureGallic), code: "GA" },
    Italic: { name: () => $t(L.CultureItalic), code: "IT" },
