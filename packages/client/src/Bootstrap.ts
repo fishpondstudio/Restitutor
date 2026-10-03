@@ -94,8 +94,7 @@ export async function bootstrap(): Promise<void> {
       await resetGame();
       const params = new URLSearchParams(location.search);
       params.delete("reset");
-      window.location.search = params.toString();
-      return;
+      window.history.replaceState(window.history.state, "", `${window.location.pathname}?${params.toString()}`);
    }
 
    try {
