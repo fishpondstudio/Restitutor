@@ -7,6 +7,7 @@
 - Cultural Policy and Local Governance now each grant +200 Governing Capacity, up from +150.
 - Each tile upgrade now increases subsequent upgrade costs by 50% compounded, up from 20%.
 - Taking a lover now costs 100 gold upfront, down from 1,000, and adds a monthly expense of 10 gold for 10 years.
+- Patronage treaties now last 100 years, up from 10. Alliances and defense pacts still last 10 years.
 
 ## Missions
 

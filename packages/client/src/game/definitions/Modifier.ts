@@ -221,6 +221,9 @@ export function modifierValueToString(data: IBaseModifier): string {
 }
 
 export function durationToString(duration: number): string {
+   if (!Number.isFinite(duration)) {
+      return $t(L.Indefinite);
+   }
    if (duration > 12 && duration % 12 === 0) {
       const years = Math.floor(duration / 12);
       return $t(L.$1Years, formatNumber(years));

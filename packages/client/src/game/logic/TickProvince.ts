@@ -73,6 +73,7 @@ import { addProvinceResource, getProvinceResource, spendProvinceResource } from 
 import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
+import { getTreatyDuration } from "./TreatyLogic";
 
 export function tickProvince(province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
@@ -269,7 +270,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
       if (treaty && treaty.type === "Patron") {
          ++relation.patronMonths;
       }
-      if (treaty && treaty.month + TimedActions.DiplomaticTreaty.duration <= save.state.month) {
+      if (treaty && treaty.month + getTreatyDuration(treaty.type) <= save.state.month) {
          relation.treaty = undefined;
       }
       if (
