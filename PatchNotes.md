@@ -1,21 +1,30 @@
 ## Balancing
 
-- All five Governing Capacity legacy upgrades now each grant +200 Governing Capacity, up from +100.
+- All 5 Governing Capacity legacy upgrades now each grant +200 Governing Capacity, up from +100.
+- Infrastructure, Production, and Population Upgrade Cost legacy upgrades now each reduce costs by 20%, up from 10%.
+- Add a third Make Core Cost legacy upgrade, reducing costs by another 10%. The three upgrades now form a direct chain, with the Infrastructure Upgrade Cost upgrade branching off the first Defense upgrade instead.
+- Add a second Diplomat legacy upgrade, granting +1 Diplomat.
+- Add two more Regional Capital legacy upgrades, each granting +1 regional capital slot, for a total of +3 slots from legacy upgrades.
 - Bread & Circuses and Curial Reform now each grant +100 Governing Capacity.
 - Land Surveying's +100 Governing Capacity bonus has moved to Urban Planning.
 - Civic Education now grants +200 Governing Capacity, up from +100.
 - Cultural Policy and Local Governance now each grant +200 Governing Capacity, up from +150.
 - Each tile upgrade now increases subsequent upgrade costs by 50% compounded, up from 20%.
+- Taking a lover now costs 100 gold upfront, down from 1,000, and adds a monthly expense of 10 gold for 10 years.
+- Patronage treaties now last 100 years, up from 10. Alliances and defense pacts still last 10 years.
 
 ## Missions
 
 - New mission, The Reach of Our Seal: Reach 100 core tiles to gain +200 Governing Capacity and your choice of 100 administrative, diplomatic, or military points.
-- New mission, The Eastern Roman Empire Restored: Fully annex and core the Eastern Roman Empire's provinces as an eastern province to adopt its name, gaining +500 Governing Capacity and +1 monthly administrative, diplomatic, and military points.
-- The Western Roman Empire Restored now grants +500 Governing Capacity, up from +200.
+- New mission, The Eastern Roman Empire Restored: Fully annex and core the Eastern Roman Empire's provinces to adopt its name, gaining +500 Governing Capacity, +1 regional capital slot, and +1 monthly administrative, diplomatic, and military points.
+- New mission, The Roman Empire Restored: Fully annex and core all 35 Roman provinces to adopt the Roman Empire name, gain 10 Mandate, and unlock the "Restorer of the World" achievement.
+- Both Dominion of the Sea missions and the Western and Eastern Roman Empire restoration missions are now available to all provinces, regardless of their starting region.
+- The Western Roman Empire Restored now grants +500 Governing Capacity, up from +200, and +1 regional capital slot.
 - Every Art Mastered now grants +200 Governing Capacity and a permanent +20% bonus to your choice of Land Tax, Tile Output, or Manpower, replacing its previous rewards.
 - The Seals of Two Capitals now grants +200 Governing Capacity with every choice, plus +1 monthly administrative, diplomatic, or military point.
 - Dominion of the Western Sea and Dominion of the Eastern Sea now grant +200 Governing Capacity, up from +100, alongside their existing monthly point rewards.
-- The Spoils of Victory now grants +200 Governing Capacity in addition to Right of Plunder.
+- The Reach of Our Seal, The Seals of Two Capitals, and both Dominion of the Sea missions also grant +1 regional capital slot with their administrative option, +1 tolerated culture slot with their diplomatic option, or +1 tolerated religion slot with their military option.
+- The Spoils of Victory now grants +200 Governing Capacity and +1 regional capital slot in addition to Right of Plunder.
 - A Province Transformed's Senate option now grants 2 Consul Points, down from 5.
 
 ## Galatia
@@ -83,6 +92,7 @@ Judea's missions focus on expansion into Aegyptus and Syria, growing its manpowe
 - Fully annex and core Syria and Judea as either province to form the Levantine League, gaining +100 Governing Capacity and +2 yearly Christian Influence.
 - Syria, Judea, and Aegyptus gain a shared mission for owning three Apostolic Sees. Choose 30 Christian Influence, 100 administrative and 100 diplomatic points, or a permanent +10% Land Tax bonus.
 
-## Bugfixes
+## QoL & Bugfixes
 
+- Add an "Automatically Repay Loans" toggle in the Treasury to repay outstanding loans each month when you have enough gold.
 - Fix a bug where "The Die Is Cast" (Complete the tutorial) achievement is not unlocked correctly.

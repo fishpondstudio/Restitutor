@@ -5133,4 +5133,13 @@ export const DE = {
    EasternRomanEmpireRestoredDesc:
       "Unter den Kolonnaden von Konstantinopel versammeln sich Gesandte von der Donau, vom Nil und aus den Städten Syrias mit den Bannern ihrer Städte. Unser Siegel verleiht nun Autorität von den Festungen des Balkans bis zu den Karawanenstraßen des Ostens. Während die Jubelrufe anschwellen, bereiten Schreiber eine Proklamation vor: Die Länder, die wir zusammengeführt haben, sollen einen kaiserlichen Namen tragen.",
    ProclaimTheEasternRomanEmpire: "Das Oströmische Reich ausrufen",
+   MonthlyGold: "Monatliches Gold",
+   Indefinite: "Unbefristet",
+   AutomaticallyRepayLoans: "Darlehen automatisch zurückzahlen",
+   AutomaticallyRepayOutstandingLoansIfWeHaveEnoughGold: "Ausstehende Darlehen automatisch zurückzahlen, wenn wir genügend Gold haben.",
+   ProvinceRomanEmpire: "Römisches Reich",
+   TheRomanEmpireRestored: "Das Römische Reich wiederhergestellt",
+   RomanEmpireRestoredDesc:
+      "Lorbeer hängt von den Triumphbögen, während Gesandte aus Britannia, Africa und Syria sich dem Festzug durch Rom anschließen. Die Banner ihrer Städte versammeln sich unter unseren Standarten; die Provinzen des alten Reiches gehorchen nun unserem Siegel. Unter Jubelrufen entrollen unsere Schreiber eine Proklamation mit einem Namen, der nicht länger zwischen Ost und West geteilt ist.",
+   ProclaimOurUndividedRomanEmpire: "Unser ungeteiltes Römisches Reich ausrufen",
 };

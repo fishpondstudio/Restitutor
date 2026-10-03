@@ -10,7 +10,7 @@ import type { SaveGame } from "../GameState";
 import { cacheProvince, getProvinceCoreTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getProvinceCultures } from "./InternalAffairsLogic";
-import { attachModifiers } from "./ModifierLogic";
+import { attachModifier } from "./ModifierLogic";
 import {
    getBlackSeaCoastalTiles,
    getNeighborProvinces,
@@ -79,7 +79,7 @@ export function getUnitWarPower(unit: ArmyUnit, province: Province, save: SaveGa
          value: skill * UnitPowerUpgradeBonus,
       });
    }
-   attachModifiers(config.modifier, result, province, save);
+   attachModifier(config.modifier, result, province, save);
    return finalizeBreakdown(result);
 }
 
@@ -179,7 +179,7 @@ export function getArmyMaintenanceCost(
          });
       }
    }
-   attachModifiers("ArmyMaintenance", breakdown, province, save);
+   attachModifier("ArmyMaintenance", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
 
@@ -369,7 +369,7 @@ export function getWarPower(
          value: Math.min(cultures.size * 0.05, 0.5),
       });
    }
-   attachModifiers("WarPower", result, province, save);
+   attachModifier("WarPower", result, province, save);
    const wars = getCurrentWars(province, save);
    if (wars.length > 1) {
       wars.forEach((war) => {

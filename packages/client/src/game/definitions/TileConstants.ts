@@ -4,7 +4,6 @@ import { isLand } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { getInitialTiles, type Scenario } from "../scenarios/Scenarios";
 import { Province } from "./Province";
-import { SpawnedProvinces } from "./SpawnedProvince";
 
 export const GallicEmpireProvinces: Province[] = [
    "Aquitania",
@@ -78,6 +77,44 @@ export const ExpandedGallicEmpireProvinces: Province[] = [
    "Baetica",
 ] as const;
 
+export const RomanEmpireProvinces: Province[] = [
+   "Achaia",
+   "Aegyptus",
+   "Africa",
+   "Aquitania",
+   "Asia",
+   "Baetica",
+   "Belgica",
+   "Bithynia",
+   "Britannia",
+   "Cappadocia",
+   "Cilicia",
+   "Corsica",
+   "Cyrenaica",
+   "Dacia",
+   "Dalmatia",
+   "Epirus",
+   "Galatia",
+   "Germania",
+   "Italia",
+   "Judea",
+   "Lusitania",
+   "Lycia",
+   "Lugdunensis",
+   "Macedonia",
+   "Mauretania",
+   "Moesia",
+   "Narbonensis",
+   "Noricum",
+   "Pannonia",
+   "Raetia",
+   "Sardinia",
+   "Sicilia",
+   "Syria",
+   "Tarraconensis",
+   "Thracia",
+];
+
 export const WesternRomanEmpireProvinces: Province[] = [
    ...ExpandedGallicEmpireProvinces,
    "Mauretania",
@@ -92,8 +129,8 @@ export const WesternRomanEmpireProvinces: Province[] = [
    "Dalmatia",
 ] as const;
 
-export const EasternRomanEmpireProvinces: Province[] = keysOf(Province).filter(
-   (province) => !WesternRomanEmpireProvinces.includes(province) && !(province in SpawnedProvinces),
+export const EasternRomanEmpireProvinces: Province[] = RomanEmpireProvinces.filter(
+   (province) => !WesternRomanEmpireProvinces.includes(province),
 );
 
 export const WestCaesarProvinces: Province[] = [...GallicEmpireProvinces, "Britannia"] as const;

@@ -7,7 +7,7 @@ import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpg
 import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
 import { defineValueGetter, type EvaluationMode, ValueCalculation } from "./Calculation";
-import { attachModifiersToCalculation } from "./ModifierLogic";
+import { attachModifierToCalculation } from "./ModifierLogic";
 import { countProvinceTiles } from "./ProvinceLogic";
 import { hasEnoughProvinceResources } from "./ResourceLogic";
 import { stringToPosition } from "./StringToPosition";
@@ -43,7 +43,7 @@ export const getResearchCostBreakdown = defineValueGetter(
             .multiply(-Math.min(countProvinceTiles({ culture: "Greek", core: true }, province, save) * 0.01, 0.5))
             ?.describe(ProvinceUpgrades.HellenicScholarship.name());
       }
-      attachModifiersToCalculation("ResearchCost", calc, province, save);
+      attachModifierToCalculation("ResearchCost", calc, province, save);
       return calc.finish();
    },
 );

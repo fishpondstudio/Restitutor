@@ -10,7 +10,7 @@ import type { ActiveTrade, TradeOffer, TradeOfferBase } from "../definitions/Tra
 import type { SaveGame } from "../GameState";
 import { getAttitudeTowards, getRelations } from "./DiplomacyLogic";
 import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
-import { attachModifiers } from "./ModifierLogic";
+import { attachModifier } from "./ModifierLogic";
 import { getNeighborProvinces, getProvinceCoreCoastalTileCount, hasStraitOfGibraltar } from "./ProvinceLogic";
 import { getTreatyCount } from "./TreatyLogic";
 
@@ -79,7 +79,7 @@ export function getProvinceTradeCapacity(province: Province, save: SaveGame): IV
    if (hasProvinceUpgrade("CommandOfThePillars", province, save) && hasStraitOfGibraltar(province, save)) {
       result.add.push({ name: ProvinceUpgrades.CommandOfThePillars.name(), value: 3 });
    }
-   attachModifiers("TradeCapacity", result, province, save);
+   attachModifier("TradeCapacity", result, province, save);
    return finalizeBreakdown(result);
 }
 
@@ -133,7 +133,7 @@ export function getProvinceTradeProfit(province: Province, save: SaveGame): IVal
          value: Math.min(friendlyProvinceCount * 0.05, 0.5),
       });
    }
-   attachModifiers("TradeProfit", result, province, save);
+   attachModifier("TradeProfit", result, province, save);
    return finalizeBreakdown(result);
 }
 

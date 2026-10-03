@@ -12,56 +12,68 @@ export interface IAddModifier extends IModifier {
    save: SaveGame;
 }
 
-export function attachModifiers(
+export function attachModifier(
    type: Modifier,
    breakdown: IValueBreakdown,
    province: Province,
    save: SaveGame,
 ): IValueBreakdown {
-   const modifiers = save.state.provinces[province]?.modifiers[type];
-   if (modifiers) {
-      for (const modifier of modifiers) {
+   forEachModifier(
+      type,
+      (modifier) => {
          breakdown[modifier.type].push({
             name: modifier.name,
             desc: Number.isFinite(modifier.duration) ? $t(L.$1MonthsLeft, formatNumber(modifier.duration)) : undefined,
             value: modifier.value,
          });
+      },
+      province,
+      save,
+   );
+   return breakdown;
+}
+
+export function forEachModifier(
+   type: Modifier,
+   callback: (modifier: IModifier) => void,
+   province: Province,
+   save: SaveGame,
+): void {
+   const modifiers = save.state.provinces[province]?.modifiers[type];
+   if (modifiers) {
+      for (const modifier of modifiers) {
+         callback(modifier);
       }
    }
    const dynamicModifiers = save.state.provinces[province]?.dynamicModifiers[type];
    if (dynamicModifiers) {
       for (const modifier of dynamicModifiers) {
-         breakdown[modifier.type].push({
-            name: modifier.name,
-            value: modifier.value,
-            desc: modifier.timeLeft ? $t(L.$1MonthsLeft, formatNumber(modifier.timeLeft)) : undefined,
-         });
+         callback(modifier);
       }
    }
-   return breakdown;
 }
 
-export function attachModifiersToCalculation<M extends EvaluationMode>(
+export function attachModifierToCalculation<M extends EvaluationMode>(
    type: Modifier,
    calc: ValueCalculation<M>,
    province: Province,
    save: SaveGame,
 ): ValueCalculation<M> {
    const state = save.state.provinces[province];
-   attachTileModifiersToCalculation(state?.modifiers[type], calc);
+   attachTileModifierToCalculation(state?.modifiers[type], calc);
    const dynamicModifiers = state?.dynamicModifiers[type];
    if (dynamicModifiers) {
       for (const modifier of dynamicModifiers) {
          calc[modifier.type](modifier.value)?.describe(
             modifier.name,
-            modifier.timeLeft ? $t(L.$1MonthsLeft, formatNumber(modifier.timeLeft)) : undefined,
+            Number.isFinite(modifier.duration) ? $t(L.$1MonthsLeft, formatNumber(modifier.duration)) : undefined,
          );
       }
    }
    return calc;
 }
 
-export function attachTileModifiersToCalculation<M extends EvaluationMode>(
+export function attachTileModifierToCalculation<M extends EvaluationMode>(
    modifiers: IModifier[] | undefined,
    calc: ValueCalculation<M>,
 ): ValueCalculation<M> {
@@ -87,7 +99,7 @@ export function addModifier({ modifier, name, type, value, duration, province, s
    }
 }
 
-export function attachTileModifiers(modifiers: IModifier[] | undefined, breakdown: IValueBreakdown): IValueBreakdown {
+export function attachTileModifier(modifiers: IModifier[] | undefined, breakdown: IValueBreakdown): IValueBreakdown {
    if (modifiers) {
       for (const modifier of modifiers) {
          breakdown[modifier.type].push({

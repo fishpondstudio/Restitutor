@@ -192,18 +192,25 @@ export class LegacyUpgradeDefinitions {
          MakeCoreCost: { type: "multiply", value: -0.1 },
       },
    } as const;
-   InfrastructureUpgrade1: ILegacyUpgradeModifier = {
+   MakeCore2: ILegacyUpgradeModifier = {
       requires: ["MakeCore1"],
       position: [3, 5],
       modifiers: {
-         InfrastructureUpgradeCost: { type: "multiply", value: -0.1 },
+         MakeCoreCost: { type: "multiply", value: -0.1 },
       },
    } as const;
-   MakeCore2: ILegacyUpgradeModifier = {
-      requires: ["InfrastructureUpgrade1"],
+   MakeCore3: ILegacyUpgradeModifier = {
+      requires: ["MakeCore2"],
       position: [3, 6],
       modifiers: {
          MakeCoreCost: { type: "multiply", value: -0.1 },
+      },
+   } as const;
+   InfrastructureUpgrade1: ILegacyUpgradeModifier = {
+      requires: ["Defense1"],
+      position: [5, 6],
+      modifiers: {
+         InfrastructureUpgradeCost: { type: "multiply", value: -0.2 },
       },
    } as const;
    Defense1: ILegacyUpgradeModifier = {
@@ -321,7 +328,7 @@ export class LegacyUpgradeDefinitions {
       requires: ["Prestige1"],
       position: [3, -2],
       modifiers: {
-         ProductionUpgradeCost: { type: "multiply", value: -0.1 },
+         ProductionUpgradeCost: { type: "multiply", value: -0.2 },
       },
    } as const;
    InfiltrationOnDeclaringWar: ILegacyUpgradeDefinition = {
@@ -368,6 +375,13 @@ export class LegacyUpgradeDefinitions {
    Diplomat1: ILegacyUpgradeModifier = {
       requires: ["ProductionUpgrade1"],
       position: [4, -3],
+      modifiers: {
+         Diplomat: { type: "add", value: 1 },
+      },
+   } as const;
+   Diplomat2: ILegacyUpgradeModifier = {
+      requires: ["Diplomat1"],
+      position: [5, -3],
       modifiers: {
          Diplomat: { type: "add", value: 1 },
       },
@@ -491,22 +505,36 @@ export class LegacyUpgradeDefinitions {
       },
    } as const;
    AdvisorCost1: ILegacyUpgradeModifier = {
-      requires: ["LandTax1"],
-      position: [-3, 4],
+      requires: ["RegionalCapitalCount1"],
+      position: [-4, 5],
       modifiers: {
          AdvisorCost: { type: "multiply", value: -0.1 },
       },
    } as const;
    AdvisorCost2: ILegacyUpgradeModifier = {
       requires: ["AdvisorCost1"],
-      position: [-3, 5],
+      position: [-4, 6],
       modifiers: {
          AdvisorCost: { type: "multiply", value: -0.1 },
       },
    } as const;
    RegionalCapitalCount1: ILegacyUpgradeModifier = {
-      requires: ["AdvisorCost1"],
-      position: [-4, 5],
+      requires: ["LandTax1"],
+      position: [-3, 4],
+      modifiers: {
+         RegionalCapitalCount: { type: "add", value: 1 },
+      },
+   } as const;
+   RegionalCapitalCount2: ILegacyUpgradeModifier = {
+      requires: ["RegionalCapitalCount1"],
+      position: [-3, 5],
+      modifiers: {
+         RegionalCapitalCount: { type: "add", value: 1 },
+      },
+   } as const;
+   RegionalCapitalCount3: ILegacyUpgradeModifier = {
+      requires: ["RegionalCapitalCount2"],
+      position: [-3, 6],
       modifiers: {
          RegionalCapitalCount: { type: "add", value: 1 },
       },
@@ -774,7 +802,7 @@ export class LegacyUpgradeDefinitions {
       requires: ["Military1"],
       position: [-2, -1],
       modifiers: {
-         PopulationUpgradeCost: { type: "multiply", value: -0.1 },
+         PopulationUpgradeCost: { type: "multiply", value: -0.2 },
       },
    } as const;
    StartingGeneralSkillPoint1: ILegacyUpgradeModifier = {

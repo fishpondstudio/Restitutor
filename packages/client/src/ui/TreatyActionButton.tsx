@@ -4,11 +4,11 @@ import { finalizeCondition } from "../game/actions/GameAction";
 import { type Treaty, TreatyNames } from "../game/definitions/Diplomacy";
 import { durationToString } from "../game/definitions/Modifier";
 import type { Province } from "../game/definitions/Province";
-import { TimedActions } from "../game/definitions/TimedAction";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import {
    CancelTreatyPenalty,
    cancelTreaty,
+   getTreatyDuration,
    getTreatyMonthLeft,
    hasTreatyBetween,
    OfferTreatyAction,
@@ -87,7 +87,7 @@ export function TreatyActionButton({
                )}
                <div className="row mx10 my5">
                   <div className="f1">{$t(L.Duration)}</div>
-                  <div className="text-dimmed">{durationToString(TimedActions.DiplomaticTreaty.duration)}</div>
+                  <div className="text-dimmed">{durationToString(getTreatyDuration(treaty))}</div>
                </div>
                {element}
             </>

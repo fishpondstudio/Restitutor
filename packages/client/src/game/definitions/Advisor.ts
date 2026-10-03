@@ -2,7 +2,7 @@ import { formatNumber, range, shuffle } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
-import { attachModifiers } from "../logic/ModifierLogic";
+import { attachModifier } from "../logic/ModifierLogic";
 import { randomMaleName } from "../RomanNames";
 import { AdvisorTraits, type PersonTrait } from "./PersonTrait";
 import type { Province } from "./Province";
@@ -34,7 +34,7 @@ export function getAdvisorMonthlyCost(level: number, province: Province, save: S
       desc: $t(L.ForLevel$1Advisor, formatNumber(level)),
       value: 4 ** (level - 1) * 10,
    });
-   attachModifiers("AdvisorCost", breakdown, province, save);
+   attachModifier("AdvisorCost", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
 

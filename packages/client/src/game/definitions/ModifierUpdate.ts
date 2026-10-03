@@ -88,7 +88,7 @@ function updateModifier(): void {
                   type,
                   value,
                   name: config.name(),
-                  timeLeft,
+                  duration: timeLeft,
                });
             });
          }

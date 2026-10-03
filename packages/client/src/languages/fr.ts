@@ -5087,4 +5087,13 @@ export const FR = {
    EasternRomanEmpireRestoredDesc:
       "Beneath the colonnades of Constantinople, envoys from the Danube, the Nile, and the cities of Syria gather with their civic banners. Our seal now carries authority from the Balkan forts to the eastern caravan roads. As the acclamations rise, clerks prepare a proclamation: the lands we have brought together shall bear an imperial name.",
    ProclaimTheEasternRomanEmpire: "Proclaim the Eastern Roman Empire",
+   MonthlyGold: "Monthly Gold",
+   Indefinite: "Indefinite",
+   AutomaticallyRepayLoans: "Automatically Repay Loans",
+   AutomaticallyRepayOutstandingLoansIfWeHaveEnoughGold: "Automatically repay outstanding loans if we have enough gold.",
+   ProvinceRomanEmpire: "Roman Empire",
+   TheRomanEmpireRestored: "The Roman Empire Restored",
+   RomanEmpireRestoredDesc:
+      "Laurel hangs from the triumphal arches as envoys from Britannia, Africa, and Syria join the procession through Rome. Their civic banners gather beneath our standards; the provinces of the old empire now answer to our seal. Amid the acclamations, our clerks unroll a proclamation bearing a name no longer divided between East and West.",
+   ProclaimOurUndividedRomanEmpire: "Proclaim our undivided Roman Empire",
 };

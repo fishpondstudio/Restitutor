@@ -5,7 +5,7 @@ import { finalizeBreakdown, finalizeCondition, type IValueBreakdown, makeValueBr
 import type { Province } from "../definitions/Province";
 import type { ILoan } from "../definitions/ProvinceState";
 import type { SaveGame } from "../GameState";
-import { attachModifiers } from "./ModifierLogic";
+import { attachModifier } from "./ModifierLogic";
 import { getProvinceIncome } from "./ProvinceLogic";
 import { addProvinceResource } from "./ResourceLogic";
 
@@ -25,7 +25,7 @@ export function getLoanAmount(province: Province, save: SaveGame): number {
 export function getMonthlyInterestRate(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown({ reverse: true });
    breakdown.add.push({ name: $t(L.BaseValue), value: 0.01 });
-   attachModifiers("MonthlyInterestRate", breakdown, province, save);
+   attachModifier("MonthlyInterestRate", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
 
