@@ -57,6 +57,7 @@ import {
    setProvinceTargetConscription,
 } from "./ArmyLogic";
 import { pledgeProvinceConsulVotes } from "./AutomationLogic";
+import { getBuildingMaintenanceCost } from "./BuildingLogic";
 import { getProvinceTilesCached } from "./CacheLogic";
 import { getBestRegionalCapitalTiles, getRegionalCapitalCount } from "./CapitalLogic";
 import {
@@ -817,7 +818,7 @@ function getBuildingOrder(): Building[] {
       if (PreferredBuildings.has(b)) {
          return 1;
       }
-      return (Buildings[a].construction.gold ?? 0) - (Buildings[b].construction.gold ?? 0);
+      return Buildings[a].construction - Buildings[b].construction;
    });
 }
 
@@ -843,7 +844,7 @@ function constructBuildings(province: Province, save: SaveGame): void {
          if (tileData.buildings.has(building)) {
             continue;
          }
-         const maintenance = Buildings[building].maintenance.gold ?? 0;
+         const maintenance = getBuildingMaintenanceCost(building, tile, province, save).value;
          if (budget < maintenance) {
             continue;
          }

@@ -13,7 +13,6 @@ import { $t, L } from "../../utils/i18n";
 import type { ICondition, IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
-import { Buildings } from "../definitions/Building";
 import type { Culture } from "../definitions/Culture";
 import { Goods } from "../definitions/Goods";
 import { type GreatWork, TileToGreatWork } from "../definitions/GreatWork";
@@ -44,6 +43,7 @@ import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { getArmyMaintenanceCost, getWarPower, getWarPowerPerTile } from "./ArmyLogic";
+import { getBuildingMaintenanceCost } from "./BuildingLogic";
 import { cacheProvince, getProvinceCoreTilesCached, getProvinceTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getRegionalCapitalCount } from "./CapitalLogic";
@@ -57,6 +57,7 @@ import { addProvinceResource, getProvinceResource } from "./ResourceLogic";
 import { settleTile } from "./SettlementLogic";
 import { getBaselineTechs } from "./TechLogic";
 import {
+   getCoastalEdgeCount,
    getProvincesByDistance,
    getTileGoodsTax,
    getTileGoverningCost,
@@ -312,6 +313,12 @@ export function getProvinceGoverningCapacity(province: Province, save: SaveGame)
       }
       breakdown.add.push({ name: ProvinceUpgrades.HarbourAdministration.name(), value: harbourCount * 10 });
    }
+   if (hasProvinceUpgrade("AdministrativeExpansion", province, save)) {
+      breakdown.add.push({
+         name: ProvinceUpgrades.AdministrativeExpansion.name(),
+         value: getProvinceStat("makeCoreCount", province, save) * 3,
+      });
+   }
    attachModifier("GoverningCapacity", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
@@ -446,7 +453,7 @@ function _getProvinceIncome(
          tileMaintenanceCost += getTileMaintenanceCost(tile, save, "value");
          tileGoodsTax += getTileGoodsTax(tile, save);
          data.buildings.forEach((building) => {
-            buildingMaintenanceCost += Buildings[building].maintenance.gold ?? 0;
+            buildingMaintenanceCost += getBuildingMaintenanceCost(building, tile, province, save).value;
          });
       }
    }
@@ -459,6 +466,13 @@ function _getProvinceIncome(
    });
 
    revenue.add.push({ name: $t(L.LandTax), value: landTax });
+   if (hasProvinceUpgrade("LittoralRevenues", province, save)) {
+      let coastalEdgeCount = 0;
+      for (const tile of getProvinceCoreTilesCached(province, save)) {
+         coastalEdgeCount += getCoastalEdgeCount(tile);
+      }
+      revenue.add.push({ name: ProvinceUpgrades.LittoralRevenues.name(), value: coastalEdgeCount });
+   }
    let goodsTax = 0;
    state.monthly.goodsTax.forEach((value, goods) => {
       goodsTax += value;

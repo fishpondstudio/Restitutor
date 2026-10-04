@@ -17,6 +17,7 @@ import { BalkanEvents } from "./BalkanEvents";
 import { BelgicaEvents } from "./BelgicaEvents";
 import { BithyniaEvents } from "./BithyniaEvents";
 import { BritanniaEvents } from "./BritanniaEvents";
+import { CorsicaSardiniaEvents } from "./CorsicaSardiniaEvents";
 import { DaciaEvents } from "./DaciaEvents";
 import { DalmatiaEvents } from "./DalmatiaEvents";
 import { DanubianEvents } from "./DanubianEvents";
@@ -106,6 +107,7 @@ export const RomeEvents = {
    ...AfricaEvents,
    ...ItaliaEvents,
    ...SiciliaEvents,
+   ...CorsicaSardiniaEvents,
    ...ItaliaSharedEvents,
    ...GallicEmpireEvents,
    ...HispaniaEvents,

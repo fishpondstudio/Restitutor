@@ -1,11 +1,13 @@
-import { cls, entriesOf, type Tile } from "@project/shared/src/utils/Helper";
+import { cls, type Tile } from "@project/shared/src/utils/Helper";
 import { useCallback } from "react";
 import { ConstructBuildingAction, DemolishBuildingAction } from "../game/actions/BuildingActions";
 import { type Building, Buildings } from "../game/definitions/Building";
 import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getBuildingConstructionCost, getBuildingMaintenanceCost } from "../game/logic/BuildingLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
+import { BreakdownComp } from "./BreakdownComp";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 
 export function BuildingConstructionButton({
@@ -22,34 +24,37 @@ export function BuildingConstructionButton({
 }>): React.ReactNode {
    const tileData = G.save.state.tiles.get(tile);
    const config = Buildings[building];
-   const maintenance = entriesOf(config.maintenance);
    const tooltip = useCallback(
-      (element: React.ReactNode) => (
-         <>
-            <div className="h2">{config.name()}</div>
-            <div className="mx10 my5">{config.desc()}</div>
-            {element}
-            {maintenance.length > 0 && (
-               <>
-                  <div className="h2">{$t(L.MonthlyMaintenanceCost)}</div>
-                  {maintenance.map(([resource, cost]) => {
-                     const icon = ProvinceResourceImages[resource];
-                     return (
-                        <div className="row mx10 my5 g5" key={resource}>
-                           {icon && <img src={icon} className="icon-block" />}
-                           <div className="f1">{ProvinceResourceNames[resource]()}</div>
-                           <div>
-                              {cost}
-                              <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
-                           </div>
-                        </div>
-                     );
-                  })}
-               </>
-            )}
-         </>
-      ),
-      [config, maintenance],
+      (element: React.ReactNode) => {
+         const maintenanceCost = getBuildingMaintenanceCost(building, tile, G.save.state.playerProvince, G.save);
+         return (
+            <>
+               <div className="h2">{config.name()}</div>
+               <div className="mx10 my5">{config.desc()}</div>
+               {element}
+               <div className="box m5">
+                  <div className="h2">{$t(L.TheCostIsCalculatedAsFollows)}</div>
+                  <BreakdownComp
+                     breakdown={getBuildingConstructionCost(building, tile, G.save.state.playerProvince, G.save)}
+                  />
+               </div>
+               <div className="h2">{$t(L.MonthlyMaintenanceCost)}</div>
+               <div className="row mx10 my5 g5">
+                  <img src={ProvinceResourceImages.gold} className="icon-block" />
+                  <div className="f1">{ProvinceResourceNames.gold()}</div>
+                  <div>
+                     {maintenanceCost.value}
+                     <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>
+                  </div>
+               </div>
+               <div className="box m5">
+                  <div className="h2">{$t(L.TheCostIsCalculatedAsFollows)}</div>
+                  <BreakdownComp breakdown={maintenanceCost} />
+               </div>
+            </>
+         );
+      },
+      [config, building, tile],
    );
 
    if (!tileData) {

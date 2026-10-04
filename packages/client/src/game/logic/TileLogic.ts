@@ -1157,6 +1157,13 @@ export function getBuildingSlot(tile: Tile, save: SaveGame): IValueBreakdown {
       if (hasProvinceUpgrade("MunicipalPrivilege", data.province, save) && data.coreProvinces.has(data.province)) {
          result.add.push({ name: ProvinceUpgrades.MunicipalPrivilege.name(), value: 1 });
       }
+      if (
+         hasProvinceUpgrade("HarbourInfrastructure", data.province, save) &&
+         data.coreProvinces.has(data.province) &&
+         isCoastal(tile)
+      ) {
+         result.add.push({ name: ProvinceUpgrades.HarbourInfrastructure.name(), value: 1 });
+      }
    }
    return finalizeBreakdown(result);
 }

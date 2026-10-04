@@ -205,6 +205,14 @@ export const Modifiers = {
       name: () => $t(L.StartingGeneralSkillPoint),
       desc: () => $t(L.GeneralSkillPointsGrantedWhenAppointingANewGeneral),
    },
+   BuildingConstructionCost: {
+      name: () => $t(L.BuildingConstructionCost),
+      desc: () => $t(L.OneTimeCostToConstructABuilding),
+   },
+   BuildingMaintenanceCost: {
+      name: () => $t(L.BuildingMaintenanceCost),
+      desc: () => $t(L.MonthlyCostToMaintainABuilding),
+   },
 } as const satisfies Record<string, IModifierDefinition>;
 
 export type Modifier = keyof typeof Modifiers;

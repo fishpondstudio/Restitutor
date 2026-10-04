@@ -522,6 +522,30 @@ const _ProvinceUpgrades = {
       name: () => $t(L.MandateOfAuthority),
       desc: () => $t(L.MandateOfAuthorityDesc$1$2, "+5%", "+25%"),
    },
+   LittoralRevenues: {
+      name: () => $t(L.LittoralRevenues),
+      desc: () => $t(L.$1MonthlyGoldForEachCoastalEdgeOnCoreTiles, "+1"),
+   },
+   PrestigiousAmbition: {
+      name: () => $t(L.PrestigiousAmbition),
+      desc: () => $t(L.PrestigiousAmbitionDesc$1, "−20%"),
+   },
+   TriumphalCommerce: {
+      name: () => $t(L.TriumphalCommerce),
+      desc: () => $t(L.TriumphalCommerceDesc$1$2, "+2%", "+50%"),
+   },
+   CoastalAmbition: {
+      name: () => $t(L.CoastalAmbition),
+      desc: () => $t(L.CoastalAmbitionDesc$1, "20%"),
+   },
+   HarbourInfrastructure: {
+      name: () => $t(L.HarbourInfrastructure),
+      desc: () => $t(L.HarbourInfrastructureDesc$1$2$3, "+1", "−100%", Buildings.Harbour.name()),
+   },
+   AdministrativeExpansion: {
+      name: () => $t(L.AdministrativeExpansion),
+      desc: () => $t(L.Gain$1GoverningCapacityWhenCoringATile, "3"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;

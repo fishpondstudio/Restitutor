@@ -18,7 +18,22 @@ Cyrenaica province is now playable, with 3 unique Provincial Spirits:
 
 Cyrenaica's missions focus on expansion into Aegyptus and Africa, purchasing Gortyna and Cnosos as core tiles, and fully annexing and coring Africa. Completing the African conquest grants a choice of 2 Consul Points, 2 General Skill Points, or 1 Mandate.
 
-## Missions
+## Corsica
 
-- New shared mission, One Seal from Cyrene to the Nile: Fully annex and core Aegyptus and Cyrenaica as either province to gain +100 Governing Capacity, plus a choice of +1 regional capital slot, 1 Mandate, or +1 tolerated culture slot.
-- New shared mission, Cargoes from Three Seas: As Syria, Judea, Aegyptus, Cilicia, or Cappadocia, own at least one core coastal tile on each of the Mediterranean, Black Sea, and Red Sea. Choose +100 monthly gold for 10 years or 6,000 gold upfront.
+Corsica province is now playable, with 3 unique Provincial Spirits:
+
+- Littoral Revenues: Gain +1 monthly gold for each coastal edge on core tiles.
+- Prestigious Ambition: Reduce required War Score by 20% when attacking a province with higher Prestige than yours.
+- Triumphal Commerce: Gain +2% Trade Profit for each war won as lead attacker, up to +50%.
+
+Corsica's missions focus on securing Sardinia as a client through marriage and an Alliance or Defense Pact, opening campaigns against Africa, Italia, or Narbonensis, and establishing core territories in Italia and Sicilia. Reaching 20 core tiles grants a permanent choice of +1 regional capital slot, +1 tolerated culture slot, or +1 tolerated religion slot.
+
+## Sardinia
+
+Sardinia province is now playable, with 3 unique Provincial Spirits:
+
+- Coastal Ambition: Enemy coastal tiles contribute 20% less required War Score when attacking.
+- Harbour Infrastructure: Gain +1 Building Slot on core coastal tiles, with no Harbour construction or maintenance costs there.
+- Administrative Expansion: Gain +3 Governing Capacity for each tile cored.
+
+Sardinia's missions focus on bringing Corsica under its patronage through marriage and an Alliance or Defense Pact, pursuing claims in Africa, Italia, or Narbonensis, and consolidating conquests in Italia and Sicilia. Growing to 20 core tiles grants a permanent choice of +1 regional capital slot, +1 tolerated culture slot, or +1 tolerated religion slot.
