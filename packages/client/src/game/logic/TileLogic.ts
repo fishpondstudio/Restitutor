@@ -174,6 +174,9 @@ function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifier(data.modifiers.Manpower, breakdown);
    attachModifier("Manpower", breakdown, data.province, save);
+   if (hasProvinceUpgrade("LevyJizya", data.province, save) && data.religion !== "Islam") {
+      breakdown.multiply.push({ name: ProvinceUpgrades.LevyJizya.name(), value: -0.1 });
+   }
    if (hasProvinceUpgrade("AnatolianRecruitment", data.province, save)) {
       breakdown.multiply.push({
          name: ProvinceUpgrades.AnatolianRecruitment.name(),
@@ -455,6 +458,9 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
    });
    attachTileModifier(data.modifiers.LandTax, breakdown);
    attachModifier("LandTax", breakdown, data.province, save);
+   if (hasProvinceUpgrade("LevyJizya", data.province, save) && data.religion !== "Islam") {
+      breakdown.multiply.push({ name: ProvinceUpgrades.LevyJizya.name(), value: 0.1 });
+   }
    if (
       hasProvinceUpgrade("NiloticAbundance", data.province, save) &&
       data.coreProvinces.has(data.province) &&

@@ -19,6 +19,7 @@ import EcumenicalCouncil from "../assets/images/EcumenicalCouncil.svg";
 import EmptyAdvisor from "../assets/images/EmptyAdvisor.svg";
 import FamilyTree from "../assets/images/FamilyTree.svg";
 import Gold from "../assets/images/Gold.svg";
+import Islam from "../assets/images/Islam.svg";
 import Legacy from "../assets/images/Legacy.svg";
 import Loan from "../assets/images/Loan.svg";
 import Mandate from "../assets/images/Mandate.svg";
@@ -108,4 +109,5 @@ export const IconCatalog = {
    CasusBelli,
    CultureReligion,
    Anarchy,
+   Islam,
 } as const satisfies Record<string, string>;

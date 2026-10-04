@@ -50,3 +50,21 @@ The historical event in 695 now starts Twenty Years' Anarchy, unlocking a dedica
 - Sabotage Defenses: Spend 50 Military Points to reduce Defense by 10%.
 
 All effects last 24 months. These actions share a 12-month cooldown across all targets.
+
+## Islam
+
+Muslim provinces now gain Islam Influence instead of yearly Christian Influence, plus 1 additional influence per year for each owned core tile following Islam.
+
+- Invite to Islam: Convert a non-Muslim core tile by spending Islam Influence equal to its total Infrastructure, Production, and Population levels. This action has a province-wide 12-month cooldown, with separate automation options for minor and tolerated religions.
+- Proclaim Jihad: Spend 1 Islam Influence to gain a Religious War Casus Belli against a non-Muslim province for 5 years. This action has a 10-year cooldown.
+- Muslim provinces can no longer Appoint Bishops.
+
+Five Islamic Policies are available in the Culture and Religion panel:
+
+- Levy Jizya: Gain +10% Land Tax and -10% Manpower on non-Muslim tiles.
+- Administer Zakat: Gain +10 Stability at the cost of -10% Tile Output.
+- Pay Diwan Stipends: Gain +10% War Power at the cost of -10% Land Tax.
+- Reform Coinage: Gain +10% Land Tax and Trade Profit at the cost of -10 Stability.
+- Sponsor Scholars: Gain +1 monthly Administrative, Diplomatic, and Military Point at the cost of -10% Land Tax and Tile Output.
+
+Enacting or repealing a policy shares a 2-year cooldown across all Islamic Policies. Policies remain active until repealed and are removed if the province leaves Islam.

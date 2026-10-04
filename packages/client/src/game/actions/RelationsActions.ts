@@ -188,3 +188,37 @@ export function ProclaimCrusadeAction(ourProvince: Province, theirProvince: Prov
       },
    };
 }
+
+export function ProclaimJihadAction(ourProvince: Province, theirProvince: Province, save: SaveGame): IGameAction {
+   const ourState = save.state.provinces[ourProvince];
+   const theirState = save.state.provinces[theirProvince];
+   if (!ourState || !theirState) {
+      return EmptyGameAction;
+   }
+   return {
+      cost: { islam: 1 },
+      condition: finalizeCondition([
+         ...timedActionConditions({ action: "ProclaimJihad" }, ourProvince, save),
+         {
+            name: $t(L.OurProvincesReligionIsIslam),
+            value: ourState.religion === "Islam",
+         },
+         {
+            name: $t(L.TheirProvincesReligionIsNotIslam),
+            value: theirState.religion !== "Islam",
+         },
+      ]),
+      execute: () => {
+         startTimedAction("ProclaimJihad", ourProvince, save);
+      },
+      effect: {
+         name: TimedActions.ProclaimJihad.name(),
+         casusBelli: {
+            [theirProvince]: {
+               casusBelli: "ReligiousWar",
+               duration: TimedActions.ProclaimJihad.duration,
+            },
+         },
+      },
+   };
+}

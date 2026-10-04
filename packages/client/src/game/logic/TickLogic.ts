@@ -14,7 +14,7 @@ import type { SaveGame } from "../GameState";
 import { randomMaleName } from "../RomanNames";
 import { fixRelations } from "./DiplomacyLogic";
 import { getGameDate, monthToDate, tickToMonth, tickToYear } from "./GameDateTime";
-import { getChristianityYearly } from "./InternalAffairsLogic";
+import { getChristianityYearly, getIslamInfluenceYearly } from "./InternalAffairsLogic";
 import { getMapForegroundColor } from "./MapColor";
 import {
    ConsulCandidatesCount,
@@ -80,8 +80,12 @@ export function tickYear(save: SaveGame): void {
    rollTradeOffers(save);
    clearProvincePrestigeRankingCache();
    tickConsulElection(save);
-   forEach(save.state.provinces, (province) => {
-      addProvinceResource("christianity", getChristianityYearly(province, save).value, province, save);
+   forEach(save.state.provinces, (province, state) => {
+      if (state.religion === "Islam") {
+         addProvinceResource("islam", getIslamInfluenceYearly(province, save).value, province, save);
+      } else {
+         addProvinceResource("christianity", getChristianityYearly(province, save).value, province, save);
+      }
       forEach(SocialClassInfluenceYearly, (socialClass, func) => {
          addSocialClassInfluence(socialClass, func(province, save).value, province, save);
       });

@@ -56,6 +56,7 @@ import { html } from "./components/RenderHTMLComp";
 import { DiplomacyPage } from "./DiplomacyPage";
 import { EvangelizeTileButton } from "./EvangelizeTileButton";
 import { GreatWorkComponent } from "./GreatWorkComponent";
+import { InviteToIslamButton } from "./InviteToIslamButton";
 import { MakeCoreButton } from "./MakeCoreButton";
 import { PillageButton } from "./PillageButton";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
@@ -206,6 +207,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
             <div className="row g5 my5">
                <div className="f1">{$t(L.Religion)}</div>
                {isMyProvince && <EvangelizeTileButton tile={tile} className="text-sm" />}
+               {isMyProvince && <InviteToIslamButton tile={tile} className="text-sm" />}
                <div>{Religion[tileData.religion].name()}</div>
                <FloatingTip label={() => religionStatus.name()}>
                   <CircleComp color={religionStatus.color} />

@@ -561,6 +561,23 @@ class TimedActionDefinitions {
       duration: 12 * 5,
       cooldown: 12 * 10,
    };
+   ChangeIslamicPolicy: ITimedAction = {
+      name: () => $t(L.ChangeIslamicPolicy),
+      duration: 0,
+      cooldown: 12 * 2,
+   };
+   ProclaimJihad: ITimedAction = {
+      name: () => $t(L.ProclaimJihad),
+      desc: () => $t(L.ProclaimingJihadGrantsUsAReligiousWarCasusBelliAgainstThem),
+      duration: 12 * 5,
+      cooldown: 12 * 10,
+   };
+   InviteToIslam: ITimedAction = {
+      name: () => $t(L.InviteToIslam),
+      desc: () => $t(L.TimedActionInviteToIslamDesc),
+      duration: 0,
+      cooldown: 12,
+   };
    EvangelizeTile: ITimedAction = {
       name: () => $t(L.Evangelize),
       desc: () => $t(L.TimedActionEvangelizeTileDesc),
@@ -579,6 +596,12 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { christianity: 5 },
+            condition: finalizeCondition([
+               {
+                  name: $t(L.OurProvincesReligionIsNotIslam),
+                  value: save.state.provinces[province]?.religion !== "Islam",
+               },
+            ]),
          };
       },
       modifiers: {

@@ -17,6 +17,42 @@ export interface IProvinceUpgrade {
 }
 
 const _ProvinceUpgrades = {
+   LevyJizya: {
+      name: () => $t(L.LevyJizya),
+      desc: () => $t(L.LevyJizyaDesc$1$2, "+10%", "-10%"),
+   },
+   AdministerZakat: {
+      name: () => $t(L.AdministerZakat),
+      modifiers: {
+         Stability: { type: "add", value: 10 },
+         TileOutput: { type: "multiply", value: -0.1 },
+      },
+   },
+   PayDiwanStipends: {
+      name: () => $t(L.PayDiwanStipends),
+      modifiers: {
+         WarPower: { type: "multiply", value: 0.1 },
+         LandTax: { type: "multiply", value: -0.1 },
+      },
+   },
+   ReformCoinage: {
+      name: () => $t(L.ReformCoinage),
+      modifiers: {
+         LandTax: { type: "multiply", value: 0.1 },
+         TradeProfit: { type: "multiply", value: 0.1 },
+         Stability: { type: "add", value: -10 },
+      },
+   },
+   SponsorScholars: {
+      name: () => $t(L.SponsorScholars),
+      modifiers: {
+         AdministrativePoint: { type: "add", value: 1 },
+         DiplomaticPoint: { type: "add", value: 1 },
+         MilitaryPoint: { type: "add", value: 1 },
+         LandTax: { type: "multiply", value: -0.1 },
+         TileOutput: { type: "multiply", value: -0.1 },
+      },
+   },
    RightOfPlunder: {
       name: () => $t(L.RightOfPlunder),
       desc: () => TimedActions.Pillage.desc?.() ?? "",
@@ -550,6 +586,16 @@ const _ProvinceUpgrades = {
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;
 export const ProvinceUpgrades = _ProvinceUpgrades as Record<ProvinceUpgrade, IProvinceUpgrade>;
+
+export const IslamicPolicies = [
+   "LevyJizya",
+   "AdministerZakat",
+   "PayDiwanStipends",
+   "ReformCoinage",
+   "SponsorScholars",
+] as const satisfies readonly ProvinceUpgrade[];
+
+export type IslamicPolicy = (typeof IslamicPolicies)[number];
 
 export function hasProvinceUpgrade(upgrade: ProvinceUpgrade, province: Province, save: SaveGame): boolean {
    const state = save.state.provinces[province];

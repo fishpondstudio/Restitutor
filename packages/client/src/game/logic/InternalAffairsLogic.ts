@@ -1,11 +1,17 @@
 import { forEach, formatDelta, hasFlag, type Tile } from "@project/shared/src/utils/Helper";
 import { html } from "../../ui/components/RenderHTMLComp";
 import { $t, L } from "../../utils/i18n";
+import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import type { Culture } from "../definitions/Culture";
 import { Modifiers, makeModifierGetter } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
-import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
-import { isChristianReligion, Religion } from "../definitions/Religion";
+import {
+   hasProvinceUpgrade,
+   IslamicPolicies,
+   ProvinceUpgrades,
+   removeProvinceUpgrade,
+} from "../definitions/ProvinceUpgrades";
+import { isChristianReligion, type Religion } from "../definitions/Religion";
 import { ApostolicSeeTiles, ApostolicSeeTilesWithConstantinople } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import { TimedActions } from "../definitions/TimedAction";
@@ -72,14 +78,31 @@ export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1,
          }
       });
    }
-   if (state.religion === "Islam") {
-      result.add.push({ name: Religion.Islam.name(), value: -1 });
-   }
    const ongoingCouncil = ongoingEcumenicalCouncilCondition(province, save);
    if (ongoingCouncil.value) {
       result.multiply.push({ name: ongoingCouncil.name, value: EcumenicalCouncilChristianityPct });
    }
 });
+
+export function getIslamInfluenceYearly(province: Province, save: SaveGame): IValueBreakdown {
+   const result = makeValueBreakdown();
+   if (save.state.provinces[province]?.religion !== "Islam") {
+      return finalizeBreakdown(result);
+   }
+   result.add.push({ name: $t(L.ConvertedChristianInfluence), value: getChristianityYearly(province, save).value });
+   let coreIslamTiles = 0;
+   for (const tile of getProvinceCoreTilesCached(province, save)) {
+      if (save.state.tiles.get(tile)?.religion === "Islam") {
+         coreIslamTiles++;
+      }
+   }
+   result.add.push({
+      name: $t(L.FromCoreIslamicTiles),
+      value: coreIslamTiles * 1,
+      desc: $t(L.$1ForEachCoreIslamicTile, "+1"),
+   });
+   return finalizeBreakdown(result);
+}
 
 export const getToleratedReligion = makeModifierGetter("ToleratedReligion", 0, (result, province, save) => {});
 export const getToleratedCulture = makeModifierGetter("ToleratedCulture", 0, (result, province, save) => {
@@ -135,6 +158,11 @@ export function changeProvinceReligion(religion: Religion, province: Province, s
       state.toleratedReligions.delete(religion);
    }
    state.religion = religion;
+   if (religion !== "Islam") {
+      for (const policy of IslamicPolicies) {
+         removeProvinceUpgrade(policy, province, save);
+      }
+   }
 }
 
 export function changeProvinceCulture(culture: Culture, province: Province, save: SaveGame): void {

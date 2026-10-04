@@ -11,6 +11,7 @@ export const ProvinceResources = {
    generalSkillPoint: [0, 0] as [number, number],
    consulPoint: [0, 0] as [number, number],
    christianity: [10, 0] as [number, number],
+   islam: [0, 0] as [number, number],
    mandate: [0, 0] as [number, number],
    ...fromEntries(mapOf(Goods, (goods) => [goods, [0, 0] as [number, number]])),
 } as const;
@@ -24,6 +25,7 @@ export const ProvinceResourceNames: Record<ProvinceResource, () => string> = {
    generalSkillPoint: () => $t(L.GeneralSkillPoint),
    consulPoint: () => $t(L.ConsulPoint),
    christianity: () => $t(L.ChristianInfluence),
+   islam: () => $t(L.IslamicInfluence),
    mandate: () => $t(L.Mandate),
    ...fromEntries(mapOf(Goods, (goods, def) => [goods, () => def.name()])),
 } as const;
