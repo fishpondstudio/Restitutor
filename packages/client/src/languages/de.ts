@@ -5365,4 +5365,11 @@ export const DE = {
    AuthorizeAnotherRegionalCapital: "Eine weitere Regionalhauptstadt genehmigen",
    RecognizeAnotherPeoplesCustoms: "Die Bräuche eines weiteren Volkes anerkennen",
    ExtendProtectionToAnotherFaith: "Einen weiteren Glauben unter Schutz stellen",
+   TwentyYearsAnarchyAction: "Aktion der zwanzigjährigen Anarchie",
+   StirDissent: "Unzufriedenheit schüren",
+   DisruptRecruitment: "Rekrutierung stören",
+   SpreadScandal: "Skandale verbreiten",
+   DisputeLegitimacy: "Legitimität bestreiten",
+   SabotageSupplies: "Vorräte sabotieren",
+   SabotageDefenses: "Verteidigung sabotieren",
 };

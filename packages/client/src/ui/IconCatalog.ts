@@ -1,4 +1,5 @@
 import Administrative from "../assets/images/Administrative.svg";
+import Anarchy from "../assets/images/Anarchy.svg";
 import Army from "../assets/images/Army.svg";
 import Bankruptcy from "../assets/images/Bankruptcy.svg";
 import Barbarian from "../assets/images/Barbarian.svg";
@@ -106,4 +107,5 @@ export const IconCatalog = {
    Reconquest,
    CasusBelli,
    CultureReligion,
+   Anarchy,
 } as const satisfies Record<string, string>;

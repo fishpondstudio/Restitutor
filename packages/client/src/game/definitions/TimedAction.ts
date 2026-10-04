@@ -781,6 +781,11 @@ class TimedActionDefinitions {
       duration: 12 * 22,
       cooldown: 0,
    };
+   TwentyYearsAnarchyAction: ITimedAction = {
+      name: () => $t(L.TwentyYearsAnarchyAction),
+      duration: 24,
+      cooldown: 12,
+   };
    Tetrarchy: ITimedAction = {
       name: () => $t(L.Tetrarchy),
       duration: 12 * 31,

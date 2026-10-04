@@ -5244,4 +5244,11 @@ export const RU = {
    AuthorizeAnotherRegionalCapital: "Разрешить создание ещё одной региональной столицы",
    RecognizeAnotherPeoplesCustoms: "Признать обычаи ещё одного народа",
    ExtendProtectionToAnotherFaith: "Взять под защиту ещё одну веру",
+   TwentyYearsAnarchyAction: "Действие Двадцатилетней анархии",
+   StirDissent: "Разжигать недовольство",
+   DisruptRecruitment: "Срывать набор войск",
+   SpreadScandal: "Распространять скандальные слухи",
+   DisputeLegitimacy: "Оспаривать легитимность",
+   SabotageSupplies: "Саботировать поставки припасов",
+   SabotageDefenses: "Саботировать оборону",
 };

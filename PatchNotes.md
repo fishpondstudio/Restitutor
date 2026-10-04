@@ -37,3 +37,16 @@ Sardinia province is now playable, with 3 unique Provincial Spirits:
 - Administrative Expansion: Gain +3 Governing Capacity for each tile cored.
 
 Sardinia's missions focus on bringing Corsica under its patronage through marriage and an Alliance or Defense Pact, pursuing claims in Africa, Italia, or Narbonensis, and consolidating conquests in Italia and Sicilia. Growing to 20 core tiles grants a permanent choice of +1 regional capital slot, +1 tolerated culture slot, or +1 tolerated religion slot.
+
+## Twenty Years' Anarchy
+
+The historical event in 695 now starts Twenty Years' Anarchy, unlocking a dedicated panel for 22 years. Target other Eastern Roman provinces with six actions:
+
+- Stir Dissent: Spend 50 Administrative Points to reduce Stability by 10.
+- Disrupt Recruitment: Spend 50 Administrative Points to reduce Manpower by 10%.
+- Spread Scandal: Spend 50 Diplomatic Points to reduce Prestige by 10%.
+- Dispute Legitimacy: Spend 50 Diplomatic Points to gain a Contested Imperium Casus Belli against the target.
+- Sabotage Supplies: Spend 50 Military Points to reduce War Power by 10%.
+- Sabotage Defenses: Spend 50 Military Points to reduce Defense by 10%.
+
+All effects last 24 months. These actions share a 12-month cooldown across all targets.

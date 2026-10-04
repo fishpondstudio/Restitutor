@@ -5030,4 +5030,11 @@ export const ZH_CN = {
    AuthorizeAnotherRegionalCapital: "批准设立另一座区域首府",
    RecognizeAnotherPeoplesCustoms: "承认另一民族的习俗",
    ExtendProtectionToAnotherFaith: "为另一种信仰提供保护",
+   TwentyYearsAnarchyAction: "二十年混乱行动",
+   StirDissent: "煽动不满",
+   DisruptRecruitment: "扰乱征募",
+   SpreadScandal: "散布丑闻",
+   DisputeLegitimacy: "质疑合法性",
+   SabotageSupplies: "破坏补给",
+   SabotageDefenses: "破坏防御",
 };

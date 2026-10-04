@@ -5284,4 +5284,11 @@ export const EN = {
    AuthorizeAnotherRegionalCapital: "Authorize another regional capital",
    RecognizeAnotherPeoplesCustoms: "Recognize another people's customs",
    ExtendProtectionToAnotherFaith: "Extend protection to another faith",
+   TwentyYearsAnarchyAction: "Twenty Years' Anarchy Action",
+   StirDissent: "Stir Dissent",
+   DisruptRecruitment: "Disrupt Recruitment",
+   SpreadScandal: "Spread Scandal",
+   DisputeLegitimacy: "Dispute Legitimacy",
+   SabotageSupplies: "Sabotage Supplies",
+   SabotageDefenses: "Sabotage Defenses",
 };
