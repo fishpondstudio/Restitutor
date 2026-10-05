@@ -1,5 +1,6 @@
 import { fromEntries, mapOf } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
+import { type Scenario, Scenarios } from "../scenarios/Scenarios";
 import { Goods } from "./Goods";
 
 export const ProvinceResources = {
@@ -16,7 +17,7 @@ export const ProvinceResources = {
    ...fromEntries(mapOf(Goods, (goods) => [goods, [0, 0] as [number, number]])),
 } as const;
 
-export const ProvinceResourceNames: Record<ProvinceResource, () => string> = {
+const _ProvinceResourceNames: Record<ProvinceResource, () => string> = {
    administrative: () => $t(L.AdministrativePoint),
    diplomatic: () => $t(L.DiplomaticPoint),
    military: () => $t(L.MilitaryPoint),
@@ -29,6 +30,11 @@ export const ProvinceResourceNames: Record<ProvinceResource, () => string> = {
    mandate: () => $t(L.Mandate),
    ...fromEntries(mapOf(Goods, (goods, def) => [goods, () => def.name()])),
 } as const;
+
+export function getResourceName(resource: ProvinceResource, scenario: Scenario): string {
+   const overrides = Scenarios[scenario].provinceResourceNames;
+   return overrides?.[resource]?.() ?? _ProvinceResourceNames[resource]();
+}
 
 export type GovernorPower = keyof Pick<ProvinceResources, "administrative" | "diplomatic" | "military">;
 export type GovernorStats = Record<GovernorPower, number>;

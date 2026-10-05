@@ -29,4 +29,7 @@ export const ThreeKingdoms194: IScenario = {
       "YanBaihu",
    ]),
    events: new Set(),
+   provinceResourceNames: {
+      consulPoint: () => "Imperial Favor",
+   },
 };

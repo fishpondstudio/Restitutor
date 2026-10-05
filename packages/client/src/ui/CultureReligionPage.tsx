@@ -15,7 +15,7 @@ import { ToggleIslamicPolicyAction } from "../game/actions/ToggleIslamicPolicyAc
 import { Culture } from "../game/definitions/Culture";
 import { CultureReligionStatus } from "../game/definitions/CultureReligionStatus";
 import { durationToString, Modifiers, modifierValueToString } from "../game/definitions/Modifier";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { ProvinceFlags } from "../game/definitions/ProvinceState";
 import {
    getProvinceUpgradeDesc,
@@ -371,7 +371,7 @@ export function CultureReligionPage(): React.ReactNode {
             )}
          >
             <div className="row g5 m10">
-               <div>{ProvinceResourceNames.christianity()}</div>
+               <div>{getResourceName("christianity", G.save.state.scenario)}</div>
                <img src={ProvinceResourceImages.christianity} className="icon-block" />
                {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
                   <div className="mi sm text-red">error</div>

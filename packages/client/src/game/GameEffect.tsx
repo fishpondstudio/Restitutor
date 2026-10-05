@@ -20,7 +20,8 @@ import {
    modifierValueToString,
 } from "./definitions/Modifier";
 import { Province } from "./definitions/Province";
-import { type ProvinceResource, ProvinceResourceNames } from "./definitions/ProvinceResources";
+import type { ProvinceResource } from "./definitions/ProvinceResources";
+import { getResourceName } from "./definitions/ProvinceResources";
 import { type ProvinceStat, ProvinceStatNames } from "./definitions/ProvinceStats";
 import { addProvinceUpgrade, type ProvinceUpgrade, ProvinceUpgrades } from "./definitions/ProvinceUpgrades";
 import { ChristianHeresy, isChristianReligion, Religion } from "./definitions/Religion";
@@ -77,7 +78,7 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
          {effect.resources &&
             mapOf(effect.resources, (resource, amount) => (
                <div key={resource}>
-                  {formatDelta(amount)} {ProvinceResourceNames[resource]()}
+                  {formatDelta(amount)} {getResourceName(resource, save.state.scenario)}
                </div>
             ))}
          {effect.stats &&
@@ -133,9 +134,13 @@ export function getGameEffectDesc(effect: IGameEffect, province: Province, save:
                         L.ATradeWith$1WeOffer$2$3TheyOffer$4$5IsArranged$6,
                         getProvinceName(fromProvince, save),
                         formatNumber(trade.weOfferAmount),
-                        offer.weOffer === "gold" ? ProvinceResourceNames.gold() : Goods[offer.weOffer].name(),
+                        offer.weOffer === "gold"
+                           ? getResourceName("gold", save.state.scenario)
+                           : Goods[offer.weOffer].name(),
                         formatNumber(trade.theyOfferAmount),
-                        offer.theyOffer === "gold" ? ProvinceResourceNames.gold() : Goods[offer.theyOffer].name(),
+                        offer.theyOffer === "gold"
+                           ? getResourceName("gold", save.state.scenario)
+                           : Goods[offer.theyOffer].name(),
                         formatPercent(profit),
                      )}
                   </div>

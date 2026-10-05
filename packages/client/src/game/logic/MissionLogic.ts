@@ -6,7 +6,8 @@ import { Culture } from "../definitions/Culture";
 import { durationToString } from "../definitions/Modifier";
 import { Province } from "../definitions/Province";
 import { type ProvinceNameOverride, ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
-import { type ProvinceResource, ProvinceResourceNames } from "../definitions/ProvinceResources";
+import type { ProvinceResource } from "../definitions/ProvinceResources";
+import { getResourceName } from "../definitions/ProvinceResources";
 import { Religion } from "../definitions/Religion";
 import { SpawnedProvinces } from "../definitions/SpawnedProvince";
 import { getTileName } from "../definitions/TileName";
@@ -331,7 +332,7 @@ export function* provinceResourceChecks(
 ): ConditionChecks {
    const available = getProvinceResource(resource, province, save);
    (yield available >= minimum)?.describe(
-      $t(L.HaveAtLeast$1$2, formatNumber(minimum), ProvinceResourceNames[resource]()),
+      $t(L.HaveAtLeast$1$2, formatNumber(minimum), getResourceName(resource, save.state.scenario)),
       { progress: [available, minimum] },
    );
 }
@@ -343,9 +344,12 @@ export function* provinceUsedResourceChecks(
    save: SaveGame,
 ): ConditionChecks {
    const [, used] = provinceResourceOf(resource, province, save);
-   (yield used >= minimum)?.describe($t(L.SpendAtLeast$1$2, formatNumber(minimum), ProvinceResourceNames[resource]()), {
-      progress: [used, minimum],
-   });
+   (yield used >= minimum)?.describe(
+      $t(L.SpendAtLeast$1$2, formatNumber(minimum), getResourceName(resource, save.state.scenario)),
+      {
+         progress: [used, minimum],
+      },
+   );
 }
 
 export function* marriageChecks(province1: Province, province2: Province, save: SaveGame): ConditionChecks {

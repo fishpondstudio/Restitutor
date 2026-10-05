@@ -1,7 +1,8 @@
 import { entriesOf, formatNumber } from "@project/shared/src/utils/Helper";
 import { deepEqual } from "fast-equals";
 import { memo } from "react";
-import { type ProvinceResource, ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import type { ProvinceResource } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { GameStateUpdated } from "../game/Events";
 import { hasEnoughProvinceResources } from "../game/logic/ResourceLogic";
 import { G } from "../utils/Global";
@@ -33,7 +34,7 @@ function _ResourceCostRow({ resource, amount }: { resource: ProvinceResource; am
          {resource in ProvinceResourceImages && (
             <img src={ProvinceResourceImages[resource as keyof typeof ProvinceResourceImages]} className="icon-block" />
          )}
-         <div>{ProvinceResourceNames[resource]()}</div>
+         <div>{getResourceName(resource, G.save.state.scenario)}</div>
          <div className="f1" />
          <div>{formatNumber(amount)}</div>
          {hasEnoughProvinceResources({ [resource]: amount }, G.save.state.playerProvince, G.save) ? (

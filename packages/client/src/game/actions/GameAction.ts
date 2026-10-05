@@ -1,7 +1,8 @@
 import { clamp, forEach } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
-import { type ProvinceResourceCosts, ProvinceResourceNames } from "../definitions/ProvinceResources";
+import type { ProvinceResourceCosts } from "../definitions/ProvinceResources";
+import { getResourceName } from "../definitions/ProvinceResources";
 import { applyGameEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { hasEnoughProvinceResources, trySpendProvinceResources } from "../logic/ResourceLogic";
@@ -160,7 +161,7 @@ export function printAction(action: IGameAction, province: Province, save: SaveG
       result.push(`# Cost ${hasEnoughProvinceResources(action.cost, province, save) ? "✅" : "❌"}`);
       forEach(action.cost, (resource, value) => {
          result.push(
-            `- ${ProvinceResourceNames[resource]()}: ${value} ${hasEnoughProvinceResources({ [resource]: value }, province, save) ? "✅" : "❌"}`,
+            `- ${getResourceName(resource, save.state.scenario)}: ${value} ${hasEnoughProvinceResources({ [resource]: value }, province, save) ? "✅" : "❌"}`,
          );
       });
    }

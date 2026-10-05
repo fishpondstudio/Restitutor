@@ -1,7 +1,7 @@
 import { Switch } from "@mantine/core";
 import { hasFlag, toggleFlag } from "@project/shared/src/utils/Helper";
 import { finalizeCondition } from "../game/actions/GameAction";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { ProvinceFlags } from "../game/definitions/ProvinceState";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
@@ -50,7 +50,7 @@ export function SenatePage(): React.ReactNode {
                <div className="f1">{$t(L.SenateDecrees)}</div>
                <div>
                   {getProvinceResource("consulPoint", G.save.state.playerProvince, G.save)}{" "}
-                  {ProvinceResourceNames.consulPoint()}
+                  {getResourceName("consulPoint", G.save.state.scenario)}
                </div>
                <img
                   src={ProvinceResourceImages.consulPoint}

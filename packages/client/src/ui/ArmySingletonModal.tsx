@@ -15,7 +15,7 @@ import {
 } from "../game/actions/ArmyGeneralAction";
 import { finalizeCondition } from "../game/actions/GameAction";
 import { durationToString, Modifiers } from "../game/definitions/Modifier";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { ProvinceStatNames } from "../game/definitions/ProvinceStats";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameOptionUpdated, GameStateUpdated } from "../game/Events";
@@ -298,7 +298,7 @@ export function ArmySingletonModal(): React.ReactNode {
                <div className="row g5">
                   <div>
                      {getProvinceResource("generalSkillPoint", G.save.state.playerProvince, G.save)}{" "}
-                     {ProvinceResourceNames.generalSkillPoint()}
+                     {getResourceName("generalSkillPoint", G.save.state.scenario)}
                   </div>
                   <img
                      src={ProvinceResourceImages.generalSkillPoint}
@@ -651,7 +651,7 @@ function GeneralSkillPointTooltip(): React.ReactNode {
    const skillPoints = provinceResourceOf("generalSkillPoint", G.save.state.playerProvince, G.save);
    return (
       <>
-         <div className="h2">{ProvinceResourceNames.generalSkillPoint()}</div>
+         <div className="h2">{getResourceName("generalSkillPoint", G.save.state.scenario)}</div>
          <div className="row m10">
             <div className="f1">{$t(L.AvailableEarned)}</div>
             <div>

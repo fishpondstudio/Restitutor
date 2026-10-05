@@ -10,7 +10,7 @@ import "./FamilyTreeSingletonModal.css";
 import { Popover } from "@mantine/core";
 import type React from "react";
 import { DivorceAction, DivorceChristianityCost } from "../game/actions/SpouseActions";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { FamilyNode } from "./FamilyNode";
@@ -67,7 +67,7 @@ export function FamilyTreeSingletonModal(): React.ReactNode {
                               {$t(
                                  L.DivorceCostForChristianProvince$1$2,
                                  formatNumber(DivorceChristianityCost),
-                                 ProvinceResourceNames.christianity(),
+                                 getResourceName("christianity", G.save.state.scenario),
                               )}
                            </div>
                            {element}

@@ -1,5 +1,6 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { Province } from "../definitions/Province";
+import type { ProvinceResource } from "../definitions/ProvinceResources";
 import type { GameEvent } from "../events/GameEvents";
 import { Rome192 } from "./Rome192";
 import { ThreeKingdoms194 } from "./ThreeKingdoms194";
@@ -8,6 +9,7 @@ export interface IScenario {
    startDate: Date;
    provinces: Set<Province>;
    events: Set<GameEvent>;
+   provinceResourceNames?: Partial<Record<ProvinceResource, () => string>>;
 }
 
 export const Scenarios = {

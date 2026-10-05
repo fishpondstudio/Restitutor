@@ -1,7 +1,7 @@
 import { formatNumber, range } from "@project/shared/src/utils/Helper";
 import { useCallback } from "react";
 import { Modifiers } from "../game/definitions/Modifier";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { GameStateUpdated } from "../game/Events";
 import { getWarPower } from "../game/logic/ArmyLogic";
 import { getCurrentRelations, getDiplomats } from "../game/logic/DiplomacyLogic";
@@ -142,7 +142,7 @@ export function TopLeftPanel(): React.ReactNode {
                breakdown={administrativePoint}
                tooltip={(element) => (
                   <>
-                     <div className="h2">{ProvinceResourceNames.administrative()}</div>
+                     <div className="h2">{getResourceName("administrative", G.save.state.scenario)}</div>
                      {element}
                   </>
                )}
@@ -166,7 +166,7 @@ export function TopLeftPanel(): React.ReactNode {
                breakdown={diplomaticPoint}
                tooltip={(element) => (
                   <>
-                     <div className="h2">{ProvinceResourceNames.diplomatic()}</div>
+                     <div className="h2">{getResourceName("diplomatic", G.save.state.scenario)}</div>
                      {element}
                   </>
                )}
@@ -190,7 +190,7 @@ export function TopLeftPanel(): React.ReactNode {
                breakdown={militaryPoint}
                tooltip={(element) => (
                   <>
-                     <div className="h2">{ProvinceResourceNames.military()}</div>
+                     <div className="h2">{getResourceName("military", G.save.state.scenario)}</div>
                      {element}
                   </>
                )}

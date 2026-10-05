@@ -4,7 +4,7 @@ import { Fragment } from "react/jsx-runtime";
 import { AdjustAutonomyAction, SettleUnrestAction } from "../game/actions/AdjustAutonomyAction";
 import { Modifiers } from "../game/definitions/Modifier";
 import { Province } from "../game/definitions/Province";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { ProvinceFlags } from "../game/definitions/ProvinceState";
 import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { getTileName } from "../game/definitions/TileName";
@@ -142,7 +142,7 @@ export function InternalAffairsPage(): React.ReactNode {
             )}
          >
             <div className="row mx10 my5">
-               <div>{ProvinceResourceNames.mandate()}</div>
+               <div>{getResourceName("mandate", G.save.state.scenario)}</div>
                <img src={ProvinceResourceImages.mandate} className="icon-block" />
                <div className="f1" />
                <div>{formatNumber(getProvinceResource("mandate", G.save.state.playerProvince, G.save))}</div>

@@ -19,7 +19,8 @@ import {
 import { type LegacyUpgrade, LegacyUpgrades } from "../definitions/LegacyUpgrade";
 import { Modifiers, modifierValueToString } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
-import { ProvinceResourceNames, type ProvinceResources } from "../definitions/ProvinceResources";
+import type { ProvinceResources } from "../definitions/ProvinceResources";
+import { getResourceName } from "../definitions/ProvinceResources";
 import type { ProvinceStats } from "../definitions/ProvinceStats";
 import { createSaveGame, type SaveGame } from "../GameState";
 import type { Scenario } from "../scenarios/Scenarios";
@@ -141,7 +142,7 @@ export function canUpgradeLegacyUpgrade(
    const def = LegacyUpgrades[upgrade];
 
    result.push({
-      name: ProvinceResourceNames.legacy(),
+      name: getResourceName("legacy", save.state.scenario),
       value: available >= cost,
       progress: [available, cost],
    });

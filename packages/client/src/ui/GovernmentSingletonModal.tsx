@@ -4,7 +4,8 @@ import { Fragment } from "react/jsx-runtime";
 import { SetGovernmentFocusAction } from "../game/actions/SetGovernmentFocusAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
 import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
-import { type GovernorPower, ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import type { GovernorPower } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { GameStateUpdated } from "../game/Events";
 import { showError } from "../game/logic/AlertLogic";
 import { getProvinceGovernmentPoint, getProvinceName } from "../game/logic/ProvinceLogic";
@@ -105,7 +106,7 @@ function GovernmentComp({ type }: { type: GovernorPower }): React.ReactNode {
          <BreakdownTooltip breakdown={governmentPoint}>
             <div className="text-xl">{governmentPoint.value}</div>
          </BreakdownTooltip>
-         <div className="text-sm">{ProvinceResourceNames[type]()}</div>
+         <div className="text-sm">{getResourceName(type, G.save.state.scenario)}</div>
          <div className="divider mx-5 my5" />
          <div className="row">
             <img src={ProvinceResourceImages[type]} height={20} />
@@ -160,7 +161,7 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
                   >
                      <div className="text-display text-md">{candidate.name}</div>
                      <div className="row">
-                        <div className="f1">- {ProvinceResourceNames[advisor]()}</div>
+                        <div className="f1">- {getResourceName(advisor, G.save.state.scenario)}</div>
                         <div>{colorNumber(candidate.level)}</div>
                      </div>
                      <div className="row">
@@ -200,7 +201,7 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
          </Menu>
          <div className="box p5 mt10 text-sm">
             <div className="row">
-               <div className="f1">{ProvinceResourceNames[advisor]()}</div>
+               <div className="f1">{getResourceName(advisor, G.save.state.scenario)}</div>
                <div>{colorNumber(level)}</div>
             </div>
             <BreakdownTooltip breakdown={monthlyCost}>
@@ -255,7 +256,7 @@ function FocusComp({ type }: { type: GovernorPower }): React.ReactNode {
             {state.focus === type ? $t(L.CurrentFocus) : $t(L.SetFocus)}
          </ActionButton>
          <div className="box p5 mt10 text-sm row">
-            <div className="f1">{ProvinceResourceNames[type]()}</div>
+            <div className="f1">{getResourceName(type, G.save.state.scenario)}</div>
             <div>{colorNumber(state.focus === type ? 2 : -1)}</div>
          </div>
       </div>

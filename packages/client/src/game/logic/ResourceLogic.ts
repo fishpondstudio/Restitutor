@@ -1,7 +1,8 @@
 import { entriesOf, formatNumber } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
-import { type ProvinceResource, ProvinceResourceNames } from "../definitions/ProvinceResources";
+import type { ProvinceResource } from "../definitions/ProvinceResources";
+import { getResourceName } from "../definitions/ProvinceResources";
 import type { SaveGame } from "../GameState";
 
 export function provinceResourceOf(resource: ProvinceResource, province: Province, save: SaveGame): [number, number] {
@@ -109,7 +110,7 @@ export function notEnoughResourcesError(resources: Partial<Record<ProvinceResour
       entriesOf(resources)
          .map(
             ([key, value]) =>
-               `${ProvinceResourceNames[key]()}: ${formatNumber(getProvinceResource(key, save.state.playerProvince, save) - value)}`,
+               `${getResourceName(key, save.state.scenario)}: ${formatNumber(getProvinceResource(key, save.state.playerProvince, save) - value)}`,
          )
          .join(", "),
    );

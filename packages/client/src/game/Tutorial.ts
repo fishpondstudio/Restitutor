@@ -4,7 +4,7 @@ import { $t, L } from "../utils/i18n";
 import { unlockAchievement } from "./Achievement";
 import { Goods } from "./definitions/Goods";
 import { Province } from "./definitions/Province";
-import { ProvinceResourceNames } from "./definitions/ProvinceResources";
+import { getResourceName } from "./definitions/ProvinceResources";
 import { DefaultConscription } from "./definitions/ProvinceStats";
 import { SocialClass } from "./definitions/SocialClass";
 import { Tech } from "./definitions/Tech";
@@ -265,7 +265,13 @@ const _Tutorial = {
    },
    Trade: {
       name: () => $t(L.TutorialSetUpTradeWith$1, Province.Aquitania.name()),
-      desc: () => $t(L.TutorialSetUpTradeDesc$1$2$3, Goods.wood.name(), "Aquitania", ProvinceResourceNames.gold()),
+      desc: (save) =>
+         $t(
+            L.TutorialSetUpTradeDesc$1$2$3,
+            Goods.wood.name(),
+            "Aquitania",
+            getResourceName("gold", save.state.scenario),
+         ),
       progress: (save) => {
          // We recognize any trade for tutorial, not just with Aquitania.
          return [getProvinceTrades(save.state.playerProvince, save).size, 1];

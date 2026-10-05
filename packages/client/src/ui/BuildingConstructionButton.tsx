@@ -2,7 +2,7 @@ import { cls, type Tile } from "@project/shared/src/utils/Helper";
 import { useCallback } from "react";
 import { ConstructBuildingAction, DemolishBuildingAction } from "../game/actions/BuildingActions";
 import { type Building, Buildings } from "../game/definitions/Building";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { getBuildingConstructionCost, getBuildingMaintenanceCost } from "../game/logic/BuildingLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
@@ -41,7 +41,7 @@ export function BuildingConstructionButton({
                <div className="h2">{$t(L.MonthlyMaintenanceCost)}</div>
                <div className="row mx10 my5 g5">
                   <img src={ProvinceResourceImages.gold} className="icon-block" />
-                  <div className="f1">{ProvinceResourceNames.gold()}</div>
+                  <div className="f1">{getResourceName("gold", G.save.state.scenario)}</div>
                   <div>
                      {maintenanceCost.value}
                      <span className="text-dimmed text-xs">{$t(L.SlashMonth)}</span>

@@ -5,7 +5,7 @@ import { finalizeCondition } from "../game/actions/GameAction";
 import { CasusBelli } from "../game/definitions/CasusBelli";
 import { Modifiers, modifierToString } from "../game/definitions/Modifier";
 import { Province } from "../game/definitions/Province";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { type ChristianHeresy, Religion } from "../game/definitions/Religion";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
@@ -88,7 +88,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                })}
                tooltip={(element) => (
                   <>
-                     <div className="m10">+1 {ProvinceResourceNames.christianity()}</div>
+                     <div className="m10">+1 {getResourceName("christianity", G.save.state.scenario)}</div>
                      {element}
                   </>
                )}
@@ -115,7 +115,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                })}
                tooltip={(element) => (
                   <>
-                     <div className="m10">+1 {ProvinceResourceNames.christianity()}</div>
+                     <div className="m10">+1 {getResourceName("christianity", G.save.state.scenario)}</div>
                      {element}
                   </>
                )}
@@ -142,7 +142,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                })}
                tooltip={(element) => (
                   <>
-                     <div className="m10">+1 {ProvinceResourceNames.christianity()}</div>
+                     <div className="m10">+1 {getResourceName("christianity", G.save.state.scenario)}</div>
                      {element}
                   </>
                )}
@@ -169,7 +169,7 @@ export function EcumenicalCouncilPage(): React.ReactNode {
                })}
                tooltip={(element) => (
                   <>
-                     <div className="m10">+1 {ProvinceResourceNames.christianity()}</div>
+                     <div className="m10">+1 {getResourceName("christianity", G.save.state.scenario)}</div>
                      {element}
                   </>
                )}
