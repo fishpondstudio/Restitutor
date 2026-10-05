@@ -1811,7 +1811,7 @@ export const FR = {
    $1BordersOurProvince: "$1 borde notre province",
    AvailableEarned: "Disponible/Gagné",
    DismissingGeneralWillRemoveFromCommand: "Renvoyer le général le retirera du commandement de notre armée.",
-   GeneralSkillPointsCarryover: "50 % des points de compétence gagnés par le général actuel sont transférés au prochain général et toutes les améliorations de compétence sont réinitialisées",
+   GeneralSkillPointsCarryover: "50% of general skill points earned by the current general (excluding starting general skill points) are carried over to the next general, and all skill upgrades are reset",
    GeneralSkillPointsFromWar: "Notre général gagnera des <i>points de compétence</i> après avoir remporté une guerre : chaque case annexée rapporte 1 point de compétence, qui peut être utilisé pour améliorer les compétences d'infanterie, à distance et de cavalerie.",
    UsedRestoration: "Restaurations utilisées",
    PickYourRestorationBonus: "Choisissez votre bonus de restauration",

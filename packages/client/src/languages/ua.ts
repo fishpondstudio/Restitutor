@@ -1811,7 +1811,7 @@ export const UA = {
    $1BordersOurProvince: "$1 межує з нашою провінцією",
    AvailableEarned: "Доступно/здобуто",
    DismissingGeneralWillRemoveFromCommand: "Звільнення усуне нашого нинішнього полководця від командування.",
-   GeneralSkillPointsCarryover: "50% очок майстерності, здобутих нинішнім полководцем, переходять до наступного, а всі вдосконалення майстерності скидаються",
+   GeneralSkillPointsCarryover: "50% of general skill points earned by the current general (excluding starting general skill points) are carried over to the next general, and all skill upgrades are reset",
    GeneralSkillPointsFromWar: "Після перемоги у війні наш полководець отримує <i>очки майстерності</i> — кожне анексоване володіння дає 1 очко, яке можна витратити на вдосконалення майстерності командування піхотою, стрільцями й кіннотою.",
    UsedRestoration: "Використані відновлення",
    PickYourRestorationBonus: "Оберіть бонус відновлення",

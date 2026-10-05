@@ -1813,7 +1813,7 @@ export const DE = {
    $1BordersOurProvince: "$1 grenzt an unsere Provinz",
    AvailableEarned: "Verfügbar/Verdient",
    DismissingGeneralWillRemoveFromCommand: "Die Entlassung des Generals enthebt unseren derzeitigen General seines Kommandos.",
-   GeneralSkillPointsCarryover: "50 % der vom derzeitigen General verdienten Fähigkeitspunkte werden auf den nächsten General übertragen; alle Fähigkeitsaufwertungen werden zurückgesetzt",
+   GeneralSkillPointsCarryover: "50 % der vom derzeitigen General verdienten Fähigkeitspunkte (ohne die anfänglichen Fähigkeitspunkte des Generals) werden auf den nächsten General übertragen; alle Fähigkeitsaufwertungen werden zurückgesetzt",
    GeneralSkillPointsFromWar: "Unser General erhält nach einem gewonnenen Krieg <i>Fähigkeitspunkte</i>. Jedes annektierte Gebiet gewährt 1 Fähigkeitspunkt, mit dem Infanterie-, Fernkampf- und Kavalleriefähigkeiten aufgewertet werden können.",
    UsedRestoration: "Genutzte Wiederherstellung",
    PickYourRestorationBonus: "Wiederherstellungsbonus auswählen",

@@ -1809,7 +1809,7 @@ export const EN = {
    $1BordersOurProvince: "$1 borders our province",
    AvailableEarned: "Available/Earned",
    DismissingGeneralWillRemoveFromCommand: "Dismissing general will remove our current general from command.",
-   GeneralSkillPointsCarryover: "50% of general skill points earned by the current general are carried over to the next general and all skill upgrades are reset",
+   GeneralSkillPointsCarryover: "50% of general skill points earned by the current general (excluding starting general skill points) are carried over to the next general, and all skill upgrades are reset",
    GeneralSkillPointsFromWar: "Our general will earn <i>skill points</i> after winning a war - each tile annexed will give 1 skill point, which can be used to upgrade infantry, ranged, and cavalry skills.",
    UsedRestoration: "Used Restoration",
    PickYourRestorationBonus: "Pick Your Restoration Bonus",

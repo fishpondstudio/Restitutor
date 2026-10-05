@@ -1811,7 +1811,7 @@ export const ES = {
    $1BordersOurProvince: "$1 limita con nuestra provincia",
    AvailableEarned: "Disponible/obtenido",
    DismissingGeneralWillRemoveFromCommand: "Destituir al general retirará a nuestro general actual del mando.",
-   GeneralSkillPointsCarryover: "El 50 % de los puntos de habilidad obtenidos por el general actual se transfieren al siguiente general y todas las mejoras de habilidad se restablecen",
+   GeneralSkillPointsCarryover: "50% of general skill points earned by the current general (excluding starting general skill points) are carried over to the next general, and all skill upgrades are reset",
    GeneralSkillPointsFromWar: "Nuestro general obtendrá <i>puntos de habilidad</i> tras ganar una guerra; cada territorio anexionado otorga 1 punto de habilidad, que puede usarse para mejorar las habilidades de infantería, unidades a distancia y caballería.",
    UsedRestoration: "Restauración usada",
    PickYourRestorationBonus: "Elegir nuestra bonificación de restauración",

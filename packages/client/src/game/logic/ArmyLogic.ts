@@ -431,8 +431,10 @@ export function getCurrentGeneral(province: Province, save: SaveGame): GeneralTy
 
 export function onGeneralEnded(province: Province, save: SaveGame): void {
    const sp = provinceResourceOf("generalSkillPoint", province, save);
-   sp[0] = Math.floor(sp[0] / 2);
+   const startingSkillPoint = getProvinceStat("startingGeneralSkillPoint", province, save);
+   sp[0] = Math.floor(Math.max(0, sp[0] - startingSkillPoint) / 2);
    sp[1] = 0;
+   setProvinceStat("startingGeneralSkillPoint", 0, province, save);
    setProvinceStat("infantrySkill", 0, province, save);
    setProvinceStat("rangedSkill", 0, province, save);
    setProvinceStat("cavalrySkill", 0, province, save);
