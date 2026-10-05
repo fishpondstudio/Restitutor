@@ -1,3 +1,29 @@
+## Islam
+
+Muslim provinces now gain Islam Influence instead of yearly Christian Influence, plus 1 additional influence per year for each owned core tile following Islam.
+
+- Invite to Islam: Convert a non-Muslim core tile by spending Islam Influence equal to its total Infrastructure, Production, and Population levels. This action has a province-wide 12-month cooldown, with separate automation options for minor and tolerated religions.
+- Proclaim Jihad: Spend 1 Islam Influence to gain a Religious War Casus Belli against a non-Muslim province for 5 years. This action has a 10-year cooldown.
+- Muslim provinces can no longer Appoint Bishops.
+
+Five Islamic Policies are available in the Culture and Religion panel:
+
+- Levy Jizya: Gain +10% Land Tax and -10% Manpower on non-Muslim tiles.
+- Administer Zakat: Gain +10 Stability at the cost of -10% Tile Output.
+- Pay Diwan Stipends: Gain +10% War Power at the cost of -10% Land Tax.
+- Reform Coinage: Gain +10% Land Tax and Trade Profit at the cost of -10 Stability.
+- Sponsor Scholars: Gain +1 monthly Administrative, Diplomatic, and Military Point at the cost of -10% Land Tax, Tile Output and Manpower.
+
+Enacting or repealing a policy shares a 2-year cooldown across all Islamic Policies. Policies remain active until repealed and are removed if the province leaves Islam.
+
+## Caliphate Missions
+
+Three new missions let provinces embrace Islam and form the Rashidun and Umayyad Caliphates:
+
+- The Faith of the Holy Cities: Own and core Mecca and Medina. Choose to embrace Islam, converting all stored Christian Influence to Islam Influence and up to 20 of your most upgraded non-Muslim core tiles to Islam; or endow Christian communities for 100 Christian Influence and a permanent +5 yearly Christian Influence.
+- The Rashidun Caliphate: As a Muslim province, fully annex and core the Caliphate, Syria, Judea, Aegyptus, and Cyrenaica, with the original Caliphate no longer on the map. Proclaim the Rashidun Caliphate to gain 100 Islam Influence, +200 Governing Capacity, and +1 regional capital slot.
+- The Umayyad Caliphate: As the Muslim Rashidun Caliphate, retain those core territories and fully annex and core Africa, Mauretania, Hispania, and Cilicia. Proclaim the Umayyad Caliphate to gain 200 Islam Influence, +400 Governing Capacity, +1 regional capital slot, +1 tolerated religion slot, and +1 tolerated culture slot.
+
 ## Aegyptus
 
 Aegyptus province is now playable, with 3 unique Provincial Spirits:
@@ -50,24 +76,6 @@ The historical event in 695 now starts Twenty Years' Anarchy, unlocking a dedica
 - Sabotage Defenses: Spend 50 Military Points to reduce Defense by 10%.
 
 All effects last 24 months. These actions share a 12-month cooldown across all targets.
-
-## Islam
-
-Muslim provinces now gain Islam Influence instead of yearly Christian Influence, plus 1 additional influence per year for each owned core tile following Islam.
-
-- Invite to Islam: Convert a non-Muslim core tile by spending Islam Influence equal to its total Infrastructure, Production, and Population levels. This action has a province-wide 12-month cooldown, with separate automation options for minor and tolerated religions.
-- Proclaim Jihad: Spend 1 Islam Influence to gain a Religious War Casus Belli against a non-Muslim province for 5 years. This action has a 10-year cooldown.
-- Muslim provinces can no longer Appoint Bishops.
-
-Five Islamic Policies are available in the Culture and Religion panel:
-
-- Levy Jizya: Gain +10% Land Tax and -10% Manpower on non-Muslim tiles.
-- Administer Zakat: Gain +10 Stability at the cost of -10% Tile Output.
-- Pay Diwan Stipends: Gain +10% War Power at the cost of -10% Land Tax.
-- Reform Coinage: Gain +10% Land Tax and Trade Profit at the cost of -10 Stability.
-- Sponsor Scholars: Gain +1 monthly Administrative, Diplomatic, and Military Point at the cost of -10% Land Tax and Tile Output.
-
-Enacting or repealing a policy shares a 2-year cooldown across all Islamic Policies. Policies remain active until repealed and are removed if the province leaves Islam.
 
 ## Balance Changes
 

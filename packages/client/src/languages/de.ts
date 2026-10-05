@@ -5400,4 +5400,20 @@ export const DE = {
    AutomaticallyInviteToIslam: "Automatisch zum Islam einladen",
    InviteMinorReligionsToIslam: "Anhänger von Minderheitsreligionen zum Islam einladen",
    InviteToleratedReligionsToIslam: "Anhänger tolerierter Religionen zum Islam einladen",
+   ProvinceRashidunCaliphate: "Raschidun-Kalifat",
+   ProvinceUmayyadCaliphate: "Umayyaden-Kalifat",
+   TheFaithOfTheHolyCities: "Der Glaube der heiligen Städte",
+   TheFaithOfTheHolyCitiesDesc:
+      "Pilgerkarawanen ziehen unter unserem Schutz durch Mekka und Medina. An den Brunnen und in den Höfen versammeln sich Gläubige, um der Rezitation des Korans zu lauschen, und muslimische Lehrer suchen unsere Förderung. Christliche Geistliche bringen eigene Bittschriften vor und bitten uns, ihre Gemeinden zu unterstützen. Der Glaube, den wir hier fördern, wird in unseren Städten weit jenseits der Wüste widerhallen.",
+   EmbraceIslam: "Den Islam annehmen",
+   EmbraceIslamEffects$1: "Die Religion unserer Provinz zum Islam ändern. Den gesamten christlichen Einfluss in islamischen Einfluss umwandeln. Bis zu $1 unserer am häufigsten aufgewerteten nichtmuslimischen Kerngebiete zum Islam bekehren.",
+   EndowOurChristianCommunities: "Unsere christlichen Gemeinden mit Stiftungen fördern",
+   TheRashidunCaliphate: "Das Raschidun-Kalifat",
+   TheRashidunCaliphateDesc:
+      "Abgesandte aus den heiligen Städten versammeln sich neben Ältesten aus Syria und Aegyptus und legen unserem Rat ihre Treuegelöbnisse vor. Vor dem Zelt warten Boten mit Bittschriften vom Nil und von den Karawanenstraßen. Die Nachfolge der rechtgeleiteten Kalifen zu beanspruchen heißt, Verantwortung für diese fernen Gemeinden ebenso wie für die Gläubigen vor unserer Tür zu übernehmen.",
+   ProclaimTheRashidunCaliphate: "Das Raschidun-Kalifat ausrufen",
+   TheUmayyadCaliphate: "Das Umayyaden-Kalifat",
+   TheUmayyadCaliphateDesc:
+      "An den westlichen Meerengen befördern Boote unsere Depeschen zwischen Africa und Hispania. In Damascus entfalten Schreiber diese salzbefleckten Briefe neben Berichten aus Aegyptus, Arabia und dem Grenzgebiet von Cilicia. Unser Herrschaftsgebiet umfasst Gemeinden mit unterschiedlichen Glaubenspraktiken und Märkte voller fremder Sprachen. Ein Kalifat, das so weit reicht, muss den Menschen Raum geben, die seine Städte am Leben erhalten.",
+   ProclaimTheUmayyadCaliphate: "Das Umayyaden-Kalifat ausrufen",
 };

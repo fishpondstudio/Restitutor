@@ -17,6 +17,7 @@ import { BalkanEvents } from "./BalkanEvents";
 import { BelgicaEvents } from "./BelgicaEvents";
 import { BithyniaEvents } from "./BithyniaEvents";
 import { BritanniaEvents } from "./BritanniaEvents";
+import { CaliphateEvents } from "./CaliphateEvents";
 import { CorsicaSardiniaEvents } from "./CorsicaSardiniaEvents";
 import { DaciaEvents } from "./DaciaEvents";
 import { DalmatiaEvents } from "./DalmatiaEvents";
@@ -116,6 +117,7 @@ export const RomeEvents = {
    ...AnatoliaEvents,
    ...ReligiousEvents,
    ...MissionEvents,
+   ...CaliphateEvents,
    // These should not appear in `MissionPage`
    ...HistoricalEvents,
    ...RandomEvents,

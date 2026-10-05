@@ -1233,3 +1233,11 @@ export function setTileNameOverride(tile: Tile, nameOverride: TileNameOverride, 
    }
    tileData.nameOverride = nameOverride;
 }
+
+export function getTotalTileUpgrade(tile: Tile, save: SaveGame): number {
+   const data = save.state.tiles.get(tile);
+   if (!data) {
+      return 0;
+   }
+   return data.infrastructure + data.production + data.population;
+}

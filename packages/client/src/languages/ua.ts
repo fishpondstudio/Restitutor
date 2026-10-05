@@ -5300,4 +5300,20 @@ export const UA = {
    AutomaticallyInviteToIslam: "Automatically Invite to Islam",
    InviteMinorReligionsToIslam: "Invite Minor Religions to Islam",
    InviteToleratedReligionsToIslam: "Invite Tolerated Religions to Islam",
+   ProvinceRashidunCaliphate: "Rashidun Caliphate",
+   ProvinceUmayyadCaliphate: "Umayyad Caliphate",
+   TheFaithOfTheHolyCities: "The Faith of the Holy Cities",
+   TheFaithOfTheHolyCitiesDesc:
+      "Pilgrim caravans pass through Mecca and Medina beneath our protection. At the wells and in the courtyards, believers gather to hear the Quran recited, and Muslim teachers seek our patronage. Christian clergy bring petitions of their own, asking that we sustain their congregations. The faith we foster here will echo through our towns far beyond the desert.",
+   EmbraceIslam: "Embrace Islam",
+   EmbraceIslamEffects$1: "Change our province's religion to Islam. Convert all Christian Influence to Islamic Influence. Convert up to $1 of our most upgraded non-Muslim core tiles to Islam.",
+   EndowOurChristianCommunities: "Endow our Christian communities",
+   TheRashidunCaliphate: "The Rashidun Caliphate",
+   TheRashidunCaliphateDesc:
+      "Delegates from the holy cities gather beside elders from Syria and Egypt, their pledges laid before our council. Beyond the tent, messengers wait with petitions from the Nile and the caravan roads. To claim the mantle of the rightly guided caliphs is to answer for these distant communities as well as the faithful at our door.",
+   ProclaimTheRashidunCaliphate: "Proclaim the Rashidun Caliphate",
+   TheUmayyadCaliphate: "The Umayyad Caliphate",
+   TheUmayyadCaliphateDesc:
+      "At the western straits, boats carry our dispatches between Africa and Hispania. In Damascus, scribes unfold those salt-stained letters beside reports from Egypt, Arabia, and the Cilician frontier. Our dominion embraces congregations that worship differently and markets alive with unfamiliar tongues. A caliphate reaching so far must find room for the people who keep its cities alive.",
+   ProclaimTheUmayyadCaliphate: "Proclaim the Umayyad Caliphate",
 };

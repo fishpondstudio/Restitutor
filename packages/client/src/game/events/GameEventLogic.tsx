@@ -240,9 +240,6 @@ export function getAvailableEvents(province: Province, showAll: boolean, save: S
             if (value === true && isNullOrUndefined(save.state.provinces[province])) {
                return;
             }
-            if (value === false && !isNullOrUndefined(save.state.provinces[province])) {
-               return;
-            }
          }
       }
       if (config.condition.playerOnly && province !== save.state.playerProvince) {

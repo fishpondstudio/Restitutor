@@ -51,6 +51,7 @@ const _ProvinceUpgrades = {
          MilitaryPoint: { type: "add", value: 1 },
          LandTax: { type: "multiply", value: -0.1 },
          TileOutput: { type: "multiply", value: -0.1 },
+         Manpower: { type: "multiply", value: -0.1 },
       },
    },
    RightOfPlunder: {

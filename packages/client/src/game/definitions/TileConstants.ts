@@ -160,6 +160,15 @@ export const PalmyreneEmpireProvinces: Province[] = [
    "Lycia",
 ] as const;
 
+export const RashidunCaliphateProvinces: Province[] = ["Caliphate", ...LevantProvinces, ...AegyptusProvinces] as const;
+
+export const UmayyadCaliphateProvinces: Province[] = [
+   ...RashidunCaliphateProvinces,
+   ...AfricaProvinces,
+   ...HispaniaProvinces,
+   "Cilicia",
+] as const;
+
 export const Tiles = {
    Constantinople: createTile(158, 79),
    Rome: createTile(145, 77),
