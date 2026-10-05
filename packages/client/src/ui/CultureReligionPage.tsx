@@ -24,6 +24,7 @@ import {
    ProvinceUpgrades,
 } from "../game/definitions/ProvinceUpgrades";
 import { isChristianReligion, Religion } from "../game/definitions/Religion";
+import { IslamicActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { getProvinceTilesCached } from "../game/logic/CacheLogic";
 import {
@@ -69,7 +70,6 @@ export function CultureReligionPage(): React.ReactNode {
    const governingCost = getProvinceGoverningCost(G.save.state.playerProvince, G.save);
    const christianity = getProvinceResource("christianity", G.save.state.playerProvince, G.save);
    const christianityYearly = getChristianityYearly(G.save.state.playerProvince, G.save);
-   const islamYearly = getIslamInfluenceYearly(G.save.state.playerProvince, G.save);
    if (state.religion === "Islam") {
       christianityYearly.multiply.push({ name: Religion.Islam.name(), value: -1 });
       finalizeBreakdown(christianityYearly);
@@ -94,8 +94,6 @@ export function CultureReligionPage(): React.ReactNode {
       }
       return [];
    });
-   const islam = getProvinceResource("islam", G.save.state.playerProvince, G.save);
-   const islamicPolicyCooldown = getTimedActionCooldownLeft("ChangeIslamicPolicy", G.save.state.playerProvince, G.save);
    return (
       <SidebarComp title={<SidebarHeader title={$t(L.CultureAndReligion)} />}>
          <div className="h1">{$t(L.Culture)}</div>
@@ -330,115 +328,7 @@ export function CultureReligionPage(): React.ReactNode {
                );
             })}
          </div>
-         {state.religion === "Islam" && (
-            <>
-               <div className="h3">{Religion.Islam.name()}</div>
-               <FloatingTip
-                  label={() => (
-                     <>
-                        <div className="m10">
-                           {$t(L.IslamicInfluenceConversionDesc$1, Modifiers.ChristianityYearly.name())}
-                        </div>
-                        <div className="row m10">
-                           <div className="f1">{$t(L.IslamicInfluence)}</div>
-                           <div>{formatNumber(islam)}</div>
-                        </div>
-                        <div className="box m5">
-                           <div className="h2">{$t(L.IslamicInfluencePerYear)}</div>
-                           <BreakdownComp breakdown={islamYearly} />
-                        </div>
-                     </>
-                  )}
-                  fixedWidth
-                  className="p0"
-               >
-                  <div className="row g5 m10">
-                     <div>{$t(L.IslamicInfluence)}</div>
-                     <img src={ProvinceResourceImages.islam} className="icon-block" />
-                     <div className="f1" />
-                     <div>
-                        {formatNumber(islam)} {colorNumber(islamYearly.value)}
-                     </div>
-                  </div>
-               </FloatingTip>
-               <div className="box m10">
-                  <div className="h3 row g5">
-                     <div className="f1">{$t(L.IslamicPolicies)}</div>
-                     {islamicPolicyCooldown > 0 && (
-                        <>
-                           <div className="mi xs">schedule</div>
-                           <FloatingTip
-                              label={() =>
-                                 $t(L.WeCanChangeIslamicPoliciesIn$1, durationToString(islamicPolicyCooldown))
-                              }
-                           >
-                              <div>{durationToString(islamicPolicyCooldown)}</div>
-                           </FloatingTip>
-                        </>
-                     )}
-                  </div>
-                  {IslamicPolicies.map((policy) => (
-                     <div className="m10 row" key={policy}>
-                        <div className="f1">
-                           <FloatingTip label={() => getProvinceUpgradeDesc(policy)}>
-                              <div>{ProvinceUpgrades[policy].name()}</div>
-                           </FloatingTip>
-                        </div>
-                        <ActionButton
-                           className="text-sm"
-                           action={() => ToggleIslamicPolicyAction(policy, G.save.state.playerProvince, G.save)}
-                           tooltip={(element) => (
-                              <>
-                                 <div className="h2">{ProvinceUpgrades[policy].name()}</div>
-                                 <div className="m10">{getProvinceUpgradeDesc(policy)}</div>
-                                 {element}
-                              </>
-                           )}
-                        >
-                           {hasProvinceUpgrade(policy, G.save.state.playerProvince, G.save) ? (
-                              <div className="text-red">{$t(L.Repeal)}</div>
-                           ) : (
-                              <div>{$t(L.Enact)}</div>
-                           )}
-                        </ActionButton>
-                     </div>
-                  ))}
-               </div>
-               <div className="box m10">
-                  <div className="h3">{$t(L.AutomaticallyInviteToIslam)}</div>
-                  <div className="row mx10 my5">
-                     <div className="f1">{$t(L.InviteMinorReligionsToIslam)}</div>
-                     <Switch
-                        size="xs"
-                        aria-label={$t(L.InviteMinorReligionsToIslam)}
-                        checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyInviteMinorReligionsToIslam)}
-                        onChange={() => {
-                           state.flags = toggleFlag(
-                              state.flags,
-                              ProvinceFlags.AutomaticallyInviteMinorReligionsToIslam,
-                           );
-                           GameStateUpdated.emit();
-                        }}
-                     />
-                  </div>
-                  <div className="row mx10 my5">
-                     <div className="f1">{$t(L.InviteToleratedReligionsToIslam)}</div>
-                     <Switch
-                        size="xs"
-                        aria-label={$t(L.InviteToleratedReligionsToIslam)}
-                        checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyInviteToleratedReligionsToIslam)}
-                        onChange={() => {
-                           state.flags = toggleFlag(
-                              state.flags,
-                              ProvinceFlags.AutomaticallyInviteToleratedReligionsToIslam,
-                           );
-                           GameStateUpdated.emit();
-                        }}
-                     />
-                  </div>
-               </div>
-            </>
-         )}
+         <IslamicReligionComp />
          <div className="h3">{Religion.Christianity.name()}</div>
          <FloatingTip
             className="p0"
@@ -594,5 +484,121 @@ export function CultureReligionPage(): React.ReactNode {
             </div>
          )}
       </SidebarComp>
+   );
+}
+
+function IslamicReligionComp(): React.ReactNode {
+   const state = G.save.state.provinces[G.save.state.playerProvince];
+   if (state?.religion !== "Islam") {
+      return null;
+   }
+   const islam = getProvinceResource("islam", G.save.state.playerProvince, G.save);
+   const islamYearly = getIslamInfluenceYearly(G.save.state.playerProvince, G.save);
+   const islamicPolicyCooldown = getTimedActionCooldownLeft("ChangeIslamicPolicy", G.save.state.playerProvince, G.save);
+   return (
+      <>
+         <div className="h3">{Religion.Islam.name()}</div>
+         <FloatingTip
+            label={() => (
+               <>
+                  <div className="m10">
+                     {$t(L.IslamicInfluenceConversionDesc$1, Modifiers.ChristianityYearly.name())}
+                  </div>
+                  <div className="row m10">
+                     <div className="f1">{$t(L.IslamicInfluence)}</div>
+                     <div>{formatNumber(islam)}</div>
+                  </div>
+                  <div className="box m5">
+                     <div className="h2">{$t(L.IslamicInfluencePerYear)}</div>
+                     <BreakdownComp breakdown={islamYearly} />
+                  </div>
+               </>
+            )}
+            fixedWidth
+            className="p0"
+         >
+            <div className="row g5 m10">
+               <div>{$t(L.IslamicInfluence)}</div>
+               <img src={ProvinceResourceImages.islam} className="icon-block" />
+               <div className="f1" />
+               <div>
+                  {formatNumber(islam)} {colorNumber(islamYearly.value)}
+               </div>
+            </div>
+         </FloatingTip>
+         <div className="box m10">
+            <div className="h3 row g5">
+               <div className="f1">{$t(L.IslamicPolicies)}</div>
+               {islamicPolicyCooldown > 0 && (
+                  <>
+                     <div className="mi xs">schedule</div>
+                     <FloatingTip
+                        label={() => $t(L.WeCanChangeIslamicPoliciesIn$1, durationToString(islamicPolicyCooldown))}
+                     >
+                        <div>{durationToString(islamicPolicyCooldown)}</div>
+                     </FloatingTip>
+                  </>
+               )}
+            </div>
+            {IslamicPolicies.map((policy) => (
+               <div className="m10 row" key={policy}>
+                  <div className="f1">
+                     <FloatingTip label={() => getProvinceUpgradeDesc(policy)}>
+                        <div>{ProvinceUpgrades[policy].name()}</div>
+                     </FloatingTip>
+                  </div>
+                  <ActionButton
+                     className="text-sm"
+                     action={() => ToggleIslamicPolicyAction(policy, G.save.state.playerProvince, G.save)}
+                     tooltip={(element) => (
+                        <>
+                           <div className="h2">{ProvinceUpgrades[policy].name()}</div>
+                           <div className="m10">{getProvinceUpgradeDesc(policy)}</div>
+                           {element}
+                        </>
+                     )}
+                  >
+                     {hasProvinceUpgrade(policy, G.save.state.playerProvince, G.save) ? (
+                        <div className="text-red">{$t(L.Repeal)}</div>
+                     ) : (
+                        <div>{$t(L.Enact)}</div>
+                     )}
+                  </ActionButton>
+               </div>
+            ))}
+         </div>
+         <div className="m10" style={Grid2}>
+            {IslamicActions.map((action) => (
+               <TimedActionButton timedAction={action} key={action} />
+            ))}
+         </div>
+         <div className="box m10">
+            <div className="h3">{$t(L.AutomaticallyInviteToIslam)}</div>
+            <div className="row mx10 my5">
+               <div className="f1">{$t(L.InviteMinorReligionsToIslam)}</div>
+               <Switch
+                  size="xs"
+                  aria-label={$t(L.InviteMinorReligionsToIslam)}
+                  checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyInviteMinorReligionsToIslam)}
+                  onChange={() => {
+                     state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyInviteMinorReligionsToIslam);
+                     GameStateUpdated.emit();
+                  }}
+               />
+            </div>
+            <div className="row mx10 my5">
+               <div className="f1">{$t(L.InviteToleratedReligionsToIslam)}</div>
+               <Switch
+                  size="xs"
+                  aria-label={$t(L.InviteToleratedReligionsToIslam)}
+                  checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyInviteToleratedReligionsToIslam)}
+                  onChange={() => {
+                     state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyInviteToleratedReligionsToIslam);
+                     GameStateUpdated.emit();
+                  }}
+               />
+            </div>
+         </div>
+      </>
    );
 }

@@ -5078,4 +5078,8 @@ export const ZH_CN = {
    TheUmayyadCaliphate: "倭马亚哈里发国",
    TheUmayyadCaliphateDesc: "在西方海峡，船只往返于阿非利加与西班牙之间，传递我们的公文。在大马士革，文书们展开沾着盐渍的信件，旁边摆着来自埃及、阿拉伯和奇里乞亚边境的报告。我们的疆域容纳着礼拜方式各异的教团，也有回荡着陌生语言的繁忙集市。疆域如此辽阔的哈里发国，必须容纳那些维系城市生机的人民。",
    ProclaimTheUmayyadCaliphate: "宣告建立倭马亚哈里发国",
+   AppointAQadi: "任命卡迪",
+   ConveneAShura: "召集舒拉会议",
+   SponsorFurusiyya: "资助骑士武艺",
+   RallyTheFaithful: "号召信徒",
 };

@@ -5334,4 +5334,8 @@ export const TR = {
    TheUmayyadCaliphateDesc:
       "At the western straits, boats carry our dispatches between Africa and Hispania. In Damascus, scribes unfold those salt-stained letters beside reports from Egypt, Arabia, and the Cilician frontier. Our dominion embraces congregations that worship differently and markets alive with unfamiliar tongues. A caliphate reaching so far must find room for the people who keep its cities alive.",
    ProclaimTheUmayyadCaliphate: "Proclaim the Umayyad Caliphate",
+   AppointAQadi: "Appoint a Qadi",
+   ConveneAShura: "Convene a Shura",
+   SponsorFurusiyya: "Sponsor Furusiyya",
+   RallyTheFaithful: "Rally the Faithful",
 };

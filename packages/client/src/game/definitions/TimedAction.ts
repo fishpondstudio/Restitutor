@@ -566,6 +566,86 @@ class TimedActionDefinitions {
       duration: 0,
       cooldown: 12 * 2,
    };
+   AppointQadi: ITimedEffectAction = {
+      name: () => $t(L.AppointAQadi),
+      duration: 24,
+      cooldown: 24,
+      costCondition: (province, save) => ({
+         cost: { islam: 2 },
+         condition: finalizeCondition([
+            ...timedActionConditions({ action: "ConveneShura" }, province, save),
+            ...timedActionConditions({ action: "SponsorFurusiyya" }, province, save),
+            ...timedActionConditions({ action: "RallyTheFaithful" }, province, save),
+            {
+               name: $t(L.OurProvincesReligionIsIslam),
+               value: save.state.provinces[province]?.religion === "Islam",
+            },
+         ]),
+      }),
+      modifiers: {
+         AdministrativePoint: { type: "add", value: 1 },
+      },
+   };
+   ConveneShura: ITimedEffectAction = {
+      name: () => $t(L.ConveneAShura),
+      duration: 24,
+      cooldown: 24,
+      costCondition: (province, save) => ({
+         cost: { islam: 2 },
+         condition: finalizeCondition([
+            ...timedActionConditions({ action: "AppointQadi" }, province, save),
+            ...timedActionConditions({ action: "SponsorFurusiyya" }, province, save),
+            ...timedActionConditions({ action: "RallyTheFaithful" }, province, save),
+            {
+               name: $t(L.OurProvincesReligionIsIslam),
+               value: save.state.provinces[province]?.religion === "Islam",
+            },
+         ]),
+      }),
+      modifiers: {
+         DiplomaticPoint: { type: "add", value: 1 },
+      },
+   };
+   SponsorFurusiyya: ITimedEffectAction = {
+      name: () => $t(L.SponsorFurusiyya),
+      duration: 24,
+      cooldown: 24,
+      costCondition: (province, save) => ({
+         cost: { islam: 2 },
+         condition: finalizeCondition([
+            ...timedActionConditions({ action: "AppointQadi" }, province, save),
+            ...timedActionConditions({ action: "ConveneShura" }, province, save),
+            ...timedActionConditions({ action: "RallyTheFaithful" }, province, save),
+            {
+               name: $t(L.OurProvincesReligionIsIslam),
+               value: save.state.provinces[province]?.religion === "Islam",
+            },
+         ]),
+      }),
+      modifiers: {
+         MilitaryPoint: { type: "add", value: 1 },
+      },
+   };
+   RallyTheFaithful: ITimedEffectAction = {
+      name: () => $t(L.RallyTheFaithful),
+      duration: 24,
+      cooldown: 24,
+      costCondition: (province, save) => ({
+         cost: { islam: 2 },
+         condition: finalizeCondition([
+            ...timedActionConditions({ action: "AppointQadi" }, province, save),
+            ...timedActionConditions({ action: "ConveneShura" }, province, save),
+            ...timedActionConditions({ action: "SponsorFurusiyya" }, province, save),
+            {
+               name: $t(L.OurProvincesReligionIsIslam),
+               value: save.state.provinces[province]?.religion === "Islam",
+            },
+         ]),
+      }),
+      modifiers: {
+         WarPower: { type: "multiply", value: 0.1 },
+      },
+   };
    ProclaimJihad: ITimedAction = {
       name: () => $t(L.ProclaimJihad),
       desc: () => $t(L.ProclaimingJihadGrantsUsAReligiousWarCasusBelliAgainstThem),
@@ -836,6 +916,12 @@ export type TimedEffectAction = {
    [K in TimedAction]: TimedActionDefinitions[K] extends ITimedEffectAction ? K : never;
 }[TimedAction];
 export const TimedActions = new TimedActionDefinitions();
+export const IslamicActions = [
+   "AppointQadi",
+   "ConveneShura",
+   "SponsorFurusiyya",
+   "RallyTheFaithful",
+] as const satisfies TimedEffectAction[];
 export const EcumenicalCouncils = [
    "EcumenicalCouncil1",
    "EcumenicalCouncil2",

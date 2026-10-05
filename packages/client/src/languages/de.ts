@@ -5416,4 +5416,8 @@ export const DE = {
    TheUmayyadCaliphateDesc:
       "An den westlichen Meerengen befördern Boote unsere Depeschen zwischen Africa und Hispania. In Damascus entfalten Schreiber diese salzbefleckten Briefe neben Berichten aus Aegyptus, Arabia und dem Grenzgebiet von Cilicia. Unser Herrschaftsgebiet umfasst Gemeinden mit unterschiedlichen Glaubenspraktiken und Märkte voller fremder Sprachen. Ein Kalifat, das so weit reicht, muss den Menschen Raum geben, die seine Städte am Leben erhalten.",
    ProclaimTheUmayyadCaliphate: "Das Umayyaden-Kalifat ausrufen",
+   AppointAQadi: "Einen Kadi ernennen",
+   ConveneAShura: "Eine Schura einberufen",
+   SponsorFurusiyya: "Furusiyya fördern",
+   RallyTheFaithful: "Die Gläubigen sammeln",
 };

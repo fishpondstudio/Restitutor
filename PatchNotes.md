@@ -16,6 +16,15 @@ Five Islamic Policies are available in the Culture and Religion panel:
 
 Enacting or repealing a policy shares a 2-year cooldown across all Islamic Policies. Policies remain active until repealed and are removed if the province leaves Islam.
 
+Four new actions are available to Muslim provinces in the Culture and Religion panel:
+
+- Appoint a Qadi: Gain +1 monthly Administrative Point.
+- Convene a Shura: Gain +1 monthly Diplomatic Point.
+- Sponsor Furusiyya: Gain +1 monthly Military Point.
+- Rally the Faithful: Gain +10% War Power.
+
+Each action costs 2 Islam Influence and lasts 24 months. All four share a 24-month cooldown, so only one can be active at a time.
+
 ## Caliphate Missions
 
 Three new missions let provinces embrace Islam and form the Rashidun and Umayyad Caliphates:
