@@ -35,6 +35,7 @@ Do not add headings, comments, or other lines inside the Data section.
 
 Choose an appropriate existing painting from `packages/client/src/assets/images/events/`. Consult
 `packages/client/src/game/events/EventImages.ts` for the painting's subject and historical context.
+Use a painting that is not already used by another achievement's icons.
 
 Generate the achieved and unachieved icons with:
 
@@ -80,6 +81,7 @@ Before finishing, verify that:
 - Every event-based achievement's Data description references the event's exact English display name.
 - Every direct `unlockAchievement("ID")` call is guarded so only the player can unlock it.
 - Every Data record has both required local icon files.
+- Each achievement has unique achieved and unachieved icons, with no icons shared between achievements.
 - Every Data record appears exactly once in the Steamworks table.
 - Every Steamworks record has the exact API Name, display name, and description from this file.
 - Every Steamworks record is set by Client, is not hidden, and has two hosted icons.
@@ -209,3 +211,15 @@ Complete the "The Eastern Roman Empire Restored" mission.
 RestoreRomanEmpire
 Restorer of the World
 Complete the "The Roman Empire Restored" mission.
+
+EmbraceIslam
+The Straight Path
+Convert our province to Islam.
+
+RashidunCaliphate
+The Rightly Guided
+Complete the "The Rashidun Caliphate" mission.
+
+UmayyadCaliphate
+Beyond Gibraltar
+Complete the "The Umayyad Caliphate" mission.

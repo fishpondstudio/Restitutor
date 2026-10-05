@@ -29,7 +29,9 @@ export function MakeGovernorGeneralAction(province: Province, save: SaveGame): I
       execute: () => {
          const governor = state.governor.male;
          governor.flag = setFlag(governor.flag, PersonFlags.IsGeneral);
-         addProvinceResource("generalSkillPoint", getStartingGeneralSkillPoint(province, save).value, province, save);
+         const startingSkillPoint = getStartingGeneralSkillPoint(province, save).value;
+         setProvinceStat("startingGeneralSkillPoint", startingSkillPoint, province, save);
+         addProvinceResource("generalSkillPoint", startingSkillPoint, province, save);
          setProvinceStat("infantrySkill", 1, province, save);
          setProvinceStat("rangedSkill", 1, province, save);
          setProvinceStat("cavalrySkill", 1, province, save);
@@ -47,7 +49,9 @@ export function RecruitGeneralAction(province: Province, save: SaveGame): IGameA
       ]),
       execute: () => {
          startTimedAction("RecruitAGeneral", province, save);
-         addProvinceResource("generalSkillPoint", getStartingGeneralSkillPoint(province, save).value, province, save);
+         const startingSkillPoint = getStartingGeneralSkillPoint(province, save).value;
+         setProvinceStat("startingGeneralSkillPoint", startingSkillPoint, province, save);
+         addProvinceResource("generalSkillPoint", startingSkillPoint, province, save);
          setProvinceStat("infantrySkill", 1, province, save);
          setProvinceStat("rangedSkill", 1, province, save);
          setProvinceStat("cavalrySkill", 1, province, save);

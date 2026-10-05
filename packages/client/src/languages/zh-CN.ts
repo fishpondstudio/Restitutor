@@ -1803,7 +1803,7 @@ export const ZH_CN = {
    $1BordersOurProvince: "$1与我们的行省接壤",
    AvailableEarned: "可用/已获得",
    DismissingGeneralWillRemoveFromCommand: "解任将军将使我们的现任将军离开指挥岗位。",
-   GeneralSkillPointsCarryover: "现任将军已获得的 50% 技能点将继承至下一位将军，所有技能升级将被重置。",
+   GeneralSkillPointsCarryover: "现任将军已获得的技能点（不包括初始将军技能点）中，50% 将继承至下一位将军，所有技能升级将被重置。",
    GeneralSkillPointsFromWar: "我们的将军在赢得战争后将获得<i>技能点</i>——每吞并一个地块可获得 1 技能点，可用于升级步兵、远程和骑兵技能。",
    UsedRestoration: "已使用复兴次数",
    PickYourRestorationBonus: "选择复兴加成",
