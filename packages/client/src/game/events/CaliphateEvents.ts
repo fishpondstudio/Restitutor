@@ -1,5 +1,6 @@
 import { fromEntries } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
+import { unlockAchievement } from "../Achievement";
 import { RashidunCaliphateProvinces, UmayyadCaliphateProvinces } from "../definitions/TileConstants";
 import { getProvinceCoreTilesCached } from "../logic/CacheLogic";
 import type { ConditionChecks } from "../logic/Calculation";
@@ -47,6 +48,9 @@ export const CaliphateEvents = {
                               data.religion = "Islam";
                            }
                         });
+                     if (province === save.state.playerProvince) {
+                        unlockAchievement("EmbraceIslam");
+                     }
                   },
                },
             ],
@@ -70,6 +74,7 @@ export const CaliphateEvents = {
          annexAndCore: fromEntries(RashidunCaliphateProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
       wikipedia: "Rashidun_Caliphate",
+      achievement: "RashidunCaliphate",
       buttons: [
          {
             label: () => $t(L.ProclaimTheRashidunCaliphate),
@@ -92,6 +97,7 @@ export const CaliphateEvents = {
          annexAndCore: fromEntries(UmayyadCaliphateProvinces.map((province) => [province, Number.POSITIVE_INFINITY])),
       },
       wikipedia: "Umayyad_Caliphate",
+      achievement: "UmayyadCaliphate",
       buttons: [
          {
             label: () => $t(L.ProclaimTheUmayyadCaliphate),
