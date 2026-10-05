@@ -1,5 +1,6 @@
 import { cls, type Tile } from "@project/shared/src/utils/Helper";
 import { EvangelizeTileAction } from "../game/actions/EvangelizeTileAction";
+import { isChristianReligion } from "../game/definitions/Religion";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { G } from "../utils/Global";
@@ -8,7 +9,7 @@ import { ActionButton } from "./ActionButton";
 export function EvangelizeTileButton({ tile, className }: { tile: Tile; className?: string }): React.ReactNode {
    const tileData = G.save.state.tiles.get(tile);
    const state = tileData && G.save.state.provinces[tileData.province];
-   if (!tileData || !state) {
+   if (!tileData || !state || !isChristianReligion(state.religion)) {
       return null;
    }
    return (

@@ -28,6 +28,8 @@ export const ProvinceFlags = {
    AutomaticallyConvertMinorCultures: 1 << 5,
    AutomaticallyConvertToleratedCultures: 1 << 6,
    AutomaticallyRepayLoans: 1 << 7,
+   AutomaticallyInviteMinorReligionsToIslam: 1 << 8,
+   AutomaticallyInviteToleratedReligionsToIslam: 1 << 9,
 } as const;
 
 export type ProvinceFlags = ValueOf<typeof ProvinceFlags>;

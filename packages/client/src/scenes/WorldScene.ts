@@ -495,6 +495,17 @@ export class WorldScene extends Scene {
          return;
       }
 
+      if (import.meta.env.DEV && e.ctrlKey) {
+         if (this._selectedTiles.has(tile)) {
+            this._selectedTiles.delete(tile);
+         } else {
+            this._selectedTiles.add(tile);
+         }
+         this.drawSelectors(this._selectedTiles);
+         console.log(Array.from(this._selectedTiles).join(", "));
+         return;
+      }
+
       if (!isLand(tile)) {
          return;
       }

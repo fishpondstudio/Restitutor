@@ -1451,7 +1451,7 @@ export const HistoricalEvents = {
             label: () => $t(L.BindOurOfficialsToOneAnother),
             resources: { administrative: -50 },
             modifiers: { Stability: { type: "add", value: 15, duration: 36 } },
-            // custom: [startTimedActionEffect("TwentyYearsAnarchy")],
+            custom: [startTimedActionEffect("TwentyYearsAnarchy")],
          },
          {
             label: () => $t(L.SecureTheLoyaltyOfOurSoldiers),
@@ -1460,7 +1460,7 @@ export const HistoricalEvents = {
                WarPower: { type: "multiply", value: 0.15, duration: 36 },
                Manpower: { type: "multiply", value: 0.1, duration: 36 },
             },
-            // custom: [startTimedActionEffect("TwentyYearsAnarchy")],
+            custom: [startTimedActionEffect("TwentyYearsAnarchy")],
          },
       ],
    },

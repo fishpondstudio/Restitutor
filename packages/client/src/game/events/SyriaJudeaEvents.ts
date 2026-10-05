@@ -3,18 +3,21 @@ import { $t, L } from "../../utils/i18n";
 import { Province } from "../definitions/Province";
 import { ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
 import { LevantProvinces } from "../definitions/TileConstants";
-import { getTileName, TileName } from "../definitions/TileName";
+import { TileName } from "../definitions/TileName";
 import type { ConditionChecks } from "../logic/Calculation";
 import {
-   annexTiles,
+   annexTileEffect,
    apostolicSeeCountChecks,
+   blackSeaCoastChecks,
    coreTileReligionCountChecks,
    isCoreTileChecks,
    manpowerChecks,
    maxCoreTileChecks,
+   mediterraneanCoastChecks,
    minCoreCoastalTileChecks,
    notAnnexedChecks,
    provinceResourceChecks,
+   redSeaCoastChecks,
    religionChecks,
    setProvinceNameOverrideEffect,
    warPowerChecks,
@@ -308,15 +311,7 @@ export const SyriaJudeaEvents = {
          {
             label: () => $t(L.SettleTheArrearsAndReceive$1, TileName[10616918]?.() ?? ""),
             resources: { gold: -1000 },
-            custom: [
-               {
-                  desc: (province, save) =>
-                     $t(L.$1Becomes$2sCoreTile, getTileName(10616918, save), Province[province].name()),
-                  execute: (province, save) => {
-                     annexTiles({ tiles: [10616918], core: true, province, save });
-                  },
-               },
-            ],
+            custom: [annexTileEffect(10616918, true)],
          },
       ],
    },
@@ -521,6 +516,31 @@ export const SyriaJudeaEvents = {
          {
             label: () => $t(L.ReconcileEstateRollsAndTaxDues),
             modifiers: { LandTax: { type: "multiply", value: 0.1 } },
+         },
+      ],
+   },
+   SyriaJudea13: {
+      name: () => $t(L.CargoesFromThreeSeas),
+      image: EventImage.MediterraneanHarbour,
+      desc: () => $t(L.CargoesFromThreeSeasDesc),
+      condition: {
+         province: new Set(["Syria", "Judea", "Aegyptus", "Cilicia", "Cappadocia"]),
+         conditions: function* (province, save): ConditionChecks {
+            yield* mediterraneanCoastChecks(1, province, save);
+            yield* blackSeaCoastChecks(1, province, save);
+            yield* redSeaCoastChecks(1, province, save);
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.CollectRegularDuesAtAllThreeSeas),
+            modifiers: {
+               MonthlyGold: { type: "add", value: 100, duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.AcceptAnAdvanceForTheCustomsLease),
+            resources: { gold: 6000 },
          },
       ],
    },

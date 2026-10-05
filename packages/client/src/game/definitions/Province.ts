@@ -34,7 +34,7 @@ const _Province = {
       ],
       culture: "Egyptian",
       religion: "Egyptian",
-      upgrades: [],
+      upgrades: ["NiloticAbundance", "GrainCommerce", "AlexandrianScholarship"],
    },
    Africa: {
       code: "AF",
@@ -141,7 +141,7 @@ const _Province = {
       tiles: [9306189],
       culture: "Corsican",
       religion: "GrecoRoman",
-      upgrades: [],
+      upgrades: ["LittoralRevenues", "PrestigiousAmbition", "TriumphalCommerce"],
    },
    Cyrenaica: {
       code: "CY",
@@ -153,7 +153,7 @@ const _Province = {
       ],
       culture: "Greek",
       religion: "GrecoRoman",
-      upgrades: [],
+      upgrades: ["CoastalLogistics", "TriumphalRenown", "MandateOfAuthority"],
    },
    Dacia: {
       code: "DA",
@@ -338,7 +338,7 @@ const _Province = {
       tiles: [9306191, 9371728],
       culture: "Sardinian",
       religion: "GrecoRoman",
-      upgrades: [],
+      upgrades: ["CoastalAmbition", "HarbourInfrastructure", "AdministrativeExpansion"],
    },
    Sicilia: {
       code: "SC",

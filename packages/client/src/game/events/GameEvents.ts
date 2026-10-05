@@ -7,6 +7,7 @@ import type { ICustomEffect, IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import { AchaiaEvents } from "./AchaiaEvents";
+import { AegyptusCyrenaicaEvents } from "./AegyptusCyrenaicaEvents";
 import { AfricaEvents } from "./AfricaEvents";
 import { AnatoliaEvents } from "./AnatoliaEvents";
 import { AquitaniaEvents } from "./AquitaniaEvents";
@@ -16,6 +17,8 @@ import { BalkanEvents } from "./BalkanEvents";
 import { BelgicaEvents } from "./BelgicaEvents";
 import { BithyniaEvents } from "./BithyniaEvents";
 import { BritanniaEvents } from "./BritanniaEvents";
+import { CaliphateEvents } from "./CaliphateEvents";
+import { CorsicaSardiniaEvents } from "./CorsicaSardiniaEvents";
 import { DaciaEvents } from "./DaciaEvents";
 import { DalmatiaEvents } from "./DalmatiaEvents";
 import { DanubianEvents } from "./DanubianEvents";
@@ -95,7 +98,7 @@ export const RomeEvents = {
    ...BithyniaEvents,
    ...AsiaEvents,
    ...GalatiaLyciaCiliciaCappadociaEvents,
-   // ...AegyptusCyrenaicaEvents,
+   ...AegyptusCyrenaicaEvents,
    ...SyriaJudeaEvents,
    ...ThraciaEvents,
    ...TarraconensisEvents,
@@ -105,6 +108,7 @@ export const RomeEvents = {
    ...AfricaEvents,
    ...ItaliaEvents,
    ...SiciliaEvents,
+   ...CorsicaSardiniaEvents,
    ...ItaliaSharedEvents,
    ...GallicEmpireEvents,
    ...HispaniaEvents,
@@ -113,6 +117,7 @@ export const RomeEvents = {
    ...AnatoliaEvents,
    ...ReligiousEvents,
    ...MissionEvents,
+   ...CaliphateEvents,
    // These should not appear in `MissionPage`
    ...HistoricalEvents,
    ...RandomEvents,

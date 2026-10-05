@@ -2,10 +2,12 @@ import { hasFlag, range, shuffle, type Tile } from "@project/shared/src/utils/He
 import { ConvertCultureAction } from "../actions/ConvertCultureAction";
 import { EvangelizeTileAction } from "../actions/EvangelizeTileAction";
 import { finalizeCondition, tryDoAction } from "../actions/GameAction";
+import { InviteToIslamAction } from "../actions/InviteToIslamAction";
 import { MakeCoreAction } from "../actions/MakeCoreAction";
 import { RepayLoanAction } from "../actions/RepayLoanAction";
 import type { Province } from "../definitions/Province";
 import { ProvinceFlags } from "../definitions/ProvinceState";
+import { isChristianReligion } from "../definitions/Religion";
 import type { SaveGame } from "../GameState";
 import { getSettledTileAutonomy, setTileAutonomy } from "./AutonomyLogic";
 import { getProvinceTilesCached } from "./CacheLogic";
@@ -18,6 +20,7 @@ export function tickAutomation(province: Province, save: SaveGame): void {
    automaticallyPledgeSupport(province, save);
    automaticallyMakeCore(province, save);
    automaticallyEvangelize(province, save);
+   automaticallyInviteToIslam(province, save);
    automaticallyConvertCulture(province, save);
    automaticallyRepayLoans(province, save);
 }
@@ -87,7 +90,11 @@ function automaticallyMakeCore(province: Province, save: SaveGame): void {
 
 function automaticallyEvangelize(province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
-   if (!state || getTimedActionCooldownLeft("EvangelizeTile", province, save) > 0) {
+   if (
+      !state ||
+      !isChristianReligion(state.religion) ||
+      getTimedActionCooldownLeft("EvangelizeTile", province, save) > 0
+   ) {
       return;
    }
    const evangelizeMinor = hasFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeMinorReligions);
@@ -122,6 +129,27 @@ function automaticallyConvertCulture(province: Province, save: SaveGame): void {
          continue;
       }
       if (tryDoAction(ConvertCultureAction(tile, province, save), { headless: true }, province, save)) {
+         break;
+      }
+   }
+}
+
+function automaticallyInviteToIslam(province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (state?.religion !== "Islam" || getTimedActionCooldownLeft("InviteToIslam", province, save) > 0) {
+      return;
+   }
+   const inviteMinor = hasFlag(state.flags, ProvinceFlags.AutomaticallyInviteMinorReligionsToIslam);
+   const inviteTolerated = hasFlag(state.flags, ProvinceFlags.AutomaticallyInviteToleratedReligionsToIslam);
+   if (!inviteMinor && !inviteTolerated) {
+      return;
+   }
+   for (const tile of getProvinceTilesCached(province, save)) {
+      const status = getReligionStatus(tile, save);
+      if (!((status === "Minor" && inviteMinor) || (status === "Tolerated" && inviteTolerated))) {
+         continue;
+      }
+      if (tryDoAction(InviteToIslamAction(tile, province, save), { headless: true }, province, save)) {
          break;
       }
    }

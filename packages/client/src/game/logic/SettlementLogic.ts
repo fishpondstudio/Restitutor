@@ -9,6 +9,7 @@ import type { SaveGame } from "../GameState";
 import { isLand } from "../Land";
 import { MapGrid } from "../MapGrid";
 import type { ConditionChecks } from "./Calculation";
+import { addProvinceStat } from "./ProvinceLogic";
 import { getTileTerrain, isCoreTile } from "./TileLogic";
 
 export function* settleTileChecks(tile: Tile, province: Province, save: SaveGame): ConditionChecks {
@@ -47,6 +48,7 @@ export function startSettlement(tile: Tile, province: Province, save: SaveGame):
          duration: i * 5 * 12,
       });
    }
+   addProvinceStat("settleCount", 1, province, save);
    RefreshTiles.emit({ tiles: [tile], options: { indicator: true, visual: true } });
 }
 

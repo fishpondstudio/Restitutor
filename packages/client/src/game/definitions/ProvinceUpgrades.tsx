@@ -17,6 +17,43 @@ export interface IProvinceUpgrade {
 }
 
 const _ProvinceUpgrades = {
+   LevyJizya: {
+      name: () => $t(L.LevyJizya),
+      desc: () => $t(L.LevyJizyaDesc$1$2, "+10%", "-10%"),
+   },
+   AdministerZakat: {
+      name: () => $t(L.AdministerZakat),
+      modifiers: {
+         Stability: { type: "add", value: 10 },
+         TileOutput: { type: "multiply", value: -0.1 },
+      },
+   },
+   PayDiwanStipends: {
+      name: () => $t(L.PayDiwanStipends),
+      modifiers: {
+         WarPower: { type: "multiply", value: 0.1 },
+         LandTax: { type: "multiply", value: -0.1 },
+      },
+   },
+   ReformCoinage: {
+      name: () => $t(L.ReformCoinage),
+      modifiers: {
+         LandTax: { type: "multiply", value: 0.1 },
+         TradeProfit: { type: "multiply", value: 0.1 },
+         Stability: { type: "add", value: -10 },
+      },
+   },
+   SponsorScholars: {
+      name: () => $t(L.SponsorScholars),
+      modifiers: {
+         AdministrativePoint: { type: "add", value: 1 },
+         DiplomaticPoint: { type: "add", value: 1 },
+         MilitaryPoint: { type: "add", value: 1 },
+         LandTax: { type: "multiply", value: -0.1 },
+         TileOutput: { type: "multiply", value: -0.1 },
+         Manpower: { type: "multiply", value: -0.1 },
+      },
+   },
    RightOfPlunder: {
       name: () => $t(L.RightOfPlunder),
       desc: () => TimedActions.Pillage.desc?.() ?? "",
@@ -366,7 +403,7 @@ const _ProvinceUpgrades = {
    },
    DevelopedAdministration: {
       name: () => $t(L.DevelopedAdministration),
-      desc: () => $t(L.DevelopedAdministrationDesc$1$2, "-1%", "-50%"),
+      desc: () => $t(L.DevelopedAdministrationDesc$1$2, "-2%", "-50%"),
    },
    PeacefulRenown: {
       name: () => $t(L.PeacefulRenown),
@@ -498,10 +535,68 @@ const _ProvinceUpgrades = {
       name: () => $t(L.ApostolicTaxation),
       desc: () => $t(L.$1LandTaxForEachApostolicSeeWeCurrentlyOwn, "+10%"),
    },
+   NiloticAbundance: {
+      name: () => $t(L.NiloticAbundance),
+      desc: () => $t(L.NiloticAbundanceDesc$1$2, "+25%", Goods.grain.name()),
+   },
+   GrainCommerce: {
+      name: () => $t(L.GrainCommerce),
+      desc: () => $t(L.GrainCommerceDesc$1$2$3$4, "+10%", Goods.grain.name(), Goods.flour.name(), Goods.bread.name()),
+   },
+   AlexandrianScholarship: {
+      name: () => $t(L.AlexandrianScholarship),
+      desc: () => $t(L.AlexandrianScholarshipDesc$1$2, "−1%", "−50%"),
+   },
+   CoastalLogistics: {
+      name: () => $t(L.CoastalLogistics),
+      desc: () => $t(L.$1TileMaintenanceOnCoreCoastalTiles, "−20%"),
+   },
+   TriumphalRenown: {
+      name: () => $t(L.TriumphalRenown),
+      desc: () => $t(L.TriumphalRenownDesc$1$2, "+2%", "+30%"),
+   },
+   MandateOfAuthority: {
+      name: () => $t(L.MandateOfAuthority),
+      desc: () => $t(L.MandateOfAuthorityDesc$1$2, "+5%", "+25%"),
+   },
+   LittoralRevenues: {
+      name: () => $t(L.LittoralRevenues),
+      desc: () => $t(L.$1MonthlyGoldForEachCoastalEdgeOnCoreTiles, "+1"),
+   },
+   PrestigiousAmbition: {
+      name: () => $t(L.PrestigiousAmbition),
+      desc: () => $t(L.PrestigiousAmbitionDesc$1, "−20%"),
+   },
+   TriumphalCommerce: {
+      name: () => $t(L.TriumphalCommerce),
+      desc: () => $t(L.TriumphalCommerceDesc$1$2, "+2%", "+50%"),
+   },
+   CoastalAmbition: {
+      name: () => $t(L.CoastalAmbition),
+      desc: () => $t(L.CoastalAmbitionDesc$1, "20%"),
+   },
+   HarbourInfrastructure: {
+      name: () => $t(L.HarbourInfrastructure),
+      desc: () => $t(L.HarbourInfrastructureDesc$1$2$3, "+1", "−100%", Buildings.Harbour.name()),
+   },
+   AdministrativeExpansion: {
+      name: () => $t(L.AdministrativeExpansion),
+      desc: () => $t(L.Gain$1GoverningCapacityWhenCoringATile, "3"),
+   },
 } as const satisfies Record<string, IProvinceUpgrade>;
 
 export type ProvinceUpgrade = keyof typeof _ProvinceUpgrades;
 export const ProvinceUpgrades = _ProvinceUpgrades as Record<ProvinceUpgrade, IProvinceUpgrade>;
+
+export const IslamicPolicies = [
+   "LevyJizya",
+   "AdministerZakat",
+   "PayDiwanStipends",
+   "ReformCoinage",
+   "SponsorScholars",
+] as const satisfies readonly ProvinceUpgrade[];
+
+export type IslamicPolicy = (typeof IslamicPolicies)[number];
 
 export function hasProvinceUpgrade(upgrade: ProvinceUpgrade, province: Province, save: SaveGame): boolean {
    const state = save.state.provinces[province];
