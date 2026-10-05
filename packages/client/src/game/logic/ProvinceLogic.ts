@@ -698,6 +698,16 @@ export function getProgressToNextRestoration(province: Province, save: SaveGame)
    return (tileAnnexedAndCored % TilesPerRestoration) / TilesPerRestoration;
 }
 
+export function getAverageTileUpgrade(save: SaveGame): number {
+   let total = 0;
+   let count = 0;
+   for (const [tile, data] of save.state.tiles) {
+      total += data.infrastructure + data.production + data.population;
+      count += 3;
+   }
+   return Math.round(total / count);
+}
+
 export const TilesPerRestoration = 5;
 
 export function spawnProvince(province: Province, source: string, save: SaveGame): Tile[] {
@@ -713,10 +723,21 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
    state.unlockedTech = new Set(getBaselineTechs(save));
    save.state.provinces[province] = state;
    const provinces = new Set<Province>();
+   const averageTileUpgrade = getAverageTileUpgrade(save);
    tiles.forEach((tile) => {
       const data = save.state.tiles.get(tile);
       if (!data) {
-         settleTile(tile, province, save);
+         const tileData = settleTile(tile, province, save);
+         if (tileData) {
+            tileData.infrastructure = averageTileUpgrade;
+            tileData.production = averageTileUpgrade;
+            tileData.population = averageTileUpgrade;
+            if (tile === capital) {
+               tileData.infrastructure += 1;
+               tileData.production += 1;
+               tileData.population += 1;
+            }
+         }
       } else {
          provinces.add(data.province);
          data.coreProvinces.forEach((p) => {
