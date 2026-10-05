@@ -402,7 +402,7 @@ const _ProvinceUpgrades = {
    },
    DevelopedAdministration: {
       name: () => $t(L.DevelopedAdministration),
-      desc: () => $t(L.DevelopedAdministrationDesc$1$2, "-1%", "-50%"),
+      desc: () => $t(L.DevelopedAdministrationDesc$1$2, "-2%", "-50%"),
    },
    PeacefulRenown: {
       name: () => $t(L.PeacefulRenown),

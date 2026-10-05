@@ -68,3 +68,7 @@ Five Islamic Policies are available in the Culture and Religion panel:
 - Sponsor Scholars: Gain +1 monthly Administrative, Diplomatic, and Military Point at the cost of -10% Land Tax and Tile Output.
 
 Enacting or repealing a policy shares a 2-year cooldown across all Islamic Policies. Policies remain active until repealed and are removed if the province leaves Islam.
+
+## Balance Changes
+
+- Developed Administration (Achaia's Provincial Spirits) now reduces each tile's Governing Cost by 2% per Tile Upgrade (Infrastructure + Production + Population), up from 1%.

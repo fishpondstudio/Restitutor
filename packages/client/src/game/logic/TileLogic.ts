@@ -91,7 +91,7 @@ export function getTileGoverningCost(tile: Tile, save: SaveGame): IValueBreakdow
    if (hasProvinceUpgrade("DevelopedAdministration", data.province, save)) {
       breakdown.multiply.push({
          name: ProvinceUpgrades.DevelopedAdministration.name(),
-         value: -Math.min((data.infrastructure + data.production + data.population) * 0.01, 0.5),
+         value: -Math.min((data.infrastructure + data.production + data.population) * 0.02, 0.5),
       });
    }
    if (data.autonomy > 0) {
