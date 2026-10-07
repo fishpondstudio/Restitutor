@@ -99,3 +99,4 @@ All effects last 24 months. These actions share a 12-month cooldown across all t
 ## QoL
 
 - The tile panel now lists Tile Maintenance and Building Maintenance separately under expenses.
+- Restoration bonuses now require selecting a bonus and clicking Confirm, helping prevent accidental choices.
