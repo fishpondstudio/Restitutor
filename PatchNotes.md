@@ -91,6 +91,10 @@ All effects last 24 months. These actions share a 12-month cooldown across all t
 - Developed Administration (Achaia's Provincial Spirits) now reduces each tile's Governing Cost by 2% per Tile Upgrade (Infrastructure + Production + Population), up from 1%.
 - Starting General Skill Points are now excluded from the 50% skill point carryover when a general leaves command. All skill upgrades still reset.
 
+## NPC Changes
+
+- AI provinces now prefer to upgrade a tile's Infrastructure, Production, or Population evenly, keeping development balanced and limiting uneven-upgrade maintenance penalties.
+
 ## QoL
 
 - The tile panel now lists Tile Maintenance and Building Maintenance separately under expenses.

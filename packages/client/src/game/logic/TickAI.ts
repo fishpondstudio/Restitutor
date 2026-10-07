@@ -120,13 +120,14 @@ export function tickAI(save: SaveGame): void {
          return;
       }
       doRegionalCapital(province, save);
-      const tiles = getProvinceTilesCached(province, save).flatMap((tile) => {
-         const tileData = save.state.tiles.get(tile);
-         return tileData ? [[tile, tileData] as const] : [];
-      });
-      tiles.sort(([tileA, tileDataA], [tileB, tileDataB]) => {
-         return tileDataA.upgradeCount - tileDataB.upgradeCount;
-      });
+      const tilesSorted = getProvinceTilesCached(province, save)
+         .flatMap((tile) => {
+            const tileData = save.state.tiles.get(tile);
+            return tileData ? [[tile, tileData] as const] : [];
+         })
+         .sort(([tileA, tileDataA], [tileB, tileDataB]) => {
+            return tileDataA.upgradeCount - tileDataB.upgradeCount;
+         });
 
       let remainingCapacity =
          getProvinceGoverningCapacity(province, save).value - getProvinceGoverningCost(province, save).value;
@@ -142,7 +143,7 @@ export function tickAI(save: SaveGame): void {
       } else {
          administrativeActions.delete("Research");
       }
-      for (const [tile, tileData] of tiles) {
+      for (const [tile, tileData] of tilesSorted) {
          if (tileData.province === province && !tileData.coreProvinces.has(province)) {
             const action = MakeCoreAction(tile, province, save);
             if (action.cost && !hasEnoughProvinceResources(action.cost, province, save)) {
@@ -168,9 +169,14 @@ export function tickAI(save: SaveGame): void {
             }
             break;
          case "Upgrade":
-            for (const [tile, tileData] of tiles) {
+            for (const [tile, tileData] of tilesSorted) {
                if (remainingCapacity <= 1) {
                   break;
+               }
+               if (
+                  tileData.infrastructure > Math.min(tileData.infrastructure, tileData.production, tileData.population)
+               ) {
+                  continue;
                }
                if (
                   tryDoAIHeadlessAction(UpgradeInfrastructureAction(tile, province, save), "Upgrade", province, save)
@@ -199,9 +205,12 @@ export function tickAI(save: SaveGame): void {
             }
             break;
          case "Upgrade":
-            for (const [tile, tileData] of tiles) {
+            for (const [tile, tileData] of tilesSorted) {
                if (remainingCapacity <= 1) {
                   break;
+               }
+               if (tileData.production > Math.min(tileData.infrastructure, tileData.production, tileData.population)) {
+                  continue;
                }
                if (tryDoAIHeadlessAction(UpgradeProductionAction(tile, province, save), "Upgrade", province, save)) {
                   --remainingCapacity;
@@ -227,7 +236,7 @@ export function tickAI(save: SaveGame): void {
       if (!hasEnoughProvinceResources({ military: warMilitaryPointCost }, province, save)) {
          militaryActions.clear();
       }
-      for (const [tile, tileData] of tiles) {
+      for (const [tile, tileData] of tilesSorted) {
          if (tileData.rebellion >= 10) {
             const action = CrackDownAction(tile, province, save);
             if (action.cost && !hasEnoughProvinceResources(action.cost, province, save)) {
@@ -250,12 +259,15 @@ export function tickAI(save: SaveGame): void {
             }
             break;
          case "Upgrade":
-            for (const [tile, tileData] of tiles) {
+            for (const [tile, tileData] of tilesSorted) {
                if (getTileUnrest(tile, save).value > -3) {
                   continue;
                }
                if (remainingCapacity <= 1) {
                   break;
+               }
+               if (tileData.population > Math.min(tileData.infrastructure, tileData.production, tileData.population)) {
+                  continue;
                }
                if (tryDoAIHeadlessAction(UpgradePopulationAction(tile, province, save), "Upgrade", province, save)) {
                   --remainingCapacity;
@@ -345,7 +357,7 @@ export function tickAI(save: SaveGame): void {
          save,
       );
       if (getTimedActionCooldownLeft("ConvertCulture", province, save) <= 0) {
-         for (const [tile, tileData] of tiles) {
+         for (const [tile, tileData] of tilesSorted) {
             if (tileData.coreProvinces.has(province) && tileData.culture !== state.culture) {
                if (
                   tryDoAIHeadlessAction(ConvertCultureAction(tile, province, save), "ConvertCulture", province, save)
