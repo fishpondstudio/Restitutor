@@ -100,3 +100,4 @@ All effects last 24 months. These actions share a 12-month cooldown across all t
 
 - The tile panel now lists Tile Maintenance and Building Maintenance separately under expenses.
 - Restoration bonuses now require selecting a bonus and clicking Confirm, helping prevent accidental choices.
+- Local spouse-search tooltips now show each social class's current Influence, Influence percentage, and Loyalty.

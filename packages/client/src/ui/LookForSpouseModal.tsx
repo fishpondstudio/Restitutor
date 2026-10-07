@@ -13,6 +13,7 @@ import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
+import { SocialClassInfluenceLoyalty } from "./SocialClassInfluenceLoyalty";
 import { Grid3 } from "./UIConstant";
 
 export function LookForSpouseModal({ family, province }: { family?: IFamily; province?: Province }): React.ReactNode {
@@ -187,6 +188,7 @@ function LocalSpouseButton({ family, socialClass }: { family: IFamily; socialCla
                   )}
                </div>
                {element}
+               <SocialClassInfluenceLoyalty socialClass={socialClass} />
             </>
          )}
          action={() => LookForLocalSpouseAction(socialClass, family, G.save.state.playerProvince, G.save)}

@@ -30,6 +30,7 @@ import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";
+import { SocialClassInfluenceLoyalty } from "./SocialClassInfluenceLoyalty";
 import { Grid2 } from "./UIConstant";
 
 export function SocialClassSingletonModal(): React.ReactNode {
@@ -139,24 +140,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                            fixedWidth
                            label={() => (
                               <>
-                                 <div className="h2">{$t(L.$1Class, SocialClass[key].name())}</div>
-                                 <div className="row mx10 my5">
-                                    <div className="f1">
-                                       {$t(L.Influence)}/{$t(L.Percentage)}
-                                    </div>
-                                    <div>
-                                       {formatNumber(influence)}/
-                                       {formatPercent(
-                                          getSocialClassInfluencePercentage(key, G.save.state.playerProvince, G.save),
-                                       )}
-                                    </div>
-                                    <div className="mi xs text-primary">whatshot</div>
-                                 </div>
-                                 <div className="row mx10 my5">
-                                    <div className="f1">{$t(L.Loyalty)}</div>
-                                    <div>{formatNumber(loyalty)}</div>
-                                    <div className="mi xs text-primary">favorite</div>
-                                 </div>
+                                 <SocialClassInfluenceLoyalty socialClass={key} />
                                  <div className="h2">{$t(L.WhenDominant)}</div>
                                  {mapOf(SocialClass[key].dominant, (modifier, data) => {
                                     return (
