@@ -12,7 +12,7 @@ export const PersonFlags = {
 export type PersonFlag = ValueOf<typeof PersonFlags>;
 
 export interface IPerson extends GovernorStats {
-   name: [string, string, string];
+   name: string[];
    age: number;
    flag: PersonFlag;
    traits: Set<PersonTrait>;

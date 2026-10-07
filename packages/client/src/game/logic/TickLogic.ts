@@ -11,7 +11,6 @@ import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { GameStateUpdated, GameTimeUpdated } from "../Events";
 import type { SaveGame } from "../GameState";
-import { randomMaleName } from "../RomanNames";
 import { fixRelations } from "./DiplomacyLogic";
 import { getGameDate, monthToDate, tickToMonth, tickToYear } from "./GameDateTime";
 import { getChristianityYearly, getIslamInfluenceYearly } from "./InternalAffairsLogic";
@@ -24,6 +23,7 @@ import {
    setProvinceStat,
 } from "./ProvinceLogic";
 import { addProvinceResource, resetProvinceResource, trySpendProvinceResources } from "./ResourceLogic";
+import { getNameGenerator } from "./ScenarioLogic";
 import { addSocialClassInfluence, SocialClassInfluenceYearly } from "./SocialClassLogic";
 import { tickAI } from "./TickAI";
 import { tickProvince } from "./TickProvince";
@@ -178,7 +178,10 @@ function tickConsulElection(save: SaveGame) {
    });
 
    save.state.senate.votes.clear();
-   save.state.senate.consulCandidates = range(0, ConsulCandidatesCount).map(() => randomMaleName().join(" "));
+   const nameGenerator = getNameGenerator(save.state.scenario);
+   save.state.senate.consulCandidates = range(0, ConsulCandidatesCount).map(() =>
+      nameGenerator.randomName("male").join(" "),
+   );
 }
 
 export function tickWar(war: IWar, save: SaveGame): void {

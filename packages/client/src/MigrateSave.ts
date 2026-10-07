@@ -13,6 +13,7 @@ import { emptyRelation, fixRelations, getRelations } from "./game/logic/Diplomac
 import { ensureHeir } from "./game/logic/GovernorLogic";
 import { initProvince, setProvinceStat } from "./game/logic/ProvinceLogic";
 import { provinceResourceOf } from "./game/logic/ResourceLogic";
+import { getNameGenerator } from "./game/logic/ScenarioLogic";
 import { socialClassInfluenceStat, socialClassLoyaltyStat } from "./game/logic/SocialClassLogic";
 
 export function migrateSave(save: SaveGame): void {
@@ -25,7 +26,7 @@ export function migrateSave(save: SaveGame): void {
       history.scenario ??= "Rome192";
    }
    forEach(save.state.provinces, (province, data) => {
-      data = Object.assign(initProvince(province, data.capital), data);
+      data = Object.assign(initProvince(province, data.capital, getNameGenerator(save.state.scenario)), data);
       save.state.provinces[province] = data;
       if (save.options.version === 10) {
          for (const type of ["InfantryUnitPower", "RangedUnitPower", "CavalryUnitPower"] as const) {

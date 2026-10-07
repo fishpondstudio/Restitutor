@@ -1,4 +1,5 @@
 import { randOne } from "@project/shared/src/utils/Helper";
+import type { INameGenerator } from "./scenarios/Scenarios";
 
 const Male1 = [
    "Gaius",
@@ -553,10 +554,21 @@ const Female3 = [
 ];
 
 // Praenomen, Nomen, Cognomen
-export function randomMaleName(nomen?: string, random = Math.random): [string, string, string] {
+function randomMaleName(nomen?: string, random = Math.random): [string, string, string] {
    return [randOne(Male1, random), nomen ?? randOne(Male2, random), randOne(Male3, random)];
 }
 
-export function randomFemaleName(nomen?: string, random = Math.random): [string, string, string] {
+function randomFemaleName(nomen?: string, random = Math.random): [string, string, string] {
    return [randOne(Female1, random), nomen ?? randOne(Female2, random), randOne(Female3, random)];
 }
+
+function getFamilyName(name: string[]): string {
+   return name[1];
+}
+
+export const RomanNameGenerator = {
+   getFamilyName,
+   randomName(gender, familyName, random) {
+      return gender === "male" ? randomMaleName(familyName, random) : randomFemaleName(familyName, random);
+   },
+} satisfies INameGenerator;

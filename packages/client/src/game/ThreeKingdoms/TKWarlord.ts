@@ -1,7 +1,7 @@
 import type { Province } from "../definitions/Province";
 import type { TKCharacter } from "./TKCharacter";
 
-export const TKWarlords = [
+const _TKWarlords = [
    "LiJue",
    "YuanShao",
    "CaoCao",
@@ -26,29 +26,34 @@ export const TKWarlords = [
    "YanBaihu",
 ] as const satisfies readonly Province[];
 
-export type TKWarlord = (typeof TKWarlords)[number];
+export type TKWarlord = (typeof _TKWarlords)[number];
+export const TKWarlords = new Set<TKWarlord>(_TKWarlords);
+
+export interface ITKWarlordCharacter {
+   character: TKCharacter;
+}
 
 export const TKWarlordCharacters = {
-   LiJue: "LiJue",
-   YuanShao: "YuanShao",
-   CaoCao: "CaoCao",
-   LuBu: "LuBu",
-   LiuBei: "LiuBei",
-   LiuBiao: "LiuBiao",
-   SunCe: "SunCe",
-   LiuZhang: "LiuZhang",
-   YuanShu: "YuanShu",
-   GongsunZan: "GongsunZan",
-   GongsunDu: "GongsunDu",
-   TaoQian: "TaoQian",
-   ZhangLu: "ZhangLu",
-   ZhangYang: "ZhangYang",
-   MaTeng: "MaTeng",
-   KongRong: "KongRong",
-   HanSui: "HanSui",
-   ShiXie: "ShiXie",
-   ZhangYan: "ZhangYan",
-   LiuYao: "LiuYao",
-   WangLang: "WangLang",
-   YanBaihu: "YanBaihu",
-} satisfies Record<TKWarlord, TKCharacter>;
+   LiJue: { character: "LiJue" },
+   YuanShao: { character: "YuanShao" },
+   CaoCao: { character: "CaoCao" },
+   LuBu: { character: "LuBu" },
+   LiuBei: { character: "LiuBei" },
+   LiuBiao: { character: "LiuBiao" },
+   SunCe: { character: "SunCe" },
+   LiuZhang: { character: "LiuZhang" },
+   YuanShu: { character: "YuanShu" },
+   GongsunZan: { character: "GongsunZan" },
+   GongsunDu: { character: "GongsunDu" },
+   TaoQian: { character: "TaoQian" },
+   ZhangLu: { character: "ZhangLu" },
+   ZhangYang: { character: "ZhangYang" },
+   MaTeng: { character: "MaTeng" },
+   KongRong: { character: "KongRong" },
+   HanSui: { character: "HanSui" },
+   ShiXie: { character: "ShiXie" },
+   ZhangYan: { character: "ZhangYan" },
+   LiuYao: { character: "LiuYao" },
+   WangLang: { character: "WangLang" },
+   YanBaihu: { character: "YanBaihu" },
+} satisfies Record<TKWarlord, ITKWarlordCharacter>;

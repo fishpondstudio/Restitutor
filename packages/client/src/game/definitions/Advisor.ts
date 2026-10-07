@@ -3,7 +3,7 @@ import { $t, L } from "../../utils/i18n";
 import { finalizeBreakdown, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
 import { attachModifier } from "../logic/ModifierLogic";
-import { randomMaleName } from "../RomanNames";
+import type { INameGenerator } from "../scenarios/Scenarios";
 import { AdvisorTraits, type PersonTrait } from "./PersonTrait";
 import type { Province } from "./Province";
 
@@ -13,12 +13,12 @@ export interface IAdvisor {
    traits: Set<PersonTrait>;
 }
 
-export function initAdvisors(): { selected: IAdvisor | null; candidates: IAdvisor[] } {
+export function initAdvisors(nameGenerator: INameGenerator): { selected: IAdvisor | null; candidates: IAdvisor[] } {
    return {
       selected: null,
       candidates: range(1, 4).map((i) => {
          const traits = shuffle(AdvisorTraits.slice(0)).slice(0, i);
-         return { name: randomMaleName().join(" "), level: i, traits: new Set(traits) };
+         return { name: nameGenerator.randomName("male").join(" "), level: i, traits: new Set(traits) };
       }),
    };
 }

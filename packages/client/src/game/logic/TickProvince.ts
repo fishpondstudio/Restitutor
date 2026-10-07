@@ -70,6 +70,7 @@ import {
    setProvinceStat,
 } from "./ProvinceLogic";
 import { addProvinceResource, getProvinceResource, spendProvinceResource } from "./ResourceLogic";
+import { getNameGenerator } from "./ScenarioLogic";
 import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
@@ -176,7 +177,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
                showGameEventModal(NewGovernorModal, { province, governor: state.governor });
             }
          } else {
-            state.governor = generateRandomGovernor(province, save.state.month);
+            state.governor = generateRandomGovernor(province, getNameGenerator(save.state.scenario), save.state.month);
             applyGameEffect(GovernorWithoutHeirEffect, $t(L.$1Event, $t(L.ANewGovernor)), province, save);
             if (province === save.state.playerProvince) {
                showGameEventModal(GovernorWithoutHeirModal, { province, governor: state.governor });

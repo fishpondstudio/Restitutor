@@ -21,10 +21,10 @@ import {
    MinimumOffspringAge,
    removeEmptyFamily,
 } from "../logic/GovernorLogic";
+import { getNameGenerator } from "../logic/ScenarioLogic";
 import { addSocialClassLoyalty } from "../logic/SocialClassLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { requireHigherPrestige, requireMinimumAttitude } from "../logic/TreatyLogic";
-import { randomFemaleName } from "../RomanNames";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type ICondition, type IGameAction } from "./GameAction";
 
@@ -53,7 +53,7 @@ export function LookForLocalSpouseAction(
          if (!family.female && family.male) {
             family.female = ensureTraits({
                traits: new Set(),
-               name: randomFemaleName(),
+               name: getNameGenerator(save.state.scenario).randomName("female"),
                age: clamp(randInt(family.male.age - 5, family.male.age + 5 + 1), 0, Number.POSITIVE_INFINITY),
                administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
                diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
@@ -158,7 +158,7 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
    if (!state) {
       return EmptyGameAction;
    }
-   const name = randomFemaleName();
+   const name = getNameGenerator(save.state.scenario).randomName("female");
    return {
       condition: finalizeCondition([
          ...timedActionConditions({ action: "TakeLover" }, province, save),

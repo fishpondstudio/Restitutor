@@ -24,8 +24,9 @@ import type { Province } from "../definitions/Province";
 import { isChristianReligion } from "../definitions/Religion";
 import { applyGameEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
-import { randomFemaleName, randomMaleName } from "../RomanNames";
+import type { INameGenerator } from "../scenarios/Scenarios";
 import { onGeneralEnded } from "./ArmyLogic";
+import { getNameGenerator } from "./ScenarioLogic";
 
 export const GovernorMinIncl = 3;
 export const GovernorMaxIncl = 6;
@@ -158,12 +159,16 @@ export function getOffspringChance(
    return finalizeBreakdown(breakdown);
 }
 
-export function generateRandomGovernor(province: Province, joinMonth = 0): IGovernorFamily {
+export function generateRandomGovernor(
+   province: Province,
+   nameGenerator: INameGenerator,
+   joinMonth = 0,
+): IGovernorFamily {
    return {
       id: uuid4(),
       male: ensureTraits({
          traits: new Set(),
-         name: randomMaleName(),
+         name: nameGenerator.randomName("male"),
          flag: PersonFlags.None,
          administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
          diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
@@ -303,6 +308,8 @@ function tickFamilyMembers(
 
    const male = governor.male;
    if (male) {
+      const nameGenerator = getNameGenerator(save.state.scenario);
+      const familyName = nameGenerator.getFamilyName(male.name);
       const females = governor.female ? [governor.female, ...governor.concubines] : governor.concubines;
       for (const female of females) {
          const offspringChance = getOffspringChance(governor, female, province, save).value;
@@ -317,7 +324,7 @@ function tickFamilyMembers(
          const [diplomaticMin, diplomaticMax] = getOffspringSkillRangeIncl(male.diplomatic, female.diplomatic);
          const [militaryMin, militaryMax] = getOffspringSkillRangeIncl(male.military, female.military);
          const person: IPerson = ensureTraits({
-            name: isMale ? randomMaleName(male.name[1]) : randomFemaleName(male.name[1]),
+            name: nameGenerator.randomName(isMale ? "male" : "female", familyName),
             flag: PersonFlags.None,
             age: 0,
             traits: new Set(),

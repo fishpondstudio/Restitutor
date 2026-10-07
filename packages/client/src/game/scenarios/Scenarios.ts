@@ -9,6 +9,7 @@ export interface IScenario {
    startDate: Date;
    provinces: Set<Province>;
    events: Set<GameEvent>;
+   nameGenerator: INameGenerator;
    provinceResourceNames?: Partial<Record<ProvinceResource, () => string>>;
 }
 
@@ -27,4 +28,9 @@ export function getInitialTiles(scenario: Scenario): Map<Tile, Province> {
       }
    }
    return tiles;
+}
+
+export interface INameGenerator {
+   getFamilyName: (name: string[]) => string;
+   randomName(gender: "male" | "female", familyName?: string, random?: () => number): string[];
 }

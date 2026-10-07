@@ -42,6 +42,7 @@ import { GameStateUpdated, RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
+import type { INameGenerator } from "../scenarios/Scenarios";
 import { getArmyMaintenanceCost, getWarPower, getWarPowerPerTile } from "./ArmyLogic";
 import { getBuildingMaintenanceCost } from "./BuildingLogic";
 import { cacheProvince, getProvinceCoreTilesCached, getProvinceTilesCached } from "./CacheLogic";
@@ -54,6 +55,7 @@ import { getCulturalCohesion, getReligiousCohesion } from "./InternalAffairsLogi
 import { annexTiles } from "./MissionLogic";
 import { addModifier, attachModifier, forEachModifier } from "./ModifierLogic";
 import { addProvinceResource, getProvinceResource } from "./ResourceLogic";
+import { getNameGenerator } from "./ScenarioLogic";
 import { settleTile } from "./SettlementLogic";
 import { getBaselineTechs } from "./TechLogic";
 import {
@@ -344,7 +346,7 @@ function _getProvinceGoverningCost(province: Province, save: SaveGame): IValueBr
    return finalizeBreakdown(breakdown);
 }
 
-export function initProvince(province: Province, capital: Tile): IProvince {
+export function initProvince(province: Province, capital: Tile, nameGenerator: INameGenerator): IProvince {
    return {
       culture: Province[province].culture,
       toleratedCultures: new Set(),
@@ -356,11 +358,11 @@ export function initProvince(province: Province, capital: Tile): IProvince {
       resources: {
          ...structuredClone(ProvinceResources),
       },
-      governor: generateRandomGovernor(province),
+      governor: generateRandomGovernor(province, nameGenerator),
       advisors: {
-         administrative: initAdvisors(),
-         diplomatic: initAdvisors(),
-         military: initAdvisors(),
+         administrative: initAdvisors(nameGenerator),
+         diplomatic: initAdvisors(nameGenerator),
+         military: initAdvisors(nameGenerator),
       },
       focus: "administrative",
       capital: capital,
@@ -719,7 +721,7 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
       return [];
    }
    const { capital, tiles } = Province[province];
-   const state = initProvince(province, capital);
+   const state = initProvince(province, capital, getNameGenerator(save.state.scenario));
    state.unlockedTech = new Set(getBaselineTechs(save));
    save.state.provinces[province] = state;
    const provinces = new Set<Province>();
