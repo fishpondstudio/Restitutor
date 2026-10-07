@@ -88,5 +88,17 @@ All effects last 24 months. These actions share a 12-month cooldown across all t
 
 ## Balance Changes
 
+- The annexation cost discount from patronage duration now grows by 0.5 percentage points per month, down from 1. The 90% cap now takes 15 years to reach instead of 7.5 years.
 - Developed Administration (Achaia's Provincial Spirits) now reduces each tile's Governing Cost by 2% per Tile Upgrade (Infrastructure + Production + Population), up from 1%.
 - Starting General Skill Points are now excluded from the 50% skill point carryover when a general leaves command. All skill upgrades still reset.
+
+## NPC Changes
+
+- AI provinces now prefer to upgrade a tile's Infrastructure, Production, or Population evenly, keeping development balanced and limiting uneven-upgrade maintenance penalties.
+
+## QoL
+
+- A new "Victory Is Ours" event popup is shown after winning a war.
+- The tile panel now lists Tile Maintenance and Building Maintenance separately under expenses.
+- Restoration bonuses now require selecting a bonus and clicking Confirm, helping prevent accidental choices.
+- Local spouse-search tooltips now show each social class's current Influence, Influence percentage, and Loyalty.

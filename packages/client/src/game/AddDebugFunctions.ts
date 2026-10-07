@@ -12,6 +12,7 @@ import { InvaderSueForWhitePeaceModal } from "../ui/InvaderSueForWhitePeaceModal
 import { MobilePurchaseSingletonModal } from "../ui/MobilePurchaseSingletonModal";
 import { RestorationBonusModal } from "../ui/RestorationBonusModal";
 import { WarEndedModal } from "../ui/WarEndedModal";
+import { WarWonModal } from "../ui/WarWonModal";
 import { G, isDev } from "../utils/Global";
 import { renderMap } from "./ASCIIMapRenderer";
 import { type IFamily, PersonFlags } from "./definitions/Family";
@@ -163,6 +164,10 @@ export function addDebugFunctions(): void {
    // @ts-expect-error
    globalThis.warEnded = () => {
       showPanel(WarEndedModal, { war: wasAsCoalition });
+   };
+   // @ts-expect-error
+   globalThis.warWon = () => {
+      showPanel(WarWonModal, { war: warOnUs });
    };
    // @ts-expect-error
    globalThis.undoTutorial = (number = 1) => {

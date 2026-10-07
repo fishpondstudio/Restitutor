@@ -5420,4 +5420,9 @@ export const DE = {
    ConveneAShura: "Eine Schura einberufen",
    SponsorFurusiyya: "Furusiyya fördern",
    RallyTheFaithful: "Die Gläubigen sammeln",
+   VictoryIsOurs: "Der Sieg ist unser",
+   VictoryIsOursDesc: "Staub hängt über der Straße, als sich die Gesandten des Feindes unserem Lager nähern. Hinter unseren Standarten lehnen müde Soldaten an ihren Schilden und sehen ihnen nach. Unser Heer hat gesiegt; die Friedensbedingungen sind noch nicht niedergeschrieben.",
+   ReviewTheDetailsOfThe$1$2Campaign: "Die Einzelheiten des Feldzugs <i>$1-$2</i> überprüfen.",
+   LetUsReviewTheCampaign: "Lasst uns den Feldzug überprüfen",
+   LetUsSetTheTermsOfPeace: "Lasst uns die Friedensbedingungen festlegen",
 };

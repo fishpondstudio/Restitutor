@@ -1,6 +1,7 @@
+import { Transition } from "@mantine/core";
 import { keysOf, numberToRoman, shuffle } from "@project/shared/src/utils/Helper";
 import { srand } from "@project/shared/src/utils/Random";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { RestorationBonus } from "../game/definitions/RestorationBonus";
 import { GameStateUpdated } from "../game/Events";
 import { applyGameEffect, getGameEffectDesc } from "../game/GameEffect";
@@ -14,6 +15,7 @@ import { Grid3 } from "./UIConstant";
 
 export function RestorationBonusModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
+   const [selected, setSelected] = useState<RestorationBonus | null>(null);
    const candidates = useMemo(
       () =>
          shuffle(
@@ -30,32 +32,33 @@ export function RestorationBonusModal(): React.ReactNode {
          <div className="h5" />
          <div className="m10" style={Grid3}>
             {candidates.map((bonus) => (
-               <ModifierComp key={bonus} bonus={bonus} />
+               <ModifierComp
+                  key={bonus}
+                  bonus={bonus}
+                  selected={selected === bonus}
+                  onClick={() => setSelected(bonus)}
+               />
             ))}
          </div>
       </div>
    );
 }
 
-function ModifierComp({ bonus }: { bonus: RestorationBonus }): React.ReactNode {
+function ModifierComp({
+   bonus,
+   selected,
+   onClick,
+}: {
+   bonus: RestorationBonus;
+   selected: boolean;
+   onClick: () => void;
+}): React.ReactNode {
    const def = RestorationBonus[bonus];
    return (
       <div
          className="panel panel-hover pointer"
          style={{ position: "relative", overflow: "hidden", maxHeight: "70vh" }}
-         onClick={() => {
-            hideModal();
-
-            addProvinceStat("usedRestoration", 1, G.save.state.playerProvince, G.save);
-            const currentUsed = getProvinceStat("usedRestoration", G.save.state.playerProvince, G.save);
-            applyGameEffect(
-               def.effect,
-               $t(L.Restoration$1, numberToRoman(currentUsed)),
-               G.save.state.playerProvince,
-               G.save,
-            );
-            GameStateUpdated.emit();
-         }}
+         onClick={onClick}
       >
          <img src={def.image.url} className="display-block w100" />
          <div
@@ -81,6 +84,31 @@ function ModifierComp({ bonus }: { bonus: RestorationBonus }): React.ReactNode {
             className="text-center text-roman"
          >
             {getGameEffectDesc(def.effect, G.save.state.playerProvince, G.save)}
+            <Transition mounted={selected} transition="fade-up">
+               {(styles) => (
+                  <button
+                     style={styles}
+                     className="btn py2 w100 mt10 primary text-lg"
+                     onClick={() => {
+                        if (!selected) {
+                           return;
+                        }
+                        hideModal();
+                        addProvinceStat("usedRestoration", 1, G.save.state.playerProvince, G.save);
+                        const currentUsed = getProvinceStat("usedRestoration", G.save.state.playerProvince, G.save);
+                        applyGameEffect(
+                           def.effect,
+                           $t(L.Restoration$1, numberToRoman(currentUsed)),
+                           G.save.state.playerProvince,
+                           G.save,
+                        );
+                        GameStateUpdated.emit();
+                     }}
+                  >
+                     {$t(L.Confirm)}
+                  </button>
+               )}
+            </Transition>
          </div>
       </div>
    );

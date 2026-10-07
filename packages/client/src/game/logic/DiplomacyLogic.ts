@@ -325,7 +325,7 @@ export function getAnnexCostDiscount(province: Province, clientProvince: Provinc
       breakdown.add.push({
          name: $t(L.PatronageDurationMax$1, "90%"),
          desc: $t(L.TheyHaveBeenOurClientFor$1Months, formatNumber(patronMonths)),
-         value: clamp(patronMonths * 0.01, 0, 0.9),
+         value: clamp(patronMonths * 0.005, 0, 0.9),
       });
    }
    attachModifier("AnnexCostDiscount", breakdown, province, save);
