@@ -5338,4 +5338,9 @@ export const TR = {
    ConveneAShura: "Convene a Shura",
    SponsorFurusiyya: "Sponsor Furusiyya",
    RallyTheFaithful: "Rally the Faithful",
+   VictoryIsOurs: "Victory Is Ours",
+   VictoryIsOursDesc: "Dust hangs over the road as the enemy’s envoys approach our camp. Behind our standards, weary soldiers lean on their shields and watch them pass. Our army has prevailed; the terms of peace remain unwritten.",
+   ReviewTheDetailsOfThe$1$2Campaign: "Review the details of the <i>$1-$2</i> campaign.",
+   LetUsReviewTheCampaign: "Let us review the campaign",
+   LetUsSetTheTermsOfPeace: "Let us set the terms of peace",
 };

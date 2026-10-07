@@ -5,11 +5,13 @@ import { ChronicleModal } from "../../ui/ChronicleModal";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { GreatWorkCompletedModal } from "../../ui/GreatWorkCompletedModal";
 import { playSound } from "../../ui/Sound";
+import { WarWonModal } from "../../ui/WarWonModal";
 import { G, GameFlags } from "../../utils/Global";
 import { GreatWork } from "../definitions/GreatWork";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { GameStateUpdated, GameTimeUpdated } from "../Events";
+import { showGameEventModal } from "../events/GameEventLogic";
 import type { SaveGame } from "../GameState";
 import { randomMaleName } from "../RomanNames";
 import { fixRelations } from "./DiplomacyLogic";
@@ -249,5 +251,6 @@ export function tickWar(war: IWar, save: SaveGame): void {
    }
    if (war.actualWarScore >= war.requiredWarScore && war.attacker === save.state.playerProvince) {
       playSound("victory");
+      showGameEventModal(WarWonModal, { war });
    }
 }

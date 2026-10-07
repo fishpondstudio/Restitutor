@@ -5082,4 +5082,9 @@ export const ZH_CN = {
    ConveneAShura: "召集舒拉会议",
    SponsorFurusiyya: "资助骑士武艺",
    RallyTheFaithful: "号召信徒",
+   VictoryIsOurs: "胜利属于我们",
+   VictoryIsOursDesc: "尘土笼罩着道路，敌方使节正向我们的营地走来。在我们的军旗后方，疲惫的士兵倚着盾牌，看着他们经过。我们的军队已取得胜利；和平条款尚未拟定。",
+   ReviewTheDetailsOfThe$1$2Campaign: "查看<i>$1-$2</i>战役的详情。",
+   LetUsReviewTheCampaign: "让我们回顾这场战役",
+   LetUsSetTheTermsOfPeace: "让我们制定和平条款",
 };
