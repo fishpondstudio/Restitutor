@@ -25,6 +25,7 @@ import { TimedActions } from "../definitions/TimedAction";
 import type { SaveGame } from "../GameState";
 import { isLand, terrainOf } from "../Land";
 import { MapGrid } from "../MapGrid";
+import { getBuildingMaintenanceCost } from "./BuildingLogic";
 import { cacheTile, cacheTileEvaluation, isConnectedToCapital } from "./CacheLogic";
 import { defineValueGetter, type EvaluationMode, ValueCalculation } from "./Calculation";
 import { EcumenicalCouncilPct } from "./EcumenicalCouncilLogic";
@@ -1240,4 +1241,15 @@ export function getTotalTileUpgrade(tile: Tile, save: SaveGame): number {
       return 0;
    }
    return data.infrastructure + data.production + data.population;
+}
+
+export function getTileBuildingMaintenance(tile: Tile, save: SaveGame): number {
+   const tileData = save.state.tiles.get(tile);
+   if (!tileData) {
+      return 0;
+   }
+   return Array.from(tileData.buildings).reduce(
+      (acc, building) => acc + getBuildingMaintenanceCost(building, tile, tileData.province, save).value,
+      0,
+   );
 }

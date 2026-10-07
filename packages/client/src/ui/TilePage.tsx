@@ -26,6 +26,7 @@ import { getProvinceName, getProvinceStat } from "../game/logic/ProvinceLogic";
 import {
    getCultureStatus,
    getReligionStatus,
+   getTileBuildingMaintenance,
    getTileDefense,
    getTileGoodsTax,
    getTileGoverningCost,
@@ -50,7 +51,7 @@ import { CultureReligionPage } from "./CultureReligionPage";
 import { CircleComp } from "./common/CircleComp";
 import { showPanel } from "./common/ShowPanel";
 import { SidebarComp, SidebarImageHeader } from "./common/SidebarComp";
-import { colorNumberReverse } from "./components/ColorNumber";
+import { colorNumber, colorNumberReverse } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { DiplomacyPage } from "./DiplomacyPage";
@@ -284,9 +285,9 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
          <BreakdownTooltip breakdown={tileLandTax}>
             <div className="row g5 my5 mx10">
                <div>{$t(L.LandTax)}</div>
-               <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
                <div className="f1" />
-               <div className="text-green">{formatNumber(tileLandTax.value)}</div>
+               <div>{colorNumber(tileLandTax.value)}</div>
+               <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
             </div>
          </BreakdownTooltip>
          <div className="divider my10" />
@@ -343,23 +344,27 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
                >
                   <div className="row g5 my5">
                      <div>{$t(L.GoodsTax)} </div>
-                     <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
                      <div className="f1" />
-                     <div className="text-green">{formatNumber(getTileGoodsTax(tile, G.save))}</div>
+                     <div>{colorNumber(getTileGoodsTax(tile, G.save))}</div>
+                     <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
                   </div>
                </FloatingTip>
             </div>
          </div>
          <div className="h1 my10">{$t(L.Expense)}</div>
-         <div className="mx10">
-            <BreakdownTooltip breakdown={maintenanceCost}>
-               <div className="row g5">
-                  <div>{$t(L.Maintenance)} </div>
-                  <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
-                  <div className="f1" />
-                  <div className="text-red">{formatNumber(maintenanceCost.value)}</div>
-               </div>
-            </BreakdownTooltip>
+         <BreakdownTooltip breakdown={maintenanceCost}>
+            <div className="row mx10 my5 g5">
+               <div>{$t(L.TileMaintenance)}</div>
+               <div className="f1" />
+               <div>{colorNumberReverse(maintenanceCost.value)}</div>
+               <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
+            </div>
+         </BreakdownTooltip>
+         <div className="row mx10 my5 g5">
+            <div>{$t(L.BuildingMaintenance)}</div>
+            <div className="f1" />
+            <div>{colorNumberReverse(getTileBuildingMaintenance(tile, G.save))}</div>
+            <img src={ProvinceResourceImages.gold} className="icon-block sm dimmed" />
          </div>
          <div className="h1 my10">{$t(L.Buildings)}</div>
          <TileGreatWorkComponent tile={tile} />

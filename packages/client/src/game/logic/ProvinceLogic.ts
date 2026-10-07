@@ -43,7 +43,6 @@ import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import { getArmyMaintenanceCost, getWarPower, getWarPowerPerTile } from "./ArmyLogic";
-import { getBuildingMaintenanceCost } from "./BuildingLogic";
 import { cacheProvince, getProvinceCoreTilesCached, getProvinceTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getRegionalCapitalCount } from "./CapitalLogic";
@@ -59,6 +58,7 @@ import { getBaselineTechs } from "./TechLogic";
 import {
    getCoastalEdgeCount,
    getProvincesByDistance,
+   getTileBuildingMaintenance,
    getTileGoodsTax,
    getTileGoverningCost,
    getTileLandTax,
@@ -452,9 +452,7 @@ function _getProvinceIncome(
          landTax += getTileLandTax(tile, save).value;
          tileMaintenanceCost += getTileMaintenanceCost(tile, save, "value");
          tileGoodsTax += getTileGoodsTax(tile, save);
-         data.buildings.forEach((building) => {
-            buildingMaintenanceCost += getBuildingMaintenanceCost(building, tile, province, save).value;
-         });
+         buildingMaintenanceCost += getTileBuildingMaintenance(tile, save);
       }
    }
    const armyMaintenanceCost = getArmyMaintenanceCost({}, province, save).value;
