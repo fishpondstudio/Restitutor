@@ -1,8 +1,10 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { Province } from "../definitions/Province";
 import type { ProvinceResource } from "../definitions/ProvinceResources";
+import type { TimedAction } from "../definitions/TimedAction";
 import type { GameEvent } from "../events/GameEvents";
 import { Rome192 } from "./Rome192";
+import type { ScenarioFlag } from "./ScenarioFlags";
 import { ThreeKingdoms194 } from "./ThreeKingdoms194";
 
 export interface IScenario {
@@ -10,7 +12,9 @@ export interface IScenario {
    provinces: Set<Province>;
    events: Set<GameEvent>;
    nameGenerator: INameGenerator;
+   flags: Set<ScenarioFlag>;
    provinceResourceNames?: Partial<Record<ProvinceResource, () => string>>;
+   timedActionNames?: Partial<Record<TimedAction, () => string>>;
 }
 
 export const Scenarios = {

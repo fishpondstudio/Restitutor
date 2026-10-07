@@ -11,6 +11,7 @@ import { Popover } from "@mantine/core";
 import type React from "react";
 import { DivorceAction, DivorceChristianityCost } from "../game/actions/SpouseActions";
 import { getResourceName } from "../game/definitions/ProvinceResources";
+import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { FamilyNode } from "./FamilyNode";
@@ -63,7 +64,7 @@ export function FamilyTreeSingletonModal(): React.ReactNode {
                      action={() => DivorceAction(G.save.state.playerProvince, G.save)}
                      tooltip={(element) => (
                         <>
-                           <div className="m10 text-dimmed">
+                           <div className="m10">
                               {$t(
                                  L.DivorceCostForChristianProvince$1$2,
                                  formatNumber(DivorceChristianityCost),
@@ -83,7 +84,9 @@ export function FamilyTreeSingletonModal(): React.ReactNode {
                      <Popover.Target>
                         <button className="btn row g5">
                            <div className="mi sm">person_heart</div>
-                           {$t(L.Lovers$1, formatNumber(state.governor.concubines.length))}
+                           {hasScenarioFlag("Polygamy", G.save)
+                              ? `Concubines (${formatNumber(state.governor.concubines.length)})`
+                              : $t(L.Lovers$1, formatNumber(state.governor.concubines.length))}
                         </button>
                      </Popover.Target>
                      <Popover.Dropdown className="panel p0">

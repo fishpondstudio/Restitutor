@@ -6,6 +6,7 @@ import { hideModal } from "../../utils/ModalManager";
 import type { IFamily } from "../definitions/Family";
 import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
+import type { ProvinceResourceCosts } from "../definitions/ProvinceResources";
 import { isChristianReligion } from "../definitions/Religion";
 import type { SocialClass } from "../definitions/SocialClass";
 import { TimedActions } from "../definitions/TimedAction";
@@ -21,12 +22,12 @@ import {
    MinimumOffspringAge,
    removeEmptyFamily,
 } from "../logic/GovernorLogic";
-import { getNameGenerator } from "../logic/ScenarioLogic";
+import { getNameGenerator, hasScenarioFlag } from "../logic/ScenarioLogic";
 import { addSocialClassLoyalty } from "../logic/SocialClassLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { requireHigherPrestige, requireMinimumAttitude } from "../logic/TreatyLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
-import { finalizeCondition, type ICondition, type IGameAction } from "./GameAction";
+import { finalizeCondition, type ICondition, type IGameAction, type IGameEffectWithName } from "./GameAction";
 
 export function LookForLocalSpouseAction(
    socialClass: SocialClass,
@@ -159,6 +160,19 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
       return EmptyGameAction;
    }
    const name = getNameGenerator(save.state.scenario).randomName("female");
+   let effect: IGameEffectWithName | undefined;
+   const cost: ProvinceResourceCosts = { gold: 100 };
+   if (!hasScenarioFlag("Polygamy", save)) {
+      effect = {
+         name: $t(L.TakeALoverWith$1, name.join(" ")),
+         modifiers: {
+            Stability: { type: "add", value: -5, duration: TimedActions.TakeLover.duration },
+            Prestige: { type: "multiply", value: -0.05, duration: TimedActions.TakeLover.duration },
+            MonthlyGold: { type: "add", value: -10, duration: TimedActions.TakeLover.duration },
+         },
+      };
+      cost.christianity = isChristianReligion(state.religion) ? 5 : 0;
+   }
    return {
       condition: finalizeCondition([
          ...timedActionConditions({ action: "TakeLover" }, province, save),
@@ -167,18 +181,8 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
             value: state.governor.male.age >= MinimumOffspringAge,
          },
       ]),
-      cost: {
-         gold: 100,
-         christianity: isChristianReligion(state.religion) ? 5 : 0,
-      },
-      effect: {
-         name: $t(L.TakeALoverWith$1, name.join(" ")),
-         modifiers: {
-            Stability: { type: "add", value: -5, duration: TimedActions.TakeLover.duration },
-            Prestige: { type: "multiply", value: -0.05, duration: TimedActions.TakeLover.duration },
-            MonthlyGold: { type: "add", value: -10, duration: TimedActions.TakeLover.duration },
-         },
-      },
+      cost,
+      effect,
       execute: () => {
          startTimedAction("TakeLover", province, save);
          state.governor.concubines.push(

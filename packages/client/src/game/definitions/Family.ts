@@ -7,6 +7,7 @@ export const PersonFlags = {
    None: 0,
    IsGeneral: 1 << 0,
    IsHeir: 1 << 1,
+   IsFromConcubine: 1 << 2,
 } as const;
 
 export type PersonFlag = ValueOf<typeof PersonFlags>;

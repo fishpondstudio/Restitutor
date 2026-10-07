@@ -10,4 +10,5 @@ export const Rome192: IScenario = {
    nameGenerator: RomanNameGenerator,
    // Event definitions import scenario-aware logic, so defer reading the catalog until initialization finishes.
    events: new Set(keysOf(RomeEvents)),
+   flags: new Set(),
 };

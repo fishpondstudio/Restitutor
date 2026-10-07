@@ -1,5 +1,6 @@
+import { hasFlag } from "@project/shared/src/utils/Helper";
 import type React from "react";
-import type { IFamily, IPerson } from "../game/definitions/Family";
+import { type IFamily, type IPerson, PersonFlags } from "../game/definitions/Family";
 import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
 import { getDeathChance, getOffspringChance, getOffspringSkillRangeIncl } from "../game/logic/GovernorLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
@@ -32,6 +33,9 @@ export function PersonTooltip({ person, family }: { person: IPerson; family: IFa
             <div className="f1">{$t(L.OriginallyFrom)}</div>
             <div>{getProvinceName(person.province, G.save)}</div>
          </div>
+         {hasFlag(person.flag, PersonFlags.IsFromConcubine) && (
+            <div className="mx10 my5 text-yellow text-italic">{person.name.join(" ")} is child of a concubine</div>
+         )}
          <div className="h2 row">
             <div className="f1">{$t(L.Traits)}</div>
             {person === state.governor.male ? (

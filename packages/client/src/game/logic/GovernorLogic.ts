@@ -26,7 +26,7 @@ import { applyGameEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import type { INameGenerator } from "../scenarios/Scenarios";
 import { onGeneralEnded } from "./ArmyLogic";
-import { getNameGenerator } from "./ScenarioLogic";
+import { getNameGenerator, hasScenarioFlag } from "./ScenarioLogic";
 
 export const GovernorMinIncl = 3;
 export const GovernorMaxIncl = 6;
@@ -342,7 +342,10 @@ function tickFamilyMembers(
             children: [],
          };
          if (governorBirths) {
-            const legitimate = female === governor.female;
+            if (hasScenarioFlag("Polygamy", save) && female !== governor.female) {
+               person.flag = setFlag(person.flag, PersonFlags.IsFromConcubine);
+            }
+            const legitimate = hasScenarioFlag("Polygamy", save) || female === governor.female;
             governorBirths.push({ child: offspring, legitimate });
             if (legitimate) {
                governor.children.push(offspring);
