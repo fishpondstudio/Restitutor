@@ -1,3 +1,4 @@
+import Anarchy from "../assets/images/headers/Anarchy.webp";
 import BarbarianRaid from "../assets/images/headers/BarbarianRaid.webp";
 import ChristianEmpire from "../assets/images/headers/ChristianEmpire.webp";
 import Chronicle from "../assets/images/headers/ChronicleHeader.webp";
@@ -34,5 +35,9 @@ export const HeaderImages = {
    Peace: {
       url: Peace,
       credit: "Vercingetorix surrenders to Julius Caesar, Alphonse Marie de Neuville (French, 1835-1885)",
+   },
+   Anarchy: {
+      url: Anarchy,
+      credit: "Belisarius Begging for Alms, Jacques-Louis David (1781)",
    },
 } as const satisfies Record<string, ImageWithCredit>;

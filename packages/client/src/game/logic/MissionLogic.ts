@@ -4,7 +4,7 @@ import type { ICondition } from "../actions/GameAction";
 import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Culture } from "../definitions/Culture";
 import { durationToString } from "../definitions/Modifier";
-import type { Province } from "../definitions/Province";
+import { Province } from "../definitions/Province";
 import { type ProvinceNameOverride, ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
 import { type ProvinceResource, ProvinceResourceNames } from "../definitions/ProvinceResources";
 import { Religion } from "../definitions/Religion";
@@ -36,6 +36,7 @@ import {
    getProvinceIncome,
    getProvinceName,
    getProvinceStat,
+   getRedSeaCoastalTiles,
    getTileUpgradeTimes,
    setProvinceNameOverride,
    setProvinceStat,
@@ -116,6 +117,18 @@ export function activeTimedActionCondition(action: TimedAction, province: Provin
    return {
       name: $t(L.$1IsOngoing, TimedActions[action].name()),
       value: getTimedActionTimeLeft(action, province, save) > 0,
+   };
+}
+
+export function annexTileEffect(tile: Tile, core: boolean): ICustomEffect {
+   return {
+      desc: (province, save) =>
+         core
+            ? $t(L.$1Becomes$2sCoreTile, getTileName(tile, save), Province[province].name())
+            : $t(L.$1Annexes$2, getProvinceName(province, save), getTileName(tile, save)),
+      execute: (province, save) => {
+         annexTiles({ tiles: [tile], core, province, save });
+      },
    };
 }
 
@@ -282,6 +295,13 @@ export function* makeCoreCountChecks(minimum: number, province: Province, save: 
    });
 }
 
+export function* settleCountChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
+   const settleCount = getProvinceStat("settleCount", province, save);
+   (yield settleCount >= minimum)?.describe($t(L.SettleAtLeast$1Tiles, formatNumber(minimum)), {
+      progress: [settleCount, minimum],
+   });
+}
+
 export function* minCoreCoastalTileChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
    const tileCount = getProvinceCoreCoastalTileCount(province, save);
    (yield tileCount >= minimum)?.describe(
@@ -344,6 +364,13 @@ export function* mediterraneanCoastChecks(minimum: number, province: Province, s
 export function* blackSeaCoastChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
    const coast = getBlackSeaCoastalTiles(true, province, save);
    (yield coast.length >= minimum)?.describe($t(L.AnnexAndCore$1BlackSeaCoastalTiles, formatNumber(minimum)), {
+      progress: [coast.length, minimum],
+   });
+}
+
+export function* redSeaCoastChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
+   const coast = getRedSeaCoastalTiles(true, province, save);
+   (yield coast.length >= minimum)?.describe($t(L.AnnexAndCore$1RedSeaCoastalTiles, formatNumber(minimum)), {
       progress: [coast.length, minimum],
    });
 }

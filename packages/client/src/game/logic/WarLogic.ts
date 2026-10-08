@@ -34,7 +34,7 @@ import {
    isLandlocked,
    isTileConnectedBySea,
 } from "./ProvinceLogic";
-import { getTileDefense, getTileTerrain } from "./TileLogic";
+import { getTileDefense, getTileTerrain, isCoastal } from "./TileLogic";
 
 export const WarFlag = {
    None: 0,
@@ -281,6 +281,12 @@ export function getWarScore(
                value: -0.2 * defense.value,
             });
          }
+         if (hasProvinceUpgrade("CoastalAmbition", attacker, save) && isCoastal(tile)) {
+            result.add.push({
+               name: `${ProvinceUpgrades.CoastalAmbition.name()}: ${getTileName(tile, save)}`,
+               value: -0.2 * defense.value,
+            });
+         }
          const terrain = getTileTerrain(tile);
          if (
             hasProvinceUpgrade("MastersOfThePasses", attacker, save) &&
@@ -380,6 +386,13 @@ export function getWarScore(
       !attackerState.toleratedCultures.has(defenderState.culture)
    ) {
       result.multiply.push({ name: ProvinceUpgrades.ForeignAmbition.name(), value: -0.2 });
+   }
+
+   if (
+      hasProvinceUpgrade("PrestigiousAmbition", attacker, save) &&
+      getProvincePrestige(defender, save).value > getProvincePrestige(attacker, save).value
+   ) {
+      result.multiply.push({ name: ProvinceUpgrades.PrestigiousAmbition.name(), value: -0.2 });
    }
 
    attachModifier("WarScore", result, attacker, save);

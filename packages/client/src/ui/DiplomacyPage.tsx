@@ -35,6 +35,7 @@ import {
    ImproveRelationsAction,
    InfiltrateAction,
    ProclaimCrusadeAction,
+   ProclaimJihadAction,
    SendAGiftAction,
 } from "../game/actions/RelationsActions";
 import { CasusBelli } from "../game/definitions/CasusBelli";
@@ -42,7 +43,7 @@ import { Culture } from "../game/definitions/Culture";
 import { TreatyNames } from "../game/definitions/Diplomacy";
 import { Modifiers } from "../game/definitions/Modifier";
 import type { Province } from "../game/definitions/Province";
-import { Religion } from "../game/definitions/Religion";
+import { isChristianReligion, Religion } from "../game/definitions/Religion";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import type { SaveGame } from "../game/GameState";
@@ -759,18 +760,34 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             >
                {$t(L.SendAGift)}
             </ActionButton>
-            <ActionButton
-               className="py2"
-               action={() => ProclaimCrusadeAction(G.save.state.playerProvince, province, G.save)}
-               tooltip={(element) => (
-                  <>
-                     <TimedActionDescComp action="ProclaimCrusade" />
-                     {element}
-                  </>
-               )}
-            >
-               {TimedActions.ProclaimCrusade.name()}
-            </ActionButton>
+            {isChristianReligion(ourState.religion) && (
+               <ActionButton
+                  className="py2"
+                  action={() => ProclaimCrusadeAction(G.save.state.playerProvince, province, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        <TimedActionDescComp action="ProclaimCrusade" />
+                        {element}
+                     </>
+                  )}
+               >
+                  {TimedActions.ProclaimCrusade.name()}
+               </ActionButton>
+            )}
+            {ourState.religion === "Islam" && (
+               <ActionButton
+                  className="py2"
+                  action={() => ProclaimJihadAction(G.save.state.playerProvince, province, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        <TimedActionDescComp action="ProclaimJihad" />
+                        {element}
+                     </>
+                  )}
+               >
+                  {TimedActions.ProclaimJihad.name()}
+               </ActionButton>
+            )}
             {G.save.state.provinces[G.save.state.playerProvince]?.nameOverride === "HunnicEmpire" && (
                <ActionButton
                   className="py2"

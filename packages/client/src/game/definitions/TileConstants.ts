@@ -160,6 +160,15 @@ export const PalmyreneEmpireProvinces: Province[] = [
    "Lycia",
 ] as const;
 
+export const RashidunCaliphateProvinces: Province[] = ["Caliphate", ...LevantProvinces, ...AegyptusProvinces] as const;
+
+export const UmayyadCaliphateProvinces: Province[] = [
+   ...RashidunCaliphateProvinces,
+   ...AfricaProvinces,
+   ...HispaniaProvinces,
+   "Cilicia",
+] as const;
+
 export const Tiles = {
    Constantinople: createTile(158, 79),
    Rome: createTile(145, 77),
@@ -197,6 +206,13 @@ export const BlackSeaTiles: Set<Tile> = new Set([
    10616904, 10616906, 10616907, 10616908, 10616909, 10682442, 10682443, 10682444, 10682445, 10747976, 10747977,
    10747978, 10747979, 10747980, 10747981, 10813511, 10813512, 10813514, 10813515, 10813516, 10813517, 10879051,
    10879052, 10879053, 10879054, 10944588, 10944589, 10944590, 11010124, 11010125, 11010126,
+]);
+
+export const RedSealTiles = new Set<Tile>([
+   10682461, 10682462, 10747998, 10682463, 10747999, 10748000, 10748001, 10813536, 10813537, 10879074, 10813538,
+   10813539, 10879075, 10944612, 10879076, 10813541, 11010154, 11010153, 11010152, 10944617, 10944616, 10879079,
+   10879078, 10879077, 10944614, 10944615, 11010151, 11010150, 10944613, 11075688, 11075689, 11075690, 11075691,
+   11141228, 11141229,
 ]);
 
 // Provinces and the tile range they can settle from the frontier.

@@ -5,16 +5,18 @@ import { ChronicleModal } from "../../ui/ChronicleModal";
 import { showPanel } from "../../ui/common/ShowPanel";
 import { GreatWorkCompletedModal } from "../../ui/GreatWorkCompletedModal";
 import { playSound } from "../../ui/Sound";
+import { WarWonModal } from "../../ui/WarWonModal";
 import { G, GameFlags } from "../../utils/Global";
 import { GreatWork } from "../definitions/GreatWork";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { GameStateUpdated, GameTimeUpdated } from "../Events";
+import { showGameEventModal } from "../events/GameEventLogic";
 import type { SaveGame } from "../GameState";
 import { randomMaleName } from "../RomanNames";
 import { fixRelations } from "./DiplomacyLogic";
 import { getGameDate, monthToDate, tickToMonth, tickToYear } from "./GameDateTime";
-import { getChristianityYearly } from "./InternalAffairsLogic";
+import { getChristianityYearly, getIslamInfluenceYearly } from "./InternalAffairsLogic";
 import { getMapForegroundColor } from "./MapColor";
 import {
    ConsulCandidatesCount,
@@ -80,8 +82,12 @@ export function tickYear(save: SaveGame): void {
    rollTradeOffers(save);
    clearProvincePrestigeRankingCache();
    tickConsulElection(save);
-   forEach(save.state.provinces, (province) => {
-      addProvinceResource("christianity", getChristianityYearly(province, save).value, province, save);
+   forEach(save.state.provinces, (province, state) => {
+      if (state.religion === "Islam") {
+         addProvinceResource("islam", getIslamInfluenceYearly(province, save).value, province, save);
+      } else {
+         addProvinceResource("christianity", getChristianityYearly(province, save).value, province, save);
+      }
       forEach(SocialClassInfluenceYearly, (socialClass, func) => {
          addSocialClassInfluence(socialClass, func(province, save).value, province, save);
       });
@@ -245,5 +251,6 @@ export function tickWar(war: IWar, save: SaveGame): void {
    }
    if (war.actualWarScore >= war.requiredWarScore && war.attacker === save.state.playerProvince) {
       playSound("victory");
+      showGameEventModal(WarWonModal, { war });
    }
 }

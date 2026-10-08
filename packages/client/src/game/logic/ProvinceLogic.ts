@@ -13,7 +13,6 @@ import { $t, L } from "../../utils/i18n";
 import type { ICondition, IValueBreakdown } from "../actions/GameAction";
 import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
-import { Buildings } from "../definitions/Building";
 import type { Culture } from "../definitions/Culture";
 import { Goods } from "../definitions/Goods";
 import { type GreatWork, TileToGreatWork } from "../definitions/GreatWork";
@@ -32,7 +31,13 @@ import {
    SpawnedProvinces,
 } from "../definitions/SpawnedProvince";
 import { getBorderingProvinces } from "../definitions/Tile";
-import { BlackSeaTiles, MediterraneanTiles, StraitOfGibraltarTiles, Tiles } from "../definitions/TileConstants";
+import {
+   BlackSeaTiles,
+   MediterraneanTiles,
+   RedSealTiles,
+   StraitOfGibraltarTiles,
+   Tiles,
+} from "../definitions/TileConstants";
 import { GameStateUpdated, RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
@@ -47,11 +52,13 @@ import { isGreatWorkCompleted } from "./GreatWorkLogic";
 import { getCulturalCohesion, getReligiousCohesion } from "./InternalAffairsLogic";
 import { annexTiles } from "./MissionLogic";
 import { addModifier, attachModifier, forEachModifier } from "./ModifierLogic";
-import { addProvinceResource } from "./ResourceLogic";
+import { addProvinceResource, getProvinceResource } from "./ResourceLogic";
 import { settleTile } from "./SettlementLogic";
 import { getBaselineTechs } from "./TechLogic";
 import {
+   getCoastalEdgeCount,
    getProvincesByDistance,
+   getTileBuildingMaintenance,
    getTileGoodsTax,
    getTileGoverningCost,
    getTileLandTax,
@@ -153,6 +160,18 @@ export function getProvincePrestige(province: Province, save: SaveGame): IValueB
    const breakdown: IValueBreakdown = makeValueBreakdown();
    breakdown.add.push({ name: $t(L.TileUpgrades), value: getTotalUpgrades(province, save) });
    attachModifier("Prestige", breakdown, province, save);
+   if (hasProvinceUpgrade("TriumphalRenown", province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.TriumphalRenown.name(),
+         value: Math.min(getProvinceStat("victoryCount", province, save) * 0.02, 0.3),
+      });
+   }
+   if (hasProvinceUpgrade("MandateOfAuthority", province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.MandateOfAuthority.name(),
+         value: clamp(getProvinceResource("mandate", province, save) * 0.05, 0, 0.25),
+      });
+   }
    if (hasProvinceUpgrade("PeacefulRenown", province, save) && getCurrentWars(province, save).length === 0) {
       const stability = getProvinceStability(province, save).value;
       if (stability > 0) {
@@ -294,6 +313,12 @@ export function getProvinceGoverningCapacity(province: Province, save: SaveGame)
       }
       breakdown.add.push({ name: ProvinceUpgrades.HarbourAdministration.name(), value: harbourCount * 10 });
    }
+   if (hasProvinceUpgrade("AdministrativeExpansion", province, save)) {
+      breakdown.add.push({
+         name: ProvinceUpgrades.AdministrativeExpansion.name(),
+         value: getProvinceStat("makeCoreCount", province, save) * 3,
+      });
+   }
    attachModifier("GoverningCapacity", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
@@ -427,9 +452,7 @@ function _getProvinceIncome(
          landTax += getTileLandTax(tile, save).value;
          tileMaintenanceCost += getTileMaintenanceCost(tile, save, "value");
          tileGoodsTax += getTileGoodsTax(tile, save);
-         data.buildings.forEach((building) => {
-            buildingMaintenanceCost += Buildings[building].maintenance.gold ?? 0;
-         });
+         buildingMaintenanceCost += getTileBuildingMaintenance(tile, save);
       }
    }
    const armyMaintenanceCost = getArmyMaintenanceCost({}, province, save).value;
@@ -441,6 +464,13 @@ function _getProvinceIncome(
    });
 
    revenue.add.push({ name: $t(L.LandTax), value: landTax });
+   if (hasProvinceUpgrade("LittoralRevenues", province, save)) {
+      let coastalEdgeCount = 0;
+      for (const tile of getProvinceCoreTilesCached(province, save)) {
+         coastalEdgeCount += getCoastalEdgeCount(tile);
+      }
+      revenue.add.push({ name: ProvinceUpgrades.LittoralRevenues.name(), value: coastalEdgeCount });
+   }
    let goodsTax = 0;
    state.monthly.goodsTax.forEach((value, goods) => {
       goodsTax += value;
@@ -666,6 +696,16 @@ export function getProgressToNextRestoration(province: Province, save: SaveGame)
    return (tileAnnexedAndCored % TilesPerRestoration) / TilesPerRestoration;
 }
 
+export function getAverageTileUpgrade(save: SaveGame): number {
+   let total = 0;
+   let count = 0;
+   for (const [tile, data] of save.state.tiles) {
+      total += data.infrastructure + data.production + data.population;
+      count += 3;
+   }
+   return Math.round(total / count);
+}
+
 export const TilesPerRestoration = 5;
 
 export function spawnProvince(province: Province, source: string, save: SaveGame): Tile[] {
@@ -681,10 +721,21 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
    state.unlockedTech = new Set(getBaselineTechs(save));
    save.state.provinces[province] = state;
    const provinces = new Set<Province>();
+   const averageTileUpgrade = getAverageTileUpgrade(save);
    tiles.forEach((tile) => {
       const data = save.state.tiles.get(tile);
       if (!data) {
-         settleTile(tile, province, save);
+         const tileData = settleTile(tile, province, save);
+         if (tileData) {
+            tileData.infrastructure = averageTileUpgrade;
+            tileData.production = averageTileUpgrade;
+            tileData.population = averageTileUpgrade;
+            if (tile === capital) {
+               tileData.infrastructure += 1;
+               tileData.production += 1;
+               tileData.population += 1;
+            }
+         }
       } else {
          provinces.add(data.province);
          data.coreProvinces.forEach((p) => {
@@ -835,6 +886,10 @@ export function getMediterraneanCoastalTiles(requireCore: boolean, province: Pro
 
 export function getBlackSeaCoastalTiles(requireCore: boolean, province: Province, save: SaveGame): Tile[] {
    return getCoastalTiles(BlackSeaTiles, requireCore, province, save);
+}
+
+export function getRedSeaCoastalTiles(requireCore: boolean, province: Province, save: SaveGame): Tile[] {
+   return getCoastalTiles(RedSealTiles, requireCore, province, save);
 }
 
 function getCoastalTiles(sea: Set<Tile>, requireCore: boolean, province: Province, save: SaveGame): Tile[] {

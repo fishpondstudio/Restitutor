@@ -8,7 +8,7 @@ import { Tech } from "../definitions/Tech";
 import type { SaveGame } from "../GameState";
 import { defineValueGetter, type EvaluationMode, ValueCalculation } from "./Calculation";
 import { attachModifierToCalculation } from "./ModifierLogic";
-import { countProvinceTiles } from "./ProvinceLogic";
+import { countProvinceTiles, getProvinceCoreCoastalTileCount } from "./ProvinceLogic";
 import { hasEnoughProvinceResources } from "./ResourceLogic";
 import { stringToPosition } from "./StringToPosition";
 
@@ -42,6 +42,11 @@ export const getResearchCostBreakdown = defineValueGetter(
          calc
             .multiply(-Math.min(countProvinceTiles({ culture: "Greek", core: true }, province, save) * 0.01, 0.5))
             ?.describe(ProvinceUpgrades.HellenicScholarship.name());
+      }
+      if (hasProvinceUpgrade("AlexandrianScholarship", province, save)) {
+         calc
+            .multiply(-Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.01, 0.5))
+            ?.describe(ProvinceUpgrades.AlexandrianScholarship.name());
       }
       attachModifierToCalculation("ResearchCost", calc, province, save);
       return calc.finish();

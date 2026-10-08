@@ -14,6 +14,7 @@ export const ProvinceStats = {
    infantrySkill: 0,
    rangedSkill: 0,
    cavalrySkill: 0,
+   startingGeneralSkillPoint: 0,
    makeCoreCount: 0,
    convertCultureCount: 0,
    attackCount: 0,
@@ -35,6 +36,7 @@ export const ProvinceStats = {
    religiousClassLoyalty: 100,
    militaryClassLoyalty: 100,
    eliminatedBarbarians: 0,
+   settleCount: 0,
 } as const;
 
 export const ProvinceStatNames: Record<ProvinceStat, () => string> = {
@@ -47,6 +49,7 @@ export const ProvinceStatNames: Record<ProvinceStat, () => string> = {
    infantrySkill: () => $t(L.InfantrySkill),
    rangedSkill: () => $t(L.RangedSkill),
    cavalrySkill: () => $t(L.CavalrySkill),
+   startingGeneralSkillPoint: () => $t(L.StartingGeneralSkillPoint),
    makeCoreCount: () => $t(L.NumberOfCoresMade),
    convertCultureCount: () => $t(L.NumberOfTilesCulturallyConverted),
    attackCount: () => $t(L.NumberOfAttacks),
@@ -68,6 +71,7 @@ export const ProvinceStatNames: Record<ProvinceStat, () => string> = {
    religiousClassLoyalty: () => $t(L.ReligiousClassLoyaltyStat),
    militaryClassLoyalty: () => $t(L.MilitaryClassLoyaltyStat),
    eliminatedBarbarians: () => $t(L.EliminatedBarbarianPolities),
+   settleCount: () => $t(L.SettlementCount),
 } as const;
 
 export type ProvinceStat = keyof typeof ProvinceStats;

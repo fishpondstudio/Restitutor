@@ -72,6 +72,7 @@ import { TetrarchyPage } from "./TetrarchyPage";
 import { ThirdCenturyCrisisPage } from "./ThirdCenturyCrisisPage";
 import { TradeSingletonModal } from "./TradeSingletonModal";
 import { TreasuryPage } from "./TreasuryPage";
+import { TwentyYearsAnarchyPage } from "./TwentyYearsAnarchy";
 import { WarModal } from "./WarModal";
 import { WarTooltip } from "./WarTooltip";
 
@@ -522,6 +523,28 @@ const JustinianReconquest: ITodo = {
       showPanel(JustinianReconquestPage, {});
    },
 };
+const TwentyYearsAnarchy: ITodo = {
+   name: () => TimedActions.TwentyYearsAnarchy.name(),
+   icon: () => IconCatalog.Anarchy,
+   className: () => "green",
+   tooltip: (save) => {
+      if (getTimedActionTimeLeft("TwentyYearsAnarchy", save.state.playerProvince, save) <= 0) {
+         return null;
+      }
+      return (
+         <div className="m10">
+            {$t(
+               L.$1IsOngoing$2MonthsLeftClickToViewDetails,
+               TimedActions.TwentyYearsAnarchy.name(),
+               formatNumber(getTimedActionTimeLeft("TwentyYearsAnarchy", save.state.playerProvince, save)),
+            )}
+         </div>
+      );
+   },
+   onClick: () => {
+      showPanel(TwentyYearsAnarchyPage, {});
+   },
+};
 
 const EcumenicalCouncil: ITodo = {
    name: (save) => $t(L.EcumenicalCouncil),
@@ -967,6 +990,7 @@ const _Todos = {
    Tetrarchy,
    ChristianEmpire,
    JustinianReconquest,
+   TwentyYearsAnarchy,
    EcumenicalCouncil,
    TooFewRivals,
    VacantArmyGeneral,

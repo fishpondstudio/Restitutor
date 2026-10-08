@@ -1,11 +1,10 @@
 import { $t, L } from "../../utils/i18n";
-import { Province } from "../definitions/Province";
 import { StraitOfGibraltarTiles } from "../definitions/TileConstants";
 import { getTileName } from "../definitions/TileName";
 import type { ConditionChecks } from "../logic/Calculation";
 import {
    allCoreTileChecks,
-   annexTiles,
+   annexTileEffect,
    isCoreTileChecks,
    manpowerChecks,
    minCoreTileChecks,
@@ -449,15 +448,7 @@ export const MauretaniaEvents = {
          {
             label: () => $t(L.PurchasePalmaAndItsHarbor),
             resources: { gold: -10_000 },
-            custom: [
-               {
-                  desc: (province, save) =>
-                     $t(L.$1Becomes$2sCoreTile, getTileName(8978513, save), Province[province].name()),
-                  execute: (province, save) => {
-                     annexTiles({ tiles: [8978513], core: true, province, save });
-                  },
-               },
-            ],
+            custom: [annexTileEffect(8978513, true)],
          },
          {
             label: () => $t(L.SubsidizeTarraconensianRule),

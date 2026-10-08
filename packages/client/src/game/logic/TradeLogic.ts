@@ -11,7 +11,12 @@ import type { SaveGame } from "../GameState";
 import { getAttitudeTowards, getRelations } from "./DiplomacyLogic";
 import { hasLegacyUpgrade } from "./LegacyUpgradeLogic";
 import { attachModifier } from "./ModifierLogic";
-import { getNeighborProvinces, getProvinceCoreCoastalTileCount, hasStraitOfGibraltar } from "./ProvinceLogic";
+import {
+   getNeighborProvinces,
+   getProvinceCoreCoastalTileCount,
+   getProvinceStat,
+   hasStraitOfGibraltar,
+} from "./ProvinceLogic";
 import { getTreatyCount } from "./TreatyLogic";
 
 export function getProvinceTrades(province: Province, save: SaveGame): Map<Province, ActiveTrade> {
@@ -25,6 +30,18 @@ export function getProvinceTrades(province: Province, save: SaveGame): Map<Provi
       }
    }
    return result;
+}
+
+export const GrainProductionLine = new Set<Goods | "gold">(["grain", "flour", "bread"]);
+
+export function getGoodsTradeCount(goods: Set<Goods | "gold">, province: Province, save: SaveGame): number {
+   let count = 0;
+   for (const trade of getProvinceTrades(province, save).values()) {
+      if (goods.has(trade.weOffer) || goods.has(trade.theyOffer)) {
+         ++count;
+      }
+   }
+   return count;
 }
 
 export function rollTradeOffers(save: SaveGame): void {
@@ -86,6 +103,12 @@ export function getProvinceTradeCapacity(province: Province, save: SaveGame): IV
 export function getProvinceTradeProfit(province: Province, save: SaveGame): IValueBreakdown {
    const result = makeValueBreakdown({ multiplyBase: { name: $t(L.BaseValue), value: 0.1 } });
    result.add.push({ name: $t(L.ReferenceValue), value: 1 });
+   if (hasProvinceUpgrade("GrainCommerce", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.GrainCommerce.name(),
+         value: getGoodsTradeCount(GrainProductionLine, province, save) * 0.1,
+      });
+   }
    if (hasProvinceUpgrade("TradeProfitForEachTrade", province, save)) {
       const tradeCount = getProvinceTrades(province, save).size;
       if (tradeCount > 0) {
@@ -113,6 +136,12 @@ export function getProvinceTradeProfit(province: Province, save: SaveGame): IVal
       result.multiply.push({
          name: ProvinceUpgrades.CoastalCommerce.name(),
          value: Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.01, 0.5),
+      });
+   }
+   if (hasProvinceUpgrade("TriumphalCommerce", province, save)) {
+      result.multiply.push({
+         name: ProvinceUpgrades.TriumphalCommerce.name(),
+         value: Math.min(getProvinceStat("victoryCount", province, save) * 0.02, 0.5),
       });
    }
    if (hasProvinceUpgrade("CrossroadsCommerce", province, save)) {

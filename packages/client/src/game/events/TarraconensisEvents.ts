@@ -1,17 +1,15 @@
 import { $t, L } from "../../utils/i18n";
 import { OfferAllianceAction } from "../actions/TreatyActions";
 import { Province } from "../definitions/Province";
-import { getTileName } from "../definitions/TileName";
 import type { ConditionChecks } from "../logic/Calculation";
 import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import {
-   annexTiles,
+   annexTileEffect,
    forcePatronageEffect,
    isCoreTileChecks,
    maxCoreTileChecks,
    provinceResourceChecks,
 } from "../logic/MissionLogic";
-import { getProvinceName } from "../logic/ProvinceLogic";
 import { getProvinceResource } from "../logic/ResourceLogic";
 import {
    requireAnyTreatyBetweenChecks,
@@ -434,15 +432,7 @@ export const TarraconensisEvents = {
          {
             label: () => $t(L.PurchaseCaperaForTarraconensis),
             resources: { gold: -5000 },
-            custom: [
-               {
-                  desc: (province, save) =>
-                     $t(L.$1Annexes$2, getProvinceName(province, save), getTileName(8585296, save)),
-                  execute: (province, save) => {
-                     annexTiles({ tiles: [8585296], province, save });
-                  },
-               },
-            ],
+            custom: [annexTileEffect(8585296, false)],
          },
          {
             label: () => $t(L.GrantOurAllyEmergencyRelief),

@@ -1,98 +1,104 @@
-## Balancing
+## Islam
 
-- All 5 Governing Capacity legacy upgrades now each grant +200 Governing Capacity, up from +100.
-- Infrastructure, Production, and Population Upgrade Cost legacy upgrades now each reduce costs by 20%, up from 10%.
-- Add a third Make Core Cost legacy upgrade, reducing costs by another 10%. The three upgrades now form a direct chain, with the Infrastructure Upgrade Cost upgrade branching off the first Defense upgrade instead.
-- Add a second Diplomat legacy upgrade, granting +1 Diplomat.
-- Add two more Regional Capital legacy upgrades, each granting +1 regional capital slot, for a total of +3 slots from legacy upgrades.
-- Bread & Circuses and Curial Reform now each grant +100 Governing Capacity.
-- Land Surveying's +100 Governing Capacity bonus has moved to Urban Planning.
-- Civic Education now grants +200 Governing Capacity, up from +100.
-- Cultural Policy and Local Governance now each grant +200 Governing Capacity, up from +150.
-- Each tile upgrade now increases subsequent upgrade costs by 50% compounded, up from 20%.
-- Taking a lover now costs 100 gold upfront, down from 1,000, and adds a monthly expense of 10 gold for 10 years.
-- Patronage treaties now last 100 years, up from 10. Alliances and defense pacts still last 10 years.
+Muslim provinces now gain Islam Influence instead of yearly Christian Influence, plus 1 additional influence per year for each owned core tile following Islam.
 
-## Missions
+- Invite to Islam: Convert a non-Muslim core tile by spending Islam Influence equal to its total Infrastructure, Production, and Population levels. This action has a province-wide 12-month cooldown, with separate automation options for minor and tolerated religions.
+- Proclaim Jihad: Spend 1 Islam Influence to gain a Religious War Casus Belli against a non-Muslim province for 5 years. This action has a 10-year cooldown.
+- Muslim provinces can no longer Appoint Bishops.
 
-- New mission, The Reach of Our Seal: Reach 100 core tiles to gain +200 Governing Capacity and your choice of 100 administrative, diplomatic, or military points.
-- New mission, The Eastern Roman Empire Restored: Fully annex and core the Eastern Roman Empire's provinces to adopt its name, gaining +500 Governing Capacity, +1 regional capital slot, and +1 monthly administrative, diplomatic, and military points.
-- New mission, The Roman Empire Restored: Fully annex and core all 35 Roman provinces to adopt the Roman Empire name, gain 10 Mandate, and unlock the "Restorer of the World" achievement.
-- Both Dominion of the Sea missions and the Western and Eastern Roman Empire restoration missions are now available to all provinces, regardless of their starting region.
-- The Western Roman Empire Restored now grants +500 Governing Capacity, up from +200, and +1 regional capital slot.
-- Every Art Mastered now grants +200 Governing Capacity and a permanent +20% bonus to your choice of Land Tax, Tile Output, or Manpower, replacing its previous rewards.
-- The Seals of Two Capitals now grants +200 Governing Capacity with every choice, plus +1 monthly administrative, diplomatic, or military point.
-- Dominion of the Western Sea and Dominion of the Eastern Sea now grant +200 Governing Capacity, up from +100, alongside their existing monthly point rewards.
-- The Reach of Our Seal, The Seals of Two Capitals, and both Dominion of the Sea missions also grant +1 regional capital slot with their administrative option, +1 tolerated culture slot with their diplomatic option, or +1 tolerated religion slot with their military option.
-- The Spoils of Victory now grants +200 Governing Capacity and +1 regional capital slot in addition to Right of Plunder.
-- A Province Transformed's Senate option now grants 2 Consul Points, down from 5.
+Five Islamic Policies are available in the Culture and Religion panel:
 
-## Galatia
+- Levy Jizya: Gain +10% Land Tax and -10% Manpower on non-Muslim tiles.
+- Administer Zakat: Gain +10 Stability at the cost of -10% Tile Output.
+- Pay Diwan Stipends: Gain +10% War Power at the cost of -10% Land Tax.
+- Reform Coinage: Gain +10% Land Tax and Trade Profit at the cost of -10 Stability.
+- Sponsor Scholars: Gain +1 monthly Administrative, Diplomatic, and Military Point at the cost of -10% Land Tax, Tile Output and Manpower.
 
-Galatia province is now playable, with 3 unique Provincial Spirits:
+Enacting or repealing a policy shares a 2-year cooldown across all Islamic Policies. Policies remain active until repealed and are removed if the province leaves Islam.
 
-- Anatolian Recruitment: Gain +1% Manpower for each core tile with Anatolian culture, up to +50%.
-- Highland Development: Reduce Infrastructure, Production, and Population Upgrade Cost by 20% on core Hill tiles.
-- Inland Administration: Reduce Tile Maintenance by 20% on core non-coastal tiles.
+Four new actions are available to Muslim provinces in the Culture and Religion panel:
 
-Galatia's missions focus on expansion into Bithynia, Cilicia, Cappadocia, and Asia, bringing Lycia under its patronage, and securing Tios and Pompeiopolis. Shared missions involve military victories, reaching the Mediterranean and Black Sea coasts, and uniting Galatia, Lycia, and Cilicia.
+- Appoint a Qadi: Gain +1 monthly Administrative Point.
+- Convene a Shura: Gain +1 monthly Diplomatic Point.
+- Sponsor Furusiyya: Gain +1 monthly Military Point.
+- Rally the Faithful: Gain +10% War Power.
 
-## Lycia
+Each action costs 2 Islam Influence and lasts 24 months. All four share a 24-month cooldown, so only one can be active at a time.
 
-Lycia province is now playable, with 3 unique Provincial Spirits:
+## Caliphate Missions
 
-- Expanded Diplomacy: Gain +1 Diplomat.
-- Friendly Commerce: Gain +5% Trade Profit for each province with a positive attitude towards Lycia, up to +50%.
-- Treaty Prosperity: Gain +5% Tile Output for each diplomatic treaty.
+Three new missions let provinces embrace Islam and form the Rashidun and Umayyad Caliphates:
 
-Lycia's missions focus on expansion into Galatia, Asia, and Cilicia, and bringing Cilicia under its patronage through diplomacy. Shared missions involve military victories, reaching the Mediterranean and Black Sea coasts, and uniting Galatia, Lycia, and Cilicia.
+- The Faith of the Holy Cities: Own and core Mecca and Medina. Choose to embrace Islam, converting all stored Christian Influence to Islam Influence and up to 20 of your most upgraded non-Muslim core tiles to Islam; or endow Christian communities for 100 Christian Influence and a permanent +5 yearly Christian Influence.
+- The Rashidun Caliphate: As a Muslim province, fully annex and core the Caliphate, Syria, Judea, Aegyptus, and Cyrenaica, with the original Caliphate no longer on the map. Proclaim the Rashidun Caliphate to gain 100 Islam Influence, +200 Governing Capacity, and +1 regional capital slot.
+- The Umayyad Caliphate: As the Muslim Rashidun Caliphate, retain those core territories and fully annex and core Africa, Mauretania, Hispania, and Cilicia. Proclaim the Umayyad Caliphate to gain 200 Islam Influence, +400 Governing Capacity, +1 regional capital slot, +1 tolerated religion slot, and +1 tolerated culture slot.
 
-## Cilicia
+## Aegyptus
 
-Cilicia province is now playable, with 3 unique Provincial Spirits:
+Aegyptus province is now playable, with 3 unique Provincial Spirits:
 
-- Harbour Administration: Gain +10 Governing Capacity for each Harbour on a core tile.
-- Mercantile Taxation: Gain +10% Land Tax for each active trade.
-- Victorious Might: Gain +1% War Power for each war won as lead attacker, up to +25%.
+- Nilotic Abundance: Gain +25% Land Tax and Tile Output on core tiles producing Grain.
+- Grain Commerce: Gain +10% Tile Output and Trade Profit for each active trade importing or exporting Grain, Flour, or Bread. Each trade counts once.
+- Alexandrian Scholarship: Reduce Research Cost by 1% for each core coastal tile, up to 50%.
 
-Cilicia's missions focus on expansion into Galatia, Cappadocia, and Syria, and bringing Lycia under its patronage. Shared missions involve military victories, reaching the Mediterranean and Black Sea coasts, and uniting Galatia, Lycia, and Cilicia.
+Aegyptus's missions focus on expansion into Judea and Cyrenaica, securing seven core Red Sea coastal tiles, and founding five settlements. The settlement mission grants a permanent choice of +1 regional capital slot, +1 tolerated culture slot, or +1 tolerated religion slot.
 
-## Cappadocia
+## Cyrenaica
 
-Cappadocia province is now playable, with 3 unique Provincial Spirits:
+Cyrenaica province is now playable, with 3 unique Provincial Spirits:
 
-- Cohesive Taxation: Gain +0.2% Land Tax for each 1% Cultural Cohesion.
-- Foreign Ambition: Reduce required War Score by 20% when attacking a province whose culture is neither Cappadocia's dominant culture nor a tolerated culture.
-- Abundant Provisions: Gain +1% Tile Output per unit of production capacity allocated to Bread and Cheese combined, up to +25%.
+- Coastal Logistics: Reduce Tile Maintenance by 20% on core coastal tiles.
+- Triumphal Renown: Gain +2% Prestige for each war won as lead attacker, up to +30%.
+- Mandate of Authority: Gain +5% Prestige for each unspent Mandate, up to +25%.
 
-Cappadocia's missions focus on expansion into Bithynia, Galatia, Cilicia, and Syria, winning wars, and establishing core territory. Between Two Seas encourages expansion along the Mediterranean and Black Sea coasts and is also newly available to Dalmatia and Moesia.
+Cyrenaica's missions focus on expansion into Aegyptus and Africa, purchasing Gortyna and Cnosos as core tiles, and fully annexing and coring Africa. Completing the African conquest grants a choice of 2 Consul Points, 2 General Skill Points, or 1 Mandate.
 
-## Syria
+## Corsica
 
-Syria province is now playable, with three 3 Provincial Spirits:
+Corsica province is now playable, with 3 unique Provincial Spirits:
 
-- Crossroads Commerce: Gain +10% Trade Profit for each neighboring province, up to +50%.
-- Religious Accommodation: Gain +1 tolerated religion.
-- Mercantile Logistics: Reduce Army Maintenance by 10% for each active trade.
+- Littoral Revenues: Gain +1 monthly gold for each coastal edge on core tiles.
+- Prestigious Ambition: Reduce required War Score by 20% when attacking a province with higher Prestige than yours.
+- Triumphal Commerce: Gain +2% Trade Profit for each war won as lead attacker, up to +50%.
 
-Syria's missions focus on expansion into Cilicia, Cappadocia, and Judea, with objectives in Cilicia and Jerusalem. Between Two Seas is now also available to Syria, encouraging expansion along the Mediterranean and Black Sea coasts.
+Corsica's missions focus on securing Sardinia as a client through marriage and an Alliance or Defense Pact, opening campaigns against Africa, Italia, or Narbonensis, and establishing core territories in Italia and Sicilia. Reaching 20 core tiles grants a permanent choice of +1 regional capital slot, +1 tolerated culture slot, or +1 tolerated religion slot.
 
-## Judea
+## Sardinia
 
-Judea province is now playable, with three 3 Provincial Spirits:
+Sardinia province is now playable, with 3 unique Provincial Spirits:
 
-- Christian Communities: Gain +0.1 yearly Christian Influence for each core tile following a Christian religion, up to +10 per year.
-- Efficient Evangelization: Reduce the Christian Influence cost to evangelize a tile by 50%.
-- Apostolic Taxation: Gain +10% Land Tax for each Apostolic See currently owned.
+- Coastal Ambition: Enemy coastal tiles contribute 20% less required War Score when attacking.
+- Harbour Infrastructure: Gain +1 Building Slot on core coastal tiles, with no Harbour construction or maintenance costs there.
+- Administrative Expansion: Gain +3 Governing Capacity for each tile cored.
 
-Judea's missions focus on expansion into Aegyptus and Syria, growing its manpower, adopting and spreading Christianity, securing Jerusalem, and developing a coastal domain.
+Sardinia's missions focus on bringing Corsica under its patronage through marriage and an Alliance or Defense Pact, pursuing claims in Africa, Italia, or Narbonensis, and consolidating conquests in Italia and Sicilia. Growing to 20 core tiles grants a permanent choice of +1 regional capital slot, +1 tolerated culture slot, or +1 tolerated religion slot.
 
-## Levantine League
+## Twenty Years' Anarchy
 
-- Fully annex and core Syria and Judea as either province to form the Levantine League, gaining +100 Governing Capacity and +2 yearly Christian Influence.
-- Syria, Judea, and Aegyptus gain a shared mission for owning three Apostolic Sees. Choose 30 Christian Influence, 100 administrative and 100 diplomatic points, or a permanent +10% Land Tax bonus.
+The historical event in 695 now starts Twenty Years' Anarchy, unlocking a dedicated panel for 22 years. Target other Eastern Roman provinces with six actions:
 
-## QoL & Bugfixes
+- Stir Dissent: Spend 50 Administrative Points to reduce Stability by 10.
+- Disrupt Recruitment: Spend 50 Administrative Points to reduce Manpower by 10%.
+- Spread Scandal: Spend 50 Diplomatic Points to reduce Prestige by 10%.
+- Dispute Legitimacy: Spend 50 Diplomatic Points to gain a Contested Imperium Casus Belli against the target.
+- Sabotage Supplies: Spend 50 Military Points to reduce War Power by 10%.
+- Sabotage Defenses: Spend 50 Military Points to reduce Defense by 10%.
 
-- Add an "Automatically Repay Loans" toggle in the Treasury to repay outstanding loans each month when you have enough gold.
-- Fix a bug where "The Die Is Cast" (Complete the tutorial) achievement is not unlocked correctly.
+All effects last 24 months. These actions share a 12-month cooldown across all targets.
+
+## Balance Changes
+
+- The annexation cost discount from patronage duration now grows by 0.5 percentage points per month, down from 1. The 90% cap now takes 15 years to reach instead of 7.5 years.
+- Developed Administration (Achaia's Provincial Spirits) now reduces each tile's Governing Cost by 2% per Tile Upgrade (Infrastructure + Production + Population), up from 1%.
+- Starting General Skill Points are now excluded from the 50% skill point carryover when a general leaves command. All skill upgrades still reset.
+
+## NPC Changes
+
+- AI provinces now prefer to upgrade a tile's Infrastructure, Production, or Population evenly, keeping development balanced and limiting uneven-upgrade maintenance penalties.
+
+## QoL
+
+- A new "Victory Is Ours" event popup is shown after winning a war.
+- The tile panel now lists Tile Maintenance and Building Maintenance separately under expenses.
+- Restoration bonuses now require selecting a bonus and clicking Confirm, helping prevent accidental choices.
+- Local spouse-search tooltips now show each social class's current Influence, Influence percentage, and Loyalty.

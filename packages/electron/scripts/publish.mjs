@@ -1,4 +1,4 @@
-import { execSync } from "node:child_process";
+import { execFileSync, execSync } from "node:child_process";
 import path from "node:path";
 import fs from "fs-extra";
 
@@ -20,7 +20,13 @@ if (fullBuild) {
 cmd("pnpm run build", path.join(rootPath, "packages", "client"));
 cmd("npx wrangler pages deploy ./dist --project-name restitutor", path.join(rootPath, "packages", "client"));
 
-cmd("zip -r restitutor.zip -9 .", path.join(rootPath, "packages", "client", "dist"));
+const distFolder = path.join(rootPath, "packages", "client", "dist");
+if (process.platform === "win32") {
+   cmd("tar --format=zip --options zip:compression-level=9 --exclude=restitutor.zip -cf restitutor.zip *", distFolder);
+} else {
+   cmd("zip -r restitutor.zip -9 .", distFolder);
+}
+
 fs.ensureDirSync(path.join(rootPath, "packages", "client", "output"));
 fs.removeSync(path.join(rootPath, "packages", "client", "output", `restitutor-${build}.zip`));
 fs.moveSync(path.join(rootPath, "packages", "client", "dist", "restitutor.zip"), path.join(rootPath, "packages", "client", "output", `restitutor-${build}.zip`));
@@ -68,10 +74,16 @@ copyBuild("Restitutor-win32-x64");
 copyBuild("Restitutor-linux-x64");
 copyBuild("Restitutor-darwin-x64");
 
-cmd(
-   `${path.join(process.env.STEAMWORKS_PATH, "builder_linux", "steamcmd.sh")} +runscript ../restitutor.txt`,
-   process.env.STEAMWORKS_PATH,
-);
+let steamExe = path.join(process.env.STEAMWORKS_PATH, "builder_linux", "steamcmd.sh");
+
+if (process.platform === "win32") {
+   steamExe = path.join(process.env.STEAMWORKS_PATH, "builder", "steamcmd.exe");
+}
+
+execFileSync(steamExe, ["+runscript", "../restitutor.txt"], {
+   stdio: "inherit",
+   cwd: process.env.STEAMWORKS_PATH,
+});
 
 function cmd(command, cwd = null) {
    console.log(`>> Command: ${command} (CWD: ${cwd})`);
