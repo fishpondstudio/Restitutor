@@ -352,6 +352,8 @@ export function initProvince(province: Province, capital: Tile, nameGenerator: I
       toleratedCultures: new Set(),
       religion: Province[province].religion,
       toleratedReligions: new Set(),
+      tier: "Tier1",
+      advisorSlots: {},
       stats: {
          ...structuredClone(ProvinceStats),
       },

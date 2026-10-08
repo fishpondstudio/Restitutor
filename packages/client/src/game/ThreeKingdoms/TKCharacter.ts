@@ -73,10 +73,10 @@ export const TKCharacterFlags = {
 export type TKCharacterFlag = ValueOf<typeof TKCharacterFlags>;
 
 export const TKCharacterTier = {
-   Tier1: () => "Tier S",
-   Tier2: () => "Tier A",
-   Tier3: () => "Tier B",
-   Tier4: () => "Tier C",
+   Tier1: () => "S",
+   Tier2: () => "A",
+   Tier3: () => "B",
+   Tier4: () => "C",
 } as const satisfies Record<string, () => string>;
 
 export type TKCharacterTier = keyof typeof TKCharacterTier;
@@ -105,7 +105,7 @@ export interface ITKCharacter {
    warlord?: TKWarlord;
 }
 
-export const TKCharacters = {
+export const _TKCharacters = {
    CaoCao: {
       name: () => ["Cao", "Cao", "Mengde"],
       image: CaoCao,
@@ -530,4 +530,5 @@ export const TKCharacters = {
    },
 } satisfies Record<string, ITKCharacter>;
 
-export type TKCharacter = keyof typeof TKCharacters;
+export type TKCharacter = keyof typeof _TKCharacters;
+export const TKCharacters: Record<TKCharacter, ITKCharacter> = _TKCharacters;

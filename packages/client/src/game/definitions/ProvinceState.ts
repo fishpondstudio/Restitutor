@@ -1,10 +1,12 @@
 import type { Tile, ValueOf } from "@project/shared/src/utils/Helper";
 import type { GameEvent } from "../events/GameEvents";
+import type { TKCharacter } from "../ThreeKingdoms/TKCharacter";
 import type { IAdvisor } from "./Advisor";
 import type { Culture } from "./Culture";
 import type { IRelation } from "./Diplomacy";
 import type { IGovernorFamily } from "./Family";
 import type { Goods } from "./Goods";
+import type { AdvisorSlot, GovernmentTier } from "./GovernmentTier";
 import type { LegacyUpgrade } from "./LegacyUpgrade";
 import type { IModifier, Modifier } from "./Modifier";
 import type { Province } from "./Province";
@@ -40,6 +42,8 @@ export interface IProvince {
    toleratedCultures: Set<Culture>;
    religion: Religion;
    toleratedReligions: Set<Religion>;
+   tier: GovernmentTier;
+   advisorSlots: Partial<Record<AdvisorSlot, TKCharacter>>;
    resources: ProvinceResources;
    governor: IGovernorFamily;
    stats: ProvinceStats;

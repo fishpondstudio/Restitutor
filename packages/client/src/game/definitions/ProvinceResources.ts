@@ -37,6 +37,11 @@ export function getResourceName(resource: ProvinceResource, scenario: Scenario):
 }
 
 export type GovernorPower = keyof Pick<ProvinceResources, "administrative" | "diplomatic" | "military">;
+export const GovernorPowerNames: Record<GovernorPower, () => string> = {
+   administrative: () => $t(L.Administrative),
+   diplomatic: () => $t(L.Diplomatic),
+   military: () => $t(L.Military),
+} as const;
 export type GovernorStats = Record<GovernorPower, number>;
 export type ProvinceResource = keyof typeof ProvinceResources;
 export type ProvinceResources = Record<ProvinceResource, [number, number]>;
