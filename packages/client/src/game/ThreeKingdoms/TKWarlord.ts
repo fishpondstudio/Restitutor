@@ -33,7 +33,7 @@ export interface ITKWarlordCharacter {
    character: TKCharacter;
 }
 
-export const TKWarlordCharacters = {
+export const TKWarlordCharacters: Record<TKWarlord, ITKWarlordCharacter> = {
    LiJue: { character: "LiJue" },
    YuanShao: { character: "YuanShao" },
    CaoCao: { character: "CaoCao" },
@@ -56,4 +56,4 @@ export const TKWarlordCharacters = {
    LiuYao: { character: "LiuYao" },
    WangLang: { character: "WangLang" },
    YanBaihu: { character: "YanBaihu" },
-} satisfies Record<TKWarlord, ITKWarlordCharacter>;
+};

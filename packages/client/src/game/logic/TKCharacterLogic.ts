@@ -1,4 +1,7 @@
+import { entriesOf } from "@project/shared/src/utils/Helper";
+import type { SaveGame } from "../GameState";
 import { type TKCharacter, TKCharacters, type TKCharacterTier } from "../ThreeKingdoms/TKCharacter";
+import { type TKWarlord, TKWarlordCharacters } from "../ThreeKingdoms/TKWarlord";
 
 export function getTKCharacterName(character: TKCharacter): { fullName: string; courtesyName: string } {
    const name = TKCharacters[character].name();
@@ -22,4 +25,18 @@ export function getTKCharacterTierToPower(tier: TKCharacterTier): number {
          tier satisfies never;
          return 0;
    }
+}
+
+export function isTKCharacterAvailable(character: TKCharacter, save: SaveGame): boolean {
+   for (const [province, state] of entriesOf(save.state.provinces)) {
+      if (province in TKWarlordCharacters && TKWarlordCharacters[province as TKWarlord].character === character) {
+         return false;
+      }
+      for (const [slot, advisor] of entriesOf(state.advisorSlots)) {
+         if (advisor === character) {
+            return false;
+         }
+      }
+   }
+   return true;
 }

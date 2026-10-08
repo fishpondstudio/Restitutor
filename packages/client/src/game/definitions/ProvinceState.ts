@@ -43,6 +43,7 @@ export interface IProvince {
    religion: Religion;
    toleratedReligions: Set<Religion>;
    tier: GovernmentTier;
+   characters: Set<TKCharacter>;
    advisorSlots: Partial<Record<AdvisorSlot, TKCharacter>>;
    resources: ProvinceResources;
    governor: IGovernorFamily;

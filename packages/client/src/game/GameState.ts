@@ -94,6 +94,11 @@ export function createSaveGame({ scenario, province }: { scenario: Scenario; pro
             state.governor.male.administrative = getTKCharacterTierToSkill(tier);
             state.governor.male.diplomatic = getTKCharacterTierToSkill(tier);
             state.governor.male.military = getTKCharacterTierToSkill(tier);
+            forEach(TKCharacters, (character, config) => {
+               if (character !== warlord && config.warlord === warlord) {
+                  state.characters.add(character);
+               }
+            });
          }
          return [province, state];
       }),
