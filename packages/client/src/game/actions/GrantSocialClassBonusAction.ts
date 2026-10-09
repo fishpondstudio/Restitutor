@@ -1,6 +1,6 @@
 import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
-import { SocialClass, type SocialClassBonus, SocialClassBonuses } from "../definitions/SocialClass";
+import { getSocialClassName, type SocialClassBonus, SocialClassBonuses } from "../definitions/SocialClass";
 import type { SaveGame } from "../GameState";
 import {
    addSocialClassInfluence,
@@ -23,20 +23,20 @@ export function GrantSocialClassBonusAction(bonus: SocialClassBonus, province: P
          {
             name: $t(
                L.$1HasAtLeast50CombinedInfluence,
-               config.supporting.map((socialClass) => SocialClass[socialClass].name()).join(", "),
+               config.supporting.map((socialClass) => getSocialClassName(socialClass, save.state.scenario)).join(", "),
             ),
             value: supportingInfluence >= 50,
             progress: [supportingInfluence, 50],
          },
          ...config.supporting.map((socialClass) => {
             return {
-               name: $t(L.$1HasAtLeast50Loyalty, SocialClass[socialClass].name()),
+               name: $t(L.$1HasAtLeast50Loyalty, getSocialClassName(socialClass, save.state.scenario)),
                value: getSocialClassLoyalty(socialClass, province, save) >= 50,
             };
          }),
          ...config.opposing.map((socialClass) => {
             return {
-               name: $t(L.$1HasAtLeast10Loyalty, SocialClass[socialClass].name()),
+               name: $t(L.$1HasAtLeast10Loyalty, getSocialClassName(socialClass, save.state.scenario)),
                value: getSocialClassLoyalty(socialClass, province, save) >= 10,
             };
          }),

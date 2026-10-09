@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import { LookForLocalSpouseAction, OfferMarriageAction } from "../game/actions/SpouseActions";
 import type { IFamily, IPerson } from "../game/definitions/Family";
 import type { Province } from "../game/definitions/Province";
-import { SocialClass } from "../game/definitions/SocialClass";
+import { getSocialClassName, SocialClass } from "../game/definitions/SocialClass";
 import { GameStateUpdated } from "../game/Events";
 import { getEligibleForMarriage, getSpousesFromOtherProvinces } from "../game/logic/GovernorLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
@@ -182,9 +182,9 @@ function LocalSpouseButton({ family, socialClass }: { family: IFamily; socialCla
                <div className="m10">
                   {$t(
                      L.FindAnEligibleSpouseFrom$1ClassIn$2The$3ClassWillGain50Loyalty,
-                     SocialClass[socialClass].name(),
+                     getSocialClassName(socialClass, G.save.state.scenario),
                      getProvinceName(G.save.state.playerProvince, G.save),
-                     SocialClass[socialClass].name(),
+                     getSocialClassName(socialClass, G.save.state.scenario),
                   )}
                </div>
                {element}
@@ -193,7 +193,7 @@ function LocalSpouseButton({ family, socialClass }: { family: IFamily; socialCla
          )}
          action={() => LookForLocalSpouseAction(socialClass, family, G.save.state.playerProvince, G.save)}
       >
-         {SocialClass[socialClass].name()}
+         {getSocialClassName(socialClass, G.save.state.scenario)}
       </ActionButton>
    );
 }

@@ -14,4 +14,11 @@ export const ThreeKingdoms194: IScenario = {
    timedActionNames: {
       TakeLover: () => "Take a Concubine",
    },
+   socialClassNames: {
+      UpperClass: () => "Gentry",
+      MiddleClass: () => "Scholars",
+      LowerClass: () => "Commoners",
+      ReligiousClass: () => "Clergy",
+      MilitaryClass: () => "Military",
+   },
 };

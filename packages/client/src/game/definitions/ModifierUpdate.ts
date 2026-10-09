@@ -10,7 +10,7 @@ import { GreatWork } from "./GreatWork";
 import { LegacyUpgrades } from "./LegacyUpgrade";
 import { type IPersonTrait, PersonTrait } from "./PersonTrait";
 import { ProvinceUpgrades } from "./ProvinceUpgrades";
-import { SocialClass } from "./SocialClass";
+import { getSocialClassName, SocialClass } from "./SocialClass";
 import { Tech } from "./Tech";
 import { TimedActions } from "./TimedAction";
 
@@ -100,7 +100,7 @@ function updateModifier(): void {
                safePush(state.dynamicModifiers, modifier, {
                   type,
                   value,
-                  name: $t(L.$1ClassIsDominant, SocialClass[socialClass].name()),
+                  name: $t(L.$1ClassIsDominant, getSocialClassName(socialClass, G.save.state.scenario)),
                });
             });
          }
@@ -110,7 +110,7 @@ function updateModifier(): void {
                safePush(state.dynamicModifiers, modifier, {
                   type,
                   value,
-                  name: $t(L.$1ClassIsDisloyal, SocialClass[socialClass].name()),
+                  name: $t(L.$1ClassIsDisloyal, getSocialClassName(socialClass, G.save.state.scenario)),
                });
             });
          }

@@ -6,7 +6,7 @@ import { Goods } from "./definitions/Goods";
 import { Province } from "./definitions/Province";
 import { getResourceName } from "./definitions/ProvinceResources";
 import { DefaultConscription } from "./definitions/ProvinceStats";
-import { SocialClass } from "./definitions/SocialClass";
+import { getSocialClassName } from "./definitions/SocialClass";
 import { Tech } from "./definitions/Tech";
 import { Tiles } from "./definitions/TileConstants";
 import { getTileName } from "./definitions/TileName";
@@ -242,7 +242,7 @@ const _Tutorial = {
    },
    FindSpouse: {
       name: () => $t(L.FindOurGovernorASpouse),
-      desc: () => $t(L.TutorialFindGovernorSpouseDesc$1, SocialClass.UpperClass.name()),
+      desc: (save) => $t(L.TutorialFindGovernorSpouseDesc$1, getSocialClassName("UpperClass", save.state.scenario)),
       progress: (save) => {
          const governor = save.state.provinces[save.state.playerProvince]?.governor;
          if (governor?.female) {

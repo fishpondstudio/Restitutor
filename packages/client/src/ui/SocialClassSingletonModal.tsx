@@ -5,7 +5,7 @@ import { Fragment } from "react/jsx-runtime";
 import { finalizeCondition } from "../game/actions/GameAction";
 import { GrantSocialClassBonusAction } from "../game/actions/GrantSocialClassBonusAction";
 import { modifierToString } from "../game/definitions/Modifier";
-import { SocialClass, SocialClassBonuses } from "../game/definitions/SocialClass";
+import { getSocialClassName, SocialClass, SocialClassBonuses } from "../game/definitions/SocialClass";
 import { GameStateUpdated } from "../game/Events";
 import { getGameEffectDesc } from "../game/GameEffect";
 import { getTotalUpgrades } from "../game/logic/ProvinceLogic";
@@ -64,12 +64,16 @@ export function SocialClassSingletonModal(): React.ReactNode {
                               <div className="row mt5 g5 text-sm text-dimmed">
                                  <div className="mi xs">thumb_up</div>
                                  <div className="text-display">
-                                    {config.supporting.map((sc) => SocialClass[sc].name()).join(", ")}
+                                    {config.supporting
+                                       .map((sc) => getSocialClassName(sc, G.save.state.scenario))
+                                       .join(", ")}
                                  </div>
                                  <div className="w10" />
                                  <div className="mi xs">thumb_down</div>
                                  <div className="text-display">
-                                    {config.opposing.map((sc) => SocialClass[sc].name()).join(", ")}
+                                    {config.opposing
+                                       .map((sc) => getSocialClassName(sc, G.save.state.scenario))
+                                       .join(", ")}
                                  </div>
                                  <div className="f1"></div>
                               </div>
@@ -84,7 +88,9 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                        {config.supporting.map((sc) => {
                                           return (
                                              <div className="row mx10 my5" key={sc}>
-                                                <div className="f1">{SocialClass[sc].name()}</div>
+                                                <div className="f1">
+                                                   {getSocialClassName(sc, G.save.state.scenario)}
+                                                </div>
                                                 <div>{$t(L.$1Influence, formatDelta(10))}</div>
                                                 <div className="mi xs text-primary mx-5">whatshot</div>
                                              </div>
@@ -93,7 +99,9 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                        {config.opposing.map((sc) => {
                                           return (
                                              <div className="row mx10 my5" key={sc}>
-                                                <div className="f1">{SocialClass[sc].name()}</div>
+                                                <div className="f1">
+                                                   {getSocialClassName(sc, G.save.state.scenario)}
+                                                </div>
                                                 <div>{$t(L.$1Loyalty, formatDelta(-10))}</div>
                                                 <div className="mi xs text-primary mx-5">favorite</div>
                                              </div>
@@ -118,7 +126,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                   <PieChart
                      data={mapOf(SocialClass, (key, data) => ({
                         value: getSocialClassInfluence(key, G.save.state.playerProvince, G.save),
-                        name: SocialClass[key].name(),
+                        name: getSocialClassName(key, G.save.state.scenario),
                         color: SocialClass[key].color,
                      }))}
                      strokeWidth={5}
@@ -151,7 +159,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                  })}
                                  {isSocialClassDominant(key, G.save.state.playerProvince, G.save) ? (
                                     <div className="mx10 my5 text-red">
-                                       {$t(L.$1IsCurrentlyDominant, SocialClass[key].name())}
+                                       {$t(L.$1IsCurrentlyDominant, getSocialClassName(key, G.save.state.scenario))}
                                     </div>
                                  ) : null}
                                  <div className="h2">{$t(L.WhenDisloyal)}</div>
@@ -164,7 +172,7 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                  })}
                                  {isSocialClassDisloyal(key, G.save.state.playerProvince, G.save) ? (
                                     <div className="mx10 my5 text-red text-display">
-                                       {$t(L.$1IsCurrentlyDisloyal, SocialClass[key].name())}
+                                       {$t(L.$1IsCurrentlyDisloyal, getSocialClassName(key, G.save.state.scenario))}
                                     </div>
                                  ) : null}
                                  <div className="h2">{$t(L.InfluencePerYear)}</div>
@@ -185,7 +193,9 @@ export function SocialClassSingletonModal(): React.ReactNode {
                                        flex: "0 0 1.6rem",
                                     }}
                                  />
-                                 <div className="f1 text-roman text-sm">{SocialClass[key].name()}</div>
+                                 <div className="f1 text-roman text-sm">
+                                    {getSocialClassName(key, G.save.state.scenario)}
+                                 </div>
                                  {isSocialClassDominant(key, G.save.state.playerProvince, G.save) ||
                                  isSocialClassDisloyal(key, G.save.state.playerProvince, G.save) ? (
                                     <div className="mi sm text-red">error</div>

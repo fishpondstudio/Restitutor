@@ -9,7 +9,7 @@ import { TreatyNames } from "../game/definitions/Diplomacy";
 import { Goods } from "../game/definitions/Goods";
 import type { Province } from "../game/definitions/Province";
 import { ProvinceFlags } from "../game/definitions/ProvinceState";
-import { SocialClass } from "../game/definitions/SocialClass";
+import { getSocialClassName, SocialClass } from "../game/definitions/SocialClass";
 import { Tech } from "../game/definitions/Tech";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
@@ -293,10 +293,10 @@ const SocialClassDissent: ITodo = {
       const result: string[] = [];
       forEach(SocialClass, (socialClass, data) => {
          if (isSocialClassDominant(socialClass, save.state.playerProvince, save)) {
-            result.push($t(L.$1ClassIsDominantTooltip, SocialClass[socialClass].name()));
+            result.push($t(L.$1ClassIsDominantTooltip, getSocialClassName(socialClass, save.state.scenario)));
          }
          if (isSocialClassDisloyal(socialClass, save.state.playerProvince, save)) {
-            result.push($t(L.$1ClassIsDisloyalTooltip, SocialClass[socialClass].name()));
+            result.push($t(L.$1ClassIsDisloyalTooltip, getSocialClassName(socialClass, save.state.scenario)));
          }
       });
       if (result.length === 0) {

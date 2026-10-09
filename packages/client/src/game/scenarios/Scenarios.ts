@@ -1,6 +1,7 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { Province } from "../definitions/Province";
 import type { ProvinceResource } from "../definitions/ProvinceResources";
+import type { SocialClass } from "../definitions/SocialClass";
 import type { TimedAction } from "../definitions/TimedAction";
 import type { GameEvent } from "../events/GameEvents";
 import { Rome192 } from "./Rome192";
@@ -15,6 +16,7 @@ export interface IScenario {
    flags: Set<ScenarioFlag>;
    provinceResourceNames?: Partial<Record<ProvinceResource, () => string>>;
    timedActionNames?: Partial<Record<TimedAction, () => string>>;
+   socialClassNames?: Partial<Record<SocialClass, () => string>>;
 }
 
 export const Scenarios = {
