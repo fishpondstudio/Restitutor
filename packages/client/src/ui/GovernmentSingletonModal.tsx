@@ -169,6 +169,15 @@ function AdvisorCharacterComp(): React.ReactNode {
                         </button>
                         {advisor ? (
                            <>
+                              <button
+                                 className="btn p2"
+                                 onClick={() => {
+                                    delete state.advisorSlots[slotKey];
+                                    GameStateUpdated.emit();
+                                 }}
+                              >
+                                 <div className="mi xs text-red">delete</div>
+                              </button>
                               <div>{GovernorPowerNames[config.type]()}</div>
                               <div className="f1" />
                               <div>{colorNumber(getTKCharacterTierToPower(TKCharacters[advisor].tier))}</div>
