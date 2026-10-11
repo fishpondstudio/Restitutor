@@ -1,10 +1,11 @@
 import { Menu } from "@mantine/core";
 import { cls, entriesOf, formatNumber, sizeOf } from "@project/shared/src/utils/Helper";
 import { Fragment } from "react/jsx-runtime";
-import { finalizeCondition, type IGameAction } from "../game/actions/GameAction";
+import { finalizeCondition, type ICondition, type IGameAction } from "../game/actions/GameAction";
 import { SetGovernmentFocusAction } from "../game/actions/SetGovernmentFocusAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
 import { AdvisorSlots, GovernmentTier } from "../game/definitions/GovernmentTier";
+import { durationToString } from "../game/definitions/Modifier";
 import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
 import type { GovernorPower } from "../game/definitions/ProvinceResources";
 import { GovernorPowerNames, getResourceName } from "../game/definitions/ProvinceResources";
@@ -14,7 +15,12 @@ import { getProvinceGovernmentPoint, getProvinceName } from "../game/logic/Provi
 import { getProvinceResource, notEnoughResourcesError, trySpendProvinceResources } from "../game/logic/ResourceLogic";
 import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
-import { getTKCharacterName, getTKCharacterTierToPower, isTKCharacterAvailable } from "../game/logic/TKCharacterLogic";
+import {
+   getTKCharacterName,
+   getTKCharacterTierToPower,
+   getTKCharacterTTL,
+   isTKCharacterAvailable,
+} from "../game/logic/TKCharacterLogic";
 import {
    type TKCharacter,
    TKCharacters,
@@ -24,7 +30,7 @@ import {
 } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
-import { $t, htmlText, L } from "../utils/i18n";
+import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownTooltip } from "./BreakdownRow";
@@ -137,11 +143,14 @@ function AdvisorCharacterComp(): React.ReactNode {
                               <>
                                  <div className="text-display">{getTKCharacterName(advisor).fullName}</div>
                                  <div className="text-sm">
-                                    <span className="text-dimmed">{getTKCharacterName(advisor).courtesyName}</span>
-                                    {" · "}
                                     <span className="text-primary">
                                        {TKCharacterTier[TKCharacters[advisor].tier]()}
+                                       {" · "}
                                     </span>
+                                    <span className="text-dimmed">{getTKCharacterName(advisor).courtesyName}</span>
+                                 </div>
+                                 <div className="text-sm text-dimmed">
+                                    {durationToString(getTKCharacterTTL(advisor, G.save))}
                                  </div>
                               </>
                            ) : (
@@ -153,20 +162,42 @@ function AdvisorCharacterComp(): React.ReactNode {
                      </div>
                      <div className="divider" />
                      <div className="row m5 g5 text-sm">
-                        <button
+                        <ActionButton
                            className="btn p2"
-                           onClick={() =>
-                              showPanel(SelectCharacterModal, {
-                                 tag: config.type === "military" ? "Martial" : "Civil",
-                                 onSelected(character) {
-                                    state.advisorSlots[slotKey] = character;
-                                    GameStateUpdated.emit();
+                           action={() => {
+                              return {
+                                 condition: finalizeCondition([
+                                    {
+                                       name: "We have an available slot",
+                                       value:
+                                          !!advisor || GovernmentTier[state.tier].advisors > sizeOf(state.advisorSlots),
+                                       desc: `Total Slots: ${GovernmentTier[state.tier].advisors}, Used: ${sizeOf(state.advisorSlots)}`,
+                                    },
+                                 ]),
+                                 execute() {
+                                    const trait: TKCharacterTrait = config.type === "military" ? "Martial" : "Civil";
+                                    showPanel(SelectCharacterModal, {
+                                       conditions: (character) => [
+                                          {
+                                             name: `Character has ${trait} trait`,
+                                             value: TKCharacters[character].traits.has(trait),
+                                          },
+                                          {
+                                             name: "Character is alive",
+                                             value: getTKCharacterTTL(character, G.save) > 0,
+                                          },
+                                       ],
+                                       onSelected(character) {
+                                          state.advisorSlots[slotKey] = character;
+                                          GameStateUpdated.emit();
+                                       },
+                                    });
                                  },
-                              })
-                           }
+                              } satisfies IGameAction;
+                           }}
                         >
                            <div className="mi xs">swap_horiz</div>
-                        </button>
+                        </ActionButton>
                         {advisor ? (
                            <>
                               <button
@@ -195,10 +226,10 @@ function AdvisorCharacterComp(): React.ReactNode {
 }
 
 function SelectCharacterModal({
-   tag,
+   conditions,
    onSelected,
 }: {
-   tag: TKCharacterTrait;
+   conditions: (character: TKCharacter) => ICondition[];
    onSelected: (character: TKCharacter) => void;
 }): React.ReactNode {
    const state = G.save.state.provinces[G.save.state.playerProvince];
@@ -208,18 +239,11 @@ function SelectCharacterModal({
    return (
       <ModalComp size="md" title={<ModalTitleBar title="Select Character" dismiss />}>
          <div style={{ ...Grid2 }} className="m10">
-            {Array.from(state.characters).map((character) => {
+            {Array.from(state.characters).map(([character]) => {
                const { fullName, courtesyName } = getTKCharacterName(character);
                const config = TKCharacters[character];
                return (
-                  <div
-                     className="box row g5"
-                     key={character}
-                     onClick={() => {
-                        onSelected(character);
-                        hideModal();
-                     }}
-                  >
+                  <div className="box row g5" key={character}>
                      <div>
                         <img
                            src={TKCharacters[character].image}
@@ -230,16 +254,17 @@ function SelectCharacterModal({
                      <div className="f1">
                         <div className="text-display">{fullName}</div>
                         <div className="text-sm text-dimmed">
-                           {courtesyName}
-                           {" · "}
                            <span className="text-primary">{TKCharacterTier[config.tier]()}</span>
+                           {courtesyName && " · "}
+                           {courtesyName}
                         </div>
-                        <div className="text-sm text-dimmed">
+                        <div className="text-sm text-dimmed row g5">
                            {Array.from(config.traits).map((tag) => (
                               <FloatingTip key={tag} label={() => TKCharacterTraits[tag].name()}>
                                  <div className="mi xs">{TKCharacterTraits[tag].icon}</div>
                               </FloatingTip>
                            ))}
+                           <div className="f1">{durationToString(getTKCharacterTTL(character, G.save))}</div>
                         </div>
                      </div>
                      <ActionButton
@@ -251,13 +276,11 @@ function SelectCharacterModal({
                                     name: "Character is not assigned",
                                     value: isTKCharacterAvailable(character, G.save),
                                  },
-                                 {
-                                    name: htmlText(`Character has <i>${TKCharacterTraits[tag].name()}</i> trait`),
-                                    value: TKCharacters[character].traits.has(tag),
-                                 },
+                                 ...conditions(character),
                               ]),
                               execute() {
                                  onSelected(character);
+                                 hideModal();
                               },
                            } satisfies IGameAction;
                         }}

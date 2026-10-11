@@ -15,6 +15,7 @@ import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import type { Culture } from "../definitions/Culture";
 import { Goods } from "../definitions/Goods";
+import { AdvisorSlots } from "../definitions/GovernmentTier";
 import { type GreatWork, TileToGreatWork } from "../definitions/GreatWork";
 import { Province } from "../definitions/Province";
 import { type ProvinceNameOverride, ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
@@ -43,6 +44,7 @@ import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
 import type { INameGenerator } from "../scenarios/Scenarios";
+import { TKCharacters } from "../ThreeKingdoms/TKCharacter";
 import { getArmyMaintenanceCost, getWarPower, getWarPowerPerTile } from "./ArmyLogic";
 import { cacheProvince, getProvinceCoreTilesCached, getProvinceTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
@@ -68,6 +70,7 @@ import {
    isCoastal,
 } from "./TileLogic";
 import { startTimedAction } from "./TimedActionLogic";
+import { getTKCharacterName, getTKCharacterTierToPower } from "./TKCharacterLogic";
 import { getProvinceTrades } from "./TradeLogic";
 import { getClients, getPatrons } from "./TreatyLogic";
 import { calculateWarTotalStability, getCurrentWars } from "./WarLogic";
@@ -354,7 +357,7 @@ export function initProvince(province: Province, capital: Tile, nameGenerator: I
       toleratedReligions: new Set(),
       tier: "Tier1",
       advisorSlots: {},
-      characters: new Set(),
+      characters: new Map(),
       stats: {
          ...structuredClone(ProvinceStats),
       },
@@ -410,6 +413,14 @@ export function getProvinceGovernmentPoint(type: GovernorPower, province: Provin
    if (hasProvinceUpgrade("FocusedGovernance", province, save) && state.focus === type) {
       breakdown.add.push({ name: ProvinceUpgrades.FocusedGovernance.name(), value: 1 });
    }
+   forEach(state.advisorSlots, (slot, character) => {
+      if (AdvisorSlots[slot].type === type) {
+         breakdown.add.push({
+            name: getTKCharacterName(character).fullName,
+            value: getTKCharacterTierToPower(TKCharacters[character].tier),
+         });
+      }
+   });
    if (type === "administrative") {
       attachModifier("AdministrativePoint", breakdown, province, save);
    }

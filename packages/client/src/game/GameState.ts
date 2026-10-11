@@ -96,7 +96,7 @@ export function createSaveGame({ scenario, province }: { scenario: Scenario; pro
             state.governor.male.military = getTKCharacterTierToSkill(tier);
             forEach(TKCharacters, (character, config) => {
                if (character !== warlord && config.warlord === warlord) {
-                  state.characters.add(character);
+                  state.characters.set(character, { startMonth: save.state.month });
                }
             });
          }

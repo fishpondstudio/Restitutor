@@ -36,6 +36,10 @@ export const ProvinceFlags = {
 
 export type ProvinceFlags = ValueOf<typeof ProvinceFlags>;
 
+interface TKCharacterState {
+   startMonth: number;
+}
+
 export interface IProvince {
    nameOverride?: ProvinceNameOverride;
    culture: Culture;
@@ -43,7 +47,7 @@ export interface IProvince {
    religion: Religion;
    toleratedReligions: Set<Religion>;
    tier: GovernmentTier;
-   characters: Set<TKCharacter>;
+   characters: Map<TKCharacter, TKCharacterState>;
    advisorSlots: Partial<Record<AdvisorSlot, TKCharacter>>;
    resources: ProvinceResources;
    governor: IGovernorFamily;

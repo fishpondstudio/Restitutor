@@ -1,4 +1,5 @@
 import { entriesOf } from "@project/shared/src/utils/Helper";
+import { CharacterTTLMonths } from "../definitions/Constant";
 import type { SaveGame } from "../GameState";
 import { type TKCharacter, TKCharacters, type TKCharacterTier } from "../ThreeKingdoms/TKCharacter";
 import { type TKWarlord, TKWarlordCharacters } from "../ThreeKingdoms/TKWarlord";
@@ -39,4 +40,14 @@ export function isTKCharacterAvailable(character: TKCharacter, save: SaveGame): 
       }
    }
    return true;
+}
+
+export function getTKCharacterTTL(character: TKCharacter, save: SaveGame): number {
+   for (const [province, state] of entriesOf(save.state.provinces)) {
+      const characterState = state.characters.get(character);
+      if (characterState) {
+         return CharacterTTLMonths - (save.state.month - characterState.startMonth);
+      }
+   }
+   return 0;
 }
