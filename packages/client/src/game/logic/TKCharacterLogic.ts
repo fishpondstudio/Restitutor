@@ -1,5 +1,6 @@
 import { entriesOf } from "@project/shared/src/utils/Helper";
 import { CharacterTTLMonths } from "../definitions/Constant";
+import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { type TKCharacter, TKCharacters, type TKCharacterTier } from "../ThreeKingdoms/TKCharacter";
 import { type TKWarlord, TKWarlordCharacters } from "../ThreeKingdoms/TKWarlord";
@@ -30,7 +31,7 @@ export function getTKCharacterTierToPower(tier: TKCharacterTier): number {
 
 export function isTKCharacterAvailable(character: TKCharacter, save: SaveGame): boolean {
    for (const [province, state] of entriesOf(save.state.provinces)) {
-      if (province in TKWarlordCharacters && TKWarlordCharacters[province as TKWarlord].character === character) {
+      if (isProvinceTKWarlord(province) && TKWarlordCharacters[province].character === character) {
          return false;
       }
       for (const [slot, advisor] of entriesOf(state.advisorSlots)) {
@@ -50,4 +51,8 @@ export function getTKCharacterTTL(character: TKCharacter, save: SaveGame): numbe
       }
    }
    return 0;
+}
+
+export function isProvinceTKWarlord(province: Province): province is TKWarlord {
+   return province in TKWarlordCharacters;
 }

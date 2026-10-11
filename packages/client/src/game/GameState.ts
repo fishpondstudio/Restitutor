@@ -28,6 +28,7 @@ import {
 } from "./logic/ProvinceLogic";
 import { provinceResourceOf, resetProvinceResource } from "./logic/ResourceLogic";
 import { getNameGenerator } from "./logic/ScenarioLogic";
+import { isProvinceTKWarlord } from "./logic/TKCharacterLogic";
 import { rollTradeOffers } from "./logic/TradeLogic";
 import type { IWar } from "./logic/WarLogic";
 import { type Scenario, Scenarios } from "./scenarios/Scenarios";
@@ -85,7 +86,7 @@ export function createSaveGame({ scenario, province }: { scenario: Scenario; pro
    save.state.provinces = fromEntries(
       Array.from(Scenarios[scenario].provinces).map((province) => {
          const state = initProvince(province, Province[province].capital, nameGenerator);
-         if (province in TKWarlordCharacters) {
+         if (isProvinceTKWarlord(province)) {
             const warlord = province as TKWarlord;
             const warlordConfig = TKWarlordCharacters[warlord];
             const name = TKCharacters[warlordConfig.character].name();
@@ -95,7 +96,7 @@ export function createSaveGame({ scenario, province }: { scenario: Scenario; pro
             state.governor.male.diplomatic = getTKCharacterTierToSkill(tier);
             state.governor.male.military = getTKCharacterTierToSkill(tier);
             forEach(TKCharacters, (character, config) => {
-               if (character !== warlord && config.warlord === warlord) {
+               if (config.warlord === warlord) {
                   state.characters.set(character, { startMonth: save.state.month });
                }
             });

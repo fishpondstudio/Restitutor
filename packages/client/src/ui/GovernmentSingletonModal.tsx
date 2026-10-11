@@ -19,6 +19,7 @@ import {
    getTKCharacterName,
    getTKCharacterTierToPower,
    getTKCharacterTTL,
+   isProvinceTKWarlord,
    isTKCharacterAvailable,
 } from "../game/logic/TKCharacterLogic";
 import {
@@ -28,6 +29,7 @@ import {
    type TKCharacterTrait,
    TKCharacterTraits,
 } from "../game/ThreeKingdoms/TKCharacter";
+import { TKWarlordCharacters } from "../game/ThreeKingdoms/TKWarlord";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -240,6 +242,12 @@ function SelectCharacterModal({
       <ModalComp size="md" title={<ModalTitleBar title="Select Character" dismiss />}>
          <div style={{ ...Grid2 }} className="m10">
             {Array.from(state.characters).map(([character]) => {
+               if (
+                  isProvinceTKWarlord(G.save.state.playerProvince) &&
+                  TKWarlordCharacters[G.save.state.playerProvince].character === character
+               ) {
+                  return null;
+               }
                const { fullName, courtesyName } = getTKCharacterName(character);
                const config = TKCharacters[character];
                return (
