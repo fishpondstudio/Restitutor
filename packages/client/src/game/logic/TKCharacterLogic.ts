@@ -1,9 +1,26 @@
-import { entriesOf } from "@project/shared/src/utils/Helper";
-import { CharacterTTLMonths } from "../definitions/Constant";
+import { entriesOf, forEach } from "@project/shared/src/utils/Helper";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { type TKCharacter, TKCharacters, type TKCharacterTier } from "../ThreeKingdoms/TKCharacter";
 import { type TKWarlord, TKWarlordCharacters } from "../ThreeKingdoms/TKWarlord";
+
+export function tickTKCharacters(province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   state.characters.forEach((characterState, character) => {
+      if (characterState.monthsLeft <= 0) {
+         return;
+      }
+      characterState.monthsLeft--;
+   });
+   forEach(state.advisorSlots, (slot, character) => {
+      if (getTKCharacterTTL(character, save) <= 0) {
+         delete state.advisorSlots[slot];
+      }
+   });
+}
 
 export function getTKCharacterName(character: TKCharacter): { fullName: string; courtesyName: string } {
    const name = TKCharacters[character].name();
@@ -29,6 +46,10 @@ export function getTKCharacterTierToPower(tier: TKCharacterTier): number {
    }
 }
 
+export function getTKCharacterTierToCost(tier: TKCharacterTier): number {
+   return 2 ** (getTKCharacterTierToPower(tier) - 1) * 10;
+}
+
 export function isTKCharacterAvailable(character: TKCharacter, save: SaveGame): boolean {
    for (const [province, state] of entriesOf(save.state.provinces)) {
       if (isProvinceTKWarlord(province) && TKWarlordCharacters[province].character === character) {
@@ -47,7 +68,7 @@ export function getTKCharacterTTL(character: TKCharacter, save: SaveGame): numbe
    for (const [province, state] of entriesOf(save.state.provinces)) {
       const characterState = state.characters.get(character);
       if (characterState) {
-         return CharacterTTLMonths - (save.state.month - characterState.startMonth);
+         return characterState.monthsLeft;
       }
    }
    return 0;

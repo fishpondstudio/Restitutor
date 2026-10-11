@@ -232,11 +232,16 @@ export function durationToString(duration: number): string {
    if (!Number.isFinite(duration)) {
       return $t(L.Indefinite);
    }
-   if (duration > 12 && duration % 12 === 0) {
+   if (duration >= 12) {
       const years = Math.floor(duration / 12);
-      return $t(L.$1Years, formatNumber(years));
+      const months = duration % 12;
+      const yearString = `${formatNumber(years)}y`;
+      if (months === 0) {
+         return yearString;
+      }
+      return `${yearString}${formatNumber(months)}mo`;
    }
-   return $t(L.$1Months, formatNumber(duration));
+   return `${formatNumber(duration)} mo`;
 }
 
 export function makeModifierGetter(

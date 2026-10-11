@@ -37,7 +37,7 @@ export const ProvinceFlags = {
 export type ProvinceFlags = ValueOf<typeof ProvinceFlags>;
 
 interface TKCharacterState {
-   startMonth: number;
+   monthsLeft: number;
 }
 
 export interface IProvince {

@@ -5,7 +5,7 @@ import { finalizeCondition, type ICondition, type IGameAction } from "../game/ac
 import { SetGovernmentFocusAction } from "../game/actions/SetGovernmentFocusAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
 import { AdvisorSlots, GovernmentTier } from "../game/definitions/GovernmentTier";
-import { durationToString } from "../game/definitions/Modifier";
+import { durationToString, Modifiers } from "../game/definitions/Modifier";
 import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
 import type { GovernorPower } from "../game/definitions/ProvinceResources";
 import { GovernorPowerNames, getResourceName } from "../game/definitions/ProvinceResources";
@@ -17,6 +17,7 @@ import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
    getTKCharacterName,
+   getTKCharacterTierToCost,
    getTKCharacterTierToPower,
    getTKCharacterTTL,
    isProvinceTKWarlord,
@@ -152,7 +153,7 @@ function AdvisorCharacterComp(): React.ReactNode {
                                     <span className="text-dimmed">{getTKCharacterName(advisor).courtesyName}</span>
                                  </div>
                                  <div className="text-sm text-dimmed">
-                                    {durationToString(getTKCharacterTTL(advisor, G.save))}
+                                    {durationToString(getTKCharacterTTL(advisor, G.save))} left
                                  </div>
                               </>
                            ) : (
@@ -202,15 +203,6 @@ function AdvisorCharacterComp(): React.ReactNode {
                         </ActionButton>
                         {advisor ? (
                            <>
-                              <button
-                                 className="btn p2"
-                                 onClick={() => {
-                                    delete state.advisorSlots[slotKey];
-                                    GameStateUpdated.emit();
-                                 }}
-                              >
-                                 <div className="mi xs text-red">delete</div>
-                              </button>
                               <div>{GovernorPowerNames[config.type]()}</div>
                               <div className="f1" />
                               <div>{colorNumber(getTKCharacterTierToPower(TKCharacters[advisor].tier))}</div>
@@ -219,6 +211,25 @@ function AdvisorCharacterComp(): React.ReactNode {
                            <div className="f1" />
                         )}
                      </div>
+                     {advisor && (
+                        <div className="row m5 g5 text-sm">
+                           <button
+                              className="btn p2"
+                              onClick={() => {
+                                 delete state.advisorSlots[slotKey];
+                                 GameStateUpdated.emit();
+                              }}
+                           >
+                              <div className="mi xs text-red">delete</div>
+                           </button>
+                           <div>{Modifiers.MonthlyGold.name()}</div>
+                           <div>
+                              <img src={ProvinceResourceImages.gold} className="icon-block dimmed" />
+                           </div>
+                           <div className="f1" />
+                           <div>{-getTKCharacterTierToCost(TKCharacters[advisor].tier)}</div>
+                        </div>
+                     )}
                   </div>
                );
             })}

@@ -70,7 +70,7 @@ import {
    isCoastal,
 } from "./TileLogic";
 import { startTimedAction } from "./TimedActionLogic";
-import { getTKCharacterName, getTKCharacterTierToPower } from "./TKCharacterLogic";
+import { getTKCharacterName, getTKCharacterTierToCost, getTKCharacterTierToPower } from "./TKCharacterLogic";
 import { getProvinceTrades } from "./TradeLogic";
 import { getClients, getPatrons } from "./TreatyLogic";
 import { calculateWarTotalStability, getCurrentWars } from "./WarLogic";
@@ -472,12 +472,6 @@ function _getProvinceIncome(
       }
    }
    const armyMaintenanceCost = getArmyMaintenanceCost({}, province, save).value;
-   let advisorCost = 0;
-   forEach(state.advisors, (_, data) => {
-      if (data.selected) {
-         advisorCost += getAdvisorMonthlyCost(data.selected.level, province, save).value;
-      }
-   });
 
    revenue.add.push({ name: $t(L.LandTax), value: landTax });
    if (hasProvinceUpgrade("LittoralRevenues", province, save)) {
@@ -528,6 +522,16 @@ function _getProvinceIncome(
    expense.add.push({ name: $t(L.TileMaintenance), value: -tileMaintenanceCost });
    expense.add.push({ name: $t(L.BuildingMaintenance), value: -buildingMaintenanceCost });
    expense.add.push({ name: $t(L.ArmyMaintenance), value: -armyMaintenanceCost });
+
+   let advisorCost = 0;
+   forEach(state.advisors, (_, data) => {
+      if (data.selected) {
+         advisorCost += getAdvisorMonthlyCost(data.selected.level, province, save).value;
+      }
+   });
+   forEach(state.advisorSlots, (slot, character) => {
+      advisorCost += getTKCharacterTierToCost(TKCharacters[character].tier);
+   });
    expense.add.push({ name: $t(L.AdvisorCost), value: -advisorCost });
 
    state.monthly.tradeGold.forEach((value, otherProvince) => {

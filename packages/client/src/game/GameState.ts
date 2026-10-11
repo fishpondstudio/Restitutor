@@ -10,6 +10,7 @@ import {
 } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../utils/i18n";
 import type { IChronicleEntry } from "./definitions/Chronicle";
+import { CharacterTTLMonths } from "./definitions/Constant";
 import { Goods } from "./definitions/Goods";
 import { Province } from "./definitions/Province";
 import type { IProvince } from "./definitions/ProvinceState";
@@ -97,7 +98,7 @@ export function createSaveGame({ scenario, province }: { scenario: Scenario; pro
             state.governor.male.military = getTKCharacterTierToSkill(tier);
             forEach(TKCharacters, (character, config) => {
                if (config.warlord === warlord) {
-                  state.characters.set(character, { startMonth: save.state.month });
+                  state.characters.set(character, { monthsLeft: CharacterTTLMonths });
                }
             });
          }

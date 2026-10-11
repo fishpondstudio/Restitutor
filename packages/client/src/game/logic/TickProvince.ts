@@ -74,7 +74,7 @@ import { getNameGenerator } from "./ScenarioLogic";
 import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
-import { getTKCharacterTTL } from "./TKCharacterLogic";
+import { tickTKCharacters } from "./TKCharacterLogic";
 import { getTreatyDuration } from "./TreatyLogic";
 
 export function tickProvince(province: Province, save: SaveGame): void {
@@ -88,11 +88,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
    }
    calculateTilesConnectedToCapital(province, save);
 
-   forEach(state.advisorSlots, (slot, character) => {
-      if (getTKCharacterTTL(character, save) <= 0) {
-         delete state.advisorSlots[slot];
-      }
-   });
+   tickTKCharacters(province, save);
 
    addProvinceResource(
       "administrative",
