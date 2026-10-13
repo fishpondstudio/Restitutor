@@ -328,7 +328,6 @@ export function getAnnexCostDiscount(province: Province, clientProvince: Provinc
          value: clamp(patronMonths * 0.005, 0, 0.9),
       });
    }
-   attachModifier("AnnexCostDiscount", breakdown, province, save);
    return finalizeBreakdown(breakdown);
 }
 

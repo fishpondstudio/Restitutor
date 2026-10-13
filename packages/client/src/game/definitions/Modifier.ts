@@ -169,10 +169,6 @@ export const Modifiers = {
       name: () => $t(L.TruceDuration),
       desc: () => $t(L.ModifierTruceDurationDesc),
    },
-   AnnexCostDiscount: {
-      name: () => $t(L.AnnexCostDiscount),
-      desc: () => $t(L.ModifierAnnexCostDiscountDesc),
-   },
    UpperClassInfluenceYearly: {
       name: () => $t(L.UpperClassInfluenceYearly),
       desc: () => $t(L.UpperClassInfluenceYearlyDesc),

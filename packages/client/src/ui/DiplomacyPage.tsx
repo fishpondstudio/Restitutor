@@ -578,7 +578,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                         <>
                            <TimedActionDescComp action="AnnexClient" />
                            {element}
-                           <div className="h2">{Modifiers.AnnexCostDiscount.name()}</div>
+                           <div className="h2">{$t(L.AnnexCostDiscount)}</div>
                            <BreakdownComp
                               breakdown={getAnnexCostDiscount(G.save.state.playerProvince, province, G.save)}
                               formatFunc={formatPercent}

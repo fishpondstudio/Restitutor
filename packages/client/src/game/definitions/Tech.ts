@@ -305,8 +305,8 @@ export class TechDefinitions {
       requires: ["J1"],
       name: () => $t(L.TechLocalGovernance),
       modifiers: {
-         GoverningCapacity: { type: "add", value: 200 },
          RegionalCapitalCount: { type: "add", value: 1 },
+         GoverningCapacity: { type: "add", value: 200 },
       },
    } as const;
 
@@ -314,7 +314,6 @@ export class TechDefinitions {
       requires: ["J2"],
       name: () => $t(L.TechImperialProsperity),
       modifiers: {
-         Prestige: { type: "multiply", value: 0.1 },
          TradeCapacity: { type: "add", value: 1 },
          ProductionCapacity: { type: "add", value: 5 },
          Diplomat: { type: "add", value: 1 },
@@ -330,20 +329,33 @@ export class TechDefinitions {
       },
    } as const;
 
-   // L1: ITechDefinition = {
-   //    requires: ["K1"],
-   //    name: () => $t(L.TechProvincialStaff),
-   // } as const;
+   L1: ITechDefinition = {
+      requires: ["K1", "K2"],
+      name: () => $t(L.TechTerritorialIntegration),
+      modifiers: {
+         MakeCoreCost: { type: "multiply", value: -0.2 },
+         GoverningCapacity: { type: "add", value: 200 },
+      },
+   } as const;
 
-   // L2: ITechDefinition = {
-   //    requires: ["K2"],
-   //    name: () => $t(L.TechMarriagePacts),
-   // } as const;
+   L2: ITechDefinition = {
+      requires: ["K2"],
+      name: () => $t(L.TechElitePatronage),
+      modifiers: {
+         Prestige: { type: "multiply", value: 0.1 },
+         TradeProfit: { type: "multiply", value: 0.1 },
+         BuildingSlot: { type: "add", value: 1 },
+      },
+   } as const;
 
-   // L3: ITechDefinition = {
-   //    requires: ["K3"],
-   //    name: () => $t(L.TechDefenseInDepth),
-   // } as const;
+   L3: ITechDefinition = {
+      requires: ["K2", "K3"],
+      name: () => $t(L.TechProfessionalCommand),
+      modifiers: {
+         StartingGeneralSkillPoint: { type: "add", value: 1 },
+         WarPower: { type: "multiply", value: 0.1 },
+      },
+   } as const;
 
    // M1: ITechDefinition = {
    //    requires: ["L1"],

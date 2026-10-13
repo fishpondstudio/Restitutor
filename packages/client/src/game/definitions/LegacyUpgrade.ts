@@ -189,21 +189,28 @@ export class LegacyUpgradeDefinitions {
       requires: ["ChristianityYearly1"],
       position: [3, 4],
       modifiers: {
-         MakeCoreCost: { type: "multiply", value: -0.1 },
+         MakeCoreCost: { type: "multiply", value: -0.2 },
       },
    } as const;
    MakeCore2: ILegacyUpgradeModifier = {
       requires: ["MakeCore1"],
       position: [3, 5],
       modifiers: {
-         MakeCoreCost: { type: "multiply", value: -0.1 },
+         MakeCoreCost: { type: "multiply", value: -0.2 },
       },
    } as const;
    MakeCore3: ILegacyUpgradeModifier = {
       requires: ["MakeCore2"],
       position: [3, 6],
       modifiers: {
-         MakeCoreCost: { type: "multiply", value: -0.1 },
+         MakeCoreCost: { type: "multiply", value: -0.2 },
+      },
+   } as const;
+   MakeCore4: ILegacyUpgradeModifier = {
+      requires: ["MakeCore3"],
+      position: [3, 7],
+      modifiers: {
+         MakeCoreCost: { type: "multiply", value: -0.2 },
       },
    } as const;
    InfrastructureUpgrade1: ILegacyUpgradeModifier = {
