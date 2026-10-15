@@ -5318,7 +5318,7 @@ export const UA = {
    ReviewTheDetailsOfThe$1$2Campaign: "Переглянути подробиці походу <i>$1-$2</i>.",
    LetUsReviewTheCampaign: "Розгляньмо перебіг походу",
    LetUsSetTheTermsOfPeace: "Встановімо умови миру",
-   TechTerritorialIntegration: "Territorial Integration",
-   TechElitePatronage: "Elite Patronage",
-   TechProfessionalCommand: "Professional Command",
+   TechTerritorialIntegration: "Територіальна інтеграція",
+   TechElitePatronage: "Елітний патронат",
+   TechProfessionalCommand: "Професійне командування",
 };
