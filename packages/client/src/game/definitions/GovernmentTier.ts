@@ -43,7 +43,7 @@ const _CharacterSlots = {
    AncestralTempleSlot4: { type: "AncestralTemple" },
    AncestralTempleSlot5: { type: "AncestralTemple" },
    AncestralTempleSlot6: { type: "AncestralTemple" },
-   GeneralSlot: { type: "General" },
+   StrategistSlot: { type: "General" },
 } as const satisfies Record<string, ICharacterSlot>;
 
 export type CharacterSlot = keyof typeof _CharacterSlots;

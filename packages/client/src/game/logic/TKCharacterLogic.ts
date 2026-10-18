@@ -72,16 +72,16 @@ export function getTKCharacterTierToPower(tier: TKCharacterTier): number {
    }
 }
 
-export function getTKCharacterTierToAStartingGeneralSkills(tier: TKCharacterTier): number {
+export function getTKCharacterTierToPercentage(tier: TKCharacterTier): number {
    switch (tier) {
       case "Tier1":
-         return 3;
+         return 0.25;
       case "Tier2":
-         return 2;
+         return 0.2;
       case "Tier3":
-         return 1;
+         return 0.15;
       case "Tier4":
-         return 0;
+         return 0.1;
       default:
          tier satisfies never;
          return 0;
