@@ -35,6 +35,7 @@ import { DiplomacyPage } from "./DiplomacyPage";
 import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
 import { GovernmentSingletonModal } from "./GovernmentSingletonModal";
 import { IconCatalog } from "./IconCatalog";
+import { ImperialCourtPage } from "./ImperialCourtPage";
 import { InternalAffairsPage } from "./InternalAffairsPage";
 import { LegacyUpgradeSingletonModal } from "./LegacyUpgradeSingletonModal";
 import { MissionPage } from "./MissionPage";
@@ -383,6 +384,17 @@ export function TopLeftPanel(): React.ReactNode {
                   <FloatingTip label={() => $t(L.SenateAndConsuls)}>
                      <div className="pointer" id="TopPanel_Senate" onClick={openSenate}>
                         <img src={IconCatalog.Senate} style={{ width: `${IconWidth}rem` }} />
+                     </div>
+                  </FloatingTip>
+               )}
+               {hasScenarioFlag("ImperialCourt", G.save) && (
+                  <FloatingTip label={() => "Imperial Court & Ancestral Temple"}>
+                     <div
+                        className="pointer"
+                        id="TopPanel_ImperialCourt"
+                        onClick={() => showPanel(ImperialCourtPage, {})}
+                     >
+                        <img src={IconCatalog.ImperialCourt} style={{ width: `${IconWidth}rem` }} />
                      </div>
                   </FloatingTip>
                )}
