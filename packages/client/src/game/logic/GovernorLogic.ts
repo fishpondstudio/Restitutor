@@ -27,6 +27,7 @@ import type { SaveGame } from "../GameState";
 import type { INameGenerator } from "../scenarios/Scenarios";
 import { onGeneralEnded } from "./ArmyLogic";
 import { getNameGenerator, hasScenarioFlag } from "./ScenarioLogic";
+import { killTKCharacter } from "./TKCharacterLogic";
 
 export const GovernorMinIncl = 3;
 export const GovernorMaxIncl = 6;
@@ -283,11 +284,20 @@ function tickFamilyMembers(
    const existingChildren = [...governor.children];
    if (governor.male) {
       governor.male.age++;
+      if (governor.male.character) {
+         const characterState = save.state.provinces[province]?.characters.get(governor.male.character);
+         if (characterState) {
+            characterState.monthsLeft = clamp(characterState.monthsLeft - 12, 0, Number.POSITIVE_INFINITY);
+         }
+      }
       ensureTraits(governor.male);
       const deathChance = getDeathChance(governor.male, province, save).value;
       if (Math.random() < deathChance / 100) {
          if (hasFlag(governor.male.flag, PersonFlags.IsGeneral)) {
             onGeneralEnded(province, save);
+         }
+         if (governor.male.character) {
+            killTKCharacter(governor.male.character, province, save);
          }
          governor.male = null;
       }

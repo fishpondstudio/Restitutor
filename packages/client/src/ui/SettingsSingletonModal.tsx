@@ -168,7 +168,6 @@ function SettingsShortcutsTab(): React.ReactNode {
                            : (getShortcutKey(G.save.options.shortcuts[shortcut]) ?? $t(L.Unassigned))}
                      </button>
                      <button
-                        aria-label={$t(L.Reset)}
                         className="btn"
                         disabled={isDefault}
                         title={$t(L.Reset)}
@@ -372,7 +371,6 @@ function SettingsGeneralTab(): React.ReactNode {
             </FloatingTip>
             <div className="f1"></div>
             <Switch
-               aria-label={$t(L.EdgePan)}
                checked={hasFlag(G.save.options.flag, GameOptionFlag.EdgePanEnabled)}
                onChange={() => {
                   G.save.options.flag = toggleFlag(G.save.options.flag, GameOptionFlag.EdgePanEnabled);

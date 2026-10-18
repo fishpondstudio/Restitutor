@@ -1,4 +1,5 @@
 import type { ValueOf } from "@project/shared/src/utils/Helper";
+import type { TKCharacter } from "../ThreeKingdoms/TKCharacter";
 import type { PersonTrait } from "./PersonTrait";
 import type { Province } from "./Province";
 import type { GovernorStats } from "./ProvinceResources";
@@ -13,6 +14,7 @@ export const PersonFlags = {
 export type PersonFlag = ValueOf<typeof PersonFlags>;
 
 export interface IPerson extends GovernorStats {
+   character?: TKCharacter;
    name: string[];
    age: number;
    flag: PersonFlag;

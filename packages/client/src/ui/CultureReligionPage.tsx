@@ -578,7 +578,6 @@ function IslamicReligionComp(): React.ReactNode {
                <div className="f1">{$t(L.InviteMinorReligionsToIslam)}</div>
                <Switch
                   size="xs"
-                  aria-label={$t(L.InviteMinorReligionsToIslam)}
                   checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyInviteMinorReligionsToIslam)}
                   onChange={() => {
                      state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyInviteMinorReligionsToIslam);
@@ -590,7 +589,6 @@ function IslamicReligionComp(): React.ReactNode {
                <div className="f1">{$t(L.InviteToleratedReligionsToIslam)}</div>
                <Switch
                   size="xs"
-                  aria-label={$t(L.InviteToleratedReligionsToIslam)}
                   checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyInviteToleratedReligionsToIslam)}
                   onChange={() => {
                      state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyInviteToleratedReligionsToIslam);

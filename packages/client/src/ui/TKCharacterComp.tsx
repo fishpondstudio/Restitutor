@@ -1,5 +1,7 @@
+import { formatNumber } from "@project/shared/src/utils/Helper";
+import { durationToString } from "../game/definitions/Modifier";
 import { GameStateUpdated } from "../game/Events";
-import { getTKCharacterName, getTKCharacterTTL } from "../game/logic/TKCharacterLogic";
+import { getTKCharacterName } from "../game/logic/TKCharacterLogic";
 import { type TKCharacter, TKCharacters, TKCharacterTier, TKCharacterTraits } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -9,7 +11,9 @@ export function TKCharacterComp({ character }: { character: TKCharacter }): Reac
    refreshOnTypedEvent(GameStateUpdated);
    const { fullName, courtesyName } = getTKCharacterName(character);
    const config = TKCharacters[character];
-   const monthsLeft = getTKCharacterTTL(character, G.save);
+   const state = G.save.state.provinces[G.save.state.playerProvince];
+   const monthsLeft = state?.characters.get(character)?.monthsLeft ?? 0;
+   const governor = state?.governor.male?.character === character ? state.governor.male : undefined;
    return (
       <div className="row f1">
          <img src={config.image} className="display-block mx5" style={{ width: "7rem", height: "7rem" }} />
@@ -29,11 +33,19 @@ export function TKCharacterComp({ character }: { character: TKCharacter }): Reac
                   </FloatingTip>
                ))}
                {monthsLeft > 0 ? (
-                  <div>{Math.floor(monthsLeft / 12)}y</div>
+                  <FloatingTip
+                     label={() =>
+                        governor
+                           ? `${fullName} is currently ${formatNumber(governor.age)} years old.`
+                           : `${fullName} has ${durationToString(monthsLeft)} of life remaining.`
+                     }
+                  >
+                     <div>{governor ? `${governor.age}yo` : `${Math.floor(monthsLeft / 12)}y`}</div>
+                  </FloatingTip>
                ) : (
-                  <div className="mi xs" aria-label="Dead">
-                     skull
-                  </div>
+                  <FloatingTip label={() => `${fullName} is currently dead.`}>
+                     <div className="mi xs">skull</div>
+                  </FloatingTip>
                )}
                <div className="f1" />
             </div>

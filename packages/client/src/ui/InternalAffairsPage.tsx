@@ -155,7 +155,6 @@ export function InternalAffairsPage(): React.ReactNode {
                   <div className="f1">{$t(L.AutomaticallyCoreTiles)}</div>
                   <Switch
                      size="xs"
-                     aria-label={$t(L.AutomaticallyCoreTiles)}
                      checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyMakeCore)}
                      onChange={() => {
                         state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyMakeCore);

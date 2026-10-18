@@ -10,14 +10,39 @@ export function tickTKCharacters(province: Province, save: SaveGame): void {
    if (!state) {
       return;
    }
-   state.characters.forEach((characterState, character) => {
-      if (characterState.monthsLeft <= 0) {
+   const ticked = new Set<TKCharacter>();
+   forEach(state.characterSlots, (slot, character) => {
+      const characterState = state.characters.get(character);
+      if (!characterState) {
+         delete state.characterSlots[slot];
          return;
       }
-      characterState.monthsLeft--;
+      if (CharacterSlots[slot].type === "AncestralTemple") {
+         return;
+      }
+      if (!ticked.has(character) && state.governor.male?.character !== character) {
+         if (characterState.monthsLeft > 0) {
+            characterState.monthsLeft--;
+         }
+         ticked.add(character);
+      }
+      if (characterState.monthsLeft <= 0) {
+         delete state.characterSlots[slot];
+      }
    });
-   forEach(state.characterSlots, (slot, character) => {
-      if (CharacterSlots[slot].type !== "AncestralTemple" && getTKCharacterTTL(character, save) <= 0) {
+}
+
+export function killTKCharacter(character: TKCharacter, province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   const characterState = state.characters.get(character);
+   if (characterState) {
+      characterState.monthsLeft = 0;
+   }
+   forEach(state.characterSlots, (slot, assignedCharacter) => {
+      if (assignedCharacter === character) {
          delete state.characterSlots[slot];
       }
    });
@@ -51,29 +76,21 @@ export function getTKCharacterTierToCost(tier: TKCharacterTier): number {
    return 2 ** (getTKCharacterTierToPower(tier) - 1) * 10;
 }
 
-export function isCharacterCurrentWarlord(character: TKCharacter, province: Province): boolean {
-   return isProvinceTKWarlord(province) && TKWarlordCharacters[province].character === character;
+export function isCharacterCurrentWarlord(character: TKCharacter, province: Province, save: SaveGame): boolean {
+   return save.state.provinces[province]?.governor.male?.character === character;
 }
 
-export function isTKCharacterAvailable(character: TKCharacter, save: SaveGame): boolean {
-   for (const [province, state] of entriesOf(save.state.provinces)) {
-      for (const [slot, assignedCharacter] of entriesOf(state.characterSlots)) {
-         if (assignedCharacter === character) {
-            return false;
-         }
+export function isTKCharacterAvailable(character: TKCharacter, province: Province, save: SaveGame): boolean {
+   const state = save.state.provinces[province];
+   if (!state?.characters.has(character)) {
+      return false;
+   }
+   for (const [slot, assignedCharacter] of entriesOf(state.characterSlots)) {
+      if (assignedCharacter === character) {
+         return false;
       }
    }
    return true;
-}
-
-export function getTKCharacterTTL(character: TKCharacter, save: SaveGame): number {
-   for (const [province, state] of entriesOf(save.state.provinces)) {
-      const characterState = state.characters.get(character);
-      if (characterState) {
-         return characterState.monthsLeft;
-      }
-   }
-   return 0;
 }
 
 export function isProvinceTKWarlord(province: Province): province is TKWarlord {

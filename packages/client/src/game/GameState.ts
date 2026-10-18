@@ -91,6 +91,7 @@ export function createSaveGame({ scenario, province }: { scenario: Scenario; pro
             const warlord = province as TKWarlord;
             const warlordConfig = TKWarlordCharacters[warlord];
             const name = TKCharacters[warlordConfig.character].name();
+            state.governor.male.character = warlordConfig.character;
             state.governor.male.name = [name[0], name[1]];
             const tier = TKCharacters[warlordConfig.character].tier;
             state.governor.male.administrative = getTKCharacterTierToSkill(tier);

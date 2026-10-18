@@ -89,7 +89,6 @@ export function TreasuryPage(): React.ReactNode {
                   <div className="f1">{$t(L.AutomaticallyRepayLoans)}</div>
                   <Switch
                      size="xs"
-                     aria-label={$t(L.AutomaticallyRepayLoans)}
                      checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyRepayLoans)}
                      onChange={() => {
                         state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyRepayLoans);

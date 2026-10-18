@@ -1,7 +1,7 @@
 import { finalizeCondition } from "../game/actions/GameAction";
 import { type CharacterSlot, GovernmentTier, getAncestralTempleSlots } from "../game/definitions/GovernmentTier";
 import { GameStateUpdated } from "../game/Events";
-import { getTKCharacterTTL, isTKCharacterAvailable } from "../game/logic/TKCharacterLogic";
+import { isTKCharacterAvailable } from "../game/logic/TKCharacterLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { ActionButton } from "./ActionButton";
@@ -38,7 +38,10 @@ export function ImperialCourtPage(): React.ReactNode {
                      {character ? (
                         <TKCharacterComp character={character} />
                      ) : (
-                        <div className="f1 text-dimmed text-lg text-display cc" style={{ height: "7rem" }}>
+                        <div
+                           className="f1 text-dimmed text-lg text-display"
+                           style={{ height: "7rem", alignContent: "center", marginLeft: "2rem" }}
+                        >
                            Empty Slot
                         </div>
                      )}
@@ -63,7 +66,6 @@ export function ImperialCourtPage(): React.ReactNode {
                         {character && (
                            <button
                               className="btn p2"
-                              aria-label="Remove character"
                               onClick={() => {
                                  delete state.characterSlots[slot];
                                  GameStateUpdated.emit();
@@ -94,11 +96,11 @@ function SelectAncestorModal({ slot }: { slot: CharacterSlot }): React.ReactNode
          conditions={(character) => [
             {
                name: "Character is not assigned",
-               value: isTKCharacterAvailable(character, G.save),
+               value: isTKCharacterAvailable(character, G.save.state.playerProvince, G.save),
             },
             {
                name: "Character is dead",
-               value: getTKCharacterTTL(character, G.save) <= 0,
+               value: (state.characters.get(character)?.monthsLeft ?? 0) <= 0,
             },
             {
                name: "We have an available ancestor temple slot",

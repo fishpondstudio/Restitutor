@@ -18,7 +18,6 @@ import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
    getTKCharacterTierToCost,
    getTKCharacterTierToPower,
-   getTKCharacterTTL,
    isCharacterCurrentWarlord,
    isTKCharacterAvailable,
 } from "../game/logic/TKCharacterLogic";
@@ -159,15 +158,23 @@ function AdvisorCharacterComp(): React.ReactNode {
                                        conditions: (character) => [
                                           {
                                              name: "Character is not governor",
-                                             value: !isCharacterCurrentWarlord(character, G.save.state.playerProvince),
+                                             value: !isCharacterCurrentWarlord(
+                                                character,
+                                                G.save.state.playerProvince,
+                                                G.save,
+                                             ),
                                           },
                                           {
                                              name: "Character is not assigned",
-                                             value: isTKCharacterAvailable(character, G.save),
+                                             value: isTKCharacterAvailable(
+                                                character,
+                                                G.save.state.playerProvince,
+                                                G.save,
+                                             ),
                                           },
                                           {
                                              name: "Character is alive",
-                                             value: getTKCharacterTTL(character, G.save) > 0,
+                                             value: (state.characters.get(character)?.monthsLeft ?? 0) > 0,
                                           },
                                           {
                                              name: `Character has ${trait} trait`,
