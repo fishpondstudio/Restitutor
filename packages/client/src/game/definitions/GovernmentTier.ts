@@ -1,3 +1,4 @@
+import { keysOf } from "@project/shared/src/utils/Helper";
 import type { GovernorPower } from "./ProvinceResources";
 
 export interface IGovernmentTier {
@@ -24,20 +25,36 @@ export const GovernmentTier = {
    },
 } as const satisfies Record<string, IGovernmentTier>;
 
-interface IAdvisorSlot {
-   type: GovernorPower;
+interface ICharacterSlot {
+   type: "Advisor" | "AncestralTemple" | "General";
+   governorPower?: GovernorPower;
 }
 
-const _AdvisorSlots = {
-   Administrative1: { type: "administrative" },
-   Diplomatic1: { type: "diplomatic" },
-   Military1: { type: "military" },
-   Administrative2: { type: "administrative" },
-   Diplomatic2: { type: "diplomatic" },
-   Military2: { type: "military" },
-} as const satisfies Record<string, IAdvisorSlot>;
+const _CharacterSlots = {
+   Administrative1: { type: "Advisor", governorPower: "administrative" },
+   Diplomatic1: { type: "Advisor", governorPower: "diplomatic" },
+   Military1: { type: "Advisor", governorPower: "military" },
+   Administrative2: { type: "Advisor", governorPower: "administrative" },
+   Diplomatic2: { type: "Advisor", governorPower: "diplomatic" },
+   Military2: { type: "Advisor", governorPower: "military" },
+   AncestralTempleSlot1: { type: "AncestralTemple" },
+   AncestralTempleSlot2: { type: "AncestralTemple" },
+   AncestralTempleSlot3: { type: "AncestralTemple" },
+   AncestralTempleSlot4: { type: "AncestralTemple" },
+   AncestralTempleSlot5: { type: "AncestralTemple" },
+   AncestralTempleSlot6: { type: "AncestralTemple" },
+   GeneralSlot: { type: "General" },
+} as const satisfies Record<string, ICharacterSlot>;
 
-export type AdvisorSlot = keyof typeof _AdvisorSlots;
-export const AdvisorSlots: Record<AdvisorSlot, IAdvisorSlot> = _AdvisorSlots;
+export type CharacterSlot = keyof typeof _CharacterSlots;
+export const CharacterSlots: Record<CharacterSlot, ICharacterSlot> = _CharacterSlots;
+
+export function getAdvisorSlots(): CharacterSlot[] {
+   return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "Advisor");
+}
+
+export function getAncestralTempleSlots(): CharacterSlot[] {
+   return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "AncestralTemple");
+}
 
 export type GovernmentTier = keyof typeof GovernmentTier;

@@ -6,7 +6,7 @@ import type { Culture } from "./Culture";
 import type { IRelation } from "./Diplomacy";
 import type { IGovernorFamily } from "./Family";
 import type { Goods } from "./Goods";
-import type { AdvisorSlot, GovernmentTier } from "./GovernmentTier";
+import type { CharacterSlot, GovernmentTier } from "./GovernmentTier";
 import type { LegacyUpgrade } from "./LegacyUpgrade";
 import type { IModifier, Modifier } from "./Modifier";
 import type { Province } from "./Province";
@@ -48,7 +48,7 @@ export interface IProvince {
    toleratedReligions: Set<Religion>;
    tier: GovernmentTier;
    characters: Map<TKCharacter, TKCharacterState>;
-   advisorSlots: Partial<Record<AdvisorSlot, TKCharacter>>;
+   characterSlots: Partial<Record<CharacterSlot, TKCharacter>>;
    resources: ProvinceResources;
    governor: IGovernorFamily;
    stats: ProvinceStats;

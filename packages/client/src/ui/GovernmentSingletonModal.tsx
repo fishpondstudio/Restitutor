@@ -1,11 +1,11 @@
 import { Menu } from "@mantine/core";
-import { cls, entriesOf, formatNumber, sizeOf } from "@project/shared/src/utils/Helper";
+import { cls, formatNumber } from "@project/shared/src/utils/Helper";
 import { Fragment } from "react/jsx-runtime";
-import { finalizeCondition, type ICondition, type IGameAction } from "../game/actions/GameAction";
+import { finalizeCondition, type IGameAction } from "../game/actions/GameAction";
 import { SetGovernmentFocusAction } from "../game/actions/SetGovernmentFocusAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
-import { AdvisorSlots, GovernmentTier } from "../game/definitions/GovernmentTier";
-import { durationToString, Modifiers } from "../game/definitions/Modifier";
+import { CharacterSlots, GovernmentTier, getAdvisorSlots } from "../game/definitions/GovernmentTier";
+import { Modifiers } from "../game/definitions/Modifier";
 import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
 import type { GovernorPower } from "../game/definitions/ProvinceResources";
 import { GovernorPowerNames, getResourceName } from "../game/definitions/ProvinceResources";
@@ -16,25 +16,17 @@ import { getProvinceResource, notEnoughResourcesError, trySpendProvinceResources
 import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
-   getTKCharacterName,
    getTKCharacterTierToCost,
    getTKCharacterTierToPower,
    getTKCharacterTTL,
-   isProvinceTKWarlord,
+   isCharacterCurrentWarlord,
    isTKCharacterAvailable,
 } from "../game/logic/TKCharacterLogic";
-import {
-   type TKCharacter,
-   TKCharacters,
-   TKCharacterTier,
-   type TKCharacterTrait,
-   TKCharacterTraits,
-} from "../game/ThreeKingdoms/TKCharacter";
-import { TKWarlordCharacters } from "../game/ThreeKingdoms/TKWarlord";
+import { TKCharacters, type TKCharacterTrait } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
-import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
+import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { showPanel } from "./common/ShowPanel";
@@ -43,8 +35,10 @@ import { FloatingTip } from "./components/FloatingTip";
 import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
 import { IconCatalog } from "./IconCatalog";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
+import { SelectCharacterModal } from "./SelectCharacterModal";
 import { TimedActionButton } from "./TimedActionButton";
-import { Grid2, Grid3 } from "./UIConstant";
+import { TKCharacterComp } from "./TKCharacterComp";
+import { Grid3 } from "./UIConstant";
 
 export function GovernmentSingletonModal(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
@@ -119,50 +113,33 @@ function AdvisorCharacterComp(): React.ReactNode {
    if (!state) {
       return null;
    }
+   const slots = getAdvisorSlots();
+   const usedSlots = slots.filter((slot) => state.characterSlots[slot]).length;
    return (
       <>
          <div className="h1 row">
             <div className="f1">{$t(L.Advisors)}</div>
             <div>
-               {sizeOf(state.advisorSlots)}/{GovernmentTier[state.tier].advisors}
+               {usedSlots}/{GovernmentTier[state.tier].advisors}
             </div>
             <div>({GovernmentTier[state.tier].name()})</div>
          </div>
          <div className="m10" style={Grid3}>
-            {entriesOf(AdvisorSlots).map(([slotKey, config]) => {
-               const advisor = state.advisorSlots[slotKey];
+            {slots.map((slotKey) => {
+               const { governorPower } = CharacterSlots[slotKey];
+               if (governorPower === undefined) {
+                  return null;
+               }
+               const advisor = state.characterSlots[slotKey];
                return (
                   <div className="box" key={slotKey}>
-                     <div className="row">
-                        {advisor && (
-                           <img
-                              src={TKCharacters[advisor].image}
-                              className="display-block mx5"
-                              style={{ width: "7rem", height: "7rem" }}
-                           />
-                        )}
-                        <div className="f1">
-                           {advisor ? (
-                              <>
-                                 <div className="text-display">{getTKCharacterName(advisor).fullName}</div>
-                                 <div className="text-sm">
-                                    <span className="text-primary">
-                                       {TKCharacterTier[TKCharacters[advisor].tier]()}
-                                       {" · "}
-                                    </span>
-                                    <span className="text-dimmed">{getTKCharacterName(advisor).courtesyName}</span>
-                                 </div>
-                                 <div className="text-sm text-dimmed">
-                                    {durationToString(getTKCharacterTTL(advisor, G.save))} left
-                                 </div>
-                              </>
-                           ) : (
-                              <div className="text-dimmed text-lg text-display cc" style={{ height: "7rem" }}>
-                                 {GovernorPowerNames[config.type]()}
-                              </div>
-                           )}
+                     {advisor ? (
+                        <TKCharacterComp character={advisor} />
+                     ) : (
+                        <div className="text-dimmed text-lg text-display cc" style={{ height: "7rem" }}>
+                           {GovernorPowerNames[governorPower]()}
                         </div>
-                     </div>
+                     )}
                      <div className="divider" />
                      <div className="row m5 g5 text-sm">
                         <ActionButton
@@ -171,27 +148,39 @@ function AdvisorCharacterComp(): React.ReactNode {
                               return {
                                  condition: finalizeCondition([
                                     {
-                                       name: "We have an available slot",
-                                       value:
-                                          !!advisor || GovernmentTier[state.tier].advisors > sizeOf(state.advisorSlots),
-                                       desc: `Total Slots: ${GovernmentTier[state.tier].advisors}, Used: ${sizeOf(state.advisorSlots)}`,
+                                       name: "We have an available advisor slot",
+                                       value: !!advisor || GovernmentTier[state.tier].advisors > usedSlots,
+                                       desc: `Total Slots: ${GovernmentTier[state.tier].advisors}, Used: ${usedSlots}`,
                                     },
                                  ]),
                                  execute() {
-                                    const trait: TKCharacterTrait = config.type === "military" ? "Martial" : "Civil";
+                                    const trait: TKCharacterTrait = governorPower === "military" ? "Martial" : "Civil";
                                     showPanel(SelectCharacterModal, {
                                        conditions: (character) => [
                                           {
-                                             name: `Character has ${trait} trait`,
-                                             value: TKCharacters[character].traits.has(trait),
+                                             name: "Character is not governor",
+                                             value: !isCharacterCurrentWarlord(character, G.save.state.playerProvince),
+                                          },
+                                          {
+                                             name: "Character is not assigned",
+                                             value: isTKCharacterAvailable(character, G.save),
                                           },
                                           {
                                              name: "Character is alive",
                                              value: getTKCharacterTTL(character, G.save) > 0,
                                           },
+                                          {
+                                             name: `Character has ${trait} trait`,
+                                             value: TKCharacters[character].traits.has(trait),
+                                          },
+                                          {
+                                             name: "We have an available advisor slot",
+                                             value: !!advisor || GovernmentTier[state.tier].advisors > usedSlots,
+                                             desc: `Total Slots: ${GovernmentTier[state.tier].advisors}, Used: ${usedSlots}`,
+                                          },
                                        ],
                                        onSelected(character) {
-                                          state.advisorSlots[slotKey] = character;
+                                          state.characterSlots[slotKey] = character;
                                           GameStateUpdated.emit();
                                        },
                                     });
@@ -203,7 +192,7 @@ function AdvisorCharacterComp(): React.ReactNode {
                         </ActionButton>
                         {advisor ? (
                            <>
-                              <div>{GovernorPowerNames[config.type]()}</div>
+                              <div>{GovernorPowerNames[governorPower]()}</div>
                               <div className="f1" />
                               <div>{colorNumber(getTKCharacterTierToPower(TKCharacters[advisor].tier))}</div>
                            </>
@@ -216,7 +205,7 @@ function AdvisorCharacterComp(): React.ReactNode {
                            <button
                               className="btn p2"
                               onClick={() => {
-                                 delete state.advisorSlots[slotKey];
+                                 delete state.characterSlots[slotKey];
                                  GameStateUpdated.emit();
                               }}
                            >
@@ -235,82 +224,6 @@ function AdvisorCharacterComp(): React.ReactNode {
             })}
          </div>
       </>
-   );
-}
-
-function SelectCharacterModal({
-   conditions,
-   onSelected,
-}: {
-   conditions: (character: TKCharacter) => ICondition[];
-   onSelected: (character: TKCharacter) => void;
-}): React.ReactNode {
-   const state = G.save.state.provinces[G.save.state.playerProvince];
-   if (!state) {
-      return null;
-   }
-   return (
-      <ModalComp size="md" title={<ModalTitleBar title="Select Character" dismiss />}>
-         <div style={{ ...Grid2 }} className="m10">
-            {Array.from(state.characters).map(([character]) => {
-               if (
-                  isProvinceTKWarlord(G.save.state.playerProvince) &&
-                  TKWarlordCharacters[G.save.state.playerProvince].character === character
-               ) {
-                  return null;
-               }
-               const { fullName, courtesyName } = getTKCharacterName(character);
-               const config = TKCharacters[character];
-               return (
-                  <div className="box row g5" key={character}>
-                     <div>
-                        <img
-                           src={TKCharacters[character].image}
-                           className="display-block mx5"
-                           style={{ width: "7rem", height: "7rem" }}
-                        />
-                     </div>
-                     <div className="f1">
-                        <div className="text-display">{fullName}</div>
-                        <div className="text-sm text-dimmed">
-                           <span className="text-primary">{TKCharacterTier[config.tier]()}</span>
-                           {courtesyName && " · "}
-                           {courtesyName}
-                        </div>
-                        <div className="text-sm text-dimmed row g5">
-                           {Array.from(config.traits).map((tag) => (
-                              <FloatingTip key={tag} label={() => TKCharacterTraits[tag].name()}>
-                                 <div className="mi xs">{TKCharacterTraits[tag].icon}</div>
-                              </FloatingTip>
-                           ))}
-                           <div className="f1">{durationToString(getTKCharacterTTL(character, G.save))}</div>
-                        </div>
-                     </div>
-                     <ActionButton
-                        className="btn mr10"
-                        action={() => {
-                           return {
-                              condition: finalizeCondition([
-                                 {
-                                    name: "Character is not assigned",
-                                    value: isTKCharacterAvailable(character, G.save),
-                                 },
-                                 ...conditions(character),
-                              ]),
-                              execute() {
-                                 onSelected(character);
-                                 hideModal();
-                              },
-                           } satisfies IGameAction;
-                        }}
-                     >
-                        Select
-                     </ActionButton>
-                  </div>
-               );
-            })}
-         </div>
-      </ModalComp>
    );
 }
 

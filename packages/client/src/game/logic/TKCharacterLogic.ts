@@ -1,4 +1,5 @@
 import { entriesOf, forEach } from "@project/shared/src/utils/Helper";
+import { CharacterSlots } from "../definitions/GovernmentTier";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { type TKCharacter, TKCharacters, type TKCharacterTier } from "../ThreeKingdoms/TKCharacter";
@@ -15,9 +16,9 @@ export function tickTKCharacters(province: Province, save: SaveGame): void {
       }
       characterState.monthsLeft--;
    });
-   forEach(state.advisorSlots, (slot, character) => {
-      if (getTKCharacterTTL(character, save) <= 0) {
-         delete state.advisorSlots[slot];
+   forEach(state.characterSlots, (slot, character) => {
+      if (CharacterSlots[slot].type !== "AncestralTemple" && getTKCharacterTTL(character, save) <= 0) {
+         delete state.characterSlots[slot];
       }
    });
 }
@@ -50,13 +51,14 @@ export function getTKCharacterTierToCost(tier: TKCharacterTier): number {
    return 2 ** (getTKCharacterTierToPower(tier) - 1) * 10;
 }
 
+export function isCharacterCurrentWarlord(character: TKCharacter, province: Province): boolean {
+   return isProvinceTKWarlord(province) && TKWarlordCharacters[province].character === character;
+}
+
 export function isTKCharacterAvailable(character: TKCharacter, save: SaveGame): boolean {
    for (const [province, state] of entriesOf(save.state.provinces)) {
-      if (isProvinceTKWarlord(province) && TKWarlordCharacters[province].character === character) {
-         return false;
-      }
-      for (const [slot, advisor] of entriesOf(state.advisorSlots)) {
-         if (advisor === character) {
+      for (const [slot, assignedCharacter] of entriesOf(state.characterSlots)) {
+         if (assignedCharacter === character) {
             return false;
          }
       }

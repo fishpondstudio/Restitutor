@@ -70,7 +70,7 @@ interface ITKCharacterTrait {
 }
 
 export const TKCharacterTraits = {
-   Civil: { name: () => "Civil", icon: "contract" },
+   Civil: { name: () => "Civil", icon: "feed" },
    Martial: { name: () => "Martial", icon: "swords" },
 } as const satisfies Record<string, ITKCharacterTrait>;
 export type TKCharacterTrait = keyof typeof TKCharacterTraits;
