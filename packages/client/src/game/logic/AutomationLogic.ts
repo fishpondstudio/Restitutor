@@ -12,6 +12,7 @@ import type { SaveGame } from "../GameState";
 import { getSettledTileAutonomy, setTileAutonomy } from "./AutonomyLogic";
 import { getProvinceTilesCached } from "./CacheLogic";
 import { pledgeProvinceConsulVotesConditions } from "./ProvinceLogic";
+import { hasScenarioFlag } from "./ScenarioLogic";
 import { getCultureStatus, getReligionStatus, getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft } from "./TimedActionLogic";
 
@@ -62,6 +63,9 @@ function automaticallySettleUnrest(province: Province, save: SaveGame): void {
 }
 
 function automaticallyPledgeSupport(province: Province, save: SaveGame): void {
+   if (!hasScenarioFlag("Senate", save)) {
+      return;
+   }
    const state = save.state.provinces[province];
    if (
       state &&

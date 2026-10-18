@@ -17,6 +17,7 @@ import {
    getProvinceStability,
 } from "../game/logic/ProvinceLogic";
 import { getProvinceResource } from "../game/logic/ResourceLogic";
+import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { useShortcut } from "../game/Shortcut";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
@@ -79,7 +80,11 @@ export function TopLeftPanel(): React.ReactNode {
    const openSocialClass = useCallback(() => showPanel(SocialClassSingletonModal, {}), []);
    const openProduction = useCallback(() => showPanel(ProductionSingletonModal, {}), []);
    const openTrade = useCallback(() => showPanel(TradeSingletonModal, { provinces: new Set([]) }), []);
-   const openSenate = useCallback(() => showPanel(SenatePage, {}), []);
+   const openSenate = useCallback(() => {
+      if (hasScenarioFlag("Senate", G.save)) {
+         showPanel(SenatePage, {});
+      }
+   }, []);
    const openMissions = useCallback(() => showPanel(MissionPage, {}), []);
    const openChronicle = useCallback(() => showPanel(ChroniclePage, {}), []);
    const openLegacyUpgrade = useCallback(() => showPanel(LegacyUpgradeSingletonModal, {}), []);
@@ -374,11 +379,13 @@ export function TopLeftPanel(): React.ReactNode {
                      <img src={IconCatalog.Trade} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip label={() => $t(L.SenateAndConsuls)}>
-                  <div className="pointer" id="TopPanel_Senate" onClick={() => showPanel(SenatePage, {})}>
-                     <img src={IconCatalog.Senate} style={{ width: `${IconWidth}rem` }} />
-                  </div>
-               </FloatingTip>
+               {hasScenarioFlag("Senate", G.save) && (
+                  <FloatingTip label={() => $t(L.SenateAndConsuls)}>
+                     <div className="pointer" id="TopPanel_Senate" onClick={openSenate}>
+                        <img src={IconCatalog.Senate} style={{ width: `${IconWidth}rem` }} />
+                     </div>
+                  </FloatingTip>
+               )}
                <FloatingTip label={() => $t(L.Missions)}>
                   <div className="pointer" id="TopPanel_Mission" onClick={() => showPanel(MissionPage, {})}>
                      <img src={IconCatalog.Mission} style={{ width: `${IconWidth}rem` }} />

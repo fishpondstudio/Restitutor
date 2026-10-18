@@ -5,6 +5,7 @@ import { finalizeCondition, type IGameCostCondition } from "../actions/GameActio
 import type { SaveGame } from "../GameState";
 import { onGeneralEnded } from "../logic/ArmyLogic";
 import { getTotalUpgrades } from "../logic/ProvinceLogic";
+import { requireScenarioFlagCondition } from "../logic/ScenarioLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
 import { BreachOfThePeaceDurationYear } from "../logic/WarLogic";
 import { CasusBelli } from "./CasusBelli";
@@ -324,6 +325,7 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
+            condition: finalizeCondition(requireScenarioFlagCondition("Senate", save)),
          };
       },
       modifiers: {
@@ -338,6 +340,7 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
+            condition: finalizeCondition(requireScenarioFlagCondition("Senate", save)),
          };
       },
       modifiers: {
@@ -353,6 +356,7 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
+            condition: finalizeCondition(requireScenarioFlagCondition("Senate", save)),
          };
       },
       modifiers: {
@@ -366,6 +370,7 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
+            condition: finalizeCondition(requireScenarioFlagCondition("Senate", save)),
          };
       },
       modifiers: {
@@ -379,6 +384,7 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
+            condition: finalizeCondition(requireScenarioFlagCondition("Senate", save)),
          };
       },
       modifiers: {

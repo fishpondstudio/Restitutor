@@ -84,7 +84,7 @@ export function FamilyTreeSingletonModal(): React.ReactNode {
                      <Popover.Target>
                         <button className="btn row g5">
                            <div className="mi sm">person_heart</div>
-                           {hasScenarioFlag("Polygamy", G.save)
+                           {hasScenarioFlag("Concubinage", G.save)
                               ? `Concubines (${formatNumber(state.governor.concubines.length)})`
                               : $t(L.Lovers$1, formatNumber(state.governor.concubines.length))}
                         </button>

@@ -162,7 +162,7 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
    const name = getNameGenerator(save.state.scenario).randomName("female");
    let effect: IGameEffectWithName | undefined;
    const cost: ProvinceResourceCosts = { gold: 100 };
-   if (!hasScenarioFlag("Polygamy", save)) {
+   if (!hasScenarioFlag("Concubinage", save)) {
       effect = {
          name: $t(L.TakeALoverWith$1, name.join(" ")),
          modifiers: {

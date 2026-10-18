@@ -32,6 +32,7 @@ import {
    monthsToNextConsulElection,
 } from "../game/logic/ProvinceLogic";
 import { getProvinceResource } from "../game/logic/ResourceLogic";
+import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { getAgendas, isSocialClassDisloyal, isSocialClassDominant } from "../game/logic/SocialClassLogic";
 import { getTechsCanBeResearched, hasResearched } from "../game/logic/TechLogic";
 import { getTileUnrest } from "../game/logic/TileLogic";
@@ -321,6 +322,9 @@ const PledgeSupportToConsulCandidates: ITodo = {
    icon: (save) => IconCatalog.Senate,
    className: (save) => "yellow",
    tooltip: (save) => {
+      if (!hasScenarioFlag("Senate", save)) {
+         return null;
+      }
       const state = save.state.provinces[save.state.playerProvince];
       if (!state || hasFlag(state.flags, ProvinceFlags.AutomaticallyPledgeSupport)) {
          return null;
@@ -341,6 +345,9 @@ const ExpiringConsulPoints: ITodo = {
    icon: (save) => IconCatalog.Decree,
    className: (save) => "yellow",
    tooltip: (save) => {
+      if (!hasScenarioFlag("Senate", save)) {
+         return null;
+      }
       const monthsToNextElection = monthsToNextConsulElection(save);
       if (getProvinceResource("consulPoint", save.state.playerProvince, save) > 0 && monthsToNextElection < 6) {
          return (

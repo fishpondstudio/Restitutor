@@ -13,6 +13,7 @@ import { annexTiles } from "../logic/MissionLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { getProvinceName } from "../logic/ProvinceLogic";
 import { addProvinceResource, getProvinceResource, spendProvinceResource } from "../logic/ResourceLogic";
+import { requireScenarioFlagCondition } from "../logic/ScenarioLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { getWarForTile } from "../logic/WarLogic";
@@ -145,6 +146,7 @@ export function RequestConsulPointAction(ourProvince: Province, clientProvince: 
    return {
       condition: finalizeCondition([
          ...clientActionConditions("RequestConsulPoint", ourProvince, clientProvince, save),
+         ...requireScenarioFlagCondition("Senate", save),
          {
             name: $t(L.$1HasAConsulPoint, getProvinceName(clientProvince, save)),
             value: getProvinceResource("consulPoint", clientProvince, save) >= 1,

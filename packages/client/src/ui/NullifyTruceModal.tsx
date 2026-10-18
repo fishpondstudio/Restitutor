@@ -4,6 +4,7 @@ import { finalizeCondition } from "../game/actions/GameAction";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
+import { requireScenarioFlagCondition } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { getTruceMonthsLeft, nullifyTruce } from "../game/logic/WarLogic";
@@ -38,6 +39,7 @@ export function NullifyTruceModal(): React.ReactNode {
                      action={() => ({
                         cost: { consulPoint: 1 },
                         condition: finalizeCondition([
+                           ...requireScenarioFlagCondition("Senate", G.save),
                            ...timedActionConditions({ action: "NullifyTruce" }, playerProvince, G.save),
                         ]),
                         execute: () => {

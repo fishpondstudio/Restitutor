@@ -7,6 +7,7 @@ import { TimedActions } from "../game/definitions/TimedAction";
 import { getRelation } from "../game/logic/DiplomacyLogic";
 import { addModifier } from "../game/logic/ModifierLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
+import { requireScenarioFlagCondition } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
@@ -35,6 +36,7 @@ export function NamePublicEnemyModal(): React.ReactNode {
                action={() => ({
                   cost: { consulPoint: 1 },
                   condition: finalizeCondition([
+                     ...requireScenarioFlagCondition("Senate", G.save),
                      ...timedActionConditions(
                         {
                            action: "PublicEnemy",

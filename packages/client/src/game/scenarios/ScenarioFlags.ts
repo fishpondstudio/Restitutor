@@ -1,2 +1,7 @@
-export const ScenarioFlags = ["Polygamy", "AdvisorCharacter"] as const;
-export type ScenarioFlag = (typeof ScenarioFlags)[number];
+export const ScenarioFlags = {
+   Concubinage: () => "Concubinage",
+   AdvisorCharacter: () => "AdvisorCharacter",
+   Senate: () => "Senate",
+} as const satisfies Record<string, () => string>;
+
+export type ScenarioFlag = keyof typeof ScenarioFlags;

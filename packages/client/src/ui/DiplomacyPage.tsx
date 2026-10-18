@@ -67,6 +67,7 @@ import {
    RivalAttitudeModifier,
 } from "../game/logic/DiplomacyLogic";
 import { getProvinceName, getProvincePrestige, getProvinceTileCount } from "../game/logic/ProvinceLogic";
+import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { getTimedActionCooldownLeft, getTimedActionTimeLeft } from "../game/logic/TimedActionLogic";
 import { getAllies, getClients, getDefensePacts, getPatrons } from "../game/logic/TreatyLogic";
@@ -527,7 +528,7 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
    if (!themToUs) {
       return null;
    }
-   const consulVotes = G.save.state.senate.votes.get(province) ?? new Set<number>();
+   const hasSenate = hasScenarioFlag("Senate", G.save);
    return (
       <div className="box m10" style={{ width: DiplomacyActionWidth, marginLeft: 0 }}>
          <div className="m10 col stretch g5">
@@ -657,18 +658,20 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
                   >
                      {TimedActions.AdoptClientCause.name()}
                   </ActionButton>
-                  <ActionButton
-                     className="py2"
-                     action={() => RequestConsulPointAction(G.save.state.playerProvince, province, G.save)}
-                     tooltip={(element) => (
-                        <>
-                           <TimedActionDescComp action="RequestConsulPoint" />
-                           {element}
-                        </>
-                     )}
-                  >
-                     {TimedActions.RequestConsulPoint.name()}
-                  </ActionButton>
+                  {hasSenate && (
+                     <ActionButton
+                        className="py2"
+                        action={() => RequestConsulPointAction(G.save.state.playerProvince, province, G.save)}
+                        tooltip={(element) => (
+                           <>
+                              <TimedActionDescComp action="RequestConsulPoint" />
+                              {element}
+                           </>
+                        )}
+                     >
+                        {TimedActions.RequestConsulPoint.name()}
+                     </ActionButton>
+                  )}
                </div>
             </>
          )}
@@ -888,31 +891,33 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             >
                {TimedActions.InciteUnrest.name()}
             </ActionButton>
-            <ActionButton
-               className="py2"
-               action={() => RevealElectionBackingAction(G.save.state.playerProvince, province, G.save)}
-               tooltip={(element) => (
-                  <>
-                     {usToThem.revealElectionBacking && (
-                        <>
-                           <div className="m10 text-green">
-                              {$t(L.InTheUpcomingConsulElectionTheyPledgeSupportTo)}{" "}
-                              <ul>
-                                 {Array.from(consulVotes).map((vote) => (
-                                    <li key={vote}>{G.save.state.senate.consulCandidates[vote]}</li>
-                                 ))}
-                              </ul>
-                           </div>
-                           <div className="divider" />
-                        </>
-                     )}
-                     <TimedActionDescComp action="RevealElectionBacking" />
-                     {element}
-                  </>
-               )}
-            >
-               {TimedActions.RevealElectionBacking.name()}
-            </ActionButton>
+            {hasSenate && (
+               <ActionButton
+                  className="py2"
+                  action={() => RevealElectionBackingAction(G.save.state.playerProvince, province, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        {usToThem.revealElectionBacking && (
+                           <>
+                              <div className="m10 text-green">
+                                 {$t(L.InTheUpcomingConsulElectionTheyPledgeSupportTo)}{" "}
+                                 <ul>
+                                    {Array.from(G.save.state.senate.votes.get(province) ?? []).map((vote) => (
+                                       <li key={vote}>{G.save.state.senate.consulCandidates[vote]}</li>
+                                    ))}
+                                 </ul>
+                              </div>
+                              <div className="divider" />
+                           </>
+                        )}
+                        <TimedActionDescComp action="RevealElectionBacking" />
+                        {element}
+                     </>
+                  )}
+               >
+                  {TimedActions.RevealElectionBacking.name()}
+               </ActionButton>
+            )}
          </div>
          <div className="h1">{$t(L.GreatPowerActions)}</div>
          <div className="m10 col stretch g5">
@@ -935,18 +940,20 @@ function DiplomacyActions({ province }: { province: Province }): React.ReactNode
             >
                {TimedActions.DemandTribute.name()}
             </ActionButton>
-            <ActionButton
-               className="btn py2"
-               action={() => DemandElectionBackingAction(G.save.state.playerProvince, province, G.save)}
-               tooltip={(element) => (
-                  <>
-                     <TimedActionDescComp action="DemandElectionBacking" />
-                     {element}
-                  </>
-               )}
-            >
-               {TimedActions.DemandElectionBacking.name()}
-            </ActionButton>
+            {hasSenate && (
+               <ActionButton
+                  className="btn py2"
+                  action={() => DemandElectionBackingAction(G.save.state.playerProvince, province, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        <TimedActionDescComp action="DemandElectionBacking" />
+                        {element}
+                     </>
+                  )}
+               >
+                  {TimedActions.DemandElectionBacking.name()}
+               </ActionButton>
+            )}
          </div>
       </div>
    );

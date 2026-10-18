@@ -56,7 +56,7 @@ import { getCulturalCohesion, getReligiousCohesion } from "./InternalAffairsLogi
 import { annexTiles } from "./MissionLogic";
 import { addModifier, attachModifier, forEachModifier } from "./ModifierLogic";
 import { addProvinceResource, getProvinceResource } from "./ResourceLogic";
-import { getNameGenerator } from "./ScenarioLogic";
+import { getNameGenerator, requireScenarioFlagCondition } from "./ScenarioLogic";
 import { settleTile } from "./SettlementLogic";
 import { getBaselineTechs } from "./TechLogic";
 import {
@@ -667,7 +667,10 @@ export function monthsToNextConsulElection(save: SaveGame): number {
 }
 
 export function pledgeProvinceConsulVotesConditions(province: Province, save: SaveGame): ICondition[] {
-   return [hasNotProvinceUpgradeCondition("OurOwnDestiny", province, save)];
+   return [
+      ...requireScenarioFlagCondition("Senate", save),
+      hasNotProvinceUpgradeCondition("OurOwnDestiny", province, save),
+   ];
 }
 
 export function getProvinceName(province: Province, save: SaveGame): string {

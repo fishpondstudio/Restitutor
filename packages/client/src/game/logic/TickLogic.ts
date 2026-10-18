@@ -25,7 +25,7 @@ import {
    setProvinceStat,
 } from "./ProvinceLogic";
 import { addProvinceResource, resetProvinceResource, trySpendProvinceResources } from "./ResourceLogic";
-import { getNameGenerator } from "./ScenarioLogic";
+import { getNameGenerator, hasScenarioFlag } from "./ScenarioLogic";
 import { addSocialClassInfluence, SocialClassInfluenceYearly } from "./SocialClassLogic";
 import { tickAI } from "./TickAI";
 import { tickProvince } from "./TickProvince";
@@ -126,6 +126,9 @@ function tickChroniclePopup(save: SaveGame): void {
 }
 
 function tickConsulElection(save: SaveGame) {
+   if (!hasScenarioFlag("Senate", save)) {
+      return;
+   }
    // We don't tick the first election as it will result in vacant consuls. Instead we set up two consuls as part of the initialization.
    if (save.state.month === 0) {
       return;

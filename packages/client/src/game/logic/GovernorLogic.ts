@@ -342,10 +342,10 @@ function tickFamilyMembers(
             children: [],
          };
          if (governorBirths) {
-            if (hasScenarioFlag("Polygamy", save) && female !== governor.female) {
+            if (hasScenarioFlag("Concubinage", save) && female !== governor.female) {
                person.flag = setFlag(person.flag, PersonFlags.IsFromConcubine);
             }
-            const legitimate = hasScenarioFlag("Polygamy", save) || female === governor.female;
+            const legitimate = hasScenarioFlag("Concubinage", save) || female === governor.female;
             governorBirths.push({ child: offspring, legitimate });
             if (legitimate) {
                governor.children.push(offspring);

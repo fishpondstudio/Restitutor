@@ -87,6 +87,7 @@ import {
    pledgeProvinceConsulVotesConditions,
 } from "./ProvinceLogic";
 import { getProvinceResource, hasEnoughProvinceResources, trySpendProvinceResources } from "./ResourceLogic";
+import { hasScenarioFlag } from "./ScenarioLogic";
 import { getCheapestLockedTech } from "./TechLogic";
 import { getBuildingSlot, getProvincesByDistance, getTileUnrest, getTileWar } from "./TileLogic";
 import {
@@ -714,6 +715,9 @@ function getDesiredTreatyCount(province: Province, save: SaveGame): number {
 }
 
 function doSenateVote(province: Province, save: SaveGame): void {
+   if (!hasScenarioFlag("Senate", save)) {
+      return;
+   }
    if (finalizeCondition(pledgeProvinceConsulVotesConditions(province, save)).value) {
       pledgeProvinceConsulVotes(province, save);
    }
