@@ -5086,4 +5086,6 @@ export const ZH_CN = {
    TechTerritorialIntegration: "领土整合",
    TechElitePatronage: "精英赞助",
    TechProfessionalCommand: "专业指挥",
+   SoItShallBe: "既如此，便如此",
+   WeAcknowledgeThisEvent: "我们已知悉此事件。",
 };

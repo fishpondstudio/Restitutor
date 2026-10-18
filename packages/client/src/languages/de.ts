@@ -5424,4 +5424,6 @@ export const DE = {
    TechTerritorialIntegration: "Territoriale Integration",
    TechElitePatronage: "Förderung durch Eliten",
    TechProfessionalCommand: "Professionelle Heeresführung",
+   SoItShallBe: "So soll es sein",
+   WeAcknowledgeThisEvent: "Wir nehmen dieses Ereignis zur Kenntnis.",
 };

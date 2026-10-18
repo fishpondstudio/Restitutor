@@ -5303,4 +5303,6 @@ export const RU = {
    TechTerritorialIntegration: "Территориальная интеграция",
    TechElitePatronage: "Покровительство элиты",
    TechProfessionalCommand: "Профессиональное командование",
+   SoItShallBe: "Да будет так",
+   WeAcknowledgeThisEvent: "Мы принимаем это событие к сведению.",
 };

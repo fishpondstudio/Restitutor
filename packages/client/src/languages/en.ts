@@ -5343,4 +5343,6 @@ export const EN = {
    TechTerritorialIntegration: "Territorial Integration",
    TechElitePatronage: "Elite Patronage",
    TechProfessionalCommand: "Professional Command",
+   SoItShallBe: "So it shall be",
+   WeAcknowledgeThisEvent: "We acknowledge this event.",
 };

@@ -1,3 +1,4 @@
+import { useForceUpdate } from "@mantine/hooks";
 import { formatNumber, randOne } from "@project/shared/src/utils/Helper";
 import { PendingGameEventTimeoutMonths } from "../game/definitions/Constant";
 import { GameStateUpdated } from "../game/Events";
@@ -8,7 +9,7 @@ import {
    getGameEventCondition,
    getGameEventImages,
 } from "../game/events/GameEventLogic";
-import { type GameEvent, GameEvents } from "../game/events/GameEvents";
+import { type GameEvent, GameEvents, type IGameEventButton } from "../game/events/GameEvents";
 import { openUrl } from "../rpc/SteamClient";
 import { G } from "../utils/Global";
 import { useTypedEvent } from "../utils/Hook";
@@ -20,15 +21,33 @@ import { GenericEventModal } from "./GenericEventModal";
 import { IconCatalog } from "./IconCatalog";
 
 export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode {
+   const forceUpdate = useForceUpdate();
    const data = GameEvents[event];
    useTypedEvent(GameStateUpdated, () => {
       if (!G.save.state.provinces[G.save.state.playerProvince]?.events.has(event)) {
          hideModal();
+         return;
       }
+      forceUpdate();
    });
 
    const image = data.image ?? randOne(getGameEventImages());
    const condition = getGameEventCondition(data.condition, G.save.state.playerProvince, G.save);
+
+   const resolveEvent = (button?: IGameEventButton) => {
+      const state = G.save.state.provinces[G.save.state.playerProvince];
+      if (!state) {
+         return;
+      }
+      if (state.events.has(event)) {
+         if (button) {
+            applyGameEventButton(button, $t(L.$1Event, data.name()), G.save.state.playerProvince, G.save);
+         }
+         state.events.delete(event);
+         GameStateUpdated.emit();
+      }
+      hideModal();
+   };
 
    const buttons = getEventButtons(event, G.save.state.playerProvince, G.save).map((button, index) => (
       <GameEventButton
@@ -42,21 +61,21 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
                </div>
             </>
          }
-         onClick={() => {
-            const state = G.save.state.provinces[G.save.state.playerProvince];
-            if (!state) {
-               return;
-            }
-            if (state.events.has(event)) {
-               applyGameEventButton(button, $t(L.$1Event, data.name()), G.save.state.playerProvince, G.save);
-               state.events.delete(event);
-               GameStateUpdated.emit();
-            }
-            hideModal();
-         }}
+         onClick={() => resolveEvent(button)}
          label={button.label()}
       />
    ));
+
+   if (buttons.length === 0) {
+      buttons.push(
+         <GameEventButton
+            key="acknowledge"
+            tooltip={<div className="m10">{$t(L.WeAcknowledgeThisEvent)}</div>}
+            onClick={() => resolveEvent()}
+            label={$t(L.SoItShallBe)}
+         />,
+      );
+   }
 
    return (
       <GenericEventModal
@@ -86,7 +105,7 @@ export function GameEventModal({ event }: { event: GameEvent }): React.ReactNode
                      <ConditionBreakdownComp condition={condition} />
                   </>
                )}
-               <div className="divider"></div>
+               <div className="divider" />
                <div className="m10 text-xs text-dimmed">{$t(L.ImageCredit$1, image.credit)}</div>
             </>
          )}
