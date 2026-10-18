@@ -36,7 +36,7 @@ import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { getAgendas, isSocialClassDisloyal, isSocialClassDominant } from "../game/logic/SocialClassLogic";
 import { getTechsCanBeResearched, hasResearched } from "../game/logic/TechLogic";
 import { getTileUnrest } from "../game/logic/TileLogic";
-import { getTimedActionTimeLeft, makeGameAction } from "../game/logic/TimedActionLogic";
+import { getTimedActionCooldownLeft, getTimedActionTimeLeft, makeGameAction } from "../game/logic/TimedActionLogic";
 import { getTreatyMonthLeft } from "../game/logic/TreatyLogic";
 import {
    getCurrentWars,
@@ -429,7 +429,10 @@ const VacantArmyGeneral: ITodo = {
    className: (save) => "yellow",
    tooltip: (save) => {
       const general = getCurrentGeneral(save.state.playerProvince, save);
-      if (general === undefined) {
+      if (
+         general === undefined &&
+         getTimedActionCooldownLeft("GeneralAppointment", save.state.playerProvince, save) <= 0
+      ) {
          return <div className="m10">{$t(L.VacantArmyGeneralTooltip)}</div>;
       }
       return null;

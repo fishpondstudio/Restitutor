@@ -5088,4 +5088,7 @@ export const ZH_CN = {
    TechProfessionalCommand: "专业指挥",
    SoItShallBe: "既如此，便如此",
    WeAcknowledgeThisEvent: "我们已知悉此事件。",
+   GeneralAppointment: "任命将军",
+   AfterDismissalWeMustWait$1BeforeAppointingANewGeneral: "解任将军后，我们必须等待$1才能任命新将军。",
+   $1Cooldown: "冷却：$1",
 };

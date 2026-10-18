@@ -453,13 +453,14 @@ export function* hasGeneralChecks(province: Province, save: SaveGame): Condition
 
 export function dismissGeneral(province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
-   if (!state) {
+   if (!state || getCurrentGeneral(province, save) === undefined) {
       return;
    }
    const governor = state.governor.male;
    governor.flag = clearFlag(governor.flag, PersonFlags.IsGeneral);
    endTimedActionAndResetCooldown("RecruitAGeneral", province, save);
    onGeneralEnded(province, save);
+   startTimedAction("GeneralAppointment", province, save);
 }
 
 export function getGeneralSkillUpgradeCost(level: number): number {

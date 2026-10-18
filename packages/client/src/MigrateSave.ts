@@ -83,6 +83,10 @@ export function migrateSave(save: SaveGame): void {
             delete data.stats[stat];
          }
       }
+      const dismissedGeneralMonth = (data.timedActions as Map<string, number>).get("DismissGeneral");
+      if (dismissedGeneralMonth !== undefined && !data.timedActions.has("GeneralAppointment")) {
+         data.timedActions.set("GeneralAppointment", dismissedGeneralMonth);
+      }
       for (const [timedAction, timeLeft] of data.timedActions) {
          if (!TimedActions[timedAction]) {
             data.timedActions.delete(timedAction);

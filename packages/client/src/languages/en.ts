@@ -5345,4 +5345,7 @@ export const EN = {
    TechProfessionalCommand: "Professional Command",
    SoItShallBe: "So it shall be",
    WeAcknowledgeThisEvent: "We acknowledge this event.",
+   GeneralAppointment: "General Appointment",
+   AfterDismissalWeMustWait$1BeforeAppointingANewGeneral: "After dismissal, we must wait $1 before appointing a new general.",
+   $1Cooldown: "$1 cooldown",
 };

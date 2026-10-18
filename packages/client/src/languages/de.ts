@@ -5426,4 +5426,7 @@ export const DE = {
    TechProfessionalCommand: "Professionelle Heeresführung",
    SoItShallBe: "So soll es sein",
    WeAcknowledgeThisEvent: "Wir nehmen dieses Ereignis zur Kenntnis.",
+   GeneralAppointment: "Ernennung eines Generals",
+   AfterDismissalWeMustWait$1BeforeAppointingANewGeneral: "Nach der Entlassung müssen wir $1 warten, bevor wir einen neuen General ernennen können.",
+   $1Cooldown: "$1 Abklingzeit",
 };

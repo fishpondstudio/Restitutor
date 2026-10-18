@@ -5305,4 +5305,7 @@ export const RU = {
    TechProfessionalCommand: "Профессиональное командование",
    SoItShallBe: "Да будет так",
    WeAcknowledgeThisEvent: "Мы принимаем это событие к сведению.",
+   GeneralAppointment: "Назначение генерала",
+   AfterDismissalWeMustWait$1BeforeAppointingANewGeneral: "После увольнения генерала мы должны подождать $1, прежде чем назначить нового генерала.",
+   $1Cooldown: "Время ожидания: $1",
 };

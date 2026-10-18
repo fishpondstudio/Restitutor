@@ -182,10 +182,15 @@ class TimedActionDefinitions {
       name: () => $t(L.RecruitAGeneral),
       desc: () => $t(L.RecruitingAGeneralCostsGoldEveryMonthAGeneralHasABaseSkillOf$1, "1/1/1"),
       duration: 12 * 30,
-      cooldown: 12 * 30,
+      cooldown: 0,
       onEnd: (province, save) => {
          onGeneralEnded(province, save);
       },
+   };
+   GeneralAppointment: ITimedAction = {
+      name: () => $t(L.GeneralAppointment),
+      duration: 0,
+      cooldown: 12 * 5,
    };
    FortifyBorders: ITimedAction = {
       name: () => $t(L.FortifyOurBorders),

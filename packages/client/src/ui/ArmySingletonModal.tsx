@@ -45,7 +45,11 @@ import {
 import { getProvinceStat } from "../game/logic/ProvinceLogic";
 import { getProvinceResource, provinceResourceOf } from "../game/logic/ResourceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
-import { getTimedActionTimeLeft, timedActionConditions } from "../game/logic/TimedActionLogic";
+import {
+   getTimedActionCooldownLeft,
+   getTimedActionTimeLeft,
+   timedActionConditions,
+} from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -354,6 +358,13 @@ export function ArmySingletonModal(): React.ReactNode {
                   <>
                      <div className="m10">
                         {$t(L.DismissingGeneralWillRemoveFromCommand)} <div className="h10" />
+                        <div className="text-yellow">
+                           {$t(
+                              L.AfterDismissalWeMustWait$1BeforeAppointingANewGeneral,
+                              durationToString(TimedActions.GeneralAppointment.cooldown),
+                           )}
+                        </div>
+                        <div className="h10" />
                         {$t(L.GeneralSkillPointsCarryover)}
                      </div>
                      {element}
@@ -668,11 +679,24 @@ function GeneralSkillPointTooltip(): React.ReactNode {
 function GeneralStatusComp(): React.ReactNode {
    const currentGeneral = getCurrentGeneral(G.save.state.playerProvince, G.save);
    const timeLeft = getTimedActionTimeLeft("RecruitAGeneral", G.save.state.playerProvince, G.save);
+   const cooldownLeft = getTimedActionCooldownLeft("GeneralAppointment", G.save.state.playerProvince, G.save);
    return (
       <>
          {currentGeneral === undefined && (
-            <FloatingTip label={() => $t(L.GeneralIsCurrentlyVacantConsiderAppointingAGeneral)}>
-               <div className="mi sm text-yellow">warning</div>
+            <FloatingTip
+               label={() =>
+                  cooldownLeft > 0
+                     ? $t(L.AfterDismissalWeMustWait$1BeforeAppointingANewGeneral, durationToString(cooldownLeft))
+                     : $t(L.GeneralIsCurrentlyVacantConsiderAppointingAGeneral)
+               }
+            >
+               <div className="row g5 text-yellow">
+                  {cooldownLeft > 0 ? (
+                     <div>({$t(L.$1Cooldown, durationToString(cooldownLeft))})</div>
+                  ) : (
+                     <div className="mi sm">warning</div>
+                  )}
+               </div>
             </FloatingTip>
          )}
          {currentGeneral === "Governor" && (

@@ -6,7 +6,7 @@ import type { SaveGame } from "../GameState";
 import { getCurrentGeneral, getGeneralSkillUpgradeCost, getStartingGeneralSkillPoint } from "../logic/ArmyLogic";
 import { addProvinceStat, getProvinceStat, setProvinceStat } from "../logic/ProvinceLogic";
 import { addProvinceResource } from "../logic/ResourceLogic";
-import { startTimedAction } from "../logic/TimedActionLogic";
+import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
@@ -21,6 +21,7 @@ export function MakeGovernorGeneralAction(province: Province, save: SaveGame): I
             name: $t(L.DoesNotHaveAGeneral),
             value: getCurrentGeneral(province, save) === undefined,
          },
+         ...timedActionConditions({ action: "GeneralAppointment" }, province, save),
          {
             name: $t(L.OurGovernorIsAtLeast$1YearsOld, "16"),
             value: state.governor.male.age >= 16,
@@ -46,6 +47,7 @@ export function RecruitGeneralAction(province: Province, save: SaveGame): IGameA
             name: $t(L.DoesNotHaveAGeneral),
             value: getCurrentGeneral(province, save) === undefined,
          },
+         ...timedActionConditions({ action: "GeneralAppointment" }, province, save),
       ]),
       execute: () => {
          startTimedAction("RecruitAGeneral", province, save);
