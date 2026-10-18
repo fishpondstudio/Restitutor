@@ -7,6 +7,7 @@
 - Do not stage your changes unless explicitly asked to.
 - Do not add comments unless necessary or explicitly asked to. Comment why (non-obvious things), not what or how.
 - Don't worry about formatting when writing code - the project's formatter (`pnpm run check` in root folder) will handle formatting. If unrelated files change after running the formatter, leave those changes be.
+- Do not add `aria-*` attributes unless explicitly asked to.
 
 ## Project Command
 
