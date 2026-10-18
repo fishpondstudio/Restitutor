@@ -1,6 +1,6 @@
 export const ScenarioFlags = {
    Concubinage: () => "Concubinage",
-   AdvisorCharacter: () => "AdvisorCharacter",
+   TKCharacter: () => "Three Kingdoms Character",
    Senate: () => "Senate",
    ImperialCourt: () => "Imperial Court",
 } as const satisfies Record<string, () => string>;

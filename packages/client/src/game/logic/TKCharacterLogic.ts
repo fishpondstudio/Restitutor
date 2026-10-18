@@ -72,6 +72,22 @@ export function getTKCharacterTierToPower(tier: TKCharacterTier): number {
    }
 }
 
+export function getTKCharacterTierToAStartingGeneralSkills(tier: TKCharacterTier): number {
+   switch (tier) {
+      case "Tier1":
+         return 3;
+      case "Tier2":
+         return 2;
+      case "Tier3":
+         return 1;
+      case "Tier4":
+         return 0;
+      default:
+         tier satisfies never;
+         return 0;
+   }
+}
+
 export function getTKCharacterTierToCost(tier: TKCharacterTier): number {
    return 2 ** (getTKCharacterTierToPower(tier) - 1) * 10;
 }

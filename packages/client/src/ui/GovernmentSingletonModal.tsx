@@ -90,7 +90,7 @@ export function GovernmentSingletonModal(): React.ReactNode {
                </div>
             </div>
          </div>
-         {hasScenarioFlag("AdvisorCharacter", G.save) ? <AdvisorCharacterComp /> : <AdvisorComp />}
+         {hasScenarioFlag("TKCharacter", G.save) ? <AdvisorCharacterComp /> : <AdvisorComp />}
          <div className="h1">{$t(L.Focus)}</div>
          <div className="m10" style={Grid3}>
             <FocusComp type="administrative" />

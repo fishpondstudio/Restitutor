@@ -7,7 +7,7 @@ export const ThreeKingdoms194: IScenario = {
    provinces: new Set(TKWarlords),
    nameGenerator: ChineseNameGenerator,
    events: new Set(),
-   flags: new Set(["Concubinage", "AdvisorCharacter", "ImperialCourt"]),
+   flags: new Set(["Concubinage", "TKCharacter", "ImperialCourt"]),
    provinceResourceNames: {
       consulPoint: () => "Imperial Favor",
    },
