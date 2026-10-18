@@ -1,5 +1,7 @@
 import { finalizeCondition, type ICondition, type IGameAction } from "../game/actions/GameAction";
+import type { CharacterSlot } from "../game/definitions/GovernmentTier";
 import { GameStateUpdated } from "../game/Events";
+import { getCharacterAssignmentConditions } from "../game/logic/TKCharacterLogic";
 import type { TKCharacter } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -7,6 +9,24 @@ import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { TKCharacterComp } from "./TKCharacterComp";
 import { Grid2 } from "./UIConstant";
+
+export function SelectCharacterSlotModal({ slot }: { slot: CharacterSlot }): React.ReactNode {
+   return (
+      <SelectCharacterModal
+         conditions={(character) =>
+            getCharacterAssignmentConditions(slot, character, G.save.state.playerProvince, G.save)
+         }
+         onSelected={(character) => {
+            const state = G.save.state.provinces[G.save.state.playerProvince];
+            if (!state) {
+               return;
+            }
+            state.characterSlots[slot] = character;
+            GameStateUpdated.emit();
+         }}
+      />
+   );
+}
 
 export function SelectCharacterModal({
    conditions,

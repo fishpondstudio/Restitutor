@@ -1,10 +1,10 @@
 import { Menu } from "@mantine/core";
 import { cls, formatNumber } from "@project/shared/src/utils/Helper";
 import { Fragment } from "react/jsx-runtime";
-import { finalizeCondition, type IGameAction } from "../game/actions/GameAction";
+import { finalizeCondition } from "../game/actions/GameAction";
 import { SetGovernmentFocusAction } from "../game/actions/SetGovernmentFocusAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
-import { CharacterSlots, GovernmentTier, getAdvisorSlots } from "../game/definitions/GovernmentTier";
+import { CharacterSlots, getAdvisorSlots } from "../game/definitions/GovernmentTier";
 import { Modifiers } from "../game/definitions/Modifier";
 import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
 import type { GovernorPower } from "../game/definitions/ProvinceResources";
@@ -16,25 +16,25 @@ import { getProvinceResource, notEnoughResourcesError, trySpendProvinceResources
 import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
+   getCharacterSlotCapacityCondition,
    getTKCharacterTierToCost,
    getTKCharacterTierToPower,
-   isCharacterCurrentWarlord,
-   isTKCharacterAvailable,
 } from "../game/logic/TKCharacterLogic";
-import { TKCharacters, type TKCharacterTrait } from "../game/ThreeKingdoms/TKCharacter";
+import { TKCharacters } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownTooltip } from "./BreakdownRow";
+import { CharacterSlotCapacityComp } from "./CharacterSlotCapacityComp";
 import { showPanel } from "./common/ShowPanel";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
 import { IconCatalog } from "./IconCatalog";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
-import { SelectCharacterModal } from "./SelectCharacterModal";
+import { SelectCharacterSlotModal } from "./SelectCharacterModal";
 import { TimedActionButton } from "./TimedActionButton";
 import { TKCharacterComp } from "./TKCharacterComp";
 import { Grid3 } from "./UIConstant";
@@ -113,15 +113,11 @@ function AdvisorCharacterComp(): React.ReactNode {
       return null;
    }
    const slots = getAdvisorSlots();
-   const usedSlots = slots.filter((slot) => state.characterSlots[slot]).length;
    return (
       <>
-         <div className="h1 row">
+         <div className="h1 row g5">
             <div className="f1">{$t(L.Advisors)}</div>
-            <div>
-               {usedSlots}/{GovernmentTier[state.tier].advisors}
-            </div>
-            <div>({GovernmentTier[state.tier].name()})</div>
+            <CharacterSlotCapacityComp />
          </div>
          <div className="m10" style={Grid3}>
             {slots.map((slotKey) => {
@@ -143,57 +139,14 @@ function AdvisorCharacterComp(): React.ReactNode {
                      <div className="row m5 g5 text-sm">
                         <ActionButton
                            className="btn p2"
-                           action={() => {
-                              return {
-                                 condition: finalizeCondition([
-                                    {
-                                       name: "We have an available advisor slot",
-                                       value: !!advisor || GovernmentTier[state.tier].advisors > usedSlots,
-                                       desc: `Total Slots: ${GovernmentTier[state.tier].advisors}, Used: ${usedSlots}`,
-                                    },
-                                 ]),
-                                 execute() {
-                                    const trait: TKCharacterTrait = governorPower === "military" ? "Martial" : "Civil";
-                                    showPanel(SelectCharacterModal, {
-                                       conditions: (character) => [
-                                          {
-                                             name: "Character is not governor",
-                                             value: !isCharacterCurrentWarlord(
-                                                character,
-                                                G.save.state.playerProvince,
-                                                G.save,
-                                             ),
-                                          },
-                                          {
-                                             name: "Character is not assigned",
-                                             value: isTKCharacterAvailable(
-                                                character,
-                                                G.save.state.playerProvince,
-                                                G.save,
-                                             ),
-                                          },
-                                          {
-                                             name: "Character is alive",
-                                             value: (state.characters.get(character)?.monthsLeft ?? 0) > 0,
-                                          },
-                                          {
-                                             name: `Character has ${trait} trait`,
-                                             value: TKCharacters[character].traits.has(trait),
-                                          },
-                                          {
-                                             name: "We have an available advisor slot",
-                                             value: !!advisor || GovernmentTier[state.tier].advisors > usedSlots,
-                                             desc: `Total Slots: ${GovernmentTier[state.tier].advisors}, Used: ${usedSlots}`,
-                                          },
-                                       ],
-                                       onSelected(character) {
-                                          state.characterSlots[slotKey] = character;
-                                          GameStateUpdated.emit();
-                                       },
-                                    });
-                                 },
-                              } satisfies IGameAction;
-                           }}
+                           action={() => ({
+                              condition: finalizeCondition([
+                                 getCharacterSlotCapacityCondition(slotKey, G.save.state.playerProvince, G.save),
+                              ]),
+                              execute() {
+                                 showPanel(SelectCharacterSlotModal, { slot: slotKey });
+                              },
+                           })}
                         >
                            <div className="mi xs">swap_horiz</div>
                         </ActionButton>

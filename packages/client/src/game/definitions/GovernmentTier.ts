@@ -3,25 +3,25 @@ import type { GovernorPower } from "./ProvinceResources";
 
 export interface IGovernmentTier {
    name: () => string;
-   advisors: number;
+   slots: number;
 }
 
 export const GovernmentTier = {
    Tier1: {
       name: () => "Governor",
-      advisors: 3,
+      slots: 5,
    },
    Tier2: {
       name: () => "Duke",
-      advisors: 4,
+      slots: 8,
    },
    Tier3: {
       name: () => "King",
-      advisors: 5,
+      slots: 11,
    },
    Tier4: {
       name: () => "Emperor",
-      advisors: 6,
+      slots: 14,
    },
 } as const satisfies Record<string, IGovernmentTier>;
 
@@ -37,13 +37,14 @@ const _CharacterSlots = {
    Administrative2: { type: "Advisor", governorPower: "administrative" },
    Diplomatic2: { type: "Advisor", governorPower: "diplomatic" },
    Military2: { type: "Advisor", governorPower: "military" },
-   AncestralTempleSlot1: { type: "AncestralTemple" },
-   AncestralTempleSlot2: { type: "AncestralTemple" },
-   AncestralTempleSlot3: { type: "AncestralTemple" },
-   AncestralTempleSlot4: { type: "AncestralTemple" },
-   AncestralTempleSlot5: { type: "AncestralTemple" },
-   AncestralTempleSlot6: { type: "AncestralTemple" },
-   StrategistSlot: { type: "General" },
+   AncestralTemple1: { type: "AncestralTemple" },
+   AncestralTemple2: { type: "AncestralTemple" },
+   AncestralTemple3: { type: "AncestralTemple" },
+   AncestralTemple4: { type: "AncestralTemple" },
+   AncestralTemple5: { type: "AncestralTemple" },
+   AncestralTemple6: { type: "AncestralTemple" },
+   Strategist1: { type: "General" },
+   Strategist2: { type: "General" },
 } as const satisfies Record<string, ICharacterSlot>;
 
 export type CharacterSlot = keyof typeof _CharacterSlots;
@@ -55,6 +56,10 @@ export function getAdvisorSlots(): CharacterSlot[] {
 
 export function getAncestralTempleSlots(): CharacterSlot[] {
    return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "AncestralTemple");
+}
+
+export function getStrategistSlots(): CharacterSlot[] {
+   return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "General");
 }
 
 export type GovernmentTier = keyof typeof GovernmentTier;

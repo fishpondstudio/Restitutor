@@ -1,9 +1,11 @@
-import { entriesOf, forEach } from "@project/shared/src/utils/Helper";
-import { CharacterSlots } from "../definitions/GovernmentTier";
+import { entriesOf, forEach, keysOf } from "@project/shared/src/utils/Helper";
+import type { ICondition } from "../actions/GameAction";
+import { type CharacterSlot, CharacterSlots, GovernmentTier } from "../definitions/GovernmentTier";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { type TKCharacter, TKCharacters, type TKCharacterTier } from "../ThreeKingdoms/TKCharacter";
 import { type TKWarlord, TKWarlordCharacters } from "../ThreeKingdoms/TKWarlord";
+import { requireScenarioFlagCondition } from "./ScenarioLogic";
 
 export function tickTKCharacters(province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
@@ -75,13 +77,13 @@ export function getTKCharacterTierToPower(tier: TKCharacterTier): number {
 export function getTKCharacterTierToPercentage(tier: TKCharacterTier): number {
    switch (tier) {
       case "Tier1":
-         return 0.25;
-      case "Tier2":
          return 0.2;
-      case "Tier3":
+      case "Tier2":
          return 0.15;
-      case "Tier4":
+      case "Tier3":
          return 0.1;
+      case "Tier4":
+         return 0.05;
       default:
          tier satisfies never;
          return 0;
@@ -107,6 +109,59 @@ export function isTKCharacterAvailable(character: TKCharacter, province: Provinc
       }
    }
    return true;
+}
+
+export function getUsedCharacterSlots(province: Province, save: SaveGame): number {
+   const state = save.state.provinces[province];
+   return keysOf(CharacterSlots).filter((slot) => state?.characterSlots[slot] !== undefined).length;
+}
+
+export function getCharacterSlotCapacityCondition(slot: CharacterSlot, province: Province, save: SaveGame): ICondition {
+   const state = save.state.provinces[province];
+   const used = getUsedCharacterSlots(province, save);
+   const limit = state ? GovernmentTier[state.tier].slots : 0;
+   return {
+      name: "We have an available character slot",
+      value: !!state && (state.characterSlots[slot] !== undefined || used < limit),
+      desc: `Total Character Slots: ${limit}, Used: ${used}`,
+   };
+}
+
+export function getCharacterAssignmentConditions(
+   slot: CharacterSlot,
+   character: TKCharacter,
+   province: Province,
+   save: SaveGame,
+): ICondition[] {
+   const { type, governorPower } = CharacterSlots[slot];
+   const monthsLeft = save.state.provinces[province]?.characters.get(character)?.monthsLeft ?? 0;
+   const conditions: ICondition[] = [
+      ...requireScenarioFlagCondition("TKCharacter", save),
+      getCharacterSlotCapacityCondition(slot, province, save),
+      {
+         name: "Character is not assigned",
+         value: isTKCharacterAvailable(character, province, save),
+      },
+      {
+         name: type === "AncestralTemple" ? "Character is dead" : "Character is alive",
+         value: type === "AncestralTemple" ? monthsLeft <= 0 : monthsLeft > 0,
+      },
+   ];
+   if (type === "AncestralTemple") {
+      return conditions;
+   }
+   const trait = type === "Advisor" && governorPower !== "military" ? "Civil" : "Martial";
+   conditions.push(
+      {
+         name: "Character is not the current warlord",
+         value: !isCharacterCurrentWarlord(character, province, save),
+      },
+      {
+         name: `Character has the ${trait} trait`,
+         value: TKCharacters[character].traits.has(trait),
+      },
+   );
+   return conditions;
 }
 
 export function isProvinceTKWarlord(province: Province): province is TKWarlord {

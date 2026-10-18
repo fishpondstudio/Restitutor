@@ -1,6 +1,7 @@
 import { Checkbox, Slider } from "@mantine/core";
 import {
    cls,
+   entriesOf,
    formatNumber,
    formatPercent,
    formatPercentDelta,
@@ -14,6 +15,7 @@ import {
    UpgradeGeneralSkillAction,
 } from "../game/actions/ArmyGeneralAction";
 import { finalizeCondition } from "../game/actions/GameAction";
+import { getStrategistSlots } from "../game/definitions/GovernmentTier";
 import { durationToString, Modifiers } from "../game/definitions/Modifier";
 import { getResourceName } from "../game/definitions/ProvinceResources";
 import { ProvinceStatNames } from "../game/definitions/ProvinceStats";
@@ -30,6 +32,7 @@ import {
    getCurrentGeneral,
    getProvinceManpower,
    getStartingGeneralSkillPoint,
+   getStrategistWarPowerBonus,
    getUnitWarPower,
    getWarPower,
    hasGeneralCondition,
@@ -44,26 +47,31 @@ import {
 } from "../game/logic/ArmyLogic";
 import { getProvinceStat } from "../game/logic/ProvinceLogic";
 import { getProvinceResource, provinceResourceOf } from "../game/logic/ResourceLogic";
+import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
    getTimedActionCooldownLeft,
    getTimedActionTimeLeft,
    timedActionConditions,
 } from "../game/logic/TimedActionLogic";
+import { getTKCharacterTierToPercentage } from "../game/logic/TKCharacterLogic";
+import { TKCharacterTier } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
-import { BreakdownRow } from "./BreakdownRow";
+import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
+import { CharacterSlotCapacityComp } from "./CharacterSlotCapacityComp";
+import { CharacterSlotComp } from "./CharacterSlotComp";
 import { ConfirmModal } from "./ConfirmModal";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { TimedActionButton } from "./TimedActionButton";
-import { Grid3 } from "./UIConstant";
+import { Grid2, Grid3 } from "./UIConstant";
 import { WarPowerRow } from "./WarPowerTooltip";
 
 export function ArmySingletonModal(): React.ReactNode {
@@ -380,6 +388,7 @@ export function ArmySingletonModal(): React.ReactNode {
             <UpgradeSkillButton skill="rangedSkill" id="ArmyModal_UpgradeRangedSkill" />
             <UpgradeSkillButton skill="cavalrySkill" id="ArmyModal_UpgradeCavalrySkill" />
          </div>
+         {hasScenarioFlag("TKCharacter", G.save) && <StrategistComp />}
          <div className="h1">{$t(L.Actions)}</div>
          <div className="m10" style={Grid3}>
             <TimedActionButton timedAction="UpgradeRations" />
@@ -417,6 +426,51 @@ export function ArmySingletonModal(): React.ReactNode {
             breakdown={getWarPower({ composition }, G.save.state.playerProvince, G.save)}
          />
       </ModalComp>
+   );
+}
+
+function StrategistComp(): React.ReactNode {
+   const state = G.save.state.provinces[G.save.state.playerProvince];
+   if (!state) {
+      return null;
+   }
+   const warPowerBonus = getStrategistWarPowerBonus(G.save.state.playerProvince, G.save);
+   return (
+      <>
+         <div className="h1 row g5">
+            <BreakdownTooltip
+               formatFunc={formatPercentDelta}
+               breakdown={warPowerBonus}
+               tooltip={(element) => (
+                  <>
+                     <div className="m10">
+                        Each strategist grants War Power bonus based on the character's tier:{" "}
+                        {entriesOf(TKCharacterTier)
+                           .map(
+                              ([key, name]) => `${name()} (${formatPercentDelta(getTKCharacterTierToPercentage(key))})`,
+                           )
+                           .join(", ")}
+                     </div>
+                     {element}
+                  </>
+               )}
+            >
+               <div className="row g5">
+                  <div>Strategists</div>
+                  <div className={cls(warPowerBonus.value > 0 ? "text-green" : "text-dimmed")}>
+                     ({$t(L.$1WarPower, formatPercentDelta(warPowerBonus.value))})
+                  </div>
+               </div>
+            </BreakdownTooltip>
+            <div className="f1" />
+            <CharacterSlotCapacityComp />
+         </div>
+         <div className="m10" style={Grid2}>
+            {getStrategistSlots().map((slot) => {
+               return <CharacterSlotComp key={slot} slot={slot} />;
+            })}
+         </div>
+      </>
    );
 }
 
