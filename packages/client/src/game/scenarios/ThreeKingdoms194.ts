@@ -13,6 +13,11 @@ export const ThreeKingdoms194: IScenario = {
    },
    timedActionNames: {
       TakeLover: () => "Take a Concubine",
+      RequestFunding: () => "Request Subsidies",
+      EnactSenateOversight: () => "Seek Imperial Advice",
+      AffirmCivicUnity: () => "Affirm Legitimacy",
+      DeclareMobilization: () => "Rally Imperial Host",
+      BolsterDignitas: () => "Seek Imperial Honors",
    },
    socialClassNames: {
       UpperClass: () => "Gentry",

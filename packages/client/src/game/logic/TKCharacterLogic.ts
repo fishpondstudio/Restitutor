@@ -77,9 +77,9 @@ export function getTKCharacterTierToPower(tier: TKCharacterTier): number {
 export function getTKCharacterTierToPercentage(tier: TKCharacterTier): number {
    switch (tier) {
       case "Tier1":
-         return 0.2;
+         return 0.3;
       case "Tier2":
-         return 0.15;
+         return 0.2;
       case "Tier3":
          return 0.1;
       case "Tier4":
@@ -123,7 +123,7 @@ export function getCharacterSlotCapacityCondition(slot: CharacterSlot, province:
    return {
       name: "We have an available character slot",
       value: !!state && (state.characterSlots[slot] !== undefined || used < limit),
-      desc: `Total Character Slots: ${limit}, Used: ${used}`,
+      desc: `Total Slots: ${limit}, Used: ${used}`,
    };
 }
 

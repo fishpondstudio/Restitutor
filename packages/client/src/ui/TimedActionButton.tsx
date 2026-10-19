@@ -1,6 +1,6 @@
-import { TimedActions, type TimedEffectAction } from "../game/definitions/TimedAction";
+import type { TimedEffectAction } from "../game/definitions/TimedAction";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
-import { makeGameAction } from "../game/logic/TimedActionLogic";
+import { getTimedActionName, makeGameAction } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { ActionButton } from "./ActionButton";
 
@@ -25,7 +25,7 @@ export function TimedActionButton({
             </>
          )}
       >
-         {TimedActions[timedAction].name()}
+         {getTimedActionName(timedAction, G.save)}
       </ActionButton>
    );
 }

@@ -5,7 +5,6 @@ import { finalizeCondition, type IGameCostCondition } from "../actions/GameActio
 import type { SaveGame } from "../GameState";
 import { onGeneralEnded } from "../logic/ArmyLogic";
 import { getTotalUpgrades } from "../logic/ProvinceLogic";
-import { requireScenarioFlagCondition } from "../logic/ScenarioLogic";
 import { timedActionConditions } from "../logic/TimedActionLogic";
 import { BreachOfThePeaceDurationYear } from "../logic/WarLogic";
 import { CasusBelli } from "./CasusBelli";
@@ -330,12 +329,25 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
-            condition: finalizeCondition(requireScenarioFlagCondition("Senate", save)),
          };
       },
       modifiers: {
-         TileOutput: { type: "multiply", value: 0.25 },
-         LandTax: { type: "multiply", value: 0.25 },
+         TileOutput: { type: "multiply", value: 0.2 },
+         LandTax: { type: "multiply", value: 0.2 },
+      },
+   };
+   CutPublicSpending: ITimedEffectAction = {
+      name: () => "Cut Public Spending",
+      duration: 12,
+      cooldown: 12,
+      costCondition: (province, save) => {
+         return {
+            cost: { consulPoint: 1 },
+         };
+      },
+      modifiers: {
+         TileMaintenance: { type: "multiply", value: -0.2 },
+         BuildingMaintenanceCost: { type: "multiply", value: -0.2 },
       },
    };
    EnactSenateOversight: ITimedEffectAction = {
@@ -345,7 +357,6 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
-            condition: finalizeCondition(requireScenarioFlagCondition("Senate", save)),
          };
       },
       modifiers: {
@@ -361,7 +372,6 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
-            condition: finalizeCondition(requireScenarioFlagCondition("Senate", save)),
          };
       },
       modifiers: {
@@ -375,7 +385,6 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
-            condition: finalizeCondition(requireScenarioFlagCondition("Senate", save)),
          };
       },
       modifiers: {
@@ -389,7 +398,6 @@ class TimedActionDefinitions {
       costCondition: (province, save) => {
          return {
             cost: { consulPoint: 1 },
-            condition: finalizeCondition(requireScenarioFlagCondition("Senate", save)),
          };
       },
       modifiers: {
