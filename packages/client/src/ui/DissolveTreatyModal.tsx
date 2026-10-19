@@ -6,7 +6,6 @@ import { TreatyNames } from "../game/definitions/Diplomacy";
 import type { Province } from "../game/definitions/Province";
 import { getRelations } from "../game/logic/DiplomacyLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
-import { requireScenarioFlagCondition } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { dissolveTreaty, requireDefensePactAllyOrPatronCount } from "../game/logic/TreatyLogic";
@@ -54,7 +53,6 @@ export function DissolveTreatyModal(): React.ReactNode {
                         action={() => ({
                            cost: { consulPoint: 1 },
                            condition: finalizeCondition([
-                              ...requireScenarioFlagCondition("Senate", G.save),
                               ...timedActionConditions(
                                  { action: "DissolveTreaty" },
                                  G.save.state.playerProvince,

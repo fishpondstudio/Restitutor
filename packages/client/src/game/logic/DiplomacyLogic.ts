@@ -255,6 +255,7 @@ export function cancelInfiltration(fromProvince: Province, toProvince: Province,
 }
 
 export const FabricateCasusBelliCost = 50;
+export const RequestImperialFavorCost = 50;
 
 export function tryUseInfiltration(
    cost: number,

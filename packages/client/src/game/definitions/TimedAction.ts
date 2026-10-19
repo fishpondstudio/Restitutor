@@ -928,6 +928,12 @@ class TimedActionDefinitions {
       duration: 12 * 5,
       cooldown: 12 * 5,
    };
+   EnlistCourtSupport: ITimedAction = {
+      name: () => "Enlist Court Support",
+      desc: () => "Spend infiltration to persuade them to secure imperial favor on our behalf.",
+      duration: 0,
+      cooldown: 12,
+   };
 }
 
 export type TimedAction = keyof TimedActionDefinitions;

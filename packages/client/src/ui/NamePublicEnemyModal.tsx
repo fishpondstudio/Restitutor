@@ -1,15 +1,9 @@
 import { Select } from "@mantine/core";
-import { forEach } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
-import { finalizeCondition } from "../game/actions/GameAction";
+import { NamePublicEnemyAction } from "../game/actions/NamePublicEnemyAction";
 import { type Province, Provinces } from "../game/definitions/Province";
-import { TimedActions } from "../game/definitions/TimedAction";
-import { getRelation } from "../game/logic/DiplomacyLogic";
-import { addModifier } from "../game/logic/ModifierLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
-import { requireScenarioFlagCondition } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
-import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
@@ -31,54 +25,7 @@ export function NamePublicEnemyModal(): React.ReactNode {
                allowDeselect={false}
                checkIconPosition="right"
             />
-            <ActionButton
-               className="py2 mt10 w100"
-               action={() => ({
-                  cost: { consulPoint: 1 },
-                  condition: finalizeCondition([
-                     ...requireScenarioFlagCondition("Senate", G.save),
-                     ...timedActionConditions(
-                        {
-                           action: "PublicEnemy",
-                        },
-                        selectedProvince,
-                        G.save,
-                     ),
-                  ]),
-                  execute: () => {
-                     startTimedAction("PublicEnemy", selectedProvince, G.save);
-                     addModifier({
-                        modifier: "Prestige",
-                        name: $t(L.PublicEnemy),
-                        value: -0.1,
-                        duration: TimedActions.PublicEnemy.duration,
-                        type: "multiply",
-                        province: selectedProvince,
-                        save: G.save,
-                     });
-                     addModifier({
-                        modifier: "WarPower",
-                        name: $t(L.PublicEnemy),
-                        value: -0.1,
-                        duration: TimedActions.PublicEnemy.duration,
-                        type: "multiply",
-                        province: selectedProvince,
-                        save: G.save,
-                     });
-                     forEach(G.save.state.provinces, (province) => {
-                        if (province === selectedProvince) {
-                           return;
-                        }
-                        const relation = getRelation(province, selectedProvince, G.save);
-                        if (relation) {
-                           relation.casusBelli.set("PublicEnemy", {
-                              monthsLeft: TimedActions.PublicEnemy.duration,
-                           });
-                        }
-                     });
-                  },
-               })}
-            >
+            <ActionButton className="py2 mt10 w100" action={() => NamePublicEnemyAction(selectedProvince, G.save)}>
                {$t(L.NamePublicEnemy)}
             </ActionButton>
          </div>
