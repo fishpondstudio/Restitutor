@@ -23,15 +23,6 @@ export function NamePublicEnemyAction(theirProvince: Province, save: SaveGame): 
             province: theirProvince,
             save,
          });
-         addModifier({
-            modifier: "WarPower",
-            name: $t(L.PublicEnemy),
-            value: -0.1,
-            duration: TimedActions.PublicEnemy.duration,
-            type: "multiply",
-            province: theirProvince,
-            save,
-         });
          forEach(save.state.provinces, (province) => {
             if (province === theirProvince) {
                return;

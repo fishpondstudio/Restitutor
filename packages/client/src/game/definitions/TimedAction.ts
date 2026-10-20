@@ -406,7 +406,26 @@ class TimedActionDefinitions {
    };
    PublicEnemy: ITimedAction = {
       name: () => $t(L.NamePublicEnemy),
-      desc: () => $t(L.TimedActionPublicEnemyDesc$1, "10%"),
+      desc: () =>
+         "Naming a province as a <i>public enemy</i> reduces their <i>Prestige</i> by 10%. All other provinces get a <i>Public Enemy</i> casus belli against them.",
+      duration: 12 * 2,
+      cooldown: 12 * 2,
+   };
+   RestrictArmsSupply: ITimedAction = {
+      name: () => "Restrict Arms Supply",
+      desc: () => "Restricting military supplies reduces the selected province's <i>War Power</i> by 10%.",
+      duration: 12 * 2,
+      cooldown: 12 * 2,
+   };
+   OrderAnInquiry: ITimedAction = {
+      name: () => "Order an Inquiry",
+      desc: () => "Ordering an imperial inquiry reduces the selected province's <i>Stability</i> by 10.",
+      duration: 12 * 2,
+      cooldown: 12 * 2,
+   };
+   IssueCensure: ITimedAction = {
+      name: () => "Issue Censure",
+      desc: () => "All other provinces' <i>attitudes</i> towards the selected province decrease by 20.",
       duration: 12 * 2,
       cooldown: 12 * 2,
    };

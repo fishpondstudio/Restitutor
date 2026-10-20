@@ -2,6 +2,11 @@ import { Select } from "@mantine/core";
 import { keysOf } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
 import { finalizeCondition } from "../game/actions/GameAction";
+import {
+   IssueCensureAction,
+   OrderAnInquiryAction,
+   RestrictArmsSupplyAction,
+} from "../game/actions/ImperialInterventionActions";
 import { NamePublicEnemyAction } from "../game/actions/NamePublicEnemyAction";
 import { getAncestralTempleSlots } from "../game/definitions/GovernmentTier";
 import type { Province } from "../game/definitions/Province";
@@ -97,8 +102,49 @@ export function ImperialCourtPage(): React.ReactNode {
          </div>
          {selectedProvince && (
             <div style={Grid2} className="m10">
-               <ActionButton action={() => NamePublicEnemyAction(selectedProvince, G.save)}>
+               <ActionButton
+                  action={() => NamePublicEnemyAction(selectedProvince, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        <TimedActionDescComp action="PublicEnemy" />
+                        {element}
+                     </>
+                  )}
+               >
                   {TimedActions.PublicEnemy.name()}
+               </ActionButton>
+               <ActionButton
+                  action={() => RestrictArmsSupplyAction(selectedProvince, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        <TimedActionDescComp action="RestrictArmsSupply" />
+                        {element}
+                     </>
+                  )}
+               >
+                  {TimedActions.RestrictArmsSupply.name()}
+               </ActionButton>
+               <ActionButton
+                  action={() => OrderAnInquiryAction(selectedProvince, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        <TimedActionDescComp action="OrderAnInquiry" />
+                        {element}
+                     </>
+                  )}
+               >
+                  {TimedActions.OrderAnInquiry.name()}
+               </ActionButton>
+               <ActionButton
+                  action={() => IssueCensureAction(selectedProvince, G.save)}
+                  tooltip={(element) => (
+                     <>
+                        <TimedActionDescComp action="IssueCensure" />
+                        {element}
+                     </>
+                  )}
+               >
+                  {TimedActions.IssueCensure.name()}
                </ActionButton>
             </div>
          )}
