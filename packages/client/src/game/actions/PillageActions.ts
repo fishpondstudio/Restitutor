@@ -7,7 +7,7 @@ import type { ITileData } from "../definitions/Tile";
 import type { SaveGame } from "../GameState";
 import { addProvinceResource } from "../logic/ResourceLogic";
 import { getTilePillageRefund } from "../logic/TileLogic";
-import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
+import { timedActionConditions } from "../logic/TimedActionLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
@@ -26,6 +26,7 @@ export function PillageAction(tile: Tile, upgrade: PillageUpgrade, province: Pro
    }
    const config = PillageUpgrades[upgrade];
    return {
+      cost: { dominionPoint: 1 },
       condition: finalizeCondition([
          ...timedActionConditions({ action: "Pillage" }, province, save),
          hasProvinceUpgradeCondition("RightOfPlunder", province, save),
@@ -41,7 +42,6 @@ export function PillageAction(tile: Tile, upgrade: PillageUpgrade, province: Pro
          { name: $t(L.TileHasBeenUpgradedAtLeast$1Times, "1"), value: tileData.upgradeCount >= 1 },
       ]),
       execute: () => {
-         startTimedAction("Pillage", province, save);
          const refund = getTilePillageRefund(tile, config.resource, save);
          --tileData[upgrade];
          --tileData.upgradeCount;

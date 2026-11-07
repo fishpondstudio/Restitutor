@@ -13,6 +13,7 @@ export const ProvinceResources = {
    christianity: [10, 0] as [number, number],
    islam: [0, 0] as [number, number],
    mandate: [0, 0] as [number, number],
+   dominionPoint: [5, 0] as [number, number],
    ...fromEntries(mapOf(Goods, (goods) => [goods, [0, 0] as [number, number]])),
 } as const;
 
@@ -27,6 +28,7 @@ export const ProvinceResourceNames: Record<ProvinceResource, () => string> = {
    christianity: () => $t(L.ChristianInfluence),
    islam: () => $t(L.IslamicInfluence),
    mandate: () => $t(L.Mandate),
+   dominionPoint: () => $t(L.DominionPoints),
    ...fromEntries(mapOf(Goods, (goods, def) => [goods, () => def.name()])),
 } as const;
 

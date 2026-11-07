@@ -21,7 +21,7 @@ import {
    getTilesAnnexedAndCored,
    TilesPerRestoration,
 } from "../game/logic/ProvinceLogic";
-import { getProvinceResource } from "../game/logic/ResourceLogic";
+import { getDominionPointsCapacity, getDominionPointsYearly, getProvinceResource } from "../game/logic/ResourceLogic";
 import { getTileUnrest, isCapital } from "../game/logic/TileLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { WorldScene } from "../scenes/WorldScene";
@@ -75,6 +75,8 @@ export function InternalAffairsPage(): React.ReactNode {
    const stability = getProvinceStability(G.save.state.playerProvince, G.save);
    const greatWorks = Array.from(getProvinceGreatWorks(G.save.state.playerProvince, G.save));
    const nextDisaster = getUpcomingDisasters(G.save)[0];
+   const dominionPointsCapacity = getDominionPointsCapacity(G.save.state.playerProvince, G.save);
+   const dominionPointsYearly = getDominionPointsYearly(G.save.state.playerProvince, G.save);
    return (
       <SidebarComp title={<SidebarHeader title={$t(L.InternalAffairs)} />}>
          <div className="h1">{$t(L.GoverningAndStability)}</div>
@@ -141,16 +143,43 @@ export function InternalAffairsPage(): React.ReactNode {
                </>
             )}
          >
-            <div className="row mx10 my5">
+            <div className="row mx10 my5 g5">
                <div>{ProvinceResourceNames.mandate()}</div>
                <img src={ProvinceResourceImages.mandate} className="icon-block" />
                <div className="f1" />
                <div>{formatNumber(getProvinceResource("mandate", G.save.state.playerProvince, G.save))}</div>
             </div>
          </FloatingTip>
+         <FloatingTip
+            fixedWidth
+            className="p0"
+            label={() => (
+               <>
+                  <div className="h2">{ProvinceResourceNames.dominionPoint()}</div>
+                  <div className="m10">{$t(L.DominionPointsDesc)}</div>
+                  <div className="h2">{Modifiers.DominionPointsYearly.name()}</div>
+                  <div className="m10">{Modifiers.DominionPointsYearly.desc()}</div>
+                  <BreakdownComp breakdown={dominionPointsYearly} />
+                  <div className="h2">{Modifiers.DominionPointsCapacity.name()}</div>
+                  <div className="m10">{Modifiers.DominionPointsCapacity.desc()}</div>
+                  <BreakdownComp breakdown={dominionPointsCapacity} />
+               </>
+            )}
+         >
+            <div className="row mx10 my5 g5">
+               <div>{ProvinceResourceNames.dominionPoint()}</div>
+               <img src={ProvinceResourceImages.dominionPoint} className="icon-block" />
+               <div className="f1" />
+               <div>
+                  {formatNumber(getProvinceResource("dominionPoint", G.save.state.playerProvince, G.save))}/
+                  {formatNumber(dominionPointsCapacity.value)}
+               </div>
+               <div>{colorNumber(dominionPointsYearly.value)}</div>
+            </div>
+         </FloatingTip>
          <div className="divider" />
          <div className="m10">
-            <FloatingTip label={() => $t(L.AutomaticallyCoreNonCoreTilesDesc)}>
+            <FloatingTip label={() => $t(L.AutomaticallyCoreTilesWithDominionPointsDesc)}>
                <div className="row my5">
                   <div className="f1">{$t(L.AutomaticallyCoreTiles)}</div>
                   <Switch

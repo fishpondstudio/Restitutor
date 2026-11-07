@@ -1,5 +1,6 @@
 .gdd
 .playwright-cli
+output
 
 # Logs
 logs

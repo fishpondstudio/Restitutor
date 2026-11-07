@@ -5,7 +5,7 @@ import type { SaveGame } from "../GameState";
 import { tileIsOurCoreCondition } from "../logic/MissionLogic";
 import { addProvinceStat } from "../logic/ProvinceLogic";
 import { getTileConvertCultureCost } from "../logic/TileLogic";
-import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
+import { timedActionConditions } from "../logic/TimedActionLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
@@ -16,7 +16,7 @@ export function ConvertCultureAction(tile: Tile, province: Province, save: SaveG
       return EmptyGameAction;
    }
    return {
-      cost: { diplomatic: getTileConvertCultureCost(tile, save).value },
+      cost: { diplomatic: getTileConvertCultureCost(tile, save).value, dominionPoint: 1 },
       condition: finalizeCondition([
          ...timedActionConditions({ action: "ConvertCulture" }, province, save),
          tileIsOurCoreCondition(tile, province, save),
@@ -28,7 +28,6 @@ export function ConvertCultureAction(tile: Tile, province: Province, save: SaveG
       execute: () => {
          tileData.culture = state.culture;
          addProvinceStat("convertCultureCount", 1, province, save);
-         startTimedAction("ConvertCulture", province, save);
       },
    };
 }

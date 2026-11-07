@@ -153,6 +153,14 @@ export const Modifiers = {
       name: () => $t(L.ChristianInfluencePerYear),
       desc: () => $t(L.ChristianInfluencePerYearDesc),
    },
+   DominionPointsYearly: {
+      name: () => $t(L.YearlyDominionPoints),
+      desc: () => $t(L.YearlyDominionPointsDesc),
+   },
+   DominionPointsCapacity: {
+      name: () => $t(L.DominionPointsCapacity),
+      desc: () => $t(L.DominionPointsCapacityDesc),
+   },
    MonthlyInterestRate: {
       name: () => $t(L.MonthlyInterestRate),
       desc: () => $t(L.ModifierMonthlyInterestRateDesc),

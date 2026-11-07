@@ -12,6 +12,7 @@ import type { SaveGame } from "../GameState";
 import { getSettledTileAutonomy, setTileAutonomy } from "./AutonomyLogic";
 import { getProvinceTilesCached } from "./CacheLogic";
 import { pledgeProvinceConsulVotesConditions } from "./ProvinceLogic";
+import { hasEnoughProvinceResources } from "./ResourceLogic";
 import { getCultureStatus, getReligionStatus, getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft } from "./TimedActionLogic";
 
@@ -77,7 +78,7 @@ function automaticallyMakeCore(province: Province, save: SaveGame): void {
    if (
       !state ||
       !hasFlag(state.flags, ProvinceFlags.AutomaticallyMakeCore) ||
-      getTimedActionCooldownLeft("MakeCore", province, save) > 0
+      !hasEnoughProvinceResources({ dominionPoint: 1 }, province, save)
    ) {
       return;
    }
@@ -93,7 +94,7 @@ function automaticallyEvangelize(province: Province, save: SaveGame): void {
    if (
       !state ||
       !isChristianReligion(state.religion) ||
-      getTimedActionCooldownLeft("EvangelizeTile", province, save) > 0
+      !hasEnoughProvinceResources({ dominionPoint: 1 }, province, save)
    ) {
       return;
    }
@@ -115,7 +116,7 @@ function automaticallyEvangelize(province: Province, save: SaveGame): void {
 
 function automaticallyConvertCulture(province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
-   if (!state || getTimedActionCooldownLeft("ConvertCulture", province, save) > 0) {
+   if (!state || !hasEnoughProvinceResources({ dominionPoint: 1 }, province, save)) {
       return;
    }
    const convertMinor = hasFlag(state.flags, ProvinceFlags.AutomaticallyConvertMinorCultures);
@@ -136,7 +137,7 @@ function automaticallyConvertCulture(province: Province, save: SaveGame): void {
 
 function automaticallyInviteToIslam(province: Province, save: SaveGame): void {
    const state = save.state.provinces[province];
-   if (state?.religion !== "Islam" || getTimedActionCooldownLeft("InviteToIslam", province, save) > 0) {
+   if (state?.religion !== "Islam" || !hasEnoughProvinceResources({ dominionPoint: 1 }, province, save)) {
       return;
    }
    const inviteMinor = hasFlag(state.flags, ProvinceFlags.AutomaticallyInviteMinorReligionsToIslam);

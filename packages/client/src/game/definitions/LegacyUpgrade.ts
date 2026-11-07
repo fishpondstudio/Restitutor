@@ -150,6 +150,13 @@ export class LegacyUpgradeDefinitions {
          MilitaryPoint: { type: "add", value: 1 },
       },
    } as const;
+   Military7: ILegacyUpgradeModifier = {
+      requires: ["Military6"],
+      position: [-7, 0],
+      modifiers: {
+         MilitaryPoint: { type: "add", value: 1 },
+      },
+   } as const;
    GoverningCapacity1: ILegacyUpgradeModifier = {
       requires: ["Administrative2"],
       position: [1, 2],
@@ -278,7 +285,7 @@ export class LegacyUpgradeDefinitions {
    } as const;
    AttitudeOnTrade: ILegacyUpgradeDefinition = {
       requires: ["InfiltrationRate1"],
-      position: [4, 2],
+      position: [6, 5],
       name: () => "+10 Attitude For Each Trade",
       desc: () => "Each active trade with a province increases their attitude towards by 10.",
    } as const;
@@ -338,35 +345,91 @@ export class LegacyUpgradeDefinitions {
          ProductionUpgradeCost: { type: "multiply", value: -0.2 },
       },
    } as const;
+   DominionPointsCapacity1: ILegacyUpgradeModifier = {
+      requires: ["RangedUnitPower1"],
+      position: [-4, 3],
+      modifiers: {
+         DominionPointsCapacity: { type: "add", value: 5 },
+      },
+   } as const;
+   DominionPointsCapacity2: ILegacyUpgradeModifier = {
+      requires: ["DominionPointsCapacity1"],
+      position: [-5, 3],
+      modifiers: {
+         DominionPointsCapacity: { type: "add", value: 5 },
+      },
+   } as const;
+   DominionPointsCapacity3: ILegacyUpgradeModifier = {
+      requires: ["DominionPointsCapacity2"],
+      position: [-6, 3],
+      modifiers: {
+         DominionPointsCapacity: { type: "add", value: 5 },
+      },
+   } as const;
+   DominionPointsCapacity4: ILegacyUpgradeModifier = {
+      requires: ["DominionPointsCapacity3"],
+      position: [-7, 3],
+      modifiers: {
+         DominionPointsCapacity: { type: "add", value: 5 },
+      },
+   } as const;
    InfiltrationOnDeclaringWar: ILegacyUpgradeDefinition = {
       name: () => $t(L.$1InfiltrationWhenDeclaringWar, "+25"),
       desc: () => $t(L.InfiltrationOnDeclaringWarDesc$1, "+25"),
-      requires: ["RangedUnitPower1"],
-      position: [-4, 3],
+      requires: ["DominionPointsCapacity1"],
+      position: [-5, 4],
    } as const;
    TruceDuration1: ILegacyUpgradeModifier = {
       requires: ["InfiltrationOnDeclaringWar"],
-      position: [-5, 3],
+      position: [-6, 4],
       modifiers: {
          TruceDuration: { type: "multiply", value: -0.2 },
       },
    } as const;
-   InfiltrationRate1: ILegacyUpgradeModifier = {
+   DominionPointsYearly1: ILegacyUpgradeModifier = {
       requires: ["TileOutput1"],
       position: [3, 2],
+      modifiers: {
+         DominionPointsYearly: { type: "multiply", value: 0.5 },
+      },
+   } as const;
+   DominionPointsYearly2: ILegacyUpgradeModifier = {
+      requires: ["DominionPointsYearly1"],
+      position: [4, 2],
+      modifiers: {
+         DominionPointsYearly: { type: "multiply", value: 0.5 },
+      },
+   } as const;
+   DominionPointsYearly3: ILegacyUpgradeModifier = {
+      requires: ["DominionPointsYearly2"],
+      position: [5, 2],
+      modifiers: {
+         DominionPointsYearly: { type: "multiply", value: 0.5 },
+      },
+   } as const;
+   DominionPointsYearly4: ILegacyUpgradeModifier = {
+      requires: ["DominionPointsYearly3"],
+      position: [6, 2],
+      modifiers: {
+         DominionPointsYearly: { type: "multiply", value: 0.5 },
+      },
+   } as const;
+   InfiltrationRate1: ILegacyUpgradeModifier = {
+      requires: ["CultureConversionCost1"],
+      position: [5, 4],
       modifiers: {
          InfiltrationRate: { type: "multiply", value: 0.5 },
       },
    } as const;
    InfiltrationRate2: ILegacyUpgradeModifier = {
-      requires: ["AttitudeOnTrade"],
-      position: [5, 2],
+      requires: ["InfiltrationRate1"],
+      position: [6, 4],
       modifiers: {
          InfiltrationRate: { type: "multiply", value: 0.5 },
       },
    } as const;
    CultureConversionCost1: ILegacyUpgradeModifier = {
-      requires: ["InfiltrationRate1"],
+      requires: ["DominionPointsYearly1"],
       position: [4, 3],
       modifiers: {
          CultureConversionCost: { type: "multiply", value: -0.1 },
@@ -721,6 +784,13 @@ export class LegacyUpgradeDefinitions {
          InfantryUnitPower: { type: "multiply", value: 0.5 },
       },
    } as const;
+   InfantryUnitPower5: ILegacyUpgradeModifier = {
+      requires: ["InfantryUnitPower4"],
+      position: [-7, 1],
+      modifiers: {
+         InfantryUnitPower: { type: "multiply", value: 0.5 },
+      },
+   } as const;
    RangedUnitPower1: ILegacyUpgradeModifier = {
       requires: ["ArmyMaintenance1"],
       position: [-3, 2],
@@ -745,6 +815,13 @@ export class LegacyUpgradeDefinitions {
    RangedUnitPower4: ILegacyUpgradeModifier = {
       requires: ["RangedUnitPower3"],
       position: [-6, 2],
+      modifiers: {
+         RangedUnitPower: { type: "multiply", value: 0.5 },
+      },
+   } as const;
+   RangedUnitPower5: ILegacyUpgradeModifier = {
+      requires: ["RangedUnitPower4"],
+      position: [-7, 2],
       modifiers: {
          RangedUnitPower: { type: "multiply", value: 0.5 },
       },
@@ -777,6 +854,13 @@ export class LegacyUpgradeDefinitions {
          CavalryUnitPower: { type: "multiply", value: 0.5 },
       },
    } as const;
+   CavalryUnitPower5: ILegacyUpgradeModifier = {
+      requires: ["CavalryUnitPower4"],
+      position: [-7, -1],
+      modifiers: {
+         CavalryUnitPower: { type: "multiply", value: 0.5 },
+      },
+   } as const;
    WarScore1: ILegacyUpgradeModifier = {
       requires: ["PopulationUpgrade1"],
       position: [-3, -2],
@@ -805,6 +889,13 @@ export class LegacyUpgradeDefinitions {
          WarPower: { type: "multiply", value: 0.1 },
       },
    } as const;
+   WarPower4: ILegacyUpgradeModifier = {
+      requires: ["WarPower3"],
+      position: [-7, -2],
+      modifiers: {
+         WarPower: { type: "multiply", value: 0.1 },
+      },
+   } as const;
    PopulationUpgrade1: ILegacyUpgradeModifier = {
       requires: ["Military1"],
       position: [-2, -1],
@@ -829,6 +920,13 @@ export class LegacyUpgradeDefinitions {
    StartingGeneralSkillPoint3: ILegacyUpgradeModifier = {
       requires: ["StartingGeneralSkillPoint2"],
       position: [-6, -3],
+      modifiers: {
+         StartingGeneralSkillPoint: { type: "add", value: 2 },
+      },
+   } as const;
+   StartingGeneralSkillPoint4: ILegacyUpgradeModifier = {
+      requires: ["StartingGeneralSkillPoint3"],
+      position: [-7, -3],
       modifiers: {
          StartingGeneralSkillPoint: { type: "add", value: 2 },
       },

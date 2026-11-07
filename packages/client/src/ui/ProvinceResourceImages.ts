@@ -13,6 +13,7 @@ export const ProvinceResourceImages: Partial<Record<ProvinceResource, string>> =
    generalSkillPoint: IconCatalog.VacantArmyGeneral,
    christianity: IconCatalog.EcumenicalCouncil,
    mandate: IconCatalog.Mandate,
+   dominionPoint: IconCatalog.DominionPoint,
    islam: IconCatalog.Islam,
    ...fromEntries(entriesOf(Goods).map(([key, config]) => [key, config.icon])),
 } as const;

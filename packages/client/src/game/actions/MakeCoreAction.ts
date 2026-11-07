@@ -5,7 +5,7 @@ import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpg
 import type { SaveGame } from "../GameState";
 import { addProvinceStat } from "../logic/ProvinceLogic";
 import { getTileMakeCoreCost, isCoastal } from "../logic/TileLogic";
-import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
+import { timedActionConditions } from "../logic/TimedActionLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import type { IGameAction, IGameEffectWithName } from "./GameAction";
 import { finalizeCondition } from "./GameAction";
@@ -24,7 +24,7 @@ export function MakeCoreAction(tile: Tile, province: Province, save: SaveGame): 
    }
    const cost = getTileMakeCoreCost(tile, save);
    return {
-      cost: { administrative: cost.value },
+      cost: { administrative: cost.value, dominionPoint: 1 },
       condition: finalizeCondition([
          ...timedActionConditions({ action: "MakeCore" }, province, save),
          {
@@ -39,7 +39,6 @@ export function MakeCoreAction(tile: Tile, province: Province, save: SaveGame): 
       execute: () => {
          tileData.coreProvinces.add(province);
          addProvinceStat("makeCoreCount", 1, province, save);
-         startTimedAction("MakeCore", province, save);
       },
       effect,
    };
