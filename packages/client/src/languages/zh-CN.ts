@@ -1472,7 +1472,6 @@ export const ZH_CN = {
    TimedActionHireMercenariesDesc: "雇用雇佣兵可立即将军队补充至征兵目标。",
    TimedActionInciteUnrestDesc$1: "煽动边境动荡可使与我国行省接壤的对方地块动荡提高$1。",
    TimedActionPlunderWarTileDesc: "掠夺战争地块可降低<i>所需战争分数</i>，并削弱该地块升级。",
-   TimedActionPublicEnemyDesc$1: "将某行省宣布为<i>公敌</i>会使其<i>威望</i>与<i>军力</i>降低$1。所有其他行省均获得针对其的<i>公敌</i>宣战理由。",
    TimedActionRequestMilitaryAidDesc$1$2: "请求军事援助可使我们的军力提高$1，附庸的军力降低$2。",
    TimedActionRevealElectionBackingDesc: "揭露选举支持可让我们知晓其已承诺支持的两名候选人。",
    TimedActionSetGovernmentFocusDesc: "设定政府侧重可提高侧重方面的月度产出，代价是其余两方面产出降低。",

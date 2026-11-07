@@ -1479,7 +1479,6 @@ export const DE = {
    TimedActionHireMercenariesDesc: "Die Anwerbung von Söldnern verstärkt unsere Armee sofort bis zur Zieleinberufung.",
    TimedActionInciteUnrestDesc$1: "Das Schüren von Grenzunruhen erhöht die Unruhe ihrer an unsere Provinz angrenzenden Gebiete um $1.",
    TimedActionPlunderWarTileDesc: "Das Plündern eines umkämpften Gebiets verringert die <i>benötigte Kriegswertung</i> und schwächt die Aufwertungen des Gebiets.",
-   TimedActionPublicEnemyDesc$1: "Eine Provinz zum <i>Staatsfeind</i> zu erklären, verringert ihr <i>Prestige</i> und ihre <i>Kriegsmacht</i> um $1. Alle anderen Provinzen erhalten gegen sie den Casus Belli <i>Staatsfeind</i>.",
    TimedActionRequestMilitaryAidDesc$1$2: "Das Anfordern von Militärhilfe erhöht unsere Kriegsmacht um $1 und verringert die Kriegsmacht unseres Klientelstaats um $2.",
    TimedActionRevealElectionBackingDesc: "Das Aufdecken der Wahlunterstützung zeigt uns die beiden Kandidaten, denen sie Unterstützung zugesagt haben.",
    TimedActionSetGovernmentFocusDesc: "Das Festlegen des Regierungsschwerpunkts erhöht die monatliche Erzeugung des gewählten Bereichs auf Kosten der beiden anderen Bereiche.",

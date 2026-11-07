@@ -1477,7 +1477,6 @@ export const EN = {
    TimedActionHireMercenariesDesc: "Hiring mercenaries immediately reinforces our army up to the conscription target.",
    TimedActionInciteUnrestDesc$1: "Inciting border unrest increases the Unrest of their tiles that border our province by $1.",
    TimedActionPlunderWarTileDesc: "Plundering a war tile reduces the <i>required war score</i> and degrades the tile's upgrades.",
-   TimedActionPublicEnemyDesc$1: "Naming a province as a <i>public enemy</i> reduces their <i>Prestige</i> and <i>War Power</i> by $1. All other provinces get a <i>Public Enemy</i> casus belli against them.",
    TimedActionRequestMilitaryAidDesc$1$2: "Requesting military aid increases our War Power by $1 and decreases our client's War Power by $2.",
    TimedActionRevealElectionBackingDesc: "Revealing election backing lets us know the two candidates they have pledged to support.",
    TimedActionSetGovernmentFocusDesc: "Setting government focus increases the monthly generation of the focused aspect at the cost of the other two unfocused aspects.",
