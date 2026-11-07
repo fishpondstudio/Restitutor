@@ -158,13 +158,13 @@ class TimedActionDefinitions {
       name: () => $t(L.MakeCore),
       desc: () => $t(L.MadeCoreTileRemainsCoreAfterReconquest),
       duration: 0,
-      cooldown: 12,
+      cooldown: 0,
    };
    ConvertCulture: ITimedAction = {
       name: () => $t(L.ConvertCulture),
       desc: () => $t(L.TimedActionConvertCultureDesc),
       duration: 0,
-      cooldown: 12,
+      cooldown: 0,
    };
    AdjustAutonomy: ITimedAction = {
       name: () => $t(L.AdjustAutonomy),
@@ -694,13 +694,13 @@ class TimedActionDefinitions {
       name: () => $t(L.InviteToIslam),
       desc: () => $t(L.TimedActionInviteToIslamDesc),
       duration: 0,
-      cooldown: 12,
+      cooldown: 0,
    };
    EvangelizeTile: ITimedAction = {
       name: () => $t(L.Evangelize),
       desc: () => $t(L.TimedActionEvangelizeTileDesc),
       duration: 0,
-      cooldown: 12,
+      cooldown: 0,
    };
    TradeGoods: ITimedAction = {
       name: () => $t(L.TradeGoods),
@@ -895,7 +895,7 @@ class TimedActionDefinitions {
       name: () => $t(L.Pillage),
       desc: () => $t(L.TimedActionPillageDesc$1$2$3$4, "1", "50%", "10", "5"),
       duration: 0,
-      cooldown: 12,
+      cooldown: 0,
    };
    JustinianReconquest: ITimedAction = {
       name: () => $t(L.JustiniansReconquest),

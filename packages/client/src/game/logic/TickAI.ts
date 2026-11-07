@@ -145,12 +145,17 @@ export function tickAI(save: SaveGame): void {
          administrativeActions.delete("Research");
       }
       for (const [tile, tileData] of tilesSorted) {
+         if (!hasEnoughProvinceResources({ dominionPoint: 1 }, province, save)) {
+            break;
+         }
          if (tileData.province === province && !tileData.coreProvinces.has(province)) {
             const action = MakeCoreAction(tile, province, save);
             if (action.cost && !hasEnoughProvinceResources(action.cost, province, save)) {
                administrativeActions.clear();
             }
-            tryDoAIHeadlessAction(action, "MakeCore", province, save);
+            if (tryDoAIHeadlessAction(action, "MakeCore", province, save)) {
+               break;
+            }
          }
       }
       const administrative = getPreferredActionForResource(
@@ -357,7 +362,7 @@ export function tickAI(save: SaveGame): void {
          province,
          save,
       );
-      if (getTimedActionCooldownLeft("ConvertCulture", province, save) <= 0) {
+      if (hasEnoughProvinceResources({ dominionPoint: 1 }, province, save)) {
          for (const [tile, tileData] of tilesSorted) {
             if (tileData.coreProvinces.has(province) && tileData.culture !== state.culture) {
                if (

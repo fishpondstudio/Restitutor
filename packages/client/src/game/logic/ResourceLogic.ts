@@ -1,9 +1,13 @@
 import { entriesOf, formatNumber } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
+import { makeModifierGetter } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
 import type { ProvinceResource } from "../definitions/ProvinceResources";
 import { getResourceName } from "../definitions/ProvinceResources";
 import type { SaveGame } from "../GameState";
+
+export const getDominionPointsYearly = makeModifierGetter("DominionPointsYearly", 1, () => {});
+export const getDominionPointsCapacity = makeModifierGetter("DominionPointsCapacity", 5, () => {});
 
 export function provinceResourceOf(resource: ProvinceResource, province: Province, save: SaveGame): [number, number] {
    const state = save.state.provinces[province];
@@ -33,6 +37,12 @@ export function addProvinceResource(
    }
    if (state.resources[resource] === undefined) {
       state.resources[resource] = [0, 0];
+   }
+   if (resource === "dominionPoint" && value > 0) {
+      value = Math.min(
+         value,
+         Math.max(0, getDominionPointsCapacity(province, save).value - getProvinceResource(resource, province, save)),
+      );
    }
    state.resources[resource][0] += value;
 }

@@ -5,7 +5,7 @@ import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { isChristianReligion } from "../definitions/Religion";
 import type { SaveGame } from "../GameState";
 import { tileIsOurCoreCondition } from "../logic/MissionLogic";
-import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
+import { timedActionConditions } from "../logic/TimedActionLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
@@ -23,6 +23,7 @@ export function EvangelizeTileAction(tile: Tile, province: Province, save: SaveG
    return {
       cost: {
          christianity: baseCost * multiplier,
+         dominionPoint: 1,
       },
       condition: finalizeCondition([
          ...timedActionConditions({ action: "EvangelizeTile" }, province, save),
@@ -37,7 +38,6 @@ export function EvangelizeTileAction(tile: Tile, province: Province, save: SaveG
          },
       ]),
       execute: () => {
-         startTimedAction("EvangelizeTile", province, save);
          tileData.religion = state.religion;
       },
    };

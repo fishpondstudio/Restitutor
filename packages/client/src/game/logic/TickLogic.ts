@@ -24,7 +24,12 @@ import {
    getProvinceStat,
    setProvinceStat,
 } from "./ProvinceLogic";
-import { addProvinceResource, resetProvinceResource, trySpendProvinceResources } from "./ResourceLogic";
+import {
+   addProvinceResource,
+   getDominionPointsYearly,
+   resetProvinceResource,
+   trySpendProvinceResources,
+} from "./ResourceLogic";
 import { getNameGenerator, hasScenarioFlag } from "./ScenarioLogic";
 import { addSocialClassInfluence, SocialClassInfluenceYearly } from "./SocialClassLogic";
 import { tickAI } from "./TickAI";
@@ -58,14 +63,17 @@ export const TickGreatWorkMonth = 4;
 export const TickFamilyMonth = 6;
 
 export function tickMonth(save: SaveGame): void {
+   const currentMonth = getGameDate(save.state.tick, save).getMonth();
    forEach(save.state.provinces, (province) => {
+      if (currentMonth === 0) {
+         addProvinceResource("dominionPoint", getDominionPointsYearly(province, save).value, province, save);
+      }
       tickProvince(province, save);
    });
    fixRelations(save);
    save.state.wars.forEach((war) => {
       tickWar(war, save);
    });
-   const currentMonth = getGameDate(save.state.tick, save).getMonth();
    if (currentMonth === 0) {
       tickYear(save);
    }

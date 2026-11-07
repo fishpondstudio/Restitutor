@@ -3,7 +3,7 @@ import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
 import type { SaveGame } from "../GameState";
 import { tileIsOurCoreCondition } from "../logic/MissionLogic";
-import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
+import { timedActionConditions } from "../logic/TimedActionLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
@@ -16,6 +16,7 @@ export function InviteToIslamAction(tile: Tile, province: Province, save: SaveGa
    return {
       cost: {
          islam: tileData.infrastructure + tileData.production + tileData.population,
+         dominionPoint: 1,
       },
       condition: finalizeCondition([
          ...timedActionConditions({ action: "InviteToIslam" }, province, save),
@@ -30,7 +31,6 @@ export function InviteToIslamAction(tile: Tile, province: Province, save: SaveGa
          },
       ]),
       execute: () => {
-         startTimedAction("InviteToIslam", province, save);
          tileData.religion = "Islam";
       },
    };

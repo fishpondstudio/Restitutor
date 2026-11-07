@@ -15,6 +15,7 @@ import Diplomatic from "../assets/images/Diplomatic.svg";
 import Disaster from "../assets/images/Disaster.svg";
 import Discord from "../assets/images/Discord.svg";
 import Dissent from "../assets/images/Dissent.svg";
+import DominionPoint from "../assets/images/DominionPoint.svg";
 import EcumenicalCouncil from "../assets/images/EcumenicalCouncil.svg";
 import EmptyAdvisor from "../assets/images/EmptyAdvisor.svg";
 import FamilyTree from "../assets/images/FamilyTree.svg";
@@ -112,4 +113,5 @@ export const IconCatalog = {
    CultureReligion,
    Anarchy,
    Islam,
+   DominionPoint,
 } as const satisfies Record<string, string>;

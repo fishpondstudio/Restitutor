@@ -127,6 +127,7 @@ export class TechDefinitions {
       modifiers: {
          ToleratedCulture: { type: "add", value: 1 },
          GoverningCapacity: { type: "add", value: 100 },
+         DominionPointsYearly: { type: "multiply", value: 0.5 },
       },
    } as const;
 
@@ -154,6 +155,7 @@ export class TechDefinitions {
       buildings: ["Courthouse"],
       modifiers: {
          ResearchCost: { type: "multiply", value: -0.1 },
+         DominionPointsCapacity: { type: "add", value: 5 },
       },
       timedActions: ["DissolveTreaty", "ExpandGrainDole"],
    } as const;
@@ -307,6 +309,7 @@ export class TechDefinitions {
       modifiers: {
          RegionalCapitalCount: { type: "add", value: 1 },
          GoverningCapacity: { type: "add", value: 200 },
+         DominionPointsYearly: { type: "multiply", value: 0.5 },
       },
    } as const;
 
@@ -335,6 +338,7 @@ export class TechDefinitions {
       modifiers: {
          MakeCoreCost: { type: "multiply", value: -0.2 },
          GoverningCapacity: { type: "add", value: 200 },
+         DominionPointsCapacity: { type: "add", value: 5 },
       },
    } as const;
 

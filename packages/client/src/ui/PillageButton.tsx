@@ -1,9 +1,7 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { PillageAction, type PillageUpgrade, PillageUpgrades } from "../game/actions/PillageActions";
-import { durationToString } from "../game/definitions/Modifier";
 import { getResourceName } from "../game/definitions/ProvinceResources";
 import { hasProvinceUpgrade } from "../game/definitions/ProvinceUpgrades";
-import { TimedActions } from "../game/definitions/TimedAction";
 import { getTilePillageRefund } from "../game/logic/TileLogic";
 import { getTimedActionDesc } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
@@ -38,10 +36,6 @@ export function PillageButton({ tile, upgrade }: { tile: Tile; upgrade: PillageU
                      <div>{colorNumber(refund)}</div>
                   </div>
                   <div className="divider" />
-                  <div className="row mx10 my5">
-                     <div className="f1">{$t(L.Cooldown)}</div>
-                     <div className="text-sm text-dimmed">{durationToString(TimedActions.Pillage.cooldown)}</div>
-                  </div>
                   {element}
                </>
             );
