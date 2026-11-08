@@ -67,6 +67,10 @@ export function getPatrons(province: Province, save: SaveGame): Province[] {
    );
 }
 
+export function* requireNoPatronsChecks(province: Province, save: SaveGame): ConditionChecks {
+   (yield getPatrons(province, save).length === 0)?.describe(`${getProvinceName(province, save)} has no patrons`);
+}
+
 export function getClients(province: Province, save: SaveGame): Province[] {
    const relations = getRelations(province, save);
    if (!relations) {
@@ -189,6 +193,16 @@ export function* requireMinimumAttitudeChecks(
          getProvinceName(to, save),
       ),
       { progress: [current.value, attitude] },
+   );
+}
+
+export function* requireWarBetweenChecks(
+   ourProvince: Province,
+   theirProvince: Province,
+   save: SaveGame,
+): ConditionChecks {
+   (yield getWarsBetween(ourProvince, theirProvince, save).length > 0)?.describe(
+      `${getProvinceName(ourProvince, save)} is at war with ${getProvinceName(theirProvince, save)}`,
    );
 }
 

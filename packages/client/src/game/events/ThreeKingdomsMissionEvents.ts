@@ -8,7 +8,7 @@ import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
 
 export const ThreeKingdomsMissionEvents = {
-   TKMissionAllies: {
+   TKMissionEvent1: {
       name: () => "A Network of Allies",
       desc: () =>
          "Our envoys have secured allies beyond our borders. Their support lends strength to our armies, weight to our word, and reassurance to our people. We must turn these agreements into a lasting advantage for our realm.",
@@ -33,7 +33,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionGreatPower: {
+   TKMissionEvent2: {
       name: () => "A Rising Power",
       desc: () =>
          "Our name now carries weight among the powers of the realm. New commanderies acknowledge our authority, and neighboring courts can no longer dismiss our ambitions. The foundations we lay today shall determine whether this rise endures.",
@@ -59,7 +59,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionExpand: {
+   TKMissionEvent3: {
       name: () => "Expand Our Borders",
       desc: () =>
          "Our banners have advanced beyond the lands that first sustained our cause. The newly governed districts offer taxes, recruits, and fresh opportunities, but possession must be secured through sound policy. Let these gains become the foundation of greater deeds.",
@@ -87,7 +87,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionDouble: {
+   TKMissionEvent4: {
       name: () => "Double Our Domain",
       desc: () =>
          "The lands beneath our authority have doubled, and the burdens of government have grown with them. Officials who once served a modest domain must now govern a rising realm. We must give our rule the means and standing to match its reach.",
@@ -115,7 +115,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionCore100: {
+   TKMissionEvent5: {
       name: () => "A Growing Realm",
       desc: () =>
          "Across a hundred districts, our seals now authorize appointments and our registers record the harvest. Such a realm cannot be governed by the arrangements of a single commandery. Let us establish offices capable of carrying our authority to its furthest boundaries.",
@@ -143,7 +143,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionCore200: {
+   TKMissionEvent6: {
       name: () => "A Vast Dominion",
       desc: () =>
          "Two hundred districts acknowledge our government. Petitions, tax accounts, and reports of the harvest arrive from distant settlements. We must extend the reach of our officials and decide whether to devote their efforts to governing more land, securing its revenues, or increasing its abundance.",
@@ -176,7 +176,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionCore300: {
+   TKMissionEvent7: {
       name: () => "An Empire in the Making",
       desc: () =>
          "Our rule extends over three hundred districts, embracing communities whose customs and needs differ greatly. What began as a regional undertaking has assumed the proportions of an empire. We must bind these lands together without exhausting the government that holds them.",
@@ -210,7 +210,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionHebei: {
+   TKMissionEvent8: {
       name: () => "Unify Hebei",
       desc: () =>
          "The plains north of the Yellow River and their mountain approaches now answer to one government. Hebei's fields and populous commanderies can sustain both our treasury and our armies. We must decide how best to draw upon the strength of these newly united lands.",
@@ -238,7 +238,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionLiaodong: {
+   TKMissionEvent9: {
       name: () => "Secure Liaodong",
       desc: () =>
          "The settlements and strongholds of Liaodong have been brought beneath our authority. Our banner now commands respect on a distant frontier, and its people look to us for order. We may draw strength from their soldiers, secure their allegiance, or proclaim our achievement throughout the realm.",
@@ -265,7 +265,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionCentralPlains: {
+   TKMissionEvent10: {
       name: () => "Unify the Central Plains",
       desc: () =>
          "The central commanderies now lie within a single domain. Possession of this heartland gives weight to our petitions at court and draws officers and envoys to our service. We must decide how to turn our territorial strength into authority throughout the realm.",
@@ -310,7 +310,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionNorthwest: {
+   TKMissionEvent11: {
       name: () => "Unify Guanzhong and Liangzhou",
       desc: () =>
          "The passes of Guanzhong and the western frontier have been gathered beneath our banner. Here the old imperial heartland meets the roads of distant commerce and the lands that sustain frontier armies. Their union offers both security and renewed prosperity.",
@@ -353,7 +353,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionJingzhou: {
+   TKMissionEvent12: {
       name: () => "Unify Jingzhou",
       desc: () =>
          "The valleys and river crossings of Jingzhou are ours to administer. Through these lands pass the routes that bind the northern plains to the southern rivers and western basins. A well-governed Jingzhou shall sustain commerce in peace and armies in war.",
@@ -380,7 +380,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionJiangdong: {
+   TKMissionEvent13: {
       name: () => "Unify Jiangdong",
       desc: () =>
          "The lower river and the southeastern settlements now acknowledge a common authority. Their waterways carry the produce of fertile districts to thriving markets. By joining their prosperity to our government, we may make Jiangdong a lasting pillar of the realm.",
@@ -414,7 +414,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionBashu: {
+   TKMissionEvent14: {
       name: () => "Unify Bashu and Hanzhong",
       desc: () =>
          "The fertile basin of Bashu and the northern gateway of Hanzhong stand united beneath our banner. Their sheltered fields promise rich harvests and reliable revenues, while their officials bring experience of governing the western interior. Let these resources strengthen the whole realm.",
@@ -435,7 +435,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionJiaozhou: {
+   TKMissionEvent15: {
       name: () => "Unify Jiaozhou",
       desc: () =>
          "The distant southern commanderies now look to our government for order. Their ports connect the realm to far-reaching trade, while their settlements supply goods sought in distant markets. We must decide whether to enrich existing commerce, open new routes, or expand local production.",
@@ -462,7 +462,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionNorth: {
+   TKMissionEvent16: {
       name: () => "Unify the North",
       desc: () =>
          "From the western passes to the northeastern frontier, the lands of the north obey one authority. The plains that sustained competing armies may now sustain a common government. With their wealth and strength united, the future of the realm lies within our reach.",
@@ -509,7 +509,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionSouth: {
+   TKMissionEvent17: {
       name: () => "Unify the South",
       desc: () =>
          "The southern rivers, western basins, and far-southern commanderies have been joined beneath our banner. Their harvests, revenues, and recruits may now sustain a common government. We must organize these resources so that the strength of the south serves the whole realm.",
@@ -550,7 +550,7 @@ export const ThreeKingdomsMissionEvents = {
          },
       ],
    },
-   TKMissionChina: {
+   TKMissionEvent18: {
       name: () => "All Under Heaven",
       desc: () =>
          "The banners that divided the realm have yielded to a single authority. From the northern frontier to the southern seas, our officials govern lands once contested by rival courts. Let the Empire of China be proclaimed, and let its institutions preserve the unity our endeavors have won.",

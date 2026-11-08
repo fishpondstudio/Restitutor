@@ -474,6 +474,18 @@ export function hasGeneralCondition(province: Province, save: SaveGame): ICondit
    };
 }
 
+export function* requireHigherWarPowerChecks(
+   ourProvince: Province,
+   theirProvince: Province,
+   save: SaveGame,
+): ConditionChecks {
+   (yield !!save.state.provinces[ourProvince] &&
+      !!save.state.provinces[theirProvince] &&
+      getWarPower({}, ourProvince, save).total.value > getWarPower({}, theirProvince, save).total.value)?.describe(
+      `${getProvinceName(ourProvince, save)} has greater War Power than ${getProvinceName(theirProvince, save)}`,
+   );
+}
+
 export function* hasGeneralChecks(province: Province, save: SaveGame): ConditionChecks {
    (yield getCurrentGeneral(province, save) !== undefined)?.describe($t(L.CurrentlyHasAGeneral));
 }

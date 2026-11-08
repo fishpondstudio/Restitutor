@@ -49,6 +49,7 @@ import { SyriaJudeaEvents } from "./SyriaJudeaEvents";
 import { TarraconensisEvents } from "./TarraconensisEvents";
 import { ThraciaEvents } from "./ThraciaEvents";
 import { ThreeKingdomsMissionEvents } from "./ThreeKingdomsMissionEvents";
+import { YuanShaoEvents } from "./YuanShaoEvents";
 
 export interface IGameEventButton extends IGameEffect {
    label: () => string;
@@ -125,6 +126,7 @@ export const RomeEvents = {
 } as const satisfies Record<string, IGameEventConfig>;
 
 export const ThreeKingdomsEvents = {
+   ...YuanShaoEvents,
    ...ThreeKingdomsMissionEvents,
 } as const satisfies Record<string, IGameEventConfig>;
 
