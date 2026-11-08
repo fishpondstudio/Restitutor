@@ -1,22 +1,42 @@
 import { randInt } from "@project/shared/src/utils/Helper";
 import CaoCao from "../../assets/images/characters/CaoCao.webp";
+import CaoHong from "../../assets/images/characters/CaoHong.webp";
+import CaoPi from "../../assets/images/characters/CaoPi.webp";
+import CaoRen from "../../assets/images/characters/CaoRen.webp";
+import CaoZhi from "../../assets/images/characters/CaoZhi.webp";
+import ChenDeng from "../../assets/images/characters/ChenDeng.webp";
 import ChenGong from "../../assets/images/characters/ChenGong.webp";
+import ChengPu from "../../assets/images/characters/ChengPu.webp";
 import ChengYu from "../../assets/images/characters/ChengYu.webp";
+import DengAi from "../../assets/images/characters/DengAi.webp";
 import DianWei from "../../assets/images/characters/DianWei.webp";
+import DingFeng from "../../assets/images/characters/DingFeng.webp";
+import DongYun from "../../assets/images/characters/DongYun.webp";
 import FaZheng from "../../assets/images/characters/FaZheng.webp";
+import FeiYi from "../../assets/images/characters/FeiYi.webp";
 import GanNing from "../../assets/images/characters/GanNing.webp";
+import GaoShun from "../../assets/images/characters/GaoShun.webp";
 import GongsunDu from "../../assets/images/characters/GongsunDu.webp";
 import GongsunZan from "../../assets/images/characters/GongsunZan.webp";
+import GuanPing from "../../assets/images/characters/GuanPing.webp";
+import GuanXing from "../../assets/images/characters/GuanXing.webp";
 import GuanYu from "../../assets/images/characters/GuanYu.webp";
 import GuoJia from "../../assets/images/characters/GuoJia.webp";
+import HanDang from "../../assets/images/characters/HanDang.webp";
 import HanSui from "../../assets/images/characters/HanSui.webp";
 import HuangGai from "../../assets/images/characters/HuangGai.webp";
+import HuangQuan from "../../assets/images/characters/HuangQuan.webp";
 import HuangZhong from "../../assets/images/characters/HuangZhong.webp";
+import JiangQin from "../../assets/images/characters/JiangQin.webp";
+import JiangWan from "../../assets/images/characters/JiangWan.webp";
 import JiangWei from "../../assets/images/characters/JiangWei.webp";
 import JiaXu from "../../assets/images/characters/JiaXu.webp";
 import JuShou from "../../assets/images/characters/JuShou.webp";
 import KongRong from "../../assets/images/characters/KongRong.webp";
+import LiDian from "../../assets/images/characters/LiDian.webp";
 import LiJue from "../../assets/images/characters/LiJue.webp";
+import LingCao from "../../assets/images/characters/LingCao.webp";
+import LingTong from "../../assets/images/characters/LingTong.webp";
 import LiuBei from "../../assets/images/characters/LiuBei.webp";
 import LiuBiao from "../../assets/images/characters/LiuBiao.webp";
 import LiuYao from "../../assets/images/characters/LiuYao.webp";
@@ -26,11 +46,18 @@ import LuMeng from "../../assets/images/characters/LuMeng.webp";
 import LuSu from "../../assets/images/characters/LuSu.webp";
 import LuXun from "../../assets/images/characters/LuXun.webp";
 import MaChao from "../../assets/images/characters/MaChao.webp";
+import MaDai from "../../assets/images/characters/MaDai.webp";
 import MaLiang from "../../assets/images/characters/MaLiang.webp";
+import ManChong from "../../assets/images/characters/ManChong.webp";
+import MaSu from "../../assets/images/characters/MaSu.webp";
 import MaTeng from "../../assets/images/characters/MaTeng.webp";
+import MiZhu from "../../assets/images/characters/MiZhu.webp";
+import PangDe from "../../assets/images/characters/PangDe.webp";
 import PangTong from "../../assets/images/characters/PangTong.webp";
 import ShiXie from "../../assets/images/characters/ShiXie.webp";
+import SimaShi from "../../assets/images/characters/SimaShi.webp";
 import SimaYi from "../../assets/images/characters/SimaYi.webp";
+import SimaZhao from "../../assets/images/characters/SimaZhao.webp";
 import SunCe from "../../assets/images/characters/SunCe.webp";
 import SunQuan from "../../assets/images/characters/SunQuan.webp";
 import TaishiCi from "../../assets/images/characters/TaishiCi.webp";
@@ -45,22 +72,33 @@ import XuChu from "../../assets/images/characters/XuChu.webp";
 import XuHuang from "../../assets/images/characters/XuHuang.webp";
 import XunYou from "../../assets/images/characters/XunYou.webp";
 import XunYu from "../../assets/images/characters/XunYu.webp";
+import XuSheng from "../../assets/images/characters/XuSheng.webp";
 import XuShu from "../../assets/images/characters/XuShu.webp";
 import XuYou from "../../assets/images/characters/XuYou.webp";
 import YanBaihu from "../../assets/images/characters/YanBaihu.webp";
 import YanLiang from "../../assets/images/characters/YanLiang.webp";
 import YuanShao from "../../assets/images/characters/YuanShao.webp";
 import YuanShu from "../../assets/images/characters/YuanShu.webp";
+import YueJin from "../../assets/images/characters/YueJin.webp";
+import YuJin from "../../assets/images/characters/YuJin.webp";
+import ZhangBao from "../../assets/images/characters/ZhangBao.webp";
 import ZhangFei from "../../assets/images/characters/ZhangFei.webp";
 import ZhangHe from "../../assets/images/characters/ZhangHe.webp";
+import ZhangHong from "../../assets/images/characters/ZhangHong.webp";
 import ZhangLiao from "../../assets/images/characters/ZhangLiao.webp";
 import ZhangLu from "../../assets/images/characters/ZhangLu.webp";
+import ZhangRen from "../../assets/images/characters/ZhangRen.webp";
+import ZhangXiu from "../../assets/images/characters/ZhangXiu.webp";
 import ZhangYan from "../../assets/images/characters/ZhangYan.webp";
 import ZhangYang from "../../assets/images/characters/ZhangYang.webp";
 import ZhangZhao from "../../assets/images/characters/ZhangZhao.webp";
 import ZhaoYun from "../../assets/images/characters/ZhaoYun.webp";
+import ZhongHui from "../../assets/images/characters/ZhongHui.webp";
+import ZhouTai from "../../assets/images/characters/ZhouTai.webp";
 import ZhouYu from "../../assets/images/characters/ZhouYu.webp";
+import ZhugeJin from "../../assets/images/characters/ZhugeJin.webp";
 import ZhugeLiang from "../../assets/images/characters/ZhugeLiang.webp";
+import ZhuRan from "../../assets/images/characters/ZhuRan.webp";
 import { GovernorMinIncl } from "../logic/GovernorLogic";
 import type { TKWarlord } from "./TKWarlord";
 
@@ -116,12 +154,52 @@ export const _TKCharacters = {
       traits: new Set(["Civil", "Martial"]),
       warlord: "CaoCao",
    },
+   CaoHong: {
+      name: () => ["Cao", "Hong", "Zilian"],
+      image: CaoHong,
+      tier: "Tier4",
+      traits: new Set(["Martial"]),
+      warlord: "CaoCao",
+   },
+   CaoPi: {
+      name: () => ["Cao", "Pi", "Zihuan"],
+      image: CaoPi,
+      tier: "Tier2",
+      traits: new Set(["Civil"]),
+   },
+   CaoRen: {
+      name: () => ["Cao", "Ren", "Zixiao"],
+      image: CaoRen,
+      tier: "Tier2",
+      traits: new Set(["Martial"]),
+      warlord: "CaoCao",
+   },
+   CaoZhi: {
+      name: () => ["Cao", "Zhi", "Zijian"],
+      image: CaoZhi,
+      tier: "Tier3",
+      traits: new Set(["Civil"]),
+   },
+   ChenDeng: {
+      name: () => ["Chen", "Deng", "Yuanlong"],
+      image: ChenDeng,
+      tier: "Tier3",
+      traits: new Set(["Civil", "Martial"]),
+      warlord: "TaoQian",
+   },
    ChenGong: {
       name: () => ["Chen", "Gong", "Gongtai"],
       image: ChenGong,
       tier: "Tier2",
       traits: new Set(["Civil"]),
       warlord: "LuBu",
+   },
+   ChengPu: {
+      name: () => ["Cheng", "Pu", "Demou"],
+      image: ChengPu,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
+      warlord: "SunCe",
    },
    ChengYu: {
       name: () => ["Cheng", "Yu", "Zhongde"],
@@ -130,6 +208,12 @@ export const _TKCharacters = {
       traits: new Set(["Civil"]),
       warlord: "CaoCao",
    },
+   DengAi: {
+      name: () => ["Deng", "Ai", "Shizai"],
+      image: DengAi,
+      tier: "Tier2",
+      traits: new Set(["Civil", "Martial"]),
+   },
    DianWei: {
       name: () => ["Dian", "Wei"],
       image: DianWei,
@@ -137,9 +221,27 @@ export const _TKCharacters = {
       traits: new Set(["Martial"]),
       warlord: "CaoCao",
    },
+   DingFeng: {
+      name: () => ["Ding", "Feng", "Chengyuan"],
+      image: DingFeng,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
+   },
+   DongYun: {
+      name: () => ["Dong", "Yun", "Xiuzhao"],
+      image: DongYun,
+      tier: "Tier3",
+      traits: new Set(["Civil"]),
+   },
    FaZheng: {
       name: () => ["Fa", "Zheng", "Xiaozhi"],
       image: FaZheng,
+      tier: "Tier2",
+      traits: new Set(["Civil"]),
+   },
+   FeiYi: {
+      name: () => ["Fei", "Yi", "Wenwei"],
+      image: FeiYi,
       tier: "Tier2",
       traits: new Set(["Civil"]),
    },
@@ -148,7 +250,13 @@ export const _TKCharacters = {
       image: GanNing,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "LiuBiao",
+   },
+   GaoShun: {
+      name: () => ["Gao", "Shun"],
+      image: GaoShun,
+      tier: "Tier2",
+      traits: new Set(["Martial"]),
+      warlord: "LuBu",
    },
    GongsunDu: {
       name: () => ["Gongsun", "Du", "Shengji"],
@@ -164,6 +272,18 @@ export const _TKCharacters = {
       traits: new Set(["Martial"]),
       warlord: "GongsunZan",
    },
+   GuanPing: {
+      name: () => ["Guan", "Ping"],
+      image: GuanPing,
+      tier: "Tier4",
+      traits: new Set(["Martial"]),
+   },
+   GuanXing: {
+      name: () => ["Guan", "Xing", "Anguo"],
+      image: GuanXing,
+      tier: "Tier4",
+      traits: new Set(["Martial"]),
+   },
    GuanYu: {
       name: () => ["Guan", "Yu", "Yunchang"],
       image: GuanYu,
@@ -176,12 +296,18 @@ export const _TKCharacters = {
       image: GuoJia,
       tier: "Tier1",
       traits: new Set(["Civil"]),
-      warlord: "CaoCao",
+   },
+   HanDang: {
+      name: () => ["Han", "Dang", "Yigong"],
+      image: HanDang,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
+      warlord: "SunCe",
    },
    HanSui: {
       name: () => ["Han", "Sui", "Wenyue"],
       image: HanSui,
-      tier: "Tier3",
+      tier: "Tier4",
       traits: new Set(["Martial"]),
       warlord: "HanSui",
    },
@@ -192,12 +318,31 @@ export const _TKCharacters = {
       traits: new Set(["Martial"]),
       warlord: "SunCe",
    },
+   HuangQuan: {
+      name: () => ["Huang", "Quan", "Gongheng"],
+      image: HuangQuan,
+      tier: "Tier3",
+      traits: new Set(["Civil", "Martial"]),
+      warlord: "LiuZhang",
+   },
    HuangZhong: {
       name: () => ["Huang", "Zhong", "Hansheng"],
       image: HuangZhong,
       tier: "Tier2",
       traits: new Set(["Martial"]),
       warlord: "LiuBiao",
+   },
+   JiangQin: {
+      name: () => ["Jiang", "Qin", "Gongyi"],
+      image: JiangQin,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
+   },
+   JiangWan: {
+      name: () => ["Jiang", "Wan", "Gongyan"],
+      image: JiangWan,
+      tier: "Tier2",
+      traits: new Set(["Civil"]),
    },
    JiangWei: {
       name: () => ["Jiang", "Wei", "Boyue"],
@@ -226,12 +371,31 @@ export const _TKCharacters = {
       traits: new Set(["Civil"]),
       warlord: "KongRong",
    },
+   LiDian: {
+      name: () => ["Li", "Dian", "Mancheng"],
+      image: LiDian,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
+      warlord: "CaoCao",
+   },
    LiJue: {
       name: () => ["Li", "Jue", "Zhiran"],
       image: LiJue,
       tier: "Tier4",
       traits: new Set(["Martial"]),
       warlord: "LiJue",
+   },
+   LingCao: {
+      name: () => ["Ling", "Cao"],
+      image: LingCao,
+      tier: "Tier4",
+      traits: new Set(["Martial"]),
+   },
+   LingTong: {
+      name: () => ["Ling", "Tong", "Gongji"],
+      image: LingTong,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
    },
    LiuBei: {
       name: () => ["Liu", "Bei", "Xuande"],
@@ -277,7 +441,7 @@ export const _TKCharacters = {
    LuSu: {
       name: () => ["Lu", "Su", "Zijing"],
       image: LuSu,
-      tier: "Tier3",
+      tier: "Tier2",
       traits: new Set(["Civil", "Martial"]),
    },
    LuXun: {
@@ -293,16 +457,49 @@ export const _TKCharacters = {
       traits: new Set(["Martial"]),
       warlord: "MaTeng",
    },
+   MaDai: {
+      name: () => ["Ma", "Dai"],
+      image: MaDai,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
+   },
    MaLiang: {
       name: () => ["Ma", "Liang", "Jichang"],
       image: MaLiang,
       tier: "Tier3",
       traits: new Set(["Civil"]),
    },
+   ManChong: {
+      name: () => ["Man", "Chong", "Boning"],
+      image: ManChong,
+      tier: "Tier2",
+      traits: new Set(["Civil", "Martial"]),
+      warlord: "CaoCao",
+   },
+   MaSu: {
+      name: () => ["Ma", "Su", "Youchang"],
+      image: MaSu,
+      tier: "Tier4",
+      traits: new Set(["Civil"]),
+   },
    MaTeng: {
       name: () => ["Ma", "Teng", "Shoucheng"],
       image: MaTeng,
+      tier: "Tier4",
+      traits: new Set(["Martial"]),
+      warlord: "MaTeng",
+   },
+   MiZhu: {
+      name: () => ["Mi", "Zhu", "Zizhong"],
+      image: MiZhu,
       tier: "Tier3",
+      traits: new Set(["Civil"]),
+      warlord: "TaoQian",
+   },
+   PangDe: {
+      name: () => ["Pang", "De", "Lingming"],
+      image: PangDe,
+      tier: "Tier2",
       traits: new Set(["Martial"]),
       warlord: "MaTeng",
    },
@@ -319,10 +516,22 @@ export const _TKCharacters = {
       traits: new Set(["Civil"]),
       warlord: "ShiXie",
    },
+   SimaShi: {
+      name: () => ["Sima", "Shi", "Ziyuan"],
+      image: SimaShi,
+      tier: "Tier2",
+      traits: new Set(["Civil", "Martial"]),
+   },
    SimaYi: {
       name: () => ["Sima", "Yi", "Zhongda"],
       image: SimaYi,
       tier: "Tier1",
+      traits: new Set(["Civil", "Martial"]),
+   },
+   SimaZhao: {
+      name: () => ["Sima", "Zhao", "Zishang"],
+      image: SimaZhao,
+      tier: "Tier2",
       traits: new Set(["Civil", "Martial"]),
    },
    SunCe: {
@@ -343,7 +552,6 @@ export const _TKCharacters = {
       image: TaishiCi,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "LiuYao",
    },
    TaoQian: {
       name: () => ["Tao", "Qian", "Gongzu"],
@@ -398,7 +606,6 @@ export const _TKCharacters = {
       image: XuChu,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "CaoCao",
    },
    XuHuang: {
       name: () => ["Xu", "Huang", "Gongming"],
@@ -412,7 +619,6 @@ export const _TKCharacters = {
       image: XunYou,
       tier: "Tier2",
       traits: new Set(["Civil"]),
-      warlord: "CaoCao",
    },
    XunYu: {
       name: () => ["Xun", "Yu", "Wenruo"],
@@ -420,6 +626,12 @@ export const _TKCharacters = {
       tier: "Tier2",
       traits: new Set(["Civil"]),
       warlord: "CaoCao",
+   },
+   XuSheng: {
+      name: () => ["Xu", "Sheng", "Wenxiang"],
+      image: XuSheng,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
    },
    XuShu: {
       name: () => ["Xu", "Shu", "Yuanzhi"],
@@ -462,6 +674,26 @@ export const _TKCharacters = {
       traits: new Set(["Civil"]),
       warlord: "YuanShu",
    },
+   YueJin: {
+      name: () => ["Yue", "Jin", "Wenqian"],
+      image: YueJin,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
+      warlord: "CaoCao",
+   },
+   YuJin: {
+      name: () => ["Yu", "Jin", "Wenze"],
+      image: YuJin,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
+      warlord: "CaoCao",
+   },
+   ZhangBao: {
+      name: () => ["Zhang", "Bao"],
+      image: ZhangBao,
+      tier: "Tier4",
+      traits: new Set(["Martial"]),
+   },
    ZhangFei: {
       name: () => ["Zhang", "Fei", "Yide"],
       image: ZhangFei,
@@ -476,6 +708,13 @@ export const _TKCharacters = {
       traits: new Set(["Martial"]),
       warlord: "YuanShao",
    },
+   ZhangHong: {
+      name: () => ["Zhang", "Hong", "Zigang"],
+      image: ZhangHong,
+      tier: "Tier3",
+      traits: new Set(["Civil"]),
+      warlord: "SunCe",
+   },
    ZhangLiao: {
       name: () => ["Zhang", "Liao", "Wenyuan"],
       image: ZhangLiao,
@@ -489,6 +728,19 @@ export const _TKCharacters = {
       tier: "Tier4",
       traits: new Set(["Civil"]),
       warlord: "ZhangLu",
+   },
+   ZhangRen: {
+      name: () => ["Zhang", "Ren"],
+      image: ZhangRen,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
+      warlord: "LiuZhang",
+   },
+   ZhangXiu: {
+      name: () => ["Zhang", "Xiu"],
+      image: ZhangXiu,
+      tier: "Tier4",
+      traits: new Set(["Martial"]),
    },
    ZhangYan: {
       name: () => ["Zhang", "Yan"],
@@ -509,7 +761,6 @@ export const _TKCharacters = {
       image: ZhangZhao,
       tier: "Tier3",
       traits: new Set(["Civil"]),
-      warlord: "SunCe",
    },
    ZhaoYun: {
       name: () => ["Zhao", "Yun", "Zilong"],
@@ -518,18 +769,41 @@ export const _TKCharacters = {
       traits: new Set(["Martial"]),
       warlord: "GongsunZan",
    },
+   ZhongHui: {
+      name: () => ["Zhong", "Hui", "Shiji"],
+      image: ZhongHui,
+      tier: "Tier2",
+      traits: new Set(["Civil", "Martial"]),
+   },
+   ZhouTai: {
+      name: () => ["Zhou", "Tai", "Youping"],
+      image: ZhouTai,
+      tier: "Tier2",
+      traits: new Set(["Martial"]),
+   },
    ZhouYu: {
       name: () => ["Zhou", "Yu", "Gongjin"],
       image: ZhouYu,
       tier: "Tier1",
       traits: new Set(["Civil", "Martial"]),
-      warlord: "SunCe",
+   },
+   ZhugeJin: {
+      name: () => ["Zhuge", "Jin", "Ziyu"],
+      image: ZhugeJin,
+      tier: "Tier3",
+      traits: new Set(["Civil"]),
    },
    ZhugeLiang: {
       name: () => ["Zhuge", "Liang", "Kongming"],
       image: ZhugeLiang,
       tier: "Tier1",
       traits: new Set(["Civil", "Martial"]),
+   },
+   ZhuRan: {
+      name: () => ["Zhu", "Ran", "Yifeng"],
+      image: ZhuRan,
+      tier: "Tier3",
+      traits: new Set(["Martial"]),
    },
 } satisfies Record<string, ITKCharacter>;
 
