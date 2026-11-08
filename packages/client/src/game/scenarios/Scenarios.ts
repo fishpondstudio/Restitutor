@@ -1,6 +1,8 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
+import type { Culture } from "../definitions/Culture";
 import { Province } from "../definitions/Province";
 import type { ProvinceResource } from "../definitions/ProvinceResources";
+import type { Religion } from "../definitions/Religion";
 import type { SocialClass } from "../definitions/SocialClass";
 import type { TimedAction } from "../definitions/TimedAction";
 import type { GameEvent } from "../events/GameEvents";
@@ -11,6 +13,8 @@ import { ThreeKingdoms194 } from "./ThreeKingdoms194";
 export interface IScenario {
    startDate: Date;
    provinces: Set<Province>;
+   cultures: Set<Culture>;
+   religions: Set<Religion>;
    events: Set<GameEvent>;
    nameGenerator: INameGenerator;
    flags: Set<ScenarioFlag>;

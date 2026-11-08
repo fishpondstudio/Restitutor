@@ -1,4 +1,5 @@
 export const ScenarioFlags = {
+   Christianity: () => "Christianity",
    Concubinage: () => "Concubinage",
    TKCharacter: () => "Three Kingdoms Character",
    Senate: () => "Senate",

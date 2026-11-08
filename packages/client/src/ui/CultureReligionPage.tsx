@@ -1,14 +1,5 @@
 import { Menu, Progress, ScrollArea, Switch } from "@mantine/core";
-import {
-   cls,
-   entriesOf,
-   formatNumber,
-   formatPercent,
-   hasFlag,
-   mapOf,
-   range,
-   toggleFlag,
-} from "@project/shared/src/utils/Helper";
+import { cls, formatNumber, formatPercent, hasFlag, mapOf, range, toggleFlag } from "@project/shared/src/utils/Helper";
 import { ConvertToChristianityAction } from "../game/actions/ConvertToChristianityAction";
 import { finalizeBreakdown } from "../game/actions/GameAction";
 import { ToggleIslamicPolicyAction } from "../game/actions/ToggleIslamicPolicyAction";
@@ -39,8 +30,10 @@ import {
 } from "../game/logic/InternalAffairsLogic";
 import { getProvinceGoverningCost } from "../game/logic/ProvinceLogic";
 import { getProvinceResource } from "../game/logic/ResourceLogic";
+import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { getCultureStatus, getReligionStatus } from "../game/logic/TileLogic";
 import { getTimedActionCooldownLeft } from "../game/logic/TimedActionLogic";
+import { Scenarios } from "../game/scenarios/Scenarios";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
@@ -67,6 +60,8 @@ export function CultureReligionPage(): React.ReactNode {
    if (!state) {
       return null;
    }
+   const scenario = Scenarios[G.save.state.scenario];
+   const christianityEnabled = hasScenarioFlag("Christianity", G.save);
    const governingCost = getProvinceGoverningCost(G.save.state.playerProvince, G.save);
    const christianity = getProvinceResource("christianity", G.save.state.playerProvince, G.save);
    const christianityYearly = getChristianityYearly(G.save.state.playerProvince, G.save);
@@ -159,12 +154,10 @@ export function CultureReligionPage(): React.ReactNode {
                         </FloatingTip>
                         <Menu.Dropdown className="panel">
                            <ScrollArea.Autosize mah="33vh" scrollbars="y">
-                              {entriesOf(Culture)
-                                 .filter(
-                                    ([culture]) => culture !== state.culture && !toleratedCultures.includes(culture),
-                                 )
-                                 .sort((a, b) => a[1].name().localeCompare(b[1].name()))
-                                 .map(([culture]) => (
+                              {Array.from(scenario.cultures)
+                                 .filter((culture) => culture !== state.culture && !toleratedCultures.includes(culture))
+                                 .sort((a, b) => Culture[a].name().localeCompare(Culture[b].name()))
+                                 .map((culture) => (
                                     <Menu.Item
                                        key={culture}
                                        onClick={() => {
@@ -302,12 +295,12 @@ export function CultureReligionPage(): React.ReactNode {
                      </FloatingTip>
                      <Menu.Dropdown className="panel">
                         <ScrollArea.Autosize mah="33vh" scrollbars="y">
-                           {entriesOf(Religion)
-                              .sort((a, b) => a[1].name().localeCompare(b[1].name()))
+                           {Array.from(scenario.religions)
+                              .sort((a, b) => Religion[a].name().localeCompare(Religion[b].name()))
                               .filter(
-                                 ([religion]) => religion !== state.religion && !toleratedReligions.includes(religion),
+                                 (religion) => religion !== state.religion && !toleratedReligions.includes(religion),
                               )
-                              .map(([religion]) => (
+                              .map((religion) => (
                                  <Menu.Item
                                     key={religion}
                                     onClick={() => {
@@ -329,160 +322,168 @@ export function CultureReligionPage(): React.ReactNode {
             })}
          </div>
          <IslamicReligionComp />
-         <div className="h3">{Religion.Christianity.name()}</div>
-         <FloatingTip
-            className="p0"
-            fixedWidth
-            label={() => (
-               <>
-                  <div className="m10">
-                     <div className="row my5">
-                        <div className="f1">{$t(L.ChristianInfluence)}</div>
-                        <div>{formatNumber(christianity)}</div>
-                     </div>
-                     <div className="row my5">
-                        <div className="f1">{$t(L.GoverningCost)}</div>
-                        <div>{formatNumber(governingCost.value)}</div>
-                     </div>
-                  </div>
-                  <div className="box m5">
-                     <div className="h2">{$t(L.ChristianInfluencePerYear)}</div>
-                     <BreakdownComp breakdown={christianityYearly} />
-                  </div>
-                  {state.religion === "Islam" && (
-                     <div className="m10 text-yellow">
-                        {$t(L.IslamicInfluenceConversionDesc$1, Modifiers.ChristianityYearly.name())}
-                     </div>
-                  )}
-                  <div className="m10">
-                     {$t(L.ChristianInfluenceConversionEffectsDescription)}
-                     <div className="h10" />
-                     {mapOf(ProvinceUpgrades.ReligiousUnrest.modifiers, (modifier, data) => (
-                        <div className="row my5" key={modifier}>
-                           <div className="f1">{Modifiers[modifier].name()}</div>
-                           <div className="text-red">{modifierValueToString(data)}</div>
+         {christianityEnabled && (
+            <>
+               <div className="h3">{Religion.Christianity.name()}</div>
+               <FloatingTip
+                  className="p0"
+                  fixedWidth
+                  label={() => (
+                     <>
+                        <div className="m10">
+                           <div className="row my5">
+                              <div className="f1">{$t(L.ChristianInfluence)}</div>
+                              <div>{formatNumber(christianity)}</div>
+                           </div>
+                           <div className="row my5">
+                              <div className="f1">{$t(L.GoverningCost)}</div>
+                              <div>{formatNumber(governingCost.value)}</div>
+                           </div>
                         </div>
-                     ))}
-                     {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
-                        <div className="text-red my5">{$t(L.TheEffectIsCurrentlyActive)}</div>
-                     )}
-                  </div>
-               </>
-            )}
-         >
-            <div className="row g5 m10">
-               <div>{getResourceName("christianity", G.save.state.scenario)}</div>
-               <img src={ProvinceResourceImages.christianity} className="icon-block" />
-               {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
-                  <div className="mi sm text-red">error</div>
-               )}
-               <div className="f1" />
-               <div>
-                  {formatNumber(christianity)}/{formatNumber(governingCost.value)}{" "}
-                  {colorNumber(christianityYearly.value)}
-               </div>
-            </div>
-         </FloatingTip>
-         <Progress value={(100 * christianity) / governingCost.value} className="m10" />
-         <div className="m10" style={Grid2}>
-            <ActionButton
-               className="btn"
-               action={() => ConvertToChristianityAction(G.save.state.playerProvince, G.save)}
-               tooltip={(element) => (
-                  <>
-                     <div className="m10">{$t(L.ConvertingToChristianityDescription)}</div>
-                     {element}
-                  </>
-               )}
-            >
-               {$t(L.ConvertToChristianity)}
-            </ActionButton>
-            <TimedActionButton timedAction="AppointBishop" />
-         </div>
-         <div className="box m10">
-            <FloatingTip label={getApostolicSeeEffect}>
-               <div className="h3 row">
-                  <div className="f1">{$t(L.ApostolicSee)}</div>
-                  <div className="mi xs text-dimmed">info</div>
-               </div>
-            </FloatingTip>
-            {Array.from(getApostolicSeeTiles(G.save)).map((tile) => {
-               const owner = G.save.state.tiles.get(tile)?.province;
-               return (
-                  <div key={tile} className="row g5 mx10 my5">
-                     <div className="f1">{renderMarkup(`<Tile>${tile}</Tile>`)}</div>
-                     <div>{renderMarkup(`<Province>${owner}</Province>`)}</div>
-                     {owner === G.save.state.playerProvince && <div className="text-dimmed">{$t(L.Us)}</div>}
-                  </div>
-               );
-            })}
-         </div>
-         <div className="box m10">
-            <div className="h3">{$t(L.AutomaticallyEvangelize)}</div>
-            <div className="row mx10 my5">
-               <div className="f1">{$t(L.EvangelizeMinorReligions)}</div>
-               <Switch
-                  size="xs"
-                  checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeMinorReligions)}
-                  onChange={() => {
-                     state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeMinorReligions);
-                     GameStateUpdated.emit();
-                  }}
-               />
-            </div>
-            <div className="row mx10 my5">
-               <div className="f1">{$t(L.EvangelizeToleratedReligions)}</div>
-               <Switch
-                  size="xs"
-                  checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeToleratedReligions)}
-                  onChange={() => {
-                     state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeToleratedReligions);
-                     GameStateUpdated.emit();
-                  }}
-               />
-            </div>
-         </div>
-         {religionTiles.length > 0 && (isChristianReligion(state.religion) || state.religion === "Islam") && (
-            <div className="m10">
-               <table className="data-table">
-                  <thead>
-                     <tr>
-                        <th>{$t(L.Tile)}</th>
-                        <th>{$t(L.Religion)}</th>
-                        <th></th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     {religionTiles.map(([tile, tileData]) => (
-                        <tr key={tile}>
-                           <td>
-                              {renderMarkup(`<Tile>${tile}</Tile>`)}{" "}
-                              <span className="text-dimmed">
-                                 ({tileData.infrastructure}/{tileData.production}/{tileData.population})
-                              </span>
-                           </td>
-                           <td>
-                              <div className="row g5">
-                                 <CircleComp
-                                    size="1rem"
-                                    color={CultureReligionStatus[getReligionStatus(tile, G.save)].color}
-                                 />
-                                 <div className="f1">{Religion[tileData.religion].name()}</div>
+                        <div className="box m5">
+                           <div className="h2">{$t(L.ChristianInfluencePerYear)}</div>
+                           <BreakdownComp breakdown={christianityYearly} />
+                        </div>
+                        {state.religion === "Islam" && (
+                           <div className="m10 text-yellow">
+                              {$t(L.IslamicInfluenceConversionDesc$1, Modifiers.ChristianityYearly.name())}
+                           </div>
+                        )}
+                        <div className="m10">
+                           {$t(L.ChristianInfluenceConversionEffectsDescription)}
+                           <div className="h10" />
+                           {mapOf(ProvinceUpgrades.ReligiousUnrest.modifiers, (modifier, data) => (
+                              <div className="row my5" key={modifier}>
+                                 <div className="f1">{Modifiers[modifier].name()}</div>
+                                 <div className="text-red">{modifierValueToString(data)}</div>
                               </div>
-                           </td>
-                           <td className="text-right">
-                              {state.religion === "Islam" ? (
-                                 <InviteToIslamButton tile={tile} />
-                              ) : (
-                                 <EvangelizeTileButton tile={tile} />
-                              )}
-                           </td>
-                        </tr>
-                     ))}
-                  </tbody>
-               </table>
-            </div>
+                           ))}
+                           {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
+                              <div className="text-red my5">{$t(L.TheEffectIsCurrentlyActive)}</div>
+                           )}
+                        </div>
+                     </>
+                  )}
+               >
+                  <div className="row g5 m10">
+                     <div>{getResourceName("christianity", G.save.state.scenario)}</div>
+                     <img src={ProvinceResourceImages.christianity} className="icon-block" />
+                     {hasProvinceUpgrade("ReligiousUnrest", G.save.state.playerProvince, G.save) && (
+                        <div className="mi sm text-red">error</div>
+                     )}
+                     <div className="f1" />
+                     <div>
+                        {formatNumber(christianity)}/{formatNumber(governingCost.value)}{" "}
+                        {colorNumber(christianityYearly.value)}
+                     </div>
+                  </div>
+               </FloatingTip>
+               <Progress value={(100 * christianity) / governingCost.value} className="m10" />
+               <div className="m10" style={Grid2}>
+                  <ActionButton
+                     className="btn"
+                     action={() => ConvertToChristianityAction(G.save.state.playerProvince, G.save)}
+                     tooltip={(element) => (
+                        <>
+                           <div className="m10">{$t(L.ConvertingToChristianityDescription)}</div>
+                           {element}
+                        </>
+                     )}
+                  >
+                     {$t(L.ConvertToChristianity)}
+                  </ActionButton>
+                  <TimedActionButton timedAction="AppointBishop" />
+               </div>
+               <div className="box m10">
+                  <FloatingTip label={getApostolicSeeEffect}>
+                     <div className="h3 row">
+                        <div className="f1">{$t(L.ApostolicSee)}</div>
+                        <div className="mi xs text-dimmed">info</div>
+                     </div>
+                  </FloatingTip>
+                  {Array.from(getApostolicSeeTiles(G.save)).map((tile) => {
+                     const owner = G.save.state.tiles.get(tile)?.province;
+                     return (
+                        <div key={tile} className="row g5 mx10 my5">
+                           <div className="f1">{renderMarkup(`<Tile>${tile}</Tile>`)}</div>
+                           <div>{renderMarkup(`<Province>${owner}</Province>`)}</div>
+                           {owner === G.save.state.playerProvince && <div className="text-dimmed">{$t(L.Us)}</div>}
+                        </div>
+                     );
+                  })}
+               </div>
+               <div className="box m10">
+                  <div className="h3">{$t(L.AutomaticallyEvangelize)}</div>
+                  <div className="row mx10 my5">
+                     <div className="f1">{$t(L.EvangelizeMinorReligions)}</div>
+                     <Switch
+                        size="xs"
+                        checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeMinorReligions)}
+                        onChange={() => {
+                           state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeMinorReligions);
+                           GameStateUpdated.emit();
+                        }}
+                     />
+                  </div>
+                  <div className="row mx10 my5">
+                     <div className="f1">{$t(L.EvangelizeToleratedReligions)}</div>
+                     <Switch
+                        size="xs"
+                        checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyEvangelizeToleratedReligions)}
+                        onChange={() => {
+                           state.flags = toggleFlag(
+                              state.flags,
+                              ProvinceFlags.AutomaticallyEvangelizeToleratedReligions,
+                           );
+                           GameStateUpdated.emit();
+                        }}
+                     />
+                  </div>
+               </div>
+            </>
          )}
+         {religionTiles.length > 0 &&
+            ((christianityEnabled && isChristianReligion(state.religion)) || state.religion === "Islam") && (
+               <div className="m10">
+                  <table className="data-table">
+                     <thead>
+                        <tr>
+                           <th>{$t(L.Tile)}</th>
+                           <th>{$t(L.Religion)}</th>
+                           <th></th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {religionTiles.map(([tile, tileData]) => (
+                           <tr key={tile}>
+                              <td>
+                                 {renderMarkup(`<Tile>${tile}</Tile>`)}{" "}
+                                 <span className="text-dimmed">
+                                    ({tileData.infrastructure}/{tileData.production}/{tileData.population})
+                                 </span>
+                              </td>
+                              <td>
+                                 <div className="row g5">
+                                    <CircleComp
+                                       size="1rem"
+                                       color={CultureReligionStatus[getReligionStatus(tile, G.save)].color}
+                                    />
+                                    <div className="f1">{Religion[tileData.religion].name()}</div>
+                                 </div>
+                              </td>
+                              <td className="text-right">
+                                 {state.religion === "Islam" ? (
+                                    <InviteToIslamButton tile={tile} />
+                                 ) : (
+                                    <EvangelizeTileButton tile={tile} />
+                                 )}
+                              </td>
+                           </tr>
+                        ))}
+                     </tbody>
+                  </table>
+               </div>
+            )}
       </SidebarComp>
    );
 }

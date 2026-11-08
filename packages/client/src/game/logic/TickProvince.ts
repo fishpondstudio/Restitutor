@@ -70,7 +70,7 @@ import {
    setProvinceStat,
 } from "./ProvinceLogic";
 import { addProvinceResource, getProvinceResource, spendProvinceResource } from "./ResourceLogic";
-import { getNameGenerator } from "./ScenarioLogic";
+import { getNameGenerator, hasScenarioFlag } from "./ScenarioLogic";
 import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
@@ -232,8 +232,9 @@ export function tickProvince(province: Province, save: SaveGame): void {
    const governingCost = getProvinceGoverningCost(province, save).value;
    const christianity = getProvinceResource("christianity", province, save);
    if (
-      (christianity > governingCost && !isChristianReligion(state.religion)) ||
-      (christianity < governingCost && isChristianReligion(state.religion))
+      hasScenarioFlag("Christianity", save) &&
+      ((christianity > governingCost && !isChristianReligion(state.religion)) ||
+         (christianity < governingCost && isChristianReligion(state.religion)))
    ) {
       addProvinceUpgrade("ReligiousUnrest", province, save);
    } else {
