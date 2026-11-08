@@ -48,6 +48,7 @@ import { SiciliaEvents } from "./SiciliaEvents";
 import { SyriaJudeaEvents } from "./SyriaJudeaEvents";
 import { TarraconensisEvents } from "./TarraconensisEvents";
 import { ThraciaEvents } from "./ThraciaEvents";
+import { ThreeKingdomsMissionEvents } from "./ThreeKingdomsMissionEvents";
 
 export interface IGameEventButton extends IGameEffect {
    label: () => string;
@@ -123,7 +124,11 @@ export const RomeEvents = {
    ...RandomEvents,
 } as const satisfies Record<string, IGameEventConfig>;
 
-const _GameEvents = { ...RomeEvents };
+export const ThreeKingdomsEvents = {
+   ...ThreeKingdomsMissionEvents,
+} as const satisfies Record<string, IGameEventConfig>;
+
+const _GameEvents = { ...RomeEvents, ...ThreeKingdomsEvents };
 
 export type GameEvent = keyof typeof _GameEvents;
 export const GameEvents: Record<GameEvent, IGameEventConfig> = _GameEvents;

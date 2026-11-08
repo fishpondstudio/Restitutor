@@ -5434,4 +5434,11 @@ export const DE = {
    DominionPointsCapacity: "Herrschaftspunkte-Kapazität",
    DominionPointsCapacityDesc: "Sobald die Kapazitätsgrenze erreicht ist, werden keine weiteren Herrschaftspunkte generiert.",
    AutomaticallyCoreTilesWithDominionPointsDesc: "Jeden Monat automatisch höchstens ein Nicht-Kerngebiet zu unserem Kerngebiet machen, wenn wir genügend Ressourcen haben.",
+   CultureCentralHan: "Zentrale Han",
+   CultureNorthernHan: "Nördliche Han",
+   CultureLiangzhou: "Liangzhou",
+   CultureBaShu: "Ba-Shu",
+   CultureJingChu: "Jing-Chu",
+   CultureWuYue: "Wu-Yue",
+   CultureJiaozhi: "Jiaozhi",
 };

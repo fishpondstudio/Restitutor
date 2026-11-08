@@ -5140,4 +5140,11 @@ export const ZH_TW = {
    DominionPointsCapacity: "Dominion Points Capacity",
    DominionPointsCapacityDesc: "The maximum amount of Dominion Points we can store.",
    AutomaticallyCoreTilesWithDominionPointsDesc: "Automatically make up to one non-core tile our core each month when we have enough Dominion Points and other resources.",
+   CultureCentralHan: "Central Han",
+   CultureNorthernHan: "Northern Han",
+   CultureLiangzhou: "Liangzhou",
+   CultureBaShu: "Ba-Shu",
+   CultureJingChu: "Jing-Chu",
+   CultureWuYue: "Wu-Yue",
+   CultureJiaozhi: "Jiaozhi",
 };

@@ -5313,4 +5313,11 @@ export const RU = {
    DominionPointsCapacity: "Лимит очков господства",
    DominionPointsCapacityDesc: "Начисление очков господства прекращается при достижении лимита.",
    AutomaticallyCoreTilesWithDominionPointsDesc: "Автоматически создавать ядро не более чем в одном владении без ядра каждый месяц, если у нас достаточно ресурсов.",
+   CultureCentralHan: "Центральные ханьцы",
+   CultureNorthernHan: "Северные ханьцы",
+   CultureLiangzhou: "Лянчжоу",
+   CultureBaShu: "Ба-Шу",
+   CultureJingChu: "Цзин-Чу",
+   CultureWuYue: "У-Юэ",
+   CultureJiaozhi: "Цзяочжи",
 };

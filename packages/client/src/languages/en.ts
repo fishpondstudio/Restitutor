@@ -5353,4 +5353,11 @@ export const EN = {
    DominionPointsCapacity: "Dominion Points Capacity",
    DominionPointsCapacityDesc: "Dominion Points stop generating when capacity is reached.",
    AutomaticallyCoreTilesWithDominionPointsDesc: "Automatically make at most one non-core tile our core each month when we have enough resources.",
+   CultureCentralHan: "Central Han",
+   CultureNorthernHan: "Northern Han",
+   CultureLiangzhou: "Liangzhou",
+   CultureBaShu: "Ba-Shu",
+   CultureJingChu: "Jing-Chu",
+   CultureWuYue: "Wu-Yue",
+   CultureJiaozhi: "Jiaozhi",
 };

@@ -15,7 +15,7 @@
 - Run `pnpm run check` in the **root** folder to check for format and linter
 - Run `pnpm test run` in the **packages/client** folder to run unit test
 
-When running `pnpm` command, if you get Corepack `EPERM` error, retry with approved elevated execution.
+When running `pnpm` command, prefer approved elevated execution (Codex), especially if you get Corepack `EPERM` error.
 
 ## Localization
 

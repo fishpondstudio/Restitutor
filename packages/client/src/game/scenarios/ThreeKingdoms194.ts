@@ -1,4 +1,6 @@
+import { keysOf } from "@project/shared/src/utils/Helper";
 import { ChineseNameGenerator } from "../ChineseNames";
+import { ThreeKingdomsEvents } from "../events/GameEvents";
 import { TKWarlords } from "../ThreeKingdoms/TKWarlord";
 import { getCulturesFromProvinces, getReligionsFromProvinces } from "./ScenarioHelper";
 import type { IScenario } from "./Scenarios";
@@ -9,7 +11,9 @@ export const ThreeKingdoms194: IScenario = {
    cultures: getCulturesFromProvinces(TKWarlords),
    religions: getReligionsFromProvinces(TKWarlords),
    nameGenerator: ChineseNameGenerator,
-   events: new Set(),
+   get events() {
+      return new Set(keysOf(ThreeKingdomsEvents));
+   },
    flags: new Set(["Concubinage", "TKCharacter", "ImperialCourt"]),
    provinceResourceNames: {
       consulPoint: () => "Imperial Favor",

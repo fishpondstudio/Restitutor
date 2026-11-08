@@ -5096,4 +5096,11 @@ export const ZH_CN = {
    DominionPointsCapacity: "统治点数上限",
    DominionPointsCapacityDesc: "统治点数达到上限时停止生成。",
    AutomaticallyCoreTilesWithDominionPointsDesc: "拥有足够资源时，每月自动将至多一个非核心地块核心化。",
+   CultureCentralHan: "中原汉人",
+   CultureNorthernHan: "北方汉人",
+   CultureLiangzhou: "凉州",
+   CultureBaShu: "巴蜀",
+   CultureJingChu: "荆楚",
+   CultureWuYue: "吴越",
+   CultureJiaozhi: "交趾",
 };
