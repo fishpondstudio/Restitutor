@@ -755,7 +755,6 @@ export const _TKCharacters = {
       image: ZhangHe,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "YuanShao",
    },
    ZhangHong: {
       name: () => ["Zhang", "Hong", "Zigang"],

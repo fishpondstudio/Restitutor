@@ -1,6 +1,8 @@
+import { Province } from "../definitions/Province";
 import { requireHigherWarPowerChecks } from "../logic/ArmyLogic";
 import type { ConditionChecks } from "../logic/Calculation";
-import { provinceResourceChecks, warPowerChecks } from "../logic/MissionLogic";
+import { minCoreTileChecks, provinceResourceChecks, victoryCountChecks, warPowerChecks } from "../logic/MissionLogic";
+import { grantTKCharacterEffect, tkCharacterUnassignedChecks } from "../logic/TKCharacterLogic";
 import { requireNoPatronsChecks, requirePeaceBetweenChecks, requireWarBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -136,6 +138,27 @@ export const YuanShaoEvents = {
             modifiers: {
                LandTax: { type: "multiply", value: 0.1, duration: 36 },
             },
+         },
+      ],
+   },
+   YuanShaoEvent11: {
+      name: () => "Zhang He Takes Command",
+      desc: () =>
+         "The struggle for the north demands commanders who can do more than lead a charge. Zhang He, styled Junyi, has shown a keen eye for the battlefield and a steady hand in command. Let us give his talents their proper place among our generals, that he may strengthen our armies in the campaigns ahead.",
+      image: EventImage.MountedParley,
+      condition: {
+         province: new Set(["YuanShao"]),
+         year: [199, Number.POSITIVE_INFINITY],
+         conditions: function* (province, save): ConditionChecks {
+            yield* tkCharacterUnassignedChecks("ZhangHe", save);
+            yield* victoryCountChecks(3, province, save);
+            yield* minCoreTileChecks(Province.YuanShao.tiles.length + 6, province, save);
+         },
+      },
+      buttons: [
+         {
+            label: () => "Entrust Zhang He with a command",
+            custom: [grantTKCharacterEffect("ZhangHe")],
          },
       ],
    },

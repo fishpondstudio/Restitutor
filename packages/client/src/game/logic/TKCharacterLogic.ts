@@ -1,10 +1,13 @@
 import { entriesOf, forEach, keysOf } from "@project/shared/src/utils/Helper";
 import type { ICondition } from "../actions/GameAction";
+import { CharacterTTLMonths } from "../definitions/Constant";
 import { type CharacterSlot, CharacterSlots, GovernmentTier } from "../definitions/GovernmentTier";
 import type { Province } from "../definitions/Province";
+import type { ICustomEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { type TKCharacter, TKCharacters, type TKCharacterTier } from "../ThreeKingdoms/TKCharacter";
 import { type TKWarlord, TKWarlordCharacters } from "../ThreeKingdoms/TKWarlord";
+import type { ConditionChecks } from "./Calculation";
 import { requireScenarioFlagCondition } from "./ScenarioLogic";
 
 export function tickTKCharacters(province: Province, save: SaveGame): void {
@@ -96,6 +99,38 @@ export function getTKCharacterTierToCost(tier: TKCharacterTier): number {
 
 export function isCharacterCurrentWarlord(character: TKCharacter, province: Province, save: SaveGame): boolean {
    return save.state.provinces[province]?.governor.male?.character === character;
+}
+
+export function* tkCharacterUnassignedChecks(character: TKCharacter, save: SaveGame): ConditionChecks {
+   (yield Object.values(save.state.provinces).every((state) => !state?.characters.has(character)))?.describe(
+      `${getTKCharacterName(character).fullName} is not serving any warlord`,
+   );
+}
+
+export function grantTKCharacterEffect(character: TKCharacter): ICustomEffect {
+   return {
+      desc: () => `${getTKCharacterName(character).fullName} joins our service`,
+      execute: (province, save) => {
+         const state = save.state.provinces[province];
+         if (!state) {
+            return;
+         }
+         let characterState = state.characters.get(character);
+         forEach(save.state.provinces, (otherProvince, otherState) => {
+            if (otherProvince === province || !otherState) {
+               return;
+            }
+            characterState ??= otherState.characters.get(character);
+            otherState.characters.delete(character);
+            forEach(otherState.characterSlots, (slot, assignedCharacter) => {
+               if (assignedCharacter === character) {
+                  delete otherState.characterSlots[slot];
+               }
+            });
+         });
+         state.characters.set(character, characterState ?? { monthsLeft: CharacterTTLMonths });
+      },
+   };
 }
 
 export function isTKCharacterAvailable(character: TKCharacter, province: Province, save: SaveGame): boolean {
