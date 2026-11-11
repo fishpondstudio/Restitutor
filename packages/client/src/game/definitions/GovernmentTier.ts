@@ -26,7 +26,7 @@ export const GovernmentTier = {
 } as const satisfies Record<string, IGovernmentTier>;
 
 interface ICharacterSlot {
-   type: "Advisor" | "AncestralTemple" | "General";
+   type: "Advisor" | "AncestralTemple" | "Strategist";
    governorPower?: GovernorPower;
 }
 
@@ -43,12 +43,21 @@ const _CharacterSlots = {
    AncestralTemple4: { type: "AncestralTemple" },
    AncestralTemple5: { type: "AncestralTemple" },
    AncestralTemple6: { type: "AncestralTemple" },
-   Strategist1: { type: "General" },
-   Strategist2: { type: "General" },
+   Strategist1: { type: "Strategist" },
+   Strategist2: { type: "Strategist" },
 } as const satisfies Record<string, ICharacterSlot>;
 
 export type CharacterSlot = keyof typeof _CharacterSlots;
 export const CharacterSlots: Record<CharacterSlot, ICharacterSlot> = _CharacterSlots;
+
+export function getCharacterAssignmentLabel(slot: CharacterSlot): string {
+   const { type } = CharacterSlots[slot];
+   return type === "AncestralTemple" ? "Enshrine" : `Appoint ${type}`;
+}
+
+export function getCharacterUnassignmentLabel(slot: CharacterSlot): string {
+   return CharacterSlots[slot].type === "AncestralTemple" ? "Remove from Temple" : "Relieve of Duties";
+}
 
 export function getAdvisorSlots(): CharacterSlot[] {
    return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "Advisor");
@@ -59,7 +68,7 @@ export function getAncestralTempleSlots(): CharacterSlot[] {
 }
 
 export function getStrategistSlots(): CharacterSlot[] {
-   return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "General");
+   return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "Strategist");
 }
 
 export type GovernmentTier = keyof typeof GovernmentTier;

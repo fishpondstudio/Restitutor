@@ -2,7 +2,11 @@ import { Province } from "../definitions/Province";
 import { requireHigherWarPowerChecks } from "../logic/ArmyLogic";
 import type { ConditionChecks } from "../logic/Calculation";
 import { minCoreTileChecks, provinceResourceChecks, victoryCountChecks, warPowerChecks } from "../logic/MissionLogic";
-import { grantTKCharacterEffect, tkCharacterUnassignedChecks } from "../logic/TKCharacterLogic";
+import {
+   tkCharacterAliveChecks,
+   tkCharacterUnaffiliatedChecks,
+   transferTKCharacterEffect,
+} from "../logic/TKCharacterLogic";
 import { requireNoPatronsChecks, requirePeaceBetweenChecks, requireWarBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import type { IGameEventConfig } from "./GameEvents";
@@ -12,7 +16,7 @@ export const YuanShaoEvents = {
       name: () => "Four Generations, Three Excellencies",
       desc: () =>
          "The Yuan name has been honored through four generations of service in the highest offices of the Han. Scholars seek our patronage, influential families offer introductions, and old clients stand ready to answer our summons. This inheritance cannot govern the realm for us, but wisely employed it may open doors that armies alone cannot force.",
-      image: EventImage.ImperialPatronage,
+      image: EventImage.TKScholarlyPatronage,
       condition: {
          province: new Set(["YuanShao"]),
       },
@@ -26,7 +30,7 @@ export const YuanShaoEvents = {
       name: () => "Pacify the Black Mountains",
       desc: () =>
          "The mountain strongholds that challenged Yuan authority now lie within our domain. Our officials can make their submission a visible triumph of government, our envoys can reconcile their communities, or our officers can put their knowledge of the passes to military use. The settlement we choose will determine how these lands serve our cause.",
-      image: EventImage.Watchtower,
+      image: EventImage.TKMountainReconciliation,
       condition: {
          province: new Set(["YuanShao"]),
          annexAndCore: { ZhangYan: Number.POSITIVE_INFINITY },
@@ -53,7 +57,7 @@ export const YuanShaoEvents = {
       name: () => "The Great Families of Hebei",
       desc: () =>
          "The great families of Hebei offer men versed in negotiation and military affairs, but expect appointments worthy of their standing. Bringing their clients into service would demand considerable effort from our officials. We may employ that effort to secure their talents, or devote it to extending the reach of an administration answerable to us alone.",
-      image: EventImage.ImperialRescript,
+      image: EventImage.TKScholarlyPatronage,
       condition: {
          province: new Set(["YuanShao"]),
          year: [195, Number.POSITIVE_INFINITY],
@@ -81,7 +85,7 @@ export const YuanShaoEvents = {
       name: () => "The Yuan House and the Han Court",
       desc: () =>
          "Our military strength and treasury give weight to the Yuan house's professions of loyalty. A generous contribution to the imperial court would win favor and display our devotion to the Han. Yet our advisers also urge us to strengthen the officials, envoys, and officers who maintain order in our own domain.",
-      image: EventImage.ImperialRescript,
+      image: EventImage.TKDiplomaticSubsidy,
       condition: {
          province: new Set(["YuanShao"]),
          year: [195, Number.POSITIVE_INFINITY],
@@ -115,7 +119,7 @@ export const YuanShaoEvents = {
       name: () => "One Yuan Banner",
       desc: () =>
          "The lands that sustained Yuan Shu's rival establishment now answer to our government. His former clients, households, and estates must be brought into the settlement. We may proclaim the ascendancy of our branch of the Yuan house, reconcile the people to our rule, or bring the landed wealth of these territories onto our tax rolls.",
-      image: EventImage.MountedParley,
+      image: EventImage.TKPublicProclamation,
       condition: {
          province: new Set(["YuanShao"]),
          annexAndCore: { YuanShu: Number.POSITIVE_INFINITY },
@@ -142,23 +146,24 @@ export const YuanShaoEvents = {
       ],
    },
    YuanShaoEvent11: {
-      name: () => "Zhang He Takes Command",
+      name: () => "Zhang He Joins Our Service",
       desc: () =>
-         "The struggle for the north demands commanders who can do more than lead a charge. Zhang He, styled Junyi, has shown a keen eye for the battlefield and a steady hand in command. Let us give his talents their proper place among our generals, that he may strengthen our armies in the campaigns ahead.",
-      image: EventImage.MountedParley,
+         "The struggle for the north demands commanders who can do more than lead a charge. Zhang He, styled Junyi, has shown a keen eye for the battlefield and a steady hand in command. We can welcome him into our service and make his talents available for the campaigns ahead.",
+      image: EventImage.TKMilitaryAppointments,
       condition: {
          province: new Set(["YuanShao"]),
          year: [199, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
-            yield* tkCharacterUnassignedChecks("ZhangHe", save);
+            yield* tkCharacterUnaffiliatedChecks("ZhangHe", save);
+            yield* tkCharacterAliveChecks("ZhangHe", save);
             yield* victoryCountChecks(3, province, save);
             yield* minCoreTileChecks(Province.YuanShao.tiles.length + 6, province, save);
          },
       },
       buttons: [
          {
-            label: () => "Entrust Zhang He with a command",
-            custom: [grantTKCharacterEffect("ZhangHe")],
+            label: () => "Welcome Zhang He into our service",
+            custom: [transferTKCharacterEffect("ZhangHe")],
          },
       ],
    },
@@ -166,7 +171,7 @@ export const YuanShaoEvents = {
       name: () => "Settling the Northern Rivalry",
       desc: () =>
          "The commanderies once held by Gongsun Zan now acknowledge our authority. Their officials, local notables, and military households offer different means of strengthening Yuan rule. We may regularize their revenues, secure cooperation in restoring production, or draw their soldiers into the service of our armies.",
-      image: EventImage.Watchtower,
+      image: EventImage.TKAgriculturalSurvey,
       condition: {
          province: new Set(["YuanShao"]),
          annexAndCore: { GongsunZan: Number.POSITIVE_INFINITY },
@@ -193,7 +198,7 @@ export const YuanShaoEvents = {
       name: () => "The Counsel Before the Campaign",
       desc: () =>
          "Cao Cao remains beyond our authority, and our council debates how to approach the contest ahead. Some urge us to press our claim to his territories and divert revenues toward preparing an offensive. Others would restrain military preparations while strengthening the fields and tax registers that sustain our power.",
-      image: EventImage.MountedParley,
+      image: EventImage.TKCouncilDeliberation,
       condition: {
          province: new Set(["YuanShao"]),
          year: [199, Number.POSITIVE_INFINITY],
@@ -228,7 +233,7 @@ export const YuanShaoEvents = {
       name: () => "A Proclamation Against Cao Cao",
       desc: () =>
          "Our armies face Cao Cao, but the struggle also reaches the proclamations read in every commandery and camp. Our officials can reassure the people of our cause, our officers can rally the army against our rival, or our envoys can carry appeals into his ranks. Each undertaking demands effort from those entrusted to carry it out.",
-      image: EventImage.ImperialRescript,
+      image: EventImage.TKYuanShaoArmyProclamation,
       condition: {
          province: new Set(["YuanShao"]),
          onMap: { CaoCao: true },
@@ -264,7 +269,7 @@ export const YuanShaoEvents = {
       name: () => "Provisioning the Greater Army",
       desc: () =>
          "Our army holds the advantage over Cao Cao in strength, but its stores and supply roads must sustain that advantage in the field. Officers submit plans ranging from a thorough expansion of provisions and convoy protection to a modest reinforcement of existing arrangements. The treasury must bear the cost of whichever provision we authorize.",
-      image: EventImage.FieldHarvest,
+      image: EventImage.TKArmyProvisioning,
       condition: {
          province: new Set(["YuanShao"]),
          onMap: { CaoCao: true },
@@ -301,7 +306,7 @@ export const YuanShaoEvents = {
       name: () => "Overcome Cao Cao",
       desc: () =>
          "Our authority now extends across the heartland from which Cao Cao challenged the Yuan house. These lands require officials to govern them, envoys to reconcile their influential families, and officers to organize their garrisons. We must enlarge our government and choose whose service will give the new settlement its foundation.",
-      image: EventImage.HeroTriumph,
+      image: EventImage.TKDistrictIntegration,
       condition: {
          province: new Set(["YuanShao"]),
          annexAndCore: { CaoCao: Number.POSITIVE_INFINITY },

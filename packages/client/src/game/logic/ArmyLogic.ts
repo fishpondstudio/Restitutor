@@ -26,7 +26,13 @@ import { provinceResourceOf } from "./ResourceLogic";
 import { hasScenarioFlag } from "./ScenarioLogic";
 import { getTileManpower } from "./TileLogic";
 import { endTimedActionAndResetCooldown, getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
-import { getTKCharacterName, getTKCharacterTierToPercentage, isCharacterCurrentWarlord } from "./TKCharacterLogic";
+import {
+   getCharacterInSlot,
+   getTKCharacterName,
+   getTKCharacterTierToPercentage,
+   isTKCharacterAlive,
+   isTKCharacterRuler,
+} from "./TKCharacterLogic";
 import { getProvinceTrades } from "./TradeLogic";
 import { getCurrentWars, MonthlyExtraArmyMaintenancePct } from "./WarLogic";
 
@@ -238,11 +244,11 @@ export function getStrategistWarPowerBonus(province: Province, save: SaveGame): 
    const state = save.state.provinces[province];
    if (state && hasScenarioFlag("TKCharacter", save)) {
       for (const slot of getStrategistSlots()) {
-         const strategist = state.characterSlots[slot];
+         const strategist = getCharacterInSlot(province, slot, save);
          if (
             strategist &&
-            (state.characters.get(strategist)?.monthsLeft ?? 0) > 0 &&
-            !isCharacterCurrentWarlord(strategist, province, save) &&
+            isTKCharacterAlive(strategist, save) &&
+            !isTKCharacterRuler(strategist, province, save) &&
             TKCharacters[strategist].traits.has("Martial")
          ) {
             result.add.push({

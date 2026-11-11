@@ -32,6 +32,7 @@ import { HistoricalEvents } from "./HistoricalEvents";
 import type { ImageWithCredit } from "./ImageWithCredit";
 import { ItaliaEvents } from "./ItaliaEvents";
 import { ItaliaSharedEvents } from "./ItaliaSharedEvents";
+import { LuBuEvents } from "./LuBuEvents";
 import { LugdunensisEvents } from "./LugdunensisEvents";
 import { LusitaniaEvents } from "./LusitaniaEvents";
 import { MacedoniaEvents } from "./MacedoniaEvents";
@@ -126,6 +127,7 @@ export const RomeEvents = {
 } as const satisfies Record<string, IGameEventConfig>;
 
 export const ThreeKingdomsEvents = {
+   ...LuBuEvents,
    ...YuanShaoEvents,
    ...ThreeKingdomsMissionEvents,
 } as const satisfies Record<string, IGameEventConfig>;

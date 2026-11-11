@@ -1,7 +1,15 @@
 import { finalizeCondition } from "../game/actions/GameAction";
-import type { CharacterSlot } from "../game/definitions/GovernmentTier";
+import {
+   type CharacterSlot,
+   getCharacterAssignmentLabel,
+   getCharacterUnassignmentLabel,
+} from "../game/definitions/GovernmentTier";
 import { GameStateUpdated } from "../game/Events";
-import { getCharacterSlotCapacityCondition } from "../game/logic/TKCharacterLogic";
+import {
+   getCharacterInSlot,
+   getCharacterSlotCapacityCondition,
+   unassignTKCharacter,
+} from "../game/logic/TKCharacterLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { ActionButton } from "./ActionButton";
@@ -15,7 +23,7 @@ export function CharacterSlotComp({ slot }: { slot: CharacterSlot }): React.Reac
    if (!state) {
       return null;
    }
-   const character = state.characterSlots[slot];
+   const character = getCharacterInSlot(G.save.state.playerProvince, slot, G.save);
    return (
       <div className="box">
          <div className="row">
@@ -32,6 +40,12 @@ export function CharacterSlotComp({ slot }: { slot: CharacterSlot }): React.Reac
             <div className="mr10 col g5">
                <ActionButton
                   className="btn p2"
+                  tooltip={(conditions) => (
+                     <>
+                        <div className="m10">{getCharacterAssignmentLabel(slot)}</div>
+                        {conditions}
+                     </>
+                  )}
                   action={() => ({
                      condition: finalizeCondition([
                         getCharacterSlotCapacityCondition(slot, G.save.state.playerProvince, G.save),
@@ -46,9 +60,11 @@ export function CharacterSlotComp({ slot }: { slot: CharacterSlot }): React.Reac
                {character && (
                   <button
                      className="btn p2"
+                     title={getCharacterUnassignmentLabel(slot)}
                      onClick={() => {
-                        delete state.characterSlots[slot];
-                        GameStateUpdated.emit();
+                        if (unassignTKCharacter(character, G.save.state.playerProvince, G.save)) {
+                           GameStateUpdated.emit();
+                        }
                      }}
                   >
                      <div className="mi xs text-red">delete</div>

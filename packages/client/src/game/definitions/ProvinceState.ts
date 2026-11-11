@@ -1,12 +1,11 @@
 import type { Tile, ValueOf } from "@project/shared/src/utils/Helper";
 import type { GameEvent } from "../events/GameEvents";
-import type { TKCharacter } from "../ThreeKingdoms/TKCharacter";
 import type { IAdvisor } from "./Advisor";
 import type { Culture } from "./Culture";
 import type { IRelation } from "./Diplomacy";
 import type { IGovernorFamily } from "./Family";
 import type { Goods } from "./Goods";
-import type { CharacterSlot, GovernmentTier } from "./GovernmentTier";
+import type { GovernmentTier } from "./GovernmentTier";
 import type { LegacyUpgrade } from "./LegacyUpgrade";
 import type { IModifier, Modifier } from "./Modifier";
 import type { Province } from "./Province";
@@ -36,10 +35,6 @@ export const ProvinceFlags = {
 
 export type ProvinceFlags = ValueOf<typeof ProvinceFlags>;
 
-interface TKCharacterState {
-   monthsLeft: number;
-}
-
 export interface IProvince {
    nameOverride?: ProvinceNameOverride;
    culture: Culture;
@@ -47,8 +42,6 @@ export interface IProvince {
    religion: Religion;
    toleratedReligions: Set<Religion>;
    tier: GovernmentTier;
-   characters: Map<TKCharacter, TKCharacterState>;
-   characterSlots: Partial<Record<CharacterSlot, TKCharacter>>;
    resources: ProvinceResources;
    governor: IGovernorFamily;
    stats: ProvinceStats;

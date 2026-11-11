@@ -19,7 +19,7 @@ export function CharacterSlotCapacityComp(): React.ReactNode {
          </div>
          <FloatingTip
             label={() =>
-               `Your current tier is ${tier.name()}. You have ${tier.slots} slots available in total, which are shared among advisors, strategists, and ancestral temples.`
+               `Your current rank is ${tier.name()}. Your character slot capacity is ${tier.slots}, shared by advisors, strategists, and ancestral temples. Characters without a slot do not count toward this limit.`
             }
          >
             <div>({tier.name()})</div>

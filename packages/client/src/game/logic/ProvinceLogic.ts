@@ -70,7 +70,12 @@ import {
    isCoastal,
 } from "./TileLogic";
 import { startTimedAction } from "./TimedActionLogic";
-import { getTKCharacterName, getTKCharacterTierToCost, getTKCharacterTierToPower } from "./TKCharacterLogic";
+import {
+   getProvinceAssignedCharacters,
+   getTKCharacterName,
+   getTKCharacterTierToCost,
+   getTKCharacterTierToPower,
+} from "./TKCharacterLogic";
 import { getProvinceTrades } from "./TradeLogic";
 import { getClients, getPatrons } from "./TreatyLogic";
 import { calculateWarTotalStability, getCurrentWars } from "./WarLogic";
@@ -356,8 +361,6 @@ export function initProvince(province: Province, capital: Tile, nameGenerator: I
       religion: Province[province].religion,
       toleratedReligions: new Set(),
       tier: "Tier1",
-      characterSlots: {},
-      characters: new Map(),
       stats: {
          ...structuredClone(ProvinceStats),
       },
@@ -413,14 +416,14 @@ export function getProvinceGovernmentPoint(type: GovernorPower, province: Provin
    if (hasProvinceUpgrade("FocusedGovernance", province, save) && state.focus === type) {
       breakdown.add.push({ name: ProvinceUpgrades.FocusedGovernance.name(), value: 1 });
    }
-   forEach(state.characterSlots, (slot, character) => {
+   for (const [slot, character] of getProvinceAssignedCharacters(province, save)) {
       if (CharacterSlots[slot].governorPower === type) {
          breakdown.add.push({
             name: getTKCharacterName(character).fullName,
             value: getTKCharacterTierToPower(TKCharacters[character].tier),
          });
       }
-   });
+   }
    if (type === "administrative") {
       attachModifier("AdministrativePoint", breakdown, province, save);
    }
@@ -529,11 +532,11 @@ function _getProvinceIncome(
          advisorCost += getAdvisorMonthlyCost(data.selected.level, province, save).value;
       }
    });
-   forEach(state.characterSlots, (slot, character) => {
+   for (const [slot, character] of getProvinceAssignedCharacters(province, save)) {
       if (CharacterSlots[slot].type === "Advisor") {
          advisorCost += getTKCharacterTierToCost(TKCharacters[character].tier);
       }
-   });
+   }
    expense.add.push({ name: $t(L.AdvisorCost), value: -advisorCost });
 
    state.monthly.tradeGold.forEach((value, otherProvince) => {

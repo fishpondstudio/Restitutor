@@ -1,7 +1,7 @@
 import { formatNumber } from "@project/shared/src/utils/Helper";
 import { durationToString } from "../game/definitions/Modifier";
 import { GameStateUpdated } from "../game/Events";
-import { getTKCharacterName } from "../game/logic/TKCharacterLogic";
+import { getTKCharacterName, getTKCharacterProvince, getTKCharacterState } from "../game/logic/TKCharacterLogic";
 import { type TKCharacter, TKCharacters, TKCharacterTier, TKCharacterTraits } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -11,8 +11,9 @@ export function TKCharacterComp({ character }: { character: TKCharacter }): Reac
    refreshOnTypedEvent(GameStateUpdated);
    const { fullName, courtesyName } = getTKCharacterName(character);
    const config = TKCharacters[character];
-   const state = G.save.state.provinces[G.save.state.playerProvince];
-   const monthsLeft = state?.characters.get(character)?.monthsLeft ?? 0;
+   const province = getTKCharacterProvince(character, G.save);
+   const state = province === null ? null : G.save.state.provinces[province];
+   const monthsLeft = getTKCharacterState(character, G.save)?.monthsLeft ?? 0;
    const governor = state?.governor.male?.character === character ? state.governor.male : undefined;
    return (
       <div className="row f1">

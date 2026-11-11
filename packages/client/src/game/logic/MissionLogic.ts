@@ -45,6 +45,7 @@ import {
 import { addProvinceResource, getProvinceResource, provinceResourceOf } from "./ResourceLogic";
 import { isCoreTile, setTileNameOverride } from "./TileLogic";
 import { getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
+import { transferProvinceCharacters } from "./TKCharacterLogic";
 import { dissolveAllTreaties, getAllies } from "./TreatyLogic";
 
 export function annexTiles({
@@ -92,6 +93,7 @@ export function annexTiles({
 }
 
 function onProvinceFullyAnnexed(annexedProvince: Province, province: Province, save: SaveGame): void {
+   transferProvinceCharacters(annexedProvince, province, save);
    cleanUpProvince(annexedProvince, save);
    addProvinceResource("mandate", 1, province, save);
    if (annexedProvince in SpawnedProvinces) {

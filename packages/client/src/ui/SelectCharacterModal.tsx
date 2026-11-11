@@ -1,7 +1,11 @@
 import { finalizeCondition, type ICondition, type IGameAction } from "../game/actions/GameAction";
-import type { CharacterSlot } from "../game/definitions/GovernmentTier";
+import { type CharacterSlot, getCharacterAssignmentLabel } from "../game/definitions/GovernmentTier";
 import { GameStateUpdated } from "../game/Events";
-import { getCharacterAssignmentConditions } from "../game/logic/TKCharacterLogic";
+import {
+   assignTKCharacter,
+   getCharacterAssignmentConditions,
+   getProvinceCharacters,
+} from "../game/logic/TKCharacterLogic";
 import type { TKCharacter } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -13,16 +17,14 @@ import { Grid2 } from "./UIConstant";
 export function SelectCharacterSlotModal({ slot }: { slot: CharacterSlot }): React.ReactNode {
    return (
       <SelectCharacterModal
+         selectLabel={getCharacterAssignmentLabel(slot)}
          conditions={(character) =>
             getCharacterAssignmentConditions(slot, character, G.save.state.playerProvince, G.save)
          }
          onSelected={(character) => {
-            const state = G.save.state.provinces[G.save.state.playerProvince];
-            if (!state) {
-               return;
+            if (assignTKCharacter(character, slot, G.save.state.playerProvince, G.save)) {
+               GameStateUpdated.emit();
             }
-            state.characterSlots[slot] = character;
-            GameStateUpdated.emit();
          }}
       />
    );
@@ -31,19 +33,21 @@ export function SelectCharacterSlotModal({ slot }: { slot: CharacterSlot }): Rea
 export function SelectCharacterModal({
    conditions,
    onSelected,
+   selectLabel = "Select",
 }: {
    conditions: (character: TKCharacter) => ICondition[];
    onSelected: (character: TKCharacter) => void;
+   selectLabel?: string;
 }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
       return null;
    }
-   const characters = Array.from(state.characters.keys());
+   const characters = getProvinceCharacters(G.save.state.playerProvince, G.save);
    return (
       <ModalComp size="md" title={<ModalTitleBar title="Select Character" dismiss />}>
-         {characters.length === 0 && <div className="m10 text-dimmed">No characters available.</div>}
+         {characters.length === 0 && <div className="m10 text-dimmed">No characters in our roster.</div>}
          <div style={Grid2} className="m10">
             {characters.map((character) => {
                return (
@@ -61,7 +65,7 @@ export function SelectCharacterModal({
                            } satisfies IGameAction;
                         }}
                      >
-                        Select
+                        {selectLabel}
                      </ActionButton>
                   </div>
                );

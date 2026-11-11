@@ -4,7 +4,12 @@ import { Fragment } from "react/jsx-runtime";
 import { finalizeCondition } from "../game/actions/GameAction";
 import { SetGovernmentFocusAction } from "../game/actions/SetGovernmentFocusAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
-import { CharacterSlots, getAdvisorSlots } from "../game/definitions/GovernmentTier";
+import {
+   CharacterSlots,
+   getAdvisorSlots,
+   getCharacterAssignmentLabel,
+   getCharacterUnassignmentLabel,
+} from "../game/definitions/GovernmentTier";
 import { Modifiers } from "../game/definitions/Modifier";
 import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
 import type { GovernorPower } from "../game/definitions/ProvinceResources";
@@ -16,9 +21,11 @@ import { getProvinceResource, notEnoughResourcesError, trySpendProvinceResources
 import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
+   getCharacterInSlot,
    getCharacterSlotCapacityCondition,
    getTKCharacterTierToCost,
    getTKCharacterTierToPower,
+   unassignTKCharacter,
 } from "../game/logic/TKCharacterLogic";
 import { TKCharacters } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
@@ -125,7 +132,7 @@ function AdvisorCharacterComp(): React.ReactNode {
                if (governorPower === undefined) {
                   return null;
                }
-               const advisor = state.characterSlots[slotKey];
+               const advisor = getCharacterInSlot(G.save.state.playerProvince, slotKey, G.save);
                return (
                   <div className="box" key={slotKey}>
                      {advisor ? (
@@ -139,6 +146,12 @@ function AdvisorCharacterComp(): React.ReactNode {
                      <div className="row m5 g5 text-sm">
                         <ActionButton
                            className="btn p2"
+                           tooltip={(conditions) => (
+                              <>
+                                 <div className="m10">{getCharacterAssignmentLabel(slotKey)}</div>
+                                 {conditions}
+                              </>
+                           )}
                            action={() => ({
                               condition: finalizeCondition([
                                  getCharacterSlotCapacityCondition(slotKey, G.save.state.playerProvince, G.save),
@@ -164,9 +177,11 @@ function AdvisorCharacterComp(): React.ReactNode {
                         <div className="row m5 g5 text-sm">
                            <button
                               className="btn p2"
+                              title={getCharacterUnassignmentLabel(slotKey)}
                               onClick={() => {
-                                 delete state.characterSlots[slotKey];
-                                 GameStateUpdated.emit();
+                                 if (unassignTKCharacter(advisor, G.save.state.playerProvince, G.save)) {
+                                    GameStateUpdated.emit();
+                                 }
                               }}
                            >
                               <div className="mi xs text-red">delete</div>

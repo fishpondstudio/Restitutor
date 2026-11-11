@@ -143,7 +143,7 @@ export interface ITKCharacter {
    image: string;
    traits: Set<TKCharacterTrait>;
    tier: TKCharacterTier;
-   warlord?: TKWarlord;
+   initialProvince?: TKWarlord;
 }
 
 export const _TKCharacters = {
@@ -152,14 +152,14 @@ export const _TKCharacters = {
       image: CaoCao,
       tier: "Tier1",
       traits: new Set(["Civil", "Martial"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    CaoHong: {
       name: () => ["Cao", "Hong", "Zilian"],
       image: CaoHong,
       tier: "Tier4",
       traits: new Set(["Martial"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    CaoPi: {
       // Novel: Cao Cao (by 204, accompanying the capture of Ye; ch. 33); succeeds him in 220.
@@ -173,7 +173,7 @@ export const _TKCharacters = {
       image: CaoRen,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    CaoZhi: {
       // Novel: Cao Cao (by the 210s, as a court poet and contender for the succession; chs. 56, 68, 72).
@@ -188,28 +188,28 @@ export const _TKCharacters = {
       image: ChenDeng,
       tier: "Tier3",
       traits: new Set(["Civil", "Martial"]),
-      warlord: "TaoQian",
+      initialProvince: "TaoQian",
    },
    ChenGong: {
       name: () => ["Chen", "Gong", "Gongtai"],
       image: ChenGong,
       tier: "Tier2",
       traits: new Set(["Civil"]),
-      warlord: "LuBu",
+      initialProvince: "LuBu",
    },
    ChengPu: {
       name: () => ["Cheng", "Pu", "Demou"],
       image: ChengPu,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "SunCe",
+      initialProvince: "SunCe",
    },
    ChengYu: {
       name: () => ["Cheng", "Yu", "Zhongde"],
       image: ChengYu,
       tier: "Tier3",
       traits: new Set(["Civil"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    DengAi: {
       // Novel: Wei under Cao Fang, recruited by Sima Yi (before 249; ch. 107);
@@ -224,7 +224,7 @@ export const _TKCharacters = {
       image: DianWei,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    DingFeng: {
       // Novel: Sun Quan (c. 200-202; ch. 38) -> Sun Liang (252) -> Sun Xiu (258) -> Sun Hao (264).
@@ -267,21 +267,21 @@ export const _TKCharacters = {
       image: GaoShun,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "LuBu",
+      initialProvince: "LuBu",
    },
    GongsunDu: {
       name: () => ["Gongsun", "Du", "Shengji"],
       image: GongsunDu,
       tier: "Tier4",
       traits: new Set(["Martial"]),
-      warlord: "GongsunDu",
+      initialProvince: "GongsunDu",
    },
    GongsunZan: {
       name: () => ["Gongsun", "Zan", "Bogui"],
       image: GongsunZan,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "GongsunZan",
+      initialProvince: "GongsunZan",
    },
    GuanPing: {
       // Novel: Liu Bei (c. 200-201, adopted by Guan Yu during his reunion with Liu Bei; ch. 28).
@@ -302,11 +302,11 @@ export const _TKCharacters = {
       image: GuanYu,
       tier: "Tier1",
       traits: new Set(["Martial"]),
-      warlord: "LiuBei",
+      initialProvince: "LiuBei",
    },
    GuoJia: {
       // Novel: Cao Cao (c. 192-193, recommended by Cheng Yu and Xun Yu; ch. 10).
-      // This predates the July 194 start; the current omitted warlord follows the earlier historical setup.
+      // This predates the July 194 start; the current omitted initialProvince follows the earlier historical setup.
       name: () => ["Guo", "Jia", "Fengxiao"],
       image: GuoJia,
       tier: "Tier1",
@@ -317,35 +317,35 @@ export const _TKCharacters = {
       image: HanDang,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "SunCe",
+      initialProvince: "SunCe",
    },
    HanSui: {
       name: () => ["Han", "Sui", "Wenyue"],
       image: HanSui,
       tier: "Tier4",
       traits: new Set(["Martial"]),
-      warlord: "HanSui",
+      initialProvince: "HanSui",
    },
    HuangGai: {
       name: () => ["Huang", "Gai", "Gongfu"],
       image: HuangGai,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "SunCe",
+      initialProvince: "SunCe",
    },
    HuangQuan: {
       name: () => ["Huang", "Quan", "Gongheng"],
       image: HuangQuan,
       tier: "Tier3",
       traits: new Set(["Civil", "Martial"]),
-      warlord: "LiuZhang",
+      initialProvince: "LiuZhang",
    },
    HuangZhong: {
       name: () => ["Huang", "Zhong", "Hansheng"],
       image: HuangZhong,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "LiuBiao",
+      initialProvince: "LiuBiao",
    },
    JiangQin: {
       // Novel: Sun Ce (195, joins during the Jiangdong campaign; ch. 15) -> Sun Quan (200).
@@ -375,35 +375,35 @@ export const _TKCharacters = {
       image: JiaXu,
       tier: "Tier2",
       traits: new Set(["Civil"]),
-      warlord: "LiJue",
+      initialProvince: "LiJue",
    },
    JuShou: {
       name: () => ["Ju", "Shou"],
       image: JuShou,
       tier: "Tier3",
       traits: new Set(["Civil"]),
-      warlord: "YuanShao",
+      initialProvince: "YuanShao",
    },
    KongRong: {
       name: () => ["Kong", "Rong", "Wenju"],
       image: KongRong,
       tier: "Tier3",
       traits: new Set(["Civil"]),
-      warlord: "KongRong",
+      initialProvince: "KongRong",
    },
    LiDian: {
       name: () => ["Li", "Dian", "Mancheng"],
       image: LiDian,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    LiJue: {
       name: () => ["Li", "Jue", "Zhiran"],
       image: LiJue,
       tier: "Tier4",
       traits: new Set(["Martial"]),
-      warlord: "LiJue",
+      initialProvince: "LiJue",
    },
    LingCao: {
       // Novel: Sun Ce (c. 195-196, after fighting Yan Baihu; ch. 15) -> Sun Quan (200).
@@ -424,35 +424,35 @@ export const _TKCharacters = {
       image: LiuBei,
       tier: "Tier1",
       traits: new Set(["Martial"]),
-      warlord: "LiuBei",
+      initialProvince: "LiuBei",
    },
    LiuBiao: {
       name: () => ["Liu", "Biao", "Jingsheng"],
       image: LiuBiao,
       tier: "Tier3",
       traits: new Set(["Civil"]),
-      warlord: "LiuBiao",
+      initialProvince: "LiuBiao",
    },
    LiuYao: {
       name: () => ["Liu", "Yao", "Zhengli"],
       image: LiuYao,
       tier: "Tier4",
       traits: new Set(["Civil"]),
-      warlord: "LiuYao",
+      initialProvince: "LiuYao",
    },
    LiuZhang: {
       name: () => ["Liu", "Zhang", "Jiyu"],
       image: LiuZhang,
       tier: "Tier4",
       traits: new Set(["Civil"]),
-      warlord: "LiuZhang",
+      initialProvince: "LiuZhang",
    },
    LuBu: {
       name: () => ["Lu", "Bu", "Fengxian"],
       image: LuBu,
       tier: "Tier1",
       traits: new Set(["Martial"]),
-      warlord: "LuBu",
+      initialProvince: "LuBu",
    },
    LuMeng: {
       // Novel: Sun Quan (c. 200-202, listed among his newly recruited officers; ch. 38).
@@ -480,7 +480,7 @@ export const _TKCharacters = {
       image: MaChao,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "MaTeng",
+      initialProvince: "MaTeng",
    },
    MaDai: {
       // Novel: Ma Teng (by 211, accompanies him to the capital) -> Ma Chao (211; ch. 58)
@@ -502,7 +502,7 @@ export const _TKCharacters = {
       image: ManChong,
       tier: "Tier2",
       traits: new Set(["Civil", "Martial"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    MaSu: {
       // Novel: Liu Bei (by 211, accompanies him into Yi; ch. 60; recruitment date unstated) -> Liu Shan (223).
@@ -516,21 +516,21 @@ export const _TKCharacters = {
       image: MaTeng,
       tier: "Tier4",
       traits: new Set(["Martial"]),
-      warlord: "MaTeng",
+      initialProvince: "MaTeng",
    },
    MiZhu: {
       name: () => ["Mi", "Zhu", "Zizhong"],
       image: MiZhu,
       tier: "Tier3",
       traits: new Set(["Civil"]),
-      warlord: "TaoQian",
+      initialProvince: "TaoQian",
    },
    PangDe: {
       name: () => ["Pang", "De", "Lingming"],
       image: PangDe,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "MaTeng",
+      initialProvince: "MaTeng",
    },
    PangTong: {
       // Novel: Sun Quan's side (208, helps Zhou Yu against Cao Cao; ch. 47; no formal appointment)
@@ -545,7 +545,7 @@ export const _TKCharacters = {
       image: ShiXie,
       tier: "Tier4",
       traits: new Set(["Civil"]),
-      warlord: "ShiXie",
+      initialProvince: "ShiXie",
    },
    SimaShi: {
       // Novel: Cao Rui (by 228, campaigning under Sima Yi; ch. 94) -> Cao Fang (239) -> Cao Mao (254).
@@ -575,7 +575,7 @@ export const _TKCharacters = {
       image: SunCe,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "SunCe",
+      initialProvince: "SunCe",
    },
    SunQuan: {
       // Novel: Sun Ce (by c. 195-196, defending Xuancheng; ch. 15); succeeds him as ruler in 200 (ch. 29).
@@ -598,21 +598,21 @@ export const _TKCharacters = {
       image: TaoQian,
       tier: "Tier4",
       traits: new Set(["Civil"]),
-      warlord: "TaoQian",
+      initialProvince: "TaoQian",
    },
    TianFeng: {
       name: () => ["Tian", "Feng", "Yuanhao"],
       image: TianFeng,
       tier: "Tier3",
       traits: new Set(["Civil"]),
-      warlord: "YuanShao",
+      initialProvince: "YuanShao",
    },
    WangLang: {
       name: () => ["Wang", "Lang", "Jingxing"],
       image: WangLang,
       tier: "Tier4",
       traits: new Set(["Civil"]),
-      warlord: "WangLang",
+      initialProvince: "WangLang",
    },
    WeiYan: {
       // Novel: Liu Biao's forces (by 208, at Xiangyang) -> Han Xuan (c. 208-209, after fleeing Xiangyang)
@@ -627,21 +627,21 @@ export const _TKCharacters = {
       image: WenChou,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "YuanShao",
+      initialProvince: "YuanShao",
    },
    XiahouDun: {
       name: () => ["Xiahou", "Dun", "Yuanrang"],
       image: XiahouDun,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    XiahouYuan: {
       name: () => ["Xiahou", "Yuan", "Miaocai"],
       image: XiahouYuan,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    XuChu: {
       // Novel: Cao Cao (195, recruited after fighting Dian Wei; ch. 12) -> Cao Pi (220).
@@ -655,11 +655,11 @@ export const _TKCharacters = {
       image: XuHuang,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "LiJue",
+      initialProvince: "LiJue",
    },
    XunYou: {
       // Novel: Han imperial court (before retiring home) -> Cao Cao (c. 192-193, joins with Xun Yu; ch. 10).
-      // This predates the July 194 start; the current omitted warlord follows the earlier historical setup.
+      // This predates the July 194 start; the current omitted initialProvince follows the earlier historical setup.
       name: () => ["Xun", "You", "Gongda"],
       image: XunYou,
       tier: "Tier2",
@@ -670,7 +670,7 @@ export const _TKCharacters = {
       image: XunYu,
       tier: "Tier2",
       traits: new Set(["Civil"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    XuSheng: {
       // Novel: Sun Quan (c. 200-202, listed among his newly recruited officers; ch. 38).
@@ -692,49 +692,49 @@ export const _TKCharacters = {
       image: XuYou,
       tier: "Tier3",
       traits: new Set(["Civil"]),
-      warlord: "YuanShao",
+      initialProvince: "YuanShao",
    },
    YanBaihu: {
       name: () => ["Yan", "Baihu"],
       image: YanBaihu,
       tier: "Tier4",
       traits: new Set(["Martial"]),
-      warlord: "YanBaihu",
+      initialProvince: "YanBaihu",
    },
    YanLiang: {
       name: () => ["Yan", "Liang"],
       image: YanLiang,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "YuanShao",
+      initialProvince: "YuanShao",
    },
    YuanShao: {
       name: () => ["Yuan", "Shao", "Benchu"],
       image: YuanShao,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "YuanShao",
+      initialProvince: "YuanShao",
    },
    YuanShu: {
       name: () => ["Yuan", "Shu", "Gonglu"],
       image: YuanShu,
       tier: "Tier4",
       traits: new Set(["Civil"]),
-      warlord: "YuanShu",
+      initialProvince: "YuanShu",
    },
    YueJin: {
       name: () => ["Yue", "Jin", "Wenqian"],
       image: YueJin,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    YuJin: {
       name: () => ["Yu", "Jin", "Wenze"],
       image: YuJin,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "CaoCao",
+      initialProvince: "CaoCao",
    },
    ZhangBao: {
       // Novel: Liu Bei (221, joins the campaign to avenge Zhang Fei; ch. 81) -> Liu Shan (223).
@@ -748,7 +748,7 @@ export const _TKCharacters = {
       image: ZhangFei,
       tier: "Tier1",
       traits: new Set(["Martial"]),
-      warlord: "LiuBei",
+      initialProvince: "LiuBei",
    },
    ZhangHe: {
       name: () => ["Zhang", "He", "Junyi"],
@@ -761,28 +761,28 @@ export const _TKCharacters = {
       image: ZhangHong,
       tier: "Tier3",
       traits: new Set(["Civil"]),
-      warlord: "SunCe",
+      initialProvince: "SunCe",
    },
    ZhangLiao: {
       name: () => ["Zhang", "Liao", "Wenyuan"],
       image: ZhangLiao,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "LuBu",
+      initialProvince: "LuBu",
    },
    ZhangLu: {
       name: () => ["Zhang", "Lu", "Gongqi"],
       image: ZhangLu,
       tier: "Tier4",
       traits: new Set(["Civil"]),
-      warlord: "ZhangLu",
+      initialProvince: "ZhangLu",
    },
    ZhangRen: {
       name: () => ["Zhang", "Ren"],
       image: ZhangRen,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "LiuZhang",
+      initialProvince: "LiuZhang",
    },
    ZhangXiu: {
       // Novel: Zhang Ji (before 196; recruitment date unstated) -> Liu Biao (196, after succeeding his uncle)
@@ -797,14 +797,14 @@ export const _TKCharacters = {
       image: ZhangYan,
       tier: "Tier3",
       traits: new Set(["Martial"]),
-      warlord: "ZhangYan",
+      initialProvince: "ZhangYan",
    },
    ZhangYang: {
       name: () => ["Zhang", "Yang", "Zhishu"],
       image: ZhangYang,
       tier: "Tier4",
       traits: new Set(["Martial"]),
-      warlord: "ZhangYang",
+      initialProvince: "ZhangYang",
    },
    ZhangZhao: {
       // Novel: Sun Ce (195, recommended by Zhou Yu; ch. 15) -> Sun Quan (200).
@@ -818,7 +818,7 @@ export const _TKCharacters = {
       image: ZhaoYun,
       tier: "Tier2",
       traits: new Set(["Martial"]),
-      warlord: "GongsunZan",
+      initialProvince: "GongsunZan",
    },
    ZhongHui: {
       // Novel: Cao Fang (by 249, a rising Wei official; ch. 107) -> Cao Mao (254) -> Cao Huan (260).
