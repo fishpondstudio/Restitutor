@@ -1,0 +1,538 @@
+import { $t, L } from "../../../utils/i18n";
+import { Province } from "../../definitions/Province";
+import { getTileName } from "../../definitions/TileName";
+import type { ConditionChecks } from "../../logic/Calculation";
+import {
+   forcePatronageEffect,
+   manpowerChecks,
+   maxCoreTileChecks,
+   minCoreTileChecks,
+   warPowerChecks,
+} from "../../logic/MissionLogic";
+import { getProvinceResource } from "../../logic/ResourceLogic";
+import { settleTileChecks, startSettlement } from "../../logic/SettlementLogic";
+import {
+   requireAnyTreatyBetweenChecks,
+   requireNoTreatyBetweenChecks,
+   requirePeaceBetweenChecks,
+} from "../../logic/TreatyLogic";
+import { EventImage } from "../EventImages";
+import type { IGameEventConfig } from "../GameEventTypes";
+
+export const GermaniaEvents = {
+   Germania1: {
+      name: () => $t(L.TheKilnsOfRheinzabern),
+      image: EventImage.PotteryMarket,
+      desc: () => $t(L.TheKilnsOfRheinzabernDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         year: [205, 205],
+      },
+      buttons: [
+         {
+            label: () => $t(L.ExpandThePottersWorkshops),
+            resources: { gold: -500 },
+            modifiers: {
+               TileOutput: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               TradeProfit: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.TaxTheProsperousKilns),
+            resources: { gold: 500 },
+            modifiers: {
+               Stability: { type: "add", value: -5, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania2: {
+      name: () => $t(L.TheRhineFleetAtColonia),
+      image: EventImage.Warship,
+      desc: () => $t(L.TheRhineFleetAtColoniaDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         year: [230, 230],
+      },
+      buttons: [
+         {
+            label: () => $t(L.RefitTheRhineFlotilla),
+            resources: { gold: -500 },
+            modifiers: {
+               Defense: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               TradeProfit: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.LeaveTheRiverToLocalCraft),
+            resources: { gold: 500 },
+            modifiers: {
+               Defense: { type: "multiply", value: -0.1, duration: 2 * 12 },
+               TradeProfit: { type: "multiply", value: -0.1, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania3: {
+      name: () => $t(L.PostumusIsRaisedUponTheShield),
+      wikipedia: "Postumus",
+      image: EventImage.FrankishKing,
+      desc: () => $t(L.PostumusIsRaisedUponTheShieldDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         year: [261, 261],
+      },
+      buttons: [
+         {
+            label: () => $t(L.AcclaimTheEmperorOfTheRhine),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.2, duration: 3 * 12 },
+               Prestige: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               Stability: { type: "add", value: -10, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.RemainLoyalToTheLawfulEmperor),
+            resources: { diplomatic: -50, consulPoint: 1 },
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania4: {
+      name: () => $t(L.TheLimesGivesWay),
+      wikipedia: "Limesfall",
+      image: EventImage.EmpireDestruction,
+      desc: () => $t(L.TheLimesGivesWayDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         year: [275, 275],
+      },
+      buttons: [
+         {
+            label: () => $t(L.ReoccupyTheFrontierForts),
+            resources: { gold: -1000 },
+            modifiers: {
+               Defense: { type: "multiply", value: 0.2, duration: 3 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.WithdrawBehindTheRhine),
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+               Prestige: { type: "multiply", value: -0.1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.SettleArmedFarmersOnTheMarches),
+            modifiers: {
+               Manpower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               LandTax: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               Stability: { type: "add", value: -10, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania5: {
+      name: () => $t(L.VinesBeyondTheAlps),
+      image: EventImage.GrapeHarvest,
+      desc: () => $t(L.VinesBeyondTheAlpsDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         year: [280, 280],
+      },
+      buttons: [
+         {
+            label: () => $t(L.PlantTheRhineHillsides),
+            resources: { gold: -500 },
+            modifiers: {
+               TileOutput: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+            trades: {
+               Belgica: { offer: { theyOffer: "gold", weOffer: "grain" }, extraProfit: 0.5 },
+            },
+         },
+         {
+            label: () => $t(L.ProtectTheEstablishedMerchants),
+            resources: { consulPoint: 1 },
+            modifiers: {
+               Prestige: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania6: {
+      name: () => $t(L.GereonAndTheMartyrsOfColonia),
+      wikipedia: "Gereon",
+      image: EventImage.SaintGereon,
+      desc: () => $t(L.GereonAndTheMartyrsOfColoniaDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         year: [305, Number.POSITIVE_INFINITY],
+         conditions: function* (province, save): ConditionChecks {
+            (yield getProvinceResource("christianity", province, save) >= 20)?.describe(
+               $t(L.$1ChristianInfluenceIsAtLeast$2, Province.Germania.name(), "20"),
+            );
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.RaiseAShrineToTheMartyrs),
+            resources: { christianity: 15 },
+            modifiers: {
+               ChristianityYearly: { type: "add", value: 1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.PermitTheirCultQuietly),
+            resources: { administrative: -50 },
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.SuppressThisDefiance),
+            resources: { christianity: -15 },
+            modifiers: {
+               Stability: { type: "add", value: -10, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania7: {
+      name: () => $t(L.ConstantineBridgesTheRhine),
+      image: EventImage.StoneBridge,
+      desc: () => $t(L.ConstantineBridgesTheRhineDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         year: [310, 310],
+      },
+      buttons: [
+         {
+            label: () => $t(L.CompleteTheBridgeAndFort),
+            resources: { gold: -1000 },
+            modifiers: {
+               Defense: { type: "multiply", value: 0.2, duration: 3 * 12 },
+               Prestige: { type: "multiply", value: 0.1, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.CarryTheWarAcrossTheRhine),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.2, duration: 2 * 12 },
+               Stability: { type: "add", value: -5, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania8: {
+      name: () => $t(L.TheVictoryAtArgentoratum),
+      wikipedia: "Battle_of_Strasbourg",
+      image: EventImage.RomanInvasion,
+      desc: () => $t(L.TheVictoryAtArgentoratumDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         year: [357, 357],
+      },
+      buttons: [
+         {
+            label: () => $t(L.CelebrateTheVictoriousLegions),
+            resources: { generalSkillPoint: 1 },
+            modifiers: {
+               Prestige: { type: "multiply", value: 0.2, duration: 3 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.RecruitTheDefeatedWarriors),
+            modifiers: {
+               Manpower: { type: "multiply", value: 0.15, duration: 2 * 12 },
+               Stability: { type: "add", value: -10, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania9: {
+      name: () => $t(L.ValentiniansChainOfForts),
+      wikipedia: "Valentinian_I",
+      image: EventImage.Watchtower,
+      desc: () => $t(L.ValentiniansChainOfFortsDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         year: [369, 369],
+      },
+      buttons: [
+         {
+            label: () => $t(L.FortifyEveryCrossing),
+            resources: { gold: -1000 },
+            modifiers: {
+               Defense: { type: "multiply", value: 0.2, duration: 3 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.MaintainAMobileFieldArmy),
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.15, duration: 2 * 12 },
+               Defense: { type: "multiply", value: -0.05, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania10: {
+      name: () => $t(L.TheRhineIsCrossed),
+      wikipedia: "Crossing_of_the_Rhine",
+      image: EventImage.BarbariansAtRome,
+      desc: () => $t(L.TheRhineIsCrossedDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         year: [406, 406],
+      },
+      buttons: [
+         {
+            label: () => $t(L.ContestEveryCrossing),
+            resources: { gold: -1000 },
+            modifiers: {
+               WarPower: { type: "multiply", value: 0.2, duration: 3 * 12 },
+               Stability: { type: "add", value: -10, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.AdmitSelectedFederates),
+            modifiers: {
+               Manpower: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               LandTax: { type: "multiply", value: 0.1, duration: 2 * 12 },
+               Stability: { type: "add", value: -10, duration: 2 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.EvacuateTheExposedFrontier),
+            modifiers: {
+               Stability: { type: "add", value: 10, duration: 2 * 12 },
+               TileOutput: { type: "multiply", value: -0.1, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+   Germania11: {
+      name: () => $t(L.BeyondTheRhineFrontier),
+      image: EventImage.ImperialCity,
+      desc: () => $t(L.BeyondTheRhineFrontierDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         conditions: function* (province, save): ConditionChecks {
+            yield* warPowerChecks(10_000, province, save);
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.TurnOurStandardsTowardBelgica),
+            attitudes: {
+               Raetia: { type: "add", value: 20, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Belgica: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.MarchIntoTheHeartOfLugdunensis),
+            attitudes: {
+               Belgica: { type: "add", value: 20, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Lugdunensis: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+         {
+            label: () => $t(L.AdvanceAlongTheUpperRhineIntoRaetia),
+            attitudes: {
+               Lugdunensis: { type: "add", value: 20, duration: 2 * 12 },
+            },
+            casusBelli: {
+               Raetia: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+         },
+      ],
+   },
+   Germania12: {
+      name: () => $t(L.$1SeeksOurProtection, Province.Raetia.name()),
+      image: EventImage.CaptiveTriumph,
+      desc: () => $t(L.RaetiaSeeksOurProtectionDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         onMap: { Raetia: true },
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Raetia", save);
+            yield* requirePeaceBetweenChecks(province, "Raetia", save);
+            yield* maxCoreTileChecks(3, "Raetia", save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Raetia", save);
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.$1BecomesOurClient, Province.Raetia.name()),
+            custom: [forcePatronageEffect("Raetia")],
+         },
+      ],
+   },
+   Germania13: {
+      name: () => $t(L.$1SeeksOurProtection, Province.Belgica.name()),
+      image: EventImage.ImperialPatronage,
+      desc: () => $t(L.BelgicaSeeksOurProtectionDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         onMap: { Belgica: true },
+         conditions: function* (province, save): ConditionChecks {
+            yield* requireNoTreatyBetweenChecks(["Patron"], province, "Belgica", save);
+            yield* requirePeaceBetweenChecks(province, "Belgica", save);
+            yield* maxCoreTileChecks(3, "Belgica", save);
+            yield* requireAnyTreatyBetweenChecks(["DefensePact", "Alliance"], province, "Belgica", save);
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.$1BecomesOurClient, Province.Belgica.name()),
+            custom: [forcePatronageEffect("Belgica")],
+         },
+      ],
+   },
+   Germania14: {
+      name: () => $t(L.ThePassesToTheSouth),
+      image: EventImage.Alps,
+      desc: () => $t(L.ThePassesToTheSouthDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         playerOnly: true,
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(25, province, save);
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.DescendUponNarbonensis),
+            casusBelli: {
+               Narbonensis: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+            custom: [
+               {
+                  desc: (province, save) =>
+                     $t(
+                        L.$1TileDefenseFor$2And$3For$4Years,
+                        "-10%",
+                        getTileName(9175112, save),
+                        getTileName(9109577, save),
+                        "5",
+                     ),
+                  execute: (province, save) => {
+                     save.state.tiles.get(9175112)?.modifiers.Defense.push({
+                        type: "multiply",
+                        value: -0.1,
+                        duration: 5 * 12,
+                        name: GermaniaEvents.Germania13.name(),
+                     });
+                     save.state.tiles.get(9109577)?.modifiers.Defense.push({
+                        type: "multiply",
+                        value: -0.1,
+                        duration: 5 * 12,
+                        name: GermaniaEvents.Germania13.name(),
+                     });
+                  },
+               },
+            ],
+         },
+         {
+            label: () => $t(L.CarryOurStandardsIntoItalia),
+            casusBelli: {
+               Italia: { casusBelli: "ConquestMission", duration: 10 * 12 },
+            },
+            custom: [
+               {
+                  desc: (province, save) =>
+                     $t(
+                        L.$1TileDefenseFor$2And$3For$4Years,
+                        "-10%",
+                        getTileName(9240648, save),
+                        getTileName(9175113, save),
+                        "5",
+                     ),
+                  execute: (province, save) => {
+                     save.state.tiles.get(9240648)?.modifiers.Defense.push({
+                        type: "multiply",
+                        value: -0.1,
+                        duration: 5 * 12,
+                        name: GermaniaEvents.Germania12.name(),
+                     });
+                     save.state.tiles.get(9175113)?.modifiers.Defense.push({
+                        type: "multiply",
+                        value: -0.1,
+                        duration: 5 * 12,
+                        name: GermaniaEvents.Germania12.name(),
+                     });
+                  },
+               },
+            ],
+         },
+      ],
+   },
+   Germania15: {
+      name: () => $t(L.GermaniaAscendant),
+      image: EventImage.RomanExpedition,
+      desc: () => $t(L.GermaniaAscendantDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         conditions: function* (province, save): ConditionChecks {
+            yield* minCoreTileChecks(30, province, save);
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.EntrustTheRealmToSeasonedMagistrates),
+            modifiers: {
+               AdministrativePoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.SendEnvoysToEveryCourt),
+            modifiers: {
+               DiplomaticPoint: { type: "add", value: 1 },
+            },
+         },
+         {
+            label: () => $t(L.PlaceTheLegionsAboveAll),
+            modifiers: {
+               MilitaryPoint: { type: "add", value: 1 },
+            },
+         },
+      ],
+   },
+   Germania16: {
+      name: () => $t(L.HearthsBeyondTheRhine),
+      image: EventImage.Watchtower,
+      desc: () => $t(L.HearthsBeyondTheRhineDesc),
+      condition: {
+         province: new Set(["Germania"]),
+         conditions: function* (province, save): ConditionChecks {
+            yield* settleTileChecks(9240641, province, save);
+            yield* manpowerChecks(50_000, province, save);
+         },
+      },
+      buttons: [
+         {
+            label: () => $t(L.RaiseNewHearthsAtDivitia),
+            custom: [
+               {
+                  desc: (province, save) => $t(L.EstablishASettlementAt$1, getTileName(9240641, save)),
+                  execute: (province, save) => {
+                     startSettlement(9240641, province, save);
+                  },
+               },
+            ],
+         },
+         {
+            label: () => $t(L.PutOurOwnEstatesInOrder),
+            modifiers: {
+               LandTax: { type: "multiply", value: 0.2, duration: 2 * 12 },
+            },
+         },
+      ],
+   },
+} as const satisfies Record<string, IGameEventConfig>;

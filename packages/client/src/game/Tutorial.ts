@@ -10,7 +10,7 @@ import { getSocialClassName } from "./definitions/SocialClass";
 import { Tech } from "./definitions/Tech";
 import { Tiles } from "./definitions/TileConstants";
 import { getTileName } from "./definitions/TileName";
-import { LugdunensisEvents } from "./events/LugdunensisEvents";
+import { LugdunensisEvents } from "./events/Rome/LugdunensisEvents";
 import type { SaveGame } from "./GameState";
 import { getCurrentGeneral } from "./logic/ArmyLogic";
 import { addAttitudeModifier, BaseDiplomats, getAttitudeTowards, getRelation } from "./logic/DiplomacyLogic";
