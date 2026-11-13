@@ -16,7 +16,7 @@ import {
    requirePeaceBetweenChecks,
 } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const AfricaEvents = {
    Africa1: {

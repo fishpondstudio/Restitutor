@@ -9,7 +9,8 @@ import {
    getGameEventCondition,
    getGameEventImages,
 } from "../game/events/GameEventLogic";
-import { type GameEvent, GameEvents, type IGameEventButton } from "../game/events/GameEvents";
+import { type GameEvent, GameEvents } from "../game/events/GameEvents";
+import type { IGameEventButton } from "../game/events/GameEventTypes";
 import { openUrl } from "../rpc/SteamClient";
 import { G } from "../utils/Global";
 import { useTypedEvent } from "../utils/Hook";

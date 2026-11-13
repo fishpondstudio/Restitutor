@@ -16,7 +16,7 @@ import {
 import { settleTileChecks, startSettlement } from "../logic/SettlementLogic";
 import { requireNoTreatyBetweenChecks, requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const RaetiaEvents = {
    Raetia1: {

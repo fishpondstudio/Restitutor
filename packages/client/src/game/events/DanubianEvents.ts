@@ -3,7 +3,7 @@ import { $t, L } from "../../utils/i18n";
 import { AlpineProvinces, DanubiaProvinces, IllyrianProvinces } from "../definitions/TileConstants";
 import { setProvinceNameOverrideEffect } from "../logic/MissionLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const DanubianEvents = {
    Danubian1: {

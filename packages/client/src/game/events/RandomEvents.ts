@@ -1,6 +1,6 @@
 import { $t, L } from "../../utils/i18n";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const RandomEvents = {
    Random2: {

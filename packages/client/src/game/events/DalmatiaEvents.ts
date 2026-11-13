@@ -5,7 +5,7 @@ import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import { allCoreTileChecks, forcePatronageEffect, maxCoreTileChecks } from "../logic/MissionLogic";
 import { requireNoTreatyBetweenChecks, requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const DalmatiaEvents = {
    Dalmatia1: {

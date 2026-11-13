@@ -7,7 +7,7 @@ import {
 } from "../logic/TKCharacterLogic";
 import { requireNoPatronsChecks, requirePeaceBetweenChecks, requireWarBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const LuBuEvents = {
    LuBuEvent1: {

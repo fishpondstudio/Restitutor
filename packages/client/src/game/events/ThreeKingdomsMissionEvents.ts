@@ -5,7 +5,7 @@ import { allyCountChecks, minCoreTileChecks, setProvinceNameOverrideEffect } fro
 import { isGreatPowerChecks } from "../logic/ProvinceLogic";
 import { TKWarlords } from "../ThreeKingdoms/TKWarlord";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const ThreeKingdomsMissionEvents = {
    TKMissionEvent1: {

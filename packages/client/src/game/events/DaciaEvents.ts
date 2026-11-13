@@ -14,7 +14,7 @@ import {
    setProvinceNameOverrideEffect,
 } from "../logic/MissionLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const DaciaEvents = {
    Dacia1: {

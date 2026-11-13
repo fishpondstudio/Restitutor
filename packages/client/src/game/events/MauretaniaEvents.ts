@@ -12,7 +12,7 @@ import {
 } from "../logic/MissionLogic";
 import { settleTileChecks, startSettlement } from "../logic/SettlementLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const MauretaniaEvents = {
    Mauretania1: {

@@ -7,7 +7,7 @@ import { GameOptionFlag } from "../GameOption";
 import { getRelation } from "../logic/DiplomacyLogic";
 import { setTileNameOverrideEffect, startTimedActionEffect } from "../logic/MissionLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const HistoricalEvents = {
    Y193: {

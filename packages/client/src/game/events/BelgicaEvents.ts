@@ -4,7 +4,7 @@ import type { ConditionChecks } from "../logic/Calculation";
 import { minCoreTileChecks, victoryCountChecks, warPowerChecks } from "../logic/MissionLogic";
 import { getProvinceResource } from "../logic/ResourceLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const BelgicaEvents = {
    Belgica1: {

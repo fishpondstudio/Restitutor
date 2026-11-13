@@ -8,7 +8,7 @@ import { allCoreTileChecks, anyCoreTileChecks, isCoreTileChecks, minCoreTileChec
 import { getProvinceName } from "../logic/ProvinceLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const HispaniaEvents = {
    Hispania1: {

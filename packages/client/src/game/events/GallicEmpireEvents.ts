@@ -7,7 +7,7 @@ import { availableDiplomatChecks } from "../logic/DiplomacyLogic";
 import { forcePatronageEffect, maxCoreTileChecks, setProvinceNameOverrideEffect } from "../logic/MissionLogic";
 import { requireNoTreatyBetweenChecks, requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const GallicEmpireEvents = {
    Gallic1: {

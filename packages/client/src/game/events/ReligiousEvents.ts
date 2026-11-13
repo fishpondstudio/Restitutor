@@ -4,7 +4,7 @@ import { ChristianReligions } from "../definitions/Religion";
 import { GameStateFlags } from "../GameState";
 import { startTimedActionEffect } from "../logic/MissionLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const ReligiousEvents = {
    Donatism: {

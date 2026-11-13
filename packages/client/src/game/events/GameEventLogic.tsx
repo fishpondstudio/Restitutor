@@ -30,7 +30,8 @@ import { hasResearched } from "../logic/TechLogic";
 import { startTimedAction } from "../logic/TimedActionLogic";
 import { type Scenario, Scenarios } from "../scenarios/Scenarios";
 import { GameEventOrder } from "./GameEventOrder";
-import { type GameEvent, GameEvents, type IGameEventButton, type IGameEventCondition } from "./GameEvents";
+import { type GameEvent, GameEvents } from "./GameEvents";
+import type { IGameEventButton, IGameEventCondition } from "./GameEventTypes";
 import type { ImageWithCredit } from "./ImageWithCredit";
 
 export function getGameEventButtonDesc(button: IGameEventButton, province: Province, save: SaveGame): React.ReactNode {

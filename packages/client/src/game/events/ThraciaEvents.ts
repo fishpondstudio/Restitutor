@@ -15,7 +15,7 @@ import {
 import { requireNoTreatyBetweenChecks, requirePeaceBetweenChecks } from "../logic/TreatyLogic";
 import { EventImage } from "./EventImages";
 import { GameEventOrder } from "./GameEventOrder";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const ThraciaEvents = {
    Thracia1: {

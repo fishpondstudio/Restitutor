@@ -9,7 +9,7 @@ import { allCoreTileChecks, setProvinceNameOverrideEffect } from "../logic/Missi
 import { addProvinceResource, getProvinceResource, spendProvinceResource } from "../logic/ResourceLogic";
 import { getTotalTileUpgrade } from "../logic/TileLogic";
 import { EventImage } from "./EventImages";
-import type { IGameEventConfig } from "./GameEvents";
+import type { IGameEventConfig } from "./GameEventTypes";
 
 export const CaliphateEvents = {
    Caliphate1: {
