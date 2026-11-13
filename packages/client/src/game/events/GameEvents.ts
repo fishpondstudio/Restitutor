@@ -39,6 +39,7 @@ import { SiciliaEvents } from "./Rome/SiciliaEvents";
 import { SyriaJudeaEvents } from "./Rome/SyriaJudeaEvents";
 import { TarraconensisEvents } from "./Rome/TarraconensisEvents";
 import { ThraciaEvents } from "./Rome/ThraciaEvents";
+import { LiJueEvents } from "./ThreeKingdoms/LiJueEvents";
 import { LiuBeiEvents } from "./ThreeKingdoms/LiuBeiEvents";
 import { LuBuEvents } from "./ThreeKingdoms/LuBuEvents";
 import { ThreeKingdomsMissionEvents } from "./ThreeKingdoms/ThreeKingdomsMissionEvents";
@@ -89,6 +90,7 @@ export const RomeEvents = {
 } as const satisfies Record<string, IGameEventConfig>;
 
 export const ThreeKingdomsEvents = {
+   ...LiJueEvents,
    ...LiuBeiEvents,
    ...LuBuEvents,
    ...YuanShaoEvents,

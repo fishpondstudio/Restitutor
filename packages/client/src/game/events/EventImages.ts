@@ -167,6 +167,9 @@ import TKDiplomaticSubsidy from "../../assets/images/events/TKDiplomaticSubsidy.
 import TKDistrictIntegration from "../../assets/images/events/TKDistrictIntegration.webp";
 import TKGaoShunFormationBreakers from "../../assets/images/events/TKGaoShunFormationBreakers.webp";
 import TKJiangWeiInvitation from "../../assets/images/events/TKJiangWeiInvitation.webp";
+import TKJiaXuCounsel from "../../assets/images/events/TKJiaXuCounsel.webp";
+import TKLiJueVeterans from "../../assets/images/events/TKLiJueVeterans.webp";
+import TKLiJueWesternFrontier from "../../assets/images/events/TKLiJueWesternFrontier.webp";
 import TKLiuBeiBenevolentAudience from "../../assets/images/events/TKLiuBeiBenevolentAudience.webp";
 import TKLiuBeiCompanions from "../../assets/images/events/TKLiuBeiCompanions.webp";
 import TKLiuBeiRefugeeColumn from "../../assets/images/events/TKLiuBeiRefugeeColumn.webp";
@@ -186,6 +189,7 @@ import TKRiverPortCommerce from "../../assets/images/events/TKRiverPortCommerce.
 import TKScholarlyPatronage from "../../assets/images/events/TKScholarlyPatronage.webp";
 import TKSouthernConsolidation from "../../assets/images/events/TKSouthernConsolidation.webp";
 import TKWesternCampaignCounsel from "../../assets/images/events/TKWesternCampaignCounsel.webp";
+import TKXuHuangTraining from "../../assets/images/events/TKXuHuangTraining.webp";
 import TKYuanShaoArmyProclamation from "../../assets/images/events/TKYuanShaoArmyProclamation.webp";
 import TKZhaoYunReunion from "../../assets/images/events/TKZhaoYunReunion.webp";
 import TolbiacBattle from "../../assets/images/events/TolbiacBattle.webp";
@@ -279,6 +283,24 @@ export const EventImage = {
       url: TKJiangWeiInvitation,
       credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
       keywords: ["ThreeKingdoms", "ZhugeLiang", "JiangWei", "Recruitment", "Invitation", "Camp", "Dusk", "Lamp"],
+   },
+   TKJiaXuCounsel: {
+      scenario: "ThreeKingdoms194",
+      url: TKJiaXuCounsel,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "JiaXu", "Counsel", "Strategy", "Officials", "Officers", "Map", "Lamp", "Night"],
+   },
+   TKLiJueVeterans: {
+      scenario: "ThreeKingdoms194",
+      url: TKLiJueVeterans,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "LiJue", "Veterans", "Muster", "Officers", "Army", "Camp", "Frontier"],
+   },
+   TKLiJueWesternFrontier: {
+      scenario: "ThreeKingdoms194",
+      url: TKLiJueWesternFrontier,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "LiJue", "Liangzhou", "Frontier", "River", "Ridge", "Watchtower", "Planning"],
    },
    TKLiuBeiBenevolentAudience: {
       scenario: "ThreeKingdoms194",
@@ -430,6 +452,12 @@ export const EventImage = {
          "Road",
          "Bridge",
       ],
+   },
+   TKXuHuangTraining: {
+      scenario: "ThreeKingdoms194",
+      url: TKXuHuangTraining,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "XuHuang", "Training", "Discipline", "Formation", "Soldiers", "Shields", "Spears"],
    },
    TKYuanShaoArmyProclamation: {
       scenario: "ThreeKingdoms194",

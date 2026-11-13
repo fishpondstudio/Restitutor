@@ -13,24 +13,24 @@ export const LuBuEvents = {
    LuBuEvent1: {
       name: () => "The Strength Behind the Legend",
       desc: () =>
-         "Lu Bu's reputation draws experienced soldiers and ambitious officers to our banner. We may put their experience to immediate use, establish a corps of officers to guide our military affairs for years to come, or turn our lord's methods of battle into a lasting advantage for the army.",
+         "Veterans and ambitious young officers gather at Lu Bu's camp, drawn by the name of the realm's most feared warrior. Some seek a place in the next campaign; others hope to learn his methods or earn a staff appointment. Reputation has brought them here. We must turn it into strength.",
       image: EventImage.TKLuBuVeteranMuster,
       condition: {
          province: new Set(["LuBu"]),
       },
       buttons: [
          {
-            label: () => "Put the veterans' experience to immediate use",
+            label: () => "Muster the veterans",
             resources: { military: 100 },
          },
          {
-            label: () => "Build a lasting corps of military officers",
+            label: () => "Establish an officer corps",
             modifiers: {
                MilitaryPoint: { type: "add", value: 1, duration: 120 },
             },
          },
          {
-            label: () => "Train the army in Lu Bu's methods of battle",
+            label: () => "Train the army in Lu Bu's methods",
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 120 },
             },
@@ -40,7 +40,7 @@ export const LuBuEvents = {
    LuBuEvent2: {
       name: () => "Chen Gong's Counsel",
       desc: () =>
-         "Chen Gong warns that victories alone cannot sustain our rule. A substantial effort from our officials could establish an administration capable of governing a larger domain. Alternatively, we could use that effort to improve the work of our civil officials, envoys, and military officers for the coming years.",
+         "Chen Gong brings petitions and unfinished registers before the council. Victories, he warns, will mean little if our officials cannot govern the lands we take. He asks for an administrative effort worthy of our ambitions, whether to extend our government's reach or strengthen the offices already serving it.",
       image: EventImage.TKCivilAdministration,
       condition: {
          province: new Set(["LuBu"]),
@@ -53,12 +53,12 @@ export const LuBuEvents = {
       },
       buttons: [
          {
-            label: () => "Extend the permanent reach of our administration",
+            label: () => "Extend the civil administration",
             resources: { administrative: -100 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
          {
-            label: () => "Strengthen our civil, diplomatic, and military offices",
+            label: () => "Strengthen every branch of government",
             resources: { administrative: -100 },
             modifiers: {
                AdministrativePoint: { type: "add", value: 1, duration: 40 },
@@ -71,7 +71,7 @@ export const LuBuEvents = {
    LuBuEvent3: {
       name: () => "Gao Shun's Formation Breakers",
       desc: () =>
-         "Gao Shun's victories have demonstrated the value of discipline and preparation. He proposes a substantial investment in our military establishment: equip a powerful assault force, spread his methods through the field army and garrisons, or fund the recruitment and organization of experienced officers. Each proposal demands the same commitment from our treasury.",
+         "Gao Shun's disciplined troops have earned their reputation for breaking enemy formations. Other commanders now ask for the equipment, training, and officers that make his men so dependable. The treasury can fund an elite assault force or spread his example more widely through the army.",
       image: EventImage.TKGaoShunFormationBreakers,
       condition: {
          province: new Set(["LuBu"]),
@@ -84,14 +84,14 @@ export const LuBuEvents = {
       },
       buttons: [
          {
-            label: () => "Fund and equip a powerful assault force",
+            label: () => "Equip an elite assault force",
             resources: { gold: -1000 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.2, duration: 36 },
             },
          },
          {
-            label: () => "Train the field army and strengthen the garrisons",
+            label: () => "Train field troops and garrisons",
             resources: { gold: -1000 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 36 },
@@ -99,7 +99,7 @@ export const LuBuEvents = {
             },
          },
          {
-            label: () => "Fund the recruitment and organization of officers",
+            label: () => "Recruit experienced officers",
             resources: { gold: -1000, military: 100 },
          },
       ],
@@ -107,7 +107,7 @@ export const LuBuEvents = {
    LuBuEvent4: {
       name: () => "The Contest for Yan",
       desc: () =>
-         "Though we are at peace with Cao Cao, his power remains an obstacle to our ambitions in the central plains. We may press a claim to his lands and divert revenues toward military preparations. Alternatively, we could restrain those preparations while restoring production and strengthening our tax revenues.",
+         "Peace with Cao Cao has not settled the question of who will command the central plains. Our officers urge a claim to his lands, while the tax officials count the cost of another campaign. Silver sent to the camps cannot also restore the fields and workshops that sustain them.",
       image: EventImage.TKCouncilDeliberation,
       condition: {
          province: new Set(["LuBu"]),
@@ -119,7 +119,7 @@ export const LuBuEvents = {
       },
       buttons: [
          {
-            label: () => "Press our claim and divert revenues toward war",
+            label: () => "Press our claim and prepare for war",
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 36 },
                LandTax: { type: "multiply", value: -0.1, duration: 36 },
@@ -129,7 +129,7 @@ export const LuBuEvents = {
             },
          },
          {
-            label: () => "Restrain military preparations and rebuild the economy",
+            label: () => "Restore the fields and treasury",
             modifiers: {
                LandTax: { type: "multiply", value: 0.1, duration: 36 },
                TileOutput: { type: "multiply", value: 0.1, duration: 36 },
@@ -141,7 +141,7 @@ export const LuBuEvents = {
    LuBuEvent5: {
       name: () => "Chen Deng and the Settlement of Xu",
       desc: () =>
-         "The commanderies once governed by Tao Qian now form part of our domain. Chen Deng's knowledge of their officials, influential families, and military households can help secure the settlement. With his service at our disposal, we may strengthen tax administration, win local cooperation, or organize households to supply our armies with men.",
+         "Tao Qian's former commanderies now receive our orders, but their registers and local loyalties are less easily mastered. Chen Deng knows the officials, landed families, and military households of Xu. Employing him would give our new government an experienced hand in the settlement.",
       image: EventImage.TKDistrictIntegration,
       condition: {
          province: new Set(["LuBu"]),
@@ -152,19 +152,19 @@ export const LuBuEvents = {
       },
       buttons: [
          {
-            label: () => "Employ Chen Deng and reorganize the tax offices",
+            label: () => "Have Chen Deng reform the tax offices",
             resources: { administrative: 75 },
             modifiers: { LandTax: { type: "multiply", value: 0.1, duration: 36 } },
             custom: [transferTKCharacterEffect("ChenDeng")],
          },
          {
-            label: () => "Employ Chen Deng and reconcile the local families",
+            label: () => "Have Chen Deng reconcile the families",
             resources: { diplomatic: 75 },
             modifiers: { Stability: { type: "add", value: 10, duration: 36 } },
             custom: [transferTKCharacterEffect("ChenDeng")],
          },
          {
-            label: () => "Employ Chen Deng and muster the military households",
+            label: () => "Have Chen Deng muster the households",
             resources: { military: 75 },
             modifiers: { Manpower: { type: "multiply", value: 0.1, duration: 36 } },
             custom: [transferTKCharacterEffect("ChenDeng")],
@@ -174,7 +174,7 @@ export const LuBuEvents = {
    LuBuEvent6: {
       name: () => "The Halberd at the Camp Gate",
       desc: () =>
-         "We are at peace with Liu Bei and Yuan Shu, and a gathering at our camp offers an opportunity to demonstrate the strength behind our words. A halberd beside the gate provides a challenging target for Lu Bu's bow. We may make the display an occasion to impress their envoys, or use it to rally our officers and sharpen the army's fighting spirit.",
+         "Envoys from Liu Bei and Yuan Shu have gathered at our camp. Lu Bu calls for a halberd to be set beside the gate and takes up his bow before the assembled officers. A single shot could lend force to our diplomacy or give the army another tale to carry into battle.",
       image: EventImage.TKLuBuHalberdShot,
       condition: {
          province: new Set(["LuBu"]),
@@ -187,7 +187,7 @@ export const LuBuEvents = {
       },
       buttons: [
          {
-            label: () => "Impress the envoys with our lord's prowess",
+            label: () => "Let the envoys witness his prowess",
             resources: { diplomatic: 100 },
             modifiers: { Prestige: { type: "multiply", value: 0.1, duration: 36 } },
          },
@@ -201,7 +201,7 @@ export const LuBuEvents = {
    LuBuEvent7: {
       name: () => "The Price of Yuan Shu's Friendship",
       desc: () =>
-         "Yuan Shu's wealth makes closer dealings attractive, but his ambitions give our advisers pause. Our envoys could negotiate financial assistance at the cost of associating our name with a distrusted neighbor. Alternatively, they could affirm our independence from his designs and seek favor at the Han court. Either course requires diplomatic effort.",
+         "Yuan Shu's treasury offers relief from the expense of maintaining our army, but his ambitions trouble the council. Our envoys could seek his silver, accepting the stain of his friendship, or distance us from his designs and carry assurances of loyalty to the Han court.",
       image: EventImage.TKDiplomaticSubsidy,
       condition: {
          province: new Set(["LuBu"]),
@@ -215,12 +215,12 @@ export const LuBuEvents = {
       },
       buttons: [
          {
-            label: () => "Negotiate financial support from Yuan Shu",
+            label: () => "Negotiate a subsidy from Yuan Shu",
             resources: { diplomatic: -50, gold: 1000 },
             modifiers: { Prestige: { type: "multiply", value: -0.1, duration: 36 } },
          },
          {
-            label: () => "Distance ourselves from his ambitions and seek court favor",
+            label: () => "Reject his designs and honor the Han",
             resources: { diplomatic: -50, consulPoint: 2 },
          },
       ],
@@ -228,7 +228,7 @@ export const LuBuEvents = {
    LuBuEvent8: {
       name: () => "Trust Within the Camp",
       desc: () =>
-         "Our victories have brought together old companions, recent recruits, and officers with followings of their own. Zhang Liao has shown the judgment needed to coordinate them in the field. We may broaden his command to strengthen the campaigning army, or spend from the treasury to settle grievances, regularize appointments, and secure the loyalty of our garrisons.",
+         "Victory has filled our camps with old companions, new recruits, and officers who answer first to their own patrons. Zhang Liao has shown a steady hand in bringing them together. A broader field command could make use of his judgment, though the garrisons also press their claims for rewards and settled appointments.",
       image: EventImage.TKMilitaryAppointments,
       condition: {
          province: new Set(["LuBu"]),
@@ -241,12 +241,12 @@ export const LuBuEvents = {
       },
       buttons: [
          {
-            label: () => "Give Zhang Liao broader command of the field army",
+            label: () => "Give Zhang Liao broader field command",
             resources: { military: 50 },
             modifiers: { WarPower: { type: "multiply", value: 0.1, duration: 36 } },
          },
          {
-            label: () => "Pay rewards and secure the loyalty of our garrisons",
+            label: () => "Reward the garrisons for their loyalty",
             resources: { gold: -500 },
             modifiers: {
                Stability: { type: "add", value: 10, duration: 36 },
@@ -258,7 +258,7 @@ export const LuBuEvents = {
    LuBuEvent9: {
       name: () => "Chen Gong's Plans Against Cao Cao",
       desc: () =>
-         "Chen Gong presents three ways to strengthen our position against Cao Cao. We could direct a limited military effort against his supply roads, spend gold on stronger defenses, or devote greater effort to organizing a powerful offensive. The choice is whether to weaken the enemy, hold our ground, or improve the striking power of our own army.",
+         "Chen Gong studies the roads supplying Cao Cao's army and marks where a small force could cause the greatest disruption. Other reports call for stronger walls and stocked depots. Lu Bu's commanders favor an offensive, but gathering the army for such a blow would demand a greater military effort.",
       image: EventImage.TKChenGongFieldCommand,
       condition: {
          province: new Set(["LuBu"]),
@@ -283,7 +283,7 @@ export const LuBuEvents = {
             modifiers: { Defense: { type: "multiply", value: 0.2, duration: 36 } },
          },
          {
-            label: () => "Concentrate our military effort on a powerful offensive",
+            label: () => "Gather the army for a decisive blow",
             resources: { military: -100 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.2, duration: 36 },
@@ -294,7 +294,7 @@ export const LuBuEvents = {
    LuBuEvent10: {
       name: () => "More Than a Warrior",
       desc: () =>
-         "Cao Cao's heartland now answers to us. Those who dismissed Lu Bu as a warrior without a lasting foundation must reckon with a government commanding the central plains. Enlarging our administration will allow us to govern a greater domain; its new foundations may rest upon experienced officials, cooperative local families, or dependable regional commanders.",
+         "Cao Cao's heartland now answers to Lu Bu. Those who dismissed him as a warrior without a lasting foundation must reckon with his seals on the registers of the central plains. Officials, local families, and regional commanders await the appointments that will turn victory into government.",
       image: EventImage.TKDistrictIntegration,
       condition: {
          province: new Set(["LuBu"]),
@@ -302,17 +302,17 @@ export const LuBuEvents = {
       },
       buttons: [
          {
-            label: () => "Expand our government through experienced officials",
+            label: () => "Retain experienced civil officials",
             resources: { administrative: 50 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
          {
-            label: () => "Expand our government with the support of local families",
+            label: () => "Win the support of local families",
             resources: { diplomatic: 50 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
          {
-            label: () => "Expand our government through regional commands",
+            label: () => "Establish regional military commands",
             resources: { military: 50 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },

@@ -27,22 +27,22 @@ export const LiuBeiEvents = {
    LiuBeiEvent1: {
       name: () => "A Name Built on Benevolence",
       desc: () =>
-         "Liu Bei has neither the estates nor the old connections of the great families, but his concern for the people has drawn followers to our banner. Scholars offer their service, local households speak well of us, and loyalists look to our lord's descent from the Han imperial house. We may draw upon this goodwill to staff our government, extend our connections, or affirm our devotion to the court.",
+         "Liu Bei lacks the estates and connections of the great families, yet petitioners and scholars gather at his door. Households speak of his concern for ordinary people, while Han loyalists look to his imperial ancestry. Goodwill has brought us followers; now it must sustain a government.",
       image: EventImage.TKLiuBeiBenevolentAudience,
       condition: {
          province: new Set(["LiuBei"]),
       },
       buttons: [
          {
-            label: () => "Gather able scholars",
+            label: () => "Recruit scholars for our government",
             resources: { administrative: 75 },
          },
          {
-            label: () => "Seek local support",
+            label: () => "Cultivate ties with local families",
             resources: { diplomatic: 75 },
          },
          {
-            label: () => "Honor the Han",
+            label: () => "Affirm our devotion to the Han court",
             resources: { consulPoint: 2 },
          },
       ],
@@ -50,7 +50,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent2: {
       name: () => "Companions Through Adversity",
       desc: () =>
-         "Guan Yu and Zhang Fei have shared Liu Bei's hardships from the earliest days of our cause. Our victories have won their methods respect among the officers, giving us an opportunity to put that experience to wider use. They may prepare the field army for further campaigns, or bring greater discipline to the garrisons that guard our domain.",
+         "Guan Yu and Zhang Fei have stood beside Liu Bei through years of hardship. After our victories, younger officers seek their instruction and garrison commanders ask for men trained in their methods. The experience of our oldest companions can now shape more than their own troops.",
       image: EventImage.TKLiuBeiCompanions,
       condition: {
          province: new Set(["LiuBei"]),
@@ -64,12 +64,12 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Ready the field army",
+            label: () => "Prepare our armies for new campaigns",
             resources: { military: 100 },
             modifiers: { WarPower: { type: "multiply", value: 0.1, duration: 36 } },
          },
          {
-            label: () => "Drill our garrisons",
+            label: () => "Strengthen discipline in our garrisons",
             resources: { military: 100 },
             modifiers: { Defense: { type: "multiply", value: 0.1, duration: 36 } },
          },
@@ -78,7 +78,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent3: {
       name: () => "The Responsibility of Xu",
       desc: () =>
-         "The commanderies once governed by Tao Qian now answer to us. Their officials bring tax registers in need of revision, local families seek assurances of fair treatment, and military households await orders. We must decide whether to secure the revenues of Xu, reconcile its people, or organize the recruits who will defend it.",
+         "The commanderies once governed by Tao Qian now answer to us. Officials bring tax registers in need of revision, local families seek assurances of fair treatment, and military households await orders. Our first appointments will show the people of Xu what to expect from Liu Bei's rule.",
       image: EventImage.TKDistrictIntegration,
       condition: {
          province: new Set(["LiuBei"]),
@@ -86,17 +86,17 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Revise the tax rolls",
+            label: () => "Revise the tax registers of Xu",
             resources: { administrative: 50 },
             modifiers: { LandTax: { type: "multiply", value: 0.1, duration: 36 } },
          },
          {
-            label: () => "Win local support",
+            label: () => "Reconcile the people of Xu to our rule",
             resources: { diplomatic: 50 },
             modifiers: { Stability: { type: "add", value: 10, duration: 36 } },
          },
          {
-            label: () => "Muster our recruits",
+            label: () => "Muster the military households of Xu",
             resources: { military: 50 },
             modifiers: { Manpower: { type: "multiply", value: 0.1, duration: 36 } },
          },
@@ -118,7 +118,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Press our claim",
+            label: () => "Press our claim to Lu Bu's lands",
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 36 },
                LandTax: { type: "multiply", value: -0.1, duration: 36 },
@@ -128,7 +128,7 @@ export const LiuBeiEvents = {
             },
          },
          {
-            label: () => "Seek an accord",
+            label: () => "Send envoys to preserve peace with Lu Bu",
             attitudes: { LuBu: { type: "add", value: 20, duration: 36 } },
             modifiers: { Stability: { type: "add", value: 10, duration: 36 } },
          },
@@ -137,7 +137,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent5: {
       name: () => "Guan Ping Enters Our Service",
       desc: () =>
-         "Guan Yu's household has long been bound to our cause, and Guan Ping offers to continue that service. He brings a soldier's resolve and a name whose obligations he understands. Our victories have opened a place for officers willing to shoulder new responsibilities; we may send for him and welcome him beneath our banner.",
+         "Guan Ping offers to continue his household's service to Liu Bei. He bears a name already honored in our camps, but must earn the trust that accompanies it. Our recent victories have opened posts for new officers, and an invitation would bring him beneath our banner.",
       image: EventImage.TKMilitaryAppointments,
       condition: {
          province: new Set(["LiuBei"]),
@@ -151,7 +151,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Welcome Guan Ping",
+            label: () => "Welcome Guan Ping into our service",
             resources: { diplomatic: -50 },
             custom: [transferTKCharacterEffect("GuanPing")],
          },
@@ -174,7 +174,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Welcome Zhao Yun",
+            label: () => "Invite Zhao Yun to rejoin our cause",
             resources: { diplomatic: -50 },
             custom: [transferTKCharacterEffect("ZhaoYun")],
          },
@@ -197,7 +197,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Visit him in person",
+            label: () => "Seek Zhuge Liang's counsel in person",
             resources: { diplomatic: -100 },
             custom: [transferTKCharacterEffect("ZhugeLiang")],
          },
@@ -206,7 +206,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent8: {
       name: () => "The People Beneath Our Banner",
       desc: () =>
-         "Families displaced by the struggle with Cao Cao gather beneath our banners, trusting that Liu Bei will not abandon them. Feeding and sheltering them would reassure our people and uphold our good name. Our officers instead propose stronger escorts and better provisions for the marching columns, protecting the families without leaving the army unready to fight. Either undertaking will require money from the treasury.",
+         "Carts, children, and exhausted families crowd the roads behind our army as the war with Cao Cao drives people from their homes. They trust Liu Bei to protect them. The treasury can provide food and shelter, or equip stronger escorts and supply columns to keep the refugees moving with the troops.",
       image: EventImage.TKLiuBeiRefugeeColumn,
       condition: {
          province: new Set(["LiuBei"]),
@@ -219,7 +219,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Shelter the people",
+            label: () => "Feed and shelter the displaced families",
             resources: { gold: -500 },
             modifiers: {
                Stability: { type: "add", value: 10, duration: 36 },
@@ -227,7 +227,7 @@ export const LiuBeiEvents = {
             },
          },
          {
-            label: () => "Guard our columns",
+            label: () => "Provision and escort the refugee columns",
             resources: { gold: -500 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 36 },
@@ -239,7 +239,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent9: {
       name: () => "Common Cause with the Sun House",
       desc: () =>
-         "Our agreement with the Sun house gives us support in the struggle against Cao Cao, but officials and commanders must put it to practical use. Closer dealings between our courts could improve the work of our officials and envoys while strengthening mutual trust. Our officers would instead use the partnership to improve military preparations and the fighting strength of our armies.",
+         "Our agreement with the Sun house has opened the way for envoys, dispatches, and military plans to pass between our courts. Cao Cao remains the immediate danger, but a treaty alone cannot coordinate two governments. Officials seek closer consultation; commanders ask for joint preparations in the field.",
       image: EventImage.TKAllianceGathering,
       condition: {
          province: new Set(["LiuBei"]),
@@ -253,12 +253,12 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Strengthen our ties",
+            label: () => "Strengthen ties between our courts",
             resources: { administrative: 50, diplomatic: 50 },
             attitudes: { SunCe: { type: "add", value: 20, duration: 36 } },
          },
          {
-            label: () => "Ready our armies",
+            label: () => "Coordinate our armies against Cao Cao",
             resources: { military: 50 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 36 },
@@ -269,7 +269,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent10: {
       name: () => "A Foothold in Jingzhou",
       desc: () =>
-         "Our officials now govern a substantial foothold in the lands once held by Liu Biao. Petitions and accounts arrive from districts along the roads between the northern plains, the southern rivers, and the west. A considerable administrative effort could extend the lasting reach of our government, or improve the work of the civil and diplomatic offices serving these lands.",
+         "Petitions and tax accounts arrive from our new districts in Jingzhou. Roads through these lands lead north to the plains, south to the rivers, and west toward Yi. Our officials must decide whether to build an administration for further expansion or strengthen the civil offices and embassies already serving this foothold.",
       image: EventImage.TKRegionalAdministration,
       condition: {
          province: new Set(["LiuBei"]),
@@ -280,12 +280,12 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Extend our rule",
+            label: () => "Extend our administration in Jingzhou",
             resources: { administrative: -100 },
             modifiers: { GoverningCapacity: { type: "add", value: 20 } },
          },
          {
-            label: () => "Empower our offices",
+            label: () => "Strengthen civil offices and embassies",
             resources: { administrative: -100 },
             modifiers: {
                AdministrativePoint: { type: "add", value: 1, duration: 60 },
@@ -311,7 +311,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Welcome Wei Yan",
+            label: () => "Give Wei Yan a place among our officers",
             resources: { diplomatic: -50 },
             custom: [transferTKCharacterEffect("WeiYan")],
          },
@@ -320,7 +320,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent12: {
       name: () => "The Talents of the Ma Brothers",
       desc: () =>
-         "Among the learned families of Jingzhou, the Ma brothers enjoy a growing reputation. Ma Liang is praised for his sound judgment, while Ma Su speaks readily on questions of military strategy. Both remain without appointments. Our envoys can invite them to court, where their learning may serve the government and the deliberations of our council.",
+         "The learned families of Jingzhou speak well of the Ma brothers. Ma Liang is praised for sound judgment, while Ma Su eagerly debates military strategy. Neither has accepted an appointment. An invitation from our court could bring both talents into Liu Bei's service.",
       image: EventImage.TKScholarlyPatronage,
       condition: {
          province: new Set(["LiuBei"]),
@@ -334,7 +334,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Welcome the brothers",
+            label: () => "Invite the Ma brothers to serve at court",
             resources: { diplomatic: -100 },
             custom: [transferTKCharacterEffect("MaLiang"), transferTKCharacterEffect("MaSu")],
          },
@@ -343,7 +343,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent13: {
       name: () => "Counsel for the Western Campaign",
       desc: () =>
-         "Our position in Jingzhou is secure enough to support an advance into Yi, where the first districts now acknowledge our authority. Pang Tong offers a keen eye for opportunities that others overlook, while Fa Zheng knows the interests and rivalries of the western commanderies. We may send invitations to both men and seek the counsel needed to carry this undertaking forward.",
+         "With Jingzhou supporting our advance, the first districts of Yi now receive our officials. Further progress will require more than soldiers. Pang Tong has an eye for opportunities others overlook, while Fa Zheng knows the rivalries of the western families; both remain available to receive our invitations.",
       image: EventImage.TKWesternCampaignCounsel,
       condition: {
          province: new Set(["LiuBei"]),
@@ -357,7 +357,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Seek their counsel",
+            label: () => "Seek counsel from Pang Tong and Fa Zheng",
             resources: { diplomatic: -100 },
             custom: [transferTKCharacterEffect("PangTong"), transferTKCharacterEffect("FaZheng")],
          },
@@ -366,7 +366,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent14: {
       name: () => "The Settlement of Chengdu",
       desc: () =>
-         "Chengdu and the lands once governed by Liu Zhang now answer to us. The western basin offers fertile estates and experienced officials, but its established families must be reconciled with the followers who accompanied our armies. We must enlarge our government, choosing whether civil officials, cooperative local families, or regional commanders will give the settlement its foundation.",
+         "Chengdu's registers and Liu Zhang's former commanderies are ours to administer. The basin's established families watch the followers who arrived with our armies, each expecting a place in the new order. A lasting settlement must make room for both service earned on campaign and influence rooted in the land.",
       image: EventImage.TKRegionalAssembly,
       condition: {
          province: new Set(["LiuBei"]),
@@ -374,26 +374,26 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Retain our officials",
+            label: () => "Retain experienced civil officials",
             resources: { administrative: 50 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
          {
-            label: () => "Win over the gentry",
+            label: () => "Win the support of the western families",
             resources: { diplomatic: 50 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
          {
-            label: () => "Establish commands",
+            label: () => "Establish regional military commands",
             resources: { military: 50 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
       ],
    },
    LiuBeiEvent15: {
-      name: () => "Officials for the Chengdu Administration",
+      name: () => "New Appointments at Chengdu",
       desc: () =>
-         "Governing the western commanderies calls for men who can settle disputes and attend patiently to the business of office. Jiang Wan's measured judgment and Fei Yi's tact recommend them for such service. We can invite both men to Chengdu and give the new administration officials capable of earning trust as well as carrying out our orders.",
+         "Disputes over appointments and accounts fill the offices at Chengdu. Jiang Wan's measured judgment and Fei Yi's tact recommend them for work that requires patience as much as authority. Both men could give the western administration a steadier hand.",
       image: EventImage.TKCivilAdministration,
       condition: {
          province: new Set(["LiuBei"]),
@@ -407,7 +407,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Employ their talents",
+            label: () => "Appoint Jiang Wan and Fei Yi to office",
             resources: { diplomatic: -100 },
             custom: [transferTKCharacterEffect("JiangWan"), transferTKCharacterEffect("FeiYi")],
          },
@@ -416,7 +416,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent16: {
       name: () => "The Northern Gateway",
       desc: () =>
-         "Hanzhong now guards the northern approaches to our western heartland. Its roads can carry armies toward the north, while its passes offer strong positions from which to defend the basin. We may prepare a force for campaigning, strengthen the mountain defenses, or organize the military households that will replenish our ranks.",
+         "Hanzhong's passes now guard our western heartland. Beyond them lie the roads north, inviting another campaign, while the mountain defenses offer shelter for the basin behind us. Officers survey the routes and count the households that could supply the next muster.",
       image: EventImage.TKMountainPassPreparation,
       condition: {
          province: new Set(["LiuBei"]),
@@ -424,15 +424,15 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Ready an offensive",
+            label: () => "Prepare Hanzhong for a northern campaign",
             modifiers: { WarPower: { type: "multiply", value: 0.15, duration: 36 } },
          },
          {
-            label: () => "Fortify the passes",
+            label: () => "Fortify the passes into our heartland",
             modifiers: { Defense: { type: "multiply", value: 0.15, duration: 36 } },
          },
          {
-            label: () => "Muster fresh troops",
+            label: () => "Organize Hanzhong's military households",
             modifiers: { Manpower: { type: "multiply", value: 0.15, duration: 36 } },
          },
       ],
@@ -440,7 +440,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent17: {
       name: () => "The Road Toward Han Restoration",
       desc: () =>
-         "Possession of the western basin and Hanzhong gives weight to our promise of restoring Han authority. Though we are at peace with Cao Cao, his domain remains beyond our control. Some advisers urge us to press our claim and divert revenues toward a northern campaign. Others would restrain military preparations while restoring the fields and tax revenues that must sustain it.",
+         "The western basin and Hanzhong give substance to our promise of restoring Han authority. Cao Cao's lands remain beyond our rule, and officers urge preparations for a northern campaign. Civil officials ask for time to restore the fields and treasury before peace gives way to another war.",
       image: EventImage.TKMountainPassPreparation,
       condition: {
          province: new Set(["LiuBei"]),
@@ -454,7 +454,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Press our claim",
+            label: () => "Press our claim to Cao Cao's lands",
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 36 },
                LandTax: { type: "multiply", value: -0.1, duration: 36 },
@@ -464,7 +464,7 @@ export const LiuBeiEvents = {
             },
          },
          {
-            label: () => "Rebuild our lands",
+            label: () => "Restore the fields and treasury",
             modifiers: {
                WarPower: { type: "multiply", value: -0.1, duration: 36 },
                LandTax: { type: "multiply", value: 0.1, duration: 36 },
@@ -476,7 +476,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent18: {
       name: () => "The Next Generation of Commanders",
       desc: () =>
-         "The names of Guan Yu and Zhang Fei carry weight throughout our armies, but their sons must earn reputations of their own. Guan Xing and Zhang Bao offer to continue their households' service beneath our banner. Our domain now calls for more officers than the old companions alone could provide; we may welcome both sons into its service.",
+         "Guan Xing and Zhang Bao offer their swords to Liu Bei. Their fathers' names command respect in every camp, but inheritance alone will not win the confidence of soldiers. Our growing domain has room for new commanders, and the two young men ask for a chance to prove themselves.",
       image: EventImage.TKMilitaryAppointments,
       condition: {
          province: new Set(["LiuBei"]),
@@ -492,7 +492,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Welcome their sons",
+            label: () => "Commission Guan Xing and Zhang Bao",
             resources: { diplomatic: -100 },
             custom: [transferTKCharacterEffect("GuanXing"), transferTKCharacterEffect("ZhangBao")],
          },
@@ -501,7 +501,7 @@ export const LiuBeiEvents = {
    LiuBeiEvent19: {
       name: () => "A Principled Voice at Court",
       desc: () =>
-         "A settled court needs advisers who will speak honestly, not merely repeat what pleases those above them. Dong Yun is known for his integrity and careful attention to duty. We may invite him into our service, giving a principled official a place in the government now established over the western commanderies.",
+         "Not every petitioner at Chengdu brings welcome advice. Dong Yun's reputation rests on speaking plainly and attending closely to his duties, even when silence would be easier. Giving him a place at court would bring an independent voice into our deliberations.",
       image: EventImage.TKCivilAdministration,
       condition: {
          province: new Set(["LiuBei"]),
@@ -514,7 +514,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Welcome Dong Yun",
+            label: () => "Give Dong Yun a voice in our government",
             resources: { diplomatic: -50 },
             custom: [transferTKCharacterEffect("DongYun")],
          },
@@ -539,7 +539,7 @@ export const LiuBeiEvents = {
       },
       buttons: [
          {
-            label: () => "Welcome Jiang Wei",
+            label: () => "Offer Jiang Wei a place in our army",
             resources: { diplomatic: -50 },
             custom: [transferTKCharacterEffect("JiangWei")],
          },

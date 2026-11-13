@@ -8,7 +8,6 @@ import type { SaveGame } from "../GameState";
 import type { ConditionChecks } from "../logic/Calculation";
 import type { GameEventOrder } from "./GameEventOrder";
 import type { GameEventType } from "./GameEvents";
-import type { IGameEventCondition } from "./GameEventTypes";
 import type { ImageWithCredit } from "./ImageWithCredit";
 
 export interface IGameEventCondition {

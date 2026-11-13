@@ -11,7 +11,7 @@ export const ThreeKingdomsMissionEvents = {
    TKMissionEvent1: {
       name: () => "A Network of Allies",
       desc: () =>
-         "Our envoys have secured allies beyond our borders. Their support lends strength to our armies, weight to our word, and reassurance to our people. We must turn these agreements into a lasting advantage for our realm.",
+         "Our envoys return with agreements bearing the seals of allied courts. Commanders see the promise of support in the field, while households welcome news that we no longer stand alone. These ties can give our government strength beyond its own borders.",
       image: EventImage.TKAllianceGathering,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -62,7 +62,7 @@ export const ThreeKingdomsMissionEvents = {
    TKMissionEvent3: {
       name: () => "Expand Our Borders",
       desc: () =>
-         "Our banners have advanced beyond the lands that first sustained our cause. The newly governed districts offer taxes, recruits, and fresh opportunities, but possession must be secured through sound policy. Let these gains become the foundation of greater deeds.",
+         "Registers from newly governed districts join those of our original holdings. Their taxes and recruits broaden our strength, but their petitions already crowd the council table. The government must grow with the borders if these gains are to endure.",
       image: EventImage.TKDistrictIntegration,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -146,7 +146,7 @@ export const ThreeKingdomsMissionEvents = {
    TKMissionEvent6: {
       name: () => "A Vast Dominion",
       desc: () =>
-         "Two hundred districts acknowledge our government. Petitions, tax accounts, and reports of the harvest arrive from distant settlements. We must extend the reach of our officials and decide whether to devote their efforts to governing more land, securing its revenues, or increasing its abundance.",
+         "Petitions from two hundred districts arrive at our offices, often weeks after the matters they describe. Tax accounts and harvest reports pile up beside requests for new appointments. The machinery of a regional court must now serve a vast dominion.",
       image: EventImage.TKRegionalAdministration,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -213,7 +213,7 @@ export const ThreeKingdomsMissionEvents = {
    TKMissionEvent8: {
       name: () => "Unify Hebei",
       desc: () =>
-         "The plains north of the Yellow River and their mountain approaches now answer to one government. Hebei's fields and populous commanderies can sustain both our treasury and our armies. We must decide how best to draw upon the strength of these newly united lands.",
+         "The plains north of the Yellow River and their mountain approaches now answer to one government. Hebei's officials bring registers of broad estates and populous settlements. Where rival armies once competed for harvests and recruits, a common administration can now put the land to work.",
       image: EventImage.TKAgriculturalSurvey,
       condition: {
          annexAndCore: {
@@ -241,7 +241,7 @@ export const ThreeKingdomsMissionEvents = {
    TKMissionEvent9: {
       name: () => "Secure Liaodong",
       desc: () =>
-         "The settlements and strongholds of Liaodong have been brought beneath our authority. Our banner now commands respect on a distant frontier, and its people look to us for order. We may draw strength from their soldiers, secure their allegiance, or proclaim our achievement throughout the realm.",
+         "Our seals have reached the settlements and strongholds of Liaodong. Frontier soldiers await new commands, while local communities seek assurances that distant rule will respect their needs. News of the settlement travels back toward the central plains, carrying our name with it.",
       image: EventImage.TKMountainReconciliation,
       condition: { annexAndCore: { GongsunDu: Number.POSITIVE_INFINITY } },
       buttons: [
@@ -438,7 +438,7 @@ export const ThreeKingdomsMissionEvents = {
    TKMissionEvent15: {
       name: () => "Unify Jiaozhou",
       desc: () =>
-         "The distant southern commanderies now look to our government for order. Their ports connect the realm to far-reaching trade, while their settlements supply goods sought in distant markets. We must decide whether to enrich existing commerce, open new routes, or expand local production.",
+         "Merchants at Jiaozhou's ports now present their cargoes to our officials. The southern commanderies link our realm to markets far beyond its shores, and their workshops supply goods sought by visiting ships. Local traders petition for a settlement that will let this commerce endure.",
       image: EventImage.TKRiverPortCommerce,
       condition: { annexAndCore: { ShiXie: Number.POSITIVE_INFINITY } },
       buttons: [

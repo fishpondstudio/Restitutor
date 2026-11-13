@@ -34,7 +34,7 @@ export const YuanShaoEvents = {
    YuanShaoEvent2: {
       name: () => "Pacify the Black Mountains",
       desc: () =>
-         "The mountain strongholds that challenged Yuan authority now lie within our domain. Our officials can make their submission a visible triumph of government, our envoys can reconcile their communities, or our officers can put their knowledge of the passes to military use. The settlement we choose will determine how these lands serve our cause.",
+         "The Black Mountain strongholds now receive our orders. Their communities know the passes better than any official sent from the plains, and their cooperation will matter long after our armies leave. The Yuan seal must become more than a sign of conquest in these hills.",
       image: EventImage.TKMountainReconciliation,
       condition: {
          province: new Set(["YuanShao"]),
@@ -61,7 +61,7 @@ export const YuanShaoEvents = {
    YuanShaoEvent3: {
       name: () => "The Great Families of Hebei",
       desc: () =>
-         "The great families of Hebei offer men versed in negotiation and military affairs, but expect appointments worthy of their standing. Bringing their clients into service would demand considerable effort from our officials. We may employ that effort to secure their talents, or devote it to extending the reach of an administration answerable to us alone.",
+         "Hebei's great families arrive with lists of clients suited to embassies and military appointments. Their experience would serve us well, but their patrons expect influence in return. Our officials must decide whether to accommodate these networks or build a wider administration answerable directly to Yuan Shao.",
       image: EventImage.TKScholarlyPatronage,
       condition: {
          province: new Set(["YuanShao"]),
@@ -123,7 +123,7 @@ export const YuanShaoEvents = {
    YuanShaoEvent5: {
       name: () => "One Yuan Banner",
       desc: () =>
-         "The lands that sustained Yuan Shu's rival establishment now answer to our government. His former clients, households, and estates must be brought into the settlement. We may proclaim the ascendancy of our branch of the Yuan house, reconcile the people to our rule, or bring the landed wealth of these territories onto our tax rolls.",
+         "Our officials now hold the registers of the lands that sustained Yuan Shu's rival court. His former clients seek assurances, while our followers call for a proclamation celebrating the ascendancy of our branch of the family. One Yuan banner flies over the settlement, but its meaning remains ours to define.",
       image: EventImage.TKPublicProclamation,
       condition: {
          province: new Set(["YuanShao"]),
@@ -175,7 +175,7 @@ export const YuanShaoEvents = {
    YuanShaoEvent6: {
       name: () => "Settling the Northern Rivalry",
       desc: () =>
-         "The commanderies once held by Gongsun Zan now acknowledge our authority. Their officials, local notables, and military households offer different means of strengthening Yuan rule. We may regularize their revenues, secure cooperation in restoring production, or draw their soldiers into the service of our armies.",
+         "Gongsun Zan's former commanderies now acknowledge the Yuan seal. Tax officials bring their registers, local notables offer help restoring production, and military households await new commanders. The northern rivalry has left us lands to govern as well as victories to celebrate.",
       image: EventImage.TKAgriculturalSurvey,
       condition: {
          province: new Set(["YuanShao"]),
@@ -200,9 +200,9 @@ export const YuanShaoEvents = {
       ],
    },
    YuanShaoEvent7: {
-      name: () => "The Counsel Before the Campaign",
+      name: () => "The Council Before the Campaign",
       desc: () =>
-         "Cao Cao remains beyond our authority, and our council debates how to approach the contest ahead. Some urge us to press our claim to his territories and divert revenues toward preparing an offensive. Others would restrain military preparations while strengthening the fields and tax registers that sustain our power.",
+         "Cao Cao remains beyond our authority. In council, officers argue that Hebei's strength should be turned against him, while officials urge patience until the fields and treasury can bear another campaign. Pressing our claim would give the army its purpose, but divert revenues from the work at home.",
       image: EventImage.TKCouncilDeliberation,
       condition: {
          province: new Set(["YuanShao"]),
@@ -237,7 +237,7 @@ export const YuanShaoEvents = {
    YuanShaoEvent8: {
       name: () => "A Proclamation Against Cao Cao",
       desc: () =>
-         "Our armies face Cao Cao, but the struggle also reaches the proclamations read in every commandery and camp. Our officials can reassure the people of our cause, our officers can rally the army against our rival, or our envoys can carry appeals into his ranks. Each undertaking demands effort from those entrusted to carry it out.",
+         "Draft proclamations against Cao Cao pass between the council's writers. Some speak to households fearful of the war, others to soldiers awaiting battle, and still others to men whose loyalty to Cao Cao might be shaken. The words we choose will determine where our appeal is heard.",
       image: EventImage.TKYuanShaoArmyProclamation,
       condition: {
          province: new Set(["YuanShao"]),
@@ -273,7 +273,7 @@ export const YuanShaoEvents = {
    YuanShaoEvent9: {
       name: () => "Provisioning the Greater Army",
       desc: () =>
-         "Our army holds the advantage over Cao Cao in strength, but its stores and supply roads must sustain that advantage in the field. Officers submit plans ranging from a thorough expansion of provisions and convoy protection to a modest reinforcement of existing arrangements. The treasury must bear the cost of whichever provision we authorize.",
+         "Our army is stronger than Cao Cao's, but every additional soldier must be fed. Reports of thinly guarded convoys and crowded depots reach the council. Officers request silver for stores and escorts; the treasurer asks how much of our advantage we are prepared to pay to preserve.",
       image: EventImage.TKArmyProvisioning,
       condition: {
          province: new Set(["YuanShao"]),
@@ -285,7 +285,7 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Fund a full supply and escort program",
+            label: () => "Fully provision and guard the convoys",
             resources: { gold: -1000 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.25, duration: 36 },
@@ -299,7 +299,7 @@ export const YuanShaoEvents = {
             },
          },
          {
-            label: () => "Provide a modest supply supplement",
+            label: () => "Send a modest supplement of supplies",
             resources: { gold: -100 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.01, duration: 36 },
@@ -308,9 +308,9 @@ export const YuanShaoEvents = {
       ],
    },
    YuanShaoEvent10: {
-      name: () => "Overcome Cao Cao",
+      name: () => "The Settlement of Cao Cao's Lands",
       desc: () =>
-         "Our authority now extends across the heartland from which Cao Cao challenged the Yuan house. These lands require officials to govern them, envoys to reconcile their influential families, and officers to organize their garrisons. We must enlarge our government and choose whose service will give the new settlement its foundation.",
+         "The heartland from which Cao Cao challenged the Yuan house now answers to us. Its officials await confirmation in office, its families seek a place in our councils, and its garrisons require new orders. Hebei can no longer be the sole foundation of a government reaching across the central plains.",
       image: EventImage.TKDistrictIntegration,
       condition: {
          province: new Set(["YuanShao"]),
