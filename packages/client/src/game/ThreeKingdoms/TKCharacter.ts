@@ -483,12 +483,11 @@ export const _TKCharacters = {
       initialProvince: "MaTeng",
    },
    MaDai: {
-      // Novel: Ma Teng (by 211, accompanies him to the capital) -> Ma Chao (211; ch. 58)
-      // -> Zhang Lu (c. 213-214, alongside Ma Chao) -> Liu Bei (214; chs. 64-65) -> Liu Shan (223).
       name: () => ["Ma", "Dai"],
       image: MaDai,
       tier: "Tier3",
       traits: new Set(["Martial"]),
+      initialProvince: "MaTeng",
    },
    MaLiang: {
       // Novel: Liu Bei (c. 209, recommended by Yi Ji before the southern Jingzhou conquests; ch. 52).

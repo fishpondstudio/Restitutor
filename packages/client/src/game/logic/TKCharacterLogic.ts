@@ -176,6 +176,16 @@ export function* tkCharacterAffiliationChecks(
    );
 }
 
+export function* tkCharacterNotInRosterChecks(
+   character: TKCharacter,
+   province: Province,
+   save: SaveGame,
+): ConditionChecks {
+   (yield getTKCharacterProvince(character, save) !== province)?.describe(
+      `${getTKCharacterName(character).fullName} is not in our roster`,
+   );
+}
+
 export function transferTKCharacterEffect(character: TKCharacter): ICustomEffect {
    return {
       desc: (province, save) => {

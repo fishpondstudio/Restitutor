@@ -168,7 +168,11 @@ export function countProvinceTiles(
 
 export function getProvincePrestige(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
-   breakdown.add.push({ name: $t(L.TileUpgrades), value: getTotalUpgrades(province, save) });
+   const totalUpgrades = getTotalUpgrades(province, save);
+   breakdown.add.push({ name: $t(L.TileUpgrades), value: totalUpgrades });
+   if (totalUpgrades <= 0) {
+      return finalizeBreakdown(breakdown);
+   }
    attachModifier("Prestige", breakdown, province, save);
    if (hasProvinceUpgrade("TriumphalRenown", province, save)) {
       breakdown.multiply.push({
