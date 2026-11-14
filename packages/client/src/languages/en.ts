@@ -5354,4 +5354,11 @@ export const EN = {
    DominionPointsCapacity: "Dominion Points Capacity",
    DominionPointsCapacityDesc: "Dominion Points stop generating when capacity is reached.",
    AutomaticallyCoreTilesWithDominionPointsDesc: "Automatically make at most one non-core tile our core each month when we have enough resources.",
+   TileName: "Tile Name",
+   UpgradeCount: "Upgrade Count",
+   SortBy: "Sort By",
+   SortOrder: "Sort Order",
+   Ascending: "Ascending",
+   Descending: "Descending",
+   GoverningCostAbbr: "GC",
 };

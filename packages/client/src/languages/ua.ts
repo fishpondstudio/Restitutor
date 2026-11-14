@@ -5332,4 +5332,11 @@ export const UA = {
    DominionPointsCapacity: "Запас очок панування",
    DominionPointsCapacityDesc: "Щойно запас сповнено, очки панування більше не накопичуються.",
    AutomaticallyCoreTilesWithDominionPointsDesc: "Щомісяця автоматично робити корінним не більш як одне некорінне володіння, коли в нас досить ресурсів.",
+   TileName: "Tile Name",
+   UpgradeCount: "Upgrade Count",
+   SortBy: "Sort By",
+   SortOrder: "Sort Order",
+   Ascending: "Ascending",
+   Descending: "Descending",
+   GoverningCostAbbr: "GC",
 };

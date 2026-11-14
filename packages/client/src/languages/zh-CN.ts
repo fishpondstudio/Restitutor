@@ -5097,4 +5097,11 @@ export const ZH_CN = {
    DominionPointsCapacity: "统治点数上限",
    DominionPointsCapacityDesc: "统治点数达到上限时停止生成。",
    AutomaticallyCoreTilesWithDominionPointsDesc: "拥有足够资源时，每月自动将至多一个非核心地块核心化。",
+   TileName: "地块名称",
+   UpgradeCount: "升级次数",
+   SortBy: "排序依据",
+   SortOrder: "排序顺序",
+   Ascending: "升序",
+   Descending: "降序",
+   GoverningCostAbbr: "治理费",
 };

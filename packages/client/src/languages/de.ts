@@ -5435,4 +5435,11 @@ export const DE = {
    DominionPointsCapacity: "Herrschaftspunkte-Kapazität",
    DominionPointsCapacityDesc: "Sobald die Kapazitätsgrenze erreicht ist, werden keine weiteren Herrschaftspunkte generiert.",
    AutomaticallyCoreTilesWithDominionPointsDesc: "Jeden Monat automatisch höchstens ein Nicht-Kerngebiet zu unserem Kerngebiet machen, wenn wir genügend Ressourcen haben.",
+   TileName: "Gebietsname",
+   UpgradeCount: "Aufwertungsvorgänge",
+   SortBy: "Sortieren nach",
+   SortOrder: "Sortierreihenfolge",
+   Ascending: "Aufsteigend",
+   Descending: "Absteigend",
+   GoverningCostAbbr: "VK",
 };
