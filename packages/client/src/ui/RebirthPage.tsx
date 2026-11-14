@@ -81,60 +81,65 @@ export function RebirthPage(): React.ReactNode {
             </>
          )}
          <div className="h1">Scenario</div>
-         {entriesOf(Scenarios).map(([key, scenario]) => (
-            <div className={cls("box m10", G.save.state.scenario === key ? "primary" : "")} key={key}>
-               <div className="h3 row text-display">
-                  <div className={cls("f1", G.save.state.scenario === key ? "text-primary" : "")}>
-                     {scenario.name()}
-                  </div>
-                  <div>
-                     {G.save.state.scenario === key ? (
-                        <div className="mi sm text-primary">check_circle</div>
-                     ) : (
-                        <button
-                           className="btn text-sm"
-                           onClick={() => {
-                              if (isDemo) {
-                                 showError("This feature is not available in free demo.");
-                                 return;
-                              }
-                              showPanel(ConfirmModal, {
-                                 title: "Load A New Scenario",
-                                 message:
-                                    "This will end your current run and rebirth you into the selected scenario. Are you sure?",
-                                 confirm: {
-                                    label: "Rebirth And Load",
-                                    class: "text-primary",
-                                    onClick: async () => {
-                                       const province = getDefaultProvinceForScenario(key);
-                                       if (province) {
-                                          showLoading();
-                                          rebirth(province, G.save);
-                                          if (legacyPointsNextRun.value >= 10) {
-                                             unlockAchievement("Rebirth");
+         {entriesOf(Scenarios).map(([key, scenario]) => {
+            const fullYear = scenario.startDate.getFullYear();
+            return (
+               <div className={cls("box m10", G.save.state.scenario === key ? "primary" : "")} key={key}>
+                  <div className="h3 row text-display">
+                     <div className={cls(G.save.state.scenario === key ? "text-primary" : "")}>{scenario.name()}</div>
+                     <div className="text-dimmed text-sm">
+                        {fullYear} {fullYear >= 0 ? "AD" : "BC"}
+                     </div>
+                     <div className="f1" />
+                     <div>
+                        {G.save.state.scenario === key ? (
+                           <div className="mi sm text-primary">check_circle</div>
+                        ) : (
+                           <button
+                              className="btn text-sm"
+                              onClick={() => {
+                                 if (isDemo) {
+                                    showError("This feature is not available in free demo.");
+                                    return;
+                                 }
+                                 showPanel(ConfirmModal, {
+                                    title: "Load A New Scenario",
+                                    message:
+                                       "This will end your current run and rebirth you into the selected scenario. Are you sure?",
+                                    confirm: {
+                                       label: "Rebirth And Load",
+                                       class: "text-primary",
+                                       onClick: async () => {
+                                          const province = getDefaultProvinceForScenario(key);
+                                          if (province) {
+                                             showLoading();
+                                             rebirth(province, G.save);
+                                             if (legacyPointsNextRun.value >= 10) {
+                                                unlockAchievement("Rebirth");
+                                             }
+                                             G.save.options.flag = setFlag(
+                                                G.save.options.flag,
+                                                GameOptionFlag.HideTutorial,
+                                             );
+                                             await saveGame(G.save);
+                                             const params = new URLSearchParams(window.location.search);
+                                             params.set("next", "rebirth");
+                                             window.location.search = params.toString();
                                           }
-                                          G.save.options.flag = setFlag(
-                                             G.save.options.flag,
-                                             GameOptionFlag.HideTutorial,
-                                          );
-                                          await saveGame(G.save);
-                                          const params = new URLSearchParams(window.location.search);
-                                          params.set("next", "rebirth");
-                                          window.location.search = params.toString();
-                                       }
+                                       },
                                     },
-                                 },
-                              });
-                           }}
-                        >
-                           Load
-                        </button>
-                     )}
+                                 });
+                              }}
+                           >
+                              Load
+                           </button>
+                        )}
+                     </div>
                   </div>
+                  <div className="text-dimmed text-sm m10">{scenario.desc()}</div>
                </div>
-               <div className="text-dimmed text-sm m10">{scenario.desc()}</div>
-            </div>
-         ))}
+            );
+         })}
          <div className="h1">{$t(L.NextRunProvince)}</div>
          <FloatingTip label={() => $t(L.CurrentlyUnderDevelopmentMoreProvincesWillBeAddedSoon)}>
             <div className="mx10 my5">

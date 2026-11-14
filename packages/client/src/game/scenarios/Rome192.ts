@@ -6,9 +6,9 @@ import { getCulturesFromProvinces, getReligionsFromProvinces } from "./ScenarioH
 import type { IScenario } from "./Scenarios";
 
 export const Rome192: IScenario = {
-   name: () => "Rome in Turmoil",
+   name: () => "Third Century Crisis",
    desc: () =>
-      "Emperor Commodus has been assassinated, plunging the Roman Empire into chaos as rival ambitions threaten to tear apart the imperial order.",
+      "Emperor Commodus has been assassinated, unleashing a struggle for the throne and foreshadowing a century of civil war, invasion, and imperial upheaval.",
    startDate: new Date(192, 11, 31),
    provinces: new Set(RomanEmpireProvinces),
    cultures: new Set([...getCulturesFromProvinces(RomanEmpireProvinces), "Hunnic", "Steppe"]),
