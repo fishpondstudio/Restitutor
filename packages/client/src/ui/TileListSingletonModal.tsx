@@ -173,9 +173,8 @@ const TileListHeader = memo(function TileListHeader({
          <th>
             <Popover width={250} position="bottom-start" withOverlay>
                <Popover.Target>
-                  <button className="btn">
+                  <button className="btn p2">
                      <div className="mi sm">sort</div>
-                     {sortColumn === "name" ? sortIcon : null}
                   </button>
                </Popover.Target>
                <Popover.Dropdown className="panel p0">
@@ -205,7 +204,8 @@ const TileListHeader = memo(function TileListHeader({
                      />
                   </div>
                   <div className="h5" />
-               </Popover.Dropdown>
+               </Popover.Dropdown>{" "}
+               {sortColumn === "name" ? sortIcon : null}
             </Popover>
          </th>
          <th>{columnLabel($t(L.Core), "core")}</th>
