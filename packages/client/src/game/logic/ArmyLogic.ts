@@ -383,6 +383,16 @@ export function getWarPower(
          });
       }
    }
+   if (hasProvinceUpgrade("SkilledCommand", province, save)) {
+      const generalSkill =
+         getProvinceStat("infantrySkill", province, save) +
+         getProvinceStat("rangedSkill", province, save) +
+         getProvinceStat("cavalrySkill", province, save);
+      result.multiply.push({
+         name: ProvinceUpgrades.SkilledCommand.name(),
+         value: Math.min(generalSkill * 0.03, 0.3),
+      });
+   }
    if (hasProvinceUpgrade("ExperiencedCommand", province, save)) {
       const generalSkill =
          getProvinceStat("infantrySkill", province, save) +

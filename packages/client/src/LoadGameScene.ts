@@ -2,7 +2,7 @@ import { clearFlag, setFlag } from "@project/shared/src/utils/Helper";
 import { unlockAchievement } from "./game/Achievement.ts";
 import { RetailSteamId } from "./game/definitions/Constant.ts";
 import { type Province, Provinces } from "./game/definitions/Province";
-import { OpenDiplomacyPage, OpenSettleTilePage, OpenTilePage } from "./game/Events";
+import { GameStateUpdated, OpenDiplomacyPage, OpenSettleTilePage, OpenTilePage } from "./game/Events";
 import { GameOptionFlag } from "./game/GameOption";
 import { isMobilePurchased } from "./game/Mobile.ts";
 import { isMobilePlatform } from "./game/NativeUtils.ts";
@@ -12,6 +12,7 @@ import { WorldScene } from "./scenes/WorldScene";
 import { showPanel } from "./ui/common/ShowPanel";
 import { DiplomacyPage } from "./ui/DiplomacyPage";
 import { LegacyUpgradeSingletonModal } from "./ui/LegacyUpgradeSingletonModal";
+import { RebirthPage } from "./ui/RebirthPage.tsx";
 import { SettleTilePage } from "./ui/SettleTilePage";
 import { TilePage } from "./ui/TilePage";
 import { G, GameFlags, setSpeed } from "./utils/Global";
@@ -41,6 +42,7 @@ export function loadGameScene() {
       SteamClient.getAppId().then((steamId) => {
          if (steamId === RetailSteamId) {
             G.flags = clearFlag(G.flags, GameFlags.Demo);
+            GameStateUpdated.emit();
          }
       });
    }
@@ -49,12 +51,21 @@ export function loadGameScene() {
       isMobilePurchased().then((purchased) => {
          if (purchased) {
             G.flags = clearFlag(G.flags, GameFlags.Demo);
+            GameStateUpdated.emit();
          }
       });
    }
 
    if (G.params.has("legacy")) {
       showPanel(LegacyUpgradeSingletonModal, {});
+   }
+
+   if (G.params.has("rebirth")) {
+      showPanel(RebirthPage, {});
+   }
+
+   if (G.params.get("next")?.toLowerCase() === "rebirth") {
+      showPanel(RebirthPage, {});
    }
 
    if (G.save.options.rebirthHistory.length > 0) {

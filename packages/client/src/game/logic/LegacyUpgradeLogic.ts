@@ -18,12 +18,12 @@ import {
 } from "../actions/GameAction";
 import { type LegacyUpgrade, LegacyUpgrades } from "../definitions/LegacyUpgrade";
 import { Modifiers, modifierValueToString } from "../definitions/Modifier";
-import type { Province } from "../definitions/Province";
+import { Province } from "../definitions/Province";
 import type { ProvinceResources } from "../definitions/ProvinceResources";
 import { getResourceName } from "../definitions/ProvinceResources";
 import type { ProvinceStats } from "../definitions/ProvinceStats";
 import { createSaveGame, type SaveGame } from "../GameState";
-import type { Scenario } from "../scenarios/Scenarios";
+import { type Scenario, Scenarios } from "../scenarios/Scenarios";
 import { getTilesAnnexedAndCored } from "./ProvinceLogic";
 import { addProvinceResource, getProvinceResource, provinceResourceOf } from "./ResourceLogic";
 
@@ -79,7 +79,29 @@ export function makeLegacyUpgradeNodes(province: Province, save: SaveGame): { no
    return { nodes, edges };
 }
 
+function getScenarioForProvince(province: Province): Scenario | null {
+   for (const [key, scenario] of entriesOf(Scenarios)) {
+      if (scenario.provinces.has(province)) {
+         return key;
+      }
+   }
+   return null;
+}
+
+export function getDefaultProvinceForScenario(scenario: Scenario): Province | null {
+   for (const province of Scenarios[scenario].provinces) {
+      if (Province[province].upgrades.length > 0) {
+         return province;
+      }
+   }
+   return null;
+}
+
 export function rebirth(province: Province, save: SaveGame): void {
+   const scenario = getScenarioForProvince(province);
+   if (!scenario) {
+      return;
+   }
    const newLegacyPoints = getLegacyPointsNextRun(save);
    // New legacy points should be calculated BEFORE adding rebirth history
    // because of the "Personal Best Bonus"
@@ -87,7 +109,7 @@ export function rebirth(province: Province, save: SaveGame): void {
    if (rebirthHistory) {
       save.options.rebirthHistory.unshift(rebirthHistory);
    }
-   const newSave = createSaveGame({ scenario: save.state.scenario, province: province });
+   const newSave = createSaveGame({ scenario, province });
    addProvinceResource("legacy", newLegacyPoints.value, province, newSave);
    save.state = newSave.state;
 }

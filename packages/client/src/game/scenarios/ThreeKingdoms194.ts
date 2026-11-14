@@ -6,6 +6,9 @@ import { getCulturesFromProvinces, getReligionsFromProvinces } from "./ScenarioH
 import type { IScenario } from "./Scenarios";
 
 export const ThreeKingdoms194: IScenario = {
+   name: () => "Rise of the Warlords",
+   desc: () =>
+      "The Han court’s authority is crumbling, and rival warlords seize territory across China as centuries of imperial rule give way to division and war.",
    startDate: new Date(194, 6, 1),
    provinces: new Set(TKWarlords),
    cultures: getCulturesFromProvinces(TKWarlords),

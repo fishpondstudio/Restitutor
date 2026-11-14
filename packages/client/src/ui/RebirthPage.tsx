@@ -1,32 +1,38 @@
 import { Select } from "@mantine/core";
-import { cls, hasFlag, setFlag } from "@project/shared/src/utils/Helper";
+import { cls, entriesOf, hasFlag, setFlag } from "@project/shared/src/utils/Helper";
 import { Fragment, useState } from "react";
 import { unlockAchievement } from "../game/Achievement";
 import { Culture } from "../game/definitions/Culture";
 import { AlwaysFreeProvinces, Province } from "../game/definitions/Province";
 import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { Religion } from "../game/definitions/Religion";
+import { GameStateUpdated } from "../game/Events";
 import { getAllEvents } from "../game/events/GameEventLogic";
 import { GameEvents } from "../game/events/GameEvents";
 import { GameOptionFlag } from "../game/GameOption";
 import { saveGame } from "../game/LoadSave";
 import { showError } from "../game/logic/AlertLogic";
-import { getLegacyPointsNextRun, rebirth } from "../game/logic/LegacyUpgradeLogic";
+import { getDefaultProvinceForScenario, getLegacyPointsNextRun, rebirth } from "../game/logic/LegacyUpgradeLogic";
 import { getProvinceName, getProvinceOriginalGreatWorks } from "../game/logic/ProvinceLogic";
 import { purchaseMobile, restorePurchaseMobile } from "../game/Mobile";
 import { isMobilePlatform } from "../game/NativeUtils";
 import { Scenarios } from "../game/scenarios/Scenarios";
 import { WorldScene } from "../scenes/WorldScene";
 import { G, GameFlags } from "../utils/Global";
+import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { BreakdownComp } from "./BreakdownComp";
+import { ConfirmModal } from "./ConfirmModal";
+import { showPanel } from "./common/ShowPanel";
 import { SidebarComp, SidebarImageHeader } from "./common/SidebarComp";
 import { FloatingTip } from "./components/FloatingTip";
+import { showLoading } from "./components/LoadingComp";
 import { GreatWorkComponent } from "./GreatWorkComponent";
 import { HeaderImages } from "./HeaderImages";
 import { renderMarkup } from "./ParseMarkup";
 
 export function RebirthPage(): React.ReactNode {
+   refreshOnTypedEvent(GameStateUpdated);
    const [province, setProvince] = useState(G.save.state.playerProvince);
    const scenario = Scenarios[G.save.state.scenario];
    const provincialEvents = Array.from(getAllEvents(G.save.state.scenario)).filter((event) =>
@@ -74,6 +80,61 @@ export function RebirthPage(): React.ReactNode {
                </div>
             </>
          )}
+         <div className="h1">Scenario</div>
+         {entriesOf(Scenarios).map(([key, scenario]) => (
+            <div className={cls("box m10", G.save.state.scenario === key ? "primary" : "")} key={key}>
+               <div className="h3 row text-display">
+                  <div className={cls("f1", G.save.state.scenario === key ? "text-primary" : "")}>
+                     {scenario.name()}
+                  </div>
+                  <div>
+                     {G.save.state.scenario === key ? (
+                        <div className="mi sm text-primary">check_circle</div>
+                     ) : (
+                        <button
+                           className="btn text-sm"
+                           onClick={() => {
+                              if (isDemo) {
+                                 showError("This feature is not available in free demo.");
+                                 return;
+                              }
+                              showPanel(ConfirmModal, {
+                                 title: "Load A New Scenario",
+                                 message:
+                                    "This will end your current run and rebirth you into the selected scenario. Are you sure?",
+                                 confirm: {
+                                    label: "Rebirth And Load",
+                                    class: "text-primary",
+                                    onClick: async () => {
+                                       const province = getDefaultProvinceForScenario(key);
+                                       if (province) {
+                                          showLoading();
+                                          rebirth(province, G.save);
+                                          if (legacyPointsNextRun.value >= 10) {
+                                             unlockAchievement("Rebirth");
+                                          }
+                                          G.save.options.flag = setFlag(
+                                             G.save.options.flag,
+                                             GameOptionFlag.HideTutorial,
+                                          );
+                                          await saveGame(G.save);
+                                          const params = new URLSearchParams(window.location.search);
+                                          params.set("next", "rebirth");
+                                          window.location.search = params.toString();
+                                       }
+                                    },
+                                 },
+                              });
+                           }}
+                        >
+                           Load
+                        </button>
+                     )}
+                  </div>
+               </div>
+               <div className="text-dimmed text-sm m10">{scenario.desc()}</div>
+            </div>
+         ))}
          <div className="h1">{$t(L.NextRunProvince)}</div>
          <FloatingTip label={() => $t(L.CurrentlyUnderDevelopmentMoreProvincesWillBeAddedSoon)}>
             <div className="mx10 my5">
@@ -195,6 +256,7 @@ export function RebirthPage(): React.ReactNode {
                   if (isDemo && !AlwaysFreeProvinces.has(province)) {
                      return;
                   }
+                  showLoading();
                   rebirth(province, G.save);
                   if (legacyPointsNextRun.value >= 10) {
                      unlockAchievement("Rebirth");

@@ -514,7 +514,7 @@ const _Province = {
       ],
       culture: "CentralHan",
       religion: "Confucianism",
-      upgrades: [],
+      upgrades: ["ConscriptionTaxation", "WartimeUnity", "WartimeAdministration"],
    },
    YuanShao: {
       code: "YS",
@@ -525,7 +525,7 @@ const _Province = {
       ],
       culture: "CentralHan",
       religion: "Confucianism",
-      upgrades: [],
+      upgrades: ["DevelopedTaxation", "DevelopedRecruitment", "ExpandedDiplomacy"],
    },
    CaoCao: {
       code: "CC",
@@ -543,7 +543,7 @@ const _Province = {
       tiles: [14942294, 14942295, 15007829, 15007830, 15007831],
       culture: "CentralHan",
       religion: "Confucianism",
-      upgrades: [],
+      upgrades: ["StableRecruitment", "ExpandedDiplomacy", "TriumphalUnity"],
    },
    LiuBiao: {
       code: "LP",
@@ -727,7 +727,7 @@ const _Province = {
       tiles: [14876757, 14942292, 14942293, 15007827, 15007828],
       culture: "CentralHan",
       religion: "Confucianism",
-      upgrades: [],
+      upgrades: ["SkilledCommand", "BornCommanders", "VictoriousLeadership"],
    },
    YanBaihu: {
       code: "YB",

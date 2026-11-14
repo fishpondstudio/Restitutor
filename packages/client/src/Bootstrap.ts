@@ -96,6 +96,12 @@ export async function bootstrap(): Promise<void> {
       window.history.replaceState(window.history.state, "", `${window.location.pathname}?${params.toString()}`);
    }
 
+   if (G.params.has("next")) {
+      const params = new URLSearchParams(location.search);
+      params.delete("next");
+      window.history.replaceState(window.history.state, "", `${window.location.pathname}?${params.toString()}`);
+   }
+
    try {
       G.save = await loadGame();
       migrateSave(G.save);

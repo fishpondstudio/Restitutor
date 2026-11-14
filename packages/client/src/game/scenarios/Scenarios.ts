@@ -11,6 +11,8 @@ import type { ScenarioFlag } from "./ScenarioFlags";
 import { ThreeKingdoms194 } from "./ThreeKingdoms194";
 
 export interface IScenario {
+   name: () => string;
+   desc: () => string;
    startDate: Date;
    provinces: Set<Province>;
    cultures: Set<Culture>;
