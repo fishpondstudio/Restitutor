@@ -5441,4 +5441,11 @@ export const DE = {
    CultureJingChu: "Jing-Chu",
    CultureWuYue: "Wu-Yue",
    CultureJiaozhi: "Jiaozhi",
+   TileName: "Gebietsname",
+   UpgradeCount: "Aufwertungsvorgänge",
+   SortBy: "Sortieren nach",
+   SortOrder: "Sortierreihenfolge",
+   Ascending: "Aufsteigend",
+   Descending: "Absteigend",
+   GoverningCostAbbr: "VK",
 };

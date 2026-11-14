@@ -5394,4 +5394,11 @@ export const FR = {
    CultureJingChu: "Jing-Chu",
    CultureWuYue: "Wu-Yue",
    CultureJiaozhi: "Jiaozhi",
+   TileName: "Tile Name",
+   UpgradeCount: "Upgrade Count",
+   SortBy: "Sort By",
+   SortOrder: "Sort Order",
+   Ascending: "Ascending",
+   Descending: "Descending",
+   GoverningCostAbbr: "GC",
 };

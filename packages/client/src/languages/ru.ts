@@ -5320,4 +5320,11 @@ export const RU = {
    CultureJingChu: "Цзин-Чу",
    CultureWuYue: "У-Юэ",
    CultureJiaozhi: "Цзяочжи",
+   TileName: "Название владения",
+   UpgradeCount: "Количество улучшений",
+   SortBy: "Сортировать по",
+   SortOrder: "Порядок сортировки",
+   Ascending: "По возрастанию",
+   Descending: "По убыванию",
+   GoverningCostAbbr: "СУ",
 };

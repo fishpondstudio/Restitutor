@@ -5103,4 +5103,11 @@ export const ZH_CN = {
    CultureJingChu: "荆楚",
    CultureWuYue: "吴越",
    CultureJiaozhi: "交趾",
+   TileName: "地块名称",
+   UpgradeCount: "升级次数",
+   SortBy: "排序依据",
+   SortOrder: "排序顺序",
+   Ascending: "升序",
+   Descending: "降序",
+   GoverningCostAbbr: "治理费",
 };
