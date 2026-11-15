@@ -1,5 +1,5 @@
 import { finalizeCondition, type ICondition, type IGameAction } from "../game/actions/GameAction";
-import { type CharacterSlot, getCharacterAssignmentLabel } from "../game/definitions/GovernmentTier";
+import type { CharacterSlot } from "../game/definitions/GovernmentTier";
 import { GameStateUpdated } from "../game/Events";
 import {
    assignTKCharacter,
@@ -17,7 +17,6 @@ import { Grid2 } from "./UIConstant";
 export function SelectCharacterSlotModal({ slot }: { slot: CharacterSlot }): React.ReactNode {
    return (
       <SelectCharacterModal
-         selectLabel={getCharacterAssignmentLabel(slot)}
          conditions={(character) =>
             getCharacterAssignmentConditions(slot, character, G.save.state.playerProvince, G.save)
          }
@@ -33,11 +32,9 @@ export function SelectCharacterSlotModal({ slot }: { slot: CharacterSlot }): Rea
 export function SelectCharacterModal({
    conditions,
    onSelected,
-   selectLabel = "Select",
 }: {
    conditions: (character: TKCharacter) => ICondition[];
    onSelected: (character: TKCharacter) => void;
-   selectLabel?: string;
 }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const state = G.save.state.provinces[G.save.state.playerProvince];
@@ -54,7 +51,7 @@ export function SelectCharacterModal({
                   <div className="box row g5" key={character}>
                      <TKCharacterComp character={character} />
                      <ActionButton
-                        className="btn mr10"
+                        className="btn p2 mr10"
                         action={() => {
                            return {
                               condition: finalizeCondition(conditions(character)),
@@ -65,7 +62,7 @@ export function SelectCharacterModal({
                            } satisfies IGameAction;
                         }}
                      >
-                        {selectLabel}
+                        <div className="mi sm">arrow_forward</div>
                      </ActionButton>
                   </div>
                );

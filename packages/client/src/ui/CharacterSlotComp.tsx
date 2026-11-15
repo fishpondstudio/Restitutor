@@ -1,9 +1,5 @@
 import { finalizeCondition } from "../game/actions/GameAction";
-import {
-   type CharacterSlot,
-   getCharacterAssignmentLabel,
-   getCharacterUnassignmentLabel,
-} from "../game/definitions/GovernmentTier";
+import { type CharacterSlot, getCharacterUnassignmentLabel } from "../game/definitions/GovernmentTier";
 import { GameStateUpdated } from "../game/Events";
 import {
    getCharacterInSlot,
@@ -40,12 +36,6 @@ export function CharacterSlotComp({ slot }: { slot: CharacterSlot }): React.Reac
             <div className="mr10 col g5">
                <ActionButton
                   className="btn p2"
-                  tooltip={(conditions) => (
-                     <>
-                        <div className="m10">{getCharacterAssignmentLabel(slot)}</div>
-                        {conditions}
-                     </>
-                  )}
                   action={() => ({
                      condition: finalizeCondition([
                         getCharacterSlotCapacityCondition(slot, G.save.state.playerProvince, G.save),

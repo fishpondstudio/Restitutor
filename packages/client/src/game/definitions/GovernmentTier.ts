@@ -50,11 +50,6 @@ const _CharacterSlots = {
 export type CharacterSlot = keyof typeof _CharacterSlots;
 export const CharacterSlots: Record<CharacterSlot, ICharacterSlot> = _CharacterSlots;
 
-export function getCharacterAssignmentLabel(slot: CharacterSlot): string {
-   const { type } = CharacterSlots[slot];
-   return type === "AncestralTemple" ? "Enshrine" : `Appoint ${type}`;
-}
-
 export function getCharacterUnassignmentLabel(slot: CharacterSlot): string {
    return CharacterSlots[slot].type === "AncestralTemple" ? "Remove from Temple" : "Relieve of Duties";
 }

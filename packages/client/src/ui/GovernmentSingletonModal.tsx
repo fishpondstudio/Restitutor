@@ -4,12 +4,7 @@ import { Fragment } from "react/jsx-runtime";
 import { finalizeCondition } from "../game/actions/GameAction";
 import { SetGovernmentFocusAction } from "../game/actions/SetGovernmentFocusAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
-import {
-   CharacterSlots,
-   getAdvisorSlots,
-   getCharacterAssignmentLabel,
-   getCharacterUnassignmentLabel,
-} from "../game/definitions/GovernmentTier";
+import { CharacterSlots, getAdvisorSlots, getCharacterUnassignmentLabel } from "../game/definitions/GovernmentTier";
 import { Modifiers } from "../game/definitions/Modifier";
 import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
 import type { GovernorPower } from "../game/definitions/ProvinceResources";
@@ -146,12 +141,6 @@ function AdvisorCharacterComp(): React.ReactNode {
                      <div className="row m5 g5 text-sm">
                         <ActionButton
                            className="btn p2"
-                           tooltip={(conditions) => (
-                              <>
-                                 <div className="m10">{getCharacterAssignmentLabel(slotKey)}</div>
-                                 {conditions}
-                              </>
-                           )}
                            action={() => ({
                               condition: finalizeCondition([
                                  getCharacterSlotCapacityCondition(slotKey, G.save.state.playerProvince, G.save),
