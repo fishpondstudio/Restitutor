@@ -21,6 +21,7 @@ export const Overlays = {
    Culture: () => $t(L.Culture),
    Religion: () => $t(L.Religion),
    GreatWorks: () => $t(L.GreatWorks),
+   CoreTiles: () => $t(L.Core),
 } as const satisfies Record<string, () => string>;
 
 export type OverlayType = keyof typeof Overlays;

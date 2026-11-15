@@ -264,6 +264,21 @@ export class WorldScene extends Scene {
          this._drawWarProgress();
          const overlay = getOverlay();
          switch (overlay) {
+            case "CoreTiles": {
+               for (const [tile, tileData] of G.save.state.tiles) {
+                  const visual = this._overlayContainer.map.get(tile) as Sprite | undefined;
+                  if (tileData.coreProvinces.has(G.save.state.playerProvince)) {
+                     if (visual) {
+                        visual.tint = getMapForegroundColor(tileData.province, G.save);
+                     } else {
+                        this._renderOverlay(tile);
+                     }
+                  } else {
+                     this._overlayContainer.map.delete(tile);
+                  }
+               }
+               break;
+            }
             case "Culture":
             case "Religion": {
                for (const [tile, tileData] of G.save.state.tiles) {
@@ -382,6 +397,19 @@ export class WorldScene extends Scene {
       const { x, y } = MapGrid.gridToPosition(tileToPoint(tile));
       const overlay = getOverlay();
       switch (overlay) {
+         case "CoreTiles": {
+            if (tileData.coreProvinces.has(G.save.state.playerProvince)) {
+               const visual = new Sprite(G.textures.get("Misc/Core"));
+               this._overlayContainer.map.set(tile, visual);
+               visual.anchor.set(0.5);
+               visual.position.set(x, y);
+               visual.scale.set(0.5);
+               visual.tint = getMapForegroundColor(tileData.province, G.save);
+            } else {
+               this._overlayContainer.map.delete(tile);
+            }
+            break;
+         }
          case "Culture":
          case "Religion": {
             const code = overlay === "Culture" ? Culture[tileData.culture].code : Religion[tileData.religion].code;
