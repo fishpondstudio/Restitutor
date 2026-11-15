@@ -13,6 +13,11 @@ Added Dominion Points (DP), replacing cooldowns for coring, pillaging, cultural 
 - Reorganized the infiltration and trade-attitude legacy branches around the new Dominion upgrades. Some upgrades now require additional prerequisites.
 - Dismissing a general now starts a 5-year General Appointment cooldown for both recruiting a new general and appointing the governor as general.
 
+## QoL
+
+- Tiles & Upgrades table is now sortable.
+- Add a new map overlay that shows tiles that you have core claims on.
+
 ## Bugfixes
 
 - Game events with no available options now provide a default acknowledgement option.
