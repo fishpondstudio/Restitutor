@@ -18,7 +18,7 @@ import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
    getCharacterInSlot,
    getCharacterSlotCapacityCondition,
-   getTKCharacterTierToCost,
+   getTKCharacterAdvisorMonthlyCost,
    getTKCharacterTierToPower,
    unassignTKCharacter,
 } from "../game/logic/TKCharacterLogic";
@@ -128,6 +128,9 @@ function AdvisorCharacterComp(): React.ReactNode {
                   return null;
                }
                const advisor = getCharacterInSlot(G.save.state.playerProvince, slotKey, G.save);
+               const monthlyCost = advisor
+                  ? getTKCharacterAdvisorMonthlyCost(advisor, G.save.state.playerProvince, G.save)
+                  : undefined;
                return (
                   <div className="box" key={slotKey}>
                      {advisor ? (
@@ -162,26 +165,28 @@ function AdvisorCharacterComp(): React.ReactNode {
                            <div className="f1" />
                         )}
                      </div>
-                     {advisor && (
-                        <div className="row m5 g5 text-sm">
-                           <button
-                              className="btn p2"
-                              title={getCharacterUnassignmentLabel(slotKey)}
-                              onClick={() => {
-                                 if (unassignTKCharacter(advisor, G.save.state.playerProvince, G.save)) {
-                                    GameStateUpdated.emit();
-                                 }
-                              }}
-                           >
-                              <div className="mi xs text-red">delete</div>
-                           </button>
-                           <div>{Modifiers.MonthlyGold.name()}</div>
-                           <div>
-                              <img src={ProvinceResourceImages.gold} className="icon-block dimmed" />
+                     {advisor && monthlyCost && (
+                        <BreakdownTooltip breakdown={monthlyCost}>
+                           <div className="row m5 g5 text-sm">
+                              <button
+                                 className="btn p2"
+                                 title={getCharacterUnassignmentLabel(slotKey)}
+                                 onClick={() => {
+                                    if (unassignTKCharacter(advisor, G.save.state.playerProvince, G.save)) {
+                                       GameStateUpdated.emit();
+                                    }
+                                 }}
+                              >
+                                 <div className="mi xs text-red">delete</div>
+                              </button>
+                              <div>{Modifiers.MonthlyGold.name()}</div>
+                              <div>
+                                 <img src={ProvinceResourceImages.gold} className="icon-block dimmed" />
+                              </div>
+                              <div className="f1" />
+                              <div>{formatNumber(-monthlyCost.value)}</div>
                            </div>
-                           <div className="f1" />
-                           <div>{-getTKCharacterTierToCost(TKCharacters[advisor].tier)}</div>
-                        </div>
+                        </BreakdownTooltip>
                      )}
                   </div>
                );

@@ -23,6 +23,7 @@ import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { addProvinceResource, getProvinceResource } from "../game/logic/ResourceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
+import { isTKCharacterAlive } from "../game/logic/TKCharacterLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { ActionButton } from "./ActionButton";
@@ -35,6 +36,7 @@ import { HeaderImages } from "./HeaderImages";
 import { NullifyTruceModal } from "./NullifyTruceModal";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
 import { TimedActionButton } from "./TimedActionButton";
+import { TKCharacterComp } from "./TKCharacterComp";
 import { Grid1, Grid2 } from "./UIConstant";
 
 export function ImperialCourtPage(): React.ReactNode {
@@ -44,6 +46,7 @@ export function ImperialCourtPage(): React.ReactNode {
       return null;
    }
    const slots = getAncestralTempleSlots();
+   const ruler = state.governor.male.character;
    const requestFavorProvinces = keysOf(G.save.state.provinces).filter(
       (p) =>
          p !== G.save.state.playerProvince &&
@@ -194,6 +197,14 @@ export function ImperialCourtPage(): React.ReactNode {
          })}
          {requestFavorProvinces.length === 0 && (
             <div className="m10 text-dimmed">No court connections available to enlist support</div>
+         )}
+         {ruler !== undefined && isTKCharacterAlive(ruler, G.save) && (
+            <>
+               <div className="h1">Ruler</div>
+               <div className="box m10">
+                  <TKCharacterComp character={ruler} />
+               </div>
+            </>
          )}
          <div className="h1 row g5">
             <div className="f1">Ancestral Temple</div>

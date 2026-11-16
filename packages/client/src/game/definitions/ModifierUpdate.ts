@@ -6,6 +6,8 @@ import { isGreatWorkCompleted } from "../logic/GreatWorkLogic";
 import { ensureValidModifiers } from "../logic/ModifierLogic";
 import { isSocialClassDisloyal, isSocialClassDominant } from "../logic/SocialClassLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
+import { getProvinceAssignedCharacters, getTKCharacterName, isTKCharacterAlive } from "../logic/TKCharacterLogic";
+import { TKCharacters } from "../ThreeKingdoms/TKCharacter";
 import { GreatWork } from "./GreatWork";
 import { LegacyUpgrades } from "./LegacyUpgrade";
 import { type IPersonTrait, PersonTrait } from "./PersonTrait";
@@ -75,6 +77,20 @@ function updateModifier(): void {
             });
          }
       });
+      const characters = new Set(getProvinceAssignedCharacters(province, G.save).map(([, character]) => character));
+      const ruler = state.governor.male.character;
+      if (ruler !== undefined && isTKCharacterAlive(ruler, G.save)) {
+         characters.add(ruler);
+      }
+      for (const character of characters) {
+         forEach(TKCharacters[character].modifiers, (modifier, data) => {
+            safePush(state.dynamicModifiers, modifier, {
+               type: data.type,
+               value: data.value,
+               name: getTKCharacterName(character).fullName,
+            });
+         });
+      }
       state.timedActions.forEach((_, timedAction) => {
          const timeLeft = getTimedActionTimeLeft(timedAction, province, G.save);
          if (timeLeft <= 0) {

@@ -72,8 +72,8 @@ import {
 import { startTimedAction } from "./TimedActionLogic";
 import {
    getProvinceAssignedCharacters,
+   getTKCharacterAdvisorMonthlyCost,
    getTKCharacterName,
-   getTKCharacterTierToCost,
    getTKCharacterTierToPower,
 } from "./TKCharacterLogic";
 import { getProvinceTrades } from "./TradeLogic";
@@ -538,7 +538,7 @@ function _getProvinceIncome(
    });
    for (const [slot, character] of getProvinceAssignedCharacters(province, save)) {
       if (CharacterSlots[slot].type === "Advisor") {
-         advisorCost += getTKCharacterTierToCost(TKCharacters[character].tier);
+         advisorCost += getTKCharacterAdvisorMonthlyCost(character, province, save).value;
       }
    }
    expense.add.push({ name: $t(L.AdvisorCost), value: -advisorCost });

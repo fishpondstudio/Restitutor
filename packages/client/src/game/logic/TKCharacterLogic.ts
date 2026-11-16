@@ -1,4 +1,5 @@
-import type { ICondition } from "../actions/GameAction";
+import { $t, L } from "../../utils/i18n";
+import { finalizeBreakdown, type ICondition, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import type { IFamily } from "../definitions/Family";
 import { type CharacterSlot, CharacterSlots, GovernmentTier } from "../definitions/GovernmentTier";
 import type { Province } from "../definitions/Province";
@@ -9,6 +10,7 @@ import type { ITKCharacterState } from "../ThreeKingdoms/TKCharacterState";
 import { type TKWarlord, TKWarlordCharacters } from "../ThreeKingdoms/TKWarlord";
 import { clearAllCaches, getProvinceTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
+import { attachModifier } from "./ModifierLogic";
 import { requireScenarioFlagCondition } from "./ScenarioLogic";
 
 export function getTKCharacterState(character: TKCharacter, save: SaveGame): Readonly<ITKCharacterState> | null {
@@ -59,6 +61,17 @@ export function isTKCharacterUnaffiliated(character: TKCharacter, save: SaveGame
 export function isTKCharacterUnassigned(character: TKCharacter, save: SaveGame): boolean {
    const state = getTKCharacterState(character, save);
    return state !== null && (state.placement === null || state.placement.slot === null);
+}
+
+export function isTKCharacterRulingOrAssigned(character: TKCharacter, save: SaveGame): boolean {
+   const state = getTKCharacterState(character, save);
+   if (!state?.placement || !save.state.provinces[state.placement.province]) {
+      return false;
+   }
+   return (
+      state.placement.slot != null ||
+      (isTKCharacterRuler(character, state.placement.province, save) && state.monthsLeft > 0)
+   );
 }
 
 function isCharacterInFamily(character: TKCharacter, family: IFamily): boolean {
@@ -148,8 +161,22 @@ export function getTKCharacterTierToPercentage(tier: TKCharacterTier): number {
    }
 }
 
-export function getTKCharacterTierToCost(tier: TKCharacterTier): number {
+function getTKCharacterTierToCost(tier: TKCharacterTier): number {
    return 2 ** (getTKCharacterTierToPower(tier) - 1) * 10;
+}
+
+export function getTKCharacterAdvisorMonthlyCost(
+   character: TKCharacter,
+   province: Province,
+   save: SaveGame,
+): IValueBreakdown {
+   const breakdown = makeValueBreakdown({ reverse: true });
+   breakdown.add.push({
+      name: $t(L.BaseCost),
+      value: getTKCharacterTierToCost(TKCharacters[character].tier),
+   });
+   attachModifier("AdvisorCost", breakdown, province, save);
+   return finalizeBreakdown(breakdown);
 }
 
 export function isTKCharacterRuler(character: TKCharacter, province: Province, save: SaveGame): boolean {
