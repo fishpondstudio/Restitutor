@@ -1,7 +1,12 @@
 import { fromEntries } from "@project/shared/src/utils/Helper";
 import { Province } from "../../definitions/Province";
 import type { ConditionChecks } from "../../logic/Calculation";
-import { allyCountChecks, minCoreTileChecks, setProvinceNameOverrideEffect } from "../../logic/MissionLogic";
+import {
+   allyCountChecks,
+   changeGovernmentTierEffect,
+   minCoreTileChecks,
+   setProvinceNameOverrideEffect,
+} from "../../logic/MissionLogic";
 import { isGreatPowerChecks } from "../../logic/ProvinceLogic";
 import { TKWarlords } from "../../ThreeKingdoms/TKWarlord";
 import { EventImage } from "../EventImages";
@@ -102,16 +107,19 @@ export const ThreeKingdomsMissionEvents = {
             label: () => "Empower every branch of government",
             resources: { administrative: 25, diplomatic: 25, military: 25 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
+            custom: [changeGovernmentTierEffect("Tier2")],
          },
          {
             label: () => "Seek imperial recognition",
             resources: { consulPoint: 2 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
+            custom: [changeGovernmentTierEffect("Tier2")],
          },
          {
             label: () => "Affirm our right to govern",
             resources: { mandate: 1 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
+            custom: [changeGovernmentTierEffect("Tier2")],
          },
       ],
    },
@@ -130,16 +138,19 @@ export const ThreeKingdomsMissionEvents = {
             label: () => "Establish regional civil offices",
             resources: { administrative: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 100 } },
+            custom: [changeGovernmentTierEffect("Tier3")],
          },
          {
             label: () => "Strengthen diplomatic administration",
             resources: { diplomatic: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 100 } },
+            custom: [changeGovernmentTierEffect("Tier3")],
          },
          {
             label: () => "Organize regional military commands",
             resources: { military: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 100 } },
+            custom: [changeGovernmentTierEffect("Tier3")],
          },
       ],
    },
@@ -159,6 +170,7 @@ export const ThreeKingdomsMissionEvents = {
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
             },
+            custom: [changeGovernmentTierEffect("Tier4")],
          },
          {
             label: () => "Reform the land tax registers",
@@ -166,6 +178,7 @@ export const ThreeKingdomsMissionEvents = {
                GoverningCapacity: { type: "add", value: 100 },
                LandTax: { type: "multiply", value: 0.1 },
             },
+            custom: [changeGovernmentTierEffect("Tier4")],
          },
          {
             label: () => "Develop the resources of our domain",
@@ -173,6 +186,7 @@ export const ThreeKingdomsMissionEvents = {
                GoverningCapacity: { type: "add", value: 100 },
                TileOutput: { type: "multiply", value: 0.1 },
             },
+            custom: [changeGovernmentTierEffect("Tier4")],
          },
       ],
    },

@@ -3,6 +3,7 @@ import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
 import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Culture } from "../definitions/Culture";
+import { GovernmentTier } from "../definitions/GovernmentTier";
 import { durationToString } from "../definitions/Modifier";
 import { Province } from "../definitions/Province";
 import { type ProvinceNameOverride, ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
@@ -131,6 +132,18 @@ export function annexTileEffect(tile: Tile, core: boolean): ICustomEffect {
             : $t(L.$1Annexes$2, getProvinceName(province, save), getTileName(tile, save)),
       execute: (province, save) => {
          annexTiles({ tiles: [tile], core, province, save });
+      },
+   };
+}
+
+export function changeGovernmentTierEffect(tier: GovernmentTier): ICustomEffect {
+   return {
+      desc: (province, save) => `Our rank is now ${GovernmentTier[tier].name()}`,
+      execute: (province, save) => {
+         const state = save.state.provinces[province];
+         if (state && GovernmentTier[tier].slots > GovernmentTier[state.tier].slots) {
+            state.tier = tier;
+         }
       },
    };
 }
