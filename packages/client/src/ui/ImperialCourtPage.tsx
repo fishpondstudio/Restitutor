@@ -1,8 +1,8 @@
 import { Select } from "@mantine/core";
 import { keysOf } from "@project/shared/src/utils/Helper";
 import { useState } from "react";
-import { finalizeCondition } from "../game/actions/GameAction";
 import {
+   EnlistCourtSupportAction,
    IssueCensureAction,
    OrderAnInquiryAction,
    RestrictArmsSupplyAction,
@@ -13,16 +13,10 @@ import type { Province } from "../game/definitions/Province";
 import { getResourceName } from "../game/definitions/ProvinceResources";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
-import {
-   getRelation,
-   RequestImperialFavorCost,
-   requireInfiltration,
-   tryUseInfiltration,
-} from "../game/logic/DiplomacyLogic";
+import { getRelation } from "../game/logic/DiplomacyLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
-import { addProvinceResource, getProvinceResource } from "../game/logic/ResourceLogic";
+import { getProvinceResource } from "../game/logic/ResourceLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
-import { startTimedAction, timedActionConditions } from "../game/logic/TimedActionLogic";
 import { isTKCharacterAlive } from "../game/logic/TKCharacterLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -163,32 +157,7 @@ export function ImperialCourtPage(): React.ReactNode {
                            {element}
                         </>
                      )}
-                     action={() => {
-                        return {
-                           condition: finalizeCondition([
-                              ...timedActionConditions(
-                                 { action: "EnlistCourtSupport" },
-                                 G.save.state.playerProvince,
-                                 G.save,
-                              ),
-                              requireInfiltration(
-                                 RequestImperialFavorCost,
-                                 { consume: true },
-                                 G.save.state.playerProvince,
-                                 p,
-                                 G.save,
-                              ),
-                           ]),
-                           execute(options) {
-                              if (
-                                 tryUseInfiltration(RequestImperialFavorCost, G.save.state.playerProvince, p, G.save)
-                              ) {
-                                 startTimedAction("EnlistCourtSupport", G.save.state.playerProvince, G.save);
-                                 addProvinceResource("consulPoint", 1, G.save.state.playerProvince, G.save);
-                              }
-                           },
-                        };
-                     }}
+                     action={() => EnlistCourtSupportAction(G.save.state.playerProvince, p, G.save)}
                   >
                      Enlist Support
                   </ActionButton>

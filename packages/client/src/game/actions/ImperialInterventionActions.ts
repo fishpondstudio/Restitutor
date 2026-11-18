@@ -2,9 +2,32 @@ import { forEach } from "@project/shared/src/utils/Helper";
 import type { Province } from "../definitions/Province";
 import { TimedActions } from "../definitions/TimedAction";
 import type { SaveGame } from "../GameState";
-import { addAttitudeModifier } from "../logic/DiplomacyLogic";
+import {
+   addAttitudeModifier,
+   RequestImperialFavorCost,
+   requireInfiltration,
+   tryUseInfiltration,
+} from "../logic/DiplomacyLogic";
+import { addProvinceResource } from "../logic/ResourceLogic";
+import { requireScenarioFlagCondition } from "../logic/ScenarioLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
+
+export function EnlistCourtSupportAction(ourProvince: Province, theirProvince: Province, save: SaveGame): IGameAction {
+   return {
+      condition: finalizeCondition([
+         ...requireScenarioFlagCondition("ImperialCourt", save),
+         ...timedActionConditions({ action: "EnlistCourtSupport" }, ourProvince, save),
+         requireInfiltration(RequestImperialFavorCost, { consume: true }, ourProvince, theirProvince, save),
+      ]),
+      execute: () => {
+         if (tryUseInfiltration(RequestImperialFavorCost, ourProvince, theirProvince, save)) {
+            startTimedAction("EnlistCourtSupport", ourProvince, save);
+            addProvinceResource("consulPoint", 1, ourProvince, save);
+         }
+      },
+   };
+}
 
 export function RestrictArmsSupplyAction(theirProvince: Province, save: SaveGame): IGameAction {
    return {

@@ -14,6 +14,7 @@ import {
    getRelation,
    getRelations,
    requireInfiltration,
+   setTreatyBetween,
    tryUseInfiltration,
 } from "./DiplomacyLogic";
 import { getProvinceName, getProvincePrestige } from "./ProvinceLogic";
@@ -268,16 +269,10 @@ export function cancelTreaty(
    toProvince: Province,
    save: SaveGame,
 ): boolean {
-   const fromTo = getRelation(fromProvince, toProvince, save);
-   const toFrom = getRelation(toProvince, fromProvince, save);
-   if (!fromTo || !toFrom) {
-      return false;
-   }
    if (!hasTreatyBetween(treaty, fromProvince, toProvince, save)) {
       return false;
    }
-   fromTo.treaty = undefined;
-   toFrom.treaty = undefined;
+   setTreatyBetween(undefined, fromProvince, toProvince, save);
    addAttitudeModifier(
       toProvince,
       fromProvince,
@@ -361,13 +356,9 @@ export function trySabotage(fromProvince: Province, toProvince: Province, save: 
 }
 
 export function dissolveTreaty(fromProvince: Province, toProvince: Province, save: SaveGame): void {
-   const fromTo = getRelation(fromProvince, toProvince, save);
-   const toFrom = getRelation(toProvince, fromProvince, save);
-   if (!fromTo || !toFrom) {
+   if (!setTreatyBetween(undefined, fromProvince, toProvince, save)) {
       return;
    }
-   fromTo.treaty = undefined;
-   toFrom.treaty = undefined;
    startTimedAction("TreatySabotaged", fromProvince, save);
 }
 
@@ -382,13 +373,7 @@ export function dissolveAllTreaties(province: Province, save: SaveGame): void {
    }
    relations.forEach((relation, otherProvince) => {
       if (relation.treaty) {
-         const fromTo = getRelation(province, otherProvince, save);
-         const toFrom = getRelation(otherProvince, province, save);
-         if (!fromTo || !toFrom) {
-            return;
-         }
-         fromTo.treaty = undefined;
-         toFrom.treaty = undefined;
+         setTreatyBetween(undefined, province, otherProvince, save);
       }
    });
 }

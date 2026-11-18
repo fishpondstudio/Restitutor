@@ -6,9 +6,9 @@ import type { SaveGame } from "../GameState";
 import { toConditions } from "../logic/Calculation";
 import {
    availableDiplomatCondition,
-   getRelation,
    isClientOfAnyProvince,
    isWithinDiplomaticRange,
+   setTreatyBetween,
 } from "../logic/DiplomacyLogic";
 import { getProvinceName, getProvincesInRange } from "../logic/ProvinceLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
@@ -37,14 +37,10 @@ export function OfferDefensePactAction(fromProvince: Province, toProvince: Provi
          availableDiplomatCondition(toProvince, fromProvince, save),
       ]),
       execute: () => {
-         const fromTo = getRelation(fromProvince, toProvince, save);
-         const toFrom = getRelation(toProvince, fromProvince, save);
-         if (!fromTo || !toFrom) {
+         if (!setTreatyBetween("DefensePact", fromProvince, toProvince, save)) {
             return;
          }
          startTimedAction("DiplomaticTreaty", fromProvince, save);
-         fromTo.treaty = { type: "DefensePact", month: save.state.month };
-         toFrom.treaty = { type: "DefensePact", month: save.state.month };
          addChronicleEntry(
             {
                type: "DiplomaticTreaty",
@@ -73,14 +69,10 @@ export function OfferAllianceAction(fromProvince: Province, toProvince: Province
          availableDiplomatCondition(toProvince, fromProvince, save),
       ]),
       execute: () => {
-         const fromTo = getRelation(fromProvince, toProvince, save);
-         const toFrom = getRelation(toProvince, fromProvince, save);
-         if (!fromTo || !toFrom) {
+         if (!setTreatyBetween("Alliance", fromProvince, toProvince, save)) {
             return;
          }
          startTimedAction("DiplomaticTreaty", fromProvince, save);
-         fromTo.treaty = { type: "Alliance", month: save.state.month };
-         toFrom.treaty = { type: "Alliance", month: save.state.month };
          addChronicleEntry(
             {
                type: "DiplomaticTreaty",
@@ -120,14 +112,10 @@ export function OfferPatronageAction(fromProvince: Province, toProvince: Provinc
          availableDiplomatCondition(toProvince, fromProvince, save),
       ]),
       execute: () => {
-         const fromTo = getRelation(fromProvince, toProvince, save);
-         const toFrom = getRelation(toProvince, fromProvince, save);
-         if (!fromTo || !toFrom) {
+         if (!setTreatyBetween("Patron", fromProvince, toProvince, save)) {
             return;
          }
          startTimedAction("DiplomaticTreaty", fromProvince, save);
-         fromTo.treaty = { type: "Patron", month: save.state.month };
-         toFrom.treaty = { type: "Client", month: save.state.month };
          if (fromProvince === save.state.playerProvince) {
             unlockAchievement("EstablishClient");
          }

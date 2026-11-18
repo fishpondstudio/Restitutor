@@ -319,9 +319,7 @@ export function getCharacterAssignmentConditions(
    province: Province,
    save: SaveGame,
 ): ICondition[] {
-   const { type, governorPower } = CharacterSlots[slot];
-   const state = getTKCharacterState(character, save);
-   const conditions: ICondition[] = [
+   return [
       ...requireScenarioFlagCondition("TKCharacter", save),
       getCharacterSlotCapacityCondition(slot, province, save),
       {
@@ -332,6 +330,19 @@ export function getCharacterAssignmentConditions(
          name: "Character is not assigned to a slot",
          value: isTKCharacterUnassigned(character, save),
       },
+      ...getCharacterRoleConditions(slot, character, province, save),
+   ];
+}
+
+export function getCharacterRoleConditions(
+   slot: CharacterSlot,
+   character: TKCharacter,
+   province: Province,
+   save: SaveGame,
+): ICondition[] {
+   const { type, governorPower } = CharacterSlots[slot];
+   const state = getTKCharacterState(character, save);
+   const conditions: ICondition[] = [
       {
          name: type === "AncestralTemple" ? "Character is dead" : "Character is alive",
          value: state !== null && (type === "AncestralTemple" ? state.monthsLeft <= 0 : state.monthsLeft > 0),

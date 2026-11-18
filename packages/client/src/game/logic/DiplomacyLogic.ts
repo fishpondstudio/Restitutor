@@ -8,7 +8,7 @@ import {
    type IValueBreakdown,
    makeValueBreakdown,
 } from "../actions/GameAction";
-import type { IRelation } from "../definitions/Diplomacy";
+import type { IRelation, Treaty } from "../definitions/Diplomacy";
 import type { IFullFamily } from "../definitions/Family";
 import { type IModifier, makeModifierGetter } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
@@ -150,6 +150,30 @@ export function getRelation(fromProvince: Province, toProvince: Province, save: 
       fromState._relations.set(toProvince, relations);
    }
    return relations;
+}
+
+const ReciprocalTreaty: Record<Treaty, Treaty> = {
+   DefensePact: "DefensePact",
+   Alliance: "Alliance",
+   Patron: "Client",
+   Client: "Patron",
+};
+
+export function setTreatyBetween(
+   type: Exclude<Treaty, "Client"> | undefined,
+   fromProvince: Province,
+   toProvince: Province,
+   save: SaveGame,
+): boolean {
+   const fromTo = getRelation(fromProvince, toProvince, save);
+   const toFrom = getRelation(toProvince, fromProvince, save);
+   if (!fromTo || !toFrom) {
+      return false;
+   }
+   const month = save.state.month;
+   fromTo.treaty = type && { type, month };
+   toFrom.treaty = type && { type: ReciprocalTreaty[type], month };
+   return true;
 }
 
 export function getCurrentRelations(province: Province, save: SaveGame): Set<Province> {
@@ -436,41 +460,13 @@ export function fixRelations(save: SaveGame): void {
                relations.delete(otherProvince);
                continue;
             }
-            if (relation.treaty) {
-               const otherRelation = otherState._relations.get(province);
-               if (!otherRelation?.treaty) {
-                  relation.treaty = undefined;
-                  continue;
-               }
-               switch (relation.treaty.type) {
-                  case "DefensePact":
-                     if (otherRelation.treaty.type !== "DefensePact") {
-                        relation.treaty = undefined;
-                        otherRelation.treaty = undefined;
-                     }
-                     continue;
-                  case "Alliance":
-                     if (otherRelation.treaty.type !== "Alliance") {
-                        relation.treaty = undefined;
-                        otherRelation.treaty = undefined;
-                     }
-                     continue;
-                  case "Client":
-                     if (otherRelation.treaty.type !== "Patron") {
-                        relation.treaty = undefined;
-                        otherRelation.treaty = undefined;
-                     }
-                     continue;
-                  case "Patron":
-                     if (otherRelation.treaty.type !== "Client") {
-                        relation.treaty = undefined;
-                        otherRelation.treaty = undefined;
-                     }
-                     continue;
-                  default:
-                     relation.treaty.type satisfies never;
-                     continue;
-               }
+            const treaty = relation.treaty;
+            if (!treaty) {
+               continue;
+            }
+            const reciprocal = otherState._relations.get(province)?.treaty;
+            if (!reciprocal || reciprocal.type !== ReciprocalTreaty[treaty.type]) {
+               relation.treaty = undefined;
             }
          }
       }
