@@ -165,11 +165,7 @@ function getTKCharacterTierToCost(tier: TKCharacterTier): number {
    return 2 ** (getTKCharacterTierToPower(tier) - 1) * 10;
 }
 
-export function getTKCharacterAdvisorMonthlyCost(
-   character: TKCharacter,
-   province: Province,
-   save: SaveGame,
-): IValueBreakdown {
+export function getTKCharacterMonthlyCost(character: TKCharacter, province: Province, save: SaveGame): IValueBreakdown {
    const breakdown = makeValueBreakdown({ reverse: true });
    breakdown.add.push({
       name: $t(L.BaseCost),

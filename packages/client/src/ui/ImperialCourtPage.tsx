@@ -21,8 +21,8 @@ import { isTKCharacterAlive } from "../game/logic/TKCharacterLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { ActionButton } from "./ActionButton";
+import { AncestralTempleSlotComp } from "./AncestralTempleSlotComp";
 import { CharacterSlotCapacityComp } from "./CharacterSlotCapacityComp";
-import { CharacterSlotComp } from "./CharacterSlotComp";
 import { showPanel } from "./common/ShowPanel";
 import { SidebarComp, SidebarImageHeader } from "./common/SidebarComp";
 import { DissolveTreatyModal } from "./DissolveTreatyModal";
@@ -181,7 +181,7 @@ export function ImperialCourtPage(): React.ReactNode {
          </div>
          <div className="m10" style={Grid1}>
             {slots.map((slot) => (
-               <CharacterSlotComp key={slot} slot={slot} />
+               <AncestralTempleSlotComp key={slot} slot={slot} />
             ))}
          </div>
       </SidebarComp>

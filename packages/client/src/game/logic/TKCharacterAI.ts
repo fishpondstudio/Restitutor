@@ -1,5 +1,5 @@
 import { entriesOf, fromEntries, keysOf } from "@project/shared/src/utils/Helper";
-import { type CharacterSlot, CharacterSlots, GovernmentTier } from "../definitions/GovernmentTier";
+import { type CharacterSlot, CharacterSlots, GovernmentTier, isSalariedSlot } from "../definitions/GovernmentTier";
 import type { Province } from "../definitions/Province";
 import { GovernorPowerNames } from "../definitions/ProvinceResources";
 import type { SaveGame } from "../GameState";
@@ -11,7 +11,7 @@ import {
    getCharacterRoleConditions,
    getProvinceAssignedCharacters,
    getProvinceCharacters,
-   getTKCharacterAdvisorMonthlyCost,
+   getTKCharacterMonthlyCost,
    getTKCharacterState,
    getTKCharacterTierToPercentage,
    getTKCharacterTierToPower,
@@ -51,17 +51,28 @@ export function assignAICharacters(province: Province, save: SaveGame): void {
    let budget = getProvinceIncome(province, save).income;
    // Net income and government points already include incumbents. Plan from the pre-staffing totals.
    for (const [slot, character] of current) {
+      if (isSalariedSlot(slot)) {
+         budget += getTKCharacterMonthlyCost(character, province, save).value;
+      }
       const power = CharacterSlots[slot].governorPower;
       if (power) {
-         budget += getTKCharacterAdvisorMonthlyCost(character, province, save).value;
          points[power].value -= getTKCharacterTierToPower(TKCharacters[character].tier) * points[power].multiplier;
       }
    }
 
+   const atWar = getCurrentWars(province, save).length > 0;
    const candidates: SeatCandidate[] = [];
-   const slots = keysOf(CharacterSlots).filter(
-      (slot) => CharacterSlots[slot].type !== "AncestralTemple" || hasScenarioFlag("ImperialCourt", save),
-   );
+   const slots = keysOf(CharacterSlots).filter((slot) => {
+      switch (CharacterSlots[slot].type) {
+         case "Strategist":
+            // Strategists only add war power, so they are not worth a salary in peacetime.
+            return atWar;
+         case "AncestralTemple":
+            return hasScenarioFlag("ImperialCourt", save);
+         default:
+            return true;
+      }
+   });
    for (const character of getProvinceCharacters(province, save)) {
       const tier = TKCharacters[character].tier;
       const bonus = getPersonalBonus(character);
@@ -72,23 +83,21 @@ export function assignAICharacters(province: Province, save: SaveGame): void {
          Strategist: service * (getTKCharacterTierToPercentage(tier) + bonus),
          AncestralTemple: bonus,
       };
-      const salary = getTKCharacterAdvisorMonthlyCost(character, province, save).value;
+      const salary = getTKCharacterMonthlyCost(character, province, save).value;
       for (const slot of slots) {
-         const { type } = CharacterSlots[slot];
-         if (type === "Advisor" && (state.loans.length > 0 || salary > budget)) {
+         const salaried = isSalariedSlot(slot);
+         if (salaried && (state.loans.length > 0 || salary > budget)) {
             continue;
          }
          if (!getCharacterRoleConditions(slot, character, province, save).every((c) => c.value)) {
             continue;
          }
-         candidates.push({ slot, character, score: scores[type], salary: type === "Advisor" ? salary : 0 });
+         const { type } = CharacterSlots[slot];
+         candidates.push({ slot, character, score: scores[type], salary: salaried ? salary : 0 });
       }
    }
 
-   const roleOrder =
-      getCurrentWars(province, save).length > 0
-         ? ["Strategist", "Advisor", "AncestralTemple"]
-         : ["Advisor", "Strategist", "AncestralTemple"];
+   const roleOrder = ["Strategist", "Advisor", "AncestralTemple"];
    const compare = (a: SeatCandidate, b: SeatCandidate): number => {
       const roleA = CharacterSlots[a.slot];
       const roleB = CharacterSlots[b.slot];

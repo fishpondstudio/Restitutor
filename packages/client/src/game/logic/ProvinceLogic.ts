@@ -56,7 +56,7 @@ import { getCulturalCohesion, getReligiousCohesion } from "./InternalAffairsLogi
 import { annexTiles } from "./MissionLogic";
 import { addModifier, attachModifier, forEachModifier } from "./ModifierLogic";
 import { addProvinceResource, getProvinceResource } from "./ResourceLogic";
-import { getNameGenerator, requireScenarioFlagCondition } from "./ScenarioLogic";
+import { getNameGenerator, hasScenarioFlag, requireScenarioFlagCondition } from "./ScenarioLogic";
 import { settleTile } from "./SettlementLogic";
 import { getBaselineTechs } from "./TechLogic";
 import {
@@ -72,7 +72,7 @@ import {
 import { startTimedAction } from "./TimedActionLogic";
 import {
    getProvinceAssignedCharacters,
-   getTKCharacterAdvisorMonthlyCost,
+   getTKCharacterMonthlyCost,
    getTKCharacterName,
    getTKCharacterTierToPower,
 } from "./TKCharacterLogic";
@@ -536,12 +536,19 @@ function _getProvinceIncome(
          advisorCost += getAdvisorMonthlyCost(data.selected.level, province, save).value;
       }
    });
+   let strategistCost = 0;
    for (const [slot, character] of getProvinceAssignedCharacters(province, save)) {
-      if (CharacterSlots[slot].type === "Advisor") {
-         advisorCost += getTKCharacterAdvisorMonthlyCost(character, province, save).value;
+      const { type } = CharacterSlots[slot];
+      if (type === "Advisor") {
+         advisorCost += getTKCharacterMonthlyCost(character, province, save).value;
+      } else if (type === "Strategist") {
+         strategistCost += getTKCharacterMonthlyCost(character, province, save).value;
       }
    }
    expense.add.push({ name: $t(L.AdvisorCost), value: -advisorCost });
+   if (hasScenarioFlag("TKCharacter", save)) {
+      expense.add.push({ name: "Strategist Cost", value: -strategistCost });
+   }
 
    state.monthly.tradeGold.forEach((value, otherProvince) => {
       if (value > 0) {

@@ -54,6 +54,11 @@ export function getCharacterUnassignmentLabel(slot: CharacterSlot): string {
    return CharacterSlots[slot].type === "AncestralTemple" ? "Remove from Temple" : "Relieve of Duties";
 }
 
+export function isSalariedSlot(slot: CharacterSlot): boolean {
+   const { type } = CharacterSlots[slot];
+   return type === "Advisor" || type === "Strategist";
+}
+
 export function getAdvisorSlots(): CharacterSlot[] {
    return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "Advisor");
 }

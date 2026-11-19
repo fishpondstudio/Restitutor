@@ -13,7 +13,7 @@ import { showPanel } from "./common/ShowPanel";
 import { SelectCharacterSlotModal } from "./SelectCharacterModal";
 import { TKCharacterComp } from "./TKCharacterComp";
 
-export function CharacterSlotComp({ slot }: { slot: CharacterSlot }): React.ReactNode {
+export function AncestralTempleSlotComp({ slot }: { slot: CharacterSlot }): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {

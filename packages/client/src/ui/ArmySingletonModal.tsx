@@ -64,12 +64,12 @@ import { ActionButton } from "./ActionButton";
 import { BreakdownComp } from "./BreakdownComp";
 import { BreakdownRow, BreakdownTooltip } from "./BreakdownRow";
 import { CharacterSlotCapacityComp } from "./CharacterSlotCapacityComp";
-import { CharacterSlotComp } from "./CharacterSlotComp";
 import { ConfirmModal } from "./ConfirmModal";
 import { showPanel } from "./common/ShowPanel";
 import { FloatingTip } from "./components/FloatingTip";
 import { html } from "./components/RenderHTMLComp";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
+import { StrategistSlotComp } from "./StrategistSlotComp";
 import { TimedActionButton } from "./TimedActionButton";
 import { Grid2, Grid3 } from "./UIConstant";
 import { WarPowerRow } from "./WarPowerTooltip";
@@ -467,7 +467,7 @@ function StrategistComp(): React.ReactNode {
          </div>
          <div className="m10" style={Grid2}>
             {getStrategistSlots().map((slot) => {
-               return <CharacterSlotComp key={slot} slot={slot} />;
+               return <StrategistSlotComp key={slot} slot={slot} />;
             })}
          </div>
       </>

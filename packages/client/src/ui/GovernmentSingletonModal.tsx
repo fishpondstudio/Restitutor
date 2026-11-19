@@ -18,7 +18,7 @@ import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import {
    getCharacterInSlot,
    getCharacterSlotCapacityCondition,
-   getTKCharacterAdvisorMonthlyCost,
+   getTKCharacterMonthlyCost,
    getTKCharacterTierToPower,
    unassignTKCharacter,
 } from "../game/logic/TKCharacterLogic";
@@ -129,7 +129,7 @@ function AdvisorCharacterComp(): React.ReactNode {
                }
                const advisor = getCharacterInSlot(G.save.state.playerProvince, slotKey, G.save);
                const monthlyCost = advisor
-                  ? getTKCharacterAdvisorMonthlyCost(advisor, G.save.state.playerProvince, G.save)
+                  ? getTKCharacterMonthlyCost(advisor, G.save.state.playerProvince, G.save)
                   : undefined;
                return (
                   <div className="box" key={slotKey}>
@@ -184,7 +184,7 @@ function AdvisorCharacterComp(): React.ReactNode {
                                  <img src={ProvinceResourceImages.gold} className="icon-block dimmed" />
                               </div>
                               <div className="f1" />
-                              <div>{formatNumber(-monthlyCost.value)}</div>
+                              <div>{colorNumber(-monthlyCost.value)}</div>
                            </div>
                         </BreakdownTooltip>
                      )}

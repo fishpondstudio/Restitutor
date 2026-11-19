@@ -2,14 +2,17 @@ import { formatNumber, mapOf } from "@project/shared/src/utils/Helper";
 import { durationToString, modifierToString } from "../game/definitions/Modifier";
 import { GameStateUpdated } from "../game/Events";
 import {
+   getTKCharacterMonthlyCost,
    getTKCharacterName,
    getTKCharacterProvince,
    getTKCharacterState,
+   isTKCharacterRuler,
    isTKCharacterRulingOrAssigned,
 } from "../game/logic/TKCharacterLogic";
 import { type TKCharacter, TKCharacters, TKCharacterTier, TKCharacterTraits } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
+import { BreakdownComp } from "./BreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";
 
 export function TKCharacterComp({ character }: { character: TKCharacter }): React.ReactNode {
@@ -21,6 +24,8 @@ export function TKCharacterComp({ character }: { character: TKCharacter }): Reac
    const monthsLeft = getTKCharacterState(character, G.save)?.monthsLeft ?? 0;
    const governor = state?.governor.male?.character === character ? state.governor.male : undefined;
    const isRulingOrAssigned = isTKCharacterRulingOrAssigned(character, G.save);
+   const costProvince = province ?? G.save.state.playerProvince;
+   const showMonthlyCost = monthsLeft > 0 && !isTKCharacterRuler(character, costProvince, G.save);
    return (
       <FloatingTip
          fixedWidth
@@ -58,6 +63,12 @@ export function TKCharacterComp({ character }: { character: TKCharacter }): Reac
                      {modifierToString(modifier, data)}
                   </div>
                ))}
+               {showMonthlyCost && (
+                  <>
+                     <div className="h2">Monthly Cost (Advisor/Strategist)</div>
+                     <BreakdownComp breakdown={getTKCharacterMonthlyCost(character, costProvince, G.save)} />
+                  </>
+               )}
             </>
          )}
       >
