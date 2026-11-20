@@ -271,7 +271,7 @@ export const _GreatWork = {
       modifiers: { Defense: { type: "multiply", value: 0.1 } },
    },
    TempleOfConfucius: {
-      name: () => "Temple of Confucius at Qufu",
+      name: () => "Temple of Confucius",
       tile: 15007829,
       completionYear: -478,
       wikipedia: "Temple_of_Confucius,_Qufu",
@@ -282,7 +282,7 @@ export const _GreatWork = {
       modifiers: { ResearchCost: { type: "multiply", value: -0.1 } },
    },
    Dujiangyan: {
-      name: () => "Dujiangyan Irrigation System",
+      name: () => "Dujiangyan",
       tile: 14286938,
       completionYear: -256,
       wikipedia: "Dujiangyan",
@@ -301,7 +301,7 @@ export const _GreatWork = {
       modifiers: { GoverningCapacity: { type: "add", value: 100 } },
    },
    HanGreatWallJadeGate: {
-      name: () => "Han Great Wall — Jade Gate Sector",
+      name: () => "Yumen Pass (Jade Gate)",
       tile: 13828175,
       completionYear: -110,
       wikipedia: "Yumen_Pass",
