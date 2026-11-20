@@ -26,9 +26,7 @@ export const ThreeKingdoms194: IScenario = {
    cultures: getCulturesFromProvinces(TKWarlords),
    religions: getReligionsFromProvinces(TKWarlords),
    nameGenerator: ChineseNameGenerator,
-   get events() {
-      return new Set(keysOf(ThreeKingdomsEvents));
-   },
+   events: new Set(keysOf(ThreeKingdomsEvents)),
    flags: new Set(["Concubinage", "TKCharacter", "ImperialCourt"]),
    provinceResourceNames: {
       consulPoint: () => "Imperial Favor",
