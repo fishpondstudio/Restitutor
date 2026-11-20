@@ -93,9 +93,9 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent4: {
-      name: () => "Double Our Domain",
+      name: () => "The Seal of a Duke",
       desc: () =>
-         "The lands beneath our authority have doubled, and the burdens of government have grown with them. Officials who once served a modest domain must now govern a rising realm. We must give our rule the means and standing to match its reach.",
+         "Our domain has doubled, and elders, officers, and scholars now crowd halls built for a modest provincial seat. Petitions arrive urging us to lay aside the title of governor, assume the rank of Duke, and open a grander court with offices worthy of our standing. Whether through new chanceries, imperial investiture, or our own authority, the time has come to take a duke's seal.",
       image: EventImage.TKDistrictIntegration,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -104,19 +104,19 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Empower every branch of government",
+            label: () => "Open the offices of our ducal court",
             resources: { administrative: 25, diplomatic: 25, military: 25 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
             custom: [changeGovernmentTierEffect("Tier2")],
          },
          {
-            label: () => "Seek imperial recognition",
+            label: () => "Seek imperial investiture as Duke",
             resources: { consulPoint: 2 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
             custom: [changeGovernmentTierEffect("Tier2")],
          },
          {
-            label: () => "Affirm our right to govern",
+            label: () => "Claim our dukedom by our own right",
             resources: { mandate: 1 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
             custom: [changeGovernmentTierEffect("Tier2")],
@@ -124,9 +124,9 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent5: {
-      name: () => "A Growing Realm",
+      name: () => "The Banner of a King",
       desc: () =>
-         "Across a hundred districts, our seals now authorize appointments and our registers record the harvest. Such a realm cannot be governed by the arrangements of a single commandery. Let us establish offices capable of carrying our authority to its furthest boundaries.",
+         "A hundred districts now send tribute and registers to our capital, and neighboring lords already address our envoys with the deference due a sovereign realm. Senior officials and veterans present memorials urging us to assume the title of King, raise royal banners, and expand the council to match our reach. As we establish our new court, we must decide which pillar of the kingdom to strengthen first.",
       image: EventImage.TKRegionalAdministration,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -135,19 +135,19 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Establish regional civil offices",
+            label: () => "Establish the royal civil ministries",
             resources: { administrative: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 100 } },
             custom: [changeGovernmentTierEffect("Tier3")],
          },
          {
-            label: () => "Strengthen diplomatic administration",
+            label: () => "Dispatch royal envoys across the realm",
             resources: { diplomatic: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 100 } },
             custom: [changeGovernmentTierEffect("Tier3")],
          },
          {
-            label: () => "Organize regional military commands",
+            label: () => "Organize our royal military commands",
             resources: { military: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 100 } },
             custom: [changeGovernmentTierEffect("Tier3")],
@@ -155,9 +155,9 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent6: {
-      name: () => "A Vast Dominion",
+      name: () => "The Throne of an Emperor",
       desc: () =>
-         "Petitions from two hundred districts arrive at our offices, often weeks after the matters they describe. Tax accounts and harvest reports pile up beside requests for new appointments. The machinery of a regional court must now serve a vast dominion.",
+         "Two hundred districts now look to our capital for order, and even a king's title seems small beside the lands beneath our banner. Ministers, scholars, and generals gather before the altar, presenting memorials and auspicious omens that call upon us to ascend as Emperor. With a new era proclaimed and an imperial court opened to the realm's finest talents, our first edicts shall set the course of the empire.",
       image: EventImage.TKRegionalAdministration,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -166,14 +166,14 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Extend the civil administration",
+            label: () => "Expand the imperial ministries",
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
             },
             custom: [changeGovernmentTierEffect("Tier4")],
          },
          {
-            label: () => "Reform the land tax registers",
+            label: () => "Reform the empire's land tax registers",
             modifiers: {
                GoverningCapacity: { type: "add", value: 100 },
                LandTax: { type: "multiply", value: 0.1 },
@@ -181,7 +181,7 @@ export const ThreeKingdomsMissionEvents = {
             custom: [changeGovernmentTierEffect("Tier4")],
          },
          {
-            label: () => "Develop the resources of our domain",
+            label: () => "Enrich the lands of our new empire",
             modifiers: {
                GoverningCapacity: { type: "add", value: 100 },
                TileOutput: { type: "multiply", value: 0.1 },
