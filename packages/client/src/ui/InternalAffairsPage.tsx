@@ -10,6 +10,7 @@ import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/Pr
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated, OpenTilePage } from "../game/Events";
 import { getUpcomingDisasters } from "../game/events/DisasterLogic";
+import { getScenarioGreatWorks } from "../game/logic/GreatWorkLogic";
 import {
    getProgressToNextRestoration,
    getProvinceGoverningCapacity,
@@ -278,20 +279,24 @@ export function InternalAffairsPage(): React.ReactNode {
                </FloatingTip>
             </Fragment>
          ))}
-         <div className="h1">{$t(L.ProvincialGreatWorks)}</div>
-         {greatWorks.map((gw) => (
-            <Fragment key={gw}>
+         {getScenarioGreatWorks(G.save.state.scenario).size > 0 && (
+            <>
+               <div className="h1">{$t(L.ProvincialGreatWorks)}</div>
+               {greatWorks.map((gw) => (
+                  <Fragment key={gw}>
+                     <div className="m10">
+                        <GreatWorkComponent greatWork={gw} />
+                     </div>
+                     <div className="divider" />
+                  </Fragment>
+               ))}
                <div className="m10">
-                  <GreatWorkComponent greatWork={gw} />
+                  <button className="btn w100" onClick={() => showPanel(GreatWorksSingletonModal, {})}>
+                     {$t(L.ShowAllGreatWorks)}
+                  </button>
                </div>
-               <div className="divider" />
-            </Fragment>
-         ))}
-         <div className="m10">
-            <button className="btn w100" onClick={() => showPanel(GreatWorksSingletonModal, {})}>
-               {$t(L.ShowAllGreatWorks)}
-            </button>
-         </div>
+            </>
+         )}
          <div className="h1">{$t(L.AutonomyAndRebellion)}</div>
          {tiles.map(([tile, tileData]) => {
             const unrest = getTileUnrest(tile, G.save);

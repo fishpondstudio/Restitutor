@@ -16,7 +16,7 @@ import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import type { Culture } from "../definitions/Culture";
 import { Goods } from "../definitions/Goods";
 import { CharacterSlots } from "../definitions/GovernmentTier";
-import { type GreatWork, TileToGreatWork } from "../definitions/GreatWork";
+import type { GreatWork } from "../definitions/GreatWork";
 import { Province } from "../definitions/Province";
 import { type ProvinceNameOverride, ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
 import { type GovernorPower, ProvinceResources } from "../definitions/ProvinceResources";
@@ -51,7 +51,7 @@ import type { ConditionChecks } from "./Calculation";
 import { getRegionalCapitalCount } from "./CapitalLogic";
 import { getRelation } from "./DiplomacyLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
-import { isGreatWorkCompleted } from "./GreatWorkLogic";
+import { getGreatWorkTiles, isGreatWorkCompleted } from "./GreatWorkLogic";
 import { getCulturalCohesion, getReligiousCohesion } from "./InternalAffairsLogic";
 import { annexTiles } from "./MissionLogic";
 import { addModifier, attachModifier, forEachModifier } from "./ModifierLogic";
@@ -962,10 +962,8 @@ export function getTileUpgradeTimes(province: Province, save: SaveGame): number 
 
 export function getProvinceGreatWorks(province: Province, save: SaveGame): Set<GreatWork> {
    const result = new Set<GreatWork>();
-   for (const [tile, data] of save.state.tiles) {
-      const currentProvince = data.province;
-      const greatWork = TileToGreatWork.get(tile);
-      if (currentProvince === province && greatWork) {
+   for (const [tile, greatWork] of getGreatWorkTiles(save.state.scenario)) {
+      if (save.state.tiles.get(tile)?.province === province) {
          result.add(greatWork);
       }
    }
@@ -974,10 +972,8 @@ export function getProvinceGreatWorks(province: Province, save: SaveGame): Set<G
 
 export function getProvinceOriginalGreatWorks(province: Province, save: SaveGame): Set<GreatWork> {
    const result = new Set<GreatWork>();
-   for (const [tile, data] of save.state.tiles) {
-      const originalProvince = data.originalProvince;
-      const greatWork = TileToGreatWork.get(tile);
-      if (originalProvince === province && greatWork) {
+   for (const [tile, greatWork] of getGreatWorkTiles(save.state.scenario)) {
+      if (save.state.tiles.get(tile)?.originalProvince === province) {
          result.add(greatWork);
       }
    }

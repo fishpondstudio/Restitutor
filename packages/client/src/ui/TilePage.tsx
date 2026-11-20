@@ -11,7 +11,6 @@ import { Buildings } from "../game/definitions/Building";
 import { Culture } from "../game/definitions/Culture";
 import { CultureReligionStatus } from "../game/definitions/CultureReligionStatus";
 import { Goods, Price } from "../game/definitions/Goods";
-import { TileToGreatWork } from "../game/definitions/GreatWork";
 import { modifierToString } from "../game/definitions/Modifier";
 import { Religion } from "../game/definitions/Religion";
 import { Terrains } from "../game/definitions/Terrain";
@@ -19,7 +18,7 @@ import { getNewSettlementTiles } from "../game/definitions/TileConstants";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
 import { GameStateUpdated } from "../game/Events";
-import { isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
+import { getGreatWorkTiles, isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
 import { getApostolicSeeEffect, getApostolicSeeTiles } from "../game/logic/InternalAffairsLogic";
 import { getMapBackgroundColor } from "../game/logic/MapColor";
 import { getProvinceName, getProvinceStat } from "../game/logic/ProvinceLogic";
@@ -438,7 +437,7 @@ export function TilePage({ tile }: { tile: Tile }): React.ReactNode {
 }
 
 function TileGreatWorkComponent({ tile }: { tile: Tile }): React.ReactNode {
-   const greatWork = TileToGreatWork.get(tile);
+   const greatWork = getGreatWorkTiles(G.save.state.scenario).get(tile);
    if (!greatWork) {
       return null;
    }

@@ -2,7 +2,7 @@ import { forEach, safePush } from "@project/shared/src/utils/Helper";
 import { G } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
 import { GameStateUpdated } from "../Events";
-import { isGreatWorkCompleted } from "../logic/GreatWorkLogic";
+import { getScenarioGreatWorks, isGreatWorkCompleted } from "../logic/GreatWorkLogic";
 import { ensureValidModifiers } from "../logic/ModifierLogic";
 import { isSocialClassDisloyal, isSocialClassDominant } from "../logic/SocialClassLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
@@ -132,10 +132,11 @@ function updateModifier(): void {
          }
       });
    });
-   forEach(GreatWork, (greatWork, config) => {
+   for (const greatWork of getScenarioGreatWorks(G.save.state.scenario)) {
       if (!isGreatWorkCompleted(greatWork, G.save)) {
-         return;
+         continue;
       }
+      const config = GreatWork[greatWork];
       forEach(config.modifiers, (modifier, data) => {
          const tileData = G.save.state.tiles.get(config.tile);
          if (!tileData) {
@@ -152,7 +153,7 @@ function updateModifier(): void {
             name: config.name(),
          });
       });
-   });
+   }
    ensureValidModifiers(G.save);
 }
 

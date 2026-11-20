@@ -15,6 +15,7 @@ import { showGameEventModal } from "../events/GameEventLogic";
 import type { SaveGame } from "../GameState";
 import { fixRelations } from "./DiplomacyLogic";
 import { getGameDate, monthToDate, tickToMonth, tickToYear } from "./GameDateTime";
+import { getScenarioGreatWorks } from "./GreatWorkLogic";
 import { getChristianityYearly, getIslamInfluenceYearly } from "./InternalAffairsLogic";
 import { getMapForegroundColor } from "./MapColor";
 import {
@@ -107,11 +108,11 @@ function tickGreatWork(save: SaveGame): void {
       return;
    }
    const year = getGameDate(save.state.tick, save).getFullYear();
-   forEach(GreatWork, (gw, config) => {
-      if (config.completionYear === year) {
+   for (const gw of getScenarioGreatWorks(save.state.scenario)) {
+      if (GreatWork[gw].completionYear === year) {
          showPanel(GreatWorkCompletedModal, { greatWork: gw });
       }
-   });
+   }
 }
 
 function tickChroniclePopup(save: SaveGame): void {

@@ -1,4 +1,4 @@
-import { entriesOf, type Tile } from "@project/shared/src/utils/Helper";
+import type { Tile } from "@project/shared/src/utils/Helper";
 import AlKhazneh from "../../assets/images/greatworks/AlKhazneh.webp";
 import AntonineBaths from "../../assets/images/greatworks/AntonineBaths.webp";
 import AqueductOfSegovia from "../../assets/images/greatworks/AqueductOfSegovia.webp";
@@ -16,6 +16,16 @@ import RotundaOfGalerius from "../../assets/images/greatworks/RotundaOfGalerius.
 import RoyalMausoleumOfMauretania from "../../assets/images/greatworks/RoyalMausoleumOfMauretania.webp";
 import TempleOfArtemis from "../../assets/images/greatworks/TempleOfArtemis.webp";
 import TempleOfBel from "../../assets/images/greatworks/TempleOfBel.webp";
+import TKBronzeSparrowTerrace from "../../assets/images/greatworks/TKBronzeSparrowTerrace.webp";
+import TKDujiangyan from "../../assets/images/greatworks/TKDujiangyan.webp";
+import TKFirstQinEmperorsMausoleum from "../../assets/images/greatworks/TKFirstQinEmperorsMausoleum.webp";
+import TKHanGreatWallJadeGate from "../../assets/images/greatworks/TKHanGreatWallJadeGate.webp";
+import TKHulaoGate from "../../assets/images/greatworks/TKHulaoGate.webp";
+import TKJianmenPass from "../../assets/images/greatworks/TKJianmenPass.webp";
+import TKStoneCity from "../../assets/images/greatworks/TKStoneCity.webp";
+import TKTempleOfConfucius from "../../assets/images/greatworks/TKTempleOfConfucius.webp";
+import TKWhiteHorseTemple from "../../assets/images/greatworks/TKWhiteHorseTemple.webp";
+import TKYellowCraneTower from "../../assets/images/greatworks/TKYellowCraneTower.webp";
 import { $t, L } from "../../utils/i18n";
 import type { ImageWithCredit } from "../events/ImageWithCredit";
 import type { IBaseModifier, Modifier } from "./Modifier";
@@ -252,10 +262,105 @@ export const _GreatWork = {
          ChristianityYearly: { type: "add", value: 1 },
       },
    },
+   HulaoGate: {
+      name: () => "Hulao Gate",
+      tile: 14811222,
+      completionYear: -571,
+      wikipedia: "Hulao_Pass",
+      image: { url: TKHulaoGate, credit: "This image is upscaled, reconstructed or assisted by AI-powered models" },
+      modifiers: { Defense: { type: "multiply", value: 0.1 } },
+   },
+   TempleOfConfucius: {
+      name: () => "Temple of Confucius at Qufu",
+      tile: 15007829,
+      completionYear: -478,
+      wikipedia: "Temple_of_Confucius,_Qufu",
+      image: {
+         url: TKTempleOfConfucius,
+         credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      },
+      modifiers: { ResearchCost: { type: "multiply", value: -0.1 } },
+   },
+   Dujiangyan: {
+      name: () => "Dujiangyan Irrigation System",
+      tile: 14286938,
+      completionYear: -256,
+      wikipedia: "Dujiangyan",
+      image: { url: TKDujiangyan, credit: "This image is upscaled, reconstructed or assisted by AI-powered models" },
+      modifiers: { LandTax: { type: "multiply", value: 0.1 } },
+   },
+   FirstQinEmperorsMausoleum: {
+      name: () => "Mausoleum of the First Qin Emperor",
+      tile: 14614614,
+      completionYear: -210,
+      wikipedia: "Mausoleum_of_Qin_Shi_Huang",
+      image: {
+         url: TKFirstQinEmperorsMausoleum,
+         credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      },
+      modifiers: { GoverningCapacity: { type: "add", value: 100 } },
+   },
+   HanGreatWallJadeGate: {
+      name: () => "Han Great Wall — Jade Gate Sector",
+      tile: 13828175,
+      completionYear: -110,
+      wikipedia: "Yumen_Pass",
+      image: {
+         url: TKHanGreatWallJadeGate,
+         credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      },
+      modifiers: { TradeProfit: { type: "multiply", value: 0.1 } },
+   },
+   WhiteHorseTemple: {
+      name: () => "White Horse Temple",
+      tile: 14745686,
+      completionYear: 68,
+      wikipedia: "White_Horse_Temple",
+      image: {
+         url: TKWhiteHorseTemple,
+         credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      },
+      modifiers: { Stability: { type: "add", value: 10 } },
+   },
+   BronzeSparrowTerrace: {
+      name: () => "Bronze Sparrow Terrace",
+      tile: 14876756,
+      completionYear: 210,
+      wikipedia: "Bronze_Bird_Terrace",
+      image: {
+         url: TKBronzeSparrowTerrace,
+         credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      },
+      modifiers: { Prestige: { type: "add", value: 10 } },
+   },
+   StoneCity: {
+      name: () => "Stone City",
+      tile: 15073369,
+      completionYear: 212,
+      wikipedia: "Stone_City_(Nanjing)",
+      image: { url: TKStoneCity, credit: "This image is upscaled, reconstructed or assisted by AI-powered models" },
+      modifiers: { GoverningCapacity: { type: "add", value: 100 } },
+   },
+   YellowCraneTower: {
+      name: () => "Yellow Crane Tower",
+      tile: 14876762,
+      completionYear: 223,
+      wikipedia: "Yellow_Crane_Tower",
+      image: {
+         url: TKYellowCraneTower,
+         credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      },
+      modifiers: { WarPower: { type: "multiply", value: 0.1 } },
+   },
+   JianmenPass: {
+      name: () => "Jianmen Pass (Sword Gate)",
+      tile: 14418008,
+      completionYear: 228,
+      wikipedia: "Jianmen_Pass",
+      image: { url: TKJianmenPass, credit: "This image is upscaled, reconstructed or assisted by AI-powered models" },
+      modifiers: { ArmyMaintenance: { type: "multiply", value: -0.1 } },
+   },
 } as const satisfies Record<string, IGreatWork>;
 
 export type GreatWork = keyof typeof _GreatWork;
 export const GreatWork = _GreatWork as Record<GreatWork, IGreatWork>;
-export const TileToGreatWork: Map<Tile, GreatWork> = new Map(
-   entriesOf(GreatWork).map(([key, value]) => [value.tile, key]),
-);

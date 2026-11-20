@@ -11,6 +11,7 @@ import { html } from "./components/RenderHTMLComp";
 
 export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): React.ReactNode {
    const config = GreatWork[greatWork];
+   const completionYearLabel = formatYear(config.completionYear);
    const isCompleted = isGreatWorkCompleted(greatWork, G.save);
    return (
       <FloatingTip
@@ -33,11 +34,7 @@ export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): Rea
                   >
                      <div className="mx10 my5">
                         {html(
-                           $t(
-                              L.$1IsCompletedIn$2ItsEffectAppliesAfterCompletion,
-                              config.name(),
-                              formatYear(config.completionYear),
-                           ),
+                           $t(L.$1IsCompletedIn$2ItsEffectAppliesAfterCompletion, config.name(), completionYearLabel),
                         )}
                      </div>
                      <div className="divider light" />
@@ -80,7 +77,7 @@ export function GreatWorkComponent({ greatWork }: { greatWork: GreatWork }): Rea
             </div>
             <div className={cls("text-right text-sm", isCompleted ? "text-yellow" : "text-dimmed")}>
                <div className="mi sm">account_balance</div>
-               <div>{formatYear(config.completionYear)}</div>
+               <div>{completionYearLabel}</div>
             </div>
          </div>
       </FloatingTip>

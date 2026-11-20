@@ -1,5 +1,6 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import type { Culture } from "../definitions/Culture";
+import type { GreatWork } from "../definitions/GreatWork";
 import { Province } from "../definitions/Province";
 import type { ProvinceResource } from "../definitions/ProvinceResources";
 import type { Religion } from "../definitions/Religion";
@@ -18,6 +19,7 @@ export interface IScenario {
    cultures: Set<Culture>;
    religions: Set<Religion>;
    events: Set<GameEvent>;
+   greatWorks: ReadonlySet<GreatWork>;
    nameGenerator: INameGenerator;
    flags: Set<ScenarioFlag>;
    provinceResourceNames?: Partial<Record<ProvinceResource, () => string>>;
