@@ -25,7 +25,10 @@ export function NamePublicEnemyModal(): React.ReactNode {
                allowDeselect={false}
                checkIconPosition="right"
             />
-            <ActionButton className="py2 mt10 w100" action={() => NamePublicEnemyAction(selectedProvince, G.save)}>
+            <ActionButton
+               className="py2 mt10 w100"
+               action={() => NamePublicEnemyAction(G.save.state.playerProvince, selectedProvince, G.save)}
+            >
                {$t(L.NamePublicEnemy)}
             </ActionButton>
          </div>

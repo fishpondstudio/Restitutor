@@ -212,7 +212,8 @@ export type IRebirthHistory = {
 
 export function makeRebirthHistory(save: SaveGame): IRebirthHistory | undefined {
    const state = save.state.provinces[save.state.playerProvince];
-   if (!state) {
+   // Switching scenario rebirths into a default province first; that run never ticks and is not a real run.
+   if (!state || save.state.tick === 0) {
       return undefined;
    }
    return {

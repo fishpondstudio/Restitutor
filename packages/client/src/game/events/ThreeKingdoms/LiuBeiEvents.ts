@@ -164,6 +164,7 @@ export const LiuBeiEvents = {
       image: EventImage.TKZhaoYunReunion,
       condition: {
          province: new Set(["LiuBei"]),
+         playerOnly: true,
          year: [200, Number.POSITIVE_INFINITY],
          conditions: function* (province, save): ConditionChecks {
             yield* tkCharacterAliveChecks("ZhaoYun", save);

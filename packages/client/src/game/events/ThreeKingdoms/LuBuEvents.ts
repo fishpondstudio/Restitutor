@@ -145,6 +145,7 @@ export const LuBuEvents = {
       image: EventImage.TKDistrictIntegration,
       condition: {
          province: new Set(["LuBu"]),
+         playerOnly: true,
          annexAndCore: { TaoQian: Number.POSITIVE_INFINITY },
          conditions: function* (_province, save): ConditionChecks {
             yield* tkCharacterAliveChecks("ChenDeng", save);

@@ -7,13 +7,17 @@ import { getRelation } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
+import { interventionTargetConditions } from "./ImperialInterventionActions";
 
-export function NamePublicEnemyAction(theirProvince: Province, save: SaveGame): IGameAction {
+export function NamePublicEnemyAction(ourProvince: Province, theirProvince: Province, save: SaveGame): IGameAction {
    return {
       cost: { consulPoint: 1 },
-      condition: finalizeCondition([...timedActionConditions({ action: "PublicEnemy" }, theirProvince, save)]),
+      condition: finalizeCondition([
+         ...interventionTargetConditions(ourProvince, theirProvince, save),
+         ...timedActionConditions({ action: "PublicEnemy" }, ourProvince, save),
+      ]),
       execute: () => {
-         startTimedAction("PublicEnemy", theirProvince, save);
+         startTimedAction("PublicEnemy", ourProvince, save);
          addModifier({
             modifier: "Prestige",
             name: $t(L.PublicEnemy),

@@ -1,4 +1,5 @@
 import { forEach } from "@project/shared/src/utils/Helper";
+import { $t, L } from "../../utils/i18n";
 import type { Province } from "../definitions/Province";
 import { TimedActions } from "../definitions/TimedAction";
 import type { SaveGame } from "../GameState";
@@ -8,10 +9,24 @@ import {
    requireInfiltration,
    tryUseInfiltration,
 } from "../logic/DiplomacyLogic";
+import { getProvinceName } from "../logic/ProvinceLogic";
 import { addProvinceResource } from "../logic/ResourceLogic";
 import { requireScenarioFlagCondition } from "../logic/ScenarioLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
-import { finalizeCondition, type IGameAction } from "./GameAction";
+import { finalizeCondition, type ICondition, type IGameAction } from "./GameAction";
+
+export function interventionTargetConditions(
+   ourProvince: Province,
+   theirProvince: Province,
+   save: SaveGame,
+): ICondition[] {
+   return [
+      {
+         name: $t(L.$1IsOnTheMap, getProvinceName(theirProvince, save)),
+         value: theirProvince !== ourProvince && !!save.state.provinces[theirProvince],
+      },
+   ];
+}
 
 export function EnlistCourtSupportAction(ourProvince: Province, theirProvince: Province, save: SaveGame): IGameAction {
    return {
@@ -29,12 +44,15 @@ export function EnlistCourtSupportAction(ourProvince: Province, theirProvince: P
    };
 }
 
-export function RestrictArmsSupplyAction(theirProvince: Province, save: SaveGame): IGameAction {
+export function RestrictArmsSupplyAction(ourProvince: Province, theirProvince: Province, save: SaveGame): IGameAction {
    return {
       cost: { consulPoint: 1 },
-      condition: finalizeCondition(timedActionConditions({ action: "RestrictArmsSupply" }, theirProvince, save)),
+      condition: finalizeCondition([
+         ...interventionTargetConditions(ourProvince, theirProvince, save),
+         ...timedActionConditions({ action: "RestrictArmsSupply" }, ourProvince, save),
+      ]),
       execute: () => {
-         startTimedAction("RestrictArmsSupply", theirProvince, save);
+         startTimedAction("RestrictArmsSupply", ourProvince, save);
       },
       effect: {
          name: TimedActions.RestrictArmsSupply.name(),
@@ -51,12 +69,15 @@ export function RestrictArmsSupplyAction(theirProvince: Province, save: SaveGame
    };
 }
 
-export function OrderAnInquiryAction(theirProvince: Province, save: SaveGame): IGameAction {
+export function OrderAnInquiryAction(ourProvince: Province, theirProvince: Province, save: SaveGame): IGameAction {
    return {
       cost: { consulPoint: 1 },
-      condition: finalizeCondition(timedActionConditions({ action: "OrderAnInquiry" }, theirProvince, save)),
+      condition: finalizeCondition([
+         ...interventionTargetConditions(ourProvince, theirProvince, save),
+         ...timedActionConditions({ action: "OrderAnInquiry" }, ourProvince, save),
+      ]),
       execute: () => {
-         startTimedAction("OrderAnInquiry", theirProvince, save);
+         startTimedAction("OrderAnInquiry", ourProvince, save);
       },
       effect: {
          name: TimedActions.OrderAnInquiry.name(),
@@ -73,12 +94,15 @@ export function OrderAnInquiryAction(theirProvince: Province, save: SaveGame): I
    };
 }
 
-export function IssueCensureAction(theirProvince: Province, save: SaveGame): IGameAction {
+export function IssueCensureAction(ourProvince: Province, theirProvince: Province, save: SaveGame): IGameAction {
    return {
       cost: { consulPoint: 1 },
-      condition: finalizeCondition(timedActionConditions({ action: "IssueCensure" }, theirProvince, save)),
+      condition: finalizeCondition([
+         ...interventionTargetConditions(ourProvince, theirProvince, save),
+         ...timedActionConditions({ action: "IssueCensure" }, ourProvince, save),
+      ]),
       execute: () => {
-         startTimedAction("IssueCensure", theirProvince, save);
+         startTimedAction("IssueCensure", ourProvince, save);
          forEach(save.state.provinces, (province) => {
             if (province === theirProvince) {
                return;

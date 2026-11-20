@@ -816,6 +816,9 @@ const EmptyAdvisorSlots: ITodo = {
    icon: (save) => IconCatalog.EmptyAdvisor,
    className: (save) => "yellow",
    tooltip: (save) => {
+      if (hasScenarioFlag("TKCharacter", save)) {
+         return null;
+      }
       const data = save.state.provinces[save.state.playerProvince];
       if (!data) {
          return null;

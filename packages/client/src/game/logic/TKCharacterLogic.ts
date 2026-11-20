@@ -124,7 +124,7 @@ export function killTKCharacter(character: TKCharacter, save: SaveGame): void {
 export function getTKCharacterName(character: TKCharacter): { fullName: string; courtesyName: string } {
    const name = TKCharacters[character].name();
    return {
-      fullName: [name[0], [name[1]]].join(" "),
+      fullName: `${name[0]} ${name[1]}`,
       courtesyName: name[2],
    };
 }

@@ -35,6 +35,10 @@ import { Grid1, Grid2 } from "./UIConstant";
 
 export function ImperialCourtPage(): React.ReactNode {
    refreshOnTypedEvent(GameStateUpdated);
+   const currentProvinces = keysOf(G.save.state.provinces)
+      .sort()
+      .filter((p) => p !== G.save.state.playerProvince);
+   const [selectedProvince, setSelectedProvince] = useState<Province | undefined>(currentProvinces[0]);
    const state = G.save.state.provinces[G.save.state.playerProvince];
    if (!state) {
       return null;
@@ -46,10 +50,6 @@ export function ImperialCourtPage(): React.ReactNode {
          p !== G.save.state.playerProvince &&
          (getRelation(G.save.state.playerProvince, p, G.save)?.infiltrate.value ?? 0) > 0,
    );
-   const currentProvinces = keysOf(G.save.state.provinces)
-      .sort()
-      .filter((p) => p !== G.save.state.playerProvince);
-   const [selectedProvince, setSelectedProvince] = useState<Province | undefined>(currentProvinces[0]);
    return (
       <SidebarComp title={<SidebarImageHeader image={HeaderImages.ImperialCourt} title="Imperial Court" />}>
          <div className="h1 row">
@@ -100,7 +100,7 @@ export function ImperialCourtPage(): React.ReactNode {
          {selectedProvince && (
             <div style={Grid2} className="m10">
                <ActionButton
-                  action={() => NamePublicEnemyAction(selectedProvince, G.save)}
+                  action={() => NamePublicEnemyAction(G.save.state.playerProvince, selectedProvince, G.save)}
                   tooltip={(element) => (
                      <>
                         <TimedActionDescComp action="PublicEnemy" />
@@ -111,7 +111,7 @@ export function ImperialCourtPage(): React.ReactNode {
                   {TimedActions.PublicEnemy.name()}
                </ActionButton>
                <ActionButton
-                  action={() => RestrictArmsSupplyAction(selectedProvince, G.save)}
+                  action={() => RestrictArmsSupplyAction(G.save.state.playerProvince, selectedProvince, G.save)}
                   tooltip={(element) => (
                      <>
                         <TimedActionDescComp action="RestrictArmsSupply" />
@@ -122,7 +122,7 @@ export function ImperialCourtPage(): React.ReactNode {
                   {TimedActions.RestrictArmsSupply.name()}
                </ActionButton>
                <ActionButton
-                  action={() => OrderAnInquiryAction(selectedProvince, G.save)}
+                  action={() => OrderAnInquiryAction(G.save.state.playerProvince, selectedProvince, G.save)}
                   tooltip={(element) => (
                      <>
                         <TimedActionDescComp action="OrderAnInquiry" />
@@ -133,7 +133,7 @@ export function ImperialCourtPage(): React.ReactNode {
                   {TimedActions.OrderAnInquiry.name()}
                </ActionButton>
                <ActionButton
-                  action={() => IssueCensureAction(selectedProvince, G.save)}
+                  action={() => IssueCensureAction(G.save.state.playerProvince, selectedProvince, G.save)}
                   tooltip={(element) => (
                      <>
                         <TimedActionDescComp action="IssueCensure" />

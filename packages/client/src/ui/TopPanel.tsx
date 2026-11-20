@@ -84,6 +84,8 @@ export function TopLeftPanel(): React.ReactNode {
    const openSenate = useCallback(() => {
       if (hasScenarioFlag("Senate", G.save)) {
          showPanel(SenatePage, {});
+      } else if (hasScenarioFlag("ImperialCourt", G.save)) {
+         showPanel(ImperialCourtPage, {});
       }
    }, []);
    const openMissions = useCallback(() => showPanel(MissionPage, {}), []);
