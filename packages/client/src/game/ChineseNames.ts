@@ -1,334 +1,327 @@
 import { randOne } from "@project/shared/src/utils/Helper";
-import type { INameGenerator } from "./scenarios/Scenarios";
+import { type INameEntry, resolveNameEntry } from "./logic/NameLogic";
+import type { IScenarioNameGenerator, IScenarioRandomNameOptions } from "./scenarios/Scenarios";
 
-const FamilyNames = [
-   "Bao", // 鲍
-   "Bi", // 毕
-   "Bu", // 步
-   "Cai", // 蔡
-   "Cao", // 曹
-   "Chen", // 陈
-   "Cheng", // 程
-   "Cui", // 崔
-   "Deng", // 邓
-   "Dian", // 典
-   "Ding", // 丁
-   "Dong", // 董
-   "Du", // 杜
-   "Fa", // 法
-   "Fan", // 樊
-   "Fei", // 费
-   "Feng", // 冯
-   "Fu", // 傅
-   "Gan", // 甘
-   "Gao", // 高
-   "Ge", // 葛
-   "Geng", // 耿
-   "Gong", // 龚
-   "Gu", // 顾
-   "Guan", // 关
-   "Guo", // 郭
-   "Han", // 韩
-   "He", // 何
-   "Hou", // 侯
-   "Hu", // 胡
-   "Hua", // 华
-   "Huan", // 桓
-   "Huang", // 黄
-   "Ji", // 纪
-   "Jia", // 贾
-   "Jian", // 简
-   "Jiang", // 姜
-   "Jiang", // 蒋
-   "Jiao", // 焦
-   "Jin", // 金
-   "Ju", // 沮
-   "Kan", // 阚
-   "Kong", // 孔
-   "Lai", // 来
-   "Li", // 李
-   "Liang", // 梁
-   "Liao", // 廖
-   "Ling", // 凌
-   "Liu", // 刘
-   "Lou", // 楼
-   "Lu", // 卢
-   "Lu", // 陆
-   "Lu", // 鲁
-   "Lu", // 吕
-   "Luo", // 骆
-   "Ma", // 马
-   "Man", // 满
-   "Meng", // 孟
-   "Mi", // 糜
-   "Ni", // 倪
-   "Niu", // 牛
-   "Pan", // 潘
-   "Pang", // 庞
-   "Pei", // 裴
-   "Qian", // 牵
-   "Qiao", // 桥
-   "Qin", // 秦
-   "Quan", // 全
-   "Ren", // 任
-   "Shen", // 沈
-   "Shi", // 士
-   "Shi", // 史
-   "Sui", // 眭
-   "Sun", // 孙
-   "Tan", // 谭
-   "Tao", // 陶
-   "Tian", // 田
-   "Wang", // 王
-   "Wei", // 韦
-   "Wei", // 卫
-   "Wei", // 魏
-   "Wen", // 温
-   "Wen", // 文
-   "Wu", // 吴
-   "Xi", // 郤
-   "Xiang", // 向
-   "Xie", // 谢
-   "Xin", // 辛
-   "Xu", // 徐
-   "Xu", // 许
-   "Xue", // 薛
-   "Xun", // 荀
-   "Yan", // 严
-   "Yan", // 阎
-   "Yan", // 颜
-   "Yang", // 杨
-   "Yang", // 羊
-   "Yi", // 伊
-   "Yin", // 尹
-   "Ying", // 应
-   "Yu", // 于
-   "Yu", // 虞
-   "Yuan", // 袁
-   "Yue", // 乐
-   "Zang", // 臧
-   "Zhang", // 张
-   "Zhao", // 赵
-   "Zheng", // 郑
-   "Zhong", // 钟
-   "Zhou", // 周
-   "Zhu", // 朱
-   "Zong", // 宗
-   "Zou", // 邹
-   "Zu", // 祖
-   "Gongsun", // 公孙
-   "Guanqiu", // 毌丘
-   "Huangfu", // 皇甫
-   "Shisun", // 士孙
-   "Sima", // 司马
-   "Taishi", // 太史
-   "Xiahou", // 夏侯
-   "Zhongli", // 钟离
-   "Zhuge", // 诸葛
+const FamilyNames: INameEntry[] = [
+   { en: "Bao", "zh-CN": "鲍", "zh-TW": "鮑" },
+   { en: "Bi", "zh-CN": "毕", "zh-TW": "畢" },
+   { en: "Bu", "zh-CN": "步", "zh-TW": "步" },
+   { en: "Cai", "zh-CN": "蔡", "zh-TW": "蔡" },
+   { en: "Cao", "zh-CN": "曹", "zh-TW": "曹" },
+   { en: "Chen", "zh-CN": "陈", "zh-TW": "陳" },
+   { en: "Cheng", "zh-CN": "程", "zh-TW": "程" },
+   { en: "Cui", "zh-CN": "崔", "zh-TW": "崔" },
+   { en: "Deng", "zh-CN": "邓", "zh-TW": "鄧" },
+   { en: "Dian", "zh-CN": "典", "zh-TW": "典" },
+   { en: "Ding", "zh-CN": "丁", "zh-TW": "丁" },
+   { en: "Dong", "zh-CN": "董", "zh-TW": "董" },
+   { en: "Du", "zh-CN": "杜", "zh-TW": "杜" },
+   { en: "Fa", "zh-CN": "法", "zh-TW": "法" },
+   { en: "Fan", "zh-CN": "樊", "zh-TW": "樊" },
+   { en: "Fei", "zh-CN": "费", "zh-TW": "費" },
+   { en: "Feng", "zh-CN": "冯", "zh-TW": "馮" },
+   { en: "Fu", "zh-CN": "傅", "zh-TW": "傅" },
+   { en: "Gan", "zh-CN": "甘", "zh-TW": "甘" },
+   { en: "Gao", "zh-CN": "高", "zh-TW": "高" },
+   { en: "Ge", "zh-CN": "葛", "zh-TW": "葛" },
+   { en: "Geng", "zh-CN": "耿", "zh-TW": "耿" },
+   { en: "Gong", "zh-CN": "龚", "zh-TW": "龔" },
+   { en: "Gu", "zh-CN": "顾", "zh-TW": "顧" },
+   { en: "Guan", "zh-CN": "关", "zh-TW": "關" },
+   { en: "Guo", "zh-CN": "郭", "zh-TW": "郭" },
+   { en: "Han", "zh-CN": "韩", "zh-TW": "韓" },
+   { en: "He", "zh-CN": "何", "zh-TW": "何" },
+   { en: "Hou", "zh-CN": "侯", "zh-TW": "侯" },
+   { en: "Hu", "zh-CN": "胡", "zh-TW": "胡" },
+   { en: "Hua", "zh-CN": "华", "zh-TW": "華" },
+   { en: "Huan", "zh-CN": "桓", "zh-TW": "桓" },
+   { en: "Huang", "zh-CN": "黄", "zh-TW": "黃" },
+   { en: "Ji", "zh-CN": "纪", "zh-TW": "紀" },
+   { en: "Jia", "zh-CN": "贾", "zh-TW": "賈" },
+   { en: "Jian", "zh-CN": "简", "zh-TW": "簡" },
+   { en: "Jiang", "zh-CN": "姜", "zh-TW": "姜" },
+   { en: "Jiang", "zh-CN": "蒋", "zh-TW": "蔣" },
+   { en: "Jiao", "zh-CN": "焦", "zh-TW": "焦" },
+   { en: "Jin", "zh-CN": "金", "zh-TW": "金" },
+   { en: "Ju", "zh-CN": "沮", "zh-TW": "沮" },
+   { en: "Kan", "zh-CN": "阚", "zh-TW": "闞" },
+   { en: "Kong", "zh-CN": "孔", "zh-TW": "孔" },
+   { en: "Lai", "zh-CN": "来", "zh-TW": "來" },
+   { en: "Li", "zh-CN": "李", "zh-TW": "李" },
+   { en: "Liang", "zh-CN": "梁", "zh-TW": "梁" },
+   { en: "Liao", "zh-CN": "廖", "zh-TW": "廖" },
+   { en: "Ling", "zh-CN": "凌", "zh-TW": "凌" },
+   { en: "Liu", "zh-CN": "刘", "zh-TW": "劉" },
+   { en: "Lou", "zh-CN": "楼", "zh-TW": "樓" },
+   { en: "Lu", "zh-CN": "卢", "zh-TW": "盧" },
+   { en: "Lu", "zh-CN": "陆", "zh-TW": "陸" },
+   { en: "Lu", "zh-CN": "鲁", "zh-TW": "魯" },
+   { en: "Lu", "zh-CN": "吕", "zh-TW": "呂" },
+   { en: "Luo", "zh-CN": "骆", "zh-TW": "駱" },
+   { en: "Ma", "zh-CN": "马", "zh-TW": "馬" },
+   { en: "Man", "zh-CN": "满", "zh-TW": "滿" },
+   { en: "Meng", "zh-CN": "孟", "zh-TW": "孟" },
+   { en: "Mi", "zh-CN": "糜", "zh-TW": "糜" },
+   { en: "Ni", "zh-CN": "倪", "zh-TW": "倪" },
+   { en: "Niu", "zh-CN": "牛", "zh-TW": "牛" },
+   { en: "Pan", "zh-CN": "潘", "zh-TW": "潘" },
+   { en: "Pang", "zh-CN": "庞", "zh-TW": "龐" },
+   { en: "Pei", "zh-CN": "裴", "zh-TW": "裴" },
+   { en: "Qian", "zh-CN": "牵", "zh-TW": "牽" },
+   { en: "Qiao", "zh-CN": "桥", "zh-TW": "橋" },
+   { en: "Qin", "zh-CN": "秦", "zh-TW": "秦" },
+   { en: "Quan", "zh-CN": "全", "zh-TW": "全" },
+   { en: "Ren", "zh-CN": "任", "zh-TW": "任" },
+   { en: "Shen", "zh-CN": "沈", "zh-TW": "沈" },
+   { en: "Shi", "zh-CN": "士", "zh-TW": "士" },
+   { en: "Shi", "zh-CN": "史", "zh-TW": "史" },
+   { en: "Sui", "zh-CN": "眭", "zh-TW": "眭" },
+   { en: "Sun", "zh-CN": "孙", "zh-TW": "孫" },
+   { en: "Tan", "zh-CN": "谭", "zh-TW": "譚" },
+   { en: "Tao", "zh-CN": "陶", "zh-TW": "陶" },
+   { en: "Tian", "zh-CN": "田", "zh-TW": "田" },
+   { en: "Wang", "zh-CN": "王", "zh-TW": "王" },
+   { en: "Wei", "zh-CN": "韦", "zh-TW": "韋" },
+   { en: "Wei", "zh-CN": "卫", "zh-TW": "衛" },
+   { en: "Wei", "zh-CN": "魏", "zh-TW": "魏" },
+   { en: "Wen", "zh-CN": "温", "zh-TW": "溫" },
+   { en: "Wen", "zh-CN": "文", "zh-TW": "文" },
+   { en: "Wu", "zh-CN": "吴", "zh-TW": "吳" },
+   { en: "Xi", "zh-CN": "郤", "zh-TW": "郤" },
+   { en: "Xiang", "zh-CN": "向", "zh-TW": "向" },
+   { en: "Xie", "zh-CN": "谢", "zh-TW": "謝" },
+   { en: "Xin", "zh-CN": "辛", "zh-TW": "辛" },
+   { en: "Xu", "zh-CN": "徐", "zh-TW": "徐" },
+   { en: "Xu", "zh-CN": "许", "zh-TW": "許" },
+   { en: "Xue", "zh-CN": "薛", "zh-TW": "薛" },
+   { en: "Xun", "zh-CN": "荀", "zh-TW": "荀" },
+   { en: "Yan", "zh-CN": "严", "zh-TW": "嚴" },
+   { en: "Yan", "zh-CN": "阎", "zh-TW": "閻" },
+   { en: "Yan", "zh-CN": "颜", "zh-TW": "顏" },
+   { en: "Yang", "zh-CN": "杨", "zh-TW": "楊" },
+   { en: "Yang", "zh-CN": "羊", "zh-TW": "羊" },
+   { en: "Yi", "zh-CN": "伊", "zh-TW": "伊" },
+   { en: "Yin", "zh-CN": "尹", "zh-TW": "尹" },
+   { en: "Ying", "zh-CN": "应", "zh-TW": "應" },
+   { en: "Yu", "zh-CN": "于", "zh-TW": "于" },
+   { en: "Yu", "zh-CN": "虞", "zh-TW": "虞" },
+   { en: "Yuan", "zh-CN": "袁", "zh-TW": "袁" },
+   { en: "Yue", "zh-CN": "乐", "zh-TW": "樂" },
+   { en: "Zang", "zh-CN": "臧", "zh-TW": "臧" },
+   { en: "Zhang", "zh-CN": "张", "zh-TW": "張" },
+   { en: "Zhao", "zh-CN": "赵", "zh-TW": "趙" },
+   { en: "Zheng", "zh-CN": "郑", "zh-TW": "鄭" },
+   { en: "Zhong", "zh-CN": "钟", "zh-TW": "鍾" },
+   { en: "Zhou", "zh-CN": "周", "zh-TW": "周" },
+   { en: "Zhu", "zh-CN": "朱", "zh-TW": "朱" },
+   { en: "Zong", "zh-CN": "宗", "zh-TW": "宗" },
+   { en: "Zou", "zh-CN": "邹", "zh-TW": "鄒" },
+   { en: "Zu", "zh-CN": "祖", "zh-TW": "祖" },
+   { en: "Gongsun", "zh-CN": "公孙", "zh-TW": "公孫" },
+   { en: "Guanqiu", "zh-CN": "毌丘", "zh-TW": "毌丘" },
+   { en: "Huangfu", "zh-CN": "皇甫", "zh-TW": "皇甫" },
+   { en: "Shisun", "zh-CN": "士孙", "zh-TW": "士孫" },
+   { en: "Sima", "zh-CN": "司马", "zh-TW": "司馬" },
+   { en: "Taishi", "zh-CN": "太史", "zh-TW": "太史" },
+   { en: "Xiahou", "zh-CN": "夏侯", "zh-TW": "夏侯" },
+   { en: "Zhongli", "zh-CN": "钟离", "zh-TW": "鍾離" },
+   { en: "Zhuge", "zh-CN": "诸葛", "zh-TW": "諸葛" },
 ];
 
-const MaleGivenNames = [
-   "An", // 安
-   "Ang", // 昂
-   "Ba", // 霸
-   "Bao", // 苞
-   "Bei", // 备
-   "Biao", // 彪
-   "Biao", // 表
-   "Bin", // 斌
-   "Bu", // 布
-   "Can", // 粲
-   "Cang", // 仓
-   "Cao", // 操
-   "Ce", // 策
-   "Chao", // 超
-   "Chen", // 琛
-   "Cheng", // 承
-   "Chong", // 冲
-   "Chong", // 宠
-   "Chu", // 褚
-   "Chun", // 纯
-   "Ci", // 慈
-   "Cong", // 琮
-   "Dan", // 诞
-   "Dao", // 到
-   "De", // 德
-   "Deng", // 登
-   "Du", // 度
-   "Dun", // 惇
-   "Fan", // 范
-   "Fang", // 芳
-   "Fei", // 飞
-   "Feng", // 丰
-   "Feng", // 封
-   "Fu", // 馥
-   "Fu", // 辅
-   "Gai", // 盖
-   "Gang", // 刚
-   "Gong", // 恭
-   "Gong", // 宫
-   "Guang", // 光
-   "He", // 合
-   "He", // 和
-   "Hong", // 洪
-   "Hong", // 宏
-   "Huan", // 桓
-   "Huang", // 晃
-   "Hui", // 会
-   "Ji", // 绩
-   "Ji", // 纪
-   "Jia", // 嘉
-   "Jian", // 坚
-   "Jian", // 简
-   "Jiang", // 奖
-   "Jin", // 瑾
-   "Jin", // 进
-   "Jing", // 敬
-   "Jing", // 景
-   "Jiu", // 就
-   "Ju", // 据
-   "Jun", // 俊
-   "Jun", // 钧
-   "Kai", // 楷
-   "Kang", // 康
-   "Lang", // 朗
-   "Li", // 礼
-   "Liang", // 亮
-   "Liang", // 良
-   "Liao", // 辽
-   "Lie", // 烈
-   "Lin", // 林
-   "Ling", // 灵
-   "Lu", // 鲁
-   "Meng", // 蒙
-   "Miao", // 邈
-   "Min", // 敏
-   "Ning", // 宁
-   "Pei", // 配
-   "Pi", // 丕
-   "Ping", // 平
-   "Pu", // 普
-   "Qian", // 谦
-   "Qin", // 钦
-   "Qing", // 庆
-   "Qiu", // 丘
-   "Quan", // 权
-   "Ren", // 仁
-   "Rong", // 融
-   "Rou", // 柔
-   "Rui", // 睿
-   "Shao", // 绍
-   "Sheng", // 盛
-   "Shi", // 师
-   "Shou", // 寿
-   "Shu", // 舒
-   "Shu", // 术
-   "Shun", // 顺
-   "Song", // 松
-   "Su", // 肃
-   "Sui", // 遂
-   "Tai", // 泰
-   "Teng", // 腾
-   "Tong", // 统
-   "Tong", // 通
-   "Wan", // 琬
-   "Wei", // 维
-   "Wei", // 韦
-   "Wen", // 温
-   "Wu", // 武
-   "Xi", // 熙
-   "Xian", // 宪
-   "Xiang", // 详
-   "Xin", // 歆
-   "Xiu", // 修
-   "Xu", // 诩
-   "Xuan", // 玄
-   "Xun", // 逊
-   "Yan", // 延
-   "Yan", // 严
-   "Yang", // 杨
-   "Yao", // 繇
-   "Ye", // 晔
-   "Yi", // 懿
-   "Yi", // 仪
-   "Yi", // 义
-   "Yin", // 胤
-   "Ying", // 英
-   "Yong", // 雍
-   "You", // 攸
-   "Yu", // 瑜
-   "Yu", // 彧
-   "Yu", // 羽
-   "Yuan", // 渊
-   "Yue", // 悦
-   "Yun", // 云
-   "Zan", // 瓒
-   "Zhang", // 璋
-   "Zhao", // 昭
-   "Zhen", // 震
-   "Zhen", // 真
-   "Zheng", // 正
-   "Zhi", // 芝
-   "Zhi", // 植
-   "Zhong", // 忠
-   "Zhou", // 胄
-   "Zhu", // 竺
+const MaleGivenNames: INameEntry[] = [
+   { en: "An", "zh-CN": "安", "zh-TW": "安" },
+   { en: "Ang", "zh-CN": "昂", "zh-TW": "昂" },
+   { en: "Ba", "zh-CN": "霸", "zh-TW": "霸" },
+   { en: "Bao", "zh-CN": "苞", "zh-TW": "苞" },
+   { en: "Bei", "zh-CN": "备", "zh-TW": "備" },
+   { en: "Biao", "zh-CN": "彪", "zh-TW": "彪" },
+   { en: "Biao", "zh-CN": "表", "zh-TW": "表" },
+   { en: "Bin", "zh-CN": "斌", "zh-TW": "斌" },
+   { en: "Bu", "zh-CN": "布", "zh-TW": "布" },
+   { en: "Can", "zh-CN": "粲", "zh-TW": "粲" },
+   { en: "Cang", "zh-CN": "仓", "zh-TW": "倉" },
+   { en: "Cao", "zh-CN": "操", "zh-TW": "操" },
+   { en: "Ce", "zh-CN": "策", "zh-TW": "策" },
+   { en: "Chao", "zh-CN": "超", "zh-TW": "超" },
+   { en: "Chen", "zh-CN": "琛", "zh-TW": "琛" },
+   { en: "Cheng", "zh-CN": "承", "zh-TW": "承" },
+   { en: "Chong", "zh-CN": "冲", "zh-TW": "沖" },
+   { en: "Chong", "zh-CN": "宠", "zh-TW": "寵" },
+   { en: "Chu", "zh-CN": "褚", "zh-TW": "褚" },
+   { en: "Chun", "zh-CN": "纯", "zh-TW": "純" },
+   { en: "Ci", "zh-CN": "慈", "zh-TW": "慈" },
+   { en: "Cong", "zh-CN": "琮", "zh-TW": "琮" },
+   { en: "Dan", "zh-CN": "诞", "zh-TW": "誕" },
+   { en: "Dao", "zh-CN": "到", "zh-TW": "到" },
+   { en: "De", "zh-CN": "德", "zh-TW": "德" },
+   { en: "Deng", "zh-CN": "登", "zh-TW": "登" },
+   { en: "Du", "zh-CN": "度", "zh-TW": "度" },
+   { en: "Dun", "zh-CN": "惇", "zh-TW": "惇" },
+   { en: "Fan", "zh-CN": "范", "zh-TW": "范" },
+   { en: "Fang", "zh-CN": "芳", "zh-TW": "芳" },
+   { en: "Fei", "zh-CN": "飞", "zh-TW": "飛" },
+   { en: "Feng", "zh-CN": "丰", "zh-TW": "豐" },
+   { en: "Feng", "zh-CN": "封", "zh-TW": "封" },
+   { en: "Fu", "zh-CN": "馥", "zh-TW": "馥" },
+   { en: "Fu", "zh-CN": "辅", "zh-TW": "輔" },
+   { en: "Gai", "zh-CN": "盖", "zh-TW": "蓋" },
+   { en: "Gang", "zh-CN": "刚", "zh-TW": "剛" },
+   { en: "Gong", "zh-CN": "恭", "zh-TW": "恭" },
+   { en: "Gong", "zh-CN": "宫", "zh-TW": "宮" },
+   { en: "Guang", "zh-CN": "光", "zh-TW": "光" },
+   { en: "He", "zh-CN": "合", "zh-TW": "合" },
+   { en: "He", "zh-CN": "和", "zh-TW": "和" },
+   { en: "Hong", "zh-CN": "洪", "zh-TW": "洪" },
+   { en: "Hong", "zh-CN": "宏", "zh-TW": "宏" },
+   { en: "Huan", "zh-CN": "桓", "zh-TW": "桓" },
+   { en: "Huang", "zh-CN": "晃", "zh-TW": "晃" },
+   { en: "Hui", "zh-CN": "会", "zh-TW": "會" },
+   { en: "Ji", "zh-CN": "绩", "zh-TW": "績" },
+   { en: "Ji", "zh-CN": "纪", "zh-TW": "紀" },
+   { en: "Jia", "zh-CN": "嘉", "zh-TW": "嘉" },
+   { en: "Jian", "zh-CN": "坚", "zh-TW": "堅" },
+   { en: "Jian", "zh-CN": "简", "zh-TW": "簡" },
+   { en: "Jiang", "zh-CN": "奖", "zh-TW": "獎" },
+   { en: "Jin", "zh-CN": "瑾", "zh-TW": "瑾" },
+   { en: "Jin", "zh-CN": "进", "zh-TW": "進" },
+   { en: "Jing", "zh-CN": "敬", "zh-TW": "敬" },
+   { en: "Jing", "zh-CN": "景", "zh-TW": "景" },
+   { en: "Jiu", "zh-CN": "就", "zh-TW": "就" },
+   { en: "Ju", "zh-CN": "据", "zh-TW": "據" },
+   { en: "Jun", "zh-CN": "俊", "zh-TW": "俊" },
+   { en: "Jun", "zh-CN": "钧", "zh-TW": "鈞" },
+   { en: "Kai", "zh-CN": "楷", "zh-TW": "楷" },
+   { en: "Kang", "zh-CN": "康", "zh-TW": "康" },
+   { en: "Lang", "zh-CN": "朗", "zh-TW": "朗" },
+   { en: "Li", "zh-CN": "礼", "zh-TW": "禮" },
+   { en: "Liang", "zh-CN": "亮", "zh-TW": "亮" },
+   { en: "Liang", "zh-CN": "良", "zh-TW": "良" },
+   { en: "Liao", "zh-CN": "辽", "zh-TW": "遼" },
+   { en: "Lie", "zh-CN": "烈", "zh-TW": "烈" },
+   { en: "Lin", "zh-CN": "林", "zh-TW": "林" },
+   { en: "Ling", "zh-CN": "灵", "zh-TW": "靈" },
+   { en: "Lu", "zh-CN": "鲁", "zh-TW": "魯" },
+   { en: "Meng", "zh-CN": "蒙", "zh-TW": "蒙" },
+   { en: "Miao", "zh-CN": "邈", "zh-TW": "邈" },
+   { en: "Min", "zh-CN": "敏", "zh-TW": "敏" },
+   { en: "Ning", "zh-CN": "宁", "zh-TW": "寧" },
+   { en: "Pei", "zh-CN": "配", "zh-TW": "配" },
+   { en: "Pi", "zh-CN": "丕", "zh-TW": "丕" },
+   { en: "Ping", "zh-CN": "平", "zh-TW": "平" },
+   { en: "Pu", "zh-CN": "普", "zh-TW": "普" },
+   { en: "Qian", "zh-CN": "谦", "zh-TW": "謙" },
+   { en: "Qin", "zh-CN": "钦", "zh-TW": "欽" },
+   { en: "Qing", "zh-CN": "庆", "zh-TW": "慶" },
+   { en: "Qiu", "zh-CN": "丘", "zh-TW": "丘" },
+   { en: "Quan", "zh-CN": "权", "zh-TW": "權" },
+   { en: "Ren", "zh-CN": "仁", "zh-TW": "仁" },
+   { en: "Rong", "zh-CN": "融", "zh-TW": "融" },
+   { en: "Rou", "zh-CN": "柔", "zh-TW": "柔" },
+   { en: "Rui", "zh-CN": "睿", "zh-TW": "睿" },
+   { en: "Shao", "zh-CN": "绍", "zh-TW": "紹" },
+   { en: "Sheng", "zh-CN": "盛", "zh-TW": "盛" },
+   { en: "Shi", "zh-CN": "师", "zh-TW": "師" },
+   { en: "Shou", "zh-CN": "寿", "zh-TW": "壽" },
+   { en: "Shu", "zh-CN": "舒", "zh-TW": "舒" },
+   { en: "Shu", "zh-CN": "术", "zh-TW": "術" },
+   { en: "Shun", "zh-CN": "顺", "zh-TW": "順" },
+   { en: "Song", "zh-CN": "松", "zh-TW": "松" },
+   { en: "Su", "zh-CN": "肃", "zh-TW": "肅" },
+   { en: "Sui", "zh-CN": "遂", "zh-TW": "遂" },
+   { en: "Tai", "zh-CN": "泰", "zh-TW": "泰" },
+   { en: "Teng", "zh-CN": "腾", "zh-TW": "騰" },
+   { en: "Tong", "zh-CN": "统", "zh-TW": "統" },
+   { en: "Tong", "zh-CN": "通", "zh-TW": "通" },
+   { en: "Wan", "zh-CN": "琬", "zh-TW": "琬" },
+   { en: "Wei", "zh-CN": "维", "zh-TW": "維" },
+   { en: "Wei", "zh-CN": "韦", "zh-TW": "韋" },
+   { en: "Wen", "zh-CN": "温", "zh-TW": "溫" },
+   { en: "Wu", "zh-CN": "武", "zh-TW": "武" },
+   { en: "Xi", "zh-CN": "熙", "zh-TW": "熙" },
+   { en: "Xian", "zh-CN": "宪", "zh-TW": "憲" },
+   { en: "Xiang", "zh-CN": "详", "zh-TW": "詳" },
+   { en: "Xin", "zh-CN": "歆", "zh-TW": "歆" },
+   { en: "Xiu", "zh-CN": "修", "zh-TW": "修" },
+   { en: "Xu", "zh-CN": "诩", "zh-TW": "詡" },
+   { en: "Xuan", "zh-CN": "玄", "zh-TW": "玄" },
+   { en: "Xun", "zh-CN": "逊", "zh-TW": "遜" },
+   { en: "Yan", "zh-CN": "延", "zh-TW": "延" },
+   { en: "Yan", "zh-CN": "严", "zh-TW": "嚴" },
+   { en: "Yang", "zh-CN": "杨", "zh-TW": "楊" },
+   { en: "Yao", "zh-CN": "繇", "zh-TW": "繇" },
+   { en: "Ye", "zh-CN": "晔", "zh-TW": "曄" },
+   { en: "Yi", "zh-CN": "懿", "zh-TW": "懿" },
+   { en: "Yi", "zh-CN": "仪", "zh-TW": "儀" },
+   { en: "Yi", "zh-CN": "义", "zh-TW": "義" },
+   { en: "Yin", "zh-CN": "胤", "zh-TW": "胤" },
+   { en: "Ying", "zh-CN": "英", "zh-TW": "英" },
+   { en: "Yong", "zh-CN": "雍", "zh-TW": "雍" },
+   { en: "You", "zh-CN": "攸", "zh-TW": "攸" },
+   { en: "Yu", "zh-CN": "瑜", "zh-TW": "瑜" },
+   { en: "Yu", "zh-CN": "彧", "zh-TW": "彧" },
+   { en: "Yu", "zh-CN": "羽", "zh-TW": "羽" },
+   { en: "Yuan", "zh-CN": "渊", "zh-TW": "淵" },
+   { en: "Yue", "zh-CN": "悦", "zh-TW": "悅" },
+   { en: "Yun", "zh-CN": "云", "zh-TW": "雲" },
+   { en: "Zan", "zh-CN": "瓒", "zh-TW": "瓚" },
+   { en: "Zhang", "zh-CN": "璋", "zh-TW": "璋" },
+   { en: "Zhao", "zh-CN": "昭", "zh-TW": "昭" },
+   { en: "Zhen", "zh-CN": "震", "zh-TW": "震" },
+   { en: "Zhen", "zh-CN": "真", "zh-TW": "真" },
+   { en: "Zheng", "zh-CN": "正", "zh-TW": "正" },
+   { en: "Zhi", "zh-CN": "芝", "zh-TW": "芝" },
+   { en: "Zhi", "zh-CN": "植", "zh-TW": "植" },
+   { en: "Zhong", "zh-CN": "忠", "zh-TW": "忠" },
+   { en: "Zhou", "zh-CN": "胄", "zh-TW": "胄" },
+   { en: "Zhu", "zh-CN": "竺", "zh-TW": "竺" },
 ];
 
-const FemaleGivenNames = [
-   "Ai", // 爱
-   "An", // 安
-   "Bai", // 白
-   "Cai", // 采
-   "E", // 娥
-   "Fang", // 芳
-   "Fen", // 芬
-   "Fu", // 福
-   "Gui", // 桂
-   "Hua", // 华
-   "Hui", // 惠
-   "Hui", // 慧
-   "Jie", // 节
-   "Jing", // 静
-   "Lan", // 兰
-   "Li", // 丽
-   "Lian", // 廉
-   "Ling", // 灵
-   "Min", // 敏
-   "Ning", // 宁
-   "Qiong", // 琼
-   "Rong", // 荣
-   "Rong", // 容
-   "Rou", // 柔
-   "Shu", // 淑
-   "Shun", // 顺
-   "Wan", // 婉
-   "Xian", // 娴
-   "Xiu", // 秀
-   "Xuan", // 宣
-   "Ya", // 雅
-   "Yan", // 琰
-   "Yan", // 艳
-   "Yao", // 瑶
-   "Yi", // 仪
-   "Ying", // 英
-   "Ying", // 瑛
-   "Yu", // 玉
-   "Yuan", // 媛
-   "Yue", // 月
-   "Zhen", // 贞
-   "Zhen", // 珍
-   "Zhi", // 芝
-   "Zhu", // 珠
+const FemaleGivenNames: INameEntry[] = [
+   { en: "Ai", "zh-CN": "爱", "zh-TW": "愛" },
+   { en: "An", "zh-CN": "安", "zh-TW": "安" },
+   { en: "Bai", "zh-CN": "白", "zh-TW": "白" },
+   { en: "Cai", "zh-CN": "采", "zh-TW": "采" },
+   { en: "E", "zh-CN": "娥", "zh-TW": "娥" },
+   { en: "Fang", "zh-CN": "芳", "zh-TW": "芳" },
+   { en: "Fen", "zh-CN": "芬", "zh-TW": "芬" },
+   { en: "Fu", "zh-CN": "福", "zh-TW": "福" },
+   { en: "Gui", "zh-CN": "桂", "zh-TW": "桂" },
+   { en: "Hua", "zh-CN": "华", "zh-TW": "華" },
+   { en: "Hui", "zh-CN": "惠", "zh-TW": "惠" },
+   { en: "Hui", "zh-CN": "慧", "zh-TW": "慧" },
+   { en: "Jie", "zh-CN": "节", "zh-TW": "節" },
+   { en: "Jing", "zh-CN": "静", "zh-TW": "靜" },
+   { en: "Lan", "zh-CN": "兰", "zh-TW": "蘭" },
+   { en: "Li", "zh-CN": "丽", "zh-TW": "麗" },
+   { en: "Lian", "zh-CN": "廉", "zh-TW": "廉" },
+   { en: "Ling", "zh-CN": "灵", "zh-TW": "靈" },
+   { en: "Min", "zh-CN": "敏", "zh-TW": "敏" },
+   { en: "Ning", "zh-CN": "宁", "zh-TW": "寧" },
+   { en: "Qiong", "zh-CN": "琼", "zh-TW": "瓊" },
+   { en: "Rong", "zh-CN": "荣", "zh-TW": "榮" },
+   { en: "Rong", "zh-CN": "容", "zh-TW": "容" },
+   { en: "Rou", "zh-CN": "柔", "zh-TW": "柔" },
+   { en: "Shu", "zh-CN": "淑", "zh-TW": "淑" },
+   { en: "Shun", "zh-CN": "顺", "zh-TW": "順" },
+   { en: "Wan", "zh-CN": "婉", "zh-TW": "婉" },
+   { en: "Xian", "zh-CN": "娴", "zh-TW": "嫻" },
+   { en: "Xiu", "zh-CN": "秀", "zh-TW": "秀" },
+   { en: "Xuan", "zh-CN": "宣", "zh-TW": "宣" },
+   { en: "Ya", "zh-CN": "雅", "zh-TW": "雅" },
+   { en: "Yan", "zh-CN": "琰", "zh-TW": "琰" },
+   { en: "Yan", "zh-CN": "艳", "zh-TW": "豔" },
+   { en: "Yao", "zh-CN": "瑶", "zh-TW": "瑤" },
+   { en: "Yi", "zh-CN": "仪", "zh-TW": "儀" },
+   { en: "Ying", "zh-CN": "英", "zh-TW": "英" },
+   { en: "Ying", "zh-CN": "瑛", "zh-TW": "瑛" },
+   { en: "Yu", "zh-CN": "玉", "zh-TW": "玉" },
+   { en: "Yuan", "zh-CN": "媛", "zh-TW": "媛" },
+   { en: "Yue", "zh-CN": "月", "zh-TW": "月" },
+   { en: "Zhen", "zh-CN": "贞", "zh-TW": "貞" },
+   { en: "Zhen", "zh-CN": "珍", "zh-TW": "珍" },
+   { en: "Zhi", "zh-CN": "芝", "zh-TW": "芝" },
+   { en: "Zhu", "zh-CN": "珠", "zh-TW": "珠" },
 ];
-
-function randomMaleName(familyName?: string, random = Math.random): [string, string] {
-   return [familyName ?? randOne(FamilyNames, random), randOne(MaleGivenNames, random)];
-}
-
-function randomFemaleName(familyName?: string, random = Math.random): [string, string] {
-   return [familyName ?? randOne(FamilyNames, random), randOne(FemaleGivenNames, random)];
-}
 
 function getFamilyName(name: string[]): string {
    return name[0];
@@ -336,7 +329,9 @@ function getFamilyName(name: string[]): string {
 
 export const ChineseNameGenerator = {
    getFamilyName,
-   randomName(gender, familyName, random) {
-      return gender === "male" ? randomMaleName(familyName, random) : randomFemaleName(familyName, random);
+   randomName({ language, gender, familyName, random = Math.random }: IScenarioRandomNameOptions) {
+      const family = familyName ?? resolveNameEntry(randOne(FamilyNames, random), language);
+      const givenNames = gender === "male" ? MaleGivenNames : FemaleGivenNames;
+      return [family, resolveNameEntry(randOne(givenNames, random), language)];
    },
-} satisfies INameGenerator;
+} satisfies IScenarioNameGenerator;

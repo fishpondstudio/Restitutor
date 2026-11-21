@@ -119,7 +119,7 @@ export async function bootstrap(): Promise<void> {
    }
 
    if (isNewPlayer) {
-      G.save = createSaveGame({ scenario: "Rome192", province: "Lugdunensis" });
+      G.save = createSaveGame({ scenario: "Rome192", province: "Lugdunensis", language: "en" });
       initNewPlayerSaveGame(G.save);
       G.save.state.flags = setFlag(G.save.state.flags, GameStateFlags.ShowTutorial);
       if (isMobilePlatform()) {

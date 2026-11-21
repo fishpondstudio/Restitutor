@@ -7,6 +7,7 @@ import type { Province } from "../game/definitions/Province";
 import { getSocialClassName, SocialClass } from "../game/definitions/SocialClass";
 import { GameStateUpdated } from "../game/Events";
 import { getEligibleForMarriage, getSpousesFromOtherProvinces } from "../game/logic/GovernorLogic";
+import { formatPersonName } from "../game/logic/NameLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
@@ -60,13 +61,13 @@ export function LookForSpouseModal({ family, province }: { family?: IFamily; pro
                   if (f.male) {
                      return {
                         value: f.id,
-                        label: `${f.male.name.join(" ")} ${$t(L.M)}`,
+                        label: `${formatPersonName(f.male.name)} ${$t(L.M)}`,
                      };
                   }
                   if (f.female) {
                      return {
                         value: f.id,
-                        label: `${f.female.name.join(" ")} ${$t(L.F)}`,
+                        label: `${formatPersonName(f.female.name)} ${$t(L.F)}`,
                      };
                   }
                   throw new Error("Should not happen");
@@ -133,7 +134,7 @@ export function LookForSpouseModal({ family, province }: { family?: IFamily; pro
                               <div className="f1">
                                  <div className="text-display text-lg">
                                     <div className="mi sm inline">{spouse.male ? "male" : "female"}</div>
-                                    {person.name.join(" ")}
+                                    {formatPersonName(person.name)}
                                  </div>
                                  <div className="text-dimmed text-sm">
                                     {$t(

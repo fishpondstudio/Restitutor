@@ -5,6 +5,7 @@ import { GameStateUpdated } from "../game/Events";
 import { EventImage } from "../game/events/EventImages";
 import { applyGameEffect, getGameEffectDesc } from "../game/GameEffect";
 import { NewChildBornEffects1, NewChildBornEffects2 } from "../game/logic/GovernorLogic";
+import { formatPersonName } from "../game/logic/NameLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
@@ -18,7 +19,7 @@ export function NewChildBornModal({ province, child }: { province: Province; chi
          title={$t(L.AChildIsBorn)}
          content={$t(
             L.AChildIsBornDesc$1$2$3$4$5,
-            person.name.join(" "),
+            formatPersonName(person.name),
             formatNumber(person.administrative),
             formatNumber(person.diplomatic),
             formatNumber(person.military),

@@ -12,6 +12,7 @@ import { type TKWarlord, TKWarlordCharacters } from "../ThreeKingdoms/TKWarlord"
 import { clearAllCaches, getProvinceTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { attachModifier } from "./ModifierLogic";
+import { formatPersonName } from "./NameLogic";
 import { requireScenarioFlagCondition } from "./ScenarioLogic";
 
 export function getTKCharacterState(character: TKCharacter, save: SaveGame): Readonly<ITKCharacterState> | null {
@@ -124,14 +125,8 @@ export function killTKCharacter(character: TKCharacter, save: SaveGame): void {
 
 export function getTKCharacterName(character: TKCharacter): { fullName: string; courtesyName: string } {
    const name = TKCharacters[character].name();
-   const separator =
-      /^[\p{Script_Extensions=Han}\p{Script_Extensions=Hiragana}\p{Script_Extensions=Katakana}\p{Script_Extensions=Hangul}]+$/u.test(
-         `${name[0]}${name[1]}`,
-      )
-         ? ""
-         : " ";
    return {
-      fullName: `${name[0]}${separator}${name[1]}`,
+      fullName: formatPersonName([name[0], name[1]]),
       courtesyName: name[2],
    };
 }

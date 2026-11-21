@@ -1,3 +1,4 @@
+import type { Language } from "@project/shared/src/rpc/ServerMessageTypes";
 import type { Tile } from "@project/shared/src/utils/Helper";
 import type { Culture } from "../definitions/Culture";
 import type { GreatWork } from "../definitions/GreatWork";
@@ -20,7 +21,7 @@ export interface IScenario {
    religions: Set<Religion>;
    events: Set<GameEvent>;
    greatWorks: ReadonlySet<GreatWork>;
-   nameGenerator: INameGenerator;
+   nameGenerator: IScenarioNameGenerator;
    flags: Set<ScenarioFlag>;
    provinceResourceNames?: Partial<Record<ProvinceResource, () => string>>;
    timedActionNames?: Partial<Record<TimedAction, () => string>>;
@@ -44,7 +45,22 @@ export function getInitialTiles(scenario: Scenario): Map<Tile, Province> {
    return tiles;
 }
 
+export interface IRandomNameOptions {
+   gender: "male" | "female";
+   familyName?: string;
+   random?: () => number;
+}
+
+export interface IScenarioRandomNameOptions extends IRandomNameOptions {
+   language: Language;
+}
+
+export interface IScenarioNameGenerator {
+   getFamilyName: (name: string[]) => string;
+   randomName: (options: IScenarioRandomNameOptions) => string[];
+}
+
 export interface INameGenerator {
    getFamilyName: (name: string[]) => string;
-   randomName(gender: "male" | "female", familyName?: string, random?: () => number): string[];
+   randomName: (options: IRandomNameOptions) => string[];
 }

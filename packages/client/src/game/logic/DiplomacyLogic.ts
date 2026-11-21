@@ -18,6 +18,7 @@ import { MapGrid } from "../MapGrid";
 import type { ConditionChecks } from "./Calculation";
 import { getFamilyMemberFrom } from "./GovernorLogic";
 import { attachModifier } from "./ModifierLogic";
+import { formatPersonName } from "./NameLogic";
 import { getProvinceName } from "./ProvinceLogic";
 import { UpgradeBaseCost } from "./TileLogic";
 
@@ -55,9 +56,9 @@ export function getAttitudeTowards(fromProvince: Province, toProvince: Province,
          name: $t(L.MarriageAlliance),
          desc: $t(
             L.$1$2And$3$4,
-            family.male.name.join(" "),
+            formatPersonName(family.male.name),
             getProvinceName(family.male.province, save),
-            family.female.name.join(" "),
+            formatPersonName(family.female.name),
             getProvinceName(family.female.province, save),
          ),
          value: 50,

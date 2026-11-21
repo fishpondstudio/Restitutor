@@ -1,5 +1,5 @@
 import { randOne } from "@project/shared/src/utils/Helper";
-import type { INameGenerator } from "./scenarios/Scenarios";
+import type { IRandomNameOptions, IScenarioNameGenerator } from "./scenarios/Scenarios";
 
 const Male1 = [
    "Gaius",
@@ -568,7 +568,7 @@ function getFamilyName(name: string[]): string {
 
 export const RomanNameGenerator = {
    getFamilyName,
-   randomName(gender, familyName, random) {
+   randomName({ gender, familyName, random }: IRandomNameOptions) {
       return gender === "male" ? randomMaleName(familyName, random) : randomFemaleName(familyName, random);
    },
-} satisfies INameGenerator;
+} satisfies IScenarioNameGenerator;

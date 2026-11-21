@@ -5,6 +5,7 @@ import { GameStateUpdated } from "../game/Events";
 import { EventImage } from "../game/events/EventImages";
 import { getGameEffectDesc } from "../game/GameEffect";
 import { getRecognizeIllegitimateChildEffect, recognizeIllegitimateChild } from "../game/logic/GovernorLogic";
+import { formatPersonName } from "../game/logic/NameLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
@@ -28,7 +29,7 @@ export function IllegitimateChildModal({
          title={$t(L.AQuestionOfLegitimacy)}
          content={$t(
             L.AQuestionOfLegitimacyDesc$1$2$3$4$5,
-            person.name.join(" "),
+            formatPersonName(person.name),
             formatNumber(person.administrative),
             formatNumber(person.diplomatic),
             formatNumber(person.military),
@@ -42,7 +43,7 @@ export function IllegitimateChildModal({
                tooltip={
                   <div className="m10 col-gap-5">
                      {getGameEffectDesc(effect, province, G.save)}
-                     <div>{$t(L.$1$2JoinsTheGovernorsFamily, person.name.join(" "), gender)}</div>
+                     <div>{$t(L.$1$2JoinsTheGovernorsFamily, formatPersonName(person.name), gender)}</div>
                   </div>
                }
                label={$t(L.WelcomeTheChildIntoOurFamily)}
@@ -55,7 +56,9 @@ export function IllegitimateChildModal({
             <GameEventButton
                key="refuse"
                tooltip={
-                  <div className="m10">{$t(L.$1$2DoesNotJoinTheGovernorsFamily, person.name.join(" "), gender)}</div>
+                  <div className="m10">
+                     {$t(L.$1$2DoesNotJoinTheGovernorsFamily, formatPersonName(person.name), gender)}
+                  </div>
                }
                label={$t(L.RefuseTheChildAndDenyAllClaims)}
                onClick={hideModal}

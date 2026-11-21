@@ -11,6 +11,7 @@ import type { GovernorPower } from "../game/definitions/ProvinceResources";
 import { GovernorPowerNames, getResourceName } from "../game/definitions/ProvinceResources";
 import { GameStateUpdated } from "../game/Events";
 import { showError } from "../game/logic/AlertLogic";
+import { formatPersonName } from "../game/logic/NameLogic";
 import { getProvinceGovernmentPoint, getProvinceName } from "../game/logic/ProvinceLogic";
 import { getProvinceResource, notEnoughResourcesError, trySpendProvinceResources } from "../game/logic/ResourceLogic";
 import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
@@ -67,7 +68,7 @@ export function GovernmentSingletonModal(): React.ReactNode {
             <div className="f1">{$t(L.Governor)}</div>
             <FloatingTip label={() => $t(L.ViewFamilyTree)}>
                <div className="row g5 pointer" onClick={() => showPanel(FamilyTreeSingletonModal, {})}>
-                  {state.governor.male.name.join(" ")}
+                  {formatPersonName(state.governor.male.name)}
                   <img src={IconCatalog.FamilyTree} style={{ height: "2.1rem" }} />
                </div>
             </FloatingTip>

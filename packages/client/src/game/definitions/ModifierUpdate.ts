@@ -4,6 +4,7 @@ import { $t, L } from "../../utils/i18n";
 import { GameStateUpdated } from "../Events";
 import { getScenarioGreatWorks, isGreatWorkCompleted } from "../logic/GreatWorkLogic";
 import { ensureValidModifiers } from "../logic/ModifierLogic";
+import { formatPersonName } from "../logic/NameLogic";
 import { isSocialClassDisloyal, isSocialClassDominant } from "../logic/SocialClassLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
 import { getProvinceAssignedCharacters, getTKCharacterName, isTKCharacterAlive } from "../logic/TKCharacterLogic";
@@ -35,7 +36,7 @@ function updateModifier(): void {
             });
          });
       };
-      addTraits(state.governor.male.traits, state.governor.male.name.join(" "), true);
+      addTraits(state.governor.male.traits, formatPersonName(state.governor.male.name), true);
       forEach(state.advisors, (_, advisor) => {
          if (advisor.selected) {
             addTraits(advisor.selected.traits, advisor.selected.name, false);

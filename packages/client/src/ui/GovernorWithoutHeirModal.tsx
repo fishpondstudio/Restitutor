@@ -4,6 +4,7 @@ import type { Province } from "../game/definitions/Province";
 import { EventImage } from "../game/events/EventImages";
 import { getGameEffectDesc } from "../game/GameEffect";
 import { GovernorWithoutHeirEffect } from "../game/logic/GovernorLogic";
+import { formatPersonName } from "../game/logic/NameLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { hideModal } from "../utils/ModalManager";
@@ -22,7 +23,7 @@ export function GovernorWithoutHeirModal({
          title={$t(L.ANewGovernor)}
          content={$t(
             L.TheGovernorDiesWithoutAnHeirAndForAMomentNoOneRulesDesc$1$2$3$4$5$6,
-            governor.male.name.join(" "),
+            formatPersonName(governor.male.name),
             formatNumber(governor.male.administrative),
             formatNumber(governor.male.diplomatic),
             formatNumber(governor.male.military),

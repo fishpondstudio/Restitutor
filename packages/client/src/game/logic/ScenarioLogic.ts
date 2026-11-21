@@ -1,11 +1,16 @@
+import type { Language } from "@project/shared/src/rpc/ServerMessageTypes";
 import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
 import { type ScenarioFlag, ScenarioFlags } from "../scenarios/ScenarioFlags";
 import { type INameGenerator, type Scenario, Scenarios } from "../scenarios/Scenarios";
 
-export function getNameGenerator(scenario: Scenario): INameGenerator {
-   return Scenarios[scenario].nameGenerator;
+export function getNameGenerator(scenario: Scenario, language: Language): INameGenerator {
+   const generator = Scenarios[scenario].nameGenerator;
+   return {
+      getFamilyName: (name) => generator.getFamilyName(name),
+      randomName: (options) => generator.randomName({ ...options, language }),
+   };
 }
 
 export function hasScenarioFlag(flag: ScenarioFlag, save: SaveGame): boolean {

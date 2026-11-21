@@ -66,6 +66,7 @@ import {
    RivalAttitudeDuration,
    RivalAttitudeModifier,
 } from "../game/logic/DiplomacyLogic";
+import { formatPersonName } from "../game/logic/NameLogic";
 import { getProvinceName, getProvincePrestige, getProvinceTileCount } from "../game/logic/ProvinceLogic";
 import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
@@ -130,7 +131,7 @@ export function DiplomacyPage({ province }: { province: Province }): React.React
                <div className="h1">{getProvinceName(province, G.save)}</div>
                <div className="row my5 mx10">
                   <div className="f1">{$t(L.Governor)}</div>
-                  <div className="text-display">{theirState.governor.male.name.join(" ")}</div>
+                  <div className="text-display">{formatPersonName(theirState.governor.male.name)}</div>
                </div>
                <div className="row my5 mx10">
                   <div className="f1">{$t(L.Tiles)}</div>

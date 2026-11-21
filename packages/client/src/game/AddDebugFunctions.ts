@@ -252,7 +252,7 @@ export function addDebugFunctions(): void {
       if (!family.male || !family.female) {
          return;
       }
-      const nameGenerator = getNameGenerator(G.save.state.scenario);
+      const nameGenerator = getNameGenerator(G.save.state.scenario, G.save.options.language);
       const familyName = nameGenerator.getFamilyName(family.male.name);
       if (female) {
          family.children.push({
@@ -260,7 +260,7 @@ export function addDebugFunctions(): void {
             male: null,
             female: {
                traits: new Set(),
-               name: nameGenerator.randomName("female", familyName),
+               name: nameGenerator.randomName({ gender: "female", familyName }),
                age: 0,
                administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
                diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
@@ -277,7 +277,7 @@ export function addDebugFunctions(): void {
             id: uuid4(),
             male: {
                traits: new Set(),
-               name: nameGenerator.randomName("male", familyName),
+               name: nameGenerator.randomName({ gender: "male", familyName }),
                age: 0,
                administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
                diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),

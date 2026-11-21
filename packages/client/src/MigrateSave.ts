@@ -26,7 +26,10 @@ export function migrateSave(save: SaveGame): void {
       history.scenario ??= "Rome192";
    }
    forEach(save.state.provinces, (province, data) => {
-      data = Object.assign(initProvince(province, data.capital, getNameGenerator(save.state.scenario)), data);
+      data = Object.assign(
+         initProvince(province, data.capital, getNameGenerator(save.state.scenario, save.options.language)),
+         data,
+      );
       save.state.provinces[province] = data;
       if (save.options.version === 10) {
          for (const type of ["InfantryUnitPower", "RangedUnitPower", "CavalryUnitPower"] as const) {

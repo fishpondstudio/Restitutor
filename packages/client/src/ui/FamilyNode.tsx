@@ -4,6 +4,7 @@ import type React from "react";
 import { ChangeHeirAction } from "../game/actions/ChangeHeirAction";
 import { type IFamily, type IPerson, PersonFlags } from "../game/definitions/Family";
 import { isEligibleForMarriage, isGovernorSon } from "../game/logic/GovernorLogic";
+import { formatPersonName } from "../game/logic/NameLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { G, isDev } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
@@ -51,7 +52,7 @@ export function PersonNode({
                label={() => person && <PersonTooltip person={person} family={family} />}
             >
                <div className="f1">
-                  <div className="text-display">{person ? person.name.join(" ") : ""}</div>
+                  <div className="text-display">{person ? formatPersonName(person.name) : ""}</div>
                   <div className="text-xs">
                      {$t(
                         L.Age$1Skill$2,

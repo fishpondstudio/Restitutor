@@ -169,7 +169,7 @@ export function generateRandomGovernor(
       id: uuid4(),
       male: ensureTraits({
          traits: new Set(),
-         name: nameGenerator.randomName("male"),
+         name: nameGenerator.randomName({ gender: "male" }),
          flag: PersonFlags.None,
          administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
          diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
@@ -320,7 +320,7 @@ function tickFamilyMembers(
 
    const male = governor.male;
    if (male) {
-      const nameGenerator = getNameGenerator(save.state.scenario);
+      const nameGenerator = getNameGenerator(save.state.scenario, save.options.language);
       const familyName = nameGenerator.getFamilyName(male.name);
       const females = governor.female ? [governor.female, ...governor.concubines] : governor.concubines;
       for (const female of females) {
@@ -336,7 +336,10 @@ function tickFamilyMembers(
          const [diplomaticMin, diplomaticMax] = getOffspringSkillRangeIncl(male.diplomatic, female.diplomatic);
          const [militaryMin, militaryMax] = getOffspringSkillRangeIncl(male.military, female.military);
          const person: IPerson = ensureTraits({
-            name: nameGenerator.randomName(isMale ? "male" : "female", familyName),
+            name: nameGenerator.randomName({
+               gender: isMale ? "male" : "female",
+               familyName,
+            }),
             flag: PersonFlags.None,
             age: 0,
             traits: new Set(),

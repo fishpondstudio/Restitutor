@@ -1,3 +1,4 @@
+import type { Language } from "@project/shared/src/rpc/ServerMessageTypes";
 import {
    entriesOf,
    forEach,
@@ -19,6 +20,7 @@ import { Tiles } from "./definitions/TileConstants";
 import { GameStateUpdated } from "./Events";
 import { GameOption } from "./GameOption";
 import { addAttitudeModifier, getProvincesWithinDiplomaticRange, getRelation } from "./logic/DiplomacyLogic";
+import { formatPersonName } from "./logic/NameLogic";
 import { tickProduction } from "./logic/ProductionLogic";
 import {
    ConsulCandidatesCount,
@@ -78,14 +80,23 @@ export class SaveGame {
    options: GameOption = new GameOption();
 }
 
-export function createSaveGame({ scenario, province }: { scenario: Scenario; province: Province }): SaveGame {
+export function createSaveGame({
+   scenario,
+   province,
+   language,
+}: {
+   scenario: Scenario;
+   province: Province;
+   language: Language;
+}): SaveGame {
    if (!Scenarios[scenario].provinces.has(province)) {
       throw new Error(`Invalid player province: ${scenario}: ${province}`);
    }
    const save = new SaveGame();
+   save.options.language = language;
    save.state.scenario = scenario;
    save.state.playerProvince = province;
-   const nameGenerator = getNameGenerator(scenario);
+   const nameGenerator = getNameGenerator(scenario, language);
    save.state.provinces = fromEntries(
       Array.from(Scenarios[scenario].provinces).map((province) => {
          const state = initProvince(province, Province[province].capital, nameGenerator);
@@ -114,10 +125,12 @@ export function createSaveGame({ scenario, province }: { scenario: Scenario; pro
    }
    save.state.senate = {
       electedConsuls: new Map([
-         [nameGenerator.randomName("male").join(" "), []],
-         [nameGenerator.randomName("male").join(" "), []],
+         [formatPersonName(nameGenerator.randomName({ gender: "male" })), []],
+         [formatPersonName(nameGenerator.randomName({ gender: "male" })), []],
       ]),
-      consulCandidates: range(0, ConsulCandidatesCount).map(() => nameGenerator.randomName("male").join(" ")),
+      consulCandidates: range(0, ConsulCandidatesCount).map(() =>
+         formatPersonName(nameGenerator.randomName({ gender: "male" })),
+      ),
       votes: new Map(),
    };
    save.state.tiles = initTiles(save);

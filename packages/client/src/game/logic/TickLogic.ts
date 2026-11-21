@@ -18,6 +18,7 @@ import { getGameDate, monthToDate, tickToMonth, tickToYear } from "./GameDateTim
 import { getScenarioGreatWorks } from "./GreatWorkLogic";
 import { getChristianityYearly, getIslamInfluenceYearly } from "./InternalAffairsLogic";
 import { getMapForegroundColor } from "./MapColor";
+import { formatPersonName } from "./NameLogic";
 import {
    ConsulCandidatesCount,
    ConsulElectionMonths,
@@ -192,9 +193,9 @@ function tickConsulElection(save: SaveGame) {
    });
 
    save.state.senate.votes.clear();
-   const nameGenerator = getNameGenerator(save.state.scenario);
+   const nameGenerator = getNameGenerator(save.state.scenario, save.options.language);
    save.state.senate.consulCandidates = range(0, ConsulCandidatesCount).map(() =>
-      nameGenerator.randomName("male").join(" "),
+      formatPersonName(nameGenerator.randomName({ gender: "male" })),
    );
 }
 

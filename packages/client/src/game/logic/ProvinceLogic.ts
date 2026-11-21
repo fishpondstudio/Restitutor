@@ -756,7 +756,7 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
       return [];
    }
    const { capital, tiles } = Province[province];
-   const state = initProvince(province, capital, getNameGenerator(save.state.scenario));
+   const state = initProvince(province, capital, getNameGenerator(save.state.scenario, save.options.language));
    state.unlockedTech = new Set(getBaselineTechs(save));
    save.state.provinces[province] = state;
    const provinces = new Set<Province>();

@@ -259,6 +259,17 @@ ReligionIberian: "Iberian",
 
 Entity definitions (e.g. `packages/client/src/game/definitions/Culture.ts`, `Goods.ts`, `Province.ts`) already reference these keys via `$t(L.EntityKey)`.
 
+### Generated Person Names
+
+Generated person names (governors, spouses, offspring, advisors) are **data, not localization keys**. They are produced by an `INameGenerator` (`game/scenarios/Scenarios.ts`) and written into save state, so they are intentionally never re-localized when the player changes language.
+
+- Each generator entry is an `INameEntry` (`game/logic/NameLogic.ts`): a required `en` base plus optional per-language overrides, e.g. `{ en: "Chen", "zh-CN": "陈", "zh-TW": "陳" }`. Resolution is `entry[language] ?? entry.en`.
+- The language is passed explicitly and bound once: `getNameGenerator(scenario, language)` returns a generator whose `randomName({ gender, familyName })` resolves entries in that language. Never read the active language from a global inside a generator.
+- Name parts are joined by `formatPersonName` only — it joins with no separator when every part is CJK and with a space otherwise. Do not `join(" ")` name parts at a call site, and format at generation time when the result is stored (see `initAdvisors`).
+- Do **not** add `Name*` keys to `en.ts` for these pools: the `pnpm run translate` unused-key pass would treat them as unused and delete them.
+
+TK character names are the exception: they are keyed (`TKFamilyName*`, `TKCharacter*`, `TKCourtesyName*`) and do re-localize on language change.
+
 ## Parser Markup (`renderMarkup`)
 
 Localized content can contain special XML-like tags parsed by `renderMarkup()` in `ParseMarkup.tsx`. The parser is used for chronicle entries, tutorial descriptions, and condition breakdowns. **Keep these tags in the localized string.**

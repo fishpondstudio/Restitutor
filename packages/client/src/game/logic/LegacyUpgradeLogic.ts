@@ -109,7 +109,7 @@ export function rebirth(province: Province, save: SaveGame): void {
    if (rebirthHistory) {
       save.options.rebirthHistory.unshift(rebirthHistory);
    }
-   const newSave = createSaveGame({ scenario, province });
+   const newSave = createSaveGame({ scenario, province, language: save.options.language });
    addProvinceResource("legacy", newLegacyPoints.value, province, newSave);
    save.state = newSave.state;
 }
