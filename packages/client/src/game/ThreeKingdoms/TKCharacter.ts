@@ -99,6 +99,7 @@ import ZhouYu from "../../assets/images/characters/ZhouYu.webp";
 import ZhugeJin from "../../assets/images/characters/ZhugeJin.webp";
 import ZhugeLiang from "../../assets/images/characters/ZhugeLiang.webp";
 import ZhuRan from "../../assets/images/characters/ZhuRan.webp";
+import { $t, L } from "../../utils/i18n";
 import type { IBaseModifier, Modifier } from "../definitions/Modifier";
 import { GovernorMinIncl } from "../logic/GovernorLogic";
 import type { TKWarlord } from "./TKWarlord";
@@ -109,16 +110,16 @@ interface ITKCharacterTrait {
 }
 
 export const TKCharacterTraits = {
-   Civil: { name: () => "Civil", icon: "feed" },
-   Martial: { name: () => "Martial", icon: "swords" },
+   Civil: { name: () => $t(L.TKCharacterTraitCivil), icon: "feed" },
+   Martial: { name: () => $t(L.TKCharacterTraitMartial), icon: "swords" },
 } as const satisfies Record<string, ITKCharacterTrait>;
 export type TKCharacterTrait = keyof typeof TKCharacterTraits;
 
 export const TKCharacterTier = {
-   Tier1: () => "S",
-   Tier2: () => "A",
-   Tier3: () => "B",
-   Tier4: () => "C",
+   Tier1: () => $t(L.TKCharacterTierS),
+   Tier2: () => $t(L.TKCharacterTierA),
+   Tier3: () => $t(L.TKCharacterTierB),
+   Tier4: () => $t(L.TKCharacterTierC),
 } as const satisfies Record<string, () => string>;
 
 export type TKCharacterTier = keyof typeof TKCharacterTier;
@@ -150,7 +151,7 @@ export interface ITKCharacter {
 
 export const _TKCharacters = {
    CaoCao: {
-      name: () => ["Cao", "Cao", "Mengde"],
+      name: () => [$t(L.TKFamilyNameCao), $t(L.TKCharacterCaoCao), $t(L.TKCourtesyNameMengde)],
       image: CaoCao,
       tier: "Tier1",
       modifiers: {
@@ -161,7 +162,7 @@ export const _TKCharacters = {
       initialProvince: "CaoCao",
    },
    CaoHong: {
-      name: () => ["Cao", "Hong", "Zilian"],
+      name: () => [$t(L.TKFamilyNameCao), $t(L.TKCharacterCaoHong), $t(L.TKCourtesyNameZilian)],
       image: CaoHong,
       tier: "Tier4",
       modifiers: { Defense: { type: "multiply", value: 0.02 } },
@@ -170,7 +171,7 @@ export const _TKCharacters = {
    },
    CaoPi: {
       // Novel: Cao Cao (by 204, accompanying the capture of Ye; ch. 33); succeeds him in 220.
-      name: () => ["Cao", "Pi", "Zihuan"],
+      name: () => [$t(L.TKFamilyNameCao), $t(L.TKCharacterCaoPi), $t(L.TKCourtesyNameZihuan)],
       image: CaoPi,
       tier: "Tier2",
       modifiers: {
@@ -180,7 +181,7 @@ export const _TKCharacters = {
       traits: new Set(["Civil"]),
    },
    CaoRen: {
-      name: () => ["Cao", "Ren", "Zixiao"],
+      name: () => [$t(L.TKFamilyNameCao), $t(L.TKCharacterCaoRen), $t(L.TKCourtesyNameZixiao)],
       image: CaoRen,
       tier: "Tier2",
       modifiers: { Defense: { type: "multiply", value: 0.06 } },
@@ -190,14 +191,14 @@ export const _TKCharacters = {
    CaoZhi: {
       // Novel: Cao Cao (by the 210s, as a court poet and contender for the succession; chs. 56, 68, 72).
       // Under Cao Pi (220) and Cao Rui (226), he is a restricted prince, not an actively employed adviser.
-      name: () => ["Cao", "Zhi", "Zijian"],
+      name: () => [$t(L.TKFamilyNameCao), $t(L.TKCharacterCaoZhi), $t(L.TKCourtesyNameZijian)],
       image: CaoZhi,
       tier: "Tier3",
       modifiers: { Prestige: { type: "multiply", value: 0.04 } },
       traits: new Set(["Civil"]),
    },
    ChenDeng: {
-      name: () => ["Chen", "Deng", "Yuanlong"],
+      name: () => [$t(L.TKFamilyNameChen), $t(L.TKCharacterChenDeng), $t(L.TKCourtesyNameYuanlong)],
       image: ChenDeng,
       tier: "Tier3",
       modifiers: { TileOutput: { type: "multiply", value: 0.04 } },
@@ -205,7 +206,7 @@ export const _TKCharacters = {
       initialProvince: "TaoQian",
    },
    ChenGong: {
-      name: () => ["Chen", "Gong", "Gongtai"],
+      name: () => [$t(L.TKFamilyNameChen), $t(L.TKCharacterChenGong), $t(L.TKCourtesyNameGongtai)],
       image: ChenGong,
       tier: "Tier2",
       modifiers: {
@@ -216,7 +217,7 @@ export const _TKCharacters = {
       initialProvince: "LuBu",
    },
    ChengPu: {
-      name: () => ["Cheng", "Pu", "Demou"],
+      name: () => [$t(L.TKFamilyNameCheng), $t(L.TKCharacterChengPu), $t(L.TKCourtesyNameDemou)],
       image: ChengPu,
       tier: "Tier3",
       modifiers: { ArmyMaintenance: { type: "multiply", value: -0.04 } },
@@ -224,7 +225,7 @@ export const _TKCharacters = {
       initialProvince: "SunCe",
    },
    ChengYu: {
-      name: () => ["Cheng", "Yu", "Zhongde"],
+      name: () => [$t(L.TKFamilyNameCheng), $t(L.TKCharacterChengYu), $t(L.TKCourtesyNameZhongde)],
       image: ChengYu,
       tier: "Tier3",
       modifiers: { ArmyMaintenance: { type: "multiply", value: -0.04 } },
@@ -234,7 +235,7 @@ export const _TKCharacters = {
    DengAi: {
       // Novel: Wei under Cao Fang, recruited by Sima Yi (before 249; ch. 107);
       // then Cao Mao (254, under Sima Shi and then Sima Zhao) -> Cao Huan (260, under Sima Zhao).
-      name: () => ["Deng", "Ai", "Shizai"],
+      name: () => [$t(L.TKFamilyNameDeng), $t(L.TKCharacterDengAi), $t(L.TKCourtesyNameShizai)],
       image: DengAi,
       tier: "Tier2",
       modifiers: {
@@ -244,7 +245,7 @@ export const _TKCharacters = {
       traits: new Set(["Civil", "Martial"]),
    },
    DianWei: {
-      name: () => ["Dian", "Wei"],
+      name: () => [$t(L.TKFamilyNameDian), $t(L.TKCharacterDianWei)],
       image: DianWei,
       tier: "Tier2",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.12 } },
@@ -253,7 +254,7 @@ export const _TKCharacters = {
    },
    DingFeng: {
       // Novel: Sun Quan (c. 200-202; ch. 38) -> Sun Liang (252) -> Sun Xiu (258) -> Sun Hao (264).
-      name: () => ["Ding", "Feng", "Chengyuan"],
+      name: () => [$t(L.TKFamilyNameDing), $t(L.TKCharacterDingFeng), $t(L.TKCourtesyNameChengyuan)],
       image: DingFeng,
       tier: "Tier3",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.08 } },
@@ -261,7 +262,7 @@ export const _TKCharacters = {
    },
    DongYun: {
       // Novel: Liu Bei (before 223; described as selected by the late ruler in ch. 91) -> Liu Shan (223).
-      name: () => ["Dong", "Yun", "Xiuzhao"],
+      name: () => [$t(L.TKFamilyNameDong), $t(L.TKCharacterDongYun), $t(L.TKCourtesyNameXiuzhao)],
       image: DongYun,
       tier: "Tier3",
       modifiers: { Stability: { type: "add", value: 4 } },
@@ -269,7 +270,7 @@ export const _TKCharacters = {
    },
    FaZheng: {
       // Novel: Liu Zhang (by 211; recruitment date unstated) -> Liu Bei (211, secretly supporting his entry into Yi; ch. 60).
-      name: () => ["Fa", "Zheng", "Xiaozhi"],
+      name: () => [$t(L.TKFamilyNameFa), $t(L.TKCharacterFaZheng), $t(L.TKCourtesyNameXiaozhi)],
       image: FaZheng,
       tier: "Tier2",
       modifiers: { WarPower: { type: "multiply", value: 0.06 } },
@@ -278,7 +279,7 @@ export const _TKCharacters = {
    FeiYi: {
       // Novel: Liu Bei (214, rewarded after Chengdu falls; ch. 65) -> Liu Shan (223).
       // The novel does not give an earlier recruitment date.
-      name: () => ["Fei", "Yi", "Wenwei"],
+      name: () => [$t(L.TKFamilyNameFei), $t(L.TKCharacterFeiYi), $t(L.TKCourtesyNameWenwei)],
       image: FeiYi,
       tier: "Tier2",
       modifiers: {
@@ -289,14 +290,14 @@ export const _TKCharacters = {
    },
    GanNing: {
       // Novel: Liu Biao (date unstated) -> Huang Zu, under Liu Biao (by 203) -> Sun Quan (208; ch. 38).
-      name: () => ["Gan", "Ning", "Xingba"],
+      name: () => [$t(L.TKFamilyNameGan), $t(L.TKCharacterGanNing), $t(L.TKCourtesyNameXingba)],
       image: GanNing,
       tier: "Tier2",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.12 } },
       traits: new Set(["Martial"]),
    },
    GaoShun: {
-      name: () => ["Gao", "Shun"],
+      name: () => [$t(L.TKFamilyNameGao), $t(L.TKCharacterGaoShun)],
       image: GaoShun,
       tier: "Tier2",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.12 } },
@@ -304,7 +305,7 @@ export const _TKCharacters = {
       initialProvince: "LuBu",
    },
    GongsunDu: {
-      name: () => ["Gongsun", "Du", "Shengji"],
+      name: () => [$t(L.TKFamilyNameGongsun), $t(L.TKCharacterGongsunDu), $t(L.TKCourtesyNameShengji)],
       image: GongsunDu,
       tier: "Tier4",
       modifiers: { LandTax: { type: "multiply", value: 0.02 } },
@@ -312,7 +313,7 @@ export const _TKCharacters = {
       initialProvince: "GongsunDu",
    },
    GongsunZan: {
-      name: () => ["Gongsun", "Zan", "Bogui"],
+      name: () => [$t(L.TKFamilyNameGongsun), $t(L.TKCharacterGongsunZan), $t(L.TKCourtesyNameBogui)],
       image: GongsunZan,
       tier: "Tier3",
       modifiers: { CavalryUnitPower: { type: "multiply", value: 0.08 } },
@@ -321,7 +322,7 @@ export const _TKCharacters = {
    },
    GuanPing: {
       // Novel: Liu Bei (c. 200-201, adopted by Guan Yu during his reunion with Liu Bei; ch. 28).
-      name: () => ["Guan", "Ping"],
+      name: () => [$t(L.TKFamilyNameGuan), $t(L.TKCharacterGuanPing)],
       image: GuanPing,
       tier: "Tier4",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.04 } },
@@ -329,14 +330,14 @@ export const _TKCharacters = {
    },
    GuanXing: {
       // Novel: Liu Bei (by 219, serving Guan Yu and sent to Chengdu; ch. 73) -> Liu Shan (223).
-      name: () => ["Guan", "Xing", "Anguo"],
+      name: () => [$t(L.TKFamilyNameGuan), $t(L.TKCharacterGuanXing), $t(L.TKCourtesyNameAnguo)],
       image: GuanXing,
       tier: "Tier4",
       modifiers: { CavalryUnitPower: { type: "multiply", value: 0.04 } },
       traits: new Set(["Martial"]),
    },
    GuanYu: {
-      name: () => ["Guan", "Yu", "Yunchang"],
+      name: () => [$t(L.TKFamilyNameGuan), $t(L.TKCharacterGuanYu), $t(L.TKCourtesyNameYunchang)],
       image: GuanYu,
       tier: "Tier1",
       modifiers: {
@@ -349,14 +350,14 @@ export const _TKCharacters = {
    GuoJia: {
       // Novel: Cao Cao (c. 192-193, recommended by Cheng Yu and Xun Yu; ch. 10).
       // This predates the July 194 start; the current omitted initialProvince follows the earlier historical setup.
-      name: () => ["Guo", "Jia", "Fengxiao"],
+      name: () => [$t(L.TKFamilyNameGuo), $t(L.TKCharacterGuoJia), $t(L.TKCourtesyNameFengxiao)],
       image: GuoJia,
       tier: "Tier1",
       modifiers: { WarPower: { type: "multiply", value: 0.1 } },
       traits: new Set(["Civil"]),
    },
    HanDang: {
-      name: () => ["Han", "Dang", "Yigong"],
+      name: () => [$t(L.TKFamilyNameHan), $t(L.TKCharacterHanDang), $t(L.TKCourtesyNameYigong)],
       image: HanDang,
       tier: "Tier3",
       modifiers: { RangedUnitPower: { type: "multiply", value: 0.08 } },
@@ -364,7 +365,7 @@ export const _TKCharacters = {
       initialProvince: "SunCe",
    },
    HanSui: {
-      name: () => ["Han", "Sui", "Wenyue"],
+      name: () => [$t(L.TKFamilyNameHan), $t(L.TKCharacterHanSui), $t(L.TKCourtesyNameWenyue)],
       image: HanSui,
       tier: "Tier4",
       modifiers: { Manpower: { type: "multiply", value: 0.02 } },
@@ -372,7 +373,7 @@ export const _TKCharacters = {
       initialProvince: "HanSui",
    },
    HuangGai: {
-      name: () => ["Huang", "Gai", "Gongfu"],
+      name: () => [$t(L.TKFamilyNameHuang), $t(L.TKCharacterHuangGai), $t(L.TKCourtesyNameGongfu)],
       image: HuangGai,
       tier: "Tier3",
       modifiers: { RangedUnitPower: { type: "multiply", value: 0.08 } },
@@ -380,7 +381,7 @@ export const _TKCharacters = {
       initialProvince: "SunCe",
    },
    HuangQuan: {
-      name: () => ["Huang", "Quan", "Gongheng"],
+      name: () => [$t(L.TKFamilyNameHuang), $t(L.TKCharacterHuangQuan), $t(L.TKCourtesyNameGongheng)],
       image: HuangQuan,
       tier: "Tier3",
       modifiers: { Defense: { type: "multiply", value: 0.04 } },
@@ -388,7 +389,7 @@ export const _TKCharacters = {
       initialProvince: "LiuZhang",
    },
    HuangZhong: {
-      name: () => ["Huang", "Zhong", "Hansheng"],
+      name: () => [$t(L.TKFamilyNameHuang), $t(L.TKCharacterHuangZhong), $t(L.TKCourtesyNameHansheng)],
       image: HuangZhong,
       tier: "Tier2",
       modifiers: { RangedUnitPower: { type: "multiply", value: 0.12 } },
@@ -397,7 +398,7 @@ export const _TKCharacters = {
    },
    JiangQin: {
       // Novel: Sun Ce (195, joins during the Jiangdong campaign; ch. 15) -> Sun Quan (200).
-      name: () => ["Jiang", "Qin", "Gongyi"],
+      name: () => [$t(L.TKFamilyNameJiangQin), $t(L.TKCharacterJiangQin), $t(L.TKCourtesyNameGongyi)],
       image: JiangQin,
       tier: "Tier3",
       modifiers: { Manpower: { type: "multiply", value: 0.04 } },
@@ -406,7 +407,7 @@ export const _TKCharacters = {
    JiangWan: {
       // Novel: Liu Bei (by c. 213, a secretary accompanying Zhuge Liang; ch. 63; recruitment date unstated)
       // -> Liu Shan (223).
-      name: () => ["Jiang", "Wan", "Gongyan"],
+      name: () => [$t(L.TKFamilyNameJiangWan), $t(L.TKCharacterJiangWan), $t(L.TKCourtesyNameGongyan)],
       image: JiangWan,
       tier: "Tier2",
       modifiers: {
@@ -418,7 +419,7 @@ export const _TKCharacters = {
    JiangWei: {
       // Novel: Cao Rui (by 228, under Ma Zun at Tianshui) -> Liu Shan (228, recruited by Zhuge Liang; chs. 92-93).
       // After Shu falls, surrenders to Zhong Hui (263) and joins his revolt (264) to try to restore Shu (ch. 119).
-      name: () => ["Jiang", "Wei", "Boyue"],
+      name: () => [$t(L.TKFamilyNameJiangWei), $t(L.TKCharacterJiangWei), $t(L.TKCourtesyNameBoyue)],
       image: JiangWei,
       tier: "Tier2",
       modifiers: {
@@ -428,7 +429,7 @@ export const _TKCharacters = {
       traits: new Set(["Civil", "Martial"]),
    },
    JiaXu: {
-      name: () => ["Jia", "Xu", "Wenhe"],
+      name: () => [$t(L.TKFamilyNameJia), $t(L.TKCharacterJiaXu), $t(L.TKCourtesyNameWenhe)],
       image: JiaXu,
       tier: "Tier2",
       modifiers: { WarPower: { type: "multiply", value: 0.06 } },
@@ -436,7 +437,7 @@ export const _TKCharacters = {
       initialProvince: "LiJue",
    },
    JuShou: {
-      name: () => ["Ju", "Shou"],
+      name: () => [$t(L.TKFamilyNameJu), $t(L.TKCharacterJuShou)],
       image: JuShou,
       tier: "Tier3",
       modifiers: { ArmyMaintenance: { type: "multiply", value: -0.04 } },
@@ -444,7 +445,7 @@ export const _TKCharacters = {
       initialProvince: "YuanShao",
    },
    KongRong: {
-      name: () => ["Kong", "Rong", "Wenju"],
+      name: () => [$t(L.TKFamilyNameKong), $t(L.TKCharacterKongRong), $t(L.TKCourtesyNameWenju)],
       image: KongRong,
       tier: "Tier3",
       modifiers: { Prestige: { type: "multiply", value: 0.04 } },
@@ -452,7 +453,7 @@ export const _TKCharacters = {
       initialProvince: "KongRong",
    },
    LiDian: {
-      name: () => ["Li", "Dian", "Mancheng"],
+      name: () => [$t(L.TKFamilyNameLi), $t(L.TKCharacterLiDian), $t(L.TKCourtesyNameMancheng)],
       image: LiDian,
       tier: "Tier3",
       modifiers: { Defense: { type: "multiply", value: 0.04 } },
@@ -460,7 +461,7 @@ export const _TKCharacters = {
       initialProvince: "CaoCao",
    },
    LiJue: {
-      name: () => ["Li", "Jue", "Zhiran"],
+      name: () => [$t(L.TKFamilyNameLi), $t(L.TKCharacterLiJue), $t(L.TKCourtesyNameZhiran)],
       image: LiJue,
       tier: "Tier4",
       modifiers: { Manpower: { type: "multiply", value: 0.02 } },
@@ -469,7 +470,7 @@ export const _TKCharacters = {
    },
    LingCao: {
       // Novel: Sun Ce (c. 195-196, after fighting Yan Baihu; ch. 15) -> Sun Quan (200).
-      name: () => ["Ling", "Cao"],
+      name: () => [$t(L.TKFamilyNameLing), $t(L.TKCharacterLingCao)],
       image: LingCao,
       tier: "Tier4",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.04 } },
@@ -477,14 +478,14 @@ export const _TKCharacters = {
    },
    LingTong: {
       // Novel: Sun Ce (c. 195-196, joins with his father Ling Cao; ch. 15) -> Sun Quan (200).
-      name: () => ["Ling", "Tong", "Gongji"],
+      name: () => [$t(L.TKFamilyNameLing), $t(L.TKCharacterLingTong), $t(L.TKCourtesyNameGongji)],
       image: LingTong,
       tier: "Tier3",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.08 } },
       traits: new Set(["Martial"]),
    },
    LiuBei: {
-      name: () => ["Liu", "Bei", "Xuande"],
+      name: () => [$t(L.TKFamilyNameLiu), $t(L.TKCharacterLiuBei), $t(L.TKCourtesyNameXuande)],
       image: LiuBei,
       tier: "Tier1",
       modifiers: {
@@ -495,7 +496,7 @@ export const _TKCharacters = {
       initialProvince: "LiuBei",
    },
    LiuBiao: {
-      name: () => ["Liu", "Biao", "Jingsheng"],
+      name: () => [$t(L.TKFamilyNameLiu), $t(L.TKCharacterLiuBiao), $t(L.TKCourtesyNameJingsheng)],
       image: LiuBiao,
       tier: "Tier3",
       modifiers: { Stability: { type: "add", value: 4 } },
@@ -503,7 +504,7 @@ export const _TKCharacters = {
       initialProvince: "LiuBiao",
    },
    LiuYao: {
-      name: () => ["Liu", "Yao", "Zhengli"],
+      name: () => [$t(L.TKFamilyNameLiu), $t(L.TKCharacterLiuYao), $t(L.TKCourtesyNameZhengli)],
       image: LiuYao,
       tier: "Tier4",
       modifiers: { TileMaintenance: { type: "multiply", value: -0.02 } },
@@ -511,7 +512,7 @@ export const _TKCharacters = {
       initialProvince: "LiuYao",
    },
    LiuZhang: {
-      name: () => ["Liu", "Zhang", "Jiyu"],
+      name: () => [$t(L.TKFamilyNameLiu), $t(L.TKCharacterLiuZhang), $t(L.TKCourtesyNameJiyu)],
       image: LiuZhang,
       tier: "Tier4",
       modifiers: { LandTax: { type: "multiply", value: 0.02 } },
@@ -519,7 +520,7 @@ export const _TKCharacters = {
       initialProvince: "LiuZhang",
    },
    LuBu: {
-      name: () => ["Lu", "Bu", "Fengxian"],
+      name: () => [$t(L.TKFamilyNameLuBu), $t(L.TKCharacterLuBu), $t(L.TKCourtesyNameFengxian)],
       image: LuBu,
       tier: "Tier1",
       modifiers: { CavalryUnitPower: { type: "multiply", value: 0.2 } },
@@ -528,7 +529,7 @@ export const _TKCharacters = {
    },
    LuMeng: {
       // Novel: Sun Quan (c. 200-202, listed among his newly recruited officers; ch. 38).
-      name: () => ["Lu", "Meng", "Ziming"],
+      name: () => [$t(L.TKFamilyNameLuMeng), $t(L.TKCharacterLuMeng), $t(L.TKCourtesyNameZiming)],
       image: LuMeng,
       tier: "Tier2",
       modifiers: {
@@ -539,7 +540,7 @@ export const _TKCharacters = {
    },
    LuSu: {
       // Novel: Sun Quan (200, recommended by Zhou Yu after Sun Ce's death; ch. 29).
-      name: () => ["Lu", "Su", "Zijing"],
+      name: () => [$t(L.TKFamilyNameLuSu), $t(L.TKCharacterLuSu), $t(L.TKCourtesyNameZijing)],
       image: LuSu,
       tier: "Tier2",
       modifiers: {
@@ -550,7 +551,7 @@ export const _TKCharacters = {
    },
    LuXun: {
       // Novel: Sun Quan (c. 200-202, listed among his newly recruited officers; ch. 38).
-      name: () => ["Lu", "Xun", "Boyan"],
+      name: () => [$t(L.TKFamilyNameLuXun), $t(L.TKCharacterLuXun), $t(L.TKCourtesyNameBoyan)],
       image: LuXun,
       tier: "Tier2",
       modifiers: {
@@ -560,7 +561,7 @@ export const _TKCharacters = {
       traits: new Set(["Civil", "Martial"]),
    },
    MaChao: {
-      name: () => ["Ma", "Chao", "Mengqi"],
+      name: () => [$t(L.TKFamilyNameMa), $t(L.TKCharacterMaChao), $t(L.TKCourtesyNameMengqi)],
       image: MaChao,
       tier: "Tier2",
       modifiers: { CavalryUnitPower: { type: "multiply", value: 0.12 } },
@@ -568,7 +569,7 @@ export const _TKCharacters = {
       initialProvince: "MaTeng",
    },
    MaDai: {
-      name: () => ["Ma", "Dai"],
+      name: () => [$t(L.TKFamilyNameMa), $t(L.TKCharacterMaDai)],
       image: MaDai,
       tier: "Tier3",
       modifiers: { CavalryUnitPower: { type: "multiply", value: 0.08 } },
@@ -577,14 +578,14 @@ export const _TKCharacters = {
    },
    MaLiang: {
       // Novel: Liu Bei (c. 209, recommended by Yi Ji before the southern Jingzhou conquests; ch. 52).
-      name: () => ["Ma", "Liang", "Jichang"],
+      name: () => [$t(L.TKFamilyNameMa), $t(L.TKCharacterMaLiang), $t(L.TKCourtesyNameJichang)],
       image: MaLiang,
       tier: "Tier3",
       modifiers: { AdvisorCost: { type: "multiply", value: -0.04 } },
       traits: new Set(["Civil"]),
    },
    ManChong: {
-      name: () => ["Man", "Chong", "Boning"],
+      name: () => [$t(L.TKFamilyNameMan), $t(L.TKCharacterManChong), $t(L.TKCourtesyNameBoning)],
       image: ManChong,
       tier: "Tier2",
       modifiers: {
@@ -596,14 +597,14 @@ export const _TKCharacters = {
    },
    MaSu: {
       // Novel: Liu Bei (by 211, accompanies him into Yi; ch. 60; recruitment date unstated) -> Liu Shan (223).
-      name: () => ["Ma", "Su", "Youchang"],
+      name: () => [$t(L.TKFamilyNameMa), $t(L.TKCharacterMaSu), $t(L.TKCourtesyNameYouchang)],
       image: MaSu,
       tier: "Tier4",
       modifiers: { WarPower: { type: "multiply", value: 0.02 } },
       traits: new Set(["Civil"]),
    },
    MaTeng: {
-      name: () => ["Ma", "Teng", "Shoucheng"],
+      name: () => [$t(L.TKFamilyNameMa), $t(L.TKCharacterMaTeng), $t(L.TKCourtesyNameShoucheng)],
       image: MaTeng,
       tier: "Tier4",
       modifiers: { Manpower: { type: "multiply", value: 0.02 } },
@@ -611,7 +612,7 @@ export const _TKCharacters = {
       initialProvince: "MaTeng",
    },
    MiZhu: {
-      name: () => ["Mi", "Zhu", "Zizhong"],
+      name: () => [$t(L.TKFamilyNameMi), $t(L.TKCharacterMiZhu), $t(L.TKCourtesyNameZizhong)],
       image: MiZhu,
       tier: "Tier3",
       modifiers: { LandTax: { type: "multiply", value: 0.04 } },
@@ -619,7 +620,7 @@ export const _TKCharacters = {
       initialProvince: "TaoQian",
    },
    PangDe: {
-      name: () => ["Pang", "De", "Lingming"],
+      name: () => [$t(L.TKFamilyNamePang), $t(L.TKCharacterPangDe), $t(L.TKCourtesyNameLingming)],
       image: PangDe,
       tier: "Tier2",
       modifiers: { CavalryUnitPower: { type: "multiply", value: 0.12 } },
@@ -629,14 +630,14 @@ export const _TKCharacters = {
    PangTong: {
       // Novel: Sun Quan's side (208, helps Zhou Yu against Cao Cao; ch. 47; no formal appointment)
       // -> Liu Bei (c. 210, after Sun Quan rejects his application; ch. 57). His visit to Cao Cao is a ruse.
-      name: () => ["Pang", "Tong", "Shiyuan"],
+      name: () => [$t(L.TKFamilyNamePang), $t(L.TKCharacterPangTong), $t(L.TKCourtesyNameShiyuan)],
       image: PangTong,
       tier: "Tier2",
       modifiers: { WarPower: { type: "multiply", value: 0.06 } },
       traits: new Set(["Civil"]),
    },
    ShiXie: {
-      name: () => ["Shi", "Xie", "Weiyan"],
+      name: () => [$t(L.TKFamilyNameShi), $t(L.TKCharacterShiXie), $t(L.TKCourtesyNameWeiyan)],
       image: ShiXie,
       tier: "Tier4",
       modifiers: { Stability: { type: "add", value: 2 } },
@@ -646,7 +647,7 @@ export const _TKCharacters = {
    SimaShi: {
       // Novel: Cao Rui (by 228, campaigning under Sima Yi; ch. 94) -> Cao Fang (239) -> Cao Mao (254).
       // Supports Sima Yi's coup (249) and succeeds him as Wei regent (251).
-      name: () => ["Sima", "Shi", "Ziyuan"],
+      name: () => [$t(L.TKFamilyNameSima), $t(L.TKCharacterSimaShi), $t(L.TKCourtesyNameSimaShiZiyuan)],
       image: SimaShi,
       tier: "Tier2",
       modifiers: {
@@ -657,7 +658,7 @@ export const _TKCharacters = {
    },
    SimaYi: {
       // Novel: Cao Cao (208, appointed literary officer; ch. 39) -> Cao Pi (220) -> Cao Rui (226) -> Cao Fang (239).
-      name: () => ["Sima", "Yi", "Zhongda"],
+      name: () => [$t(L.TKFamilyNameSima), $t(L.TKCharacterSimaYi), $t(L.TKCourtesyNameZhongda)],
       image: SimaYi,
       tier: "Tier1",
       modifiers: {
@@ -669,7 +670,7 @@ export const _TKCharacters = {
    SimaZhao: {
       // Novel: Cao Rui (by 228, campaigning under Sima Yi; ch. 94) -> Cao Fang (239)
       // -> Cao Mao (254) -> Cao Huan (260); supports Sima Yi, then Sima Shi (251), succeeding him as regent (255).
-      name: () => ["Sima", "Zhao", "Zishang"],
+      name: () => [$t(L.TKFamilyNameSima), $t(L.TKCharacterSimaZhao), $t(L.TKCourtesyNameZishang)],
       image: SimaZhao,
       tier: "Tier2",
       modifiers: {
@@ -679,7 +680,7 @@ export const _TKCharacters = {
       traits: new Set(["Civil", "Martial"]),
    },
    SunCe: {
-      name: () => ["Sun", "Ce", "Bofu"],
+      name: () => [$t(L.TKFamilyNameSun), $t(L.TKCharacterSunCe), $t(L.TKCourtesyNameBofu)],
       image: SunCe,
       tier: "Tier2",
       modifiers: {
@@ -691,7 +692,7 @@ export const _TKCharacters = {
    },
    SunQuan: {
       // Novel: Sun Ce (by c. 195-196, defending Xuancheng; ch. 15); succeeds him as ruler in 200 (ch. 29).
-      name: () => ["Sun", "Quan", "Zhongmou"],
+      name: () => [$t(L.TKFamilyNameSun), $t(L.TKCharacterSunQuan), $t(L.TKCourtesyNameZhongmou)],
       image: SunQuan,
       tier: "Tier1",
       modifiers: {
@@ -704,7 +705,7 @@ export const _TKCharacters = {
       // Novel: Kong Rong (c. 193-194, rescues him at Beihai) -> Liu Yao (after the rescue; ch. 11)
       // -> Sun Ce (c. 195-196, captured and recruited; ch. 15) -> Sun Quan (200).
       // The Beihai rescue precedes the July 194 start in the novel; the current setup follows the earlier historical review.
-      name: () => ["Taishi", "Ci", "Ziyi"],
+      name: () => [$t(L.TKFamilyNameTaishi), $t(L.TKCharacterTaishiCi), $t(L.TKCourtesyNameZiyi)],
       image: TaishiCi,
       tier: "Tier2",
       modifiers: {
@@ -714,7 +715,7 @@ export const _TKCharacters = {
       traits: new Set(["Martial"]),
    },
    TaoQian: {
-      name: () => ["Tao", "Qian", "Gongzu"],
+      name: () => [$t(L.TKFamilyNameTao), $t(L.TKCharacterTaoQian), $t(L.TKCourtesyNameGongzu)],
       image: TaoQian,
       tier: "Tier4",
       modifiers: { TileOutput: { type: "multiply", value: 0.02 } },
@@ -722,7 +723,7 @@ export const _TKCharacters = {
       initialProvince: "TaoQian",
    },
    TianFeng: {
-      name: () => ["Tian", "Feng", "Yuanhao"],
+      name: () => [$t(L.TKFamilyNameTian), $t(L.TKCharacterTianFeng), $t(L.TKCourtesyNameYuanhao)],
       image: TianFeng,
       tier: "Tier3",
       modifiers: { ArmyMaintenance: { type: "multiply", value: -0.04 } },
@@ -730,7 +731,7 @@ export const _TKCharacters = {
       initialProvince: "YuanShao",
    },
    WangLang: {
-      name: () => ["Wang", "Lang", "Jingxing"],
+      name: () => [$t(L.TKFamilyNameWang), $t(L.TKCharacterWangLang), $t(L.TKCourtesyNameJingxing)],
       image: WangLang,
       tier: "Tier4",
       modifiers: { AdvisorCost: { type: "multiply", value: -0.02 } },
@@ -740,7 +741,7 @@ export const _TKCharacters = {
    WeiYan: {
       // Novel: Liu Biao's forces (by 208, at Xiangyang) -> Han Xuan (c. 208-209, after fleeing Xiangyang)
       // -> Liu Bei (209, kills Han Xuan and surrenders Changsha; chs. 41, 53) -> Liu Shan (223).
-      name: () => ["Wei", "Yan", "Wenchang"],
+      name: () => [$t(L.TKFamilyNameWei), $t(L.TKCharacterWeiYan), $t(L.TKCourtesyNameWenchang)],
       image: WeiYan,
       tier: "Tier2",
       modifiers: {
@@ -750,7 +751,7 @@ export const _TKCharacters = {
       traits: new Set(["Martial"]),
    },
    WenChou: {
-      name: () => ["Wen", "Chou"],
+      name: () => [$t(L.TKFamilyNameWen), $t(L.TKCharacterWenChou)],
       image: WenChou,
       tier: "Tier3",
       modifiers: { CavalryUnitPower: { type: "multiply", value: 0.08 } },
@@ -758,7 +759,7 @@ export const _TKCharacters = {
       initialProvince: "YuanShao",
    },
    XiahouDun: {
-      name: () => ["Xiahou", "Dun", "Yuanrang"],
+      name: () => [$t(L.TKFamilyNameXiahou), $t(L.TKCharacterXiahouDun), $t(L.TKCourtesyNameYuanrang)],
       image: XiahouDun,
       tier: "Tier3",
       modifiers: { TileOutput: { type: "multiply", value: 0.04 } },
@@ -766,7 +767,7 @@ export const _TKCharacters = {
       initialProvince: "CaoCao",
    },
    XiahouYuan: {
-      name: () => ["Xiahou", "Yuan", "Miaocai"],
+      name: () => [$t(L.TKFamilyNameXiahou), $t(L.TKCharacterXiahouYuan), $t(L.TKCourtesyNameMiaocai)],
       image: XiahouYuan,
       tier: "Tier3",
       modifiers: { RangedUnitPower: { type: "multiply", value: 0.08 } },
@@ -775,14 +776,14 @@ export const _TKCharacters = {
    },
    XuChu: {
       // Novel: Cao Cao (195, recruited after fighting Dian Wei; ch. 12) -> Cao Pi (220).
-      name: () => ["Xu", "Chu", "Zhongkang"],
+      name: () => [$t(L.TKFamilyNameXuChu), $t(L.TKCharacterXuChu), $t(L.TKCourtesyNameZhongkang)],
       image: XuChu,
       tier: "Tier2",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.12 } },
       traits: new Set(["Martial"]),
    },
    XuHuang: {
-      name: () => ["Xu", "Huang", "Gongming"],
+      name: () => [$t(L.TKFamilyNameXuHuang), $t(L.TKCharacterXuHuang), $t(L.TKCourtesyNameGongming)],
       image: XuHuang,
       tier: "Tier2",
       modifiers: {
@@ -795,14 +796,14 @@ export const _TKCharacters = {
    XunYou: {
       // Novel: Han imperial court (before retiring home) -> Cao Cao (c. 192-193, joins with Xun Yu; ch. 10).
       // This predates the July 194 start; the current omitted initialProvince follows the earlier historical setup.
-      name: () => ["Xun", "You", "Gongda"],
+      name: () => [$t(L.TKFamilyNameXun), $t(L.TKCharacterXunYou), $t(L.TKCourtesyNameGongda)],
       image: XunYou,
       tier: "Tier2",
       modifiers: { WarPower: { type: "multiply", value: 0.06 } },
       traits: new Set(["Civil"]),
    },
    XunYu: {
-      name: () => ["Xun", "Yu", "Wenruo"],
+      name: () => [$t(L.TKFamilyNameXun), $t(L.TKCharacterXunYu), $t(L.TKCourtesyNameWenruo)],
       image: XunYu,
       tier: "Tier2",
       modifiers: {
@@ -814,7 +815,7 @@ export const _TKCharacters = {
    },
    XuSheng: {
       // Novel: Sun Quan (c. 200-202, listed among his newly recruited officers; ch. 38).
-      name: () => ["Xu", "Sheng", "Wenxiang"],
+      name: () => [$t(L.TKFamilyNameXuSheng), $t(L.TKCharacterXuSheng), $t(L.TKCourtesyNameWenxiang)],
       image: XuSheng,
       tier: "Tier3",
       modifiers: { Defense: { type: "multiply", value: 0.04 } },
@@ -823,14 +824,14 @@ export const _TKCharacters = {
    XuShu: {
       // Novel: Liu Bei (c. 207, as Shan Fu) -> Cao Cao (207, lured away by the forged letter; chs. 35-37).
       // Nominal service to Cao Cao only: he vows not to offer him counsel.
-      name: () => ["Xu", "Shu", "Yuanzhi"],
+      name: () => [$t(L.TKFamilyNameXuShu), $t(L.TKCharacterXuShu), $t(L.TKCourtesyNameYuanzhi)],
       image: XuShu,
       tier: "Tier2",
       modifiers: { WarPower: { type: "multiply", value: 0.06 } },
       traits: new Set(["Civil"]),
    },
    XuYou: {
-      name: () => ["Xu", "You", "Ziyuan"],
+      name: () => [$t(L.TKFamilyNameXuYou), $t(L.TKCharacterXuYou), $t(L.TKCourtesyNameXuYouZiyuan)],
       image: XuYou,
       tier: "Tier3",
       modifiers: { WarPower: { type: "multiply", value: 0.04 } },
@@ -838,7 +839,7 @@ export const _TKCharacters = {
       initialProvince: "YuanShao",
    },
    YanBaihu: {
-      name: () => ["Yan", "Baihu"],
+      name: () => [$t(L.TKFamilyNameYanBaihu), $t(L.TKCharacterYanBaihu)],
       image: YanBaihu,
       tier: "Tier4",
       modifiers: { Manpower: { type: "multiply", value: 0.02 } },
@@ -846,7 +847,7 @@ export const _TKCharacters = {
       initialProvince: "YanBaihu",
    },
    YanLiang: {
-      name: () => ["Yan", "Liang"],
+      name: () => [$t(L.TKFamilyNameYanLiang), $t(L.TKCharacterYanLiang)],
       image: YanLiang,
       tier: "Tier3",
       modifiers: { CavalryUnitPower: { type: "multiply", value: 0.08 } },
@@ -854,7 +855,7 @@ export const _TKCharacters = {
       initialProvince: "YuanShao",
    },
    YuanShao: {
-      name: () => ["Yuan", "Shao", "Benchu"],
+      name: () => [$t(L.TKFamilyNameYuan), $t(L.TKCharacterYuanShao), $t(L.TKCourtesyNameBenchu)],
       image: YuanShao,
       tier: "Tier3",
       modifiers: { Prestige: { type: "multiply", value: 0.04 } },
@@ -862,7 +863,7 @@ export const _TKCharacters = {
       initialProvince: "YuanShao",
    },
    YuanShu: {
-      name: () => ["Yuan", "Shu", "Gonglu"],
+      name: () => [$t(L.TKFamilyNameYuan), $t(L.TKCharacterYuanShu), $t(L.TKCourtesyNameGonglu)],
       image: YuanShu,
       tier: "Tier4",
       modifiers: { LandTax: { type: "multiply", value: 0.02 } },
@@ -870,7 +871,7 @@ export const _TKCharacters = {
       initialProvince: "YuanShu",
    },
    YueJin: {
-      name: () => ["Yue", "Jin", "Wenqian"],
+      name: () => [$t(L.TKFamilyNameYue), $t(L.TKCharacterYueJin), $t(L.TKCourtesyNameWenqian)],
       image: YueJin,
       tier: "Tier3",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.08 } },
@@ -878,7 +879,7 @@ export const _TKCharacters = {
       initialProvince: "CaoCao",
    },
    YuJin: {
-      name: () => ["Yu", "Jin", "Wenze"],
+      name: () => [$t(L.TKFamilyNameYu), $t(L.TKCharacterYuJin), $t(L.TKCourtesyNameWenze)],
       image: YuJin,
       tier: "Tier3",
       modifiers: { ArmyMaintenance: { type: "multiply", value: -0.04 } },
@@ -887,14 +888,14 @@ export const _TKCharacters = {
    },
    ZhangBao: {
       // Novel: Liu Bei (221, joins the campaign to avenge Zhang Fei; ch. 81) -> Liu Shan (223).
-      name: () => ["Zhang", "Bao"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangBao)],
       image: ZhangBao,
       tier: "Tier4",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.04 } },
       traits: new Set(["Martial"]),
    },
    ZhangFei: {
-      name: () => ["Zhang", "Fei", "Yide"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangFei), $t(L.TKCourtesyNameYide)],
       image: ZhangFei,
       tier: "Tier1",
       modifiers: { InfantryUnitPower: { type: "multiply", value: 0.2 } },
@@ -902,7 +903,7 @@ export const _TKCharacters = {
       initialProvince: "LiuBei",
    },
    ZhangHe: {
-      name: () => ["Zhang", "He", "Junyi"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangHe), $t(L.TKCourtesyNameJunyi)],
       image: ZhangHe,
       tier: "Tier2",
       modifiers: {
@@ -912,7 +913,7 @@ export const _TKCharacters = {
       traits: new Set(["Martial"]),
    },
    ZhangHong: {
-      name: () => ["Zhang", "Hong", "Zigang"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangHong), $t(L.TKCourtesyNameZigang)],
       image: ZhangHong,
       tier: "Tier3",
       modifiers: { TileMaintenance: { type: "multiply", value: -0.04 } },
@@ -920,7 +921,7 @@ export const _TKCharacters = {
       initialProvince: "SunCe",
    },
    ZhangLiao: {
-      name: () => ["Zhang", "Liao", "Wenyuan"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangLiao), $t(L.TKCourtesyNameWenyuan)],
       image: ZhangLiao,
       tier: "Tier2",
       modifiers: {
@@ -931,7 +932,7 @@ export const _TKCharacters = {
       initialProvince: "LuBu",
    },
    ZhangLu: {
-      name: () => ["Zhang", "Lu", "Gongqi"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangLu), $t(L.TKCourtesyNameGongqi)],
       image: ZhangLu,
       tier: "Tier4",
       modifiers: { Stability: { type: "add", value: 2 } },
@@ -939,7 +940,7 @@ export const _TKCharacters = {
       initialProvince: "ZhangLu",
    },
    ZhangRen: {
-      name: () => ["Zhang", "Ren"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangRen)],
       image: ZhangRen,
       tier: "Tier3",
       modifiers: { Defense: { type: "multiply", value: 0.04 } },
@@ -949,14 +950,14 @@ export const _TKCharacters = {
    ZhangXiu: {
       // Novel: Zhang Ji (before 196; recruitment date unstated) -> Liu Biao (196, after succeeding his uncle)
       // -> Cao Cao (197, briefly) -> Liu Biao (197, after rebelling) -> Cao Cao (199; chs. 16, 23).
-      name: () => ["Zhang", "Xiu"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangXiu)],
       image: ZhangXiu,
       tier: "Tier4",
       modifiers: { CavalryUnitPower: { type: "multiply", value: 0.04 } },
       traits: new Set(["Martial"]),
    },
    ZhangYan: {
-      name: () => ["Zhang", "Yan"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangYan)],
       image: ZhangYan,
       tier: "Tier3",
       modifiers: { Manpower: { type: "multiply", value: 0.04 } },
@@ -964,7 +965,7 @@ export const _TKCharacters = {
       initialProvince: "ZhangYan",
    },
    ZhangYang: {
-      name: () => ["Zhang", "Yang", "Zhishu"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangYang), $t(L.TKCourtesyNameZhishu)],
       image: ZhangYang,
       tier: "Tier4",
       modifiers: { Stability: { type: "add", value: 2 } },
@@ -973,14 +974,14 @@ export const _TKCharacters = {
    },
    ZhangZhao: {
       // Novel: Sun Ce (195, recommended by Zhou Yu; ch. 15) -> Sun Quan (200).
-      name: () => ["Zhang", "Zhao", "Zibu"],
+      name: () => [$t(L.TKFamilyNameZhang), $t(L.TKCharacterZhangZhao), $t(L.TKCourtesyNameZibu)],
       image: ZhangZhao,
       tier: "Tier3",
       modifiers: { Stability: { type: "add", value: 4 } },
       traits: new Set(["Civil"]),
    },
    ZhaoYun: {
-      name: () => ["Zhao", "Yun", "Zilong"],
+      name: () => [$t(L.TKFamilyNameZhao), $t(L.TKCharacterZhaoYun), $t(L.TKCourtesyNameZilong)],
       image: ZhaoYun,
       tier: "Tier2",
       modifiers: {
@@ -993,7 +994,7 @@ export const _TKCharacters = {
    ZhongHui: {
       // Novel: Cao Fang (by 249, a rising Wei official; ch. 107) -> Cao Mao (254) -> Cao Huan (260).
       // Supports Sima Shi (by 255), then Sima Zhao (255); rebels with Jiang Wei in 264 (ch. 119).
-      name: () => ["Zhong", "Hui", "Shiji"],
+      name: () => [$t(L.TKFamilyNameZhong), $t(L.TKCharacterZhongHui), $t(L.TKCourtesyNameShiji)],
       image: ZhongHui,
       tier: "Tier2",
       modifiers: {
@@ -1004,7 +1005,7 @@ export const _TKCharacters = {
    },
    ZhouTai: {
       // Novel: Sun Ce (195, joins during the Jiangdong campaign; ch. 15) -> Sun Quan (200).
-      name: () => ["Zhou", "Tai", "Youping"],
+      name: () => [$t(L.TKFamilyNameZhou), $t(L.TKCharacterZhouTai), $t(L.TKCourtesyNameYouping)],
       image: ZhouTai,
       tier: "Tier2",
       modifiers: { Defense: { type: "multiply", value: 0.06 } },
@@ -1012,7 +1013,7 @@ export const _TKCharacters = {
    },
    ZhouYu: {
       // Novel: Sun Ce (195, brings troops to assist the Jiangdong campaign; ch. 15) -> Sun Quan (200).
-      name: () => ["Zhou", "Yu", "Gongjin"],
+      name: () => [$t(L.TKFamilyNameZhou), $t(L.TKCharacterZhouYu), $t(L.TKCourtesyNameGongjin)],
       image: ZhouYu,
       tier: "Tier1",
       modifiers: {
@@ -1024,7 +1025,7 @@ export const _TKCharacters = {
    ZhugeJin: {
       // Novel: Sun Quan (by 207, already serving in Jiangdong when Zhuge Jun describes him; ch. 37).
       // The novel does not give his recruitment date.
-      name: () => ["Zhuge", "Jin", "Ziyu"],
+      name: () => [$t(L.TKFamilyNameZhuge), $t(L.TKCharacterZhugeJin), $t(L.TKCourtesyNameZiyu)],
       image: ZhugeJin,
       tier: "Tier3",
       modifiers: { Stability: { type: "add", value: 4 } },
@@ -1032,7 +1033,7 @@ export const _TKCharacters = {
    },
    ZhugeLiang: {
       // Novel: Liu Bei (207, after the three visits; chs. 37-38) -> Liu Shan (223).
-      name: () => ["Zhuge", "Liang", "Kongming"],
+      name: () => [$t(L.TKFamilyNameZhuge), $t(L.TKCharacterZhugeLiang), $t(L.TKCourtesyNameKongming)],
       image: ZhugeLiang,
       tier: "Tier1",
       modifiers: {
@@ -1043,7 +1044,7 @@ export const _TKCharacters = {
    },
    ZhuRan: {
       // Novel: Sun Quan (by 219, participates in the seizure of Jingzhou; ch. 75; recruitment date unstated).
-      name: () => ["Zhu", "Ran", "Yifeng"],
+      name: () => [$t(L.TKFamilyNameZhu), $t(L.TKCharacterZhuRan), $t(L.TKCourtesyNameYifeng)],
       image: ZhuRan,
       tier: "Tier3",
       modifiers: { Defense: { type: "multiply", value: 0.04 } },

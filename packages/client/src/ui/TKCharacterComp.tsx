@@ -12,6 +12,7 @@ import {
 import { type TKCharacter, TKCharacters, TKCharacterTier, TKCharacterTraits } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
+import { $t, L } from "../utils/i18n";
 import { BreakdownComp } from "./BreakdownComp";
 import { FloatingTip } from "./components/FloatingTip";
 
@@ -43,19 +44,19 @@ export function TKCharacterComp({ character }: { character: TKCharacter }): Reac
                   <div className="row mx10 my5">
                      <div className="f1">
                         {governor
-                           ? `${formatNumber(governor.age)} years old`
-                           : `${durationToString(monthsLeft)} of life remaining`}
+                           ? $t(L.$1YearsOld, formatNumber(governor.age))
+                           : $t(L.$1OfLifeRemaining, durationToString(monthsLeft))}
                      </div>
                      <div className="mi sm">schedule</div>
                   </div>
                ) : (
                   <div className="row mx10 my5">
-                     <div className="f1">Dead</div>
+                     <div className="f1">{$t(L.Dead)}</div>
                      <div className="mi sm">skull</div>
                   </div>
                )}
                <div className="h2 row">
-                  <div className="f1">While ruling or assigned</div>
+                  <div className="f1">{$t(L.WhileRulingOrAssigned)}</div>
                   {isRulingOrAssigned && <div className="mi text-primary sm">check_circle</div>}
                </div>
                {mapOf(config.modifiers, (modifier, data) => (
@@ -65,7 +66,7 @@ export function TKCharacterComp({ character }: { character: TKCharacter }): Reac
                ))}
                {showMonthlyCost && (
                   <>
-                     <div className="h2">Monthly Cost (Advisor/Strategist)</div>
+                     <div className="h2">{$t(L.MonthlyCostAdvisorStrategist)}</div>
                      <BreakdownComp breakdown={getTKCharacterMonthlyCost(character, costProvince, G.save)} />
                   </>
                )}
@@ -88,7 +89,11 @@ export function TKCharacterComp({ character }: { character: TKCharacter }): Reac
                      </div>
                   ))}
                   {monthsLeft > 0 ? (
-                     <div>{governor ? `${governor.age}yo` : `${Math.floor(monthsLeft / 12)}y`}</div>
+                     <div>
+                        {governor
+                           ? $t(L.AgeAbbr$1, formatNumber(governor.age))
+                           : $t(L.YearsAbbr$1, formatNumber(Math.floor(monthsLeft / 12)))}
+                     </div>
                   ) : (
                      <div className="mi xs">skull</div>
                   )}

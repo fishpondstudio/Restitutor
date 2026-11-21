@@ -1,3 +1,4 @@
+import { $t, L } from "../../../utils/i18n";
 import { Province } from "../../definitions/Province";
 import { requireHigherWarPowerChecks } from "../../logic/ArmyLogic";
 import type { ConditionChecks } from "../../logic/Calculation";
@@ -18,23 +19,21 @@ import type { IGameEventConfig } from "../GameEventTypes";
 
 export const YuanShaoEvents = {
    YuanShaoEvent1: {
-      name: () => "Four Generations, Three Excellencies",
-      desc: () =>
-         "The Yuan name has been honored through four generations of service in the highest offices of the Han. Scholars seek our patronage, influential families offer introductions, and old clients stand ready to answer our summons. This inheritance cannot govern the realm for us, but wisely employed it may open doors that armies alone cannot force.",
+      name: () => $t(L.FourGenerationsThreeExcellencies),
+      desc: () => $t(L.FourGenerationsThreeExcellenciesDesc),
       image: EventImage.TKScholarlyPatronage,
       condition: {
          province: new Set(["YuanShao"]),
       },
       buttons: [
-         { label: () => "Call upon our family connections", resources: { diplomatic: 75 } },
-         { label: () => "Gather scholars beneath our banner", resources: { administrative: 75 } },
-         { label: () => "Honor our service to the Han", resources: { consulPoint: 2 } },
+         { label: () => $t(L.CallUponOurFamilyConnections), resources: { diplomatic: 75 } },
+         { label: () => $t(L.GatherScholarsBeneathOurBanner), resources: { administrative: 75 } },
+         { label: () => $t(L.HonorOurServiceToTheHan), resources: { consulPoint: 2 } },
       ],
    },
    YuanShaoEvent2: {
-      name: () => "Pacify the Black Mountains",
-      desc: () =>
-         "The Black Mountain strongholds now receive our orders. Their communities know the passes better than any official sent from the plains, and their cooperation will matter long after our armies leave. The Yuan seal must become more than a sign of conquest in these hills.",
+      name: () => $t(L.PacifyTheBlackMountains),
+      desc: () => $t(L.PacifyTheBlackMountainsDesc),
       image: EventImage.TKMountainReconciliation,
       condition: {
          province: new Set(["YuanShao"]),
@@ -42,26 +41,25 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Establish Yuan authority in the hills",
+            label: () => $t(L.EstablishYuanAuthorityInTheHills),
             resources: { administrative: 50 },
             modifiers: { Prestige: { type: "multiply", value: 0.1, duration: 36 } },
          },
          {
-            label: () => "Reconcile the mountain communities",
+            label: () => $t(L.ReconcileTheMountainCommunities),
             resources: { diplomatic: 50 },
             modifiers: { Stability: { type: "add", value: 10, duration: 36 } },
          },
          {
-            label: () => "Organize the defense of the passes",
+            label: () => $t(L.OrganizeTheDefenseOfThePasses),
             resources: { military: 50 },
             modifiers: { Defense: { type: "multiply", value: 0.1, duration: 36 } },
          },
       ],
    },
    YuanShaoEvent3: {
-      name: () => "The Great Families of Hebei",
-      desc: () =>
-         "Hebei's great families arrive with lists of clients suited to embassies and military appointments. Their experience would serve us well, but their patrons expect influence in return. Our officials must decide whether to accommodate these networks or build a wider administration answerable directly to Yuan Shao.",
+      name: () => $t(L.TheGreatFamiliesOfHebei),
+      desc: () => $t(L.TheGreatFamiliesOfHebeiDesc),
       image: EventImage.TKScholarlyPatronage,
       condition: {
          province: new Set(["YuanShao"]),
@@ -72,7 +70,7 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Employ their envoys and officers",
+            label: () => $t(L.EmployTheirEnvoysAndOfficers),
             resources: { administrative: -100 },
             modifiers: {
                DiplomaticPoint: { type: "add", value: 1, duration: 60 },
@@ -80,16 +78,15 @@ export const YuanShaoEvents = {
             },
          },
          {
-            label: () => "Extend our own civil administration",
+            label: () => $t(L.ExtendOurOwnCivilAdministration),
             resources: { administrative: -100 },
             modifiers: { GoverningCapacity: { type: "add", value: 20 } },
          },
       ],
    },
    YuanShaoEvent4: {
-      name: () => "The Yuan House and the Han Court",
-      desc: () =>
-         "Our military strength and treasury give weight to the Yuan house's professions of loyalty. A generous contribution to the imperial court would win favor and display our devotion to the Han. Yet our advisers also urge us to strengthen the officials, envoys, and officers who maintain order in our own domain.",
+      name: () => $t(L.TheYuanHouseAndTheHanCourt),
+      desc: () => $t(L.TheYuanHouseAndTheHanCourtDesc),
       image: EventImage.TKDiplomaticSubsidy,
       condition: {
          province: new Set(["YuanShao"]),
@@ -101,14 +98,14 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Send a generous subsidy to the court",
+            label: () => $t(L.SendAGenerousSubsidyToTheCourt),
             resources: { gold: -1000, consulPoint: 3 },
             modifiers: {
                Prestige: { type: "multiply", value: 0.1, duration: 36 },
             },
          },
          {
-            label: () => "Strengthen our government at home",
+            label: () => $t(L.StrengthenOurGovernmentAtHome),
             resources: {
                administrative: 30,
                diplomatic: 30,
@@ -121,9 +118,8 @@ export const YuanShaoEvents = {
       ],
    },
    YuanShaoEvent5: {
-      name: () => "One Yuan Banner",
-      desc: () =>
-         "Our officials now hold the registers of the lands that sustained Yuan Shu's rival court. His former clients seek assurances, while our followers call for a proclamation celebrating the ascendancy of our branch of the family. One Yuan banner flies over the settlement, but its meaning remains ours to define.",
+      name: () => $t(L.OneYuanBanner),
+      desc: () => $t(L.OneYuanBannerDesc),
       image: EventImage.TKPublicProclamation,
       condition: {
          province: new Set(["YuanShao"]),
@@ -131,19 +127,19 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Proclaim the ascendancy of our house",
+            label: () => $t(L.ProclaimTheAscendancyOfOurHouse),
             modifiers: {
                Prestige: { type: "multiply", value: 0.1, duration: 36 },
             },
          },
          {
-            label: () => "Reconcile Yuan Shu's former subjects",
+            label: () => $t(L.ReconcileYuanShusFormerSubjects),
             modifiers: {
                Stability: { type: "add", value: 10, duration: 36 },
             },
          },
          {
-            label: () => "Register the estates for taxation",
+            label: () => $t(L.RegisterTheEstatesForTaxation),
             modifiers: {
                LandTax: { type: "multiply", value: 0.1, duration: 36 },
             },
@@ -151,9 +147,8 @@ export const YuanShaoEvents = {
       ],
    },
    YuanShaoEvent11: {
-      name: () => "Zhang He Joins Our Service",
-      desc: () =>
-         "The struggle for the north demands commanders who can do more than lead a charge. Zhang He, styled Junyi, has shown a keen eye for the battlefield and a steady hand in command. We can welcome him into our service and make his talents available for the campaigns ahead.",
+      name: () => $t(L.ZhangHeJoinsOurService),
+      desc: () => $t(L.ZhangHeJoinsOurServiceDesc),
       image: EventImage.TKMilitaryAppointments,
       condition: {
          province: new Set(["YuanShao"]),
@@ -167,15 +162,14 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Welcome Zhang He into our service",
+            label: () => $t(L.WelcomeZhangHeIntoOurService),
             custom: [transferTKCharacterEffect("ZhangHe")],
          },
       ],
    },
    YuanShaoEvent6: {
-      name: () => "Settling the Northern Rivalry",
-      desc: () =>
-         "Gongsun Zan's former commanderies now acknowledge the Yuan seal. Tax officials bring their registers, local notables offer help restoring production, and military households await new commanders. The northern rivalry has left us lands to govern as well as victories to celebrate.",
+      name: () => $t(L.SettlingTheNorthernRivalry),
+      desc: () => $t(L.SettlingTheNorthernRivalryDesc),
       image: EventImage.TKAgriculturalSurvey,
       condition: {
          province: new Set(["YuanShao"]),
@@ -183,26 +177,25 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Reorganize the northern tax offices",
+            label: () => $t(L.ReorganizeTheNorthernTaxOffices),
             resources: { administrative: 75 },
             modifiers: { LandTax: { type: "multiply", value: 0.1, duration: 36 } },
          },
          {
-            label: () => "Enlist local support for production",
+            label: () => $t(L.EnlistLocalSupportForProduction),
             resources: { diplomatic: 75 },
             modifiers: { TileOutput: { type: "multiply", value: 0.1, duration: 36 } },
          },
          {
-            label: () => "Muster the northern military households",
+            label: () => $t(L.MusterTheNorthernMilitaryHouseholds),
             resources: { military: 75 },
             modifiers: { Manpower: { type: "multiply", value: 0.1, duration: 36 } },
          },
       ],
    },
    YuanShaoEvent7: {
-      name: () => "The Council Before the Campaign",
-      desc: () =>
-         "Cao Cao remains beyond our authority. In council, officers argue that Hebei's strength should be turned against him, while officials urge patience until the fields and treasury can bear another campaign. Pressing our claim would give the army its purpose, but divert revenues from the work at home.",
+      name: () => $t(L.TheCouncilBeforeTheCampaign),
+      desc: () => $t(L.TheCouncilBeforeTheCampaignDesc),
       image: EventImage.TKCouncilDeliberation,
       condition: {
          province: new Set(["YuanShao"]),
@@ -215,7 +208,7 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Press our claim and prepare for war",
+            label: () => $t(L.PressOurClaimAndPrepareForWar),
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 36 },
                LandTax: { type: "multiply", value: -0.1, duration: 36 },
@@ -225,7 +218,7 @@ export const YuanShaoEvents = {
             },
          },
          {
-            label: () => "Replenish our fields and treasury",
+            label: () => $t(L.ReplenishOurFieldsAndTreasury),
             modifiers: {
                WarPower: { type: "multiply", value: -0.1, duration: 36 },
                LandTax: { type: "multiply", value: 0.1, duration: 36 },
@@ -235,9 +228,8 @@ export const YuanShaoEvents = {
       ],
    },
    YuanShaoEvent8: {
-      name: () => "A Proclamation Against Cao Cao",
-      desc: () =>
-         "Draft proclamations against Cao Cao pass between the council's writers. Some speak to households fearful of the war, others to soldiers awaiting battle, and still others to men whose loyalty to Cao Cao might be shaken. The words we choose will determine where our appeal is heard.",
+      name: () => $t(L.AProclamationAgainstCaoCao),
+      desc: () => $t(L.AProclamationAgainstCaoCaoDesc),
       image: EventImage.TKYuanShaoArmyProclamation,
       condition: {
          province: new Set(["YuanShao"]),
@@ -248,21 +240,21 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Reassure our people of our cause",
+            label: () => $t(L.ReassureOurPeopleOfOurCause),
             resources: { administrative: -50 },
             modifiers: {
                Stability: { type: "add", value: 10, duration: 36 },
             },
          },
          {
-            label: () => "Rally our soldiers against Cao Cao",
+            label: () => $t(L.RallyOurSoldiersAgainstCaoCao),
             resources: { military: -50 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 36 },
             },
          },
          {
-            label: () => "Undermine loyalty in Cao Cao's ranks",
+            label: () => $t(L.UndermineLoyaltyInCaoCaosRanks),
             resources: { diplomatic: -50 },
             provinceModifiers: [
                { modifier: "WarPower", type: "multiply", value: -0.1, duration: 36, province: "CaoCao" },
@@ -271,9 +263,8 @@ export const YuanShaoEvents = {
       ],
    },
    YuanShaoEvent9: {
-      name: () => "Provisioning the Greater Army",
-      desc: () =>
-         "Our army is stronger than Cao Cao's, but every additional soldier must be fed. Reports of thinly guarded convoys and crowded depots reach the council. Officers request silver for stores and escorts; the treasurer asks how much of our advantage we are prepared to pay to preserve.",
+      name: () => $t(L.ProvisioningTheGreaterArmy),
+      desc: () => $t(L.ProvisioningTheGreaterArmyDesc),
       image: EventImage.TKArmyProvisioning,
       condition: {
          province: new Set(["YuanShao"]),
@@ -285,21 +276,21 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Fully provision and guard the convoys",
+            label: () => $t(L.FullyProvisionAndGuardTheConvoys),
             resources: { gold: -1000 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.25, duration: 36 },
             },
          },
          {
-            label: () => "Reinforce the depots and supply convoys",
+            label: () => $t(L.ReinforceTheDepotsAndSupplyConvoys),
             resources: { gold: -500 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 36 },
             },
          },
          {
-            label: () => "Send a modest supplement of supplies",
+            label: () => $t(L.SendAModestSupplementOfSupplies),
             resources: { gold: -100 },
             modifiers: {
                WarPower: { type: "multiply", value: 0.01, duration: 36 },
@@ -308,9 +299,8 @@ export const YuanShaoEvents = {
       ],
    },
    YuanShaoEvent10: {
-      name: () => "The Settlement of Cao Cao's Lands",
-      desc: () =>
-         "The heartland from which Cao Cao challenged the Yuan house now answers to us. Its officials await confirmation in office, its families seek a place in our councils, and its garrisons require new orders. Hebei can no longer be the sole foundation of a government reaching across the central plains.",
+      name: () => $t(L.TheSettlementOfCaoCaosLands),
+      desc: () => $t(L.TheSettlementOfCaoCaosLandsDesc),
       image: EventImage.TKDistrictIntegration,
       condition: {
          province: new Set(["YuanShao"]),
@@ -318,17 +308,17 @@ export const YuanShaoEvents = {
       },
       buttons: [
          {
-            label: () => "Retain experienced civil officials",
+            label: () => $t(L.RetainExperiencedCivilOfficials),
             resources: { administrative: 50 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
          {
-            label: () => "Win the support of local families",
+            label: () => $t(L.WinTheSupportOfLocalFamilies),
             resources: { diplomatic: 50 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
          {
-            label: () => "Establish regional military commands",
+            label: () => $t(L.EstablishRegionalMilitaryCommands),
             resources: { military: 50 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },

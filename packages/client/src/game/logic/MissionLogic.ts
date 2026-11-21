@@ -138,7 +138,7 @@ export function annexTileEffect(tile: Tile, core: boolean): ICustomEffect {
 
 export function changeGovernmentTierEffect(tier: GovernmentTier): ICustomEffect {
    return {
-      desc: (province, save) => `Our rank is now ${GovernmentTier[tier].name()}`,
+      desc: (province, save) => $t(L.OurRankIsNow$1, GovernmentTier[tier].name()),
       execute: (province, save) => {
          const state = save.state.provinces[province];
          if (state && GovernmentTier[tier].slots > GovernmentTier[state.tier].slots) {

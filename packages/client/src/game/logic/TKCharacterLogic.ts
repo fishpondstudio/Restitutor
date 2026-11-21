@@ -1,3 +1,4 @@
+import { formatNumber } from "@project/shared/src/utils/Helper";
 import { $t, L } from "../../utils/i18n";
 import { finalizeBreakdown, type ICondition, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import type { IFamily } from "../definitions/Family";
@@ -5,7 +6,7 @@ import { type CharacterSlot, CharacterSlots, GovernmentTier } from "../definitio
 import type { Province } from "../definitions/Province";
 import type { ICustomEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
-import { type TKCharacter, TKCharacters, type TKCharacterTier } from "../ThreeKingdoms/TKCharacter";
+import { type TKCharacter, TKCharacters, type TKCharacterTier, TKCharacterTraits } from "../ThreeKingdoms/TKCharacter";
 import type { ITKCharacterState } from "../ThreeKingdoms/TKCharacterState";
 import { type TKWarlord, TKWarlordCharacters } from "../ThreeKingdoms/TKWarlord";
 import { clearAllCaches, getProvinceTilesCached } from "./CacheLogic";
@@ -123,8 +124,14 @@ export function killTKCharacter(character: TKCharacter, save: SaveGame): void {
 
 export function getTKCharacterName(character: TKCharacter): { fullName: string; courtesyName: string } {
    const name = TKCharacters[character].name();
+   const separator =
+      /^[\p{Script_Extensions=Han}\p{Script_Extensions=Hiragana}\p{Script_Extensions=Katakana}\p{Script_Extensions=Hangul}]+$/u.test(
+         `${name[0]}${name[1]}`,
+      )
+         ? ""
+         : " ";
    return {
-      fullName: `${name[0]} ${name[1]}`,
+      fullName: `${name[0]}${separator}${name[1]}`,
       courtesyName: name[2],
    };
 }
@@ -181,12 +188,12 @@ export function isTKCharacterRuler(character: TKCharacter, province: Province, s
 
 export function* tkCharacterUnaffiliatedChecks(character: TKCharacter, save: SaveGame): ConditionChecks {
    (yield isTKCharacterUnaffiliated(character, save))?.describe(
-      `${getTKCharacterName(character).fullName} is unaffiliated`,
+      $t(L.$1IsUnaffiliated, getTKCharacterName(character).fullName),
    );
 }
 
 export function* tkCharacterAliveChecks(character: TKCharacter, save: SaveGame): ConditionChecks {
-   (yield isTKCharacterAlive(character, save))?.describe(`${getTKCharacterName(character).fullName} is alive`);
+   (yield isTKCharacterAlive(character, save))?.describe($t(L.$1IsAlive, getTKCharacterName(character).fullName));
 }
 
 export function* tkCharacterAffiliationChecks(
@@ -195,7 +202,7 @@ export function* tkCharacterAffiliationChecks(
    save: SaveGame,
 ): ConditionChecks {
    (yield getTKCharacterProvince(character, save) === province)?.describe(
-      `${getTKCharacterName(character).fullName} is in our roster`,
+      $t(L.$1IsInOurRoster, getTKCharacterName(character).fullName),
    );
 }
 
@@ -205,7 +212,7 @@ export function* tkCharacterNotInRosterChecks(
    save: SaveGame,
 ): ConditionChecks {
    (yield getTKCharacterProvince(character, save) !== province)?.describe(
-      `${getTKCharacterName(character).fullName} is not in our roster`,
+      $t(L.$1IsNotInOurRoster, getTKCharacterName(character).fullName),
    );
 }
 
@@ -214,11 +221,11 @@ export function transferTKCharacterEffect(character: TKCharacter): ICustomEffect
       desc: (province, save) => {
          const { fullName } = getTKCharacterName(character);
          if (getTKCharacterProvince(character, save) === province) {
-            return `${fullName} is already in our roster`;
+            return $t(L.$1IsAlreadyInOurRoster, fullName);
          }
          return isTKCharacterAlive(character, save)
-            ? `${fullName} joins our service`
-            : `${fullName} is added to our roster`;
+            ? $t(L.$1JoinsOurService, fullName)
+            : $t(L.$1IsAddedToOurRoster, fullName);
       },
       execute: (province, save) => {
          transferTKCharacter(character, province, save);
@@ -303,9 +310,9 @@ export function getCharacterSlotCapacityCondition(slot: CharacterSlot, province:
    const used = getUsedCharacterSlots(province, save);
    const limit = state ? GovernmentTier[state.tier].slots : 0;
    return {
-      name: "This assignment is within our character slot capacity",
+      name: $t(L.ThisAssignmentIsWithinOurCharacterSlotCapacity),
       value: !!state && (getCharacterInSlot(province, slot, save) !== null || used < limit),
-      desc: `Total Slots: ${limit}, Used: ${used}`,
+      desc: $t(L.TotalSlots$1Used$2, formatNumber(limit), formatNumber(used)),
    };
 }
 
@@ -319,11 +326,11 @@ export function getCharacterAssignmentConditions(
       ...requireScenarioFlagCondition("TKCharacter", save),
       getCharacterSlotCapacityCondition(slot, province, save),
       {
-         name: "Character is in our roster",
+         name: $t(L.CharacterIsInOurRoster),
          value: getTKCharacterProvince(character, save) === province,
       },
       {
-         name: "Character is not assigned to a slot",
+         name: $t(L.CharacterIsNotAssignedToASlot),
          value: isTKCharacterUnassigned(character, save),
       },
       ...getCharacterRoleConditions(slot, character, province, save),
@@ -340,11 +347,11 @@ export function getCharacterRoleConditions(
    const state = getTKCharacterState(character, save);
    const conditions: ICondition[] = [
       {
-         name: type === "AncestralTemple" ? "Character is dead" : "Character is alive",
+         name: type === "AncestralTemple" ? $t(L.CharacterIsDead) : $t(L.CharacterIsAlive),
          value: state !== null && (type === "AncestralTemple" ? state.monthsLeft <= 0 : state.monthsLeft > 0),
       },
       {
-         name: "Character is not our ruler",
+         name: $t(L.CharacterIsNotOurRuler),
          value: !isTKCharacterRuler(character, province, save),
       },
    ];
@@ -353,7 +360,7 @@ export function getCharacterRoleConditions(
    }
    const trait = type === "Advisor" && governorPower !== "military" ? "Civil" : "Martial";
    conditions.push({
-      name: `Character has the ${trait} trait`,
+      name: $t(L.CharacterHasThe$1Trait, TKCharacterTraits[trait].name()),
       value: TKCharacters[character].traits.has(trait),
    });
    return conditions;

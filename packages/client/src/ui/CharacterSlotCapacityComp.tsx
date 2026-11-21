@@ -1,8 +1,10 @@
+import { formatNumber } from "@project/shared/src/utils/Helper";
 import { GovernmentTier } from "../game/definitions/GovernmentTier";
 import { GameStateUpdated } from "../game/Events";
 import { getUsedCharacterSlots } from "../game/logic/TKCharacterLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
+import { $t, L } from "../utils/i18n";
 import { FloatingTip } from "./components/FloatingTip";
 
 export function CharacterSlotCapacityComp(): React.ReactNode {
@@ -17,11 +19,7 @@ export function CharacterSlotCapacityComp(): React.ReactNode {
          <div>
             {getUsedCharacterSlots(G.save.state.playerProvince, G.save)}/{tier.slots}
          </div>
-         <FloatingTip
-            label={() =>
-               `Our current rank is ${tier.name()}. Our character slot capacity is ${tier.slots}, shared by advisors, strategists, and ancestral temples. Characters without a slot do not count toward this limit.`
-            }
-         >
+         <FloatingTip label={() => $t(L.CharacterSlotCapacityDesc$1$2, tier.name(), formatNumber(tier.slots))}>
             <div>({tier.name()})</div>
          </FloatingTip>
       </>

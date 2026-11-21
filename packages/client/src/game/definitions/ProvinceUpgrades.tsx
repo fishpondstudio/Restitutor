@@ -18,21 +18,20 @@ export interface IProvinceUpgrade {
 
 const _ProvinceUpgrades = {
    StableRecruitment: {
-      name: () => "Stable Recruitment",
-      desc: () => "+1% Manpower for each point of positive Stability (up to +25%)",
+      name: () => $t(L.StableRecruitment),
+      desc: () => $t(L.StableRecruitmentDesc$1$2, "+1%", "+25%"),
    },
    SkilledCommand: {
-      name: () => "Skilled Command",
-      desc: () => "+3% War Power for each General Skill Level (Infantry + Ranged + Cavalry; up to +30%)",
+      name: () => $t(L.SkilledCommand),
+      desc: () => $t(L.SkilledCommandDesc$1$2, "+3%", "+30%"),
    },
    DevelopedTaxation: {
-      name: () => "Developed Taxation",
-      desc: () =>
-         "Each core tile gains +1% Land Tax for each of its Tile Upgrades (Infrastructure + Production + Population; up to +25%)",
+      name: () => $t(L.DevelopedTaxation),
+      desc: () => $t(L.DevelopedTaxationDesc$1$2, "+1%", "+25%"),
    },
    ConscriptionTaxation: {
-      name: () => "Conscription Taxation",
-      desc: () => "+0.5% Land Tax for each 1% Actual Conscription (up to +25%)",
+      name: () => $t(L.ConscriptionTaxation),
+      desc: () => $t(L.ConscriptionTaxationDesc$1$2$3, "+0.5%", "1%", "+25%"),
    },
    LevyJizya: {
       name: () => $t(L.LevyJizya),

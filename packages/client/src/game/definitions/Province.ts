@@ -506,7 +506,7 @@ const _Province = {
    },
    LiJue: {
       code: "LJ",
-      name: () => "Li Jue",
+      name: () => $t(L.ProvinceLiJue),
       capital: 14614614,
       tiles: [
          14483538, 14483539, 14483541, 14483542, 14549074, 14549075, 14549076, 14549077, 14549078, 14549079, 14614610,
@@ -518,7 +518,7 @@ const _Province = {
    },
    YuanShao: {
       code: "YS",
-      name: () => "Yuan Shao",
+      name: () => $t(L.ProvinceYuanShao),
       capital: 14876756,
       tiles: [
          14811219, 14811220, 14876755, 14876756, 14942289, 14942290, 14942291, 15007824, 15007825, 15007826, 15073362,
@@ -529,7 +529,7 @@ const _Province = {
    },
    CaoCao: {
       code: "CC",
-      name: () => "Cao Cao",
+      name: () => $t(L.ProvinceCaoCao),
       capital: 14876758,
       tiles: [14745687, 14811222, 14811223, 14811224, 14876758, 14876759],
       culture: "CentralHan",
@@ -538,7 +538,7 @@ const _Province = {
    },
    LiuBei: {
       code: "LB",
-      name: () => "Liu Bei",
+      name: () => $t(L.ProvinceLiuBei),
       capital: 15007830,
       tiles: [14942294, 14942295, 15007829, 15007830, 15007831],
       culture: "CentralHan",
@@ -547,7 +547,7 @@ const _Province = {
    },
    LiuBiao: {
       code: "LP",
-      name: () => "Liu Biao",
+      name: () => $t(L.ProvinceLiuBiao),
       capital: 14745689,
       tiles: [
          14352479, 14418011, 14418012, 14418013, 14418014, 14418015, 14483547, 14483548, 14483549, 14483550, 14483551,
@@ -561,7 +561,7 @@ const _Province = {
    },
    SunCe: {
       code: "SE",
-      name: () => "Sun Ce",
+      name: () => $t(L.ProvinceSunCe),
       capital: 15138904,
       tiles: [15073369, 15138904, 15138905, 15204440, 15204441],
       culture: "WuYue",
@@ -570,7 +570,7 @@ const _Province = {
    },
    LiuZhang: {
       code: "LZ",
-      name: () => "Liu Zhang",
+      name: () => $t(L.ProvinceLiuZhang),
       capital: 14352474,
       tiles: [
          14024799, 14024800, 14024801, 14090335, 14090336, 14090337, 14090338, 14090339, 14155869, 14155870, 14155871,
@@ -584,7 +584,7 @@ const _Province = {
    },
    YuanShu: {
       code: "YU",
-      name: () => "Yuan Shu",
+      name: () => $t(L.ProvinceYuanShu),
       capital: 15007832,
       tiles: [
          14811225, 14876760, 14876761, 14876762, 14876763, 14942296, 14942297, 14942298, 14942299, 15007832, 15007833,
@@ -595,7 +595,7 @@ const _Province = {
    },
    GongsunZan: {
       code: "GZ",
-      name: () => "Gongsun Zan",
+      name: () => $t(L.ProvinceGongsunZan),
       capital: 14942288,
       tiles: [
          14811215, 14876750, 14876751, 14876752, 14942286, 14942287, 14942288, 15007822, 15007823, 15073358, 15073359,
@@ -607,7 +607,7 @@ const _Province = {
    },
    GongsunDu: {
       code: "GD",
-      name: () => "Gongsun Du",
+      name: () => $t(L.ProvinceGongsunDu),
       capital: 15335502,
       tiles: [
          15204430, 15269965, 15269966, 15269967, 15269968, 15335501, 15335502, 15335503, 15401038, 15401039, 15466576,
@@ -619,7 +619,7 @@ const _Province = {
    },
    TaoQian: {
       code: "TQ",
-      name: () => "Tao Qian",
+      name: () => $t(L.ProvinceTaoQian),
       capital: 15073366,
       tiles: [15073365, 15073366, 15073367, 15073368, 15138902, 15138903],
       culture: "CentralHan",
@@ -628,7 +628,7 @@ const _Province = {
    },
    ZhangLu: {
       code: "ZL",
-      name: () => "Zhang Lu",
+      name: () => $t(L.ProvinceZhangLu),
       capital: 14483544,
       tiles: [
          14286936, 14352471, 14352472, 14418007, 14418008, 14418009, 14418010, 14483543, 14483544, 14483545, 14483546,
@@ -640,7 +640,7 @@ const _Province = {
    },
    ZhangYang: {
       code: "ZY",
-      name: () => "Zhang Yang",
+      name: () => $t(L.ProvinceZhangYang),
       capital: 14745685,
       tiles: [
          14614607, 14614608, 14614609, 14680143, 14680144, 14680145, 14680146, 14680147, 14680148, 14745679, 14745680,
@@ -652,7 +652,7 @@ const _Province = {
    },
    MaTeng: {
       code: "MT",
-      name: () => "Ma Teng",
+      name: () => $t(L.ProvinceMaTeng),
       capital: 14286930,
       tiles: [
          13828175, 13828176, 13893711, 13893712, 13959247, 13959248, 13959249, 14024783, 14024784, 14024785, 14090320,
@@ -664,7 +664,7 @@ const _Province = {
    },
    KongRong: {
       code: "KR",
-      name: () => "Kong Rong",
+      name: () => $t(L.ProvinceKongRong),
       capital: 15073363,
       tiles: [15073363, 15073364, 15138899, 15138900, 15204435, 15204436, 15269971],
       culture: "CentralHan",
@@ -673,7 +673,7 @@ const _Province = {
    },
    HanSui: {
       code: "HS",
-      name: () => "Han Sui",
+      name: () => $t(L.ProvinceHanSui),
       capital: 14286932,
       tiles: [
          14155859, 14221395, 14221396, 14221397, 14286931, 14286932, 14286933, 14286934, 14286935, 14352465, 14352466,
@@ -686,7 +686,7 @@ const _Province = {
    },
    ShiXie: {
       code: "SS",
-      name: () => "Shi Xie",
+      name: () => $t(L.ProvinceShiXie),
       capital: 14418020,
       tiles: [
          14221411, 14286946, 14286947, 14286948, 14352480, 14352481, 14352482, 14352483, 14352484, 14352485, 14352486,
@@ -700,7 +700,7 @@ const _Province = {
    },
    ZhangYan: {
       code: "ZN",
-      name: () => "Zhang Yan",
+      name: () => $t(L.ProvinceZhangYan),
       capital: 14876754,
       tiles: [14811216, 14811217, 14811218, 14876753, 14876754],
       culture: "NorthernHan",
@@ -709,7 +709,7 @@ const _Province = {
    },
    LiuYao: {
       code: "YA",
-      name: () => "Liu Yao",
+      name: () => $t(L.ProvinceLiuYao),
       capital: 15073370,
       tiles: [
          14745695, 14745696, 14745697, 14811231, 14811232, 14811233, 14811234, 14876765, 14876766, 14876767, 14876768,
@@ -722,7 +722,7 @@ const _Province = {
    },
    LuBu: {
       code: "LV",
-      name: () => "Lu Bu",
+      name: () => $t(L.ProvinceLuBu),
       capital: 14876757,
       tiles: [14876757, 14942292, 14942293, 15007827, 15007828],
       culture: "CentralHan",
@@ -731,7 +731,7 @@ const _Province = {
    },
    YanBaihu: {
       code: "YB",
-      name: () => "Yan Baihu",
+      name: () => $t(L.ProvinceYanBaihu),
       capital: 15204442,
       tiles: [15073371, 15073372, 15138906, 15138908, 15204442],
       culture: "WuYue",
@@ -740,7 +740,7 @@ const _Province = {
    },
    WangLang: {
       code: "WL",
-      name: () => "Wang Lang",
+      name: () => $t(L.ProvinceWangLang),
       capital: 15138907,
       tiles: [
          15007838, 15007839, 15007840, 15007841, 15073373, 15073374, 15073375, 15073376, 15138907, 15138909, 15138910,

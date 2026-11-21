@@ -34,7 +34,9 @@ export function PersonTooltip({ person, family }: { person: IPerson; family: IFa
             <div>{getProvinceName(person.province, G.save)}</div>
          </div>
          {hasFlag(person.flag, PersonFlags.IsFromConcubine) && (
-            <div className="mx10 my5 text-yellow text-italic">{person.name.join(" ")} is child of a concubine</div>
+            <div className="mx10 my5 text-yellow text-italic">
+               {$t(L.$1IsTheChildOfAConcubine, person.name.join(" "))}
+            </div>
          )}
          <div className="h2 row">
             <div className="f1">{$t(L.Traits)}</div>

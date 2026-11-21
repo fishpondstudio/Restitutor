@@ -9,6 +9,7 @@ import {
 import type { TKCharacter } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
+import { $t, L } from "../utils/i18n";
 import { hideModal, ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { TKCharacterComp } from "./TKCharacterComp";
@@ -43,8 +44,8 @@ export function SelectCharacterModal({
    }
    const characters = getProvinceCharacters(G.save.state.playerProvince, G.save);
    return (
-      <ModalComp size="md" title={<ModalTitleBar title="Select Character" dismiss />}>
-         {characters.length === 0 && <div className="m10 text-dimmed">No characters in our roster.</div>}
+      <ModalComp size="md" title={<ModalTitleBar title={$t(L.SelectCharacter)} dismiss />}>
+         {characters.length === 0 && <div className="m10 text-dimmed">{$t(L.NoCharactersInOurRoster)}</div>}
          <div style={Grid2} className="m10">
             {characters.map((character) => {
                return (

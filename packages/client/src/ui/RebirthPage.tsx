@@ -12,6 +12,7 @@ import { GameEvents } from "../game/events/GameEvents";
 import { GameOptionFlag } from "../game/GameOption";
 import { saveGame } from "../game/LoadSave";
 import { showError } from "../game/logic/AlertLogic";
+import { formatYear } from "../game/logic/GameDateTime";
 import { getDefaultProvinceForScenario, getLegacyPointsNextRun, rebirth } from "../game/logic/LegacyUpgradeLogic";
 import { getProvinceName, getProvinceOriginalGreatWorks } from "../game/logic/ProvinceLogic";
 import { purchaseMobile, restorePurchaseMobile } from "../game/Mobile";
@@ -80,16 +81,14 @@ export function RebirthPage(): React.ReactNode {
                </div>
             </>
          )}
-         <div className="h1">Scenario</div>
+         <div className="h1">{$t(L.Scenario)}</div>
          {entriesOf(Scenarios).map(([key, scenario]) => {
             const fullYear = scenario.startDate.getFullYear();
             return (
                <div className={cls("box m10", G.save.state.scenario === key ? "primary" : "")} key={key}>
                   <div className="h3 row text-display">
                      <div className={cls(G.save.state.scenario === key ? "text-primary" : "")}>{scenario.name()}</div>
-                     <div className="text-dimmed text-sm">
-                        {fullYear} {fullYear >= 0 ? "AD" : "BC"}
-                     </div>
+                     <div className="text-dimmed text-sm">{formatYear(fullYear)}</div>
                      <div className="f1" />
                      <div>
                         {G.save.state.scenario === key ? (
@@ -99,15 +98,14 @@ export function RebirthPage(): React.ReactNode {
                               className="btn text-sm"
                               onClick={() => {
                                  if (isDemo) {
-                                    showError("This feature is not available in free demo.");
+                                    showError($t(L.ThisFeatureIsNotAvailableInTheFreeDemo));
                                     return;
                                  }
                                  showPanel(ConfirmModal, {
-                                    title: "Load A New Scenario",
-                                    message:
-                                       "This will end your current run and rebirth you into the selected scenario. Are you sure?",
+                                    title: $t(L.LoadANewScenario),
+                                    message: $t(L.LoadANewScenarioConfirm),
                                     confirm: {
-                                       label: "Rebirth And Load",
+                                       label: $t(L.RebirthAndLoad),
                                        class: "text-primary",
                                        onClick: async () => {
                                           const province = getDefaultProvinceForScenario(key);
@@ -131,7 +129,7 @@ export function RebirthPage(): React.ReactNode {
                                  });
                               }}
                            >
-                              Load
+                              {$t(L.Load)}
                            </button>
                         )}
                      </div>

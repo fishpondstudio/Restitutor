@@ -1,4 +1,5 @@
 import { keysOf } from "@project/shared/src/utils/Helper";
+import { $t, L } from "../../utils/i18n";
 import { ChineseNameGenerator } from "../ChineseNames";
 import { ThreeKingdomsEvents } from "../events/GameEvents";
 import { TKWarlords } from "../ThreeKingdoms/TKWarlord";
@@ -6,9 +7,8 @@ import { getCulturesFromProvinces, getReligionsFromProvinces } from "./ScenarioH
 import type { IScenario } from "./Scenarios";
 
 export const ThreeKingdoms194: IScenario = {
-   name: () => "Rise of the Warlords",
-   desc: () =>
-      "The Han court’s authority is crumbling, and rival warlords seize territory across China as centuries of imperial rule give way to division and war.",
+   name: () => $t(L.RiseOfTheWarlords),
+   desc: () => $t(L.RiseOfTheWarlordsDesc),
    startDate: new Date(194, 6, 1),
    provinces: new Set(TKWarlords),
    greatWorks: new Set([
@@ -29,21 +29,21 @@ export const ThreeKingdoms194: IScenario = {
    events: new Set(keysOf(ThreeKingdomsEvents)),
    flags: new Set(["Concubinage", "TKCharacter", "ImperialCourt"]),
    provinceResourceNames: {
-      consulPoint: () => "Imperial Favor",
+      consulPoint: () => $t(L.ImperialFavor),
    },
    timedActionNames: {
-      TakeLover: () => "Take a Concubine",
-      RequestFunding: () => "Request Subsidies",
-      EnactSenateOversight: () => "Seek Imperial Advice",
-      AffirmCivicUnity: () => "Affirm Legitimacy",
-      DeclareMobilization: () => "Rally Imperial Host",
-      BolsterDignitas: () => "Seek Imperial Honors",
+      TakeLover: () => $t(L.TakeAConcubine),
+      RequestFunding: () => $t(L.RequestSubsidies),
+      EnactSenateOversight: () => $t(L.SeekImperialAdvice),
+      AffirmCivicUnity: () => $t(L.AffirmLegitimacy),
+      DeclareMobilization: () => $t(L.RallyImperialHost),
+      BolsterDignitas: () => $t(L.SeekImperialHonors),
    },
    socialClassNames: {
-      UpperClass: () => "Gentry",
-      MiddleClass: () => "Scholars",
-      LowerClass: () => "Commoners",
-      ReligiousClass: () => "Clergy",
-      MilitaryClass: () => "Military",
+      UpperClass: () => $t(L.SocialClassGentry),
+      MiddleClass: () => $t(L.SocialClassScholars),
+      LowerClass: () => $t(L.SocialClassCommoners),
+      ReligiousClass: () => $t(L.SocialClassClergy),
+      MilitaryClass: () => $t(L.SocialClassMilitary),
    },
 };

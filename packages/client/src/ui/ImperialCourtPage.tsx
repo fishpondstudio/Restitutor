@@ -20,6 +20,7 @@ import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
 import { isTKCharacterAlive } from "../game/logic/TKCharacterLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
+import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { AncestralTempleSlotComp } from "./AncestralTempleSlotComp";
 import { CharacterSlotCapacityComp } from "./CharacterSlotCapacityComp";
@@ -51,9 +52,9 @@ export function ImperialCourtPage(): React.ReactNode {
          (getRelation(G.save.state.playerProvince, p, G.save)?.infiltrate.value ?? 0) > 0,
    );
    return (
-      <SidebarComp title={<SidebarImageHeader image={HeaderImages.ImperialCourt} title="Imperial Court" />}>
+      <SidebarComp title={<SidebarImageHeader image={HeaderImages.ImperialCourt} title={$t(L.ImperialCourt)} />}>
          <div className="h1 row">
-            <div className="f1">Imperial Court</div>
+            <div className="f1">{$t(L.ImperialCourt)}</div>
             <div>
                {getProvinceResource("consulPoint", G.save.state.playerProvince, G.save)}{" "}
                {getResourceName("consulPoint", G.save.state.scenario)}
@@ -78,7 +79,7 @@ export function ImperialCourtPage(): React.ReactNode {
                {TimedActions.NullifyTruce.name()}
             </button>
          </div>
-         <div className="h3">Imperial Interventions</div>
+         <div className="h3">{$t(L.ImperialInterventions)}</div>
          <div className="m10">
             <Select
                autoFocus={true}
@@ -159,24 +160,24 @@ export function ImperialCourtPage(): React.ReactNode {
                      )}
                      action={() => EnlistCourtSupportAction(G.save.state.playerProvince, p, G.save)}
                   >
-                     Enlist Support
+                     {$t(L.EnlistSupport)}
                   </ActionButton>
                </div>
             );
          })}
          {requestFavorProvinces.length === 0 && (
-            <div className="m10 text-dimmed">No court connections available to enlist support</div>
+            <div className="m10 text-dimmed">{$t(L.NoCourtConnectionsAvailableToEnlistSupport)}</div>
          )}
          {ruler !== undefined && isTKCharacterAlive(ruler, G.save) && (
             <>
-               <div className="h1">Ruler</div>
+               <div className="h1">{$t(L.Ruler)}</div>
                <div className="box m10">
                   <TKCharacterComp character={ruler} />
                </div>
             </>
          )}
          <div className="h1 row g5">
-            <div className="f1">Ancestral Temple</div>
+            <div className="f1">{$t(L.AncestralTemple)}</div>
             <CharacterSlotCapacityComp />
          </div>
          <div className="m10" style={Grid1}>

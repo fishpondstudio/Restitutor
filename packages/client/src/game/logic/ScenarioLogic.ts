@@ -1,3 +1,4 @@
+import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
 import type { SaveGame } from "../GameState";
 import { type ScenarioFlag, ScenarioFlags } from "../scenarios/ScenarioFlags";
@@ -18,9 +19,9 @@ export function requireScenarioFlagCondition(flag: ScenarioFlag, save: SaveGame)
    }
    return [
       {
-         name: `${ScenarioFlags[flag]()} is supported`,
+         name: $t(L.$1IsSupported, ScenarioFlags[flag]()),
          value: enabled,
-         desc: `Current scenario supports ${ScenarioFlags[flag]()}`,
+         desc: $t(L.CurrentScenarioSupports$1, ScenarioFlags[flag]()),
       },
    ];
 }

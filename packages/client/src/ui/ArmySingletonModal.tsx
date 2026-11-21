@@ -444,19 +444,22 @@ function StrategistComp(): React.ReactNode {
                tooltip={(element) => (
                   <>
                      <div className="m10">
-                        Each strategist grants War Power bonus based on the character's tier:{" "}
-                        {entriesOf(TKCharacterTier)
-                           .map(
-                              ([key, name]) => `${name()} (${formatPercentDelta(getTKCharacterTierToPercentage(key))})`,
-                           )
-                           .join(", ")}
+                        {$t(
+                           L.StrategistWarPowerBonusDesc$1,
+                           entriesOf(TKCharacterTier)
+                              .map(
+                                 ([key, name]) =>
+                                    `${name()} (${formatPercentDelta(getTKCharacterTierToPercentage(key))})`,
+                              )
+                              .join(", "),
+                        )}
                      </div>
                      {element}
                   </>
                )}
             >
                <div className="row g5">
-                  <div>Strategists</div>
+                  <div>{$t(L.Strategists)}</div>
                   <div className={cls(warPowerBonus.value > 0 ? "text-green" : "text-dimmed")}>
                      ({$t(L.$1WarPower, formatPercentDelta(warPowerBonus.value))})
                   </div>

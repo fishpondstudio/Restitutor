@@ -8,6 +8,7 @@ import {
 } from "../game/logic/TKCharacterLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
+import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { showPanel } from "./common/ShowPanel";
 import { SelectCharacterSlotModal } from "./SelectCharacterModal";
@@ -30,7 +31,7 @@ export function AncestralTempleSlotComp({ slot }: { slot: CharacterSlot }): Reac
                   className="f1 text-dimmed text-lg text-display"
                   style={{ height: "7rem", alignContent: "center", marginLeft: "2rem" }}
                >
-                  Empty Slot
+                  {$t(L.EmptySlot)}
                </div>
             )}
             <div className="mr10 col g5">

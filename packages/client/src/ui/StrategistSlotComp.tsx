@@ -10,6 +10,7 @@ import {
 } from "../game/logic/TKCharacterLogic";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
+import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
 import { BreakdownTooltip } from "./BreakdownRow";
 import { showPanel } from "./common/ShowPanel";
@@ -38,7 +39,7 @@ export function StrategistSlotComp({ slot }: { slot: CharacterSlot }): React.Rea
                   className="f1 text-dimmed text-lg text-display"
                   style={{ height: "7rem", alignContent: "center", marginLeft: "2rem" }}
                >
-                  Empty Slot
+                  {$t(L.EmptySlot)}
                </div>
             )}
          </div>

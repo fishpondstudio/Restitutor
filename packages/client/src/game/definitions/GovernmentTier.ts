@@ -1,4 +1,5 @@
 import { keysOf } from "@project/shared/src/utils/Helper";
+import { $t, L } from "../../utils/i18n";
 import type { GovernorPower } from "./ProvinceResources";
 
 export interface IGovernmentTier {
@@ -8,19 +9,19 @@ export interface IGovernmentTier {
 
 export const GovernmentTier = {
    Tier1: {
-      name: () => "Governor",
+      name: () => $t(L.Governor),
       slots: 5,
    },
    Tier2: {
-      name: () => "Duke",
+      name: () => $t(L.Duke),
       slots: 8,
    },
    Tier3: {
-      name: () => "King",
+      name: () => $t(L.King),
       slots: 11,
    },
    Tier4: {
-      name: () => "Emperor",
+      name: () => $t(L.Emperor),
       slots: 14,
    },
 } as const satisfies Record<string, IGovernmentTier>;
@@ -51,7 +52,7 @@ export type CharacterSlot = keyof typeof _CharacterSlots;
 export const CharacterSlots: Record<CharacterSlot, ICharacterSlot> = _CharacterSlots;
 
 export function getCharacterUnassignmentLabel(slot: CharacterSlot): string {
-   return CharacterSlots[slot].type === "AncestralTemple" ? "Remove from Temple" : "Relieve of Duties";
+   return CharacterSlots[slot].type === "AncestralTemple" ? $t(L.RemoveFromTemple) : $t(L.RelieveOfDuties);
 }
 
 export function isSalariedSlot(slot: CharacterSlot): boolean {

@@ -69,7 +69,7 @@ export function getPatrons(province: Province, save: SaveGame): Province[] {
 }
 
 export function* requireNoPatronsChecks(province: Province, save: SaveGame): ConditionChecks {
-   (yield getPatrons(province, save).length === 0)?.describe(`${getProvinceName(province, save)} has no patrons`);
+   (yield getPatrons(province, save).length === 0)?.describe($t(L.$1HasNoPatrons, getProvinceName(province, save)));
 }
 
 export function getClients(province: Province, save: SaveGame): Province[] {
@@ -203,7 +203,7 @@ export function* requireWarBetweenChecks(
    save: SaveGame,
 ): ConditionChecks {
    (yield getWarsBetween(ourProvince, theirProvince, save).length > 0)?.describe(
-      `${getProvinceName(ourProvince, save)} is at war with ${getProvinceName(theirProvince, save)}`,
+      $t(L.$1IsAtWarWith$2, getProvinceName(ourProvince, save), getProvinceName(theirProvince, save)),
    );
 }
 

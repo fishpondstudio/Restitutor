@@ -1,4 +1,5 @@
 import { fromEntries } from "@project/shared/src/utils/Helper";
+import { $t, L } from "../../../utils/i18n";
 import { Province } from "../../definitions/Province";
 import type { ConditionChecks } from "../../logic/Calculation";
 import {
@@ -14,9 +15,8 @@ import type { IGameEventConfig } from "../GameEventTypes";
 
 export const ThreeKingdomsMissionEvents = {
    TKMissionEvent1: {
-      name: () => "A Network of Allies",
-      desc: () =>
-         "Our envoys return with agreements bearing the seals of allied courts. Commanders see the promise of support in the field, while households welcome news that we no longer stand alone. These ties can give our government strength beyond its own borders.",
+      name: () => $t(L.ANetworkOfAllies),
+      desc: () => $t(L.ANetworkOfAlliesDesc),
       image: EventImage.TKAllianceGathering,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -25,23 +25,22 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Let our allies march beside us",
+            label: () => $t(L.LetOurAlliesMarchBesideUs),
             modifiers: { WarPower: { type: "multiply", value: 0.1, duration: 60 } },
          },
          {
-            label: () => "Let our alliance command respect",
+            label: () => $t(L.LetOurAllianceCommandRespect),
             modifiers: { Prestige: { type: "multiply", value: 0.1, duration: 60 } },
          },
          {
-            label: () => "Let concord secure peace at home",
+            label: () => $t(L.LetConcordSecurePeaceAtHome),
             modifiers: { Stability: { type: "add", value: 10, duration: 60 } },
          },
       ],
    },
    TKMissionEvent2: {
-      name: () => "A Rising Power",
-      desc: () =>
-         "Our name now carries weight among the powers of the realm. New commanderies acknowledge our authority, and neighboring courts can no longer dismiss our ambitions. The foundations we lay today shall determine whether this rise endures.",
+      name: () => $t(L.ARisingPower),
+      desc: () => $t(L.ARisingPowerDesc),
       image: EventImage.TKCivilAdministration,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -51,23 +50,22 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Strengthen the civil administration",
+            label: () => $t(L.StrengthenTheCivilAdministration),
             modifiers: { AdministrativePoint: { type: "add", value: 1 } },
          },
          {
-            label: () => "Expand our corps of envoys",
+            label: () => $t(L.ExpandOurCorpsOfEnvoys),
             modifiers: { DiplomaticPoint: { type: "add", value: 1 } },
          },
          {
-            label: () => "Establish a permanent military staff",
+            label: () => $t(L.EstablishAPermanentMilitaryStaff),
             modifiers: { MilitaryPoint: { type: "add", value: 1 } },
          },
       ],
    },
    TKMissionEvent3: {
-      name: () => "Expand Our Borders",
-      desc: () =>
-         "Registers from newly governed districts join those of our original holdings. Their taxes and recruits broaden our strength, but their petitions already crowd the council table. The government must grow with the borders if these gains are to endure.",
+      name: () => $t(L.ExpandOurBorders),
+      desc: () => $t(L.ExpandOurBordersDesc),
       image: EventImage.TKDistrictIntegration,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -76,26 +74,25 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Consolidate the new districts",
+            label: () => $t(L.ConsolidateTheNewDistricts),
             resources: { administrative: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
          {
-            label: () => "Win over neighboring courts",
+            label: () => $t(L.WinOverNeighboringCourts),
             resources: { diplomatic: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
          {
-            label: () => "Prepare the next campaign",
+            label: () => $t(L.PrepareTheNextCampaign),
             resources: { military: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
          },
       ],
    },
    TKMissionEvent4: {
-      name: () => "The Seal of a Duke",
-      desc: () =>
-         "Our domain has doubled, and elders, officers, and scholars now crowd halls built for a modest provincial seat. Petitions arrive urging us to lay aside the title of governor, assume the rank of Duke, and open a grander court with offices worthy of our standing. Whether through new chanceries, imperial investiture, or our own authority, the time has come to take a duke's seal.",
+      name: () => $t(L.TheSealOfADuke),
+      desc: () => $t(L.TheSealOfADukeDesc),
       image: EventImage.TKDistrictIntegration,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -104,19 +101,19 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Open the offices of our ducal court",
+            label: () => $t(L.OpenTheOfficesOfOurDucalCourt),
             resources: { administrative: 25, diplomatic: 25, military: 25 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
             custom: [changeGovernmentTierEffect("Tier2")],
          },
          {
-            label: () => "Seek imperial investiture as Duke",
+            label: () => $t(L.SeekImperialInvestitureAsDuke),
             resources: { consulPoint: 2 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
             custom: [changeGovernmentTierEffect("Tier2")],
          },
          {
-            label: () => "Claim our dukedom by our own right",
+            label: () => $t(L.ClaimOurDukedomByOurOwnRight),
             resources: { mandate: 1 },
             modifiers: { GoverningCapacity: { type: "add", value: 50 } },
             custom: [changeGovernmentTierEffect("Tier2")],
@@ -124,9 +121,8 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent5: {
-      name: () => "The Banner of a King",
-      desc: () =>
-         "A hundred districts now send tribute and registers to our capital, and neighboring lords already address our envoys with the deference due a sovereign realm. Senior officials and veterans present memorials urging us to assume the title of King, raise royal banners, and expand the council to match our reach. As we establish our new court, we must decide which pillar of the kingdom to strengthen first.",
+      name: () => $t(L.TheBannerOfAKing),
+      desc: () => $t(L.TheBannerOfAKingDesc),
       image: EventImage.TKRegionalAdministration,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -135,19 +131,19 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Establish the royal civil ministries",
+            label: () => $t(L.EstablishTheRoyalCivilMinistries),
             resources: { administrative: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 100 } },
             custom: [changeGovernmentTierEffect("Tier3")],
          },
          {
-            label: () => "Dispatch royal envoys across the realm",
+            label: () => $t(L.DispatchRoyalEnvoysAcrossTheRealm),
             resources: { diplomatic: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 100 } },
             custom: [changeGovernmentTierEffect("Tier3")],
          },
          {
-            label: () => "Organize our royal military commands",
+            label: () => $t(L.OrganizeOurRoyalMilitaryCommands),
             resources: { military: 100 },
             modifiers: { GoverningCapacity: { type: "add", value: 100 } },
             custom: [changeGovernmentTierEffect("Tier3")],
@@ -155,9 +151,8 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent6: {
-      name: () => "The Throne of an Emperor",
-      desc: () =>
-         "Two hundred districts now look to our capital for order, and even a king's title seems small beside the lands beneath our banner. Ministers, scholars, and generals gather before the altar, presenting memorials and auspicious omens that call upon us to ascend as Emperor. With a new era proclaimed and an imperial court opened to the realm's finest talents, our first edicts shall set the course of the empire.",
+      name: () => $t(L.TheThroneOfAnEmperor),
+      desc: () => $t(L.TheThroneOfAnEmperorDesc),
       image: EventImage.TKRegionalAdministration,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -166,14 +161,14 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Expand the imperial ministries",
+            label: () => $t(L.ExpandTheImperialMinistries),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
             },
             custom: [changeGovernmentTierEffect("Tier4")],
          },
          {
-            label: () => "Reform the empire's land tax registers",
+            label: () => $t(L.ReformTheEmpiresLandTaxRegisters),
             modifiers: {
                GoverningCapacity: { type: "add", value: 100 },
                LandTax: { type: "multiply", value: 0.1 },
@@ -181,7 +176,7 @@ export const ThreeKingdomsMissionEvents = {
             custom: [changeGovernmentTierEffect("Tier4")],
          },
          {
-            label: () => "Enrich the lands of our new empire",
+            label: () => $t(L.EnrichTheLandsOfOurNewEmpire),
             modifiers: {
                GoverningCapacity: { type: "add", value: 100 },
                TileOutput: { type: "multiply", value: 0.1 },
@@ -191,9 +186,8 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent7: {
-      name: () => "An Empire in the Making",
-      desc: () =>
-         "Our rule extends over three hundred districts, embracing communities whose customs and needs differ greatly. What began as a regional undertaking has assumed the proportions of an empire. We must bind these lands together without exhausting the government that holds them.",
+      name: () => $t(L.AnEmpireInTheMaking),
+      desc: () => $t(L.AnEmpireInTheMakingDesc),
       image: EventImage.TKRegionalAssembly,
       condition: {
          conditions: function* (province, save): ConditionChecks {
@@ -202,21 +196,21 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Govern through regional capitals",
+            label: () => $t(L.GovernThroughRegionalCapitals),
             modifiers: {
                GoverningCapacity: { type: "add", value: 100 },
                RegionalCapitalCount: { type: "add", value: 1 },
             },
          },
          {
-            label: () => "Accommodate regional cultures",
+            label: () => $t(L.AccommodateRegionalCultures),
             modifiers: {
                GoverningCapacity: { type: "add", value: 100 },
                ToleratedCulture: { type: "add", value: 1 },
             },
          },
          {
-            label: () => "Affirm our mandate to rule",
+            label: () => $t(L.AffirmOurMandateToRule),
             resources: { mandate: 1 },
             modifiers: {
                GoverningCapacity: { type: "add", value: 100 },
@@ -225,9 +219,8 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent8: {
-      name: () => "Unify Hebei",
-      desc: () =>
-         "The plains north of the Yellow River and their mountain approaches now answer to one government. Hebei's officials bring registers of broad estates and populous settlements. Where rival armies once competed for harvests and recruits, a common administration can now put the land to work.",
+      name: () => $t(L.UnifyHebei),
+      desc: () => $t(L.UnifyHebeiDesc),
       image: EventImage.TKAgriculturalSurvey,
       condition: {
          annexAndCore: {
@@ -239,40 +232,39 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Develop the northern farmlands",
+            label: () => $t(L.DevelopTheNorthernFarmlands),
             modifiers: { TileOutput: { type: "multiply", value: 0.15, duration: 60 } },
          },
          {
-            label: () => "Recruit from the commanderies",
+            label: () => $t(L.RecruitFromTheCommanderies),
             modifiers: { Manpower: { type: "multiply", value: 0.15, duration: 60 } },
          },
          {
-            label: () => "Survey the estates for taxation",
+            label: () => $t(L.SurveyTheEstatesForTaxation),
             modifiers: { LandTax: { type: "multiply", value: 0.15, duration: 60 } },
          },
       ],
    },
    TKMissionEvent9: {
-      name: () => "Secure Liaodong",
-      desc: () =>
-         "Our seals have reached the settlements and strongholds of Liaodong. Frontier soldiers await new commands, while local communities seek assurances that distant rule will respect their needs. News of the settlement travels back toward the central plains, carrying our name with it.",
+      name: () => $t(L.SecureLiaodong),
+      desc: () => $t(L.SecureLiaodongDesc),
       image: EventImage.TKMountainReconciliation,
       condition: { annexAndCore: { GongsunDu: Number.POSITIVE_INFINITY } },
       buttons: [
          {
-            label: () => "Muster the frontier warriors",
+            label: () => $t(L.MusterTheFrontierWarriors),
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 60 },
             },
          },
          {
-            label: () => "Reconcile the frontier communities",
+            label: () => $t(L.ReconcileTheFrontierCommunities),
             modifiers: {
                Stability: { type: "add", value: 10, duration: 60 },
             },
          },
          {
-            label: () => "Proclaim our mastery of Liaodong",
+            label: () => $t(L.ProclaimOurMasteryOfLiaodong),
             modifiers: {
                Prestige: { type: "multiply", value: 0.1, duration: 60 },
             },
@@ -280,9 +272,8 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent10: {
-      name: () => "Unify the Central Plains",
-      desc: () =>
-         "The central commanderies now lie within a single domain. Possession of this heartland gives weight to our petitions at court and draws officers and envoys to our service. We must decide how to turn our territorial strength into authority throughout the realm.",
+      name: () => $t(L.UnifyTheCentralPlains),
+      desc: () => $t(L.UnifyTheCentralPlainsDesc),
       image: EventImage.TKRegionalAssembly,
       condition: {
          annexAndCore: {
@@ -296,7 +287,7 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Seek the court's favor for our rule",
+            label: () => $t(L.SeekTheCourtsFavorForOurRule),
             resources: {
                consulPoint: 2,
             },
@@ -305,7 +296,7 @@ export const ThreeKingdomsMissionEvents = {
             },
          },
          {
-            label: () => "Honor our generals and empower envoys",
+            label: () => $t(L.HonorOurGeneralsAndEmpowerEnvoys),
             resources: {
                generalSkillPoint: 2,
             },
@@ -314,7 +305,7 @@ export const ThreeKingdomsMissionEvents = {
             },
          },
          {
-            label: () => "Assert our mandate through arms",
+            label: () => $t(L.AssertOurMandateThroughArms),
             resources: {
                mandate: 1,
             },
@@ -325,9 +316,8 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent11: {
-      name: () => "Unify Guanzhong and Liangzhou",
-      desc: () =>
-         "The passes of Guanzhong and the western frontier have been gathered beneath our banner. Here the old imperial heartland meets the roads of distant commerce and the lands that sustain frontier armies. Their union offers both security and renewed prosperity.",
+      name: () => $t(L.UnifyGuanzhongAndLiangzhou),
+      desc: () => $t(L.UnifyGuanzhongAndLiangzhouDesc),
       image: EventImage.TKMountainReconciliation,
       condition: {
          annexAndCore: {
@@ -338,7 +328,7 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Rebuild the western heartland",
+            label: () => $t(L.RebuildTheWesternHeartland),
             modifiers: {
                LandTax: { type: "multiply", value: 0.1, duration: 60 },
                TileOutput: { type: "multiply", value: 0.1, duration: 60 },
@@ -348,7 +338,7 @@ export const ThreeKingdomsMissionEvents = {
             },
          },
          {
-            label: () => "Extend our influence from the west",
+            label: () => $t(L.ExtendOurInfluenceFromTheWest),
             modifiers: {
                Prestige: { type: "multiply", value: 0.1, duration: 60 },
             },
@@ -357,7 +347,7 @@ export const ThreeKingdomsMissionEvents = {
             },
          },
          {
-            label: () => "Strengthen the western armies",
+            label: () => $t(L.StrengthenTheWesternArmies),
             modifiers: {
                WarPower: { type: "multiply", value: 0.1, duration: 60 },
             },
@@ -368,26 +358,25 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent12: {
-      name: () => "Unify Jingzhou",
-      desc: () =>
-         "The valleys and river crossings of Jingzhou are ours to administer. Through these lands pass the routes that bind the northern plains to the southern rivers and western basins. A well-governed Jingzhou shall sustain commerce in peace and armies in war.",
+      name: () => $t(L.UnifyJingzhou),
+      desc: () => $t(L.UnifyJingzhouDesc),
       image: EventImage.TKRiverPortCommerce,
       condition: { annexAndCore: { LiuBiao: Number.POSITIVE_INFINITY } },
       buttons: [
          {
-            label: () => "Develop the river markets",
+            label: () => $t(L.DevelopTheRiverMarkets),
             modifiers: {
                TradeProfit: { type: "multiply", value: 0.2, duration: 60 },
             },
          },
          {
-            label: () => "Recruit soldiers from Jingzhou",
+            label: () => $t(L.RecruitSoldiersFromJingzhou),
             modifiers: {
                Manpower: { type: "multiply", value: 0.2, duration: 60 },
             },
          },
          {
-            label: () => "Fortify the river crossings",
+            label: () => $t(L.FortifyTheRiverCrossings),
             modifiers: {
                Defense: { type: "multiply", value: 0.2, duration: 60 },
             },
@@ -395,9 +384,8 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent13: {
-      name: () => "Unify Jiangdong",
-      desc: () =>
-         "The lower river and the southeastern settlements now acknowledge a common authority. Their waterways carry the produce of fertile districts to thriving markets. By joining their prosperity to our government, we may make Jiangdong a lasting pillar of the realm.",
+      name: () => $t(L.UnifyJiangdong),
+      desc: () => $t(L.UnifyJiangdongDesc),
       image: EventImage.TKRiverPortCommerce,
       condition: {
          annexAndCore: {
@@ -409,19 +397,19 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Expand river and coastal commerce",
+            label: () => $t(L.ExpandRiverAndCoastalCommerce),
             modifiers: {
                TradeCapacity: { type: "add", value: 1 },
             },
          },
          {
-            label: () => "Develop southern workshops",
+            label: () => $t(L.DevelopSouthernWorkshops),
             modifiers: {
                ProductionCapacity: { type: "add", value: 5 },
             },
          },
          {
-            label: () => "Integrate the southern districts",
+            label: () => $t(L.IntegrateTheSouthernDistricts),
             modifiers: {
                GoverningCapacity: { type: "add", value: 50 },
             },
@@ -429,47 +417,45 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent14: {
-      name: () => "Unify Bashu and Hanzhong",
-      desc: () =>
-         "The fertile basin of Bashu and the northern gateway of Hanzhong stand united beneath our banner. Their sheltered fields promise rich harvests and reliable revenues, while their officials bring experience of governing the western interior. Let these resources strengthen the whole realm.",
+      name: () => $t(L.UnifyBashuAndHanzhong),
+      desc: () => $t(L.UnifyBashuAndHanzhongDesc),
       image: EventImage.TKAgriculturalSurvey,
       condition: { annexAndCore: { LiuZhang: Number.POSITIVE_INFINITY, ZhangLu: Number.POSITIVE_INFINITY } },
       buttons: [
          {
-            label: () => "Develop the basin's abundance",
+            label: () => $t(L.DevelopTheBasinsAbundance),
             modifiers: { TileOutput: { type: "multiply", value: 0.2, duration: 60 } },
          },
          {
-            label: () => "Bring the fertile estates to tax",
+            label: () => $t(L.BringTheFertileEstatesToTax),
             modifiers: { LandTax: { type: "multiply", value: 0.2, duration: 60 } },
          },
          {
-            label: () => "Employ the talents of Bashu",
+            label: () => $t(L.EmployTheTalentsOfBashu),
             resources: { administrative: 20, diplomatic: 20, military: 20 },
          },
       ],
    },
    TKMissionEvent15: {
-      name: () => "Unify Jiaozhou",
-      desc: () =>
-         "Merchants at Jiaozhou's ports now present their cargoes to our officials. The southern commanderies link our realm to markets far beyond its shores, and their workshops supply goods sought by visiting ships. Local traders petition for a settlement that will let this commerce endure.",
+      name: () => $t(L.UnifyJiaozhou),
+      desc: () => $t(L.UnifyJiaozhouDesc),
       image: EventImage.TKRiverPortCommerce,
       condition: { annexAndCore: { ShiXie: Number.POSITIVE_INFINITY } },
       buttons: [
          {
-            label: () => "Encourage maritime commerce",
+            label: () => $t(L.EncourageMaritimeCommerce),
             modifiers: {
                TradeProfit: { type: "multiply", value: 0.1 },
             },
          },
          {
-            label: () => "Open new maritime trade routes",
+            label: () => $t(L.OpenNewMaritimeTradeRoutes),
             modifiers: {
                TradeCapacity: { type: "add", value: 1 },
             },
          },
          {
-            label: () => "Develop local production",
+            label: () => $t(L.DevelopLocalProduction),
             modifiers: {
                ProductionCapacity: { type: "add", value: 5 },
             },
@@ -477,9 +463,8 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent16: {
-      name: () => "Unify the North",
-      desc: () =>
-         "From the western passes to the northeastern frontier, the lands of the north obey one authority. The plains that sustained competing armies may now sustain a common government. With their wealth and strength united, the future of the realm lies within our reach.",
+      name: () => $t(L.UnifyTheNorth),
+      desc: () => $t(L.UnifyTheNorthDesc),
       image: EventImage.TKNorthernConsolidation,
       condition: {
          annexAndCore: {
@@ -501,21 +486,21 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Consolidate northern government",
+            label: () => $t(L.ConsolidateNorthernGovernment),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
                AdministrativePoint: { type: "add", value: 1 },
             },
          },
          {
-            label: () => "Extend our influence through envoys",
+            label: () => $t(L.ExtendOurInfluenceThroughEnvoys),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
                DiplomaticPoint: { type: "add", value: 1 },
             },
          },
          {
-            label: () => "Mobilize northern strength",
+            label: () => $t(L.MobilizeNorthernStrength),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
                MilitaryPoint: { type: "add", value: 1 },
@@ -524,9 +509,8 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent17: {
-      name: () => "Unify the South",
-      desc: () =>
-         "The southern rivers, western basins, and far-southern commanderies have been joined beneath our banner. Their harvests, revenues, and recruits may now sustain a common government. We must organize these resources so that the strength of the south serves the whole realm.",
+      name: () => $t(L.UnifyTheSouth),
+      desc: () => $t(L.UnifyTheSouthDesc),
       image: EventImage.TKSouthernConsolidation,
       condition: {
          annexAndCore: {
@@ -542,21 +526,21 @@ export const ThreeKingdomsMissionEvents = {
       },
       buttons: [
          {
-            label: () => "Survey the southern lands for tax",
+            label: () => $t(L.SurveyTheSouthernLandsForTax),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
                LandTax: { type: "multiply", value: 0.1 },
             },
          },
          {
-            label: () => "Develop the wealth of the south",
+            label: () => $t(L.DevelopTheWealthOfTheSouth),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
                TileOutput: { type: "multiply", value: 0.1 },
             },
          },
          {
-            label: () => "Organize recruitment in the south",
+            label: () => $t(L.OrganizeRecruitmentInTheSouth),
             modifiers: {
                GoverningCapacity: { type: "add", value: 200 },
                Manpower: { type: "multiply", value: 0.1 },
@@ -565,16 +549,15 @@ export const ThreeKingdomsMissionEvents = {
       ],
    },
    TKMissionEvent18: {
-      name: () => "All Under Heaven",
-      desc: () =>
-         "The banners that divided the realm have yielded to a single authority. From the northern frontier to the southern seas, our officials govern lands once contested by rival courts. Let the Empire of China be proclaimed, and let its institutions preserve the unity our endeavors have won.",
+      name: () => $t(L.AllUnderHeaven),
+      desc: () => $t(L.AllUnderHeavenDesc),
       image: EventImage.TKRealmUnification,
       condition: {
          annexAndCore: fromEntries(Array.from(TKWarlords, (warlord) => [warlord, Number.POSITIVE_INFINITY])),
       },
       buttons: [
          {
-            label: () => "Proclaim the Empire of China",
+            label: () => $t(L.ProclaimTheEmpireOfChina),
             modifiers: { GoverningCapacity: { type: "add", value: 200 } },
             custom: [setProvinceNameOverrideEffect("EmpireOfChina")],
          },

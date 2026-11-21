@@ -390,7 +390,7 @@ export function TopLeftPanel(): React.ReactNode {
                   </FloatingTip>
                )}
                {hasScenarioFlag("ImperialCourt", G.save) && (
-                  <FloatingTip label={() => "Imperial Court & Ancestral Temple"}>
+                  <FloatingTip label={() => $t(L.ImperialCourtAndAncestralTemple)}>
                      <div
                         className="pointer"
                         id="TopPanel_ImperialCourt"

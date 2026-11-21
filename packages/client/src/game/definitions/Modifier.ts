@@ -239,13 +239,13 @@ export function durationToString(duration: number): string {
    if (duration >= 12) {
       const years = Math.floor(duration / 12);
       const months = duration % 12;
-      const yearString = `${formatNumber(years)}y`;
+      const yearString = $t(L.YearsAbbr$1, formatNumber(years));
       if (months === 0) {
          return yearString;
       }
-      return `${yearString}${formatNumber(months)}mo`;
+      return $t(L.YearsAndMonthsAbbr$1$2, formatNumber(years), formatNumber(months));
    }
-   return `${formatNumber(duration)} mo`;
+   return $t(L.MonthsAbbr$1, formatNumber(duration));
 }
 
 export function makeModifierGetter(

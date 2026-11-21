@@ -547,7 +547,7 @@ function _getProvinceIncome(
    }
    expense.add.push({ name: $t(L.AdvisorCost), value: -advisorCost });
    if (hasScenarioFlag("TKCharacter", save)) {
-      expense.add.push({ name: "Strategist Cost", value: -strategistCost });
+      expense.add.push({ name: $t(L.StrategistCost), value: -strategistCost });
    }
 
    state.monthly.tradeGold.forEach((value, otherProvince) => {

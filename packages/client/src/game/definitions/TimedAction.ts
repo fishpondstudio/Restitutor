@@ -337,7 +337,7 @@ class TimedActionDefinitions {
       },
    };
    CutPublicSpending: ITimedEffectAction = {
-      name: () => "Cut Public Spending",
+      name: () => $t(L.CutPublicSpending),
       duration: 12,
       cooldown: 12,
       costCondition: (province, save) => {
@@ -406,26 +406,25 @@ class TimedActionDefinitions {
    };
    PublicEnemy: ITimedAction = {
       name: () => $t(L.NamePublicEnemy),
-      desc: () =>
-         "Naming a province as a <i>public enemy</i> reduces their <i>Prestige</i> by 10%. All other provinces get a <i>Public Enemy</i> casus belli against them.",
+      desc: () => $t(L.NamePublicEnemyDesc$1, "10%"),
       duration: 12 * 2,
       cooldown: 12 * 2,
    };
    RestrictArmsSupply: ITimedAction = {
-      name: () => "Restrict Arms Supply",
-      desc: () => "Restricting military supplies reduces the selected province's <i>War Power</i> by 10%.",
+      name: () => $t(L.RestrictArmsSupply),
+      desc: () => $t(L.RestrictArmsSupplyDesc$1, "10%"),
       duration: 12 * 2,
       cooldown: 12 * 2,
    };
    OrderAnInquiry: ITimedAction = {
-      name: () => "Order an Inquiry",
-      desc: () => "Ordering an imperial inquiry reduces the selected province's <i>Stability</i> by 10.",
+      name: () => $t(L.OrderAnInquiry),
+      desc: () => $t(L.OrderAnInquiryDesc$1, "10"),
       duration: 12 * 2,
       cooldown: 12 * 2,
    };
    IssueCensure: ITimedAction = {
-      name: () => "Issue Censure",
-      desc: () => "All other provinces' <i>attitudes</i> towards the selected province decrease by 20.",
+      name: () => $t(L.IssueCensure),
+      desc: () => $t(L.IssueCensureDesc$1, "20"),
       duration: 12 * 2,
       cooldown: 12 * 2,
    };
@@ -948,8 +947,8 @@ class TimedActionDefinitions {
       cooldown: 12 * 5,
    };
    EnlistCourtSupport: ITimedAction = {
-      name: () => "Enlist Court Support",
-      desc: () => "Spend infiltration to persuade them to secure imperial favor on our behalf.",
+      name: () => $t(L.EnlistCourtSupport),
+      desc: () => $t(L.SpendInfiltrationToSecureImperialFavor),
       duration: 0,
       cooldown: 12,
    };

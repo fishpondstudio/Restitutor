@@ -263,7 +263,7 @@ export const _GreatWork = {
       },
    },
    HulaoGate: {
-      name: () => "Hulao Gate",
+      name: () => $t(L.GreatWorkHulaoGate),
       tile: 14811222,
       completionYear: -571,
       wikipedia: "Hulao_Pass",
@@ -271,7 +271,7 @@ export const _GreatWork = {
       modifiers: { Defense: { type: "multiply", value: 0.1 } },
    },
    TempleOfConfucius: {
-      name: () => "Temple of Confucius",
+      name: () => $t(L.GreatWorkTempleOfConfucius),
       tile: 15007829,
       completionYear: -478,
       wikipedia: "Temple_of_Confucius,_Qufu",
@@ -282,7 +282,7 @@ export const _GreatWork = {
       modifiers: { ResearchCost: { type: "multiply", value: -0.1 } },
    },
    Dujiangyan: {
-      name: () => "Dujiangyan",
+      name: () => $t(L.GreatWorkDujiangyan),
       tile: 14286938,
       completionYear: -256,
       wikipedia: "Dujiangyan",
@@ -290,7 +290,7 @@ export const _GreatWork = {
       modifiers: { LandTax: { type: "multiply", value: 0.1 } },
    },
    FirstQinEmperorsMausoleum: {
-      name: () => "Mausoleum of the First Qin Emperor",
+      name: () => $t(L.GreatWorkFirstQinEmperorsMausoleum),
       tile: 14614614,
       completionYear: -210,
       wikipedia: "Mausoleum_of_Qin_Shi_Huang",
@@ -301,7 +301,7 @@ export const _GreatWork = {
       modifiers: { GoverningCapacity: { type: "add", value: 100 } },
    },
    HanGreatWallJadeGate: {
-      name: () => "Yumen Pass (Jade Gate)",
+      name: () => $t(L.GreatWorkHanGreatWallJadeGate),
       tile: 13828175,
       completionYear: -110,
       wikipedia: "Yumen_Pass",
@@ -312,7 +312,7 @@ export const _GreatWork = {
       modifiers: { TradeProfit: { type: "multiply", value: 0.1 } },
    },
    WhiteHorseTemple: {
-      name: () => "White Horse Temple",
+      name: () => $t(L.GreatWorkWhiteHorseTemple),
       tile: 14745686,
       completionYear: 68,
       wikipedia: "White_Horse_Temple",
@@ -323,7 +323,7 @@ export const _GreatWork = {
       modifiers: { Stability: { type: "add", value: 10 } },
    },
    BronzeSparrowTerrace: {
-      name: () => "Bronze Sparrow Terrace",
+      name: () => $t(L.GreatWorkBronzeSparrowTerrace),
       tile: 14876756,
       completionYear: 210,
       wikipedia: "Bronze_Bird_Terrace",
@@ -334,7 +334,7 @@ export const _GreatWork = {
       modifiers: { Prestige: { type: "add", value: 10 } },
    },
    StoneCity: {
-      name: () => "Stone City",
+      name: () => $t(L.GreatWorkStoneCity),
       tile: 15073369,
       completionYear: 212,
       wikipedia: "Stone_City_(Nanjing)",
@@ -342,7 +342,7 @@ export const _GreatWork = {
       modifiers: { GoverningCapacity: { type: "add", value: 100 } },
    },
    YellowCraneTower: {
-      name: () => "Yellow Crane Tower",
+      name: () => $t(L.GreatWorkYellowCraneTower),
       tile: 14876762,
       completionYear: 223,
       wikipedia: "Yellow_Crane_Tower",
@@ -353,7 +353,7 @@ export const _GreatWork = {
       modifiers: { WarPower: { type: "multiply", value: 0.1 } },
    },
    JianmenPass: {
-      name: () => "Jianmen Pass (Sword Gate)",
+      name: () => $t(L.GreatWorkJianmenPass),
       tile: 14418008,
       completionYear: 228,
       wikipedia: "Jianmen_Pass",

@@ -252,7 +252,7 @@ export function getStrategistWarPowerBonus(province: Province, save: SaveGame): 
             TKCharacters[strategist].traits.has("Martial")
          ) {
             result.add.push({
-               name: `${getTKCharacterName(strategist).fullName} (Strategist)`,
+               name: $t(L.$1Strategist, getTKCharacterName(strategist).fullName),
                value: getTKCharacterTierToPercentage(TKCharacters[strategist].tier),
             });
          }
@@ -498,7 +498,7 @@ export function* requireHigherWarPowerChecks(
    (yield !!save.state.provinces[ourProvince] &&
       !!save.state.provinces[theirProvince] &&
       getWarPower({}, ourProvince, save).total.value > getWarPower({}, theirProvince, save).total.value)?.describe(
-      `${getProvinceName(ourProvince, save)} has greater War Power than ${getProvinceName(theirProvince, save)}`,
+      $t(L.$1HasGreaterWarPowerThan$2, getProvinceName(ourProvince, save), getProvinceName(theirProvince, save)),
    );
 }
 
