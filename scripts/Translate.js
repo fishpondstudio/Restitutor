@@ -230,7 +230,7 @@ function main() {
 
    console.log("🟡 Format Translation Files");
 
-   execSync(`pnpx @biomejs/biome format --write ${LANG_PATH}/`, {
+   execSync(`pnpm exec biome format --write --diagnostic-level=error ${LANG_PATH}/`, {
       encoding: "utf8",
    });
 
