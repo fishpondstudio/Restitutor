@@ -253,7 +253,7 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
                {state.advisors[advisor].candidates.map((candidate, i) => (
                   <Menu.Item
                      className={`GovernmentModal_SelectAdvisor_${i}`}
-                     key={candidate.name}
+                     key={i}
                      onClick={() => {
                         if (state.advisors[advisor].selected?.level === candidate.level) {
                            return;
