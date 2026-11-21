@@ -1,28 +1,45 @@
 import { Menu } from "@mantine/core";
 import { cls, formatNumber } from "@project/shared/src/utils/Helper";
 import { Fragment } from "react/jsx-runtime";
+import { finalizeCondition } from "../game/actions/GameAction";
 import { SetGovernmentFocusAction } from "../game/actions/SetGovernmentFocusAction";
 import { getAdvisorInitialCost, getAdvisorMonthlyCost } from "../game/definitions/Advisor";
+import { CharacterSlots, getAdvisorSlots, getCharacterUnassignmentLabel } from "../game/definitions/GovernmentTier";
+import { Modifiers } from "../game/definitions/Modifier";
 import { getPersonTraitDescription, PersonTrait } from "../game/definitions/PersonTrait";
-import { type GovernorPower, ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import type { GovernorPower } from "../game/definitions/ProvinceResources";
+import { GovernorPowerNames, getResourceName } from "../game/definitions/ProvinceResources";
 import { GameStateUpdated } from "../game/Events";
 import { showError } from "../game/logic/AlertLogic";
+import { formatPersonName } from "../game/logic/NameLogic";
 import { getProvinceGovernmentPoint, getProvinceName } from "../game/logic/ProvinceLogic";
 import { getProvinceResource, notEnoughResourcesError, trySpendProvinceResources } from "../game/logic/ResourceLogic";
+import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { TimedActionDescComp } from "../game/logic/TimedActionDescComp";
+import {
+   getCharacterInSlot,
+   getCharacterSlotCapacityCondition,
+   getTKCharacterMonthlyCost,
+   getTKCharacterTierToPower,
+   unassignTKCharacter,
+} from "../game/logic/TKCharacterLogic";
+import { TKCharacters } from "../game/ThreeKingdoms/TKCharacter";
 import { G } from "../utils/Global";
 import { refreshOnTypedEvent } from "../utils/Hook";
 import { $t, L } from "../utils/i18n";
 import { ModalComp, ModalTitleBar } from "../utils/ModalManager";
 import { ActionButton } from "./ActionButton";
 import { BreakdownTooltip } from "./BreakdownRow";
+import { CharacterSlotCapacityComp } from "./CharacterSlotCapacityComp";
 import { showPanel } from "./common/ShowPanel";
 import { colorNumber } from "./components/ColorNumber";
 import { FloatingTip } from "./components/FloatingTip";
 import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
 import { IconCatalog } from "./IconCatalog";
 import { ProvinceResourceImages } from "./ProvinceResourceImages";
+import { SelectCharacterSlotModal } from "./SelectCharacterModal";
 import { TimedActionButton } from "./TimedActionButton";
+import { TKCharacterComp } from "./TKCharacterComp";
 import { Grid3 } from "./UIConstant";
 
 export function GovernmentSingletonModal(): React.ReactNode {
@@ -51,7 +68,7 @@ export function GovernmentSingletonModal(): React.ReactNode {
             <div className="f1">{$t(L.Governor)}</div>
             <FloatingTip label={() => $t(L.ViewFamilyTree)}>
                <div className="row g5 pointer" onClick={() => showPanel(FamilyTreeSingletonModal, {})}>
-                  {state.governor.male.name.join(" ")}
+                  {formatPersonName(state.governor.male.name)}
                   <img src={IconCatalog.FamilyTree} style={{ height: "2.1rem" }} />
                </div>
             </FloatingTip>
@@ -59,29 +76,24 @@ export function GovernmentSingletonModal(): React.ReactNode {
          <div className="m10" style={Grid3}>
             <div className="box p5 text-sm">
                <div className="row">
-                  <div className="f1">{$t(L.Administrative)}</div>
+                  <div className="f1">{GovernorPowerNames.administrative()}</div>
                   <div>{colorNumber(state.governor.male.administrative)}</div>
                </div>
             </div>
             <div className="box p5 text-sm">
                <div className="row">
-                  <div className="f1">{$t(L.Diplomatic)}</div>
+                  <div className="f1">{GovernorPowerNames.diplomatic()}</div>
                   <div>{colorNumber(state.governor.male.diplomatic)}</div>
                </div>
             </div>
             <div className="box p5 text-sm">
                <div className="row">
-                  <div className="f1">{$t(L.Military)}</div>
+                  <div className="f1">{GovernorPowerNames.military()}</div>
                   <div>{colorNumber(state.governor.male.military)}</div>
                </div>
             </div>
          </div>
-         <div className="h1">{$t(L.Advisors)}</div>
-         <div className="m10" style={Grid3}>
-            <SelectAdvisor advisor="administrative" />
-            <SelectAdvisor advisor="diplomatic" />
-            <SelectAdvisor advisor="military" />
-         </div>
+         {hasScenarioFlag("TKCharacter", G.save) ? <AdvisorCharacterComp /> : <AdvisorComp />}
          <div className="h1">{$t(L.Focus)}</div>
          <div className="m10" style={Grid3}>
             <FocusComp type="administrative" />
@@ -98,6 +110,106 @@ export function GovernmentSingletonModal(): React.ReactNode {
    );
 }
 
+function AdvisorCharacterComp(): React.ReactNode {
+   const state = G.save.state.provinces[G.save.state.playerProvince];
+   if (!state) {
+      return null;
+   }
+   const slots = getAdvisorSlots();
+   return (
+      <>
+         <div className="h1 row g5">
+            <div className="f1">{$t(L.Advisors)}</div>
+            <CharacterSlotCapacityComp />
+         </div>
+         <div className="m10" style={Grid3}>
+            {slots.map((slotKey) => {
+               const { governorPower } = CharacterSlots[slotKey];
+               if (governorPower === undefined) {
+                  return null;
+               }
+               const advisor = getCharacterInSlot(G.save.state.playerProvince, slotKey, G.save);
+               const monthlyCost = advisor
+                  ? getTKCharacterMonthlyCost(advisor, G.save.state.playerProvince, G.save)
+                  : undefined;
+               return (
+                  <div className="box" key={slotKey}>
+                     {advisor ? (
+                        <TKCharacterComp character={advisor} />
+                     ) : (
+                        <div className="text-dimmed text-lg text-display cc" style={{ height: "7rem" }}>
+                           {GovernorPowerNames[governorPower]()}
+                        </div>
+                     )}
+                     <div className="divider" />
+                     <div className="row m5 g5 text-sm">
+                        <ActionButton
+                           className="btn p2"
+                           action={() => ({
+                              condition: finalizeCondition([
+                                 getCharacterSlotCapacityCondition(slotKey, G.save.state.playerProvince, G.save),
+                              ]),
+                              execute() {
+                                 showPanel(SelectCharacterSlotModal, { slot: slotKey });
+                              },
+                           })}
+                        >
+                           <div className="mi xs">swap_horiz</div>
+                        </ActionButton>
+                        {advisor ? (
+                           <>
+                              <div>{GovernorPowerNames[governorPower]()}</div>
+                              <div className="f1" />
+                              <div>{colorNumber(getTKCharacterTierToPower(TKCharacters[advisor].tier))}</div>
+                           </>
+                        ) : (
+                           <div className="f1" />
+                        )}
+                     </div>
+                     {advisor && monthlyCost && (
+                        <BreakdownTooltip breakdown={monthlyCost}>
+                           <div className="row m5 g5 text-sm">
+                              <button
+                                 className="btn p2"
+                                 title={getCharacterUnassignmentLabel(slotKey)}
+                                 onClick={() => {
+                                    if (unassignTKCharacter(advisor, G.save.state.playerProvince, G.save)) {
+                                       GameStateUpdated.emit();
+                                    }
+                                 }}
+                              >
+                                 <div className="mi xs text-red">delete</div>
+                              </button>
+                              <div>{Modifiers.MonthlyGold.name()}</div>
+                              <div>
+                                 <img src={ProvinceResourceImages.gold} className="icon-block dimmed" />
+                              </div>
+                              <div className="f1" />
+                              <div>{colorNumber(-monthlyCost.value)}</div>
+                           </div>
+                        </BreakdownTooltip>
+                     )}
+                  </div>
+               );
+            })}
+         </div>
+      </>
+   );
+}
+
+function AdvisorComp(): React.ReactNode {
+   return (
+      <>
+         <div className="h1">{$t(L.Advisors)}</div>
+         <div className="m10" style={Grid3}>
+            <SelectAdvisor advisor="administrative" />
+            <SelectAdvisor advisor="diplomatic" />
+            <SelectAdvisor advisor="military" />
+         </div>
+      </>
+   );
+}
+
 function GovernmentComp({ type }: { type: GovernorPower }): React.ReactNode {
    const governmentPoint = getProvinceGovernmentPoint(type, G.save.state.playerProvince, G.save);
    return (
@@ -105,7 +217,7 @@ function GovernmentComp({ type }: { type: GovernorPower }): React.ReactNode {
          <BreakdownTooltip breakdown={governmentPoint}>
             <div className="text-xl">{governmentPoint.value}</div>
          </BreakdownTooltip>
-         <div className="text-sm">{ProvinceResourceNames[type]()}</div>
+         <div className="text-sm">{getResourceName(type, G.save.state.scenario)}</div>
          <div className="divider mx-5 my5" />
          <div className="row">
             <img src={ProvinceResourceImages[type]} height={20} />
@@ -142,7 +254,7 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
                {state.advisors[advisor].candidates.map((candidate, i) => (
                   <Menu.Item
                      className={`GovernmentModal_SelectAdvisor_${i}`}
-                     key={candidate.name}
+                     key={i}
                      onClick={() => {
                         if (state.advisors[advisor].selected?.level === candidate.level) {
                            return;
@@ -160,7 +272,7 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
                   >
                      <div className="text-display text-md">{candidate.name}</div>
                      <div className="row">
-                        <div className="f1">- {ProvinceResourceNames[advisor]()}</div>
+                        <div className="f1">- {getResourceName(advisor, G.save.state.scenario)}</div>
                         <div>{colorNumber(candidate.level)}</div>
                      </div>
                      <div className="row">
@@ -200,7 +312,7 @@ function SelectAdvisor({ advisor }: { advisor: GovernorPower }): React.ReactNode
          </Menu>
          <div className="box p5 mt10 text-sm">
             <div className="row">
-               <div className="f1">{ProvinceResourceNames[advisor]()}</div>
+               <div className="f1">{getResourceName(advisor, G.save.state.scenario)}</div>
                <div>{colorNumber(level)}</div>
             </div>
             <BreakdownTooltip breakdown={monthlyCost}>
@@ -255,7 +367,7 @@ function FocusComp({ type }: { type: GovernorPower }): React.ReactNode {
             {state.focus === type ? $t(L.CurrentFocus) : $t(L.SetFocus)}
          </ActionButton>
          <div className="box p5 mt10 text-sm row">
-            <div className="f1">{ProvinceResourceNames[type]()}</div>
+            <div className="f1">{getResourceName(type, G.save.state.scenario)}</div>
             <div>{colorNumber(state.focus === type ? 2 : -1)}</div>
          </div>
       </div>

@@ -43,6 +43,18 @@ export const PersonTrait = {
       name: () => $t(L.PersonTraitBold),
       modifiers: { WarPower: { type: "multiply", value: 0.02 } },
    },
+   Disciplined: {
+      name: () => $t(L.PersonTraitDisciplined),
+      modifiers: { InfantryUnitPower: { type: "multiply", value: 0.04 } },
+   },
+   KeenEyed: {
+      name: () => $t(L.PersonTraitKeenEyed),
+      modifiers: { RangedUnitPower: { type: "multiply", value: 0.04 } },
+   },
+   Dashing: {
+      name: () => $t(L.PersonTraitDashing),
+      modifiers: { CavalryUnitPower: { type: "multiply", value: 0.04 } },
+   },
    Distinguished: {
       name: () => $t(L.PersonTraitDistinguished),
       modifiers: { Prestige: { type: "multiply", value: 0.02 } },

@@ -15,7 +15,8 @@ import { finalizeBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { getAdvisorMonthlyCost, initAdvisors } from "../definitions/Advisor";
 import type { Culture } from "../definitions/Culture";
 import { Goods } from "../definitions/Goods";
-import { type GreatWork, TileToGreatWork } from "../definitions/GreatWork";
+import { CharacterSlots } from "../definitions/GovernmentTier";
+import type { GreatWork } from "../definitions/GreatWork";
 import { Province } from "../definitions/Province";
 import { type ProvinceNameOverride, ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
 import { type GovernorPower, ProvinceResources } from "../definitions/ProvinceResources";
@@ -42,17 +43,20 @@ import { GameStateUpdated, RefreshTiles } from "../Events";
 import type { SaveGame } from "../GameState";
 import { getSeaComponent } from "../Land";
 import { MapGrid } from "../MapGrid";
+import type { INameGenerator } from "../scenarios/Scenarios";
+import { TKCharacters } from "../ThreeKingdoms/TKCharacter";
 import { getArmyMaintenanceCost, getWarPower, getWarPowerPerTile } from "./ArmyLogic";
 import { cacheProvince, getProvinceCoreTilesCached, getProvinceTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getRegionalCapitalCount } from "./CapitalLogic";
 import { getRelation } from "./DiplomacyLogic";
 import { generateRandomGovernor } from "./GovernorLogic";
-import { isGreatWorkCompleted } from "./GreatWorkLogic";
+import { getGreatWorkTiles, isGreatWorkCompleted } from "./GreatWorkLogic";
 import { getCulturalCohesion, getReligiousCohesion } from "./InternalAffairsLogic";
 import { annexTiles } from "./MissionLogic";
 import { addModifier, attachModifier, forEachModifier } from "./ModifierLogic";
 import { addProvinceResource, getProvinceResource } from "./ResourceLogic";
+import { getNameGenerator, hasScenarioFlag, requireScenarioFlagCondition } from "./ScenarioLogic";
 import { settleTile } from "./SettlementLogic";
 import { getBaselineTechs } from "./TechLogic";
 import {
@@ -66,6 +70,12 @@ import {
    isCoastal,
 } from "./TileLogic";
 import { startTimedAction } from "./TimedActionLogic";
+import {
+   getProvinceAssignedCharacters,
+   getTKCharacterMonthlyCost,
+   getTKCharacterName,
+   getTKCharacterTierToPower,
+} from "./TKCharacterLogic";
 import { getProvinceTrades } from "./TradeLogic";
 import { getClients, getPatrons } from "./TreatyLogic";
 import { calculateWarTotalStability, getCurrentWars } from "./WarLogic";
@@ -158,7 +168,11 @@ export function countProvinceTiles(
 
 export function getProvincePrestige(province: Province, save: SaveGame): IValueBreakdown {
    const breakdown: IValueBreakdown = makeValueBreakdown();
-   breakdown.add.push({ name: $t(L.TileUpgrades), value: getTotalUpgrades(province, save) });
+   const totalUpgrades = getTotalUpgrades(province, save);
+   breakdown.add.push({ name: $t(L.TileUpgrades), value: totalUpgrades });
+   if (totalUpgrades <= 0) {
+      return finalizeBreakdown(breakdown);
+   }
    attachModifier("Prestige", breakdown, province, save);
    if (hasProvinceUpgrade("TriumphalRenown", province, save)) {
       breakdown.multiply.push({
@@ -344,23 +358,24 @@ function _getProvinceGoverningCost(province: Province, save: SaveGame): IValueBr
    return finalizeBreakdown(breakdown);
 }
 
-export function initProvince(province: Province, capital: Tile): IProvince {
+export function initProvince(province: Province, capital: Tile, nameGenerator: INameGenerator): IProvince {
    return {
       culture: Province[province].culture,
       toleratedCultures: new Set(),
       religion: Province[province].religion,
       toleratedReligions: new Set(),
+      tier: "Tier1",
       stats: {
          ...structuredClone(ProvinceStats),
       },
       resources: {
          ...structuredClone(ProvinceResources),
       },
-      governor: generateRandomGovernor(province),
+      governor: generateRandomGovernor(province, nameGenerator),
       advisors: {
-         administrative: initAdvisors(),
-         diplomatic: initAdvisors(),
-         military: initAdvisors(),
+         administrative: initAdvisors(nameGenerator),
+         diplomatic: initAdvisors(nameGenerator),
+         military: initAdvisors(nameGenerator),
       },
       focus: "administrative",
       capital: capital,
@@ -404,6 +419,14 @@ export function getProvinceGovernmentPoint(type: GovernorPower, province: Provin
    breakdown.add.push({ name: $t(L.FromFocus), value: state.focus === type ? 2 : -1 });
    if (hasProvinceUpgrade("FocusedGovernance", province, save) && state.focus === type) {
       breakdown.add.push({ name: ProvinceUpgrades.FocusedGovernance.name(), value: 1 });
+   }
+   for (const [slot, character] of getProvinceAssignedCharacters(province, save)) {
+      if (CharacterSlots[slot].governorPower === type) {
+         breakdown.add.push({
+            name: getTKCharacterName(character).fullName,
+            value: getTKCharacterTierToPower(TKCharacters[character].tier),
+         });
+      }
    }
    if (type === "administrative") {
       attachModifier("AdministrativePoint", breakdown, province, save);
@@ -456,12 +479,6 @@ function _getProvinceIncome(
       }
    }
    const armyMaintenanceCost = getArmyMaintenanceCost({}, province, save).value;
-   let advisorCost = 0;
-   forEach(state.advisors, (_, data) => {
-      if (data.selected) {
-         advisorCost += getAdvisorMonthlyCost(data.selected.level, province, save).value;
-      }
-   });
 
    revenue.add.push({ name: $t(L.LandTax), value: landTax });
    if (hasProvinceUpgrade("LittoralRevenues", province, save)) {
@@ -512,7 +529,26 @@ function _getProvinceIncome(
    expense.add.push({ name: $t(L.TileMaintenance), value: -tileMaintenanceCost });
    expense.add.push({ name: $t(L.BuildingMaintenance), value: -buildingMaintenanceCost });
    expense.add.push({ name: $t(L.ArmyMaintenance), value: -armyMaintenanceCost });
+
+   let advisorCost = 0;
+   forEach(state.advisors, (_, data) => {
+      if (data.selected) {
+         advisorCost += getAdvisorMonthlyCost(data.selected.level, province, save).value;
+      }
+   });
+   let strategistCost = 0;
+   for (const [slot, character] of getProvinceAssignedCharacters(province, save)) {
+      const { type } = CharacterSlots[slot];
+      if (type === "Advisor") {
+         advisorCost += getTKCharacterMonthlyCost(character, province, save).value;
+      } else if (type === "Strategist") {
+         strategistCost += getTKCharacterMonthlyCost(character, province, save).value;
+      }
+   }
    expense.add.push({ name: $t(L.AdvisorCost), value: -advisorCost });
+   if (hasScenarioFlag("TKCharacter", save)) {
+      expense.add.push({ name: $t(L.StrategistCost), value: -strategistCost });
+   }
 
    state.monthly.tradeGold.forEach((value, otherProvince) => {
       if (value > 0) {
@@ -647,7 +683,10 @@ export function monthsToNextConsulElection(save: SaveGame): number {
 }
 
 export function pledgeProvinceConsulVotesConditions(province: Province, save: SaveGame): ICondition[] {
-   return [hasNotProvinceUpgradeCondition("OurOwnDestiny", province, save)];
+   return [
+      ...requireScenarioFlagCondition("Senate", save),
+      hasNotProvinceUpgradeCondition("OurOwnDestiny", province, save),
+   ];
 }
 
 export function getProvinceName(province: Province, save: SaveGame): string {
@@ -717,7 +756,7 @@ export function spawnProvince(province: Province, source: string, save: SaveGame
       return [];
    }
    const { capital, tiles } = Province[province];
-   const state = initProvince(province, capital);
+   const state = initProvince(province, capital, getNameGenerator(save.state.scenario, save.options.language));
    state.unlockedTech = new Set(getBaselineTechs(save));
    save.state.provinces[province] = state;
    const provinces = new Set<Province>();
@@ -923,10 +962,8 @@ export function getTileUpgradeTimes(province: Province, save: SaveGame): number 
 
 export function getProvinceGreatWorks(province: Province, save: SaveGame): Set<GreatWork> {
    const result = new Set<GreatWork>();
-   for (const [tile, data] of save.state.tiles) {
-      const currentProvince = data.province;
-      const greatWork = TileToGreatWork.get(tile);
-      if (currentProvince === province && greatWork) {
+   for (const [tile, greatWork] of getGreatWorkTiles(save.state.scenario)) {
+      if (save.state.tiles.get(tile)?.province === province) {
          result.add(greatWork);
       }
    }
@@ -935,10 +972,8 @@ export function getProvinceGreatWorks(province: Province, save: SaveGame): Set<G
 
 export function getProvinceOriginalGreatWorks(province: Province, save: SaveGame): Set<GreatWork> {
    const result = new Set<GreatWork>();
-   for (const [tile, data] of save.state.tiles) {
-      const originalProvince = data.originalProvince;
-      const greatWork = TileToGreatWork.get(tile);
-      if (originalProvince === province && greatWork) {
+   for (const [tile, greatWork] of getGreatWorkTiles(save.state.scenario)) {
+      if (save.state.tiles.get(tile)?.originalProvince === province) {
          result.add(greatWork);
       }
    }

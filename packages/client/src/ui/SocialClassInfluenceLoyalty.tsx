@@ -1,5 +1,5 @@
 import { formatNumber, formatPercent } from "@project/shared/src/utils/Helper";
-import { SocialClass } from "../game/definitions/SocialClass";
+import { getSocialClassName, type SocialClass } from "../game/definitions/SocialClass";
 import {
    getSocialClassInfluence,
    getSocialClassInfluencePercentage,
@@ -13,8 +13,7 @@ export function SocialClassInfluenceLoyalty({ socialClass }: { socialClass: Soci
    const loyalty = getSocialClassLoyalty(socialClass, G.save.state.playerProvince, G.save);
    return (
       <>
-         {" "}
-         <div className="h2">{$t(L.$1Class, SocialClass[socialClass].name())}</div>
+         <div className="h2">{$t(L.$1Class, getSocialClassName(socialClass, G.save.state.scenario))}</div>
          <div className="row mx10 my5">
             <div className="f1">
                {$t(L.Influence)}/{$t(L.Percentage)}

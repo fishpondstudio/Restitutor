@@ -1,7 +1,7 @@
 import { formatNumber, range } from "@project/shared/src/utils/Helper";
 import { useCallback } from "react";
 import { Modifiers } from "../game/definitions/Modifier";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { GameStateUpdated } from "../game/Events";
 import { getWarPower } from "../game/logic/ArmyLogic";
 import { getCurrentRelations, getDiplomats } from "../game/logic/DiplomacyLogic";
@@ -17,6 +17,7 @@ import {
    getProvinceStability,
 } from "../game/logic/ProvinceLogic";
 import { getProvinceResource } from "../game/logic/ResourceLogic";
+import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { useShortcut } from "../game/Shortcut";
 import { WorldScene } from "../scenes/WorldScene";
 import { G } from "../utils/Global";
@@ -34,6 +35,7 @@ import { DiplomacyPage } from "./DiplomacyPage";
 import { FamilyTreeSingletonModal } from "./FamilyTreeSingletonModal";
 import { GovernmentSingletonModal } from "./GovernmentSingletonModal";
 import { IconCatalog } from "./IconCatalog";
+import { ImperialCourtPage } from "./ImperialCourtPage";
 import { InternalAffairsPage } from "./InternalAffairsPage";
 import { LegacyUpgradeSingletonModal } from "./LegacyUpgradeSingletonModal";
 import { MissionPage } from "./MissionPage";
@@ -79,7 +81,13 @@ export function TopLeftPanel(): React.ReactNode {
    const openSocialClass = useCallback(() => showPanel(SocialClassSingletonModal, {}), []);
    const openProduction = useCallback(() => showPanel(ProductionSingletonModal, {}), []);
    const openTrade = useCallback(() => showPanel(TradeSingletonModal, { provinces: new Set([]) }), []);
-   const openSenate = useCallback(() => showPanel(SenatePage, {}), []);
+   const openSenate = useCallback(() => {
+      if (hasScenarioFlag("Senate", G.save)) {
+         showPanel(SenatePage, {});
+      } else if (hasScenarioFlag("ImperialCourt", G.save)) {
+         showPanel(ImperialCourtPage, {});
+      }
+   }, []);
    const openMissions = useCallback(() => showPanel(MissionPage, {}), []);
    const openChronicle = useCallback(() => showPanel(ChroniclePage, {}), []);
    const openLegacyUpgrade = useCallback(() => showPanel(LegacyUpgradeSingletonModal, {}), []);
@@ -142,7 +150,7 @@ export function TopLeftPanel(): React.ReactNode {
                breakdown={administrativePoint}
                tooltip={(element) => (
                   <>
-                     <div className="h2">{ProvinceResourceNames.administrative()}</div>
+                     <div className="h2">{getResourceName("administrative", G.save.state.scenario)}</div>
                      {element}
                   </>
                )}
@@ -166,7 +174,7 @@ export function TopLeftPanel(): React.ReactNode {
                breakdown={diplomaticPoint}
                tooltip={(element) => (
                   <>
-                     <div className="h2">{ProvinceResourceNames.diplomatic()}</div>
+                     <div className="h2">{getResourceName("diplomatic", G.save.state.scenario)}</div>
                      {element}
                   </>
                )}
@@ -190,7 +198,7 @@ export function TopLeftPanel(): React.ReactNode {
                breakdown={militaryPoint}
                tooltip={(element) => (
                   <>
-                     <div className="h2">{ProvinceResourceNames.military()}</div>
+                     <div className="h2">{getResourceName("military", G.save.state.scenario)}</div>
                      {element}
                   </>
                )}
@@ -374,11 +382,24 @@ export function TopLeftPanel(): React.ReactNode {
                      <img src={IconCatalog.Trade} style={{ width: `${IconWidth}rem` }} />
                   </div>
                </FloatingTip>
-               <FloatingTip label={() => $t(L.SenateAndConsuls)}>
-                  <div className="pointer" id="TopPanel_Senate" onClick={() => showPanel(SenatePage, {})}>
-                     <img src={IconCatalog.Senate} style={{ width: `${IconWidth}rem` }} />
-                  </div>
-               </FloatingTip>
+               {hasScenarioFlag("Senate", G.save) && (
+                  <FloatingTip label={() => $t(L.SenateAndConsuls)}>
+                     <div className="pointer" id="TopPanel_Senate" onClick={openSenate}>
+                        <img src={IconCatalog.Senate} style={{ width: `${IconWidth}rem` }} />
+                     </div>
+                  </FloatingTip>
+               )}
+               {hasScenarioFlag("ImperialCourt", G.save) && (
+                  <FloatingTip label={() => $t(L.ImperialCourtAndAncestralTemple)}>
+                     <div
+                        className="pointer"
+                        id="TopPanel_ImperialCourt"
+                        onClick={() => showPanel(ImperialCourtPage, {})}
+                     >
+                        <img src={IconCatalog.ImperialCourt} style={{ width: `${IconWidth}rem` }} />
+                     </div>
+                  </FloatingTip>
+               )}
                <FloatingTip label={() => $t(L.Missions)}>
                   <div className="pointer" id="TopPanel_Mission" onClick={() => showPanel(MissionPage, {})}>
                      <img src={IconCatalog.Mission} style={{ width: `${IconWidth}rem` }} />

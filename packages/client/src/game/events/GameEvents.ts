@@ -1,83 +1,49 @@
-import type { Province } from "../definitions/Province";
-import type { ProvinceNameOverride } from "../definitions/ProvinceNameOverrides";
-import type { ProvinceUpgrade } from "../definitions/ProvinceUpgrades";
-import type { Religion } from "../definitions/Religion";
-import type { Tech } from "../definitions/Tech";
-import type { ICustomEffect, IGameEffect } from "../GameEffect";
-import type { SaveGame } from "../GameState";
-import type { ConditionChecks } from "../logic/Calculation";
-import { AchaiaEvents } from "./AchaiaEvents";
-import { AegyptusCyrenaicaEvents } from "./AegyptusCyrenaicaEvents";
-import { AfricaEvents } from "./AfricaEvents";
-import { AnatoliaEvents } from "./AnatoliaEvents";
-import { AquitaniaEvents } from "./AquitaniaEvents";
-import { AsiaEvents } from "./AsiaEvents";
-import { BaeticaEvents } from "./BaeticaEvents";
-import { BalkanEvents } from "./BalkanEvents";
-import { BelgicaEvents } from "./BelgicaEvents";
-import { BithyniaEvents } from "./BithyniaEvents";
-import { BritanniaEvents } from "./BritanniaEvents";
-import { CaliphateEvents } from "./CaliphateEvents";
-import { CorsicaSardiniaEvents } from "./CorsicaSardiniaEvents";
-import { DaciaEvents } from "./DaciaEvents";
-import { DalmatiaEvents } from "./DalmatiaEvents";
-import { DanubianEvents } from "./DanubianEvents";
-import { EpirusEvents } from "./EpirusEvents";
-import { GalatiaLyciaCiliciaCappadociaEvents } from "./GalatiaLyciaCiliciaCappadociaEvents";
-import { GallicEmpireEvents } from "./GallicEmpireEvents";
-import type { GameEventOrder } from "./GameEventOrder";
-import { GermaniaEvents } from "./GermaniaEvents";
-import { HispaniaEvents } from "./HispaniaEvents";
-import { HistoricalEvents } from "./HistoricalEvents";
-import type { ImageWithCredit } from "./ImageWithCredit";
-import { ItaliaEvents } from "./ItaliaEvents";
-import { ItaliaSharedEvents } from "./ItaliaSharedEvents";
-import { LugdunensisEvents } from "./LugdunensisEvents";
-import { LusitaniaEvents } from "./LusitaniaEvents";
-import { MacedoniaEvents } from "./MacedoniaEvents";
-import { MauretaniaEvents } from "./MauretaniaEvents";
-import { MissionEvents } from "./MissionEvents";
-import { MoesiaEvents } from "./MoesiaEvents";
-import { NarbonensisEvents } from "./NarbonensisEvents";
-import { NoricumEvents } from "./NoricumEvents";
-import { PannoniaEvents } from "./PannoniaEvents";
-import { RaetiaEvents } from "./RaetiaEvents";
-import { RandomEvents } from "./RandomEvents";
-import { ReligiousEvents } from "./ReligiousEvents";
-import { SiciliaEvents } from "./SiciliaEvents";
-import { SyriaJudeaEvents } from "./SyriaJudeaEvents";
-import { TarraconensisEvents } from "./TarraconensisEvents";
-import { ThraciaEvents } from "./ThraciaEvents";
-
-export interface IGameEventButton extends IGameEffect {
-   label: () => string;
-   custom?: ICustomEffect[];
-}
-
-export interface IGameEventConfig {
-   name: () => string;
-   desc: () => string;
-   type?: GameEventType;
-   wikipedia?: string;
-   achievement?: string;
-   image: ImageWithCredit;
-   order?: GameEventOrder;
-   condition?: IGameEventCondition;
-   buttons: IGameEventButton[];
-}
-
-export interface IGameEventCondition {
-   year?: [number, number];
-   nameOverride?: ProvinceNameOverride;
-   province?: Set<Province>;
-   playerOnly?: boolean;
-   onMap?: Partial<Record<Province, boolean>>;
-   religion?: Set<Religion>;
-   techs?: Set<Tech>;
-   provinceUpgrades?: Set<ProvinceUpgrade>;
-   annexAndCore?: Partial<Record<Province, number>>;
-   conditions?: (province: Province, save: SaveGame) => ConditionChecks;
-}
+import type { IGameEventConfig } from "./GameEventTypes";
+import { AchaiaEvents } from "./Rome/AchaiaEvents";
+import { AegyptusCyrenaicaEvents } from "./Rome/AegyptusCyrenaicaEvents";
+import { AfricaEvents } from "./Rome/AfricaEvents";
+import { AnatoliaEvents } from "./Rome/AnatoliaEvents";
+import { AquitaniaEvents } from "./Rome/AquitaniaEvents";
+import { AsiaEvents } from "./Rome/AsiaEvents";
+import { BaeticaEvents } from "./Rome/BaeticaEvents";
+import { BalkanEvents } from "./Rome/BalkanEvents";
+import { BelgicaEvents } from "./Rome/BelgicaEvents";
+import { BithyniaEvents } from "./Rome/BithyniaEvents";
+import { BritanniaEvents } from "./Rome/BritanniaEvents";
+import { CaliphateEvents } from "./Rome/CaliphateEvents";
+import { CorsicaSardiniaEvents } from "./Rome/CorsicaSardiniaEvents";
+import { DaciaEvents } from "./Rome/DaciaEvents";
+import { DalmatiaEvents } from "./Rome/DalmatiaEvents";
+import { DanubianEvents } from "./Rome/DanubianEvents";
+import { EpirusEvents } from "./Rome/EpirusEvents";
+import { GalatiaLyciaCiliciaCappadociaEvents } from "./Rome/GalatiaLyciaCiliciaCappadociaEvents";
+import { GallicEmpireEvents } from "./Rome/GallicEmpireEvents";
+import { GermaniaEvents } from "./Rome/GermaniaEvents";
+import { HispaniaEvents } from "./Rome/HispaniaEvents";
+import { HistoricalEvents } from "./Rome/HistoricalEvents";
+import { ItaliaEvents } from "./Rome/ItaliaEvents";
+import { ItaliaSharedEvents } from "./Rome/ItaliaSharedEvents";
+import { LugdunensisEvents } from "./Rome/LugdunensisEvents";
+import { LusitaniaEvents } from "./Rome/LusitaniaEvents";
+import { MacedoniaEvents } from "./Rome/MacedoniaEvents";
+import { MauretaniaEvents } from "./Rome/MauretaniaEvents";
+import { MissionEvents } from "./Rome/MissionEvents";
+import { MoesiaEvents } from "./Rome/MoesiaEvents";
+import { NarbonensisEvents } from "./Rome/NarbonensisEvents";
+import { NoricumEvents } from "./Rome/NoricumEvents";
+import { PannoniaEvents } from "./Rome/PannoniaEvents";
+import { RaetiaEvents } from "./Rome/RaetiaEvents";
+import { RandomEvents } from "./Rome/RandomEvents";
+import { ReligiousEvents } from "./Rome/ReligiousEvents";
+import { SiciliaEvents } from "./Rome/SiciliaEvents";
+import { SyriaJudeaEvents } from "./Rome/SyriaJudeaEvents";
+import { TarraconensisEvents } from "./Rome/TarraconensisEvents";
+import { ThraciaEvents } from "./Rome/ThraciaEvents";
+import { LiJueEvents } from "./ThreeKingdoms/LiJueEvents";
+import { LiuBeiEvents } from "./ThreeKingdoms/LiuBeiEvents";
+import { LuBuEvents } from "./ThreeKingdoms/LuBuEvents";
+import { ThreeKingdomsMissionEvents } from "./ThreeKingdoms/ThreeKingdomsMissionEvents";
+import { YuanShaoEvents } from "./ThreeKingdoms/YuanShaoEvents";
 
 export const RomeEvents = {
    ...LugdunensisEvents,
@@ -123,7 +89,15 @@ export const RomeEvents = {
    ...RandomEvents,
 } as const satisfies Record<string, IGameEventConfig>;
 
-const _GameEvents = { ...RomeEvents };
+export const ThreeKingdomsEvents = {
+   ...LiJueEvents,
+   ...LiuBeiEvents,
+   ...LuBuEvents,
+   ...YuanShaoEvents,
+   ...ThreeKingdomsMissionEvents,
+} as const satisfies Record<string, IGameEventConfig>;
+
+const _GameEvents = { ...RomeEvents, ...ThreeKingdomsEvents };
 
 export type GameEvent = keyof typeof _GameEvents;
 export const GameEvents: Record<GameEvent, IGameEventConfig> = _GameEvents;

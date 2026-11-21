@@ -96,6 +96,12 @@ export async function bootstrap(): Promise<void> {
       window.history.replaceState(window.history.state, "", `${window.location.pathname}?${params.toString()}`);
    }
 
+   if (G.params.has("next")) {
+      const params = new URLSearchParams(location.search);
+      params.delete("next");
+      window.history.replaceState(window.history.state, "", `${window.location.pathname}?${params.toString()}`);
+   }
+
    try {
       G.save = await loadGame();
       migrateSave(G.save);
@@ -113,7 +119,7 @@ export async function bootstrap(): Promise<void> {
    }
 
    if (isNewPlayer) {
-      G.save = createSaveGame({ scenario: "Rome192", province: "Lugdunensis" });
+      G.save = createSaveGame({ scenario: "Rome192", province: "Lugdunensis", language: "en" });
       initNewPlayerSaveGame(G.save);
       G.save.state.flags = setFlag(G.save.state.flags, GameStateFlags.ShowTutorial);
       if (isMobilePlatform()) {

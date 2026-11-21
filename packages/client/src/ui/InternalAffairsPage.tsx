@@ -4,12 +4,13 @@ import { Fragment } from "react/jsx-runtime";
 import { AdjustAutonomyAction, SettleUnrestAction } from "../game/actions/AdjustAutonomyAction";
 import { Modifiers } from "../game/definitions/Modifier";
 import { Province } from "../game/definitions/Province";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { ProvinceFlags } from "../game/definitions/ProvinceState";
 import { getProvinceUpgradeDesc, ProvinceUpgrades } from "../game/definitions/ProvinceUpgrades";
 import { getTileName } from "../game/definitions/TileName";
 import { GameStateUpdated, OpenTilePage } from "../game/Events";
 import { getUpcomingDisasters } from "../game/events/DisasterLogic";
+import { getScenarioGreatWorks } from "../game/logic/GreatWorkLogic";
 import {
    getProgressToNextRestoration,
    getProvinceGoverningCapacity,
@@ -144,7 +145,7 @@ export function InternalAffairsPage(): React.ReactNode {
             )}
          >
             <div className="row mx10 my5 g5">
-               <div>{ProvinceResourceNames.mandate()}</div>
+               <div>{getResourceName("mandate", G.save.state.scenario)}</div>
                <img src={ProvinceResourceImages.mandate} className="icon-block" />
                <div className="f1" />
                <div>{formatNumber(getProvinceResource("mandate", G.save.state.playerProvince, G.save))}</div>
@@ -155,7 +156,7 @@ export function InternalAffairsPage(): React.ReactNode {
             className="p0"
             label={() => (
                <>
-                  <div className="h2">{ProvinceResourceNames.dominionPoint()}</div>
+                  <div className="h2">{getResourceName("dominionPoint", G.save.state.scenario)}</div>
                   <div className="m10">{$t(L.DominionPointsDesc)}</div>
                   <div className="h2">{Modifiers.DominionPointsYearly.name()}</div>
                   <div className="m10">{Modifiers.DominionPointsYearly.desc()}</div>
@@ -167,7 +168,7 @@ export function InternalAffairsPage(): React.ReactNode {
             )}
          >
             <div className="row mx10 my5 g5">
-               <div>{ProvinceResourceNames.dominionPoint()}</div>
+               <div>{getResourceName("dominionPoint", G.save.state.scenario)}</div>
                <img src={ProvinceResourceImages.dominionPoint} className="icon-block" />
                <div className="f1" />
                <div>
@@ -184,7 +185,6 @@ export function InternalAffairsPage(): React.ReactNode {
                   <div className="f1">{$t(L.AutomaticallyCoreTiles)}</div>
                   <Switch
                      size="xs"
-                     aria-label={$t(L.AutomaticallyCoreTiles)}
                      checked={hasFlag(state.flags, ProvinceFlags.AutomaticallyMakeCore)}
                      onChange={() => {
                         state.flags = toggleFlag(state.flags, ProvinceFlags.AutomaticallyMakeCore);
@@ -279,20 +279,24 @@ export function InternalAffairsPage(): React.ReactNode {
                </FloatingTip>
             </Fragment>
          ))}
-         <div className="h1">{$t(L.ProvincialGreatWorks)}</div>
-         {greatWorks.map((gw) => (
-            <Fragment key={gw}>
+         {getScenarioGreatWorks(G.save.state.scenario).size > 0 && (
+            <>
+               <div className="h1">{$t(L.ProvincialGreatWorks)}</div>
+               {greatWorks.map((gw) => (
+                  <Fragment key={gw}>
+                     <div className="m10">
+                        <GreatWorkComponent greatWork={gw} />
+                     </div>
+                     <div className="divider" />
+                  </Fragment>
+               ))}
                <div className="m10">
-                  <GreatWorkComponent greatWork={gw} />
+                  <button className="btn w100" onClick={() => showPanel(GreatWorksSingletonModal, {})}>
+                     {$t(L.ShowAllGreatWorks)}
+                  </button>
                </div>
-               <div className="divider" />
-            </Fragment>
-         ))}
-         <div className="m10">
-            <button className="btn w100" onClick={() => showPanel(GreatWorksSingletonModal, {})}>
-               {$t(L.ShowAllGreatWorks)}
-            </button>
-         </div>
+            </>
+         )}
          <div className="h1">{$t(L.AutonomyAndRebellion)}</div>
          {tiles.map(([tile, tileData]) => {
             const unrest = getTileUnrest(tile, G.save);

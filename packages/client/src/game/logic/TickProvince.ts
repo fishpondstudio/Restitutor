@@ -70,9 +70,11 @@ import {
    setProvinceStat,
 } from "./ProvinceLogic";
 import { addProvinceResource, getProvinceResource, spendProvinceResource } from "./ResourceLogic";
+import { getNameGenerator, hasScenarioFlag } from "./ScenarioLogic";
 import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
+import { tickTKCharacters } from "./TKCharacterLogic";
 import { getTreatyDuration } from "./TreatyLogic";
 
 export function tickProvince(province: Province, save: SaveGame): void {
@@ -85,6 +87,9 @@ export function tickProvince(province: Province, save: SaveGame): void {
       return;
    }
    calculateTilesConnectedToCapital(province, save);
+
+   tickTKCharacters(province, save);
+
    addProvinceResource(
       "administrative",
       getProvinceGovernmentPoint("administrative", province, save).value,
@@ -176,7 +181,11 @@ export function tickProvince(province: Province, save: SaveGame): void {
                showGameEventModal(NewGovernorModal, { province, governor: state.governor });
             }
          } else {
-            state.governor = generateRandomGovernor(province, save.state.month);
+            state.governor = generateRandomGovernor(
+               province,
+               getNameGenerator(save.state.scenario, save.options.language),
+               save.state.month,
+            );
             applyGameEffect(GovernorWithoutHeirEffect, $t(L.$1Event, $t(L.ANewGovernor)), province, save);
             if (province === save.state.playerProvince) {
                showGameEventModal(GovernorWithoutHeirModal, { province, governor: state.governor });
@@ -227,8 +236,9 @@ export function tickProvince(province: Province, save: SaveGame): void {
    const governingCost = getProvinceGoverningCost(province, save).value;
    const christianity = getProvinceResource("christianity", province, save);
    if (
-      (christianity > governingCost && !isChristianReligion(state.religion)) ||
-      (christianity < governingCost && isChristianReligion(state.religion))
+      hasScenarioFlag("Christianity", save) &&
+      ((christianity > governingCost && !isChristianReligion(state.religion)) ||
+         (christianity < governingCost && isChristianReligion(state.religion)))
    ) {
       addProvinceUpgrade("ReligiousUnrest", province, save);
    } else {

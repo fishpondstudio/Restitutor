@@ -6,6 +6,7 @@ import { hideModal } from "../../utils/ModalManager";
 import type { IFamily } from "../definitions/Family";
 import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
+import type { ProvinceResourceCosts } from "../definitions/ProvinceResources";
 import { isChristianReligion } from "../definitions/Religion";
 import type { SocialClass } from "../definitions/SocialClass";
 import { TimedActions } from "../definitions/TimedAction";
@@ -21,12 +22,13 @@ import {
    MinimumOffspringAge,
    removeEmptyFamily,
 } from "../logic/GovernorLogic";
+import { formatPersonName } from "../logic/NameLogic";
+import { getNameGenerator, hasScenarioFlag } from "../logic/ScenarioLogic";
 import { addSocialClassLoyalty } from "../logic/SocialClassLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { requireHigherPrestige, requireMinimumAttitude } from "../logic/TreatyLogic";
-import { randomFemaleName } from "../RomanNames";
 import { EmptyGameAction } from "./EmptyGameAction";
-import { finalizeCondition, type ICondition, type IGameAction } from "./GameAction";
+import { finalizeCondition, type ICondition, type IGameAction, type IGameEffectWithName } from "./GameAction";
 
 export function LookForLocalSpouseAction(
    socialClass: SocialClass,
@@ -47,13 +49,13 @@ export function LookForLocalSpouseAction(
             family.female = null;
             removeEmptyFamily(save);
             if (!headless) {
-               showSuccess($t(L.OurDaughter$1HasJoinedHerHusbandsFamily, daughter.name.join(" ")));
+               showSuccess($t(L.OurDaughter$1HasJoinedHerHusbandsFamily, formatPersonName(daughter.name)));
             }
          }
          if (!family.female && family.male) {
             family.female = ensureTraits({
                traits: new Set(),
-               name: randomFemaleName(),
+               name: getNameGenerator(save.state.scenario, save.options.language).randomName({ gender: "female" }),
                age: clamp(randInt(family.male.age - 5, family.male.age + 5 + 1), 0, Number.POSITIVE_INFINITY),
                administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
                diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
@@ -103,7 +105,7 @@ export function OfferMarriageAction(ours: IFamily, theirs: IFamily, province: Pr
             theirs.female = ours.female;
             ours.female = null;
             if (!headless) {
-               showSuccess($t(L.OurDaughter$1HasJoinedHerHusbandsFamily, daughter.name.join(" ")));
+               showSuccess($t(L.OurDaughter$1HasJoinedHerHusbandsFamily, formatPersonName(daughter.name)));
             }
          }
          removeEmptyFamily(save);
@@ -158,7 +160,20 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
    if (!state) {
       return EmptyGameAction;
    }
-   const name = randomFemaleName();
+   const name = getNameGenerator(save.state.scenario, save.options.language).randomName({ gender: "female" });
+   let effect: IGameEffectWithName | undefined;
+   const cost: ProvinceResourceCosts = { gold: 100 };
+   if (!hasScenarioFlag("Concubinage", save)) {
+      effect = {
+         name: $t(L.TakeALoverWith$1, formatPersonName(name)),
+         modifiers: {
+            Stability: { type: "add", value: -5, duration: TimedActions.TakeLover.duration },
+            Prestige: { type: "multiply", value: -0.05, duration: TimedActions.TakeLover.duration },
+            MonthlyGold: { type: "add", value: -10, duration: TimedActions.TakeLover.duration },
+         },
+      };
+      cost.christianity = isChristianReligion(state.religion) ? 5 : 0;
+   }
    return {
       condition: finalizeCondition([
          ...timedActionConditions({ action: "TakeLover" }, province, save),
@@ -167,18 +182,8 @@ export function TakeLoverAction(province: Province, save: SaveGame): IGameAction
             value: state.governor.male.age >= MinimumOffspringAge,
          },
       ]),
-      cost: {
-         gold: 100,
-         christianity: isChristianReligion(state.religion) ? 5 : 0,
-      },
-      effect: {
-         name: $t(L.TakeALoverWith$1, name.join(" ")),
-         modifiers: {
-            Stability: { type: "add", value: -5, duration: TimedActions.TakeLover.duration },
-            Prestige: { type: "multiply", value: -0.05, duration: TimedActions.TakeLover.duration },
-            MonthlyGold: { type: "add", value: -10, duration: TimedActions.TakeLover.duration },
-         },
-      },
+      cost,
+      effect,
       execute: () => {
          startTimedAction("TakeLover", province, save);
          state.governor.concubines.push(

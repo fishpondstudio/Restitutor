@@ -58,7 +58,7 @@ export function ProvinceListSingletonModal(): React.ReactNode {
                      {
                         id: "rank",
                         header: null,
-                        headerProps: { style: { width: 0 }, "aria-label": $t(L.PrestigeRankingOfAllProvinces) },
+                        headerProps: { style: { width: 0 } },
                         compare: (a, b) => a.rank - b.rank,
                      },
                      { id: "province", header: $t(L.Province), compare: (a, b) => a.name.localeCompare(b.name) },

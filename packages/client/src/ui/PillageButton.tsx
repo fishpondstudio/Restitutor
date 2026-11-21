@@ -1,6 +1,6 @@
 import type { Tile } from "@project/shared/src/utils/Helper";
 import { PillageAction, type PillageUpgrade, PillageUpgrades } from "../game/actions/PillageActions";
-import { ProvinceResourceNames } from "../game/definitions/ProvinceResources";
+import { getResourceName } from "../game/definitions/ProvinceResources";
 import { hasProvinceUpgrade } from "../game/definitions/ProvinceUpgrades";
 import { getTilePillageRefund } from "../game/logic/TileLogic";
 import { getTimedActionDesc } from "../game/logic/TimedActionLogic";
@@ -31,7 +31,7 @@ export function PillageButton({ tile, upgrade }: { tile: Tile; upgrade: PillageU
                   <div className="divider" />
                   <div className="row mx10 my5 g5">
                      <img src={ProvinceResourceImages[config.resource]} className="icon-block" />
-                     <div>{ProvinceResourceNames[config.resource]()}</div>
+                     <div>{getResourceName(config.resource, G.save.state.scenario)}</div>
                      <div className="f1" />
                      <div>{colorNumber(refund)}</div>
                   </div>

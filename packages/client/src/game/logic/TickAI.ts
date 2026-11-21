@@ -21,6 +21,7 @@ import { CrackDownAction } from "../actions/CrackDownAction";
 import { DeclareWarAction } from "../actions/DeclareWarAction";
 import { DenounceAction } from "../actions/DenounceAction";
 import { canDoAction, finalizeCondition, type IGameAction, printAction, tryDoAction } from "../actions/GameAction";
+import { EnlistCourtSupportAction } from "../actions/ImperialInterventionActions";
 import { MakeCoreAction } from "../actions/MakeCoreAction";
 import { NegotiateWhitePeaceAction } from "../actions/NegotiateWhitePeaceAction";
 import { ResearchTechAction } from "../actions/ResearchTechAction";
@@ -62,11 +63,14 @@ import { getProvinceTilesCached } from "./CacheLogic";
 import { getBestRegionalCapitalTiles, getRegionalCapitalCount } from "./CapitalLogic";
 import {
    cancelImproveRelations,
+   cancelInfiltration,
    getAttitudeTowards,
    getDiplomats,
    getRelation,
    getRelations,
    improveRelations,
+   infiltrate,
+   RequestImperialFavorCost,
 } from "./DiplomacyLogic";
 import { getGameDate } from "./GameDateTime";
 import { getToleratedCulture, getToleratedReligion } from "./InternalAffairsLogic";
@@ -87,6 +91,7 @@ import {
    pledgeProvinceConsulVotesConditions,
 } from "./ProvinceLogic";
 import { getProvinceResource, hasEnoughProvinceResources, trySpendProvinceResources } from "./ResourceLogic";
+import { hasScenarioFlag } from "./ScenarioLogic";
 import { getCheapestLockedTech } from "./TechLogic";
 import { getBuildingSlot, getProvincesByDistance, getTileUnrest, getTileWar } from "./TileLogic";
 import {
@@ -95,6 +100,7 @@ import {
    makeGameAction,
    timedActionConditions,
 } from "./TimedActionLogic";
+import { assignAICharacters } from "./TKCharacterAI";
 import { getTreatyCount } from "./TreatyLogic";
 import {
    calculateWarLengthForStability,
@@ -327,10 +333,14 @@ export function tickAI(save: SaveGame): void {
          }
          state.toleratedReligions.add(religion);
       }
-      selectAdvisor(province, save);
+      if (hasScenarioFlag("TKCharacter", save)) {
+         assignAICharacters(province, save);
+      } else {
+         selectAdvisor(province, save);
+      }
       doProduction(province, save);
       doTrade(province, save);
-      doSenateVote(province, save);
+      doPolitics(province, save);
       doDenounce(province, save);
       doFocus(province, save);
       doDiplomacy(province, save);
@@ -342,7 +352,9 @@ export function tickAI(save: SaveGame): void {
       } else {
          doWar(province, save);
       }
-      doReligion(province, save);
+      if (hasScenarioFlag("Christianity", save)) {
+         doReligion(province, save);
+      }
       tryDoAIHeadlessAction(
          makeGameAction("AppointPontiff", province, save),
          "AppointPontiffEnvoyArmyStaff",
@@ -718,9 +730,29 @@ function getDesiredTreatyCount(province: Province, save: SaveGame): number {
    return clamp(getProvinceStat("defendCount", province, save), 1, getDiplomats(province, save).value);
 }
 
-function doSenateVote(province: Province, save: SaveGame): void {
-   if (finalizeCondition(pledgeProvinceConsulVotesConditions(province, save)).value) {
+function doPolitics(province: Province, save: SaveGame): void {
+   const senate = hasScenarioFlag("Senate", save);
+   const court = hasScenarioFlag("ImperialCourt", save);
+   if (!senate && !court) {
+      return;
+   }
+   if (senate && finalizeCondition(pledgeProvinceConsulVotesConditions(province, save)).value) {
       pledgeProvinceConsulVotes(province, save);
+   }
+   if (court && getTimedActionCooldownLeft("EnlistCourtSupport", province, save) === 0) {
+      for (const [contact, relation] of getRelations(province, save) ?? []) {
+         if (
+            relation.infiltrate.value >= RequestImperialFavorCost &&
+            tryDoAIHeadlessAction(
+               EnlistCourtSupportAction(province, contact, save),
+               "EnlistCourtSupport",
+               province,
+               save,
+            )
+         ) {
+            break;
+         }
+      }
    }
    if (getProvinceResource("consulPoint", province, save) > 0) {
       tryDoAIHeadlessAction(makeGameAction("RequestFunding", province, save), "RequestFunding", province, save);
@@ -744,6 +776,7 @@ function doDiplomacy(province: Province, save: SaveGame): void {
    getRelations(province, save)?.forEach((relation, otherProvince) => {
       if (relation.treaty) {
          improveRelations(province, otherProvince, save);
+         infiltrate(province, otherProvince, save);
          // If we already have a treaty, we will try to upgrade it to higher levels, but not with the player!
          if (!hasFlag(G.flags, GameFlags.Sandbox) && otherProvince === save.state.playerProvince) {
             return;
@@ -758,6 +791,7 @@ function doDiplomacy(province: Province, save: SaveGame): void {
          }
       } else {
          cancelImproveRelations(province, otherProvince, save);
+         cancelInfiltration(province, otherProvince, save);
       }
    });
    const newRivals = candidates

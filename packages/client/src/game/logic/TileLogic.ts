@@ -184,6 +184,12 @@ function _getTileManpower(tile: Tile, save: SaveGame): IValueBreakdown {
          value: Math.min(countProvinceTiles({ culture: "Anatolian", core: true }, data.province, save) * 0.01, 0.5),
       });
    }
+   if (hasProvinceUpgrade("StableRecruitment", data.province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.StableRecruitment.name(),
+         value: Math.min(Math.max(getProvinceStability(data.province, save).value, 0) * 0.01, 0.25),
+      });
+   }
    if (hasProvinceUpgrade("DevelopedRecruitment", data.province, save)) {
       breakdown.multiply.push({
          name: ProvinceUpgrades.DevelopedRecruitment.name(),
@@ -495,6 +501,18 @@ function _getTileLandTax(tile: Tile, save: SaveGame): IValueBreakdown {
       save.state.wars.some((war) => war.defender === data.province && war.actualWarScore < war.requiredWarScore)
    ) {
       breakdown.multiply.push({ name: ProvinceUpgrades.DefensiveMobilization.name(), value: 0.25 });
+   }
+   if (hasProvinceUpgrade("DevelopedTaxation", data.province, save) && data.coreProvinces.has(data.province)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.DevelopedTaxation.name(),
+         value: Math.min((data.infrastructure + data.production + data.population) * 0.01, 0.25),
+      });
+   }
+   if (hasProvinceUpgrade("ConscriptionTaxation", data.province, save)) {
+      breakdown.multiply.push({
+         name: ProvinceUpgrades.ConscriptionTaxation.name(),
+         value: Math.min(getProvinceStat("actualConscription", data.province, save) * 0.005, 0.25),
+      });
    }
    if (hasProvinceUpgrade("MilitaryTaxation", data.province, save)) {
       breakdown.multiply.push({

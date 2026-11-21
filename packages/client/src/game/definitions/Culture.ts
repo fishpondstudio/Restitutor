@@ -7,6 +7,13 @@ interface ICultureConfig {
 }
 
 const _Culture = {
+   CentralHan: { name: () => $t(L.CultureCentralHan), code: "CH" },
+   NorthernHan: { name: () => $t(L.CultureNorthernHan), code: "NH" },
+   Liangzhou: { name: () => $t(L.CultureLiangzhou), code: "LZ" },
+   BaShu: { name: () => $t(L.CultureBaShu), code: "BS" },
+   JingChu: { name: () => $t(L.CultureJingChu), code: "JC" },
+   WuYue: { name: () => $t(L.CultureWuYue), code: "WY" },
+   Jiaozhi: { name: () => $t(L.CultureJiaozhi), code: "JZ" },
    Greek: { name: () => $t(L.CultureGreek), code: "GR" },
    Gallic: { name: () => $t(L.CultureGallic), code: "GA" },
    Italic: { name: () => $t(L.CultureItalic), code: "IT" },

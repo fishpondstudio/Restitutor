@@ -7,6 +7,7 @@ import type { Province } from "../definitions/Province";
 import { Tech } from "../definitions/Tech";
 import { type TimedAction, TimedActions, type TimedEffectAction } from "../definitions/TimedAction";
 import type { SaveGame } from "../GameState";
+import { Scenarios } from "../scenarios/Scenarios";
 import { hasResearched } from "./TechLogic";
 
 export function getTimedActionCooldownLeft(timedAction: TimedAction, province: Province, save: SaveGame): number {
@@ -54,7 +55,7 @@ export function timedActionConditions(
    const def = TimedActions[action];
    if (def.cooldown > 0) {
       result.push({
-         name: htmlText($t(L.$1NotOnCooldown, def.name())),
+         name: htmlText($t(L.$1NotOnCooldown, getTimedActionName(action, save))),
          desc:
             cooldownLeft > 0
                ? $t(L.$1MonthsLeft, formatNumber(cooldownLeft))
@@ -106,4 +107,9 @@ export function makeGameAction(timedAction: TimedEffectAction, province: Provinc
          startTimedAction(timedAction, province, save);
       },
    };
+}
+
+export function getTimedActionName(timedAction: TimedAction, save: SaveGame): string {
+   const scenario = Scenarios[save.state.scenario];
+   return scenario.timedActionNames?.[timedAction]?.() ?? TimedActions[timedAction].name();
 }

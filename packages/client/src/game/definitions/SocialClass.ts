@@ -2,6 +2,7 @@ import type { MantineColor } from "@mantine/core";
 import { hslToHex } from "@project/shared/src/thirdparty/RandomColor";
 import { $t, L } from "../../utils/i18n";
 import type { IGameEffect } from "../GameEffect";
+import { type Scenario, Scenarios } from "../scenarios/Scenarios";
 import { SocialClassBonusDefaultDuration } from "./Constant";
 import type { IBaseModifier, Modifier } from "./Modifier";
 export interface ISocialClassData {
@@ -74,6 +75,10 @@ export const _SocialClass = {
 
 export type SocialClass = keyof typeof _SocialClass;
 export const SocialClass = _SocialClass as Record<SocialClass, ISocialClassConfig>;
+
+export function getSocialClassName(socialClass: SocialClass, scenario: Scenario): string {
+   return Scenarios[scenario].socialClassNames?.[socialClass]?.() ?? SocialClass[socialClass].name();
+}
 
 export interface ISocialClassBonus {
    effect: IGameEffect;

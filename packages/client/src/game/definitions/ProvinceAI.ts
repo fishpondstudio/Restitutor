@@ -16,6 +16,7 @@ export const AIActions = [
    "LookForSpouse",
    "RecruitGeneral",
    "RequestFunding",
+   "EnlistCourtSupport",
    "DeclareWar",
    "SignPeaceTreaty",
    "NegotiateWhitePeace",

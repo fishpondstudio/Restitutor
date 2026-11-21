@@ -9,7 +9,7 @@ import { TreatyNames } from "../game/definitions/Diplomacy";
 import { Goods } from "../game/definitions/Goods";
 import type { Province } from "../game/definitions/Province";
 import { ProvinceFlags } from "../game/definitions/ProvinceState";
-import { SocialClass } from "../game/definitions/SocialClass";
+import { getSocialClassName, SocialClass } from "../game/definitions/SocialClass";
 import { Tech } from "../game/definitions/Tech";
 import { getTileName } from "../game/definitions/TileName";
 import { TimedActions } from "../game/definitions/TimedAction";
@@ -32,6 +32,7 @@ import {
    monthsToNextConsulElection,
 } from "../game/logic/ProvinceLogic";
 import { getProvinceResource } from "../game/logic/ResourceLogic";
+import { hasScenarioFlag } from "../game/logic/ScenarioLogic";
 import { getAgendas, isSocialClassDisloyal, isSocialClassDominant } from "../game/logic/SocialClassLogic";
 import { getTechsCanBeResearched, hasResearched } from "../game/logic/TechLogic";
 import { getTileUnrest } from "../game/logic/TileLogic";
@@ -293,10 +294,10 @@ const SocialClassDissent: ITodo = {
       const result: string[] = [];
       forEach(SocialClass, (socialClass, data) => {
          if (isSocialClassDominant(socialClass, save.state.playerProvince, save)) {
-            result.push($t(L.$1ClassIsDominantTooltip, SocialClass[socialClass].name()));
+            result.push($t(L.$1ClassIsDominantTooltip, getSocialClassName(socialClass, save.state.scenario)));
          }
          if (isSocialClassDisloyal(socialClass, save.state.playerProvince, save)) {
-            result.push($t(L.$1ClassIsDisloyalTooltip, SocialClass[socialClass].name()));
+            result.push($t(L.$1ClassIsDisloyalTooltip, getSocialClassName(socialClass, save.state.scenario)));
          }
       });
       if (result.length === 0) {
@@ -321,6 +322,9 @@ const PledgeSupportToConsulCandidates: ITodo = {
    icon: (save) => IconCatalog.Senate,
    className: (save) => "yellow",
    tooltip: (save) => {
+      if (!hasScenarioFlag("Senate", save)) {
+         return null;
+      }
       const state = save.state.provinces[save.state.playerProvince];
       if (!state || hasFlag(state.flags, ProvinceFlags.AutomaticallyPledgeSupport)) {
          return null;
@@ -341,6 +345,9 @@ const ExpiringConsulPoints: ITodo = {
    icon: (save) => IconCatalog.Decree,
    className: (save) => "yellow",
    tooltip: (save) => {
+      if (!hasScenarioFlag("Senate", save)) {
+         return null;
+      }
       const monthsToNextElection = monthsToNextConsulElection(save);
       if (getProvinceResource("consulPoint", save.state.playerProvince, save) > 0 && monthsToNextElection < 6) {
          return (
@@ -809,6 +816,9 @@ const EmptyAdvisorSlots: ITodo = {
    icon: (save) => IconCatalog.EmptyAdvisor,
    className: (save) => "yellow",
    tooltip: (save) => {
+      if (hasScenarioFlag("TKCharacter", save)) {
+         return null;
+      }
       const data = save.state.provinces[save.state.playerProvince];
       if (!data) {
          return null;

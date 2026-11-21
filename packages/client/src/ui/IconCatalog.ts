@@ -20,6 +20,7 @@ import EcumenicalCouncil from "../assets/images/EcumenicalCouncil.svg";
 import EmptyAdvisor from "../assets/images/EmptyAdvisor.svg";
 import FamilyTree from "../assets/images/FamilyTree.svg";
 import Gold from "../assets/images/Gold.svg";
+import ImperialCourt from "../assets/images/ImperialCourt.svg";
 import Islam from "../assets/images/Islam.svg";
 import Legacy from "../assets/images/Legacy.svg";
 import Loan from "../assets/images/Loan.svg";
@@ -71,6 +72,7 @@ export const IconCatalog = {
    EmptyAdvisor,
    FamilyTree,
    Gold,
+   ImperialCourt,
    Legacy,
    Loan,
    MapIcon,

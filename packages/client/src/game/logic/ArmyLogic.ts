@@ -2,11 +2,13 @@ import { clamp, clearFlag, formatDelta, formatNumber, hasFlag } from "@project/s
 import { $t, L } from "../../utils/i18n";
 import { finalizeBreakdown, type ICondition, type IValueBreakdown, makeValueBreakdown } from "../actions/GameAction";
 import { PersonFlags } from "../definitions/Family";
+import { getStrategistSlots } from "../definitions/GovernmentTier";
 import { makeModifierGetter } from "../definitions/Modifier";
 import type { Province } from "../definitions/Province";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { getTileName } from "../definitions/TileName";
 import type { SaveGame } from "../GameState";
+import { TKCharacters } from "../ThreeKingdoms/TKCharacter";
 import { cacheProvince, getProvinceCoreTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { getProvinceCultures } from "./InternalAffairsLogic";
@@ -21,8 +23,16 @@ import {
    setProvinceStat,
 } from "./ProvinceLogic";
 import { provinceResourceOf } from "./ResourceLogic";
+import { hasScenarioFlag } from "./ScenarioLogic";
 import { getTileManpower } from "./TileLogic";
 import { endTimedActionAndResetCooldown, getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
+import {
+   getCharacterInSlot,
+   getTKCharacterName,
+   getTKCharacterTierToPercentage,
+   isTKCharacterAlive,
+   isTKCharacterRuler,
+} from "./TKCharacterLogic";
 import { getProvinceTrades } from "./TradeLogic";
 import { getCurrentWars, MonthlyExtraArmyMaintenancePct } from "./WarLogic";
 
@@ -229,6 +239,28 @@ export interface IWarPowerBreakdown {
    total: IValueBreakdown;
 }
 
+export function getStrategistWarPowerBonus(province: Province, save: SaveGame): IValueBreakdown {
+   const result = makeValueBreakdown();
+   const state = save.state.provinces[province];
+   if (state && hasScenarioFlag("TKCharacter", save)) {
+      for (const slot of getStrategistSlots()) {
+         const strategist = getCharacterInSlot(province, slot, save);
+         if (
+            strategist &&
+            isTKCharacterAlive(strategist, save) &&
+            !isTKCharacterRuler(strategist, province, save) &&
+            TKCharacters[strategist].traits.has("Martial")
+         ) {
+            result.add.push({
+               name: $t(L.$1Strategist, getTKCharacterName(strategist).fullName),
+               value: getTKCharacterTierToPercentage(TKCharacters[strategist].tier),
+            });
+         }
+      }
+   }
+   return finalizeBreakdown(result);
+}
+
 export function getWarPower(
    { composition, enemy }: { composition?: ArmyComposition; enemy?: ArmyUnitPowers },
    province: Province,
@@ -269,6 +301,7 @@ export function getWarPower(
    const ranged = makeUnitPower("ranged", "infantry", "cavalry");
    const cavalry = makeUnitPower("cavalry", "ranged", "infantry");
    result.add.push({ name: $t(L.CombinedPower), value: infantry.value + ranged.value + cavalry.value });
+   result.multiply.push(...getStrategistWarPowerBonus(province, save).add);
    if (hasProvinceUpgrade("InfantryPredominance", province, save)) {
       result.multiply.push({
          name: ProvinceUpgrades.InfantryPredominance.name(),
@@ -349,6 +382,16 @@ export function getWarPower(
             value: tradeCount * 0.1,
          });
       }
+   }
+   if (hasProvinceUpgrade("SkilledCommand", province, save)) {
+      const generalSkill =
+         getProvinceStat("infantrySkill", province, save) +
+         getProvinceStat("rangedSkill", province, save) +
+         getProvinceStat("cavalrySkill", province, save);
+      result.multiply.push({
+         name: ProvinceUpgrades.SkilledCommand.name(),
+         value: Math.min(generalSkill * 0.03, 0.3),
+      });
    }
    if (hasProvinceUpgrade("ExperiencedCommand", province, save)) {
       const generalSkill =
@@ -445,6 +488,18 @@ export function hasGeneralCondition(province: Province, save: SaveGame): ICondit
       name: $t(L.CurrentlyHasAGeneral),
       value: getCurrentGeneral(province, save) !== undefined,
    };
+}
+
+export function* requireHigherWarPowerChecks(
+   ourProvince: Province,
+   theirProvince: Province,
+   save: SaveGame,
+): ConditionChecks {
+   (yield !!save.state.provinces[ourProvince] &&
+      !!save.state.provinces[theirProvince] &&
+      getWarPower({}, ourProvince, save).total.value > getWarPower({}, theirProvince, save).total.value)?.describe(
+      $t(L.$1HasGreaterWarPowerThan$2, getProvinceName(ourProvince, save), getProvinceName(theirProvince, save)),
+   );
 }
 
 export function* hasGeneralChecks(province: Province, save: SaveGame): ConditionChecks {

@@ -17,6 +17,22 @@ export interface IProvinceUpgrade {
 }
 
 const _ProvinceUpgrades = {
+   StableRecruitment: {
+      name: () => $t(L.StableRecruitment),
+      desc: () => $t(L.StableRecruitmentDesc$1$2, "+1%", "+25%"),
+   },
+   SkilledCommand: {
+      name: () => $t(L.SkilledCommand),
+      desc: () => $t(L.SkilledCommandDesc$1$2, "+3%", "+30%"),
+   },
+   DevelopedTaxation: {
+      name: () => $t(L.DevelopedTaxation),
+      desc: () => $t(L.DevelopedTaxationDesc$1$2, "+1%", "+25%"),
+   },
+   ConscriptionTaxation: {
+      name: () => $t(L.ConscriptionTaxation),
+      desc: () => $t(L.ConscriptionTaxationDesc$1$2$3, "+0.5%", "1%", "+25%"),
+   },
    LevyJizya: {
       name: () => $t(L.LevyJizya),
       desc: () => $t(L.LevyJizyaDesc$1$2, "+10%", "-10%"),

@@ -2,15 +2,18 @@ import { forEach, safePush } from "@project/shared/src/utils/Helper";
 import { G } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
 import { GameStateUpdated } from "../Events";
-import { isGreatWorkCompleted } from "../logic/GreatWorkLogic";
+import { getScenarioGreatWorks, isGreatWorkCompleted } from "../logic/GreatWorkLogic";
 import { ensureValidModifiers } from "../logic/ModifierLogic";
+import { formatPersonName } from "../logic/NameLogic";
 import { isSocialClassDisloyal, isSocialClassDominant } from "../logic/SocialClassLogic";
 import { getTimedActionTimeLeft } from "../logic/TimedActionLogic";
+import { getProvinceAssignedCharacters, getTKCharacterName, isTKCharacterAlive } from "../logic/TKCharacterLogic";
+import { TKCharacters } from "../ThreeKingdoms/TKCharacter";
 import { GreatWork } from "./GreatWork";
 import { LegacyUpgrades } from "./LegacyUpgrade";
 import { type IPersonTrait, PersonTrait } from "./PersonTrait";
 import { ProvinceUpgrades } from "./ProvinceUpgrades";
-import { SocialClass } from "./SocialClass";
+import { getSocialClassName, SocialClass } from "./SocialClass";
 import { Tech } from "./Tech";
 import { TimedActions } from "./TimedAction";
 
@@ -33,7 +36,7 @@ function updateModifier(): void {
             });
          });
       };
-      addTraits(state.governor.male.traits, state.governor.male.name.join(" "), true);
+      addTraits(state.governor.male.traits, formatPersonName(state.governor.male.name), true);
       forEach(state.advisors, (_, advisor) => {
          if (advisor.selected) {
             addTraits(advisor.selected.traits, advisor.selected.name, false);
@@ -75,6 +78,20 @@ function updateModifier(): void {
             });
          }
       });
+      const characters = new Set(getProvinceAssignedCharacters(province, G.save).map(([, character]) => character));
+      const ruler = state.governor.male.character;
+      if (ruler !== undefined && isTKCharacterAlive(ruler, G.save)) {
+         characters.add(ruler);
+      }
+      for (const character of characters) {
+         forEach(TKCharacters[character].modifiers, (modifier, data) => {
+            safePush(state.dynamicModifiers, modifier, {
+               type: data.type,
+               value: data.value,
+               name: getTKCharacterName(character).fullName,
+            });
+         });
+      }
       state.timedActions.forEach((_, timedAction) => {
          const timeLeft = getTimedActionTimeLeft(timedAction, province, G.save);
          if (timeLeft <= 0) {
@@ -100,7 +117,7 @@ function updateModifier(): void {
                safePush(state.dynamicModifiers, modifier, {
                   type,
                   value,
-                  name: $t(L.$1ClassIsDominant, SocialClass[socialClass].name()),
+                  name: $t(L.$1ClassIsDominant, getSocialClassName(socialClass, G.save.state.scenario)),
                });
             });
          }
@@ -110,16 +127,17 @@ function updateModifier(): void {
                safePush(state.dynamicModifiers, modifier, {
                   type,
                   value,
-                  name: $t(L.$1ClassIsDisloyal, SocialClass[socialClass].name()),
+                  name: $t(L.$1ClassIsDisloyal, getSocialClassName(socialClass, G.save.state.scenario)),
                });
             });
          }
       });
    });
-   forEach(GreatWork, (greatWork, config) => {
+   for (const greatWork of getScenarioGreatWorks(G.save.state.scenario)) {
       if (!isGreatWorkCompleted(greatWork, G.save)) {
-         return;
+         continue;
       }
+      const config = GreatWork[greatWork];
       forEach(config.modifiers, (modifier, data) => {
          const tileData = G.save.state.tiles.get(config.tile);
          if (!tileData) {
@@ -136,7 +154,7 @@ function updateModifier(): void {
             name: config.name(),
          });
       });
-   });
+   }
    ensureValidModifiers(G.save);
 }
 

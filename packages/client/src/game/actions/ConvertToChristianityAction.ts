@@ -7,6 +7,7 @@ import type { SaveGame } from "../GameState";
 import { changeProvinceReligion } from "../logic/InternalAffairsLogic";
 import { getProvinceGoverningCost } from "../logic/ProvinceLogic";
 import { getProvinceResource } from "../logic/ResourceLogic";
+import { requireScenarioFlagCondition } from "../logic/ScenarioLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
@@ -19,6 +20,7 @@ export function ConvertToChristianityAction(province: Province, save: SaveGame):
    const christianity = getProvinceResource("christianity", province, save);
    return {
       condition: finalizeCondition([
+         ...requireScenarioFlagCondition("Christianity", save),
          {
             name: $t(L.ChristianInfluenceIsHigherThanGoverningCost),
             value: christianity > governingCost.value,

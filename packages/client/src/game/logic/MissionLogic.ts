@@ -3,10 +3,12 @@ import { $t, L } from "../../utils/i18n";
 import type { ICondition } from "../actions/GameAction";
 import { OfferPatronageAction } from "../actions/TreatyActions";
 import { Culture } from "../definitions/Culture";
+import { GovernmentTier } from "../definitions/GovernmentTier";
 import { durationToString } from "../definitions/Modifier";
 import { Province } from "../definitions/Province";
 import { type ProvinceNameOverride, ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
-import { type ProvinceResource, ProvinceResourceNames } from "../definitions/ProvinceResources";
+import type { ProvinceResource } from "../definitions/ProvinceResources";
+import { getResourceName } from "../definitions/ProvinceResources";
 import { Religion } from "../definitions/Religion";
 import { SpawnedProvinces } from "../definitions/SpawnedProvince";
 import { getTileName } from "../definitions/TileName";
@@ -44,6 +46,7 @@ import {
 import { addProvinceResource, getProvinceResource, provinceResourceOf } from "./ResourceLogic";
 import { isCoreTile, setTileNameOverride } from "./TileLogic";
 import { getTimedActionTimeLeft, startTimedAction } from "./TimedActionLogic";
+import { transferProvinceCharacters } from "./TKCharacterLogic";
 import { dissolveAllTreaties, getAllies } from "./TreatyLogic";
 
 export function annexTiles({
@@ -91,6 +94,7 @@ export function annexTiles({
 }
 
 function onProvinceFullyAnnexed(annexedProvince: Province, province: Province, save: SaveGame): void {
+   transferProvinceCharacters(annexedProvince, province, save);
    cleanUpProvince(annexedProvince, save);
    addProvinceResource("mandate", 1, province, save);
    if (annexedProvince in SpawnedProvinces) {
@@ -128,6 +132,18 @@ export function annexTileEffect(tile: Tile, core: boolean): ICustomEffect {
             : $t(L.$1Annexes$2, getProvinceName(province, save), getTileName(tile, save)),
       execute: (province, save) => {
          annexTiles({ tiles: [tile], core, province, save });
+      },
+   };
+}
+
+export function changeGovernmentTierEffect(tier: GovernmentTier): ICustomEffect {
+   return {
+      desc: (province, save) => $t(L.OurRankIsNow$1, GovernmentTier[tier].name()),
+      execute: (province, save) => {
+         const state = save.state.provinces[province];
+         if (state && GovernmentTier[tier].slots > GovernmentTier[state.tier].slots) {
+            state.tier = tier;
+         }
       },
    };
 }
@@ -331,7 +347,7 @@ export function* provinceResourceChecks(
 ): ConditionChecks {
    const available = getProvinceResource(resource, province, save);
    (yield available >= minimum)?.describe(
-      $t(L.HaveAtLeast$1$2, formatNumber(minimum), ProvinceResourceNames[resource]()),
+      $t(L.HaveAtLeast$1$2, formatNumber(minimum), getResourceName(resource, save.state.scenario)),
       { progress: [available, minimum] },
    );
 }
@@ -343,9 +359,12 @@ export function* provinceUsedResourceChecks(
    save: SaveGame,
 ): ConditionChecks {
    const [, used] = provinceResourceOf(resource, province, save);
-   (yield used >= minimum)?.describe($t(L.SpendAtLeast$1$2, formatNumber(minimum), ProvinceResourceNames[resource]()), {
-      progress: [used, minimum],
-   });
+   (yield used >= minimum)?.describe(
+      $t(L.SpendAtLeast$1$2, formatNumber(minimum), getResourceName(resource, save.state.scenario)),
+      {
+         progress: [used, minimum],
+      },
+   );
 }
 
 export function* marriageChecks(province1: Province, province2: Province, save: SaveGame): ConditionChecks {

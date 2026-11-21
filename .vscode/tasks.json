@@ -27,9 +27,6 @@
          "problemMatcher": ["$tsc-watch"],
          "label": "npm: typecheck",
          "isBackground": true,
-         "runOptions": {
-            "runOn": "folderOpen"
-         }
       },
       {
          "type": "npm",

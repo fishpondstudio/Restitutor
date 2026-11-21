@@ -332,8 +332,22 @@ class TimedActionDefinitions {
          };
       },
       modifiers: {
-         TileOutput: { type: "multiply", value: 0.25 },
-         LandTax: { type: "multiply", value: 0.25 },
+         TileOutput: { type: "multiply", value: 0.2 },
+         LandTax: { type: "multiply", value: 0.2 },
+      },
+   };
+   CutPublicSpending: ITimedEffectAction = {
+      name: () => $t(L.CutPublicSpending),
+      duration: 12,
+      cooldown: 12,
+      costCondition: (province, save) => {
+         return {
+            cost: { consulPoint: 1 },
+         };
+      },
+      modifiers: {
+         TileMaintenance: { type: "multiply", value: -0.2 },
+         BuildingMaintenanceCost: { type: "multiply", value: -0.2 },
       },
    };
    EnactSenateOversight: ITimedEffectAction = {
@@ -392,7 +406,25 @@ class TimedActionDefinitions {
    };
    PublicEnemy: ITimedAction = {
       name: () => $t(L.NamePublicEnemy),
-      desc: () => $t(L.TimedActionPublicEnemyDesc$1, "10%"),
+      desc: () => $t(L.NamePublicEnemyDesc$1, "10%"),
+      duration: 12 * 2,
+      cooldown: 12 * 2,
+   };
+   RestrictArmsSupply: ITimedAction = {
+      name: () => $t(L.RestrictArmsSupply),
+      desc: () => $t(L.RestrictArmsSupplyDesc$1, "10%"),
+      duration: 12 * 2,
+      cooldown: 12 * 2,
+   };
+   OrderAnInquiry: ITimedAction = {
+      name: () => $t(L.OrderAnInquiry),
+      desc: () => $t(L.OrderAnInquiryDesc$1, "10"),
+      duration: 12 * 2,
+      cooldown: 12 * 2,
+   };
+   IssueCensure: ITimedAction = {
+      name: () => $t(L.IssueCensure),
+      desc: () => $t(L.IssueCensureDesc$1, "20"),
       duration: 12 * 2,
       cooldown: 12 * 2,
    };
@@ -913,6 +945,12 @@ class TimedActionDefinitions {
       name: () => $t(L.UnderTheSignOfTheCrossAction),
       duration: 12 * 5,
       cooldown: 12 * 5,
+   };
+   EnlistCourtSupport: ITimedAction = {
+      name: () => $t(L.EnlistCourtSupport),
+      desc: () => $t(L.SpendInfiltrationToSecureImperialFavor),
+      duration: 0,
+      cooldown: 12,
    };
 }
 

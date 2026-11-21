@@ -1,0 +1,75 @@
+import { keysOf } from "@project/shared/src/utils/Helper";
+import { $t, L } from "../../utils/i18n";
+import type { GovernorPower } from "./ProvinceResources";
+
+export interface IGovernmentTier {
+   name: () => string;
+   slots: number;
+}
+
+export const GovernmentTier = {
+   Tier1: {
+      name: () => $t(L.Governor),
+      slots: 5,
+   },
+   Tier2: {
+      name: () => $t(L.Duke),
+      slots: 8,
+   },
+   Tier3: {
+      name: () => $t(L.King),
+      slots: 11,
+   },
+   Tier4: {
+      name: () => $t(L.Emperor),
+      slots: 14,
+   },
+} as const satisfies Record<string, IGovernmentTier>;
+
+interface ICharacterSlot {
+   type: "Advisor" | "AncestralTemple" | "Strategist";
+   governorPower?: GovernorPower;
+}
+
+const _CharacterSlots = {
+   Administrative1: { type: "Advisor", governorPower: "administrative" },
+   Diplomatic1: { type: "Advisor", governorPower: "diplomatic" },
+   Military1: { type: "Advisor", governorPower: "military" },
+   Administrative2: { type: "Advisor", governorPower: "administrative" },
+   Diplomatic2: { type: "Advisor", governorPower: "diplomatic" },
+   Military2: { type: "Advisor", governorPower: "military" },
+   AncestralTemple1: { type: "AncestralTemple" },
+   AncestralTemple2: { type: "AncestralTemple" },
+   AncestralTemple3: { type: "AncestralTemple" },
+   AncestralTemple4: { type: "AncestralTemple" },
+   AncestralTemple5: { type: "AncestralTemple" },
+   AncestralTemple6: { type: "AncestralTemple" },
+   Strategist1: { type: "Strategist" },
+   Strategist2: { type: "Strategist" },
+} as const satisfies Record<string, ICharacterSlot>;
+
+export type CharacterSlot = keyof typeof _CharacterSlots;
+export const CharacterSlots: Record<CharacterSlot, ICharacterSlot> = _CharacterSlots;
+
+export function getCharacterUnassignmentLabel(slot: CharacterSlot): string {
+   return CharacterSlots[slot].type === "AncestralTemple" ? $t(L.RemoveFromTemple) : $t(L.RelieveOfDuties);
+}
+
+export function isSalariedSlot(slot: CharacterSlot): boolean {
+   const { type } = CharacterSlots[slot];
+   return type === "Advisor" || type === "Strategist";
+}
+
+export function getAdvisorSlots(): CharacterSlot[] {
+   return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "Advisor");
+}
+
+export function getAncestralTempleSlots(): CharacterSlot[] {
+   return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "AncestralTemple");
+}
+
+export function getStrategistSlots(): CharacterSlot[] {
+   return keysOf(CharacterSlots).filter((slot) => CharacterSlots[slot].type === "Strategist");
+}
+
+export type GovernmentTier = keyof typeof GovernmentTier;

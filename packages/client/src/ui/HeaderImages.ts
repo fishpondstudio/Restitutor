@@ -4,6 +4,7 @@ import ChristianEmpire from "../assets/images/headers/ChristianEmpire.webp";
 import Chronicle from "../assets/images/headers/ChronicleHeader.webp";
 import Crisis from "../assets/images/headers/Crisis.webp";
 import EcumenicalCouncil from "../assets/images/headers/EcumenicalCouncil.webp";
+import ImperialCourt from "../assets/images/headers/ImperialCourt.webp";
 import Justinian from "../assets/images/headers/Justinian.webp";
 import Peace from "../assets/images/headers/Peace.webp";
 import Rebirth from "../assets/images/headers/Rebirth.webp";
@@ -13,6 +14,10 @@ import Treasury from "../assets/images/headers/Treasury.webp";
 import type { ImageWithCredit } from "../game/events/ImageWithCredit";
 
 export const HeaderImages = {
+   ImperialCourt: {
+      url: ImperialCourt,
+      credit: "Spring Morning in the Han Palace, Qiu Ying (before 1552)",
+   },
    BarbarianRaid: { url: BarbarianRaid, credit: "Alexander and Darius at Issus, Anton Hoffmann (1920)" },
    Senate: { url: Senate, credit: "Cicero's tale about Catiline, Hans Werner Schmidt (1912)" },
    EcumenicalCouncil: {

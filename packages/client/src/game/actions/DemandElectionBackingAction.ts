@@ -8,6 +8,7 @@ import {
    isGreatPowerCondition,
    isNorGreatPowerCondition,
 } from "../logic/ProvinceLogic";
+import { requireScenarioFlagCondition } from "../logic/ScenarioLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { finalizeCondition, type IGameAction } from "./GameAction";
 
@@ -19,6 +20,7 @@ export function DemandElectionBackingAction(
    return {
       cost: { diplomatic: 50 },
       condition: finalizeCondition([
+         ...requireScenarioFlagCondition("Senate", save),
          ...timedActionConditions({ action: "DemandElectionBacking" }, ourProvince, save),
          isGreatPowerCondition(ourProvince, save),
          isNorGreatPowerCondition(theirProvince, save),

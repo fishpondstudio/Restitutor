@@ -5,6 +5,7 @@ import type { Culture } from "./Culture";
 import type { IRelation } from "./Diplomacy";
 import type { IGovernorFamily } from "./Family";
 import type { Goods } from "./Goods";
+import type { GovernmentTier } from "./GovernmentTier";
 import type { LegacyUpgrade } from "./LegacyUpgrade";
 import type { IModifier, Modifier } from "./Modifier";
 import type { Province } from "./Province";
@@ -40,6 +41,7 @@ export interface IProvince {
    toleratedCultures: Set<Culture>;
    religion: Religion;
    toleratedReligions: Set<Religion>;
+   tier: GovernmentTier;
    resources: ProvinceResources;
    governor: IGovernorFamily;
    stats: ProvinceStats;

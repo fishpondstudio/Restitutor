@@ -27,7 +27,6 @@ import {
 import { Fonts } from "../Fonts";
 import { Culture } from "../game/definitions/Culture";
 import { Goods } from "../game/definitions/Goods";
-import { TileToGreatWork } from "../game/definitions/GreatWork";
 import type { Province } from "../game/definitions/Province";
 import { Religion } from "../game/definitions/Religion";
 import { getNewSettlementTiles, OceanLabels } from "../game/definitions/TileConstants";
@@ -42,7 +41,7 @@ import {
 } from "../game/Events";
 import { GameOptionFlag } from "../game/GameOption";
 import { isLand, LandSize } from "../game/Land";
-import { isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
+import { getGreatWorkTiles, isGreatWorkCompleted } from "../game/logic/GreatWorkLogic";
 import { getMapBackgroundColor, getMapColorH, getMapForegroundColor, getMapTextColor } from "../game/logic/MapColor";
 import { findProvinceLabelPosition } from "../game/logic/MapLogic";
 import { getProvinceName } from "../game/logic/ProvinceLogic";
@@ -335,10 +334,9 @@ export class WorldScene extends Scene {
                break;
             }
             case "GreatWorks": {
-               for (const [tile, tileData] of G.save.state.tiles) {
+               for (const [tile, gw] of getGreatWorkTiles(G.save.state.scenario)) {
                   const visual = this._overlayContainer.map.get(tile);
-                  const gw = TileToGreatWork.get(tile);
-                  if (visual && gw) {
+                  if (visual) {
                      const visible = isGreatWorkCompleted(gw, G.save);
                      if (visual.visible !== visible) {
                         visual.visible = visible;
@@ -469,7 +467,7 @@ export class WorldScene extends Scene {
             break;
          }
          case "GreatWorks": {
-            const gw = TileToGreatWork.get(tile);
+            const gw = getGreatWorkTiles(G.save.state.scenario).get(tile);
             if (gw) {
                const visual = new Sprite(G.textures.get("Misc/GreatWork"));
                this._overlayContainer.map.set(tile, visual);

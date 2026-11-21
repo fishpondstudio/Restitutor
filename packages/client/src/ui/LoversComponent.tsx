@@ -1,6 +1,8 @@
 import type React from "react";
 import { Fragment } from "react";
 import { TakeLoverAction } from "../game/actions/SpouseActions";
+import { formatPersonName } from "../game/logic/NameLogic";
+import { getTimedActionName } from "../game/logic/TimedActionLogic";
 import { G } from "../utils/Global";
 import { $t, L } from "../utils/i18n";
 import { ActionButton } from "./ActionButton";
@@ -16,7 +18,7 @@ export function LoversComponent(): React.ReactNode {
       <>
          <div className="m10">
             <ActionButton className="w100" action={() => TakeLoverAction(G.save.state.playerProvince, G.save)}>
-               {$t(L.TakeALover)}
+               {getTimedActionName("TakeLover", G.save)}
             </ActionButton>
          </div>
          {state.governor.concubines.map((concubine, idx) => (
@@ -30,7 +32,7 @@ export function LoversComponent(): React.ReactNode {
                      label={() => <PersonTooltip person={concubine} family={state.governor} />}
                   >
                      <div className="f1">
-                        <div className="text-display">{concubine.name.join(" ")}</div>
+                        <div className="text-display">{formatPersonName(concubine.name)}</div>
                         <div className="text-xs">
                            {$t(
                               L.Age$1Skill$2,

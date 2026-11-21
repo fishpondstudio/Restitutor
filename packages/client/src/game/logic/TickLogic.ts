@@ -13,11 +13,12 @@ import { hasProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { GameStateUpdated, GameTimeUpdated } from "../Events";
 import { showGameEventModal } from "../events/GameEventLogic";
 import type { SaveGame } from "../GameState";
-import { randomMaleName } from "../RomanNames";
 import { fixRelations } from "./DiplomacyLogic";
 import { getGameDate, monthToDate, tickToMonth, tickToYear } from "./GameDateTime";
+import { getScenarioGreatWorks } from "./GreatWorkLogic";
 import { getChristianityYearly, getIslamInfluenceYearly } from "./InternalAffairsLogic";
 import { getMapForegroundColor } from "./MapColor";
+import { formatPersonName } from "./NameLogic";
 import {
    ConsulCandidatesCount,
    ConsulElectionMonths,
@@ -31,6 +32,7 @@ import {
    resetProvinceResource,
    trySpendProvinceResources,
 } from "./ResourceLogic";
+import { getNameGenerator, hasScenarioFlag } from "./ScenarioLogic";
 import { addSocialClassInfluence, SocialClassInfluenceYearly } from "./SocialClassLogic";
 import { tickAI } from "./TickAI";
 import { tickProvince } from "./TickProvince";
@@ -107,11 +109,11 @@ function tickGreatWork(save: SaveGame): void {
       return;
    }
    const year = getGameDate(save.state.tick, save).getFullYear();
-   forEach(GreatWork, (gw, config) => {
-      if (config.completionYear === year) {
+   for (const gw of getScenarioGreatWorks(save.state.scenario)) {
+      if (GreatWork[gw].completionYear === year) {
          showPanel(GreatWorkCompletedModal, { greatWork: gw });
       }
-   });
+   }
 }
 
 function tickChroniclePopup(save: SaveGame): void {
@@ -134,6 +136,9 @@ function tickChroniclePopup(save: SaveGame): void {
 }
 
 function tickConsulElection(save: SaveGame) {
+   if (!hasScenarioFlag("Senate", save)) {
+      return;
+   }
    // We don't tick the first election as it will result in vacant consuls. Instead we set up two consuls as part of the initialization.
    if (save.state.month === 0) {
       return;
@@ -188,7 +193,10 @@ function tickConsulElection(save: SaveGame) {
    });
 
    save.state.senate.votes.clear();
-   save.state.senate.consulCandidates = range(0, ConsulCandidatesCount).map(() => randomMaleName().join(" "));
+   const nameGenerator = getNameGenerator(save.state.scenario, save.options.language);
+   save.state.senate.consulCandidates = range(0, ConsulCandidatesCount).map(() =>
+      formatPersonName(nameGenerator.randomName({ gender: "male" })),
+   );
 }
 
 export function tickWar(war: IWar, save: SaveGame): void {

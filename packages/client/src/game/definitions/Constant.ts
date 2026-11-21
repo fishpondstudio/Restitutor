@@ -19,3 +19,4 @@ export const BackupCount = 10;
 export const SocialClassBonusDefaultDuration = 12 * 5;
 export const HunsSpawnYear = 445;
 export const PendingGameEventTimeoutMonths = 12;
+export const CharacterTTLMonths = 12 * 100;

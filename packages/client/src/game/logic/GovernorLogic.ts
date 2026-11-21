@@ -24,8 +24,10 @@ import type { Province } from "../definitions/Province";
 import { isChristianReligion } from "../definitions/Religion";
 import { applyGameEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
-import { randomFemaleName, randomMaleName } from "../RomanNames";
+import type { INameGenerator } from "../scenarios/Scenarios";
 import { onGeneralEnded } from "./ArmyLogic";
+import { getNameGenerator, hasScenarioFlag } from "./ScenarioLogic";
+import { ageTKCharacter, getTKCharacterProvince, isTKCharacterAlive, killTKCharacter } from "./TKCharacterLogic";
 
 export const GovernorMinIncl = 3;
 export const GovernorMaxIncl = 6;
@@ -158,12 +160,16 @@ export function getOffspringChance(
    return finalizeBreakdown(breakdown);
 }
 
-export function generateRandomGovernor(province: Province, joinMonth = 0): IGovernorFamily {
+export function generateRandomGovernor(
+   province: Province,
+   nameGenerator: INameGenerator,
+   joinMonth = 0,
+): IGovernorFamily {
    return {
       id: uuid4(),
       male: ensureTraits({
          traits: new Set(),
-         name: randomMaleName(),
+         name: nameGenerator.randomName({ gender: "male" }),
          flag: PersonFlags.None,
          administrative: randInt(GovernorMinIncl, GovernorMaxExcl),
          diplomatic: randInt(GovernorMinIncl, GovernorMaxExcl),
@@ -278,11 +284,22 @@ function tickFamilyMembers(
    const existingChildren = [...governor.children];
    if (governor.male) {
       governor.male.age++;
+      if (governor.male.character && getTKCharacterProvince(governor.male.character, save) === province) {
+         ageTKCharacter(governor.male.character, 12, save);
+      }
       ensureTraits(governor.male);
       const deathChance = getDeathChance(governor.male, province, save).value;
-      if (Math.random() < deathChance / 100) {
+      const character = governor.male.character;
+      const characterDied =
+         character !== undefined &&
+         getTKCharacterProvince(character, save) === province &&
+         !isTKCharacterAlive(character, save);
+      if (Math.random() < deathChance / 100 || characterDied) {
          if (hasFlag(governor.male.flag, PersonFlags.IsGeneral)) {
             onGeneralEnded(province, save);
+         }
+         if (governor.male.character && getTKCharacterProvince(governor.male.character, save) === province) {
+            killTKCharacter(governor.male.character, save);
          }
          governor.male = null;
       }
@@ -303,6 +320,8 @@ function tickFamilyMembers(
 
    const male = governor.male;
    if (male) {
+      const nameGenerator = getNameGenerator(save.state.scenario, save.options.language);
+      const familyName = nameGenerator.getFamilyName(male.name);
       const females = governor.female ? [governor.female, ...governor.concubines] : governor.concubines;
       for (const female of females) {
          const offspringChance = getOffspringChance(governor, female, province, save).value;
@@ -317,7 +336,10 @@ function tickFamilyMembers(
          const [diplomaticMin, diplomaticMax] = getOffspringSkillRangeIncl(male.diplomatic, female.diplomatic);
          const [militaryMin, militaryMax] = getOffspringSkillRangeIncl(male.military, female.military);
          const person: IPerson = ensureTraits({
-            name: isMale ? randomMaleName(male.name[1]) : randomFemaleName(male.name[1]),
+            name: nameGenerator.randomName({
+               gender: isMale ? "male" : "female",
+               familyName,
+            }),
             flag: PersonFlags.None,
             age: 0,
             traits: new Set(),
@@ -335,7 +357,10 @@ function tickFamilyMembers(
             children: [],
          };
          if (governorBirths) {
-            const legitimate = female === governor.female;
+            if (hasScenarioFlag("Concubinage", save) && female !== governor.female) {
+               person.flag = setFlag(person.flag, PersonFlags.IsFromConcubine);
+            }
+            const legitimate = hasScenarioFlag("Concubinage", save) || female === governor.female;
             governorBirths.push({ child: offspring, legitimate });
             if (legitimate) {
                governor.children.push(offspring);

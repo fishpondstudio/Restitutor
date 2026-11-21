@@ -4,13 +4,13 @@ import { $t, L } from "../utils/i18n";
 import { unlockAchievement } from "./Achievement";
 import { Goods } from "./definitions/Goods";
 import { Province } from "./definitions/Province";
-import { ProvinceResourceNames } from "./definitions/ProvinceResources";
+import { getResourceName } from "./definitions/ProvinceResources";
 import { DefaultConscription } from "./definitions/ProvinceStats";
-import { SocialClass } from "./definitions/SocialClass";
+import { getSocialClassName } from "./definitions/SocialClass";
 import { Tech } from "./definitions/Tech";
 import { Tiles } from "./definitions/TileConstants";
 import { getTileName } from "./definitions/TileName";
-import { LugdunensisEvents } from "./events/LugdunensisEvents";
+import { LugdunensisEvents } from "./events/Rome/LugdunensisEvents";
 import type { SaveGame } from "./GameState";
 import { getCurrentGeneral } from "./logic/ArmyLogic";
 import { addAttitudeModifier, BaseDiplomats, getAttitudeTowards, getRelation } from "./logic/DiplomacyLogic";
@@ -242,7 +242,7 @@ const _Tutorial = {
    },
    FindSpouse: {
       name: () => $t(L.FindOurGovernorASpouse),
-      desc: () => $t(L.TutorialFindGovernorSpouseDesc$1, SocialClass.UpperClass.name()),
+      desc: (save) => $t(L.TutorialFindGovernorSpouseDesc$1, getSocialClassName("UpperClass", save.state.scenario)),
       progress: (save) => {
          const governor = save.state.provinces[save.state.playerProvince]?.governor;
          if (governor?.female) {
@@ -265,7 +265,13 @@ const _Tutorial = {
    },
    Trade: {
       name: () => $t(L.TutorialSetUpTradeWith$1, Province.Aquitania.name()),
-      desc: () => $t(L.TutorialSetUpTradeDesc$1$2$3, Goods.wood.name(), "Aquitania", ProvinceResourceNames.gold()),
+      desc: (save) =>
+         $t(
+            L.TutorialSetUpTradeDesc$1$2$3,
+            Goods.wood.name(),
+            "Aquitania",
+            getResourceName("gold", save.state.scenario),
+         ),
       progress: (save) => {
          // We recognize any trade for tutorial, not just with Aquitania.
          return [getProvinceTrades(save.state.playerProvince, save).size, 1];

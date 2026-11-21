@@ -29,6 +29,11 @@ export function cleanUpProvince(province: Province, save: SaveGame): void {
       war.coDefenders.delete(province);
       return true;
    });
+   for (const state of save.state.characters.values()) {
+      if (state.placement?.province === province) {
+         state.placement = null;
+      }
+   }
    delete save.state.provinces[province];
    clearAllCaches();
    clearProvincePrestigeRankingCache();

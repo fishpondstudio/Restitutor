@@ -2,6 +2,7 @@
 
 - If something is ambiguous or unclear, ask for clarifications - do not silently make assumptions.
 - Do not add tests unless explicitly asked to.
+- Do not implement changes unless explicitly asked to.
 - Game is by default running on http://localhost:5173/ - do not use browser (including headless tools) to verify your changes unless explicitly asked to. Running test suites (`pnpm test run`) is always allowed.
 - Do not stage your changes unless explicitly asked to.
 - Do not add comments unless necessary or explicitly asked to. Comment why (non-obvious things), not what or how.
@@ -14,7 +15,7 @@
 - Run `pnpm run check` in the **root** folder to check for format and linter
 - Run `pnpm test run` in the **packages/client** folder to run unit test
 
-When running `pnpm` command, if you get Corepack `EPERM` error, retry with approved elevated execution.
+When running `pnpm` command, prefer approved elevated execution (Codex), especially if you get Corepack `EPERM` error.
 
 ## Localization
 

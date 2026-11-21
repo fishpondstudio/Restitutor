@@ -15,6 +15,7 @@ import {
 } from "../logic/DiplomacyLogic";
 import { addModifier } from "../logic/ModifierLogic";
 import { getProvinceName, getProvincesInRange, getTotalUpgrades } from "../logic/ProvinceLogic";
+import { requireScenarioFlagCondition } from "../logic/ScenarioLogic";
 import { startTimedAction, timedActionConditions } from "../logic/TimedActionLogic";
 import { canSabotage, trySabotage } from "../logic/TreatyLogic";
 import { EmptyGameAction } from "./EmptyGameAction";
@@ -169,6 +170,7 @@ export function RevealElectionBackingAction(
    }
    return {
       condition: finalizeCondition([
+         ...requireScenarioFlagCondition("Senate", save),
          ...timedActionConditions({ action: "RevealElectionBacking" }, ourProvince, save),
          requireInfiltration(RevealElectionSupportCost, { consume: true }, ourProvince, theirProvince, save),
       ]),

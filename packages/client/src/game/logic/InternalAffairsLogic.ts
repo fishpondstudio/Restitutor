@@ -20,9 +20,17 @@ import { getProvinceCoreTilesCached } from "./CacheLogic";
 import { getAttitudeTowards } from "./DiplomacyLogic";
 import { EcumenicalCouncilChristianityPct, ongoingEcumenicalCouncilCondition } from "./EcumenicalCouncilLogic";
 import { getProvinceName } from "./ProvinceLogic";
+import { hasScenarioFlag } from "./ScenarioLogic";
 import { getTimedActionTimeLeft } from "./TimedActionLogic";
 
-export const getChristianityYearly = makeModifierGetter("ChristianityYearly", 1, (result, province, save) => {
+export function getChristianityYearly(province: Province, save: SaveGame): IValueBreakdown {
+   if (!hasScenarioFlag("Christianity", save)) {
+      return finalizeBreakdown(makeValueBreakdown());
+   }
+   return _getChristianityYearly(province, save);
+}
+
+const _getChristianityYearly = makeModifierGetter("ChristianityYearly", 1, (result, province, save) => {
    const state = save.state.provinces[province];
    if (!state) {
       return;
@@ -225,6 +233,9 @@ export function getProvinceCultures(province: Province, save: SaveGame): Set<Cul
 }
 
 export function getApostolicSeeTiles(save: SaveGame): Set<Tile> {
+   if (!hasScenarioFlag("Christianity", save)) {
+      return new Set();
+   }
    if (hasFlag(save.state.flags, GameStateFlags.ConstantinopleApostolicSee)) {
       return ApostolicSeeTilesWithConstantinople;
    }

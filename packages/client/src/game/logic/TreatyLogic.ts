@@ -14,6 +14,7 @@ import {
    getRelation,
    getRelations,
    requireInfiltration,
+   setTreatyBetween,
    tryUseInfiltration,
 } from "./DiplomacyLogic";
 import { getProvinceName, getProvincePrestige } from "./ProvinceLogic";
@@ -65,6 +66,10 @@ export function getPatrons(province: Province, save: SaveGame): Province[] {
          .filter(([province, relation]) => relation.treaty?.type === "Client")
          .map(([province]) => province)
    );
+}
+
+export function* requireNoPatronsChecks(province: Province, save: SaveGame): ConditionChecks {
+   (yield getPatrons(province, save).length === 0)?.describe($t(L.$1HasNoPatrons, getProvinceName(province, save)));
 }
 
 export function getClients(province: Province, save: SaveGame): Province[] {
@@ -192,6 +197,16 @@ export function* requireMinimumAttitudeChecks(
    );
 }
 
+export function* requireWarBetweenChecks(
+   ourProvince: Province,
+   theirProvince: Province,
+   save: SaveGame,
+): ConditionChecks {
+   (yield getWarsBetween(ourProvince, theirProvince, save).length > 0)?.describe(
+      $t(L.$1IsAtWarWith$2, getProvinceName(ourProvince, save), getProvinceName(theirProvince, save)),
+   );
+}
+
 export function* requirePeaceBetweenChecks(
    ourProvince: Province,
    theirProvince: Province,
@@ -254,16 +269,10 @@ export function cancelTreaty(
    toProvince: Province,
    save: SaveGame,
 ): boolean {
-   const fromTo = getRelation(fromProvince, toProvince, save);
-   const toFrom = getRelation(toProvince, fromProvince, save);
-   if (!fromTo || !toFrom) {
-      return false;
-   }
    if (!hasTreatyBetween(treaty, fromProvince, toProvince, save)) {
       return false;
    }
-   fromTo.treaty = undefined;
-   toFrom.treaty = undefined;
+   setTreatyBetween(undefined, fromProvince, toProvince, save);
    addAttitudeModifier(
       toProvince,
       fromProvince,
@@ -347,13 +356,9 @@ export function trySabotage(fromProvince: Province, toProvince: Province, save: 
 }
 
 export function dissolveTreaty(fromProvince: Province, toProvince: Province, save: SaveGame): void {
-   const fromTo = getRelation(fromProvince, toProvince, save);
-   const toFrom = getRelation(toProvince, fromProvince, save);
-   if (!fromTo || !toFrom) {
+   if (!setTreatyBetween(undefined, fromProvince, toProvince, save)) {
       return;
    }
-   fromTo.treaty = undefined;
-   toFrom.treaty = undefined;
    startTimedAction("TreatySabotaged", fromProvince, save);
 }
 
@@ -368,13 +373,7 @@ export function dissolveAllTreaties(province: Province, save: SaveGame): void {
    }
    relations.forEach((relation, otherProvince) => {
       if (relation.treaty) {
-         const fromTo = getRelation(province, otherProvince, save);
-         const toFrom = getRelation(otherProvince, province, save);
-         if (!fromTo || !toFrom) {
-            return;
-         }
-         fromTo.treaty = undefined;
-         toFrom.treaty = undefined;
+         setTreatyBetween(undefined, province, otherProvince, save);
       }
    });
 }
