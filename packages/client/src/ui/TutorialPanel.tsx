@@ -19,6 +19,9 @@ export function TutorialPanel(): React.ReactNode {
    if (!G.save) {
       return null;
    }
+   if (G.save.state.scenario !== "Rome192") {
+      return null;
+   }
    const tutorialId = getCurrentTutorialId(G.save);
    if (!tutorialId || G.params.get("hide")?.includes("tutorial")) {
       return null;
