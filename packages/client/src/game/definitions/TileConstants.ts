@@ -216,31 +216,45 @@ export const RedSealTiles = new Set<Tile>([
 ]);
 
 // Provinces and the tile range they can settle from the frontier.
-export const Frontier: Partial<Record<Province, number>> = {
-   Britannia: 3,
-   Germania: 3,
-   Raetia: 3,
-   Noricum: 3,
-   Pannonia: 3,
-   Dacia: 3,
-   Moesia: 3,
-   Mauretania: 1,
-   Aegyptus: 1,
+export const Frontier: Partial<Record<Scenario, Partial<Record<Province, number>>>> = {
+   Rome192: {
+      Britannia: 3,
+      Germania: 3,
+      Raetia: 3,
+      Noricum: 3,
+      Pannonia: 3,
+      Dacia: 3,
+      Moesia: 3,
+      Mauretania: 1,
+      Aegyptus: 1,
+   },
+   ThreeKingdoms194: {
+      MaTeng: 1,
+      HanSui: 1,
+      ZhangYang: 2,
+      GongsunZan: 2,
+      GongsunDu: 1,
+      ZhangLu: 1,
+      LiuZhang: 1,
+      ShiXie: 1,
+   },
 } as const;
 
-let settlementTiles: Set<Tile> | undefined;
+const settlementTiles: Partial<Record<Scenario, Set<Tile>>> = {};
 
 export function getNewSettlementTiles(scenario: Scenario): Set<Tile> {
-   if (scenario !== "Rome192") {
+   const config = Frontier[scenario];
+   if (!config) {
       return new Set();
    }
-   if (settlementTiles) {
-      return settlementTiles;
+   const cached = settlementTiles[scenario];
+   if (cached) {
+      return cached;
    }
    const result = new Set<Tile>();
    const initialTiles = getInitialTiles(scenario);
-   for (const province of keysOf(Frontier)) {
-      const range = Frontier[province] ?? 0;
+   for (const province of keysOf(config)) {
+      const range = config[province] ?? 0;
       let frontier = [...Province[province].tiles];
       const visited = new Set(frontier);
       for (let distance = 0; distance < range; distance++) {
@@ -261,7 +275,7 @@ export function getNewSettlementTiles(scenario: Scenario): Set<Tile> {
          frontier = next;
       }
    }
-   settlementTiles = result;
+   settlementTiles[scenario] = result;
    return result;
 }
 
