@@ -22,12 +22,22 @@ import { PersonFlags } from "../definitions/Family";
 import { GovernorTraits, PersonTrait } from "../definitions/PersonTrait";
 import type { Province } from "../definitions/Province";
 import { isChristianReligion } from "../definitions/Religion";
-import { applyGameEffect, type IGameEffect } from "../GameEffect";
+import { applyGameEffect, type ICustomEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import type { INameGenerator } from "../scenarios/Scenarios";
+import { getTKCharacterTierToSkill, type TKCharacter, TKCharacters } from "../ThreeKingdoms/TKCharacter";
 import { onGeneralEnded } from "./ArmyLogic";
+import { formatPersonName } from "./NameLogic";
 import { getNameGenerator, hasScenarioFlag } from "./ScenarioLogic";
-import { ageTKCharacter, getTKCharacterProvince, isTKCharacterAlive, killTKCharacter } from "./TKCharacterLogic";
+import {
+   ageTKCharacter,
+   getTKCharacterName,
+   getTKCharacterProvince,
+   isTKCharacterAlive,
+   killTKCharacter,
+   transferTKCharacter,
+   unassignTKCharacter,
+} from "./TKCharacterLogic";
 
 export const GovernorMinIncl = 3;
 export const GovernorMaxIncl = 6;
@@ -181,6 +191,49 @@ export function generateRandomGovernor(
       female: null,
       concubines: [],
       children: [],
+   };
+}
+
+export function makeTKCharacterGovernor(character: TKCharacter, governor: IPerson): void {
+   const config = TKCharacters[character];
+   const [familyName, givenName] = config.name();
+   governor.character = character;
+   governor.name = [familyName, givenName];
+   governor.administrative = getTKCharacterTierToSkill(config.tier);
+   governor.diplomatic = getTKCharacterTierToSkill(config.tier);
+   governor.military = getTKCharacterTierToSkill(config.tier);
+}
+
+export function tkCharacterSuccessionEffect(successor: TKCharacter): ICustomEffect {
+   return {
+      desc: (province, save) => {
+         const incumbent = formatPersonName(save.state.provinces[province]?.governor.male.name);
+         return $t(L.$1Succeeds$2AsGovernor, getTKCharacterName(successor).fullName, incumbent);
+      },
+      execute: (province, save) => {
+         const state = save.state.provinces[province];
+         if (!state) {
+            return;
+         }
+         const incumbent = state.governor.male;
+         if (incumbent.character === successor || !transferTKCharacter(successor, province, save)) {
+            return;
+         }
+         unassignTKCharacter(successor, province, save);
+         const household = generateRandomGovernor(
+            province,
+            getNameGenerator(save.state.scenario, save.options.language),
+            save.state.month,
+         );
+         makeTKCharacterGovernor(successor, household.male);
+         if (hasFlag(incumbent.flag, PersonFlags.IsGeneral)) {
+            onGeneralEnded(province, save);
+         }
+         if (incumbent.character) {
+            killTKCharacter(incumbent.character, save);
+         }
+         state.governor = household;
+      },
    };
 }
 

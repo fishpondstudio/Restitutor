@@ -100,7 +100,7 @@ import {
    makeGameAction,
    timedActionConditions,
 } from "./TimedActionLogic";
-import { assignAICharacters } from "./TKCharacterAI";
+import { assignAICharacters } from "./TKCharacterLogic";
 import { getTreatyCount } from "./TreatyLogic";
 import {
    calculateWarLengthForStability,

@@ -326,6 +326,10 @@ export function* minCoreCoastalTileChecks(minimum: number, province: Province, s
    );
 }
 
+export function* governmentTierChecks(tier: GovernmentTier, province: Province, save: SaveGame): ConditionChecks {
+   (yield save.state.provinces[province]?.tier === tier)?.describe($t(L.OurRankIs$1, GovernmentTier[tier].name()));
+}
+
 export function* minCoreTileChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
    const tileCount = getProvinceCoreTilesCached(province, save).length;
    (yield tileCount >= minimum)?.describe(
@@ -365,6 +369,13 @@ export function* provinceUsedResourceChecks(
          progress: [used, minimum],
       },
    );
+}
+
+export function* minGovernorSonsChecks(minimum: number, province: Province, save: SaveGame): ConditionChecks {
+   const sons = save.state.provinces[province]?.governor.children.filter((child) => child.male !== null).length ?? 0;
+   (yield sons >= minimum)?.describe($t(L.OurGovernorHasAtLeast$1Sons, formatNumber(minimum)), {
+      progress: [sons, minimum],
+   });
 }
 
 export function* marriageChecks(province1: Province, province2: Province, save: SaveGame): ConditionChecks {

@@ -20,6 +20,7 @@ import { Tiles } from "./definitions/TileConstants";
 import { GameStateUpdated } from "./Events";
 import { GameOption } from "./GameOption";
 import { addAttitudeModifier, getProvincesWithinDiplomaticRange, getRelation } from "./logic/DiplomacyLogic";
+import { makeTKCharacterGovernor } from "./logic/GovernorLogic";
 import { formatPersonName } from "./logic/NameLogic";
 import { tickProduction } from "./logic/ProductionLogic";
 import {
@@ -35,9 +36,9 @@ import { isProvinceTKWarlord } from "./logic/TKCharacterLogic";
 import { rollTradeOffers } from "./logic/TradeLogic";
 import type { IWar } from "./logic/WarLogic";
 import { type Scenario, Scenarios } from "./scenarios/Scenarios";
-import { getTKCharacterTierToSkill, type TKCharacter, TKCharacters } from "./ThreeKingdoms/TKCharacter";
+import { type TKCharacter, TKCharacters } from "./ThreeKingdoms/TKCharacter";
 import type { ITKCharacterState } from "./ThreeKingdoms/TKCharacterState";
-import { type TKWarlord, TKWarlordCharacters } from "./ThreeKingdoms/TKWarlord";
+import { TKWarlordCharacters } from "./ThreeKingdoms/TKWarlord";
 import type { Tutorial } from "./Tutorial";
 
 export const GameStateFlags = {
@@ -101,15 +102,7 @@ export function createSaveGame({
       Array.from(Scenarios[scenario].provinces).map((province) => {
          const state = initProvince(province, Province[province].capital, nameGenerator);
          if (hasScenarioFlag("TKCharacter", save) && isProvinceTKWarlord(province)) {
-            const warlord = province as TKWarlord;
-            const warlordConfig = TKWarlordCharacters[warlord];
-            const name = TKCharacters[warlordConfig.character].name();
-            state.governor.male.character = warlordConfig.character;
-            state.governor.male.name = [name[0], name[1]];
-            const tier = TKCharacters[warlordConfig.character].tier;
-            state.governor.male.administrative = getTKCharacterTierToSkill(tier);
-            state.governor.male.diplomatic = getTKCharacterTierToSkill(tier);
-            state.governor.male.military = getTKCharacterTierToSkill(tier);
+            makeTKCharacterGovernor(TKWarlordCharacters[province].character, state.governor.male);
          }
          return [province, state];
       }),
