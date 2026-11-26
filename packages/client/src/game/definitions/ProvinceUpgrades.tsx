@@ -417,6 +417,10 @@ const _ProvinceUpgrades = {
       name: () => $t(L.HellenicScholarship),
       desc: () => $t(L.HellenicScholarshipDesc$1$2, "-1%", "-50%"),
    },
+   ConfucianScholarship: {
+      name: () => $t(L.ConfucianScholarship),
+      desc: () => $t(L.ConfucianScholarshipDesc$1$2, "-1%", "-50%"),
+   },
    DevelopedAdministration: {
       name: () => $t(L.DevelopedAdministration),
       desc: () => $t(L.DevelopedAdministrationDesc$1$2, "-2%", "-50%"),

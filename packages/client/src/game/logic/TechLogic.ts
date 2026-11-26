@@ -43,6 +43,13 @@ export const getResearchCostBreakdown = defineValueGetter(
             .multiply(-Math.min(countProvinceTiles({ culture: "Greek", core: true }, province, save) * 0.01, 0.5))
             ?.describe(ProvinceUpgrades.HellenicScholarship.name());
       }
+      if (hasProvinceUpgrade("ConfucianScholarship", province, save)) {
+         calc
+            .multiply(
+               -Math.min(countProvinceTiles({ religion: "Confucianism", core: true }, province, save) * 0.01, 0.5),
+            )
+            ?.describe(ProvinceUpgrades.ConfucianScholarship.name());
+      }
       if (hasProvinceUpgrade("AlexandrianScholarship", province, save)) {
          calc
             .multiply(-Math.min(getProvinceCoreCoastalTileCount(province, save) * 0.01, 0.5))
