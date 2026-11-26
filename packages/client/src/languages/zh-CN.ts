@@ -6341,4 +6341,6 @@ export const ZH_CN = {
    UnderABrokenNestDesc: "曹操兴兵讨伐汉室宗亲刘备。我们曾公开断言，以至不仁伐至仁，岂有不败之理？曹操的耳目正在暗中听着，幕僚也提醒我们：覆巢之下，安有完卵？",
    StandByOurRemonstrance: "坚持谏言",
    SendGiftsToCaoCaosCourt: "向曹操府上送礼",
+   ConfucianScholarship: "儒家学术",
+   ConfucianScholarshipDesc$1$2: "每个信奉儒教的核心地块提供 $1 研究花费（上限 $2）",
 };

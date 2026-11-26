@@ -566,7 +566,7 @@ const _Province = {
       tiles: [15073369, 15138904, 15138905, 15204440, 15204441],
       culture: "WuYue",
       religion: "Confucianism",
-      upgrades: [],
+      upgrades: ["TriumphalRenown", "NavalTradition", "CoastalCommerce"],
    },
    LiuZhang: {
       code: "LZ",
@@ -669,7 +669,7 @@ const _Province = {
       tiles: [15073363, 15073364, 15138899, 15138900, 15204435, 15204436, 15269971],
       culture: "CentralHan",
       religion: "Confucianism",
-      upgrades: [],
+      upgrades: ["ConfucianScholarship", "ExpandedDiplomacy", "PeacefulRenown"],
    },
    HanSui: {
       code: "HS",

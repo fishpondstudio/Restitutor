@@ -6757,4 +6757,6 @@ export const DE = {
    UnderABrokenNestDesc: "Cao Cao zieht gegen Liu Bei, einen Verwandten des Hauses Han. Wir haben offen erklärt: Wer ohne jedes Wohlwollen den Gütigsten angreift, muss unterliegen. Cao Caos Spitzel hören mit, und unsere Ratgeber mahnen: Fällt das Nest, bleibt kein Ei heil.",
    StandByOurRemonstrance: "An unserem Einspruch festhalten",
    SendGiftsToCaoCaosCourt: "Geschenke an Cao Caos Hof senden",
+   ConfucianScholarship: "Konfuzianische Gelehrsamkeit",
+   ConfucianScholarshipDesc$1$2: "$1 Forschungskosten für jedes konfuzianische Kerngebiet (bis zu $2)",
 };

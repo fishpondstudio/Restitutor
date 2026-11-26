@@ -6630,4 +6630,6 @@ export const UA = {
    UnderABrokenNestDesc: "Cao Cao marches against Liu Bei, a kinsman of the Han house. We have said openly that when the least benevolent attacks the most benevolent, he cannot fail to be defeated. Cao Cao's informants are listening, and our advisors recall that under a broken nest, no egg remains whole.",
    StandByOurRemonstrance: "Stand by our remonstrance",
    SendGiftsToCaoCaosCourt: "Send gifts to Cao Cao's court",
+   ConfucianScholarship: "Confucian Scholarship",
+   ConfucianScholarshipDesc$1$2: "$1 Research Cost for each Confucian core tile (up to $2)",
 };
