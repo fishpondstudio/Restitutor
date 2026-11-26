@@ -18,7 +18,7 @@ if (fullBuild) {
 }
 
 cmd("pnpm run build", path.join(rootPath, "packages", "client"));
-cmd("npx wrangler pages deploy ./dist --project-name restitutor", path.join(rootPath, "packages", "client"));
+cmd("npx -y wrangler pages deploy ./dist --project-name restitutor", path.join(rootPath, "packages", "client"));
 
 const distFolder = path.join(rootPath, "packages", "client", "dist");
 if (process.platform === "win32") {
