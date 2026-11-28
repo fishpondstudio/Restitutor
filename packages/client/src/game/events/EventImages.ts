@@ -172,6 +172,7 @@ import TKImperialSealPledge from "../../assets/images/events/TKImperialSealPledg
 import TKJiangdongSuccession from "../../assets/images/events/TKJiangdongSuccession.webp";
 import TKJiangWeiInvitation from "../../assets/images/events/TKJiangWeiInvitation.webp";
 import TKJiaXuCounsel from "../../assets/images/events/TKJiaXuCounsel.webp";
+import TKJingzhouMourning from "../../assets/images/events/TKJingzhouMourning.webp";
 import TKLiJueVeterans from "../../assets/images/events/TKLiJueVeterans.webp";
 import TKLiJueWesternFrontier from "../../assets/images/events/TKLiJueWesternFrontier.webp";
 import TKLiuBeiBenevolentAudience from "../../assets/images/events/TKLiuBeiBenevolentAudience.webp";
@@ -180,6 +181,7 @@ import TKLiuBeiRefugeeColumn from "../../assets/images/events/TKLiuBeiRefugeeCol
 import TKLiuBeiThreeVisits from "../../assets/images/events/TKLiuBeiThreeVisits.webp";
 import TKLuBuHalberdShot from "../../assets/images/events/TKLuBuHalberdShot.webp";
 import TKLuBuVeteranMuster from "../../assets/images/events/TKLuBuVeteranMuster.webp";
+import TKMiHengAtXiangyang from "../../assets/images/events/TKMiHengAtXiangyang.webp";
 import TKMilitaryAppointments from "../../assets/images/events/TKMilitaryAppointments.webp";
 import TKMilitaryTraining from "../../assets/images/events/TKMilitaryTraining.webp";
 import TKMountainPassPreparation from "../../assets/images/events/TKMountainPassPreparation.webp";
@@ -198,11 +200,16 @@ import TKRuxuLanding from "../../assets/images/events/TKRuxuLanding.webp";
 import TKScholarlyPatronage from "../../assets/images/events/TKScholarlyPatronage.webp";
 import TKShentingDuel from "../../assets/images/events/TKShentingDuel.webp";
 import TKSouthernConsolidation from "../../assets/images/events/TKSouthernConsolidation.webp";
+import TKTanStreamLeap from "../../assets/images/events/TKTanStreamLeap.webp";
+import TKThroneAtShouchun from "../../assets/images/events/TKThroneAtShouchun.webp";
 import TKWesternCampaignCounsel from "../../assets/images/events/TKWesternCampaignCounsel.webp";
 import TKWhiteCladBoatmen from "../../assets/images/events/TKWhiteCladBoatmen.webp";
 import TKXiaoyaoLeap from "../../assets/images/events/TKXiaoyaoLeap.webp";
+import TKXinyeRefuge from "../../assets/images/events/TKXinyeRefuge.webp";
 import TKXuHuangTraining from "../../assets/images/events/TKXuHuangTraining.webp";
 import TKYuanShaoArmyProclamation from "../../assets/images/events/TKYuanShaoArmyProclamation.webp";
+import TKYuanShuBetrothalGifts from "../../assets/images/events/TKYuanShuBetrothalGifts.webp";
+import TKYuanShuHoneyWater from "../../assets/images/events/TKYuanShuHoneyWater.webp";
 import TKZhaoYunReunion from "../../assets/images/events/TKZhaoYunReunion.webp";
 import TolbiacBattle from "../../assets/images/events/TolbiacBattle.webp";
 import ToledoBridge from "../../assets/images/events/ToledoBridge.webp";
@@ -548,6 +555,48 @@ export const EventImage = {
       url: TKYuanShaoArmyProclamation,
       credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
       keywords: ["ThreeKingdoms", "YuanShao", "Proclamation", "Army", "Herald", "Standards", "Camp", "Rally"],
+   },
+   TKYuanShuBetrothalGifts: {
+      scenario: "ThreeKingdoms194",
+      url: TKYuanShuBetrothalGifts,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "YuanShu", "Marriage", "Envoy", "Silk", "Betrothal"],
+   },
+   TKThroneAtShouchun: {
+      scenario: "ThreeKingdoms194",
+      url: TKThroneAtShouchun,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "YuanShu", "Shouchun", "ImperialRobes", "YanXiang", "Court"],
+   },
+   TKYuanShuHoneyWater: {
+      scenario: "ThreeKingdoms194",
+      url: TKYuanShuHoneyWater,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "YuanShu", "HoneyWater", "Death", "Cup", "Summer"],
+   },
+   TKMiHengAtXiangyang: {
+      scenario: "ThreeKingdoms194",
+      url: TKMiHengAtXiangyang,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "LiuBiao", "MiHeng", "Xiangyang", "Scholar", "Audience"],
+   },
+   TKXinyeRefuge: {
+      scenario: "ThreeKingdoms194",
+      url: TKXinyeRefuge,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "LiuBiao", "LiuBei", "Xinye", "Refuge", "Patronage"],
+   },
+   TKTanStreamLeap: {
+      scenario: "ThreeKingdoms194",
+      url: TKTanStreamLeap,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "LiuBei", "Dilu", "TanStream", "Horse", "Escape"],
+   },
+   TKJingzhouMourning: {
+      scenario: "ThreeKingdoms194",
+      url: TKJingzhouMourning,
+      credit: "This image is upscaled, reconstructed or assisted by AI-powered models",
+      keywords: ["ThreeKingdoms", "LiuBiao", "Jingzhou", "Mourning", "Seal", "Household"],
    },
    TKZhaoYunReunion: {
       scenario: "ThreeKingdoms194",

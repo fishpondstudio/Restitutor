@@ -1,6 +1,5 @@
 import {
    clamp,
-   clearFlag,
    filterInPlace,
    forEach,
    hasFlag,
@@ -9,19 +8,15 @@ import {
    randOne,
 } from "@project/shared/src/utils/Helper";
 import { showPanel } from "../../ui/common/ShowPanel";
-import { GovernorWithoutHeirModal } from "../../ui/GovernorWithoutHeirModal";
 import { IllegitimateChildModal } from "../../ui/IllegitimateChildModal";
 import { startTrack } from "../../ui/Music";
 import { NewChildBornModal } from "../../ui/NewChildBornModal";
-import { NewGovernorModal } from "../../ui/NewGovernorModal";
 import { renderMarkup } from "../../ui/ParseMarkup";
 import { RestorationBonusModal } from "../../ui/RestorationBonusModal";
 import { playSound } from "../../ui/Sound";
 import { G, GameFlags } from "../../utils/Global";
 import { $t, L } from "../../utils/i18n";
 import { PendingGameEventTimeoutMonths } from "../definitions/Constant";
-import type { IGovernorFamily } from "../definitions/Family";
-import { PersonFlags } from "../definitions/Family";
 import type { Province } from "../definitions/Province";
 import { addProvinceUpgrade, removeProvinceUpgrade } from "../definitions/ProvinceUpgrades";
 import { isChristianReligion } from "../definitions/Religion";
@@ -47,13 +42,10 @@ import { cleanUpProvince } from "./CleanupProvince";
 import { getImproveRelationsRate, getInfiltrationRate, getRelations, MaxImprovedRelations } from "./DiplomacyLogic";
 import { getGameDate } from "./GameDateTime";
 import {
+   doGovernorSuccession,
    ensureHeir,
-   GovernorWithoutHeirEffect,
-   generateRandomGovernor,
-   getSuccessor,
    NewChildBornEffects1,
    NewChildBornEffects2,
-   NewGovernorEffect,
    recognizeIllegitimateChild,
    tickFamily,
 } from "./GovernorLogic";
@@ -70,7 +62,7 @@ import {
    setProvinceStat,
 } from "./ProvinceLogic";
 import { addProvinceResource, getProvinceResource, spendProvinceResource } from "./ResourceLogic";
-import { getNameGenerator, hasScenarioFlag } from "./ScenarioLogic";
+import { hasScenarioFlag } from "./ScenarioLogic";
 import { TickFamilyMonth } from "./TickLogic";
 import { getTileUnrest } from "./TileLogic";
 import { getTimedActionCooldownLeft, startTimedAction } from "./TimedActionLogic";
@@ -169,28 +161,7 @@ export function tickProvince(province: Province, save: SaveGame): void {
       const family = state.governor;
       const result = tickFamily(family, province, save);
       if (!result.family.male) {
-         if (province === save.state.playerProvince) {
-            startTrack("Funeral");
-         }
-         const successor = getSuccessor(province, save);
-         if (successor?.male) {
-            successor.male.flag = clearFlag(successor.male.flag, PersonFlags.IsHeir);
-            state.governor = successor as IGovernorFamily;
-            applyGameEffect(NewGovernorEffect, $t(L.$1Event, $t(L.ANewGovernor)), province, save);
-            if (province === save.state.playerProvince) {
-               showGameEventModal(NewGovernorModal, { province, governor: state.governor });
-            }
-         } else {
-            state.governor = generateRandomGovernor(
-               province,
-               getNameGenerator(save.state.scenario, save.options.language),
-               save.state.month,
-            );
-            applyGameEffect(GovernorWithoutHeirEffect, $t(L.$1Event, $t(L.ANewGovernor)), province, save);
-            if (province === save.state.playerProvince) {
-               showGameEventModal(GovernorWithoutHeirModal, { province, governor: state.governor });
-            }
-         }
+         doGovernorSuccession(province, save);
       } else {
          for (const birth of result.births) {
             if (birth.legitimate) {
@@ -217,8 +188,8 @@ export function tickProvince(province: Province, save: SaveGame): void {
                }
             }
          }
+         ensureHeir(province, save);
       }
-      ensureHeir(province, save);
    }
 
    for (const [event, data] of state.events) {

@@ -14,7 +14,7 @@ import { clearAllCaches, getProvinceTilesCached } from "./CacheLogic";
 import type { ConditionChecks } from "./Calculation";
 import { attachModifier } from "./ModifierLogic";
 import { formatPersonName } from "./NameLogic";
-import { getProvinceGovernmentPoint, getProvinceIncome } from "./ProvinceLogic";
+import { getProvinceGovernmentPoint, getProvinceIncome, getProvinceName } from "./ProvinceLogic";
 import { hasScenarioFlag, requireScenarioFlagCondition } from "./ScenarioLogic";
 import { getCurrentWars } from "./WarLogic";
 
@@ -186,7 +186,9 @@ export function isTKCharacterRuler(character: TKCharacter, province: Province, s
 
 export function* isTKCharacterRulerChecks(character: TKCharacter, province: Province, save: SaveGame): ConditionChecks {
    (yield isTKCharacterRuler(character, province, save))?.describe(
-      $t(L.$1IsOurGovernor, getTKCharacterName(character).fullName),
+      province === save.state.playerProvince
+         ? $t(L.$1IsOurGovernor, getTKCharacterName(character).fullName)
+         : $t(L.$1IsTheGovernorOf$2, getTKCharacterName(character).fullName, getProvinceName(province, save)),
    );
 }
 

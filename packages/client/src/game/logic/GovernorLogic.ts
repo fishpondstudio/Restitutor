@@ -13,6 +13,9 @@ import {
 import { type Edge, MarkerType, type Node, Position } from "@xyflow/react";
 import { remToPx } from "../../ui/common/UIScaling";
 import type { FamilyNode } from "../../ui/FamilyNode";
+import { GovernorWithoutHeirModal } from "../../ui/GovernorWithoutHeirModal";
+import { startTrack } from "../../ui/Music";
+import { NewGovernorModal } from "../../ui/NewGovernorModal";
 import { FamilyNodeHeight, FamilyNodeWidth } from "../../ui/UIConstant";
 import { $t, L } from "../../utils/i18n";
 import type { IValueBreakdown } from "../actions/GameAction";
@@ -22,6 +25,7 @@ import { PersonFlags } from "../definitions/Family";
 import { GovernorTraits, PersonTrait } from "../definitions/PersonTrait";
 import type { Province } from "../definitions/Province";
 import { isChristianReligion } from "../definitions/Religion";
+import { showGameEventModal } from "../events/GameEventLogic";
 import { applyGameEffect, type ICustomEffect, type IGameEffect } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import type { INameGenerator } from "../scenarios/Scenarios";
@@ -204,6 +208,19 @@ export function makeTKCharacterGovernor(character: TKCharacter, governor: IPerso
    governor.military = getTKCharacterTierToSkill(config.tier);
 }
 
+export function tkGovernorDeathEffect(character: TKCharacter): ICustomEffect {
+   return {
+      desc: () => $t(L.$1Dies, getTKCharacterName(character).fullName),
+      execute: (province, save) => {
+         const family = save.state.provinces[province]?.governor;
+         if (family?.male?.character === character) {
+            onFamilyMemberDead(family.male, province, save);
+            doGovernorSuccession(province, save);
+         }
+      },
+   };
+}
+
 export function tkCharacterSuccessionEffect(successor: TKCharacter): ICustomEffect {
    return {
       desc: (province, save) => {
@@ -272,6 +289,37 @@ export function getSuccessor(province: Province, save: SaveGame): IFamily | unde
    );
 }
 
+export function doGovernorSuccession(province: Province, save: SaveGame): void {
+   const state = save.state.provinces[province];
+   if (!state) {
+      return;
+   }
+   const isPlayer = province === save.state.playerProvince;
+   if (isPlayer) {
+      startTrack("Funeral");
+   }
+   const successor = getSuccessor(province, save);
+   if (successor?.male) {
+      successor.male.flag = clearFlag(successor.male.flag, PersonFlags.IsHeir);
+      state.governor = successor as IGovernorFamily;
+      applyGameEffect(NewGovernorEffect, $t(L.$1Event, $t(L.ANewGovernor)), province, save);
+      if (isPlayer) {
+         showGameEventModal(NewGovernorModal, { province, governor: state.governor });
+      }
+   } else {
+      state.governor = generateRandomGovernor(
+         province,
+         getNameGenerator(save.state.scenario, save.options.language),
+         save.state.month,
+      );
+      applyGameEffect(GovernorWithoutHeirEffect, $t(L.$1Event, $t(L.ANewGovernor)), province, save);
+      if (isPlayer) {
+         showGameEventModal(GovernorWithoutHeirModal, { province, governor: state.governor });
+      }
+   }
+   ensureHeir(province, save);
+}
+
 export function isGovernorSon(family: IFamily, province: Province, save: SaveGame): boolean {
    const governor = save.state.provinces[province]?.governor;
    if (governor && family.male && governor.children.includes(family)) {
@@ -328,56 +376,60 @@ export function tickFamily(governor: IFamily, province: Province, save: SaveGame
    return result;
 }
 
+function onFamilyMemberDead(person: IPerson, province: Province, save: SaveGame): void {
+   if (hasFlag(person.flag, PersonFlags.IsGeneral)) {
+      onGeneralEnded(province, save);
+   }
+   if (person.character && getTKCharacterProvince(person.character, save) === province) {
+      killTKCharacter(person.character, save);
+   }
+}
+
 function tickFamilyMembers(
-   governor: IFamily,
+   family: IFamily,
    province: Province,
    save: SaveGame,
    governorBirths?: IGovernorBirth[],
 ): void {
-   const existingChildren = [...governor.children];
-   if (governor.male) {
-      governor.male.age++;
-      if (governor.male.character && getTKCharacterProvince(governor.male.character, save) === province) {
-         ageTKCharacter(governor.male.character, 12, save);
+   const existingChildren = [...family.children];
+   if (family.male) {
+      family.male.age++;
+      if (family.male.character && getTKCharacterProvince(family.male.character, save) === province) {
+         ageTKCharacter(family.male.character, 12, save);
       }
-      ensureTraits(governor.male);
-      const deathChance = getDeathChance(governor.male, province, save).value;
-      const character = governor.male.character;
+      ensureTraits(family.male);
+      const deathChance = getDeathChance(family.male, province, save).value;
+      const character = family.male.character;
       const characterDied =
          character !== undefined &&
          getTKCharacterProvince(character, save) === province &&
          !isTKCharacterAlive(character, save);
       if (Math.random() < deathChance / 100 || characterDied) {
-         if (hasFlag(governor.male.flag, PersonFlags.IsGeneral)) {
-            onGeneralEnded(province, save);
-         }
-         if (governor.male.character && getTKCharacterProvince(governor.male.character, save) === province) {
-            killTKCharacter(governor.male.character, save);
-         }
-         governor.male = null;
+         onFamilyMemberDead(family.male, province, save);
+         family.male = null;
       }
    }
-   if (governor.female) {
-      governor.female.age++;
-      ensureTraits(governor.female);
-      const deathChance = getDeathChance(governor.female, province, save).value;
+   if (family.female) {
+      family.female.age++;
+      ensureTraits(family.female);
+      const deathChance = getDeathChance(family.female, province, save).value;
       if (Math.random() < deathChance / 100) {
-         governor.female = null;
+         family.female = null;
       }
    }
-   filterInPlace(governor.concubines, (concubine) => {
+   filterInPlace(family.concubines, (concubine) => {
       concubine.age++;
       ensureTraits(concubine);
       return Math.random() >= getDeathChance(concubine, province, save).value / 100;
    });
 
-   const male = governor.male;
+   const male = family.male;
    if (male) {
       const nameGenerator = getNameGenerator(save.state.scenario, save.options.language);
       const familyName = nameGenerator.getFamilyName(male.name);
-      const females = governor.female ? [governor.female, ...governor.concubines] : governor.concubines;
+      const females = family.female ? [family.female, ...family.concubines] : family.concubines;
       for (const female of females) {
-         const offspringChance = getOffspringChance(governor, female, province, save).value;
+         const offspringChance = getOffspringChance(family, female, province, save).value;
          if (Math.random() >= offspringChance / 100) {
             continue;
          }
@@ -410,16 +462,16 @@ function tickFamilyMembers(
             children: [],
          };
          if (governorBirths) {
-            if (hasScenarioFlag("Concubinage", save) && female !== governor.female) {
+            if (hasScenarioFlag("Concubinage", save) && female !== family.female) {
                person.flag = setFlag(person.flag, PersonFlags.IsFromConcubine);
             }
-            const legitimate = hasScenarioFlag("Concubinage", save) || female === governor.female;
+            const legitimate = hasScenarioFlag("Concubinage", save) || female === family.female;
             governorBirths.push({ child: offspring, legitimate });
             if (legitimate) {
-               governor.children.push(offspring);
+               family.children.push(offspring);
             }
          } else {
-            governor.children.push(offspring);
+            family.children.push(offspring);
          }
       }
    }

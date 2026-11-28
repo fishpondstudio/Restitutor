@@ -42,10 +42,12 @@ import { ThraciaEvents } from "./Rome/ThraciaEvents";
 import { KongRongEvents } from "./ThreeKingdoms/KongRongEvents";
 import { LiJueEvents } from "./ThreeKingdoms/LiJueEvents";
 import { LiuBeiEvents } from "./ThreeKingdoms/LiuBeiEvents";
+import { LiuBiaoEvents } from "./ThreeKingdoms/LiuBiaoEvents";
 import { LuBuEvents } from "./ThreeKingdoms/LuBuEvents";
 import { SunCeEvents } from "./ThreeKingdoms/SunCeEvents";
 import { ThreeKingdomsMissionEvents } from "./ThreeKingdoms/ThreeKingdomsMissionEvents";
 import { YuanShaoEvents } from "./ThreeKingdoms/YuanShaoEvents";
+import { YuanShuEvents } from "./ThreeKingdoms/YuanShuEvents";
 
 export const RomeEvents = {
    ...LugdunensisEvents,
@@ -95,9 +97,11 @@ export const ThreeKingdomsEvents = {
    ...KongRongEvents,
    ...LiJueEvents,
    ...LiuBeiEvents,
+   ...LiuBiaoEvents,
    ...LuBuEvents,
    ...SunCeEvents,
    ...YuanShaoEvents,
+   ...YuanShuEvents,
    ...ThreeKingdomsMissionEvents,
 } as const satisfies Record<string, IGameEventConfig>;
 

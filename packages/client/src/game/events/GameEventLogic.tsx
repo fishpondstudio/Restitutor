@@ -17,7 +17,6 @@ import { G, GameFlags } from "../../utils/Global";
 import { $t, L, markupText } from "../../utils/i18n";
 import { unlockAchievement } from "../Achievement";
 import type { Province } from "../definitions/Province";
-import { ProvinceNameOverrides } from "../definitions/ProvinceNameOverrides";
 import { hasProvinceUpgrade, ProvinceUpgrades } from "../definitions/ProvinceUpgrades";
 import { Religion } from "../definitions/Religion";
 import { Tech } from "../definitions/Tech";
@@ -25,6 +24,7 @@ import { applyGameEffect, getGameEffectDesc } from "../GameEffect";
 import type { SaveGame } from "../GameState";
 import { type ConditionChecks, defineConditionChecks } from "../logic/Calculation";
 import { getGameDate } from "../logic/GameDateTime";
+import { requireProvinceNameOverrideChecks } from "../logic/MissionLogic";
 import { getAnnexedTiles, getProvinceName } from "../logic/ProvinceLogic";
 import { hasResearched } from "../logic/TechLogic";
 import { startTimedAction } from "../logic/TimedActionLogic";
@@ -170,9 +170,7 @@ export const getGameEventCondition = defineConditionChecks(function* (
       }
    }
    if (condition.nameOverride) {
-      (yield state.nameOverride === condition.nameOverride)?.describe(
-         $t(L.WeHaveFormed$1, ProvinceNameOverrides[condition.nameOverride]()),
-      );
+      yield* requireProvinceNameOverrideChecks(province, condition.nameOverride, save);
    }
    if (condition.provinceUpgrades) {
       for (const upgrade of condition.provinceUpgrades) {

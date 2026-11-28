@@ -18,6 +18,7 @@ export const ProvinceNameOverrides = {
    UmayyadCaliphate: () => $t(L.ProvinceUmayyadCaliphate),
    EmpireOfChina: () => $t(L.ProvinceEmpireOfChina),
    SunQuan: () => $t(L.ProvinceSunQuan),
+   Zhong: () => $t(L.ProvinceZhong),
 } as const satisfies Record<string, () => string>;
 
 export type ProvinceNameOverride = keyof typeof ProvinceNameOverrides;

@@ -72,6 +72,18 @@ export function* requireNoPatronsChecks(province: Province, save: SaveGame): Con
    (yield getPatrons(province, save).length === 0)?.describe($t(L.$1HasNoPatrons, getProvinceName(province, save)));
 }
 
+export function* requireClientChecks(
+   clientProvince: Province,
+   patronProvince: Province,
+   save: SaveGame,
+): ConditionChecks {
+   const patronToClient = getRelation(patronProvince, clientProvince, save);
+   const clientToPatron = getRelation(clientProvince, patronProvince, save);
+   (yield clientToPatron?.treaty?.type === "Client" && patronToClient?.treaty?.type === "Patron")?.describe(
+      $t(L.$1IsAClientOf$2, getProvinceName(clientProvince, save), getProvinceName(patronProvince, save)),
+   );
+}
+
 export function getClients(province: Province, save: SaveGame): Province[] {
    const relations = getRelations(province, save);
    if (!relations) {

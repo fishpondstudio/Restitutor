@@ -6,6 +6,7 @@ import {
    minCoreCoastalTileChecks,
    minGovernorSonsChecks,
    notAnnexedChecks,
+   requireProvinceNameOverrideChecks,
    setProvinceNameOverrideEffect,
 } from "../../logic/MissionLogic";
 import {
@@ -132,6 +133,7 @@ export const SunCeEvents = {
          year: [197, Number.POSITIVE_INFINITY],
          onMap: { YuanShu: true },
          conditions: function* (province, save): ConditionChecks {
+            yield* requireProvinceNameOverrideChecks("YuanShu", "Zhong", save);
             yield* requirePeaceBetweenChecks(province, "YuanShu", save);
          },
       },

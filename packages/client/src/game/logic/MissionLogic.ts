@@ -168,6 +168,18 @@ export function resetWarmongerPenaltyEffect(): ICustomEffect {
    };
 }
 
+export function* requireProvinceNameOverrideChecks(
+   province: Province,
+   nameOverride: ProvinceNameOverride,
+   save: SaveGame,
+): ConditionChecks {
+   (yield save.state.provinces[province]?.nameOverride === nameOverride)?.describe(
+      province === save.state.playerProvince
+         ? $t(L.WeHaveFormed$1, ProvinceNameOverrides[nameOverride]())
+         : $t(L.$1IsNowKnownAs$2, Province[province].name(), ProvinceNameOverrides[nameOverride]()),
+   );
+}
+
 export function setProvinceNameOverrideEffect(nameOverride: ProvinceNameOverride): ICustomEffect {
    return {
       execute: (province, save) => {
